@@ -1,0 +1,58 @@
+INSTALLATION GUIDE:
+
+-> Download entire app
+-> Install nodeJS
+-> Install npm
+-> Update nodeJS (last stable)
+-> Update npm (last stable)
+->Run command on app root directory: "npm install"
+
+
+MONGODB NOTES:
+
+///////////////////////////STYLE////////////////////////////////////////
+{
+    "_id" : 1,
+    "name" : "Primitive",
+    "main" : "#333",
+    "inverse" : "#D91E43",
+    "neutral" : "#ffffff",
+    "background" : "#f8f8ff",
+    "line" : "#a4a4aa",
+    "idUser" : 0
+}
+//////////////////////////COUNTER///////////////////////////////////////
+{
+    "_id" : "ID_Style",
+    "seq" : 11
+}
+////////////////////////////USER////////////////////////////////////////
+{
+    "_id" : 1,
+    "activeStyle" : 4,
+    "appMenuOrder" : [ 
+        0, 
+        2, 
+        1, 
+        3, 
+        4, 
+        5, 
+        6, 
+        7, 
+        8, 
+        9, 
+        10, 
+        11, 
+        12, 
+        13
+    ],
+    "unviewedNotifications" : []
+}
+////////////////////////////NOTIFICATION//////////////////////////////////
+{
+    "_id" : 1,
+    "title" : "Editado de Empresa",
+    "text" : "El usuario Marcos Jesus Chavez Vega ha editado el registro de la tabla con id 45",
+    "idUser" : 1,
+    "date" : ISODate("2017-05-30T14:45:37.942Z")
+}

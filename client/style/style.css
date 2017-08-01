@@ -1,0 +1,52 @@
+html, body, body>div{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#map{
+    height: 100%;
+    width: 65%;
+    float: left;
+}
+#toolbar{
+    height: 100%;
+    width: 35%;
+    float: left;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-left: 1px solid #999999;
+    border-right: 1px solid #999999;
+}
+.title-info{
+    background-color: honeydew;
+}
+.main-info{
+    background-color: #eeeeee;
+    border: 1px solid #aaaaaa;
+}
+.main-info>div>img{
+    top: 5px;
+    position: relative;
+}
+.main-info>div>a{
+    color: #292b2c;
+}
+.main-info>div>a:hover,
+.main-info>div>a:focus{
+    color: #02d875;
+    text-decoration: none;
+}
+.second-info{
+    border-bottom: 1px solid #aaaaaa;
+}
+.value-info{
+    font-size: small;
+    font-style: italic;
+}
+.warning-info{
+    font-style: italic;
+    background-color: bisque;
+}
+.copyright-info{
+    font-size: small;
+}
