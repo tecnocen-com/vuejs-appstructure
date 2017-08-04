@@ -14542,8 +14542,8 @@ BUTO.requires = {
         main: __webpack_require__(194)
     },
     components: {
-        toolbar: __webpack_require__(197),
-        map: __webpack_require__(198)
+        toolbar: __webpack_require__(204),
+        map: __webpack_require__(205)
     }
     
 };
@@ -14555,13 +14555,26 @@ Vue.http.get("/api-key").then(function(response){
             el: "#main",
             template: BUTO.requires.templates.main,
             data: {
+                active: {
+                    first: 0,
+                    second: 0
+                },
                 children: {
                     map: BUTO.requires.components.map,
                     toolbar: BUTO.requires.components.toolbar
                 }
             },
             methods: {
-                
+                setView(e){
+                    var me = this;
+                    this.active.first = e.first;
+                    this.active.second = e.second;
+                    if(this.active.first === 0 &&
+                       this.active.second === 0)
+                        Vue.nextTick(function(){
+                            me.children.map.init();
+                        });
+                }
             },
             mounted: function(){
                 this.children.map.init();
@@ -29488,8 +29501,60 @@ return Tether;
 /* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toolbar = __webpack_require__(195);
-var map = __webpack_require__(196);
+var heading = __webpack_require__(195);
+var sidebar = __webpack_require__(196);
+var foot = __webpack_require__(197);
+var clientes = __webpack_require__(198);
+var tiendas = __webpack_require__(199);
+var recursosHumanos = __webpack_require__(200);
+var reportes = __webpack_require__(201);
+var map = __webpack_require__(202);
+var toolbar = __webpack_require__(203);
+Vue.component("heading", {
+    template: heading,
+    props: {
+        config: Object,
+        setview: Function
+    }
+});
+Vue.component("sidebar", {
+    template: sidebar,
+    props: {
+        config: Object,
+        active: Object,
+        setview: Function
+    }
+});
+Vue.component("foot", {
+    template: foot,
+    props: {
+        config: Object
+    }
+});
+Vue.component("clientes", {
+    template: clientes,
+    props: {
+        config: Object
+    }
+});
+Vue.component("recursos-humanos", {
+    template: recursosHumanos,
+    props: {
+        config: Object
+    }
+});
+Vue.component("reportes", {
+    template: reportes,
+    props: {
+        config: Object
+    }
+});
+Vue.component("tiendas", {
+    template: tiendas,
+    props: {
+        config: Object
+    }
+});
 Vue.component("toolbar", {
     template: toolbar,
     props: {
@@ -29503,9 +29568,30 @@ Vue.component("mapping", {
     }
 });
 module.exports = `
-    <div>
-        <toolbar :config="children.map"></toolbar>
-        <mapping :config="children.map"></mapping>
+    <div class="main-container">
+        <heading :setview="setView"></heading>
+        <sidebar :setview="setView" :active="active"></sidebar>
+        <div class="row body-container">
+            <div class="content-container">
+                <template v-if="active.first === 0">
+                    <mapping :config="children.map"></mapping>
+                    <toolbar :config="children.map"></toolbar>
+                </template>
+                <template v-else-if="active.first === 1">
+                    <clientes></clientes>
+                </template>
+                <template v-else-if="active.first === 2">
+                    <tiendas></tiendas>
+                </template>
+                <template v-else-if="active.first === 3">
+                    <recursos-humanos></recursos-humanos>
+                </template>
+                <template v-else-if="active.first === 4">
+                    <reportes></reportes>
+                </template>
+            </div>
+        </div>
+        <foot></foot>
     </div>
 `;
 
@@ -29514,7 +29600,24 @@ module.exports = `
 /***/ (function(module, exports) {
 
 module.exports = `
-    <div id="map"></div>
+    <b-navbar toggleable type="inverse" class="custom-navbar">
+        <b-nav-toggle target="nav_collapse"></b-nav-toggle>
+        <b-link v-on:click="setview({first: 0, second: 0})" class="navbar-brand" to="#">
+            <span>Logo</span>
+        </b-link>
+        <b-collapse is-nav id="nav_collapse">
+            <b-nav is-nav-bar class="ml-auto">
+                <b-nav-item-dropdown right>
+                    <!-- Using button-content slot -->
+                    <template slot="button-content">
+                        <span style="font-weight: bold;">User</span>
+                    </template>
+                    <b-dropdown-item to="#">Profile</b-dropdown-item>
+                    <b-dropdown-item to="#">Signout</b-dropdown-item>
+                </b-nav-item-dropdown>
+            </b-nav>
+        </b-collapse>
+    </b-navbar>
 `;
 
 /***/ }),
@@ -29522,7 +29625,90 @@ module.exports = `
 /***/ (function(module, exports) {
 
 module.exports = `
-    <div id="toolbar">
+        <b-nav vertical class="custom-sidebar">
+            <b-nav-item v-if="active.first === 1" active class="custom-sidebar-item">Clientes</b-nav-item>
+            <b-nav-item v-else v-on:click="setview({first: 1, second: 0})" class="custom-sidebar-item">Clientes</b-nav-item>
+            <b-nav-item v-if="active.first === 2" active class="custom-sidebar-item">Tiendas</b-nav-item>
+            <b-nav-item v-else v-on:click="setview({first: 2, second: 0})" class="custom-sidebar-item">Tiendas</b-nav-item>
+            <b-nav-item v-if="active.first === 3" active class="custom-sidebar-item">Recursos Humanos</b-nav-item>
+            <b-nav-item v-else v-on:click="setview({first: 3, second: 0})" class="custom-sidebar-item">Recursos Humanos</b-nav-item>
+            <b-nav-item v-if="active.first === 4" active class="custom-sidebar-item">Reportes</b-nav-item>
+            <b-nav-item v-else v-on:click="setview({first: 4, second: 0})" class="custom-sidebar-item">Reportes</b-nav-item>
+        </b-nav>
+`;
+
+/***/ }),
+/* 197 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="footer">
+        <div class="footer-text">
+            <p>App Name</p>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 198 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div>
+        <h1>Clientes</h1>
+        <span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=mock_up.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fmock_up.xml" >Mock up</a></span>
+    </div>
+`;
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div>
+        <h1>Tiendas</h1>
+        <span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=mock_up.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fmock_up.xml" >Mock up</a></span>
+    </div>
+`;
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div>
+        <h1>Recursos Humanos</h1>
+        <span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=mock_up.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fmock_up.xml" >Mock up</a></span>
+    </div>
+`;
+
+/***/ }),
+/* 201 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div>
+        <h1>Reportes</h1>
+        <span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=mock_up.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fmock_up.xml" >Mock up</a></span>
+    </div>
+`;
+
+/***/ }),
+/* 202 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="map-container col-sm-8">
+        <div id="map"></div>
+    </div>
+`;
+
+/***/ }),
+/* 203 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="map-toolbar col-sm-4">
         <div class="row title-info">
             <div class="col-sm-12">
                 <span>Distancia Total: {{config.configuration.service.totalDistance / 1000}} km.</span>
@@ -29584,7 +29770,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 197 */
+/* 204 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -29597,7 +29783,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 198 */
+/* 205 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({

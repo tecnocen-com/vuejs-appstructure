@@ -7,9 +7,9 @@ var path = require("path");
 //var dbConection = require("./dbConection");	//Módulo personalizado de conexión a Mongodb
 function init(request, response){
 	//if(request.alquimiaSession && request.alquimiaSession.userData)
-	//	response.sendFile(path.join(__dirname, "client/home.html"));
+		response.sendFile(path.join(__dirname, "client/home.html"));
 	//else
-		response.sendFile(path.join(__dirname, "client/index.html"));
+	//	response.sendFile(path.join(__dirname, "client/index.html"));
 }
 function apiKey(request, response){
 	response.writeHead(200, "application/json");

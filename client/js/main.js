@@ -20,13 +20,26 @@ Vue.http.get("/api-key").then(function(response){
             el: "#main",
             template: BUTO.requires.templates.main,
             data: {
+                active: {
+                    first: 0,
+                    second: 0
+                },
                 children: {
                     map: BUTO.requires.components.map,
                     toolbar: BUTO.requires.components.toolbar
                 }
             },
             methods: {
-                
+                setView(e){
+                    var me = this;
+                    this.active.first = e.first;
+                    this.active.second = e.second;
+                    if(this.active.first === 0 &&
+                       this.active.second === 0)
+                        Vue.nextTick(function(){
+                            me.children.map.init();
+                        });
+                }
             },
             mounted: function(){
                 this.children.map.init();

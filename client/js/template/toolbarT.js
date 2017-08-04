@@ -1,5 +1,5 @@
 module.exports = `
-    <div id="toolbar">
+    <div class="map-toolbar col-sm-4">
         <div class="row title-info">
             <div class="col-sm-12">
                 <span>Distancia Total: {{config.configuration.service.totalDistance / 1000}} km.</span>
