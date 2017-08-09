@@ -3,6 +3,7 @@ module.exports = new Vue({
         token: null,
         mapsClient: null,
         configuration: {
+            stepsHidden: false,
             map: {
                 main: null,
                 data: {
@@ -118,8 +119,8 @@ module.exports = new Vue({
                 me = this;
             switch(this.configuration.service.type){
                 case "TRANSIT":
+                    this.initRenderer(e);
                     if(e){
-                        this.initRenderer(true);
                         for (i = 0; i < this.configuration.marker.marks.length; i++){
                             if(i > 0){
                                 (function(I){
@@ -139,7 +140,7 @@ module.exports = new Vue({
                                                     text: response.routes[0].warnings[j]
                                                 });
                                             me.configuration.service.travelDetails.legs.push({
-                                                visible: true,
+                                                hidden: me.configuration.stepsHidden,
                                                 deathTime: 0,
                                                 id: I - 1,
                                                 end: response.routes[0].legs[0].end_address,
@@ -174,7 +175,6 @@ module.exports = new Vue({
                         }
                     }
                     else{ 
-                        this.initRenderer(false);
                         this.configuration.service.directionService.route({
                             origin: this.configuration.marker.marks[this.configuration.marker.marks.length - 2].main.position,
                             destination: this.configuration.marker.marks[this.configuration.marker.marks.length - 1].main.position,
@@ -191,7 +191,7 @@ module.exports = new Vue({
                                         text: response.routes[0].warnings[i]
                                     });
                                 me.configuration.service.travelDetails.legs.push({
-                                    visible: true,
+                                    hidden: me.configuration.stepsHidden,
                                     deathTime: 0,
                                     id: me.configuration.service.travelDetails.legs.length,
                                     end: response.routes[0].legs[0].end_address,
@@ -292,6 +292,7 @@ module.exports = new Vue({
                 me.configuration.marker.marks = newMark;
                 me.configuration.service.totalDistance = 0;
                 me.configuration.service.totalTime = 0;
+                me.configuration.service.deathTime = 0;
                 if(me.configuration.marker.marks.length > 1){
                     me.setRoute(true);
                     me.router(true);
@@ -300,6 +301,11 @@ module.exports = new Vue({
                     me.initRenderer(true);
                 }
             });
+        },
+        collapse: function(){
+            this.configuration.stepsHidden = !this.configuration.stepsHidden;
+            for(var i = 0; i < this.configuration.service.travelDetails.legs.length; i++)
+                this.configuration.service.travelDetails.legs[i].hidden = this.configuration.stepsHidden;
         },
         router: function(all){
             var i,

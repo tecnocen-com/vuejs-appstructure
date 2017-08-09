@@ -7,6 +7,9 @@ module.exports = `
             <div class="col-sm-12">
                 <span>Tiempo Total: {{Math.floor((config.configuration.service.totalTime + config.configuration.service.deathTime * 60) / 60) + ' min. ' + Math.floor(((config.configuration.service.totalTime / 60) % 1) * 60) + ' seg.'}}</span>
             </div>
+            <div class="col-sm-12 text-center">
+                <button v-on:click="config.collapse()" class="btn btn-info">Colapsar</button>
+            </div>
         </div>
         <template v-if="config.configuration.service.travelDetails.legs.length > 0">
             <template v-for="(data, dataIndex) in config.configuration.service.travelDetails.legs">
@@ -15,7 +18,7 @@ module.exports = `
                         <img :src="data.iconStart">
                     </div>
                     <div class="col-sm-10">
-                        <a href="#" v-on:click.prevent="data.visible = !data.visible">
+                        <a href="#" v-on:click.prevent="data.hidden = !data.hidden">
                             <span>{{data.start}}</span>
                         </a>
                     </div>
@@ -26,7 +29,7 @@ module.exports = `
                         <input v-on:keyup="config.computeRoute(false)" class="form-control" v-model="data.deathTime" type="number" value="0">
                     </div>
                 </div>
-                <template v-for="steps in data.steps" v-if="data.visible">
+                <template v-for="steps in data.steps" v-if="!data.hidden">
                     <div class="row second-info">
                         <div class="col-sm-12">
                             <span>{{steps.instructions}}</span>
