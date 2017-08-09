@@ -111,20 +111,21 @@ app.get("/api-key", function(request, response){
 //});
 
 app.use('/', express.static(__dirname + '/client'));   //Vuelve estática la carpeta especificada, sin "__dirname" será ruta relativa a donde inicia el proceso Node, usándolo será absoluto a la raiz del proyecto
-app.use('/css', express.static(__dirname + '/client/style'));   //Vuelve estática la carpeta especificada
-app.use('/files', express.static(__dirname + '/client/file'));   //Vuelve estática la carpeta especificada
-app.use('/build', express.static(__dirname + '/build'));   //Vuelve estática la carpeta especificada
+app.use('/css', express.static(__dirname + '/client/style'));
+app.use('/files', express.static(__dirname + '/client/file'));
+app.use('/build', express.static(__dirname + '/build'));
 
-//app.use('/js', express.static(__dirname + '/node_modules/socket.io-client/dist'));   //Vuelve estática la carpeta especificada
-//app.use('/js', express.static(__dirname + '/node_modules/moment/min'));   //Vuelve estática la carpeta especificada
-//app.use('/js', express.static(__dirname + '/node_modules/jsplumb/dist/js'));   //Vuelve estática la carpeta especificada
-app.use('/js', express.static(__dirname + '/node_modules/vue/dist'));   //Vuelve estática la carpeta especificada
-app.use('/js', express.static(__dirname + '/node_modules/vue-resource/dist'));   //Vuelve estática la carpeta especificada
-//app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));   //Vuelve estática la carpeta especificada
-//app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));   //Vuelve estática la carpeta especificada
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));   //Vuelve estática la carpeta especificada
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap-vue/dist'));   //Vuelve estática la carpeta especificada
-//app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/fonts'));   //Vuelve estática la carpeta especificada
+//app.use('/js', express.static(__dirname + '/node_modules/socket.io-client/dist'));
+//app.use('/js', express.static(__dirname + '/node_modules/moment/min'));
+//app.use('/js', express.static(__dirname + '/node_modules/jsplumb/dist/js'));
+app.use('/js', express.static(__dirname + '/node_modules/vue/dist'));
+app.use('/js', express.static(__dirname + '/node_modules/vue-resource/dist'));
+//app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
+//app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap-vue/dist'));
+app.use('/font-awesome', express.static(__dirname + '/node_modules/font-awesome'));
+//app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/fonts'));
 
 //MongoClient.connect("mongodb://127.0.0.1:27017/alquimiaDB", function(error, database){
 //    if(error)

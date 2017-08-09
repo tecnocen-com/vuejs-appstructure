@@ -7,8 +7,10 @@ module.exports = `
             <div class="col-sm-12">
                 <span>Tiempo Total: {{Math.floor((config.configuration.service.totalTime + config.configuration.service.deathTime * 60) / 60) + ' min. ' + Math.floor(((config.configuration.service.totalTime / 60) % 1) * 60) + ' seg.'}}</span>
             </div>
-            <div class="col-sm-12 text-center">
-                <button v-on:click="config.collapse()" class="btn btn-info">Colapsar</button>
+            <div class="col-sm-12 text-right">
+                <button v-on:click="config.collapse()" class="btn btn-info btn-small">
+                    {{config.configuration.stepsHidden ? 'Expandir' : 'Colapsar'}} <i :class="config.configuration.stepsHidden ? 'fa-sort-desc' : 'fa-sort-asc'" class="fa" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
         <template v-if="config.configuration.service.travelDetails.legs.length > 0">

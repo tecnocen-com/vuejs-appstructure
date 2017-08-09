@@ -45,6 +45,10 @@ body{
     position: relative;
     display: flex;
 }
+.btn-small{
+    padding: 5px !important;
+    font-size: small !important;
+}
 
 .map-container{
     height: 650px;
