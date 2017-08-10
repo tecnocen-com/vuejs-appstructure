@@ -27695,19 +27695,18 @@ Vue.component("my-menu", {
         setview: Function
     }
 });
-Vue.component("heading", {
-    template: heading,
-    props: {
-        config: Object,
-        setview: Function
-    }
-});
 Vue.component("page-heading", {
     template: pageHeading,
     props: {
         config: Object,
         active: Object,
         setview: Function
+    }
+});
+Vue.component("foot", {
+    template: foot,
+    props: {
+        config: Object
     }
 });
 Vue.component("clientes", {
