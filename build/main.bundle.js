@@ -14541,9 +14541,9 @@ BUTO.requires = {
         main: __webpack_require__(192)
     },
     components: {
-        toolbar: __webpack_require__(202),
-        map: __webpack_require__(203),
-        menu: __webpack_require__(204),
+        toolbar: __webpack_require__(203),
+        map: __webpack_require__(204),
+        menu: __webpack_require__(205),
     }
 };
 Vue.http.get("/api-key").then(function(response){
@@ -27672,13 +27672,14 @@ exports.callback = function(error, response) {
 
 var heading = __webpack_require__(193);
 var menu = __webpack_require__(194);
-var foot = __webpack_require__(195);
-var clientes = __webpack_require__(196);
-var tiendas = __webpack_require__(197);
-var recursosHumanos = __webpack_require__(198);
-var reportes = __webpack_require__(199);
-var map = __webpack_require__(200);
-var toolbar = __webpack_require__(201);
+var pageHeading = __webpack_require__(195);
+var foot = __webpack_require__(196);
+var clientes = __webpack_require__(197);
+var tiendas = __webpack_require__(198);
+var recursosHumanos = __webpack_require__(199);
+var reportes = __webpack_require__(200);
+var map = __webpack_require__(201);
+var toolbar = __webpack_require__(202);
 Vue.component("heading", {
     template: heading,
     props: {
@@ -27694,10 +27695,19 @@ Vue.component("my-menu", {
         setview: Function
     }
 });
-Vue.component("foot", {
-    template: foot,
+Vue.component("heading", {
+    template: heading,
     props: {
-        config: Object
+        config: Object,
+        setview: Function
+    }
+});
+Vue.component("page-heading", {
+    template: pageHeading,
+    props: {
+        config: Object,
+        active: Object,
+        setview: Function
     }
 });
 Vue.component("clientes", {
@@ -27741,6 +27751,7 @@ module.exports = `
     <div>
         <heading></heading>
         <my-menu :config="children.menu" :active="active" :setview="setView"></my-menu>
+        <page-heading :config="children.menu" :active="active" :setview="setView"></page-heading>
         <div class="page-container">
             <template v-if="active.first === 0">
                 <div class="row">
@@ -27805,67 +27816,34 @@ module.exports = `
 /***/ (function(module, exports) {
 
 module.exports = `
-    <div>
-        <div class="navbar navbar-default" id="navbar-second">
-            <ul class="nav navbar-nav no-border visible-xs-block">
-                <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i class="icon-menu7"></i></a></li>
-            </ul>
-            
-            <div class="navbar-collapse collapse" id="navbar-second-toggle">
-                <ul class="nav navbar-nav" v-for="(menu, menuIndex) in config.menu">
-                    <li :class="[active.first === menuIndex ? 'active' : '',
-                                menu.dropdown.length > 0 ? 'dropdown' : '']">
-                        <a href="#" v-on:click.prevent="menu.dropdown.length > 0 ? function(){} : setview({first: menuIndex, second: 0, third: 0})" :class="menu.dropdown.length > 0 ? 'dropdown-toogle' : ''"
-                                    :data-toggle="menu.dropdown.length > 0 ? 'dropdown' : ''">
-                            <i :class="menu.icon" class="position-left"></i> {{menu.title}}
-                            <template v-if="menu.dropdown.length > 0">
-                                <span class="caret"></span>
-                            </template>
-                        </a>
-                        <ul v-if="menu.dropdown.length > 0" class="dropdown-menu width-200">
-                            <template v-for="(dropdown, dropdownIndex) in menu.dropdown">
-                                <li class="dropdown-header">{{dropdown.title}}</li>
-                                <li v-for="(subs, subsIndex) in dropdown.subs">
-                                    <a href="#" v-on:click.prevent="setview({first: menuIndex, second: dropdownIndex, third: subsIndex})">
-                                        <i :class="subs.icon"></i> {{subs.title}}
-                                    </a>
-                                </li>
-                            </template>
-                        </ul>
-                    </li>                    
-                </ul>
-            </div>
-        </div>
+    <div class="navbar navbar-default" id="navbar-second">
+        <ul class="nav navbar-nav no-border visible-xs-block">
+            <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i class="icon-menu7"></i></a></li>
+        </ul>
         
-        <div class="page-header">
-            <div class="page-header-content">
-                <div class="page-title">
-                    <h4>
-                        <i class="icon-arrow-left52 position-left"></i>
-                        <span class="text-semibold">
-                            <b>{{config.menu[active.first].title}}</b>
-                            {{config.menu[active.first].dropdown.length > 0 ? ' - ' + config.menu[active.first].dropdown[active.second].title : ''}}
-                        </span>
-                        <small v-if="active.first === 0 && active.second === 0 && active.third === 0" class="display-block">Buen día, Administrador!</small>
-                    </h4>
-                    <ul v-if="active.first !== 0 || active.second !== 0 || active.third !== 0" class="breadcrumb breadcrumb-caret position-right">
-                        <li><a href="#" v-on:click.prevent="setview({first: 0, second: 0, third: 0})">{{config.menu[0].title}}</a></li>
-                        <li><a href="#" v-on:click.prevent>{{config.menu[active.first].title}}</a></li>
-                        <li v-if="config.menu[active.first].dropdown.length > 0"><a href="#" v-on:click.prevent>{{config.menu[active.first].dropdown[active.second].title}}</a></li>
-                        <li v-if="config.menu[active.first].dropdown.length > 0" class="active">{{config.menu[active.first].dropdown[active.second].subs[active.third].title}}</li>
+        <div class="navbar-collapse collapse" id="navbar-second-toggle">
+            <ul class="nav navbar-nav" v-for="(menu, menuIndex) in config.menu">
+                <li :class="[active.first === menuIndex ? 'active' : '',
+                            menu.dropdown.length > 0 ? 'dropdown' : '']">
+                    <a href="#" v-on:click.prevent="menu.dropdown.length > 0 ? function(){} : setview({first: menuIndex, second: 0, third: 0})" :class="menu.dropdown.length > 0 ? 'dropdown-toogle' : ''"
+                                :data-toggle="menu.dropdown.length > 0 ? 'dropdown' : ''">
+                        <i :class="menu.icon" class="position-left"></i> {{menu.title}}
+                        <template v-if="menu.dropdown.length > 0">
+                            <span class="caret"></span>
+                        </template>
+                    </a>
+                    <ul v-if="menu.dropdown.length > 0" class="dropdown-menu width-200">
+                        <template v-for="(dropdown, dropdownIndex) in menu.dropdown">
+                            <li class="dropdown-header">{{dropdown.title}}</li>
+                            <li v-for="(subs, subsIndex) in dropdown.subs">
+                                <a href="#" v-on:click.prevent="setview({first: menuIndex, second: dropdownIndex, third: subsIndex})">
+                                    <i :class="subs.icon"></i> {{subs.title}}
+                                </a>
+                            </li>
+                        </template>
                     </ul>
-                </div>
-                
-                <div class="heading-elements">
-                    <div v-if="config.menu[active.first].dropdown.length > 0" class="heading-btn-group">
-                        <a href="#" v-on:click.prevent="setview({first: active.first, second: active.second, third: subsIndex})"
-                                    v-for="(subs, subsIndex) in config.menu[active.first].dropdown[active.second].subs" class="btn btn-link btn-float has-text">
-                            <i :class="subs.icon" class="text-primary"></i><span>{{subs.title}}</span>
-                        </a>
-                    </div>
-                </div>
-                
-            </div>
+                </li>                    
+            </ul>
         </div>
     </div>
 `;
@@ -27875,13 +27853,50 @@ module.exports = `
 /***/ (function(module, exports) {
 
 module.exports = `
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4>
+                    <i class="icon-arrow-left52 position-left"></i>
+                    <span class="text-semibold">
+                        <b>{{config.menu[active.first].title}}</b>
+                        {{config.menu[active.first].dropdown.length > 0 ? ' - ' + config.menu[active.first].dropdown[active.second].title : ''}}
+                    </span>
+                    <small v-if="active.first === 0 && active.second === 0 && active.third === 0" class="display-block">Buen día, Administrador!</small>
+                </h4>
+                <ul v-if="active.first !== 0 || active.second !== 0 || active.third !== 0" class="breadcrumb breadcrumb-caret position-right">
+                    <li><a href="#" v-on:click.prevent="setview({first: 0, second: 0, third: 0})">{{config.menu[0].title}}</a></li>
+                    <li><a href="#" v-on:click.prevent>{{config.menu[active.first].title}}</a></li>
+                    <li v-if="config.menu[active.first].dropdown.length > 0"><a href="#" v-on:click.prevent>{{config.menu[active.first].dropdown[active.second].title}}</a></li>
+                    <li v-if="config.menu[active.first].dropdown.length > 0" class="active">{{config.menu[active.first].dropdown[active.second].subs[active.third].title}}</li>
+                </ul>
+            </div>
+            
+            <div class="heading-elements">
+                <div v-if="config.menu[active.first].dropdown.length > 0" class="heading-btn-group">
+                    <a href="#" v-on:click.prevent="setview({first: active.first, second: active.second, third: subsIndex})"
+                                v-for="(subs, subsIndex) in config.menu[active.first].dropdown[active.second].subs" class="btn btn-link btn-float has-text">
+                        <i :class="subs.icon" class="text-primary"></i><span>{{subs.title}}</span>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 196 */
+/***/ (function(module, exports) {
+
+module.exports = `
     <div class="footer text-muted">
         &copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
     </div>
 `;
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -27895,7 +27910,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -27909,7 +27924,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -27923,7 +27938,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -27937,7 +27952,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -27961,7 +27976,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 201 */
+/* 202 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -28046,7 +28061,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 202 */
+/* 203 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -28059,7 +28074,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -28430,7 +28445,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
