@@ -1,5 +1,5 @@
 var heading = require("./template/common/headerT.js");
-var sidebar = require("./template/common/sidebarT.js");
+var menu = require("./template/common/menuT.js");
 var foot = require("./template/common/footerT.js");
 var clientes = require("./template/clientes/clientesT.js");
 var tiendas = require("./template/tiendas/tiendasT.js");
@@ -14,8 +14,8 @@ Vue.component("heading", {
         setview: Function
     }
 });
-Vue.component("sidebar", {
-    template: sidebar,
+Vue.component("my-menu", {
+    template: menu,
     props: {
         config: Object,
         active: Object,
@@ -65,28 +65,29 @@ Vue.component("mapping", {
     }
 });
 module.exports = `
-    <div class="main-container">
-        <heading :setview="setView"></heading>
-        <sidebar :setview="setView" :active="active"></sidebar>
-        <div class="row body-container">
-            <div class="content-container">
-                <template v-if="active.first === 0">
+    <!-- Main navbar -->
+    <div>
+        <heading></heading>
+        <my-menu :config="children.menu" :active="active" :setview="setView"></my-menu>
+        <div class="page-container">
+            <template v-if="active.first === 0">
+                <div class="row">
                     <mapping :config="children.map"></mapping>
                     <toolbar :config="children.map"></toolbar>
-                </template>
-                <template v-else-if="active.first === 1">
-                    <clientes></clientes>
-                </template>
-                <template v-else-if="active.first === 2">
-                    <tiendas></tiendas>
-                </template>
-                <template v-else-if="active.first === 3">
-                    <recursos-humanos></recursos-humanos>
-                </template>
-                <template v-else-if="active.first === 4">
-                    <reportes></reportes>
-                </template>
-            </div>
+                </div>
+            </template>
+            <template v-else-if="active.first === 1">
+                <clientes></clientes>
+            </template>
+            <template v-else-if="active.first === 2">
+                <tiendas></tiendas>
+            </template>
+            <template v-else-if="active.first === 3">
+                <recursos-humanos></recursos-humanos>
+            </template>
+            <template v-else-if="active.first === 4">
+                <reportes></reportes>
+            </template>
         </div>
         <foot></foot>
     </div>

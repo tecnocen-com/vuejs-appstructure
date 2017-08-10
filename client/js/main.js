@@ -1,18 +1,16 @@
 BUTO.requires = {
     modules: {
-        mapsClient: require("@google/maps"),
-        BootstrapVue: require('bootstrap-vue')
+        mapsClient: require("@google/maps")
     },
     templates: {
         main: require("./mainT.js")
     },
     components: {
         toolbar: require("./component/toolbar.js"),
-        map: require("./component/map.js")
+        map: require("./component/map.js"),
+        menu: require("./component/common/menu.js"),
     }
-    
 };
-Vue.use(BUTO.requires.modules.BootstrapVue);
 Vue.http.get("/api-key").then(function(response){
     BUTO.init(response);
     BUTO.components = {
@@ -22,11 +20,13 @@ Vue.http.get("/api-key").then(function(response){
             data: {
                 active: {
                     first: 0,
-                    second: 0
+                    second: 0,
+                    third: 0
                 },
                 children: {
                     map: BUTO.requires.components.map,
-                    toolbar: BUTO.requires.components.toolbar
+                    toolbar: BUTO.requires.components.toolbar,
+                    menu: BUTO.requires.components.menu
                 }
             },
             methods: {
@@ -34,8 +34,10 @@ Vue.http.get("/api-key").then(function(response){
                     var me = this;
                     this.active.first = e.first;
                     this.active.second = e.second;
+                    this.active.third = e.third;
                     if(this.active.first === 0 &&
-                       this.active.second === 0)
+                       this.active.second === 0 &&
+                       this.active.third === 0)
                         Vue.nextTick(function(){
                             me.children.map.init();
                         });

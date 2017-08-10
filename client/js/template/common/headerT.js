@@ -1,20 +1,30 @@
 module.exports = `
-    <b-navbar toggleable type="inverse" class="custom-navbar">
-        <b-nav-toggle target="nav_collapse"></b-nav-toggle>
-        <b-link v-on:click="setview({first: 0, second: 0})" class="navbar-brand" to="#">
-            <span>Logo</span>
-        </b-link>
-        <b-collapse is-nav id="nav_collapse">
-            <b-nav is-nav-bar class="ml-auto">
-                <b-nav-item-dropdown right>
-                    <!-- Using button-content slot -->
-                    <template slot="button-content">
-                        <span style="font-weight: bold;">User</span>
-                    </template>
-                    <b-dropdown-item to="#">Profile</b-dropdown-item>
-                    <b-dropdown-item to="#">Signout</b-dropdown-item>
-                </b-nav-item-dropdown>
-            </b-nav>
-        </b-collapse>
-    </b-navbar>
+    <div class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html"><img src="assets/images/logo_light.png" alt=""></a>
+
+            <ul class="nav navbar-nav pull-right visible-xs-block">
+                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-collapse collapse" id="navbar-mobile">
+            <p class="navbar-text"><span class="label bg-success-400">En línea</span></p>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown dropdown-user">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="assets/images/placeholder.jpg" alt="">
+                        <span>Administrador</span>
+                        <i class="caret"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#"><i class="icon-cog5"></i> Configuración </a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-switch2"></i> Cerrar Sesión </a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
 `;
