@@ -1,5 +1,6 @@
 var heading = require("./template/common/headerT.js");
 var menu = require("./template/common/menuT.js");
+var pageHeading = require("./template/common/pageHeaderT.js");
 var foot = require("./template/common/footerT.js");
 var clientes = require("./template/clientes/clientesT.js");
 var tiendas = require("./template/tiendas/tiendasT.js");
@@ -22,10 +23,19 @@ Vue.component("my-menu", {
         setview: Function
     }
 });
-Vue.component("foot", {
-    template: foot,
+Vue.component("heading", {
+    template: heading,
     props: {
-        config: Object
+        config: Object,
+        setview: Function
+    }
+});
+Vue.component("page-heading", {
+    template: pageHeading,
+    props: {
+        config: Object,
+        active: Object,
+        setview: Function
     }
 });
 Vue.component("clientes", {
@@ -69,6 +79,7 @@ module.exports = `
     <div>
         <heading></heading>
         <my-menu :config="children.menu" :active="active" :setview="setView"></my-menu>
+        <page-heading :config="children.menu" :active="active" :setview="setView"></page-heading>
         <div class="page-container">
             <template v-if="active.first === 0">
                 <div class="row">
