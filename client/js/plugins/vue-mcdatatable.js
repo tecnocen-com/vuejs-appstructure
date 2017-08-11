@@ -882,6 +882,10 @@ var mcdatatable = function(configuration){
             onRemove = configuration.onRemove;
         else
             onRemove = function(){};
+        delete configuration.beforeAdd;
+        delete configuration.beforeRemove;
+        delete configuration.beforeEdit;
+        delete configuration.templateEdit;
         delete configuration.onEdit;
         delete configuration.onAdd;
         delete configuration.onRemove;
@@ -2026,8 +2030,8 @@ var mcdatatable = function(configuration){
                         if(success.body.length > 0){
                             var b = 1;
                             me.dataPagination = [];
-                            for(var i = 0; i < parseInt(success.headers.map["x-pagination-page-count"]); i++)
-                                me.dataPagination.push([(parseInt(success.headers.map["x-pagination-page-count"]) < actualPage) ? b === actualPage -1 : b === actualPage, b++]);
+                            for(var i = 0; i < parseInt(success.headers.map[me.webService.headers.pageCount]); i++)
+                                me.dataPagination.push([(parseInt(success.headers.map[me.webService.headers.pageCount]) < actualPage) ? b === actualPage -1 : b === actualPage, b++]);
                             if(actualPage <= 4){
                                 limits[0] = actualPage;
                                 limits[1] = 8 - actualPage;
@@ -2286,9 +2290,9 @@ var mcdatatable = function(configuration){
                             }
                             ////////////////////////Redefine of pagination///////////////////////////
                             if(redefinePagination){
-                                me.style.pagination.currentPage = parseInt(success.headers.map["x-pagination-current-page"][0]);
-                                me.style.pagination.pageCount = parseInt(success.headers.map["x-pagination-page-count"][0]);
-                                me.style.pagination.totalRowCount = parseInt(success.headers.map["x-pagination-total-count"][0]);
+                                me.style.pagination.currentPage = parseInt(success.headers.map[me.webService.headers.currentPage][0]);
+                                me.style.pagination.pageCount = parseInt(success.headers.map[me.webService.headers.pageCount][0]);
+                                me.style.pagination.totalRowCount = parseInt(success.headers.map[me.webService.headers.totalRowCount][0]);
                             }
                             
                             customSuccess(success);

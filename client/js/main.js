@@ -1,6 +1,7 @@
 BUTO.requires = {
     modules: {
         modelAR: require("./plugins/modelAR.js"),
+        mcdatatable: require("./plugins/vue-mcdatatable.js").component,
         mapsClient: require("@google/maps")
     },
     templates: {
@@ -10,12 +11,12 @@ BUTO.requires = {
         toolbar: require("./component/toolbar.js"),
         map: require("./component/map.js"),
         menu: require("./component/common/menu.js"),
+        cliente: require("./component/clientes/general.js")
     }
 };
 
 Vue.http.get("/init-user-data").then(function(userResponse){
     if(userResponse.status === 200 && userResponse.body.success){
-        BUTO.init(userResponse);
         (function(){
             new BUTO.requires.modules.modelAR({
                 baseURL: userResponse.body.baseURL,
@@ -48,10 +49,26 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 second: 0,
                                 third: 0
                             },
+                            models: {
+                                cliente: new modelCreator("cliente"),
+                                clienteEmpleado: new modelCreator(["cliente", "empleado"]),
+                                clienteSucursal: new modelCreator(["cliente", "sucursal"]),
+                                empleado: new modelCreator("empleado"),
+                                empleadoCliente: new modelCreator(["empleado", "cliente"]),
+                                empleadoHorario: new modelCreator(["empleado", "horario"]),
+                                empleadoHorarioRuta: new modelCreator(["empleado", "horario", "ruta"]),
+                                empleadoHorarioRutaPunto: new modelCreator(["empleado", "horario", "ruta", "punto"]),
+                                sucursal: new modelCreator("sucursal"),
+                                sucursalCliente: new modelCreator(["sucursal", "cliente"]),
+                                sucursalHorario: new modelCreator(["sucursal", "horario"]),
+                                perfil: new modelCreator("perfil"),
+                                usuario: new modelCreator("usuario")
+                            },
                             children: {
                                 map: BUTO.requires.components.map,
                                 toolbar: BUTO.requires.components.toolbar,
-                                menu: BUTO.requires.components.menu
+                                menu: BUTO.requires.components.menu,
+                                cliente: BUTO.requires.components.cliente
                             }
                         },
                         methods: {
@@ -67,6 +84,14 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                         me.children.map.init();
                                     });
                             }
+                        },
+                        created: function(){
+                            BUTO.init(userResponse);
+                            BUTO.requires.components.cliente.init({
+                                cliente: this.models.cliente,
+                                clienteEmpleado: this.models.clienteEmpleado,
+                                clienteSucursal: this.models.clienteSucursal
+                            });
                         },
                         mounted: function(){
                             this.children.map.init();

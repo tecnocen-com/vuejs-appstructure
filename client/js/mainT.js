@@ -1,3 +1,4 @@
+var mcdatatable = require("./plugins/vue-mcdatatable.js").template;
 var heading = require("./template/common/headerT.js");
 var menu = require("./template/common/menuT.js");
 var pageHeading = require("./template/common/pageHeaderT.js");
@@ -8,6 +9,13 @@ var recursosHumanos = require("./template/recursos_humanos/recursosHumanosT.js")
 var reportes = require("./template/reportes/reportesT.js");
 var map = require("./template/mapT.js");
 var toolbar = require("./template/toolbarT.js");
+Vue.component("mcdatatable", {
+    template: mcdatatable,
+    props: {
+        title: String,
+        config: Object
+    }
+});
 Vue.component("heading", {
     template: heading,
     props: {
@@ -87,7 +95,9 @@ module.exports = `
                 </div>
             </template>
             <template v-else-if="active.first === 1">
-                <clientes></clientes>
+                <div class="row">
+                    <clientes :config="children.cliente"></clientes>
+                </div>
             </template>
             <template v-else-if="active.first === 2">
                 <tiendas></tiendas>

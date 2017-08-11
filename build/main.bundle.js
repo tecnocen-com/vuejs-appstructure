@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 82);
+/******/ 	return __webpack_require__(__webpack_require__.s = 83);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -78,9 +78,9 @@
 
 
 
-var base64 = __webpack_require__(86)
-var ieee754 = __webpack_require__(87)
-var isArray = __webpack_require__(42)
+var base64 = __webpack_require__(87)
+var ieee754 = __webpack_require__(88)
+var isArray = __webpack_require__(43)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -5322,7 +5322,7 @@ if (typeof Object.create === 'function') {
   };
 })(typeof module === 'undefined' || module, this);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)(module)))
 
 /***/ }),
 /* 3 */
@@ -5333,15 +5333,15 @@ if (typeof Object.create === 'function') {
 
 var elliptic = exports;
 
-elliptic.version = __webpack_require__(143).version;
-elliptic.utils = __webpack_require__(144);
-elliptic.rand = __webpack_require__(67);
+elliptic.version = __webpack_require__(144).version;
+elliptic.utils = __webpack_require__(145);
+elliptic.rand = __webpack_require__(68);
 elliptic.curve = __webpack_require__(29);
-elliptic.curves = __webpack_require__(149);
+elliptic.curves = __webpack_require__(150);
 
 // Protocols
-elliptic.ec = __webpack_require__(157);
-elliptic.eddsa = __webpack_require__(161);
+elliptic.ec = __webpack_require__(158);
+elliptic.eddsa = __webpack_require__(162);
 
 
 /***/ }),
@@ -6341,7 +6341,7 @@ var util = __webpack_require__(15);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
-var Readable = __webpack_require__(45);
+var Readable = __webpack_require__(46);
 var Writable = __webpack_require__(33);
 
 util.inherits(Duplex, Readable);
@@ -6497,13 +6497,13 @@ module.exports = Hash
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(45);
+exports = module.exports = __webpack_require__(46);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(33);
 exports.Duplex = __webpack_require__(12);
-exports.Transform = __webpack_require__(48);
-exports.PassThrough = __webpack_require__(103);
+exports.Transform = __webpack_require__(49);
+exports.PassThrough = __webpack_require__(104);
 
 
 /***/ }),
@@ -6850,11 +6850,11 @@ var asn1 = exports;
 
 asn1.bignum = __webpack_require__(2);
 
-asn1.define = __webpack_require__(165).define;
+asn1.define = __webpack_require__(166).define;
 asn1.base = __webpack_require__(21);
-asn1.constants = __webpack_require__(73);
-asn1.decoders = __webpack_require__(171);
-asn1.encoders = __webpack_require__(173);
+asn1.constants = __webpack_require__(74);
+asn1.decoders = __webpack_require__(172);
+asn1.encoders = __webpack_require__(174);
 
 
 /***/ }),
@@ -6863,10 +6863,10 @@ asn1.encoders = __webpack_require__(173);
 
 var base = exports;
 
-base.Reporter = __webpack_require__(168).Reporter;
-base.DecoderBuffer = __webpack_require__(72).DecoderBuffer;
-base.EncoderBuffer = __webpack_require__(72).EncoderBuffer;
-base.Node = __webpack_require__(169);
+base.Reporter = __webpack_require__(169).Reporter;
+base.DecoderBuffer = __webpack_require__(73).DecoderBuffer;
+base.EncoderBuffer = __webpack_require__(73).EncoderBuffer;
+base.Node = __webpack_require__(170);
 
 
 /***/ }),
@@ -7211,7 +7211,7 @@ function nextTick(fn, arg1, arg2, arg3) {
  * See http://pajhome.org.uk/crypt/md5 for more info.
  */
 
-var makeHash = __webpack_require__(113)
+var makeHash = __webpack_require__(114)
 
 /*
  * Calculate the MD5 of an array of little-endian words, and a bit length
@@ -7837,21 +7837,21 @@ exports.encrypt = function (self, chunk) {
 
 var curve = exports;
 
-curve.base = __webpack_require__(145);
-curve.short = __webpack_require__(146);
-curve.mont = __webpack_require__(147);
-curve.edwards = __webpack_require__(148);
+curve.base = __webpack_require__(146);
+curve.short = __webpack_require__(147);
+curve.mont = __webpack_require__(148);
+curve.edwards = __webpack_require__(149);
 
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var asn1 = __webpack_require__(164)
-var aesid = __webpack_require__(176)
-var fixProc = __webpack_require__(177)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var asn1 = __webpack_require__(165)
+var aesid = __webpack_require__(177)
+var fixProc = __webpack_require__(178)
 var ciphers = __webpack_require__(38)
-var compat = __webpack_require__(53)
+var compat = __webpack_require__(54)
 module.exports = parseKeys
 
 function parseKeys (buffer) {
@@ -7984,8 +7984,8 @@ function decrypt (data, password) {
 
 
 
-var punycode = __webpack_require__(88);
-var util = __webpack_require__(89);
+var punycode = __webpack_require__(89);
+var util = __webpack_require__(90);
 
 exports.parse = urlParse;
 exports.resolve = urlResolve;
@@ -8060,7 +8060,7 @@ var protocolPattern = /^([a-z0-9.+-]+:)/i,
       'gopher:': true,
       'file:': true
     },
-    querystring = __webpack_require__(90);
+    querystring = __webpack_require__(91);
 
 function urlParse(url, parseQueryString, slashesDenoteHost) {
   if (url && util.isObject(url) && url instanceof Url) return url;
@@ -9080,12 +9080,12 @@ util.inherits = __webpack_require__(1);
 
 /*<replacement>*/
 var internalUtil = {
-  deprecate: __webpack_require__(102)
+  deprecate: __webpack_require__(103)
 };
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(46);
+var Stream = __webpack_require__(47);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -9099,7 +9099,7 @@ function _isUint8Array(obj) {
 }
 /*</replacement>*/
 
-var destroyImpl = __webpack_require__(47);
+var destroyImpl = __webpack_require__(48);
 
 util.inherits(Writable, Stream);
 
@@ -9672,7 +9672,7 @@ Writable.prototype._destroy = function (err, cb) {
   this.end();
   cb(err);
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(100).setImmediate, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(101).setImmediate, __webpack_require__(5)))
 
 /***/ }),
 /* 34 */
@@ -9908,7 +9908,7 @@ function base64DetectIncompleteChar(buffer) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {
 var inherits = __webpack_require__(1)
-var HashBase = __webpack_require__(114)
+var HashBase = __webpack_require__(115)
 
 function RIPEMD160 () {
   HashBase.call(this, 64)
@@ -10232,10 +10232,10 @@ var inherits = __webpack_require__(1);
 
 inherits(Stream, EE);
 Stream.Readable = __webpack_require__(14);
-Stream.Writable = __webpack_require__(115);
-Stream.Duplex = __webpack_require__(116);
-Stream.Transform = __webpack_require__(117);
-Stream.PassThrough = __webpack_require__(118);
+Stream.Writable = __webpack_require__(116);
+Stream.Duplex = __webpack_require__(117);
+Stream.Transform = __webpack_require__(118);
+Stream.PassThrough = __webpack_require__(119);
 
 // Backwards-compat with node 0.4.x
 Stream.Stream = Stream;
@@ -10346,22 +10346,22 @@ var exports = module.exports = function SHA (algorithm) {
   return new Algorithm()
 }
 
-exports.sha = __webpack_require__(119)
-exports.sha1 = __webpack_require__(120)
-exports.sha224 = __webpack_require__(121)
-exports.sha256 = __webpack_require__(49)
-exports.sha384 = __webpack_require__(122)
-exports.sha512 = __webpack_require__(50)
+exports.sha = __webpack_require__(120)
+exports.sha1 = __webpack_require__(121)
+exports.sha224 = __webpack_require__(122)
+exports.sha256 = __webpack_require__(50)
+exports.sha384 = __webpack_require__(123)
+exports.sha512 = __webpack_require__(51)
 
 
 /***/ }),
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ciphers = __webpack_require__(127)
+var ciphers = __webpack_require__(128)
 exports.createCipher = exports.Cipher = ciphers.createCipher
 exports.createCipheriv = exports.Cipheriv = ciphers.createCipheriv
-var deciphers = __webpack_require__(129)
+var deciphers = __webpack_require__(130)
 exports.createDecipher = exports.Decipher = deciphers.createDecipher
 exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv
 var modes = __webpack_require__(27)
@@ -10378,11 +10378,11 @@ exports.listCiphers = exports.getCiphers = getCiphers
 "use strict";
 
 
-exports.utils = __webpack_require__(131);
-exports.Cipher = __webpack_require__(132);
-exports.DES = __webpack_require__(133);
-exports.CBC = __webpack_require__(134);
-exports.EDE = __webpack_require__(135);
+exports.utils = __webpack_require__(132);
+exports.Cipher = __webpack_require__(133);
+exports.DES = __webpack_require__(134);
+exports.CBC = __webpack_require__(135);
+exports.EDE = __webpack_require__(136);
 
 
 /***/ }),
@@ -10440,9 +10440,9 @@ var hash = exports;
 
 hash.utils = __webpack_require__(7);
 hash.common = __webpack_require__(19);
-hash.sha = __webpack_require__(150);
-hash.ripemd = __webpack_require__(154);
-hash.hmac = __webpack_require__(155);
+hash.sha = __webpack_require__(151);
+hash.ripemd = __webpack_require__(155);
+hash.hmac = __webpack_require__(156);
 
 // Proxy hash functions to the main object
 hash.sha1 = hash.sha.sha1;
@@ -10457,6 +10457,2428 @@ hash.ripemd160 = hash.ripemd.ripemd160;
 /* 42 */
 /***/ (function(module, exports) {
 
+var mcdatatableT = `
+    <div class="container grid-container">
+        <div class="row">
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-primary dropdown-toggle btn-customized" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.column}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right dropdown-menu-custom">
+                    <div v-for="(head, indexHead) in config.head" v-if="head.title !== 'id'" class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon input-columns-hidden">
+                                    <input type="checkbox" :checked="head.hidden ? 0 : 1" v-on:change="config.setVisible(head.hidden, head.title)">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group-addon span-columns-hidden">
+                                {{config.prettyTitle(indexHead)}}
+                            </div>
+                        </div>
+                    </div>
+                    <li class="text-center"><a href="#" v-on:click.prevent="config.resetColumns()" style="padding-left: 6px"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span> {{config.style.languageItems[config.style.language].handlers.columns.reset}}</a></li>
+                </ul>
+            </div>
+            <div v-if="config.shouldGroup()" class="btn-group pull-right">
+                <button type="button" class="btn btn-warning dropdown-toggle btn-customized" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.group}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right dropdown-menu-custom">
+                    <div v-for="(head, indexHead) in config.head" v-if="head.groupable" class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon input-columns-hidden">
+                                    <input type="radio" :checked="head._groupedBy ? 1 : 0" v-on:click="config.groupBy(head.title)">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group-addon span-columns-hidden">
+                                {{config.prettyTitle(indexHead)}}
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div v-if="config.handlers.add.active" class="btn-group pull-left">
+                <template v-if="config.handlers.add.type === 'inline'">
+                    <button type="button" v-on:click="config.initAdd()" class="btn btn-success btn-customized" :class="[config.handlers.add.active ? '' : 'disabled']">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.add}}
+                    </button>
+                </template>
+                <template v-else-if="typeof config.handlers.add === 'object' && config.handlers.add.type === 'modal'">
+                    <button type="button" class="btn-circle btn btn-success btn-customized" :class="[config.handlers.add.active ? '' : 'disabled']" data-toggle="modal" :data-target="'#' + config.id + '-addModal'">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.add}}
+                    </button>
+                    <div class="modal fade" :id="config.id+ '-addModal'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header modal-header-custom">
+                                    <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                                </div>
+                                <div class="modal-body modal-body-custom">
+                                    <template v-for="(head, indexHead) in config.head" v-if="head.title !== 'id'">
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <span><b>{{config.prettyTitle(indexHead)}}:</b></span>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                                    <select v-if="head.input.type === 'select'" v-model="head._dataAdd.value" class="grid-input grid-select form-control">
+                                                        <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                                    </select>
+                                                    <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="number">
+                                                    <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="email">
+                                                    <input v-else v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text">
+                                                </template>
+                                                <template v-else>
+                                                    <input v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text">
+                                                </template>
+                                            </div>
+                                        </div>
+                                        <div style="height: 10px;"></div>
+                                    </template>
+                                </div>
+                                <div class="modal-footer modal-footer-custom">
+                                    <button :id="config.id+ '-closeAddModal'" type="button" v-on:click="config.cancelAdd()" class="btn btn-default btn-customized" data-dismiss="modal">{{config.style.languageItems[config.style.language].handlers.cancel}}</button>
+                                    <button type="button" v-on:click="config.addRow()" class="btn btn-primary btn-customized">{{config.style.languageItems[config.style.language].handlers.accept}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <div v-if="typeof config.style.pagination === 'object' && typeof config.style.pagination.rowPerPage === 'number' && config.style.pagination.rowPerPage > 0" class="btn-group pull-left">
+                <button type="button" class="btn btn-warning dropdown-toggle btn-customized" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.selectPagination}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon input-columns-hidden">
+                                    <input type="radio" :checked="config.style.pagination.rowPerPage === 25" v-on:click="config.updatePageRows(25)">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group-addon span-columns-hidden">
+                                25
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon input-columns-hidden">
+                                    <input type="radio" :checked="config.style.pagination.rowPerPage === 50" v-on:click="config.updatePageRows(50)">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group-addon span-columns-hidden">
+                                50
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon input-columns-hidden">
+                                    <input type="radio" :checked="config.style.pagination.rowPerPage === 75" v-on:click="config.updatePageRows(75)">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group-addon span-columns-hidden">
+                                75
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon input-columns-hidden">
+                                    <input type="radio" :checked="config.style.pagination.rowPerPage === 100" v-on:click="config.updatePageRows(100)">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group-addon span-columns-hidden">
+                                100
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div :class="[ config.style.responsive ? 'table-responsive' : '' ]" style="min-height: 300px;">
+                <table :class="[ config.style.general ? config.style.general.join(' ') : '' ]">
+                    <thead :class="[ config.style.head ? config.style.head.join(' ') : '' ]">
+                        <tr>
+                            <template v-for="(head, indexHead) in config.head">
+                                <th v-if="!head.hidden" :id="head.title" class="no-padding table-width" :draggable="config.style.draggable" @dragstart="config.initSortColumns">
+                                    <div class="btn-group full-large-group inline">
+                                        <template v-if="head.orderable">
+                                            <div class="btn" @dragover.prevent @drop="config.sortColumns" v-on:click.prevent="config.sortList(head._order === 'asc' ? 'desc' : 'asc', head.title, false)">
+                                                <span v-if="head._order === 'desc'" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                                <span v-if="head._order === 'asc'" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                                <b :id="head.title">{{ config.prettyTitle(indexHead) }}</b>
+                                            </div>
+                                        </template>
+                                        <template v-else>
+                                            <div class="btn" @dragover.prevent @drop="config.sortColumns">
+                                                <span v-if="head._order === 'desc'" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                                <span v-if="head._order === 'asc'" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                                <b :id="head.title">{{ config.prettyTitle(indexHead) }}</b>
+                                            </div>
+                                        </template>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="caret"></span>
+                                        </button>
+                                        
+                                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                            <li :class="[(head.orderable) ? '' : 'disabled not-active']"><a href="#" v-on:click.prevent="config.sortList('asc', head.title, false)" style="padding-left: 6px"><span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span> {{config.style.languageItems[config.style.language].handlers.columns.asc}}</a></li>
+                                            <li :class="[(head.orderable) ? '' : 'disabled not-active']"><a href="#" v-on:click.prevent="config.sortList('desc', head.title, false)" style="padding-left: 6px"><span class="glyphicon glyphicon-sort-by-alphabet-alt" aria-hidden="true"></span> {{config.style.languageItems[config.style.language].handlers.columns.desc}}</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li :class="[(head.searchable.active) ? 'dropdown-submenu' : 'dropdown-submenu disabled not-active']">
+                                                <a tabindex="-1" href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> {{config.style.languageItems[config.style.language].handlers.columns.search}}</a>
+                                                <ul v-if="head.searchable.active" class="dropdown-menu">
+                                                    <li v-if="head.searchable.type === 'filter'">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon" id="searchGrid"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                                                            <input type="text" class="form-control" :value="head._searchData" :placeholder="config.style.languageItems[config.style.language].handlers.columns.filter" aria-describedby="searchGrid" v-on:keyup="config.search($event.target.value, head.title)">
+                                                        </div>
+                                                    </li>
+                                                    <li v-if="head.searchable.type === 'status'">
+                                                        <div v-for="status in head._searchStatusValues" class="row">
+                                                            <div class="col-sm-3">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon input-columns-hidden">
+                                                                        <input type="radio" :checked="status === head._searchData ? 1 : 0" v-on:click="config.search(status === head._searchData ? '' : status, head.title)">
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-9">
+                                                                <div class="input-group-addon span-columns-hidden">
+                                                                    {{status}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                  <!--<li><a tabindex="-1" href="#">Second level</a></li>
+                                                    <li class="dropdown-submenu">
+                                                        <a href="#">Even More..</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="#">3rd level</a></li>
+                                                            <li><a href="#">3rd level</a></li>
+                                                        </ul>
+                                                    </li>-->
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </th>
+                            </template>
+                            <th :colspan="config.existsCustomHandlers ? 2 : 1" class="no-padding table-width" :class="config.existsCustomHandlers ? 'grid-handler-title-container-custom' : 'grid-handler-title-container'">
+                                <div class="btn-group full-large-group inline">
+                                    <div class="btn grid-handler-title">
+                                        <b>{{config.style.languageItems[config.style.language].handlers.title}}</b>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <template v-if="config.body.length > 0 && !config.body[0]._ofuscate">
+                        <tbody :class="[ config.style.body ? config.style.body.join(' ') : '' ]">
+                            <template v-if="typeof config.dataGrouping === 'object' && config.dataGrouping.isGrouped">
+                                <tr v-if="config.adding">
+                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
+                                        <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                            <select v-if="head.input.type === 'select'" v-model="head._dataAdd.value" class="grid-input grid-select form-control">
+                                                <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                            </select>
+                                            <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="number">
+                                            <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="email">
+                                            <input v-else v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text">
+                                        </template>
+                                        <template v-else>
+                                            <input v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text">
+                                        </template>
+                                    </td>
+                                    <td class="col-md-1 text-center">
+                                        <a href="#" v-on:click.prevent="config.addRow()" class="alert alert-success grid-handlers" :title="config.style.languageItems[config.style.language].handlers.accept">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                        </a>
+                                        <a href="#" v-on:click.prevent="config.cancelAdd()" class="alert alert-warning grid-handlers" :title="config.style.languageItems[config.style.language].handlers.cancel">
+                                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <template v-for="(groupBy, indexHead2) in config.head" v-if="groupBy._groupedBy">
+                                    <template v-for="(dataGrouping, index) in config.dataGrouping.state">
+                                        <tr>
+                                            <td :colspan="config.groupColSpan() + 1" class="col-md-1">
+                                                <a href="#" v-on:click.prevent="config.changeGroupVisibility(index, indexHead2)" class="alert alert-info grid-handlers" :title="[dataGrouping[1] ? config.style.languageItems[config.style.language].handlers.group.show : config.style.languageItems[config.style.language].handlers.group.hide]">
+                                                    <span :class="[dataGrouping[1] ? 'glyphicon glyphicon-plus' : 'glyphicon glyphicon-minus']" aria-hidden="true"></span>
+                                                </a>
+                                                <b>{{ dataGrouping[0] }}</b>
+                                            </td>
+                                        </tr>
+                                        <tr v-for="(data, semiIndex) in config.body" v-if="!data._hidden && !data._ofuscate" :class="[ typeof config.style.row === 'object' && config.style.row.active === true && typeof config.style.row.styleClass === 'object' ? config.style.row.styleClass.join(' ') : '', config.highlightHandlers && data._highlight ? config.style.highlight.styleClass.join(' ') : '' ]">
+                                            <template v-if="typeof groupBy.input === 'object' && groupBy.input.type === 'select'">
+                                                <template v-if="config.getSelectData(semiIndex, indexHead2) === dataGrouping[0]">
+                                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
+                                                        <template v-if="config.handlers.edit.type === 'inline' && data._editing && head.editable">
+                                                            <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                                                <select v-if="head.input.type === 'select'" v-model="data[head.title]" class="grid-input grid-select form-control">
+                                                                    <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                                                </select>
+                                                                <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
+                                                                <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
+                                                                <input v-else v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                                            </template>
+                                                            <template v-else>
+                                                                <input v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                                            </template>
+                                                        </template>
+                                                        <template v-else-if="config.existsFullHandler()[0]">
+                                                            <a href="#" v-on:click.prevent="config.customHandlers[config.existsFullHandler()[1]].handler(data); config.highlightRow(semiIndex, config.existsFullHandler()[1])" :class="typeof config.customHandlers[config.existsFullHandler()[1]].anchorCellClass === 'object' ? config.customHandlers[config.existsFullHandler()[1]].anchorCellClass.join(' ') : ''">
+                                                                <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                                    {{ config.getSelectData(semiIndex, indexHead) }}
+                                                                </template>
+                                                                <template v-else>
+                                                                    {{ data[head.title] }}
+                                                                </template>
+                                                            </a>
+                                                        </template>
+                                                        <template v-else>
+                                                            <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                                {{ config.getSelectData(semiIndex, indexHead) }}
+                                                            </template>
+                                                            <template v-else>
+                                                                {{ data[head.title] }}
+                                                            </template>
+                                                        </template>
+                                                    </td>
+                                                    <td class="col-md-1 text-center">
+                                                        <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
+                                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                        </a>
+                                                        <template v-if="config.handlers.edit.active">
+                                                            <template v-if="config.handlers.edit.type === 'inline'">
+                                                                <template v-if="!data._editing">
+                                                                    <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
+                                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </template>
+                                                                <template v-else>
+                                                                    <a href="#" v-on:click.prevent="config.finishEdit(data, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-warning grid-handlers' : 'alert alert-warning grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.accept">
+                                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </template>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.edit.type === 'modal'">
+                                                                <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
+                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                        </template>
+                                                        <a v-if="config.handlers.remove.active" href="#" v-on:click.prevent="config.confirmRemove(data, semiIndex)" :class="[config.handlers.remove.active ? 'alert alert-danger grid-handlers' : 'alert alert-danger grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.remove">
+                                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                        </a>
+                                                    </td>
+                                                </template>
+                                            </template>
+                                            <template v-else>
+                                                <template v-if="data[groupBy.title] === dataGrouping[0]">
+                                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
+                                                        <template v-if="config.handlers.edit.type === 'inline' && data._editing && head.editable">
+                                                            <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                                                <select v-if="head.input.type === 'select'" v-model="data[head.title]" class="grid-input grid-select form-control">
+                                                                    <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                                                </select>
+                                                                <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
+                                                                <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
+                                                                <input v-else v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                                            </template>
+                                                            <template v-else>
+                                                                <input v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                                            </template>
+                                                        </template>
+                                                        <template v-else-if="config.existsFullHandler()[0]">
+                                                            <a href="#" v-on:click.prevent="config.customHandlers[config.existsFullHandler()[1]].handler(data); config.highlightRow(semiIndex, config.existsFullHandler()[1])" :class="[typeof config.customHandlers[config.existsFullHandler()[1]].anchorCellClass === 'object' ? config.customHandlers[config.existsFullHandler()[1]].anchorCellClass.join(' ') : '']">
+                                                                <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                                    {{ config.getSelectData(semiIndex, indexHead) }}
+                                                                </template>
+                                                                <template v-else>
+                                                                    {{ data[head.title] }}
+                                                                </template>
+                                                            </a>
+                                                        </template>
+                                                        <template v-else>
+                                                            <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                                {{ config.getSelectData(semiIndex, indexHead) }}
+                                                            </template>
+                                                            <template v-else>
+                                                                {{ data[head.title] }}
+                                                            </template>
+                                                        </template>
+                                                    </td>
+                                                    <td class="col-md-1 text-center">
+                                                        <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
+                                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                        </a>
+                                                        <template v-if="config.handlers.edit.active">
+                                                            <template v-if="config.handlers.edit.type === 'inline'">
+                                                                <template v-if="!data._editing">
+                                                                    <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
+                                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </template>
+                                                                <template v-else>
+                                                                    <a href="#" v-on:click.prevent="config.finishEdit(data, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-warning grid-handlers' : 'alert alert-warning grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.accept">
+                                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </template>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.edit.type === 'modal'">
+                                                                <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
+                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                        </template>
+                                                        <a v-if="config.handlers.remove.active" href="#" v-on:click.prevent="config.confirmRemove(data, semiIndex)" :class="[config.handlers.remove.active ? 'alert alert-danger grid-handlers' : 'alert alert-danger grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.remove">
+                                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                        </a>
+                                                    </td>
+                                                    <td v-if="config.existsCustomHandlers" class="col-md-1 text-center">
+                                                        <a v-for="(customH, customIndex) in config.customHandlers" href="#" v-on:click.prevent="customH.handler(data); config.highlightRow(semiIndex, customIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="customH.title">
+                                                            <span :class="['glyphicon', customH.glyphiconClass]" aria-hidden="true"></span>
+                                                        </a>
+                                                    </td>
+                                                </template>
+                                            </template>
+                                        </tr>
+                                    </template>
+                                </template>
+                            </template>
+                            <template v-else>
+                                <tr v-if="config.adding">
+                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
+                                        <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                            <select v-if="head.input.type === 'select'" v-model="head._dataAdd.value" class="grid-input grid-select form-control">
+                                                <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                            </select>
+                                            <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="{ 'grid-input-unvalidated': config.head[indexHead]._dataAdd.validation }" class="grid-input form-control" type="number">
+                                            <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="{ 'grid-input-unvalidated': config.head[indexHead]._dataAdd.validation }" class="grid-input form-control" type="email">
+                                            <input v-else v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="{ 'grid-input-unvalidated': config.head[indexHead]._dataAdd.validation }" class="grid-input form-control" type="text">
+                                        </template>
+                                        <template v-else>
+                                            <input v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="{ 'grid-input-unvalidated': config.head[indexHead]._dataAdd.validation }" class="grid-input form-control" type="text">
+                                        </template>
+                                    </td>
+                                    <td class="col-md-1 text-center">
+                                        <a href="#" v-on:click.prevent="config.addRow()" class="alert alert-success grid-handlers" :title="config.style.languageItems[config.style.language].handlers.accept">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                        </a>
+                                        <a href="#" v-on:click.prevent="config.cancelAdd()" class="alert alert-warning grid-handlers" :title="config.style.languageItems[config.style.language].handlers.cancel">
+                                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr v-for="(data, index) in config.body" v-if="!data._hidden && !data._ofuscate" :class="[ typeof config.style.row === 'object' && config.style.row.active === true && typeof config.style.row.styleClass === 'object' ? config.style.row.styleClass.join(' ') : '', config.highlightHandlers && data._highlight ? config.style.highlight.styleClass.join(' ') : '' ]">
+                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
+                                        <template v-if="config.handlers.edit.type === 'inline' && data._editing && head.editable">
+                                            <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                                <select v-if="head.input.type === 'select'" v-model="data[head.title]" class="grid-input grid-select form-control">
+                                                    <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                                </select>
+                                                <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(index, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
+                                                <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(index, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
+                                                <input v-else v-on:keyup="config.reValidateEdit(index, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                            </template>
+                                            <template v-else>
+                                                <input v-on:keyup="config.reValidateEdit(index, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                            </template>
+                                        </template>
+                                        <template v-else-if="config.existsFullHandler()[0]">
+                                            <a href="#" v-on:click.prevent="config.customHandlers[config.existsFullHandler()[1]].handler(data); config.highlightRow(index, config.existsFullHandler()[1])" :class="[typeof config.customHandlers[config.existsFullHandler()[1]].anchorCellClass === 'object' ? config.customHandlers[config.existsFullHandler()[1]].anchorCellClass.join(' ') : '']">
+                                                <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                    {{ config.getSelectData(index, indexHead) }}
+                                                </template>
+                                                <template v-else>
+                                                    {{ data[head.title] }}
+                                                </template>
+                                            </a>
+                                        </template>
+                                        <template v-else>
+                                            <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                {{ config.getSelectData(index, indexHead) }}
+                                            </template>
+                                            <template v-else>
+                                                {{ data[head.title] }}
+                                            </template>
+                                        </template>
+                                    </td>
+                                    <td class="col-md-1 text-center">
+                                        <a href="#" v-on:click.prevent="config.watchRow(index)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
+                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                        </a>
+                                        <template v-if="config.handlers.edit.active">
+                                            <template v-if="config.handlers.edit.type === 'inline'">
+                                                <template v-if="!data._editing">
+                                                    <a href="#" v-on:click.prevent="config.initEdit(index)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
+                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                    </a>
+                                                </template>
+                                                <template v-else>
+                                                    <a href="#" v-on:click.prevent="config.finishEdit(data, index)" :class="[config.handlers.edit.active ? 'alert alert-warning grid-handlers' : 'alert alert-warning grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.accept">
+                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                    </a>
+                                                </template>
+                                            </template>
+                                            <template v-else-if="config.handlers.edit.type === 'modal'">
+                                                <a href="#" v-on:click.prevent="config.initEdit(index)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                </a>
+                                            </template>
+                                            <template v-else-if="config.handlers.edit.type === 'template'">
+                                                <a href="#" v-on:click.prevent="config.templateEdit(data.id, index)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                </a>
+                                            </template>
+                                        </template>
+                                        <a v-if="config.handlers.remove.active" href="#" v-on:click.prevent="config.confirmRemove(data, index)" :class="[config.handlers.remove.active ? 'alert alert-danger grid-handlers' : 'alert alert-danger grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.remove">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                    <td v-if="config.existsCustomHandlers" class="col-md-1 text-center">
+                                        <a v-for="(customH, customIndex) in config.customHandlers" href="#" v-on:click.prevent="customH.handler(data); config.highlightRow(index, customIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="customH.title">
+                                            <span :class="['glyphicon', customH.glyphiconClass]" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </template>
+                </table>
+                <template v-if="(config.body.length === 1 && config.body[0]._ofuscate === true) || config.body.length === 0">
+                    <p class="text-center">
+                        <i>Actualmente no existen registros para mostrar.</i>
+                    </p>
+                </template>
+                <template v-if="typeof config.handlers.edit === 'object' && config.handlers.edit.type === 'modal'">
+                    <div class="modal fade" :id="config.id+ '-editModal'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header modal-header-custom">
+                                    <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                                </div>
+                                <div class="modal-body modal-body-custom">
+                                    <template v-for="(head, indexHead) in config.head" v-if="head.title !== 'id'">
+                                        <div class="row" v-if="head.editable">
+                                            <div class="col-sm-5">
+                                                <span><b>{{config.prettyTitle(indexHead)}}:</b></span>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                                    <select v-if="head.input.type === 'select'" v-model="config.editingBody[head.title]" class="grid-input grid-select form-control">
+                                                        <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                                    </select>
+                                                    <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
+                                                    <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
+                                                    <input v-else v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                                </template>
+                                                <template v-else>
+                                                    <input v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                                </template>
+                                            </div>
+                                        </div>
+                                        <div style="height: 10px;"></div>
+                                    </template>
+                                </div>
+                                <div class="modal-footer modal-footer-custom">
+                                    <button :id="config.id+ '-closeEditModal'" type="button" class="btn btn-default btn-customized" data-dismiss="modal">{{config.style.languageItems[config.style.language].handlers.cancel}}</button>
+                                    <button type="button" v-on:click="config.finishEdit(null, null)" class="btn btn-primary btn-customized">{{config.style.languageItems[config.style.language].handlers.accept}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <div class="modal fade" :id="config.id+ '-watchModal'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header modal-header-custom">
+                                <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                            </div>
+                            <div class="modal-body modal-body-custom">
+                                <template v-for="(head, indexHead) in config.head" v-if="head.title !== 'id'">
+                                    <div class="row" v-if="head.title !== 'id'">
+                                        <div class="col-sm-6">
+                                            <span><b>{{config.prettyTitle(indexHead)}}:</b></span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                {{ config.getSelectData(config.watchBody.actualIndex, indexHead) }}
+                                            </template>
+                                            <template v-else>
+                                                {{ config.watchBody[head.title] }}
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div style="height: 10px;"></div>
+                                </template>
+                            </div>
+                            <div class="modal-footer modal-footer-custom">
+                                <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">{{config.style.languageItems[config.style.language].alert.ok}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="typeof config.style.pagination === 'object' && typeof config.style.pagination.rowPerPage === 'number' && config.style.pagination.rowPerPage > 0" class="row">
+            <nav v-if="typeof config.webService === 'object' && typeof config.webService.model === 'object' && config.webService.active" class="pull-right">
+                <ul class="pagination">
+                    <li>
+                        <span><b>{{ config.style.languageItems[config.style.language].pagination.information[0] + config.recordsPagination(0) + config.style.languageItems[config.style.language].pagination.information[1] + config.style.pagination.totalRowCount + config.style.languageItems[config.style.language].pagination.information[2] + config.recordsPagination(2) + config.style.languageItems[config.style.language].pagination.information[3] + config.recordsPagination(3) }}.</b></span>
+                    </li>
+                    <li :class="[ config.dataPagination[0][0] ? 'disabled not-active' : '' ]">
+                        <a href="#" v-on:click.prevent="config.updatePages(1, true)" :title="config.style.languageItems[config.style.language].handlers.first">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <span v-if="config.dataPagination.length > 7 && config.notAllPages(true)" aria-hidden="true">...</span>
+                    </li>
+                    <li v-for="data in config.dataPagination" v-if="data[0] !== null" :class="[ data[0] ? 'active' : '' ]"><a href="#" v-on:click.prevent="config.updatePages(data[1], true)">{{data[1]}}</a></li>
+                    <li>
+                        <span v-if="config.dataPagination.length > 7 && config.notAllPages(false)" aria-hidden="true">...</span>
+                    </li>
+                    <li :class="[ config.dataPagination[config.dataPagination.length - 1][0] ? 'disabled not-active' : '' ]">
+                        <a href="#" v-on:click.prevent="config.updatePages(config.dataPagination.length, true)" :title="config.style.languageItems[config.style.language].handlers.last">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <nav v-else class="pull-right">
+                <ul class="pagination">
+                    <li>
+                        <span><b>{{ config.style.languageItems[config.style.language].pagination.information[0] + config.recordsPagination(0) + config.style.languageItems[config.style.language].pagination.information[1] + config.recordsPagination(1) + config.style.languageItems[config.style.language].pagination.information[2] + config.recordsPagination(2) + config.style.languageItems[config.style.language].pagination.information[3] + config.recordsPagination(3) }}.</b></span>
+                    </li>
+                    <li :class="[ config.dataPagination[0][0] ? 'disabled not-active' : '' ]">
+                        <a href="#" v-on:click.prevent="config.updatePages(1)" :title="config.style.languageItems[config.style.language].handlers.first">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <span v-if="config.dataPagination.length > 7 && config.notAllPages(true)" aria-hidden="true">...</span>
+                    </li>
+                    <li v-for="data in config.dataPagination" v-if="data[0] !== null" :class="[ data[0] ? 'active' : '' ]"><a href="#" v-on:click.prevent="config.updatePages(data[1])">{{data[1]}}</a></li>
+                    <li>
+                        <span v-if="config.dataPagination.length > 7 && config.notAllPages(false)" aria-hidden="true">...</span>
+                    </li>
+                    <li :class="[ config.dataPagination[config.dataPagination.length - 1][0] ? 'disabled not-active' : '' ]">
+                        <a href="#" v-on:click.prevent="config.updatePages(config.dataPagination.length)" :title="config.style.languageItems[config.style.language].handlers.last">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+`;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//config in head:
+//    orderable (true || false)
+//    searchable ->type (filter, status)
+//                -> active (true || false)
+//    editable (true || false)
+//    hidden (true || false)
+//    groupable (true || false)
+//    input -> type (email, text, number, select (true || false) <-> options : Object-> (value, text) <-> model : Object-> (source, value, text)))
+//          -> required (true || false)
+
+//config in style:
+//    noText (true || false) To hide or show texts of main buttons
+//    general (array of styles)
+//    head (array of styles)
+//    body (array of styles)
+//    row -> active (true || false)
+//        -> styleClass (array of styles)
+//    highlight -> active (true || false)
+//        -> styleClass (array of styles)
+//    responsive (true || false)
+//    pagination -> rowPerPage (>0)
+//    draggable (true || false)
+//    language: 'spa' || 'eng'
+
+//config in handlers:
+//    add -> type (modal, inline, template)
+//        -> active (true || false)
+//    edit -> type (modal, inline, template)
+//         -> active (true || false)
+//         -> highlight (true || false) -> To highlight row selected
+//    remove -> active (true || false)
+//config in customHandlers: This must be an Array of Objects, each object has:
+//    active (true || false)
+//    title (string)
+//    glyphiconClass (string of glyphicon class, not general, just specific icon)
+//    fullHandler (true || false) -> To know what handler will be fired by all the row
+//    highlight (true || false) -> To highlight row selected
+//    anchorCellClass -> (array of styles for anchor of customHandler)
+//    handler (function) -> return data of clicked row
+// config root, callbacks:
+//    beforeEdit (function) -> called before edit
+//    beforeAdd (function) -> called before add
+//    beforeRemove (function) -> called before remove, return data confirm message and success function to run onAccept of confirm
+//    onEdit (function) -> return data of edited row
+//    onAdd (function) -> return data of new row
+//    onRemove (function) -> return data of removed row
+//    onDragEnd (function) -> return head columns with order updated
+//    onChangeColumns (function) -> return hidden status of columns
+//    setVisibilityColumns (function) -> Send array of booleans with equal length of grid columns (TRUE hide, FALSE show)
+//    setSortColumns (function) -> Send object of columns names equal to positions
+
+//WebService methods
+//    editDelimiters (function) -> alter delimiters table within a sended value
+//    updatePagination (function) -> update mcdatatable values
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+var mcdatatable = function(configuration){
+    if(typeof configuration === "object" &&
+       typeof configuration.head === "object" && configuration.head.length > 0 &&
+       ((typeof configuration.body === "object" && configuration.body.length > 0) ||
+        (typeof configuration.webService === "object" && typeof configuration.webService.model === "object" && configuration.webService.active)) &&
+       typeof configuration.style === "object"){
+        
+        var bodySqueleton = {};
+            bodySqueleton._editing = false;
+            bodySqueleton._hidden = false;
+            bodySqueleton._highlight = false;
+            bodySqueleton._ofuscate = true;
+        var bodyEditingSqueleton = {};
+            bodyEditingSqueleton._editing = false;
+            bodyEditingSqueleton._hidden = false;
+            bodyEditingSqueleton._highlight = false;
+            bodyEditingSqueleton._ofuscate = true;
+        var bodyWatchSqueleton = {};
+        configuration.initHeadStatus = [];
+        for(var indexHead in configuration.head){
+            if(typeof configuration.head[indexHead].input === "object" &&
+               typeof configuration.head[indexHead].input.type === "string" &&
+               configuration.head[indexHead].input.type === "number"){
+                bodySqueleton[configuration.head[indexHead].title] = 0;
+                bodyEditingSqueleton[configuration.head[indexHead].title] = 0;
+                bodyWatchSqueleton[configuration.head[indexHead].title] = 0;
+            }
+            else{
+                bodySqueleton[configuration.head[indexHead].title] = "";
+                bodyEditingSqueleton[configuration.head[indexHead].title] = "";
+                bodyWatchSqueleton[configuration.head[indexHead].title] = "";
+            }
+            if(configuration.head[indexHead].editable){
+                bodySqueleton['_unvalidated-'+indexHead] = false;
+                bodyEditingSqueleton['_unvalidated-'+indexHead] = false;
+            }
+            
+            if(typeof configuration.head[indexHead].input === "object" &&
+               typeof configuration.head[indexHead].input.type === "string" &&
+               configuration.head[indexHead].input.type === "select" &&
+               typeof configuration.head[indexHead].input.model === "object")
+                configuration.head[indexHead].input.options = [{value: null, text: null}];
+            
+            configuration.initHeadStatus[configuration.head[indexHead].title] = configuration.head[indexHead].hidden === true ? configuration.head[indexHead].hidden : false;
+        }
+        configuration.watchBody = bodyWatchSqueleton;
+        configuration.watchBody.actualIndex = 0;
+        if(typeof configuration.webService === "object" &&
+        typeof configuration.webService.model === "object" &&
+        configuration.webService.active){
+            configuration.body = [];
+            configuration.body.push(bodySqueleton);
+            
+            if(!(typeof configuration.style.pagination === 'object' &&
+            typeof configuration.style.pagination.rowPerPage === 'number' &&
+             configuration.style.pagination.rowPerPage > 0))
+                configuration.style.pagination = {
+                    currentPage: 1,
+                    pageCount: 1,
+                    rowPerPage: 10,
+                    totalRowCount: 1
+                };
+            else{
+                configuration.style.pagination.currentPage = 1;
+                configuration.style.pagination.pageCount = 1;
+                configuration.style.pagination.totalRowCount = 1;
+            }
+        }
+        
+        var groupable = false,
+            editable = false;
+        var beforeEdit = null,
+            beforeAdd = null,
+            beforeRemove = null,
+            templateEdit = null,
+            onEdit = null,
+            onAdd = null,
+            onRemove = null,
+            onDragEnd = null,
+            onChangeColumns = null;
+        if(typeof configuration.style.draggable === "undefined" ||
+           configuration.style.draggable !== true)
+            configuration.style.draggable = false;
+        if(configuration.style.draggable)
+            configuration.dataDragged = null;
+        if(configuration.style.draggable && typeof configuration.onDragEnd === "function")
+            onDragEnd = configuration.onDragEnd;
+        else
+            onDragEnd = function(){};
+        if(typeof configuration.onChangeColumns === "function")
+            onChangeColumns = configuration.onChangeColumns;
+        else
+            onChangeColumns = function(){};
+        if(typeof configuration.handlers === "undefined" || typeof configuration.handlers !== "object")
+            configuration.handlers = {
+                add: {active: false, type: "inline"},
+                edit: {active: false, type: "inline"},
+                remove: {active: false, type: "inline"}
+            };
+        else if(typeof configuration.handlers === "object"){
+            if(typeof configuration.handlers.add === "undefined" || configuration.handlers.add.active !== true)
+                configuration.handlers.add = {active: false, type: "inline"};
+            if(typeof configuration.handlers.add.type === "undefined" || (configuration.handlers.add.type !== "inline" &&
+               configuration.handlers.add.type !== "template" && configuration.handlers.add.type !== "modal"))
+                configuration.handlers.add.type = "inline";
+            if(typeof configuration.handlers.edit === "undefined" || configuration.handlers.edit.active !== true)
+                configuration.handlers.edit = {active: false, type: "inline"};
+            if(typeof configuration.handlers.edit.type === "undefined" || (configuration.handlers.edit.type !== "inline" &&
+               configuration.handlers.edit.type !== "template" && configuration.handlers.edit.type !== "modal"))
+                configuration.handlers.edit.type = "inline";
+            if(typeof configuration.handlers.remove === "undefined" || configuration.handlers.remove.active !== true)
+                configuration.handlers.remove = {active: false};
+        }
+        for(var index in configuration.head){
+            if(typeof configuration.head[index].orderable === "undefined")
+                configuration.head[index].orderable = false;
+            if(typeof configuration.head[index].searchable === "undefined" ||
+               configuration.head[index].searchable.active !== true)
+                configuration.head[index].searchable = {
+                    active: false
+                };
+            else if(configuration.head[index].searchable.active === true &&
+                    (configuration.head[index].searchable.type !== "filter" && configuration.head[index].searchable.type !== "status"))
+                configuration.head[index].searchable.type = "filter";
+            if(configuration.head[index].searchable.active === true)
+                configuration.head[index]._searchData = "";
+            if(configuration.head[index].searchable.type === "status")
+                configuration.head[index]._searchStatusValues = [];
+            if(typeof configuration.head[index].groupable === "undefined")
+                configuration.head[index].groupable = false;
+            if(configuration.head[index].groupable === true){
+                configuration.head[index]._groupedBy = false;
+                groupable = true;
+            }
+            if(typeof configuration.handlers.edit === "undefined" || configuration.handlers.edit.active !== true ||
+               configuration.head[index].editable !== true)
+                configuration.head[index].editable = false;
+                
+            if(typeof configuration.head[index].hidden === "undefined")
+                configuration.head[index].hidden = false;
+            configuration.head[index]._order = null;
+            if(configuration.style.draggable)
+                configuration.head[index]._position = parseInt(index);
+        }
+        for(index in configuration.head)
+            if(configuration.head[index].editable)
+                editable = true;
+        configuration.handlers.edit.active = editable;
+        if(configuration.handlers.edit.type === "modal"){
+            configuration.editingBody = bodyEditingSqueleton;
+            configuration.editingBody.actualIndex = 0;
+        }
+        if(configuration.handlers.edit.active && typeof configuration.beforeEdit === "function")
+            beforeEdit = configuration.beforeEdit;
+        else
+            beforeEdit = function(){}; 
+        if(configuration.handlers.edit.active && typeof configuration.templateEdit === "function")
+            templateEdit = configuration.templateEdit;
+        else
+            templateEdit = function(){}; 
+        if(configuration.handlers.edit.active && typeof configuration.onEdit === "function")
+            onEdit = configuration.onEdit;
+        else
+            onEdit = function(){};
+        if(configuration.handlers.add.active && typeof configuration.beforeAdd === "function")
+            beforeAdd = configuration.beforeAdd;
+        else
+            beforeAdd = function(){};
+        if(configuration.handlers.add.active && typeof configuration.onAdd === "function")
+            onAdd = configuration.onAdd;
+        else
+            onAdd = function(){};
+        if(configuration.handlers.add.active){
+            configuration.adding = false;
+            for(index in configuration.head)
+                configuration.head[index]._dataAdd = {
+                    value: "",
+                    validation: false
+                };
+        }
+        if(configuration.handlers.remove.active && typeof configuration.beforeRemove === "function")
+            beforeRemove = configuration.beforeRemove;
+        else
+            beforeRemove = function(){};
+        if(configuration.handlers.remove.active && typeof configuration.onRemove === "function")
+            onRemove = configuration.onRemove;
+        else
+            onRemove = function(){};
+        delete configuration.beforeAdd;
+        delete configuration.beforeRemove;
+        delete configuration.beforeEdit;
+        delete configuration.templateEdit;
+        delete configuration.onEdit;
+        delete configuration.onAdd;
+        delete configuration.onRemove;
+        delete configuration.onDragEnd;
+        delete configuration.onChangeColumns;
+        
+        configuration.existsCustomHandlers = false;
+        configuration.highlightHandlers = false;
+        if(typeof configuration.customHandlers === "object" &&
+           configuration.customHandlers.length > 0)
+            for(index in configuration.customHandlers){
+                if(configuration.customHandlers[index].active)
+                    configuration.existsCustomHandlers = true;
+                if(typeof configuration.style.highlight === "object" &&
+                   typeof configuration.style.highlight.styleClass === "object" &&
+                   configuration.style.highlight.active === true)
+                    configuration.highlightHandlers = true;
+            }
+        
+        for(index in configuration.body){
+            configuration.body[index]._hidden = false;
+            if(configuration.handlers.edit.active)
+                configuration.body[index]._editing = false;
+            if(configuration.highlightHandlers)
+                configuration.body[index]._highlight = false;
+        }
+        for(indexHead in configuration.head)
+            if(configuration.head[indexHead].editable)
+                for(index in configuration.body)
+                    configuration.body[index]['_unvalidated-'+indexHead] = false;
+        
+        if(typeof configuration.style.pagination === 'object' &&
+           typeof configuration.style.pagination.rowPerPage === 'number' &&
+            configuration.style.pagination.rowPerPage > 0){
+            if(typeof configuration.webService === "object" &&
+            typeof configuration.webService.model === "object" &&
+            configuration.webService.active){
+                var b = 1;
+                configuration.dataPagination = [];
+                for(var index in configuration.body)
+                    configuration.dataPagination.push([(b === 1), b++]);
+            }
+            else{
+                var a = 1;
+                configuration.dataPagination = [];
+                for(var index in configuration.body)
+                    if(index % configuration.style.pagination.rowPerPage === 0)
+                        configuration.dataPagination.push([(a === 1), a++]);
+                
+                if(groupable)   //We need a temp for pagination
+                    configuration.tempPagination = {
+                        style: configuration.style.pagination,
+                        data: configuration.dataPagination
+                    };
+            }
+        }
+        if(groupable)   //We need a temp for pagination
+            configuration.dataGrouping = {
+                isGrouped : false,
+                state: []
+            };
+        if(typeof configuration.style.language !== "undefined"){
+            if(configuration.style.language !== "eng")
+                configuration.style.language = "spa";
+        }
+        else
+            configuration.style.language = "spa";
+        configuration.style.languageItems = {
+            eng: {
+                handlers: {
+                    columns: {
+                        asc: "Ascendant order",
+                        desc: "Descendant order",
+                        search: "Search",
+                        filter: "Filter",
+                        reset: "Reset"
+                    },
+                    edit: "Edit",
+                    remove: "Remove",
+                    accept: "Save",
+                    watch: "See",
+                    cancel: "Cancel",
+                    title: "Handlers",
+                    group: {
+                        hide: "Hide",
+                        show: "Show"
+                    }
+                },
+                buttons: {
+                    add: "Add record",
+                    group: "Group by",
+                    column: "Columns",
+                    selectPagination: "Rows per page"
+                },
+                pagination: {
+                    information: [
+                        "Showing ",
+                        " of ",
+                        " rows from page ",
+                        " of "
+                    ],
+                    buttons: {
+                        last: "Last",
+                        first: "First"
+                    }
+                },
+                alert: {
+                    title: "Validation errors",
+                    text: "There are some errors on input data, try again.",
+                    ok: "Accept"
+                },
+                confirm: {
+                    title: "Deletion confirmation",
+                    text: "¿Are you sure you want to erase this row?",
+                    accept: "Accept",
+                    cancel: "Cancel"
+                }
+            },
+            spa: {
+                handlers: {
+                    columns: {
+                        asc: "Orden ascendente",
+                        desc: "Orden descendente",
+                        search: "Búsqueda",
+                        filter: "Filtro",
+                        reset: "Reinicializar"
+                    },
+                    edit: "Editar",
+                    remove: "Eliminar",
+                    accept: "Guardar",
+                    watch: "Ver",
+                    cancel: "Cancelar",
+                    title: "Acciones",
+                    group: {
+                        hide: "Esconder",
+                        show: "Mostrar"
+                    }
+                },
+                buttons: {
+                    add: "Nuevo registro",
+                    group: "Agrupar por",
+                    column: "Columnas",
+                    selectPagination: "Filas por página"
+                },
+                pagination: {
+                    information: [
+                        "Mostrando ",
+                        " de ",
+                        " filas en la página ",
+                        " de "
+                    ],
+                    buttons: {
+                        last: "Última",
+                        first: "Primera"
+                    }
+                },
+                alert: {
+                    title: "Errores en validación",
+                    text: "Existen algunos errores en los datos de entrada, inténtalo de nuevo.",
+                    ok: "Aceptar"
+                },
+                confirm: {
+                    title: "Confirmación de borrado",
+                    text: "¿Deseas borrar el registro seleccionado?",
+                    accept: "Aceptar",
+                    cancel: "Cancelar"
+                }
+            }
+        };
+        this.table = new Vue({
+            data: configuration,
+            methods: {
+                onChangeColumns: onChangeColumns,
+                setVisibilityColumns: function(e){
+                    for(var i in this.head)
+                        this.head[i].hidden = e[this.head[i].title];
+                },
+                setSortColumns: function(e){
+                    for(var i in e)
+                        for(var j in this.head)
+                            if(this.head[j].title === i)
+                                this.head[j]._position = e[i];
+                    this.head.sort(function(a, b){
+                        return (a._position > b._position) ? 1 :
+                                (a._position < b._position) ? -1 : 0;
+                    });
+                },
+                resetColumns: function(){
+                    var data = {};
+                    for(var i in this.head){
+                        this.head[i].hidden = this.initHeadStatus[this.head[i].title];
+                        data[this.head[i].title] = this.initHeadStatus[this.head[i].title];
+                    }
+                    this.onChangeColumns(data);
+                },
+                highlightRow: function(index, customIndex){
+                    if(this.highlightHandlers &&
+                        (typeof customIndex === "undefined" || this.customHandlers[customIndex].highlight === true))
+                        for(var i in this.body)
+                            if(parseInt(i) === parseInt(index))
+                                this.body[i]._highlight = true;
+                            else
+                                this.body[i]._highlight = false;
+                },
+                existsFullHandler: function(){
+                    var lastIndex = false;
+                    for(var i in this.customHandlers)
+                        if(this.customHandlers[i].fullHandler === true)
+                            lastIndex = i;
+                    return [
+                        lastIndex === false ? lastIndex : true,
+                        lastIndex
+                    ];
+                },
+                prettyTitle: function(index){
+                    var prettyTitle = this.head[index].title.charAt(0).toUpperCase();
+                    prettyTitle += this.head[index].title.replace("_id", "").slice(1);
+                    return prettyTitle.replace(new RegExp("_", "g"), " ");
+                },
+                getSelectData: function(index, indexHead){
+                    if(this.body.length > 0){
+                        var selectData = null;
+                        for(var indexOptions in this.head[indexHead].input.options)
+                            if(this.head[indexHead].input.options[indexOptions].value === this.body[index][this.head[indexHead].title])
+                                selectData = this.head[indexHead].input.options[indexOptions].text;
+                        return selectData;
+                    }
+                },
+                getSelectValue: function(indexHead){
+                    var selectData = null;
+                    for(var indexOptions in this.head[indexHead].input.options)
+                        if(this.head[indexHead].input.options[indexOptions].text === this.head[indexHead]._searchData)
+                            selectValue = this.head[indexHead].input.options[indexOptions].value;
+                    return selectValue;
+                },
+                fieldValidation: function(element){
+                    var validator = false;
+                    if(typeof element === "string"){
+                        validator += ((element.indexOf('#') !== -1)) ? true : false;
+                        validator += ((element.indexOf('!') !== -1)) ? true : false;
+                        validator += ((element.indexOf('$') !== -1)) ? true : false;
+                        validator += ((element.indexOf('%') !== -1)) ? true : false;
+                        validator += ((element.indexOf('/') !== -1)) ? true : false;
+                        validator += ((element.indexOf('(') !== -1)) ? true : false;
+                        validator += ((element.indexOf(')') !== -1)) ? true : false;
+                        validator += ((element.indexOf('=') !== -1)) ? true : false;
+                        validator += ((element.indexOf('<') !== -1)) ? true : false;
+                        validator += ((element.indexOf('>') !== -1)) ? true : false;
+                        validator += ((element.indexOf('¡') !== -1)) ? true : false;
+                        validator += ((element.indexOf('\'') !== -1)) ? true : false;
+                        validator += ((element.indexOf('´') !== -1)) ? true : false;
+                        validator += ((element.indexOf('*') !== -1)) ? true : false;
+                        validator += ((element.indexOf('[') !== -1)) ? true : false;
+                        validator += ((element.indexOf(']') !== -1)) ? true : false;
+                        validator += ((element.indexOf('{') !== -1)) ? true : false;
+                        validator += ((element.indexOf('}') !== -1)) ? true : false;
+                        validator += ((element.indexOf('+') !== -1)) ? true : false;
+                        validator += ((element.indexOf('"') !== -1)) ? true : false;
+                        validator += ((element.indexOf('|') !== -1)) ? true : false;
+                        validator += ((element.indexOf('°') !== -1)) ? true : false;
+                        validator += ((element.indexOf('&') !== -1)) ? true : false;
+                        if(validator)
+                            validator = true;
+                        else
+                            validator = false;
+                    }
+                    return validator;
+                },
+                sortList: function(sortType, column, auto){
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        var me = this;
+                        if(auto){
+                            for(index in this.head)
+                                if(this.head[index]._order !== null){
+                                    sortType = this.head[index]._order;
+                                    column = this.head[index].title;
+                                }
+                            return (sortType) ? sortType === "asc" ? column : "-" + column : null;
+                        }
+                        else{
+                            for(index in this.head)
+                                if(this.head[index].title === column)
+                                    this.head[index]._order = sortType;
+                                else
+                                    this.head[index]._order = null;
+                            this.getService({"per-page": this.style.pagination.rowPerPage, "page": this.style.pagination.currentPage, "sort": sortType === "asc" ? column : "-" + column },
+                            function(success){
+                                if(typeof me.dataGrouping === 'object')
+                                    me.groupBy(null, true);
+                            },
+                            function(error){
+                                console.log(error);
+                            },
+                            true,       //Redefine body
+                            false);     //Redefine pagination
+                        }
+                    }
+                    else{
+                        /***************Used only in pagination mode*****************/
+                        var actualVisible = [],
+                            index = null;
+                        /************************************************************/
+                        var headSelect = false;
+                        if(auto){
+                            for(index in this.head)
+                                if(this.head[index]._order !== null){
+                                    sortType = this.head[index]._order;
+                                    column = this.head[index].title;
+                                    if(typeof this.head[index].input === "object" &&
+                                       this.head[index].input.type === "select")
+                                        headSelect = this.head[index].input.options;
+                                }
+                        }
+                        else{
+                            for(index in this.head)
+                                if(this.head[index].title === column){
+                                    this.head[index]._order = sortType;
+                                    if(typeof this.head[index].input === "object" &&
+                                       this.head[index].input.type === "select")
+                                        headSelect = this.head[index].input.options;
+                                }
+                                else
+                                    this.head[index]._order = null;
+                        }
+                        var data = this.body;
+                        
+                        /***************Used only in pagination mode*****************/
+                        if(typeof this.style.pagination === 'object' &&
+                        typeof this.style.pagination.rowPerPage === 'number' &&
+                        this.style.pagination.rowPerPage > 0){
+                            for(index in data)  //Obtain actual hidden
+                                actualVisible.push(data[index]._hidden);
+                            for(index in data)  //Show everything
+                                data[index]._hidden = false;
+                        }
+                        /************************************************************/
+                        
+                        switch(sortType){
+                            case "asc":
+                                if(headSelect){
+                                    data.sort(function(a, b){
+                                        var semiA = "",
+                                            semiB = "";
+                                        for(index in headSelect){
+                                            if(headSelect[index].value === a[column])
+                                                semiA = headSelect[index].text;
+                                            else if(headSelect[index].value === b[column])
+                                                semiB = headSelect[index].text;
+                                        }
+                                        return (semiA.toLowerCase() > semiB.toLowerCase()) ? 1 :
+                                         (semiA.toLowerCase() < semiB.toLowerCase()) ? -1 : 0;
+                                    });
+                                }
+                                else{
+                                    data.sort(function(a, b){
+                                        if(typeof a[column] === "string" &&
+                                            typeof b[column] === "string")
+                                               return (a[column].toLowerCase() > b[column].toLowerCase()) ? 1 :
+                                                (a[column].toLowerCase() < b[column].toLowerCase()) ? -1 : 0;
+                                        else
+                                           return (a[column] > b[column]) ? 1 :
+                                            (a[column] < b[column]) ? -1 : 0;
+                                    });
+                                }
+                                break;
+                            case "desc":
+                                if(headSelect){
+                                    data.sort(function(a, b){
+                                        var semiA = "",
+                                            semiB = "";
+                                        for(index in headSelect){
+                                            if(headSelect[index].value === a[column])
+                                                semiA = headSelect[index].text;
+                                            else if(headSelect[index].value === b[column])
+                                                semiB = headSelect[index].text;
+                                        }
+                                        return (semiA.toLowerCase() > semiB.toLowerCase()) ? -1 :
+                                         (semiA.toLowerCase() < semiB.toLowerCase()) ? 1 : 0;
+                                    });
+                                }
+                                else{
+                                    data.sort(function(a, b){
+                                        if(typeof a[column] === "string" &&
+                                            typeof b[column] === "string")
+                                               return (a[column].toLowerCase() > b[column].toLowerCase()) ? -1 :
+                                                (a[column].toLowerCase() < b[column].toLowerCase()) ? 1 : 0;
+                                        else
+                                            return (a[column] > b[column]) ? -1 :
+                                             (a[column] < b[column]) ? 1 : 0;
+                                    });
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                        /***************Used only in pagination mode*****************/
+                        if(typeof this.style.pagination === 'object' &&
+                        typeof this.style.pagination.rowPerPage === 'number' &&
+                        this.style.pagination.rowPerPage > 0)
+                            for(index in data)  //Hide with same sequence, and new order
+                                data[index]._hidden = actualVisible[index];
+                        /************************************************************/
+                        /***************Used only in group mode*****************/
+                        if(typeof this.dataGrouping === 'object')
+                            if(this.dataGrouping.isGrouped && this.dataGrouping.column === column)
+                                switch(sortType){
+                                    case "asc":
+                                        this.dataGrouping.state.sort(function(a, b){ return a[0] > b[0]; });
+                                        break;
+                                    case "desc":
+                                        this.dataGrouping.state.sort(function(a, b){ return a[0] < b[0]; });
+                                        break;
+                                }
+                        /************************************************************/
+                    }
+                },
+                setVisible: function(hidden, column){
+                    var data = {};
+                    for(var index in this.head){
+                        if(this.head[index].title === column)
+                            this.head[index].hidden = !hidden;
+                        data[this.head[index].title] = this.head[index].hidden;
+                    }
+                    this.onChangeColumns(data);
+                },
+                search: function(value, column){
+                    var data = null,
+                        headSelect = false,
+                        index = null;
+                    /***************Used only in pagination mode*****************/
+                    if(typeof this.style.pagination === 'object' &&
+                    typeof this.style.pagination.rowPerPage === 'number' &&
+                    this.style.pagination.rowPerPage > 0 &&
+                    (!(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active))){
+                        data = [];
+                        var elementsPerPage = this.style.pagination.rowPerPage;
+                        var actualPage = 1;
+                        for(index in this.dataPagination)
+                            if(this.dataPagination[index][0])
+                                actualPage = parseInt(index) + 1;
+                        for(index in this.body){
+                            if(parseInt(index) >= (elementsPerPage*actualPage) - elementsPerPage &&
+                               parseInt(index) <  elementsPerPage*actualPage)
+                                data.push(this.body[index]);
+                            else
+                                this.body[index]._hidden = true;
+                        }
+                    }
+                    /************************************************************/
+                    else
+                        data = this.body;
+                    for(var semiIndex in this.head)
+                        if(this.head[semiIndex].title === column)
+                            this.head[semiIndex]._searchData = value;
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        this.updatePagination();
+                    }
+                    else{
+                        var weDontSearch = true;
+                        for(semiIndex in this.head)
+                            if(this.head[semiIndex].searchable.active)
+                                if(this.head[semiIndex]._searchData !== "")
+                                    weDontSearch *= false;
+                        for(index in data)
+                            if(weDontSearch){
+                                for(index in data)
+                                    data[index]._hidden = false;
+                            }
+                            else{
+                                var visible = true;
+                                for(semiIndex in this.head){
+                                    if(typeof this.head[semiIndex].searchable === "object" && this.head[semiIndex].searchable.active && this.head[semiIndex]._searchData !== ""){
+                                        headSelect = false;
+                                        if(typeof this.head[semiIndex].input === "object" &&
+                                            this.head[semiIndex].input.type === "select")
+                                            headSelect = this.head[semiIndex].input.options;
+                                        if(headSelect){
+                                            var actualValue = "";
+                                            for(var indexSelect in headSelect)
+                                                if(headSelect[indexSelect].value === data[index][this.head[semiIndex].title])
+                                                    actualValue = headSelect[indexSelect].text;
+                                            if(this.head[semiIndex].searchable.type === "status"){
+                                                if(actualValue != this.head[semiIndex]._searchData)
+                                                    visible = false;
+                                            }
+                                            else{
+                                                if(actualValue.toLowerCase().indexOf(this.head[semiIndex]._searchData.toLowerCase()) < 0)
+                                                    visible = false;
+                                            }
+                                        }
+                                        else{
+                                            switch(typeof data[index][this.head[semiIndex].title]){
+                                                case "number":
+                                                    if(this.head[semiIndex].searchable.type === "status"){
+                                                        if(data[index][this.head[semiIndex].title] != this.head[semiIndex]._searchData)
+                                                            visible = false;
+                                                    }
+                                                    else{
+                                                        if(data[index][this.head[semiIndex].title].toString().indexOf(this.head[semiIndex]._searchData) < 0)
+                                                            visible = false;
+                                                    }
+                                                    break;
+                                                case "string":
+                                                    if(this.head[semiIndex].searchable.type === "status"){
+                                                        if(data[index][this.head[semiIndex].title] != this.head[semiIndex]._searchData)
+                                                            visible = false;
+                                                    }
+                                                    else{
+                                                        if(data[index][this.head[semiIndex].title].toLowerCase().indexOf(this.head[semiIndex]._searchData.toLowerCase()) < 0)
+                                                            visible = false;
+                                                    }
+                                                    break;
+                                                default:
+                                                    visible = false;
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                }
+                                data[index]._hidden = !visible;
+                            }
+                    }
+                },
+                watchRow: function(index){
+                    this.watchBody.actualIndex = index;
+                    for(var indexHead in this.head)
+                        this.watchBody[this.head[indexHead].title] = this.body[index][this.head[indexHead].title];
+                    this.highlightRow(index);
+                },
+                initEdit: function(index){
+                    var indexHead = null;
+                    switch(this.handlers.edit.type){
+                        case "inline":
+                            for(indexHead in this.head)
+                                this.reValidateEdit(index, indexHead);
+                            this.body[index]._editing = true;
+                            break;
+                        case "modal":
+                            this.editingBody.actualIndex = index;
+                            for(indexHead in this.head)
+                                this.editingBody[this.head[indexHead].title] = this.body[index][this.head[indexHead].title];
+                            break;
+                    }
+                    if(this.handlers.edit.highlight)
+                        this.highlightRow(index);
+                },
+                reValidateEdit: function(index, indexHead){
+                    if(!(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active)){
+                        switch(this.handlers.edit.type){
+                            case "inline":
+                                this.body[index]['_unvalidated-'+indexHead] = true;
+                                if(this.head[indexHead].editable && typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
+                                    if(this.head[indexHead].input.required)
+                                        this.body[index]['_unvalidated-'+indexHead] *= this.body[index][this.head[indexHead].title] !== '' ? true : false;
+                                    if(this.head[indexHead].input.type === 'email'){
+                                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                        this.body[index]['_unvalidated-'+indexHead] *= emailTest.test(this.body[index][this.head[indexHead].title]) ? true : false;
+                                    }
+                                }
+                                this.body[index]['_unvalidated-'+indexHead] *= !this.fieldValidation(this.body[index][this.head[indexHead].title]);
+                                this.body[index]['_unvalidated-'+indexHead] = !this.body[index]['_unvalidated-'+indexHead];
+                                break;
+                            case "modal":
+                                this.editingBody['_unvalidated-'+indexHead] = true;
+                                if(this.head[indexHead].editable && typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
+                                    if(this.head[indexHead].input.required)
+                                        this.editingBody['_unvalidated-'+indexHead] *= this.editingBody[this.head[indexHead].title] !== '' ? true : false;
+                                    if(this.head[indexHead].input.type === 'email'){
+                                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                        this.editingBody['_unvalidated-'+indexHead] *= emailTest.test(this.editingBody[this.head[indexHead].title]) ? true : false;
+                                    }
+                                }
+                                this.editingBody['_unvalidated-'+indexHead] *= !this.fieldValidation(this.editingBody[this.head[indexHead].title]);
+                                this.editingBody['_unvalidated-'+indexHead] = !this.editingBody['_unvalidated-'+indexHead];
+                                break;
+                        }
+                    }
+                },
+                beforeEdit: beforeEdit,
+                templateEdit: templateEdit,
+                onEdit: onEdit,
+                finishEdit: function(data, index){
+                    this.beforeEdit();
+                    var sendData = {},
+                        indexHead = null;
+                    switch(this.handlers.edit.type){
+                        case "inline":
+                            for(var indexHead in this.head)
+                                if(typeof this.head[indexHead].input !== "undefined" &&
+                                   typeof this.head[indexHead].input.type !== "undefined" &&
+                                   this.head[indexHead].input.type === "number")
+                                    if(data[indexHead] === "")
+                                        sendData[this.head[indexHead].title] = 0;
+                                    else
+                                        sendData[this.head[indexHead].title] = parseFloat(data[this.head[indexHead].title]);
+                                else
+                                    sendData[this.head[indexHead].title] = data[this.head[indexHead].title];
+                            break;
+                        case "modal":
+                            for(var indexHead in this.head)
+                                if(typeof this.head[indexHead].input !== "undefined" &&
+                                   typeof this.head[indexHead].input.type !== "undefined" &&
+                                   this.head[indexHead].input.type === "number")
+                                    if(this.editingBody[this.head[indexHead].title] === "")
+                                        sendData[this.head[indexHead].title] = 0;
+                                    else
+                                        sendData[this.head[indexHead].title] = parseFloat(this.editingBody[this.head[indexHead].title]);
+                                else
+                                    sendData[this.head[indexHead].title] = this.editingBody[this.head[indexHead].title];
+                            break;
+                    }
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        var me = this,
+                            params = {},
+                            body = {},
+                            delimiters = [];
+                        for(var myIndex in sendData)
+                            if(myIndex !== "id")
+                                params[myIndex] = sendData[myIndex];
+                        if(typeof this.webService.delimiters === "number")
+                           delimiters.push(this.webService.delimiters);
+                        else if(typeof this.webService.delimiters === "object")
+                            for(myIndex in this.webService.delimiters)
+                                delimiters.push(this.webService.delimiters[myIndex]);
+                        delimiters.push(sendData.id);
+                        body.params = params;
+                        body.delimiters = delimiters;
+                        this.webService.model.patch(body,
+                        function(success){
+                            if(me.handlers.edit.type === "inline")
+                                me.body[index]._editing = false;
+                            me.updatePagination();
+                            me.onEdit(sendData, true);
+                            if(typeof me.handlers.edit === "object" && me.handlers.edit.type === 'modal')
+                                document.getElementById(me.id + "-closeEditModal").click();
+                        },
+                        function(error){
+                            var errors = "";
+                            for(index in error.body){
+                                errors += error.body[index].message + "<br>";
+                            }
+                            var messageErrors = {
+                                title: "Errores en Edición de Registro",
+                                text: errors,
+                                ok: "Aceptar",
+                                active: true
+                            };
+                            me.onEdit(messageErrors, false);
+                        });
+                    }
+                    else{
+                        var validator = true;
+                        switch(this.handlers.edit.type){
+                            case "inline":
+                                for(indexHead in this.head){
+                                    this.body[index]['_unvalidated-'+indexHead] = true;
+                                    if(this.head[indexHead].editable && typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
+                                        switch(this.head[indexHead].input.required){
+                                            case true:
+                                                validator *= this.body[index][this.head[indexHead].title] !== '' ? true : false;
+                                                this.body[index]['_unvalidated-'+indexHead] *= this.body[index][this.head[indexHead].title] !== '' ? true : false;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        switch(this.head[indexHead].input.type){
+                                            case 'email':
+                                                var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                                validator *= emailTest.test(this.body[index][this.head[indexHead].title]) ? true : false;
+                                                this.body[index]['_unvalidated-'+indexHead] *= emailTest.test(this.body[index][this.head[indexHead].title]) ? true : false;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                    if(this.head[indexHead].editable){
+                                        validator *= !this.fieldValidation(this.body[index][this.head[indexHead].title]);
+                                        this.body[index]['_unvalidated-'+indexHead] *= !this.fieldValidation(this.body[index][this.head[indexHead].title]);
+                                    }
+                                    this.body[index]['_unvalidated-'+indexHead] = !this.body[index]['_unvalidated-'+indexHead];
+                                }
+                                if(validator){
+                                    this.body[index]._editing = false;
+                                    this.sortList(null, null, true);
+                                    this.onEdit(sendData, true);
+                                }
+                                else{
+                                    var messageErrors = {
+                                        title: this.style.languageItems[configuration.style.language].alert.title,
+                                        text: this.style.languageItems[configuration.style.language].alert.text,
+                                        ok: this.style.languageItems[configuration.style.language].alert.ok,
+                                        active: true
+                                    };
+                                    this.onEdit(messageErrors, false);
+                                }
+                                break;
+                            case "modal":
+                                for(indexHead in this.head){
+                                    this.editingBody['_unvalidated-'+indexHead] = true;
+                                    if(this.head[indexHead].editable && typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
+                                        switch(this.head[indexHead].input.required){
+                                            case true:
+                                                validator *= this.editingBody[this.head[indexHead].title] !== '' ? true : false;
+                                                this.editingBody['_unvalidated-'+indexHead] *= this.editingBody[this.head[indexHead].title] !== '' ? true : false;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        switch(this.head[indexHead].input.type){
+                                            case 'email':
+                                                var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                                validator *= emailTest.test(this.editingBody[this.head[indexHead].title]) ? true : false;
+                                                this.editingBody['_unvalidated-'+indexHead] *= emailTest.test(this.editingBody[this.head[indexHead].title]) ? true : false;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                    if(this.head[indexHead].editable){
+                                        validator *= !this.fieldValidation(this.editingBody[this.head[indexHead].title]);
+                                        this.editingBody['_unvalidated-'+indexHead] *= !this.fieldValidation(this.editingBody[this.head[indexHead].title]);
+                                    }
+                                    this.editingBody['_unvalidated-'+indexHead] = !this.editingBody['_unvalidated-'+indexHead];
+                                }
+                                if(validator){
+                                    for(indexHead in this.head)
+                                        this.body[this.editingBody.actualIndex][this.head[indexHead].title] = this.editingBody[this.head[indexHead].title];
+                                    this.sortList(null, null, true);
+                                    this.onEdit(sendData, true);
+                                    document.getElementById(this.id + "-closeEditModal").click();
+                                }
+                                else{
+                                    var messageErrors = {
+                                        title: this.style.languageItems[configuration.style.language].alert.title,
+                                        text: this.style.languageItems[configuration.style.language].alert.text,
+                                        ok: this.style.languageItems[configuration.style.language].alert.ok,
+                                        active: true
+                                    };
+                                    this.onEdit(messageErrors, false);
+                                }
+                                break;
+                            }
+                    }
+                },
+                beforeRemove: beforeRemove,
+                onRemove: onRemove,
+                confirmRemove(data, index){
+                    var me = this;
+                    var messageConfirm = {
+                        title: this.style.languageItems[configuration.style.language].confirm.title,
+                        text: this.style.languageItems[configuration.style.language].confirm.text,
+                        accept: this.style.languageItems[configuration.style.language].confirm.accept,
+                        cancel: this.style.languageItems[configuration.style.language].confirm.cancel,
+                        active: true
+                    };
+                    this.beforeRemove(messageConfirm,
+                        function(){
+                            me.removeRow(data, index);
+                        }
+                    );
+                },
+                removeRow: function(data, index){
+                    var sendData = {};
+                    for(var indexHead in this.head)
+                        sendData[this.head[indexHead].title] = this.body[index][this.head[indexHead].title];
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        var me = this,
+                            delimiters = [];
+                        if(typeof this.webService.delimiters === "number")
+                           delimiters.push(this.webService.delimiters);
+                        else if(typeof this.webService.delimiters === "object")
+                            for(var index in this.webService.delimiters)
+                                delimiters.push(this.webService.delimiters[index]);
+                        delimiters.push(sendData.id);
+                        this.webService.model.remove({
+                            delimiters: delimiters,
+                        },
+                        function(success){
+                            me.updatePagination();
+                            me.onRemove(sendData);
+                        },
+                        function(error){
+                            console.log(error);
+                        });
+                    }
+                    else{
+                        
+                        var groupable = false;
+                        var newBody = [];
+                        for(var semiIndex in this.body)
+                            if(parseInt(semiIndex) !== parseInt(index))
+                                newBody.push(this.body[semiIndex]);
+                        this.body = newBody;
+                        
+                        /***************Used only in pagination mode*****************/
+                        if(typeof this.style.pagination === 'object' &&
+                        typeof this.style.pagination.rowPerPage === 'number' &&
+                        this.style.pagination.rowPerPage > 0)
+                            this.updatePagination();
+                        /************************************************************/
+                        for(index in this.head)
+                            if(typeof this.head[index].groupable !== "undefined" &&
+                               this.head[index].groupable === true &&
+                               this.dataGrouping.isGrouped === true)
+                                groupable = true;
+                        if(groupable){
+                            this.groupBy(null, true);
+                        }
+                        this.onRemove(sendData);
+                    }
+                },
+                initAdd: function(){
+                    for(var index in this.head)
+                        this.reValidateAdd(index);
+                    this.adding = true;
+                },
+                cancelAdd: function(){
+                    for(var index in this.head)
+                        this.head[index]._dataAdd.value = "";
+                    this.adding = false;
+                },
+                beforeAdd: beforeAdd,
+                onAdd: onAdd,
+                reValidateAdd: function(indexHead){
+                    if(!(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active)){
+                        var newData = {};
+                        for(var index in this.head)
+                            newData[this.head[index].title] = this.head[index]._dataAdd.value;
+                        this.head[indexHead]._dataAdd.validation = true;
+                        if(typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
+                            if(this.head[indexHead].input.required)
+                                this.head[indexHead]._dataAdd.validation *= newData[this.head[indexHead].title] !== '' ? true : false;
+                            if(this.head[indexHead].input.type === "email"){
+                                var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                this.head[indexHead]._dataAdd.validation *= emailTest.test(newData[this.head[indexHead].title]) ? true : false;
+                            }
+                        }
+                        this.head[indexHead]._dataAdd.validation *= !this.fieldValidation(newData[this.head[indexHead].title]);
+                        this.head[indexHead]._dataAdd.validation = !this.head[indexHead]._dataAdd.validation;
+                    }
+                },
+                addRow: function(){
+                    this.beforeAdd();
+                    var newData = {};
+                    var sendData = {};
+                    newData._editing = false;
+                    newData._hidden = false;
+                    newData._highlight = false;
+                    for(var indexHead in this.head)
+                        if(this.head[indexHead].editable)
+                            newData['_unvalidated-'+indexHead] = false;
+                    for(var index in this.head)
+                        if(typeof this.head[index].input !== "undefined" &&
+                           typeof this.head[index].input.type !== "undefined" &&
+                           this.head[index].input.type === "number"){
+                            if(this.head[index]._dataAdd.value === ""){
+                                newData[this.head[index].title] = 0;
+                                sendData[this.head[index].title] = 0;
+                            }
+                            else{
+                                newData[this.head[index].title] = parseFloat(this.head[index]._dataAdd.value);
+                                sendData[this.head[index].title] = parseFloat(this.head[index]._dataAdd.value);
+                            }
+                        }
+                        else{
+                            newData[this.head[index].title] = this.head[index]._dataAdd.value;
+                            sendData[this.head[index].title] = this.head[index]._dataAdd.value;
+                        }
+                    
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        var postData = {},
+                            me = this,
+                            body = {};
+                        for(index in sendData)
+                            if(index !== "id")
+                                postData[index] = sendData[index];
+                        body.params = postData;
+                        if(typeof this.webService.delimiters !== "undefined")
+                           body.delimiters = this.webService.delimiters;
+                        this.webService.model.post(body,
+                        function(success){
+                            me.adding = false;
+                            for(index in me.head)
+                                me.head[index]._dataAdd.value = "";
+                            me.updatePagination();
+                            me.onAdd(sendData, true);
+                            if(typeof me.handlers.add === "object" && me.handlers.add.type === 'modal')
+                                document.getElementById(me.id + "-closeAddModal").click();
+                        },
+                        function(error){
+                            var errors = "";
+                            for(index in error.body){
+                                errors += error.body[index].message + "<br>";
+                            }
+                            var messageErrors = {
+                                title: "Errores en Nuevo Registro",
+                                text: errors,
+                                ok: "Aceptar",
+                                active: true
+                            };
+                            me.onAdd(messageErrors, false);
+                        });
+                    }
+                    else{
+                        var validator = true;
+                        for(indexHead in this.head){
+                            this.head[indexHead]._dataAdd.validation = true;
+                            if(typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
+                                switch(this.head[indexHead].input.required){
+                                    case true:
+                                        validator *= this.head[indexHead]._dataAdd.value !== '' ? true : false;
+                                        this.head[indexHead]._dataAdd.validation = this.head[indexHead]._dataAdd.value !== '' ? true : false;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                switch(this.head[indexHead].input.type){
+                                    case 'email':
+                                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                        validator *= emailTest.test(this.head[indexHead]._dataAdd.value) ? true : false;
+                                        this.head[indexHead]._dataAdd.validation = emailTest.test(this.head[indexHead]._dataAdd.value) ? true : false;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            else{
+                                validator *= !this.fieldValidation(this.head[indexHead]._dataAdd.value);
+                                this.head[indexHead]._dataAdd.validation *= !this.fieldValidation(newData[this.head[indexHead].title]);
+                            }
+                            this.head[indexHead]._dataAdd.validation = !this.head[indexHead]._dataAdd.validation;
+                        }
+                        if(validator){
+                            var groupable = false;
+                            this.body.push(newData);
+                            this.adding = false;
+                            for(index in this.head)
+                                this.head[index]._dataAdd.value = "";
+                            /***************Used only in pagination mode*****************/
+                            if(typeof this.style.pagination === 'object' &&
+                            typeof this.style.pagination.rowPerPage === 'number' &&
+                            this.style.pagination.rowPerPage > 0)
+                                this.updatePagination();
+                            /************************************************************/
+                            this.sortList(null, null, true);
+                            for(var index in this.head)
+                                if(typeof this.head[index].groupable !== "undefined" &&
+                                   this.head[index].groupable === true &&
+                               this.dataGrouping.isGrouped === true)
+                                    groupable = true;
+                            if(groupable)
+                                this.groupBy(null, true);
+                            this.onAdd(sendData, true);
+                            if(typeof this.handlers.add === "object" && this.handlers.add.type === 'modal')
+                                document.getElementById(this.id + "-closeAddModal").click();
+                        }
+                        else{
+                            var messageErrors = {
+                                title: this.style.languageItems[configuration.style.language].alert.title,
+                                text: this.style.languageItems[configuration.style.language].alert.text,
+                                ok: this.style.languageItems[configuration.style.language].alert.ok,
+                                active: true
+                            };
+                            this.onAdd(messageErrors, false);
+                        }
+                    }
+                },
+                updatePagination: function(init){
+                    var a = 1,
+                        activeIndex = null;
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        if(this.body.length > 0){
+                            for(var index in this.dataPagination)
+                                if(this.dataPagination[index][0])
+                                    activeIndex = parseInt(index);
+                            this.updatePagesService(init ? 1 : parseInt(activeIndex) + a);
+                        }
+                    }
+                    else{
+                        if(this.body.length > 0){
+                            for(var index in this.dataPagination)
+                                if(this.dataPagination[index][0])
+                                    activeIndex = parseInt(index);
+                            this.dataPagination = [];
+                            for(index in this.body)
+                                if(index % this.style.pagination.rowPerPage === 0)
+                                    this.dataPagination.push([(parseInt(index) === parseInt(activeIndex)), a++]);
+                            a = (parseInt(activeIndex) === this.dataPagination.length) ? 0 : 1;
+                            this.updatePages(init ? 1 : parseInt(activeIndex) + a);
+                        }
+                    }
+                },
+                recordsPagination: function(val){
+                    var data = 0;
+                    switch(val){
+                        case 0:
+                            for(var index in this.body)
+                                if(!this.body[index]._hidden && !this.body[index]._ofuscate)
+                                    data++;
+                            break;
+                        case 1:
+                            data = this.body.length;
+                            break;
+                        case 2:
+                            for(var index in this.dataPagination)
+                                if(this.dataPagination[index][0])
+                                    data = parseInt(index) + 1;
+                            break;
+                        default:
+                            data = this.dataPagination.length;
+                    }
+                    return data;
+                },
+                notAllPages: function(beggining){
+                    var shouldSight = false;
+                    for(var index in this.dataPagination)
+                        if(this.dataPagination[index][0])
+                            if(beggining && parseInt(index) + 1 > 4)  //Showing from beggining
+                                    shouldSight = true;
+                            else if(!beggining && parseInt(index) + 1 < this.dataPagination.length - 3)
+                                    shouldSight = true;
+                    return shouldSight;
+                },
+                updatePages: function(active, redefine){
+                    var elementsPerPage = this.style.pagination.rowPerPage;
+                    var actualPage = 1;
+                    var limits = [4, 4];
+                    for(var index in this.dataPagination){
+                        if(this.dataPagination[index][1] === active){
+                            this.dataPagination[index][0] = true;
+                            actualPage = parseInt(index) + 1;
+                        }
+                        else
+                            this.dataPagination[index][0] = false;
+                    }
+                    if(actualPage <= 4){
+                        limits[0] = actualPage;
+                        limits[1] = 8 - actualPage;
+                    }
+                    if(actualPage >= this.dataPagination.length - 3){
+                        limits[0] = 8 - (this.dataPagination.length + 1 - actualPage);
+                        limits[1] = this.dataPagination.length + 1 - actualPage;
+                    }
+                    for(index in this.dataPagination){
+                        if((parseInt(index) <= (actualPage - 1 - limits[0]) || parseInt(index) >= (actualPage - 1 + limits[1])) && parseInt(index) !== actualPage - 1)
+                            this.dataPagination[index][0] = null;
+                    }
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        var me = this;
+                        var params = {
+                            "per-page": this.style.pagination.rowPerPage,
+                            "page": actualPage
+                        },
+                            sortType = null,
+                            column = null;
+                        for(index in this.head)
+                            if(this.head[index]._order !== null){
+                                sortType = this.head[index]._order;
+                                column = this.head[index].title;
+                            }
+                        var sort = this.sortList(null, null, true);
+                        if(sort)
+                            params["sort"] = sort;
+                        this.getService(params,
+                        function(success){
+                            for(var index in me.head)
+                                if(typeof me.head[index].groupable !== "undefined" &&
+                                   me.head[index].groupable === true &&
+                               me.dataGrouping.isGrouped === true)
+                                    groupable = true;
+                            if(groupable)
+                                me.groupBy(null, true);
+                        },
+                        function(error){
+                            console.log(error);
+                        },
+                        true,       //Redefine body
+                        redefine ? true : false);     //Redefine pagination
+                    }
+                    else{
+                        for(index in this.body){
+                            if(parseInt(index) >= (elementsPerPage*actualPage) - elementsPerPage &&
+                               parseInt(index) <  elementsPerPage*actualPage)
+                                this.body[index]._hidden = false;
+                            else
+                                this.body[index]._hidden = true;
+                        }
+                        this.search(null, null);
+                    }
+                },
+                updatePagesService: function(active){
+                    var me = this;
+                    var actualPage = 1;
+                    var limits = [4, 4];
+                    for(var index in this.dataPagination){
+                        if(this.dataPagination[index][1] === active){
+                            this.dataPagination[index][0] = true;
+                            actualPage = parseInt(index) + 1;
+                        }
+                        else
+                            this.dataPagination[index][0] = false;
+                    }
+                    var params = {
+                        "per-page": this.style.pagination.rowPerPage,
+                        "page": actualPage
+                    };
+                    for(index in this.head)
+                        if(this.head[index]._searchData !== null && this.head[index]._searchData !== "" &&
+                           this.head[index]._searchData !== undefined){
+                            if(typeof this.head[index].input === "object" &&
+                               this.head[index].input.type === "select")
+                                params[this.head[index].title] = this.getSelectValue(index);
+                            else
+                                params[this.head[index].title] = this.head[index]._searchData;
+                        }
+                    var sort = this.sortList(null, null, true);
+                    if(sort)
+                        params["sort"] = sort;
+                    this.getService(params,
+                    function(success){
+                        if(success.body.length > 0){
+                            var b = 1;
+                            me.dataPagination = [];
+                            for(var i = 0; i < parseInt(success.headers.map[me.webService.headers.pageCount]); i++)
+                                me.dataPagination.push([(parseInt(success.headers.map[me.webService.headers.pageCount]) < actualPage) ? b === actualPage -1 : b === actualPage, b++]);
+                            if(actualPage <= 4){
+                                limits[0] = actualPage;
+                                limits[1] = 8 - actualPage;
+                            }
+                            if(actualPage >= me.dataPagination.length - 3){
+                                limits[0] = 8 - (me.dataPagination.length + 1 - actualPage);
+                                limits[1] = me.dataPagination.length + 1 - actualPage;
+                            }
+                            for(index in me.dataPagination){
+                                if((parseInt(index) <= (actualPage - 1 - limits[0]) || parseInt(index) >= (actualPage - 1 + limits[1])) && parseInt(index) !== actualPage - 1)
+                                    me.dataPagination[index][0] = null;
+                            }
+                            for(var index in me.head)
+                                if(typeof me.head[index].groupable !== "undefined" &&
+                                   me.head[index].groupable === true &&
+                               me.dataGrouping.isGrouped === true)
+                                    groupable = true;
+                            if(groupable)
+                                me.groupBy(null, true);
+                        }
+                        else
+                            me.body[0]._ofuscate = true;
+                    },
+                    function(error){
+                        console.log(error);
+                    },
+                    true,       //Redefine body
+                    true);     //Redefine pagination
+                },
+                updatePageRows: function(rowsPerPage){
+                    this.style.pagination.rowPerPage = rowsPerPage;
+                    this.updatePagination(true);
+                },
+                shouldGroup: function(){    //Some column was defined as groupable
+                    var shouldGroup = false;
+                    for(index in this.head)
+                        if(this.head[index].groupable)
+                            shouldGroup = true;
+                    return shouldGroup;
+                },
+                groupBy: function(column, auto){  //On click of radio grouping input
+                    var semiIndex = null,
+                        index = null,
+                        lastGroupIndex = null;
+                    for(var index in this.head)
+                        if(!auto)
+                            if(this.head[index].title === column){
+                                if(this.head[index]._groupedBy)
+                                    lastGroupIndex = index;
+                                this.head[index]._groupedBy = !this.head[index]._groupedBy;
+                                this.head[index].hidden = this.head[index]._groupedBy;
+                                this.dataGrouping.isGrouped = this.head[index]._groupedBy;
+                            }
+                            else{
+                                if(this.head[index]._groupedBy)
+                                    this.head[index].hidden = false;
+                                this.head[index]._groupedBy = false;
+                            }
+                        else{
+                            if(typeof this.head[index]._groupedBy !== "undefined" &&
+                               this.head[index]._groupedBy)
+                                lastGroupIndex = index;
+                        }
+                    if(this.dataGrouping.isGrouped){    //Is grouped by some column
+                        /***************Used only in pagination mode*****************/
+                        if(typeof this.style.pagination === 'object' &&
+                        typeof this.style.pagination.rowPerPage === 'number' &&
+                        this.style.pagination.rowPerPage > 0){
+                            if(!(typeof this.webService === "object" &&
+                            typeof this.webService.model === "object" &&
+                            this.webService.active)){
+                                delete this.style.pagination;  //Delete pagination if exists
+                                delete this.dataPagination;
+                                for(index in this.body)
+                                    this.body[index]._hidden = false;
+                                this.search(null, null);
+                            }
+                        }
+                        /************************************************************/
+                        var groups = [],
+                            hidden = [],
+                            state = [];
+                        for(index in this.head)
+                            if(this.head[index]._groupedBy){
+                                for(semiIndex in this.body){
+                                    if(typeof this.head[index].input === "object" && this.head[index].input.type === "select"){
+                                        if(groups.indexOf(this.getSelectData(semiIndex, index)) === -1 && !this.body[semiIndex]._ofuscate){
+                                            groups.push(this.getSelectData(semiIndex, index));
+                                            hidden.push(false);
+                                            state.push([this.getSelectData(semiIndex, index), false]);
+                                        }
+                                    }
+                                    else{
+                                        if(groups.indexOf(this.body[semiIndex][this.head[index].title]) === -1 && !this.body[semiIndex]._ofuscate){
+                                            groups.push(this.body[semiIndex][this.head[index].title]);
+                                            hidden.push(false);
+                                            state.push([this.body[semiIndex][this.head[index].title], false]);
+                                        }
+                                    }
+                                }
+                                if(!auto)
+                                    this.dataGrouping.column = column;
+                                this.dataGrouping.state = state;
+                            }
+                    }
+                    else{      //No grouping
+                        /***************Used only in pagination mode*****************/
+                        if(typeof this.tempPagination === 'object' &&
+                           typeof this.tempPagination.style === 'object' &&
+                        typeof this.tempPagination.style.rowPerPage === 'number' &&
+                        this.tempPagination.style.rowPerPage > 0){
+                            if(!(typeof this.webService === "object" &&
+                            typeof this.webService.model === "object" &&
+                            this.webService.active)){
+                                this.style.pagination = this.tempPagination.style;  //Reasign pagination
+                                this.dataPagination = this.tempPagination.data;
+                                this.updatePages(1);
+                                this.updatePagination();
+                            }
+                        }
+                        /************************************************************/
+                        if(!(typeof this.webService === "object" &&
+                            typeof this.webService.model === "object" &&
+                            this.webService.active)){
+                            for(index in this.body)
+                                for(semiIndex in this.dataGrouping.state)
+                                    if(this.dataGrouping.state[semiIndex][0] === this.body[index][this.head[lastGroupIndex].title] && this.body[index]._hidden)
+                                        this.body[index]._hidden = !this.body[index]._hidden;
+                            this.search(null, null);
+                        }
+                    }
+                    if(typeof this.webService === "object" &&
+                            typeof this.webService.model === "object" &&
+                            this.webService.active)
+                        return this.dataGrouping.isGrouped;
+                },
+                groupColSpan: function(){
+                    var colspan = 0;
+                    for(var index in this.head)
+                        if(!this.head[index].hidden)
+                            colspan++;
+                    return colspan;
+                },
+                changeGroupVisibility: function(index, indexHead){
+                    this.dataGrouping.state[index][1] = !this.dataGrouping.state[index][1];
+                    for(var semiIndex in this.body){
+                        if(typeof this.head[indexHead].input === "object" &&
+                            this.head[indexHead].input.type === "select"){
+                            if(this.getSelectData(semiIndex, indexHead) === this.dataGrouping.state[index][0])
+                                this.body[semiIndex]._hidden = this.dataGrouping.state[index][1];
+                        }
+                        else
+                            if(this.body[semiIndex][this.dataGrouping.column] === this.dataGrouping.state[index][0])
+                                this.body[semiIndex]._hidden = this.dataGrouping.state[index][1];
+                    }
+                },
+                initSortColumns: function(dragElem){
+                    for(var index in this.head)
+                        if(this.head[index].title === dragElem.srcElement.id)
+                            this.dataDragged = this.head[index];
+                },
+                onDragEnd: onDragEnd,
+                sortColumns: function(dropElem){
+                    var idDropped = null,
+                        dataDropped = null,
+                        allOrder = [],
+                        sendData = {};
+                    if(dropElem.srcElement.tagName === "B")
+                        idDropped = dropElem.srcElement.id;
+                    else
+                        idDropped = dropElem.srcElement.getElementsByTagName('b')[0].id;
+                    for(var index in this.head)
+                        if(this.head[index].title === idDropped)
+                            dataDropped = this.head[index]._position;
+                    for(index in this.head)
+                        allOrder.push(this.head[index]._position);
+                    for(index in this.head)
+                        if(this.dataDragged._position < dataDropped){
+                            if(allOrder[index] <= dataDropped && allOrder[index] > this.dataDragged._position)
+                                this.head[index]._position -= 1;
+                        }
+                        else if(this.dataDragged._position > dataDropped){
+                            if(allOrder[index] >= dataDropped && allOrder[index] < this.dataDragged._position)
+                                this.head[index]._position += 1;
+                        }
+                    this.dataDragged._position = dataDropped;
+                    this.head.sort(function(a, b){
+                        return (a._position > b._position) ? 1 :
+                                            (a._position < b._position) ? -1 : 0;
+                    });
+                    
+                    for(index in this.head)
+                        sendData[this.head[index].title] = this.head[index]._position;
+                    this.onDragEnd(sendData);
+                },
+                getService: function(params, customSuccess, error, redefineBody, redefinePagination){
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        var me = this;
+                        var body = {};
+                        if(typeof this.webService.delimiters !== "undefined")
+                           body.delimiters = this.webService.delimiters;
+                        if(typeof params === "object")
+                            body.params = params;
+                        this.webService.model.get(body,
+                        function(success){
+                            //////////////////////////Redefine body///////////////////////////////
+                            if(redefineBody){
+                                me.body[0]._ofuscate = false;
+                                var newData = null;
+                                var index = null,
+                                    semiIndex = null;
+                                if(me.body.length > success.body.length){
+                                    newData = [];
+                                    newData[0] = me.body[0];
+                                    for(index in me.body)
+                                        if(success.body.length > parseInt(index))
+                                            newData[index] = me.body[index];
+                                    for(index in success.body){
+                                        for(semiIndex in success.body[index])
+                                            if(newData[index][semiIndex])
+                                            newData[index][semiIndex] = success.body[index][semiIndex];
+                                    }
+                                    me.body = newData;
+                                }
+                                else if(me.body.length < success.body.length){
+                                    for(index in success.body){
+                                        if(me.body.length > parseInt(index)){
+                                            for(semiIndex in success.body[index])
+                                                if(typeof me.body[index][semiIndex] !== "undefined")
+                                                    me.body[index][semiIndex] = success.body[index][semiIndex];
+                                        }
+                                        else{
+                                            newData = {};
+                                            newData._editing = false;
+                                            newData._hidden = false;
+                                            newData._highlight = false;
+                                            for(var indexHead in me.head)
+                                                if(me.head[indexHead].editable)
+                                                    newData['_unvalidated-'+indexHead] = false;
+                                            for(semiIndex in success.body[index])
+                                                newData[semiIndex] = success.body[index][semiIndex];
+                                            me.body.push(newData);
+                                        }
+                                    }
+                                }
+                                else{
+                                    for(index in success.body){
+                                        for(semiIndex in success.body[index]){
+                                            if(typeof me.body[index][semiIndex] !== "undefined")
+                                                me.body[index][semiIndex] = success.body[index][semiIndex];
+                                        }
+                                    }
+                                }
+                            }
+                            ////////////////////////Redefine of pagination///////////////////////////
+                            if(redefinePagination){
+                                me.style.pagination.currentPage = parseInt(success.headers.map[me.webService.headers.currentPage][0]);
+                                me.style.pagination.pageCount = parseInt(success.headers.map[me.webService.headers.pageCount][0]);
+                                me.style.pagination.totalRowCount = parseInt(success.headers.map[me.webService.headers.totalRowCount][0]);
+                            }
+                            
+                            customSuccess(success);
+                        }, error);
+                    }
+                },
+                editDelimiters: function(delimiters){
+                    this.webService.delimiters = delimiters;
+                }
+            },
+            beforeCreate: function(){
+                
+            },
+            created: function(){
+                var index = null
+                    me = this;
+                /***************Used only in pagination mode*****************/
+                if(typeof this.style.pagination === 'object' &&
+                typeof this.style.pagination.rowPerPage === 'number' &&
+                this.style.pagination.rowPerPage > 0){
+                    if(!(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active))
+                        this.updatePages(1);
+                }
+                /************************************************************/
+                /***************Used only in drag and drop mode**************/
+                if(this.style.draggable)
+                    this.head.sort(function(a, b){
+                        return (a._position > b._position) ? 1 :
+                                            (a._position < b._position) ? -1 : 0;
+                    });
+                /************************************************************/
+                /***************Used only in status type search**************/
+                if(!(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active))
+                    for(index in this.head)
+                        if(this.head[index].searchable.type === "status"){
+                            for(var semiIndex in this.body)
+                                if(typeof this.head[index].input === "object" &&
+                                    this.head[index].input.type === "select" &&
+                                    typeof this.head[index].input.model === "undefined"){
+                                    if(this.head[index]._searchStatusValues.indexOf(this.getSelectData(semiIndex, index)) === -1)
+                                        this.head[index]._searchStatusValues.push(this.getSelectData(semiIndex, index));
+                                }
+                                else if(typeof this.head[index].input === "object" &&
+                                    this.head[index].input.type !== "select"){
+                                    if(this.head[index]._searchStatusValues.indexOf(this.body[semiIndex][this.head[index].title]) === -1)
+                                        this.head[index]._searchStatusValues.push(this.body[semiIndex][this.head[index].title]);
+                                }
+                        }
+                /************************************************************/
+                /************Used only in select model service type**********/
+                for(var index in this.head)
+                    if(typeof this.head[index].input === "object" &&
+                        typeof this.head[index].input.type === "string" &&
+                        this.head[index].input.type === "select" &&
+                        typeof this.head[index].input.model === "object")
+                        (function(index){
+                            var ownHead = me.head[index];
+                            me.head[index].input.model.source.get({
+                                    params: {
+                                        "per-page": 100
+                                    }
+                                },
+                                function(success){
+                                    if(success.body.length > 0){
+                                        for(var indexBody in success.body){
+                                            if(parseInt(indexBody) === 0){
+                                                ownHead.input.options[indexBody].value = success.body[indexBody][ownHead.input.model.value];
+                                                ownHead.input.options[indexBody].text = success.body[indexBody][ownHead.input.model.text];
+                                            }
+                                            else
+                                                ownHead.input.options.push(
+                                                    {
+                                                        value: success.body[indexBody][ownHead.input.model.value],
+                                                        text: success.body[indexBody][ownHead.input.model.text]
+                                                    }
+                                                );
+                                            if(typeof ownHead.searchable === "object" &&
+                                               ownHead.searchable.type === "status"){
+                                                ownHead._searchStatusValues.push(success.body[indexBody][ownHead.input.model.text]);
+                                            }
+                                        }
+                                    }
+                                },
+                                function(error){
+                                    
+                                }
+                            );
+                        })(index);
+                    else if(typeof this.head[index].input === "object" &&
+                        typeof this.head[index].input.type === "string" &&
+                        this.head[index].input.type === "select" &&
+                        typeof this.head[index].input.model !== "object"){
+                        if(typeof this.head[index].searchable === "object" &&
+                        this.head[index].searchable.type === "status")
+                            for(var indexOptions in this.head[index].input.options)
+                                this.head[index]._searchStatusValues.push(this.head[index].input.options[indexOptions].text);
+                    }
+                    this.updatePagination();
+            }
+        });
+        return this.table;
+    }
+    else{
+        if(typeof configuration.head !== "object" || configuration.head.length === 0)
+            console.log("ERROR: Something wrong in your datatable HEAD definition");
+        else if(typeof configuration.body !== "object" || configuration.body.length === 0)
+            console.log("ERROR: Something wrong in your datatable BODY definition");
+        else if(typeof configuration.style !== "object")
+            console.log("ERROR: Something wrong in your datatable STYLE definition");
+        else
+            console.log("ERROR: Something wrong in your datatable definition");
+    }
+};
+
+module.exports = {
+    component: mcdatatable,
+    template: mcdatatableT
+};
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
@@ -10465,7 +12887,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -10493,7 +12915,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
@@ -10569,7 +12991,7 @@ xhr = null // Help gc
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10604,7 +13026,7 @@ var processNextTick = __webpack_require__(23);
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(42);
+var isArray = __webpack_require__(43);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -10622,7 +13044,7 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(46);
+var Stream = __webpack_require__(47);
 /*</replacement>*/
 
 // TODO(bmeurer): Change this back to const once hole checks are
@@ -10644,7 +13066,7 @@ util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(98);
+var debugUtil = __webpack_require__(99);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -10653,8 +13075,8 @@ if (debugUtil && debugUtil.debuglog) {
 }
 /*</replacement>*/
 
-var BufferList = __webpack_require__(99);
-var destroyImpl = __webpack_require__(47);
+var BufferList = __webpack_require__(100);
+var destroyImpl = __webpack_require__(48);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -11583,14 +14005,14 @@ function indexOf(xs, x) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(32).EventEmitter;
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11668,7 +14090,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11888,7 +14310,7 @@ function done(stream, er, data) {
 }
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/**
@@ -12029,7 +14451,7 @@ module.exports = Sha256
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var inherits = __webpack_require__(1)
@@ -12295,13 +14717,13 @@ module.exports = Sha512
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var inherits = __webpack_require__(1)
-var Legacy = __webpack_require__(123)
+var Legacy = __webpack_require__(124)
 var Base = __webpack_require__(10)
 var Buffer = __webpack_require__(8).Buffer
 var md5 = __webpack_require__(24)
@@ -12364,23 +14786,23 @@ module.exports = function createHmac (alg, key) {
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = {"sha224WithRSAEncryption":{"sign":"rsa","hash":"sha224","id":"302d300d06096086480165030402040500041c"},"RSA-SHA224":{"sign":"ecdsa/rsa","hash":"sha224","id":"302d300d06096086480165030402040500041c"},"sha256WithRSAEncryption":{"sign":"rsa","hash":"sha256","id":"3031300d060960864801650304020105000420"},"RSA-SHA256":{"sign":"ecdsa/rsa","hash":"sha256","id":"3031300d060960864801650304020105000420"},"sha384WithRSAEncryption":{"sign":"rsa","hash":"sha384","id":"3041300d060960864801650304020205000430"},"RSA-SHA384":{"sign":"ecdsa/rsa","hash":"sha384","id":"3041300d060960864801650304020205000430"},"sha512WithRSAEncryption":{"sign":"rsa","hash":"sha512","id":"3051300d060960864801650304020305000440"},"RSA-SHA512":{"sign":"ecdsa/rsa","hash":"sha512","id":"3051300d060960864801650304020305000440"},"RSA-SHA1":{"sign":"rsa","hash":"sha1","id":"3021300906052b0e03021a05000414"},"ecdsa-with-SHA1":{"sign":"ecdsa","hash":"sha1","id":""},"sha256":{"sign":"ecdsa","hash":"sha256","id":""},"sha224":{"sign":"ecdsa","hash":"sha224","id":""},"sha384":{"sign":"ecdsa","hash":"sha384","id":""},"sha512":{"sign":"ecdsa","hash":"sha512","id":""},"DSA-SHA":{"sign":"dsa","hash":"sha1","id":""},"DSA-SHA1":{"sign":"dsa","hash":"sha1","id":""},"DSA":{"sign":"dsa","hash":"sha1","id":""},"DSA-WITH-SHA224":{"sign":"dsa","hash":"sha224","id":""},"DSA-SHA224":{"sign":"dsa","hash":"sha224","id":""},"DSA-WITH-SHA256":{"sign":"dsa","hash":"sha256","id":""},"DSA-SHA256":{"sign":"dsa","hash":"sha256","id":""},"DSA-WITH-SHA384":{"sign":"dsa","hash":"sha384","id":""},"DSA-SHA384":{"sign":"dsa","hash":"sha384","id":""},"DSA-WITH-SHA512":{"sign":"dsa","hash":"sha512","id":""},"DSA-SHA512":{"sign":"dsa","hash":"sha512","id":""},"DSA-RIPEMD160":{"sign":"dsa","hash":"rmd160","id":""},"ripemd160WithRSA":{"sign":"rsa","hash":"rmd160","id":"3021300906052b2403020105000414"},"RSA-RIPEMD160":{"sign":"rsa","hash":"rmd160","id":"3021300906052b2403020105000414"},"md5WithRSAEncryption":{"sign":"rsa","hash":"md5","id":"3020300c06082a864886f70d020505000410"},"RSA-MD5":{"sign":"rsa","hash":"md5","id":"3020300c06082a864886f70d020505000410"}}
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-exports.pbkdf2 = __webpack_require__(125)
+exports.pbkdf2 = __webpack_require__(126)
 
-exports.pbkdf2Sync = __webpack_require__(56)
+exports.pbkdf2Sync = __webpack_require__(57)
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports) {
 
 var MAX_ALLOC = Math.pow(2, 30) - 1 // default in iojs
@@ -12404,7 +14826,7 @@ module.exports = function (iterations, keylen) {
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {var defaultEncoding
@@ -12421,15 +14843,15 @@ module.exports = defaultEncoding
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var md5 = __webpack_require__(24)
 var rmd160 = __webpack_require__(35)
 var sha = __webpack_require__(37)
 
-var checkParameters = __webpack_require__(54)
-var defaultEncoding = __webpack_require__(55)
+var checkParameters = __webpack_require__(55)
+var defaultEncoding = __webpack_require__(56)
 var Buffer = __webpack_require__(8).Buffer
 var ZEROS = Buffer.alloc(128)
 var sizes = {
@@ -12529,7 +14951,7 @@ module.exports = function (password, salt, iterations, keylen, digest) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
@@ -12561,13 +14983,13 @@ StreamCipher.prototype._final = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
 var Transform = __webpack_require__(10)
 var inherits = __webpack_require__(1)
-var GHASH = __webpack_require__(128)
+var GHASH = __webpack_require__(129)
 var xor = __webpack_require__(18)
 inherits(StreamCipher, Transform)
 module.exports = StreamCipher
@@ -12665,7 +15087,7 @@ function xorTest (a, b) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports) {
 
 exports.encrypt = function (self, block) {
@@ -12677,7 +15099,7 @@ exports.decrypt = function (self, block) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var xor = __webpack_require__(18)
@@ -12700,7 +15122,7 @@ exports.decrypt = function (self, block) {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(18)
@@ -12738,7 +15160,7 @@ function encryptStart (self, data, decrypt) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {function encryptByte (self, byteParam, decrypt) {
@@ -12760,7 +15182,7 @@ exports.encrypt = function (self, chunk, decrypt) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {function encryptByte (self, byteParam, decrypt) {
@@ -12801,7 +15223,7 @@ function shiftIn (buffer, value) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(18)
@@ -12824,7 +15246,7 @@ exports.encrypt = function (self, chunk) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var randomBytes = __webpack_require__(16);
@@ -12833,7 +15255,7 @@ findPrime.simpleSieve = simpleSieve;
 findPrime.fermatTest = fermatTest;
 var BN = __webpack_require__(2);
 var TWENTYFOUR = new BN(24);
-var MillerRabin = __webpack_require__(66);
+var MillerRabin = __webpack_require__(67);
 var millerRabin = new MillerRabin();
 var ONE = new BN(1);
 var TWO = new BN(2);
@@ -12935,11 +15357,11 @@ function findPrime(bits, gen) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var bn = __webpack_require__(2);
-var brorand = __webpack_require__(67);
+var brorand = __webpack_require__(68);
 
 function MillerRabin(rand) {
   this.rand = rand || new brorand.Rand();
@@ -13054,7 +15476,7 @@ MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var r;
@@ -13112,7 +15534,7 @@ if (typeof self === 'object') {
 } else {
   // Node.js or Web worker with no crypto support
   try {
-    var crypto = __webpack_require__(138);
+    var crypto = __webpack_require__(139);
     if (typeof crypto.randomBytes !== 'function')
       throw new Error('Not supported');
 
@@ -13125,7 +15547,7 @@ if (typeof self === 'object') {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13190,7 +15612,7 @@ utils.encode = function encode(arr, enc) {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13246,7 +15668,7 @@ exports.g1_256 = g1_256;
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13254,7 +15676,7 @@ exports.g1_256 = g1_256;
 
 var utils = __webpack_require__(7);
 var common = __webpack_require__(19);
-var shaCommon = __webpack_require__(69);
+var shaCommon = __webpack_require__(70);
 var assert = __webpack_require__(6);
 
 var sum32 = utils.sum32;
@@ -13358,7 +15780,7 @@ SHA256.prototype._digest = function digest(enc) {
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13695,7 +16117,7 @@ function g1_512_lo(xh, xl) {
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
@@ -13817,7 +16239,7 @@ EncoderBuffer.prototype.join = function join(out, offset) {
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var constants = exports;
@@ -13838,11 +16260,11 @@ constants._reverse = function reverse(map) {
   return res;
 };
 
-constants.der = __webpack_require__(170);
+constants.der = __webpack_require__(171);
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
@@ -14172,7 +16594,7 @@ function derDecodeLen(buf, primitive, fail) {
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
@@ -14473,13 +16895,13 @@ function encodeTag(tag, primitive, cls, reporter) {
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports) {
 
 module.exports = {"1.3.132.0.10":"secp256k1","1.3.132.0.33":"p224","1.2.840.10045.3.1.1":"p192","1.2.840.10045.3.1.7":"p256","1.3.132.0.34":"p384","1.3.132.0.35":"p521"}
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(17);
@@ -14501,7 +16923,7 @@ function i2ops(c) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports) {
 
 module.exports = function xor(a, b) {
@@ -14514,7 +16936,7 @@ module.exports = function xor(a, b) {
 };
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var bn = __webpack_require__(2);
@@ -14530,29 +16952,30 @@ module.exports = withPublic;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 80 */,
 /* 81 */,
-/* 82 */
+/* 82 */,
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 BUTO.requires = {
     modules: {
-        modelAR: __webpack_require__(83),
-        mapsClient: __webpack_require__(84)
+        modelAR: __webpack_require__(84),
+        mcdatatable: __webpack_require__(42).component,
+        mapsClient: __webpack_require__(85)
     },
     templates: {
-        main: __webpack_require__(195)
+        main: __webpack_require__(196)
     },
     components: {
-        toolbar: __webpack_require__(206),
-        map: __webpack_require__(207),
-        menu: __webpack_require__(208),
+        toolbar: __webpack_require__(207),
+        map: __webpack_require__(208),
+        menu: __webpack_require__(209),
+        cliente: __webpack_require__(210)
     }
 };
 
 Vue.http.get("/init-user-data").then(function(userResponse){
     if(userResponse.status === 200 && userResponse.body.success){
-        BUTO.init(userResponse);
         (function(){
             new BUTO.requires.modules.modelAR({
                 baseURL: userResponse.body.baseURL,
@@ -14585,10 +17008,26 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 second: 0,
                                 third: 0
                             },
+                            models: {
+                                cliente: new modelCreator("cliente"),
+                                clienteEmpleado: new modelCreator(["cliente", "empleado"]),
+                                clienteSucursal: new modelCreator(["cliente", "sucursal"]),
+                                empleado: new modelCreator("empleado"),
+                                empleadoCliente: new modelCreator(["empleado", "cliente"]),
+                                empleadoHorario: new modelCreator(["empleado", "horario"]),
+                                empleadoHorarioRuta: new modelCreator(["empleado", "horario", "ruta"]),
+                                empleadoHorarioRutaPunto: new modelCreator(["empleado", "horario", "ruta", "punto"]),
+                                sucursal: new modelCreator("sucursal"),
+                                sucursalCliente: new modelCreator(["sucursal", "cliente"]),
+                                sucursalHorario: new modelCreator(["sucursal", "horario"]),
+                                perfil: new modelCreator("perfil"),
+                                usuario: new modelCreator("usuario")
+                            },
                             children: {
                                 map: BUTO.requires.components.map,
                                 toolbar: BUTO.requires.components.toolbar,
-                                menu: BUTO.requires.components.menu
+                                menu: BUTO.requires.components.menu,
+                                cliente: BUTO.requires.components.cliente
                             }
                         },
                         methods: {
@@ -14604,6 +17043,14 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                         me.children.map.init();
                                     });
                             }
+                        },
+                        created: function(){
+                            BUTO.init(userResponse);
+                            BUTO.requires.components.cliente.init({
+                                cliente: this.models.cliente,
+                                clienteEmpleado: this.models.clienteEmpleado,
+                                clienteSucursal: this.models.clienteSucursal
+                            });
                         },
                         mounted: function(){
                             this.children.map.init();
@@ -14628,7 +17075,7 @@ BUTO.init = function(response){
 };
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports) {
 
 var modelAR = function(init, activity, activityError){
@@ -15329,7 +17776,7 @@ var modelAR = function(init, activity, activityError){
 module.exports = modelAR;
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -15381,8 +17828,8 @@ module.exports = modelAR;
  exports.createClient = function(options) {
 
   options = options || {};
-  var makeApiCall = __webpack_require__(85).inject(options);
-  var deprecate = __webpack_require__(183).deprecate;
+  var makeApiCall = __webpack_require__(86).inject(options);
+  var deprecate = __webpack_require__(184).deprecate;
 
   var makeApiMethod = function(apiConfig) {
     return function(query, callback, customParams) {
@@ -15404,14 +17851,14 @@ module.exports = modelAR;
     };
   };
 
-  var geocode = __webpack_require__(186);
-  var geolocation = __webpack_require__(187);
-  var timezone = __webpack_require__(188);
-  var directions = __webpack_require__(189);
-  var distanceMatrix = __webpack_require__(190);
-  var elevation = __webpack_require__(191);
-  var roads = __webpack_require__(192);
-  var places = __webpack_require__(193);
+  var geocode = __webpack_require__(187);
+  var geolocation = __webpack_require__(188);
+  var timezone = __webpack_require__(189);
+  var directions = __webpack_require__(190);
+  var distanceMatrix = __webpack_require__(191);
+  var elevation = __webpack_require__(192);
+  var roads = __webpack_require__(193);
+  var places = __webpack_require__(194);
 
   return {
     directions: makeApiMethod(directions.directions),
@@ -15437,11 +17884,11 @@ module.exports = modelAR;
 
 };
 
-exports.cli = __webpack_require__(194);
+exports.cli = __webpack_require__(195);
 
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, Buffer) {/**
@@ -15475,13 +17922,13 @@ exports.inject = function(options) {
   var rateLimit = rate.limit || 10;  // 10 requests per ratePeriod.
   var ratePeriod = rate.period || 1000;  // 1 second.
 
-  var makeUrlRequest = options.makeUrlRequest || __webpack_require__(93);
+  var makeUrlRequest = options.makeUrlRequest || __webpack_require__(94);
   var mySetTimeout = options.setTimeout || setTimeout;
   var myClearTimeout = options.clearTimeout || clearTimeout;
   var getTime = options.getTime || function() {return new Date().getTime();};
-  var wait = __webpack_require__(108).inject(mySetTimeout, myClearTimeout);
-  var attempt = __webpack_require__(109).inject(wait).attempt;
-  var ThrottledQueue = __webpack_require__(110).inject(wait, getTime);
+  var wait = __webpack_require__(109).inject(mySetTimeout, myClearTimeout);
+  var attempt = __webpack_require__(110).inject(wait).attempt;
+  var ThrottledQueue = __webpack_require__(111).inject(wait, getTime);
   var requestQueue = ThrottledQueue.create(rateLimit, ratePeriod);
 
   /**
@@ -15650,7 +18097,7 @@ exports.inject = function(options) {
   function computeSignature(secret, payload) {
     var signature =
         new Buffer(
-            __webpack_require__(112)
+            __webpack_require__(113)
             .createHmac('sha1', secret)
             .update(payload)
             .digest('base64'))
@@ -15669,7 +18116,7 @@ exports.inject = function(options) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15790,7 +18237,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -15880,7 +18327,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.4.1 by @mathias */
@@ -16416,10 +18863,10 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)(module), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)(module), __webpack_require__(5)))
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16442,18 +18889,18 @@ module.exports = {
 
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.decode = exports.parse = __webpack_require__(91);
-exports.encode = exports.stringify = __webpack_require__(92);
+exports.decode = exports.parse = __webpack_require__(92);
+exports.encode = exports.stringify = __webpack_require__(93);
 
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16544,7 +18991,7 @@ var isArray = Array.isArray || function (xs) {
 
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16636,7 +19083,7 @@ var objectKeys = Object.keys || function (obj) {
 
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/**
@@ -16656,9 +19103,9 @@ var objectKeys = Object.keys || function (obj) {
  * limitations under the License.
  */
 
-var https = __webpack_require__(94);
+var https = __webpack_require__(95);
 var parse = __webpack_require__(31).parse;
-var version = __webpack_require__(107);
+var version = __webpack_require__(108);
 
 
 // add keep-alive header to speed up request
@@ -16752,10 +19199,10 @@ module.exports = function makeUrlRequest(url, onSuccess, onError, options) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var http = __webpack_require__(95);
+var http = __webpack_require__(96);
 
 var https = module.exports;
 
@@ -16772,12 +19219,12 @@ https.request = function (params, cb) {
 
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var ClientRequest = __webpack_require__(96)
-var extend = __webpack_require__(105)
-var statusCodes = __webpack_require__(106)
+/* WEBPACK VAR INJECTION */(function(global) {var ClientRequest = __webpack_require__(97)
+var extend = __webpack_require__(106)
+var statusCodes = __webpack_require__(107)
 var url = __webpack_require__(31)
 
 var http = exports
@@ -16857,14 +19304,14 @@ http.METHODS = [
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(44)
+/* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(45)
 var inherits = __webpack_require__(1)
-var response = __webpack_require__(97)
+var response = __webpack_require__(98)
 var stream = __webpack_require__(14)
-var toArrayBuffer = __webpack_require__(104)
+var toArrayBuffer = __webpack_require__(105)
 
 var IncomingMessage = response.IncomingMessage
 var rStates = response.readyStates
@@ -17170,10 +19617,10 @@ var unsafeHeaders = [
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(44)
+/* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(45)
 var inherits = __webpack_require__(1)
 var stream = __webpack_require__(14)
 
@@ -17359,13 +19806,13 @@ IncomingMessage.prototype._onXHRProgress = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(0).Buffer, __webpack_require__(5)))
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17445,7 +19892,7 @@ module.exports = function () {
 }();
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -17498,13 +19945,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(101);
+__webpack_require__(102);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -17697,7 +20144,7 @@ exports.clearImmediate = clearImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -17771,7 +20218,7 @@ function config (name) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17804,7 +20251,7 @@ function config (name) {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(48);
+var Transform = __webpack_require__(49);
 
 /*<replacement>*/
 var util = __webpack_require__(15);
@@ -17824,7 +20271,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 };
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(0).Buffer
@@ -17857,7 +20304,7 @@ module.exports = function (buf) {
 
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports) {
 
 module.exports = extend
@@ -17882,7 +20329,7 @@ function extend() {
 
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -17952,14 +20399,14 @@ module.exports = {
 
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports) {
 
 module.exports = '0.0.1';
 
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -17999,7 +20446,7 @@ exports.inject = function(setTimeout, clearTimeout) {
 
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -18059,7 +20506,7 @@ exports.inject = function(wait) {
 
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -18079,7 +20526,7 @@ exports.inject = function(wait) {
  * limitations under the License.
  */
 
-var CircularBuffer = __webpack_require__(111);
+var CircularBuffer = __webpack_require__(112);
 var Task = __webpack_require__(22);
 
 exports.inject = function(wait, getTime) {
@@ -18139,7 +20586,7 @@ exports.inject = function(wait, getTime) {
 
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports) {
 
 /**
@@ -18185,7 +20632,7 @@ exports.create = function(size) {
 
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18193,20 +20640,20 @@ exports.create = function(size) {
 
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = __webpack_require__(16)
 exports.createHash = exports.Hash = __webpack_require__(17)
-exports.createHmac = exports.Hmac = __webpack_require__(51)
+exports.createHmac = exports.Hmac = __webpack_require__(52)
 
-var algos = __webpack_require__(124)
+var algos = __webpack_require__(125)
 var algoKeys = Object.keys(algos)
 var hashes = ['sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'md5', 'rmd160'].concat(algoKeys)
 exports.getHashes = function () {
   return hashes
 }
 
-var p = __webpack_require__(53)
+var p = __webpack_require__(54)
 exports.pbkdf2 = p.pbkdf2
 exports.pbkdf2Sync = p.pbkdf2Sync
 
-var aes = __webpack_require__(126)
+var aes = __webpack_require__(127)
 
 exports.Cipher = aes.Cipher
 exports.createCipher = aes.createCipher
@@ -18219,7 +20666,7 @@ exports.createDecipheriv = aes.createDecipheriv
 exports.getCiphers = aes.getCiphers
 exports.listCiphers = aes.listCiphers
 
-var dh = __webpack_require__(137)
+var dh = __webpack_require__(138)
 
 exports.DiffieHellmanGroup = dh.DiffieHellmanGroup
 exports.createDiffieHellmanGroup = dh.createDiffieHellmanGroup
@@ -18227,16 +20674,16 @@ exports.getDiffieHellman = dh.getDiffieHellman
 exports.createDiffieHellman = dh.createDiffieHellman
 exports.DiffieHellman = dh.DiffieHellman
 
-var sign = __webpack_require__(141)
+var sign = __webpack_require__(142)
 
 exports.createSign = sign.createSign
 exports.Sign = sign.Sign
 exports.createVerify = sign.createVerify
 exports.Verify = sign.Verify
 
-exports.createECDH = __webpack_require__(179)
+exports.createECDH = __webpack_require__(180)
 
-var publicEncrypt = __webpack_require__(180)
+var publicEncrypt = __webpack_require__(181)
 
 exports.publicEncrypt = publicEncrypt.publicEncrypt
 exports.privateEncrypt = publicEncrypt.privateEncrypt
@@ -18284,7 +20731,7 @@ exports.constants = {
 
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18322,7 +20769,7 @@ module.exports = function hash (buf, fn) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18413,35 +20860,35 @@ module.exports = HashBase
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(33);
 
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(12);
 
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(14).Transform
 
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(14).PassThrough
 
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*
@@ -18541,7 +20988,7 @@ module.exports = Sha
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*
@@ -18646,7 +21093,7 @@ module.exports = Sha1
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/**
@@ -18658,7 +21105,7 @@ module.exports = Sha1
  */
 
 var inherits = __webpack_require__(1)
-var Sha256 = __webpack_require__(49)
+var Sha256 = __webpack_require__(50)
 var Hash = __webpack_require__(13)
 
 var W = new Array(64)
@@ -18705,11 +21152,11 @@ module.exports = Sha224
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var inherits = __webpack_require__(1)
-var SHA512 = __webpack_require__(50)
+var SHA512 = __webpack_require__(51)
 var Hash = __webpack_require__(13)
 
 var W = new Array(160)
@@ -18768,7 +21215,7 @@ module.exports = Sha384
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18821,19 +21268,19 @@ module.exports = Hmac
 
 
 /***/ }),
-/* 124 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(52)
-
-
-/***/ }),
 /* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global, process) {var checkParameters = __webpack_require__(54)
-var defaultEncoding = __webpack_require__(55)
-var sync = __webpack_require__(56)
+module.exports = __webpack_require__(53)
+
+
+/***/ }),
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, process) {var checkParameters = __webpack_require__(55)
+var defaultEncoding = __webpack_require__(56)
+var sync = __webpack_require__(57)
 var Buffer = __webpack_require__(8).Buffer
 
 var ZERO_BUF
@@ -18933,13 +21380,13 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ebtk = __webpack_require__(25)
 var aes = __webpack_require__(38)
-var DES = __webpack_require__(130)
-var desModes = __webpack_require__(136)
+var DES = __webpack_require__(131)
+var desModes = __webpack_require__(137)
 var aesModes = __webpack_require__(27)
 function createCipher (suite, password) {
   var keyLen, ivLen
@@ -19012,7 +21459,7 @@ exports.listCiphers = exports.getCiphers = getCiphers
 
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
@@ -19020,8 +21467,8 @@ var Transform = __webpack_require__(10)
 var inherits = __webpack_require__(1)
 var modes = __webpack_require__(27)
 var ebtk = __webpack_require__(25)
-var StreamCipher = __webpack_require__(57)
-var AuthCipher = __webpack_require__(58)
+var StreamCipher = __webpack_require__(58)
+var AuthCipher = __webpack_require__(59)
 inherits(Cipher, Transform)
 function Cipher (mode, key, iv) {
   if (!(this instanceof Cipher)) {
@@ -19092,12 +21539,12 @@ Splitter.prototype.flush = function () {
   return out
 }
 var modelist = {
-  ECB: __webpack_require__(59),
-  CBC: __webpack_require__(60),
-  CFB: __webpack_require__(61),
-  CFB8: __webpack_require__(62),
-  CFB1: __webpack_require__(63),
-  OFB: __webpack_require__(64),
+  ECB: __webpack_require__(60),
+  CBC: __webpack_require__(61),
+  CFB: __webpack_require__(62),
+  CFB8: __webpack_require__(63),
+  CFB1: __webpack_require__(64),
+  OFB: __webpack_require__(65),
   CTR: __webpack_require__(28),
   GCM: __webpack_require__(28)
 }
@@ -19141,7 +21588,7 @@ exports.createCipher = createCipher
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var zeros = new Buffer(16)
@@ -19246,15 +21693,15 @@ function xor (a, b) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
 var Transform = __webpack_require__(10)
 var inherits = __webpack_require__(1)
 var modes = __webpack_require__(27)
-var StreamCipher = __webpack_require__(57)
-var AuthCipher = __webpack_require__(58)
+var StreamCipher = __webpack_require__(58)
+var AuthCipher = __webpack_require__(59)
 var ebtk = __webpack_require__(25)
 
 inherits(Decipher, Transform)
@@ -19341,12 +21788,12 @@ function unpad (last) {
 }
 
 var modelist = {
-  ECB: __webpack_require__(59),
-  CBC: __webpack_require__(60),
-  CFB: __webpack_require__(61),
-  CFB8: __webpack_require__(62),
-  CFB1: __webpack_require__(63),
-  OFB: __webpack_require__(64),
+  ECB: __webpack_require__(60),
+  CBC: __webpack_require__(61),
+  CFB: __webpack_require__(62),
+  CFB8: __webpack_require__(63),
+  CFB1: __webpack_require__(64),
+  OFB: __webpack_require__(65),
   CTR: __webpack_require__(28),
   GCM: __webpack_require__(28)
 }
@@ -19390,7 +21837,7 @@ exports.createDecipheriv = createDecipheriv
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var CipherBase = __webpack_require__(10)
@@ -19440,7 +21887,7 @@ DES.prototype._final = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19703,7 +22150,7 @@ exports.padSplit = function padSplit(num, size, group) {
 
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19851,7 +22298,7 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
 
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20001,7 +22448,7 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
 
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20073,7 +22520,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
 
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20135,7 +22582,7 @@ EDE.prototype._unpad = DES.prototype._unpad;
 
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports) {
 
 exports['des-ecb'] = {
@@ -20165,13 +22612,13 @@ exports['des-ede'] = {
 
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var generatePrime = __webpack_require__(65)
-var primes = __webpack_require__(139)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var generatePrime = __webpack_require__(66)
+var primes = __webpack_require__(140)
 
-var DH = __webpack_require__(140)
+var DH = __webpack_require__(141)
 
 function getDiffieHellman (mod) {
   var prime = new Buffer(primes[mod].prime, 'hex')
@@ -20214,30 +22661,30 @@ exports.createDiffieHellman = exports.DiffieHellman = createDiffieHellman
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports) {
 
 module.exports = {"modp1":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a63a3620ffffffffffffffff"},"modp2":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece65381ffffffffffffffff"},"modp5":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca237327ffffffffffffffff"},"modp14":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aacaa68ffffffffffffffff"},"modp15":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a93ad2caffffffffffffffff"},"modp16":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c934063199ffffffffffffffff"},"modp17":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dcc4024ffffffffffffffff"},"modp18":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dbe115974a3926f12fee5e438777cb6a932df8cd8bec4d073b931ba3bc832b68d9dd300741fa7bf8afc47ed2576f6936ba424663aab639c5ae4f5683423b4742bf1c978238f16cbe39d652de3fdb8befc848ad922222e04a4037c0713eb57a81a23f0c73473fc646cea306b4bcbc8862f8385ddfa9d4b7fa2c087e879683303ed5bdd3a062b3cf5b3a278a66d2a13f83f44f82ddf310ee074ab6a364597e899a0255dc164f31cc50846851df9ab48195ded7ea1b1d510bd7ee74d73faf36bc31ecfa268359046f4eb879f924009438b481c6cd7889a002ed5ee382bc9190da6fc026e479558e4475677e9aa9e3050e2765694dfc81f56e880b96e7160c980dd98edd3dfffffffffffffffff"}}
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var BN = __webpack_require__(2);
-var MillerRabin = __webpack_require__(66);
+var MillerRabin = __webpack_require__(67);
 var millerRabin = new MillerRabin();
 var TWENTYFOUR = new BN(24);
 var ELEVEN = new BN(11);
 var TEN = new BN(10);
 var THREE = new BN(3);
 var SEVEN = new BN(7);
-var primes = __webpack_require__(65);
+var primes = __webpack_require__(66);
 var randomBytes = __webpack_require__(16);
 module.exports = DH;
 
@@ -20397,16 +22844,16 @@ function formatReturnValue(bn, enc) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(17)
 var stream = __webpack_require__(36)
 var inherits = __webpack_require__(1)
-var sign = __webpack_require__(142)
-var verify = __webpack_require__(178)
+var sign = __webpack_require__(143)
+var verify = __webpack_require__(179)
 
-var algorithms = __webpack_require__(52)
+var algorithms = __webpack_require__(53)
 Object.keys(algorithms).forEach(function (key) {
   algorithms[key].id = new Buffer(algorithms[key].id, 'hex')
   algorithms[key.toLowerCase()] = algorithms[key]
@@ -20495,16 +22942,16 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
-var createHmac = __webpack_require__(51)
+var createHmac = __webpack_require__(52)
 var crt = __webpack_require__(40)
 var EC = __webpack_require__(3).ec
 var BN = __webpack_require__(2)
 var parseKeys = __webpack_require__(30)
-var curves = __webpack_require__(76)
+var curves = __webpack_require__(77)
 
 function sign (hash, key, hashType, signType, tag) {
   var priv = parseKeys(key)
@@ -20647,13 +23094,13 @@ module.exports.makeKey = makeKey
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports) {
 
 module.exports = {"_args":[["elliptic@6.4.0","/var/www/node/travelAppT"]],"_development":true,"_from":"elliptic@6.4.0","_id":"elliptic@6.4.0","_inBundle":false,"_integrity":"sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.4.0","name":"elliptic","escapedName":"elliptic","rawSpec":"6.4.0","saveSpec":null,"fetchSpec":"6.4.0"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz","_spec":"6.4.0","_where":"/var/www/node/travelAppT","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.0"}
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20662,7 +23109,7 @@ module.exports = {"_args":[["elliptic@6.4.0","/var/www/node/travelAppT"]],"_deve
 var utils = exports;
 var BN = __webpack_require__(2);
 var minAssert = __webpack_require__(6);
-var minUtils = __webpack_require__(68);
+var minUtils = __webpack_require__(69);
 
 utils.assert = minAssert;
 utils.toArray = minUtils.toArray;
@@ -20780,7 +23227,7 @@ utils.intFromLE = intFromLE;
 
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21162,7 +23609,7 @@ BasePoint.prototype.dblp = function dblp(k) {
 
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22107,7 +24554,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
 
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22294,7 +24741,7 @@ Point.prototype.getX = function getX() {
 
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22734,7 +25181,7 @@ Point.prototype.mixedAdd = Point.prototype.add;
 
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22907,7 +25354,7 @@ defineCurve('ed25519', {
 
 var pre;
 try {
-  pre = __webpack_require__(156);
+  pre = __webpack_require__(157);
 } catch (e) {
   pre = undefined;
 }
@@ -22946,21 +25393,21 @@ defineCurve('secp256k1', {
 
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.sha1 = __webpack_require__(151);
-exports.sha224 = __webpack_require__(152);
-exports.sha256 = __webpack_require__(70);
-exports.sha384 = __webpack_require__(153);
-exports.sha512 = __webpack_require__(71);
+exports.sha1 = __webpack_require__(152);
+exports.sha224 = __webpack_require__(153);
+exports.sha256 = __webpack_require__(71);
+exports.sha384 = __webpack_require__(154);
+exports.sha512 = __webpack_require__(72);
 
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22968,7 +25415,7 @@ exports.sha512 = __webpack_require__(71);
 
 var utils = __webpack_require__(7);
 var common = __webpack_require__(19);
-var shaCommon = __webpack_require__(69);
+var shaCommon = __webpack_require__(70);
 
 var rotl32 = utils.rotl32;
 var sum32 = utils.sum32;
@@ -23041,14 +25488,14 @@ SHA1.prototype._digest = function digest(enc) {
 
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(7);
-var SHA256 = __webpack_require__(70);
+var SHA256 = __webpack_require__(71);
 
 function SHA224() {
   if (!(this instanceof SHA224))
@@ -23078,7 +25525,7 @@ SHA224.prototype._digest = function digest(enc) {
 
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23086,7 +25533,7 @@ SHA224.prototype._digest = function digest(enc) {
 
 var utils = __webpack_require__(7);
 
-var SHA512 = __webpack_require__(71);
+var SHA512 = __webpack_require__(72);
 
 function SHA384() {
   if (!(this instanceof SHA384))
@@ -23120,7 +25567,7 @@ SHA384.prototype._digest = function digest(enc) {
 
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23273,7 +25720,7 @@ var sh = [
 
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23327,7 +25774,7 @@ Hmac.prototype.digest = function digest(enc) {
 
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -24113,20 +26560,20 @@ module.exports = {
 
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var BN = __webpack_require__(2);
-var HmacDRBG = __webpack_require__(158);
+var HmacDRBG = __webpack_require__(159);
 var elliptic = __webpack_require__(3);
 var utils = elliptic.utils;
 var assert = utils.assert;
 
-var KeyPair = __webpack_require__(159);
-var Signature = __webpack_require__(160);
+var KeyPair = __webpack_require__(160);
+var Signature = __webpack_require__(161);
 
 function EC(options) {
   if (!(this instanceof EC))
@@ -24360,14 +26807,14 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
 
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var hash = __webpack_require__(41);
-var utils = __webpack_require__(68);
+var utils = __webpack_require__(69);
 var assert = __webpack_require__(6);
 
 function HmacDRBG(options) {
@@ -24480,7 +26927,7 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
 
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24606,7 +27053,7 @@ KeyPair.prototype.inspect = function inspect() {
 
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24748,7 +27195,7 @@ Signature.prototype.toDER = function toDER(enc) {
 
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24759,8 +27206,8 @@ var elliptic = __webpack_require__(3);
 var utils = elliptic.utils;
 var assert = utils.assert;
 var parseBytes = utils.parseBytes;
-var KeyPair = __webpack_require__(162);
-var Signature = __webpack_require__(163);
+var KeyPair = __webpack_require__(163);
+var Signature = __webpack_require__(164);
 
 function EDDSA(curve) {
   assert(curve === 'ed25519', 'only tested with ed25519 so far');
@@ -24873,7 +27320,7 @@ EDDSA.prototype.isPoint = function isPoint(val) {
 
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24976,7 +27423,7 @@ module.exports = KeyPair;
 
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25049,7 +27496,7 @@ module.exports = Signature;
 
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25059,7 +27506,7 @@ module.exports = Signature;
 
 var asn1 = __webpack_require__(20)
 
-exports.certificate = __webpack_require__(175)
+exports.certificate = __webpack_require__(176)
 
 var RSAPrivateKey = asn1.define('RSAPrivateKey', function () {
   this.seq().obj(
@@ -25178,7 +27625,7 @@ exports.signature = asn1.define('signature', function () {
 
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var asn1 = __webpack_require__(20);
@@ -25201,7 +27648,7 @@ function Entity(name, body) {
 Entity.prototype._createNamed = function createNamed(base) {
   var named;
   try {
-    named = __webpack_require__(166).runInThisContext(
+    named = __webpack_require__(167).runInThisContext(
       '(function ' + this.name + '(entity) {\n' +
       '  this._initNamed(entity);\n' +
       '})'
@@ -25245,10 +27692,10 @@ Entity.prototype.encode = function encode(data, enc, /* internal */ reporter) {
 
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var indexOf = __webpack_require__(167);
+var indexOf = __webpack_require__(168);
 
 var Object_keys = function (obj) {
     if (Object.keys) return Object.keys(obj)
@@ -25389,7 +27836,7 @@ exports.createContext = Script.createContext = function (context) {
 
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports) {
 
 
@@ -25404,7 +27851,7 @@ module.exports = function(arr, obj){
 };
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
@@ -25531,7 +27978,7 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
 
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Reporter = __webpack_require__(21).Reporter;
@@ -26171,10 +28618,10 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
 
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var constants = __webpack_require__(73);
+var constants = __webpack_require__(74);
 
 exports.tagClass = {
   0: 'universal',
@@ -26219,23 +28666,23 @@ exports.tagByName = constants._reverse(exports.tag);
 
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var decoders = exports;
 
-decoders.der = __webpack_require__(74);
-decoders.pem = __webpack_require__(172);
+decoders.der = __webpack_require__(75);
+decoders.pem = __webpack_require__(173);
 
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
 var Buffer = __webpack_require__(0).Buffer;
 
-var DERDecoder = __webpack_require__(74);
+var DERDecoder = __webpack_require__(75);
 
 function PEMDecoder(entity) {
   DERDecoder.call(this, entity);
@@ -26284,22 +28731,22 @@ PEMDecoder.prototype.decode = function decode(data, options) {
 
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var encoders = exports;
 
-encoders.der = __webpack_require__(75);
-encoders.pem = __webpack_require__(174);
+encoders.der = __webpack_require__(76);
+encoders.pem = __webpack_require__(175);
 
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
 
-var DEREncoder = __webpack_require__(75);
+var DEREncoder = __webpack_require__(76);
 
 function PEMEncoder(entity) {
   DEREncoder.call(this, entity);
@@ -26321,7 +28768,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
 
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26416,13 +28863,13 @@ module.exports = X509Certificate
 
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports) {
 
 module.exports = {"2.16.840.1.101.3.4.1.1":"aes-128-ecb","2.16.840.1.101.3.4.1.2":"aes-128-cbc","2.16.840.1.101.3.4.1.3":"aes-128-ofb","2.16.840.1.101.3.4.1.4":"aes-128-cfb","2.16.840.1.101.3.4.1.21":"aes-192-ecb","2.16.840.1.101.3.4.1.22":"aes-192-cbc","2.16.840.1.101.3.4.1.23":"aes-192-ofb","2.16.840.1.101.3.4.1.24":"aes-192-cfb","2.16.840.1.101.3.4.1.41":"aes-256-ecb","2.16.840.1.101.3.4.1.42":"aes-256-cbc","2.16.840.1.101.3.4.1.43":"aes-256-ofb","2.16.840.1.101.3.4.1.44":"aes-256-cfb"}
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// adapted from https://github.com/apatil/pemstrip
@@ -26459,14 +28906,14 @@ module.exports = function (okey, password) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
 var BN = __webpack_require__(2)
 var EC = __webpack_require__(3).ec
 var parseKeys = __webpack_require__(30)
-var curves = __webpack_require__(76)
+var curves = __webpack_require__(77)
 
 function verify (sig, hash, key, signType, tag) {
   var pub = parseKeys(key)
@@ -26549,7 +28996,7 @@ module.exports = verify
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var elliptic = __webpack_require__(3);
@@ -26678,11 +29125,11 @@ function formatReturnValue(bn, enc, len) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports.publicEncrypt = __webpack_require__(181);
-exports.privateDecrypt = __webpack_require__(182);
+exports.publicEncrypt = __webpack_require__(182);
+exports.privateDecrypt = __webpack_require__(183);
 
 exports.privateEncrypt = function privateEncrypt(key, buf) {
   return exports.publicEncrypt(key, buf, true);
@@ -26693,16 +29140,16 @@ exports.publicDecrypt = function publicDecrypt(key, buf) {
 };
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(30);
 var randomBytes = __webpack_require__(16);
 var createHash = __webpack_require__(17);
-var mgf = __webpack_require__(77);
-var xor = __webpack_require__(78);
+var mgf = __webpack_require__(78);
+var xor = __webpack_require__(79);
 var bn = __webpack_require__(2);
-var withPublic = __webpack_require__(79);
+var withPublic = __webpack_require__(80);
 var crt = __webpack_require__(40);
 
 var constants = {
@@ -26794,16 +29241,16 @@ function nonZero(len, crypto) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(30);
-var mgf = __webpack_require__(77);
-var xor = __webpack_require__(78);
+var mgf = __webpack_require__(78);
+var xor = __webpack_require__(79);
 var bn = __webpack_require__(2);
 var crt = __webpack_require__(40);
 var createHash = __webpack_require__(17);
-var withPublic = __webpack_require__(79);
+var withPublic = __webpack_require__(80);
 module.exports = function privateDecrypt(private_key, enc, reverse) {
   var padding;
   if (private_key.padding) {
@@ -26908,7 +29355,7 @@ function compare(a, b){
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -27436,7 +29883,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(184);
+exports.isBuffer = __webpack_require__(185);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -27480,7 +29927,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(185);
+exports.inherits = __webpack_require__(186);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -27501,7 +29948,7 @@ function hasOwnProperty(obj, prop) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -27512,7 +29959,7 @@ module.exports = function isBuffer(arg) {
 }
 
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -27541,7 +29988,7 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -27629,7 +30076,7 @@ exports.reverseGeocode = {
 
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -27711,7 +30158,7 @@ exports.geolocate = {
 
 
 /***/ }),
-/* 188 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -27759,7 +30206,7 @@ exports.timezone = {
 
 
 /***/ }),
-/* 189 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -27859,7 +30306,7 @@ exports.directions = {
 
 
 /***/ }),
-/* 190 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -27937,7 +30384,7 @@ exports.distanceMatrix = {
 
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -28008,7 +30455,7 @@ exports.elevationAlongPath = {
 
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -28119,7 +30566,7 @@ exports.snappedSpeedLimits = {
 
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -28358,7 +30805,7 @@ exports.placesQueryAutoComplete = {
 
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28404,19 +30851,27 @@ exports.callback = function(error, response) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var heading = __webpack_require__(196);
-var menu = __webpack_require__(197);
-var pageHeading = __webpack_require__(198);
-var foot = __webpack_require__(199);
-var clientes = __webpack_require__(200);
-var tiendas = __webpack_require__(201);
-var recursosHumanos = __webpack_require__(202);
-var reportes = __webpack_require__(203);
-var map = __webpack_require__(204);
-var toolbar = __webpack_require__(205);
+var mcdatatable = __webpack_require__(42).template;
+var heading = __webpack_require__(197);
+var menu = __webpack_require__(198);
+var pageHeading = __webpack_require__(199);
+var foot = __webpack_require__(200);
+var clientes = __webpack_require__(201);
+var tiendas = __webpack_require__(202);
+var recursosHumanos = __webpack_require__(203);
+var reportes = __webpack_require__(204);
+var map = __webpack_require__(205);
+var toolbar = __webpack_require__(206);
+Vue.component("mcdatatable", {
+    template: mcdatatable,
+    props: {
+        title: String,
+        config: Object
+    }
+});
 Vue.component("heading", {
     template: heading,
     props: {
@@ -28496,7 +30951,9 @@ module.exports = `
                 </div>
             </template>
             <template v-else-if="active.first === 1">
-                <clientes></clientes>
+                <div class="row">
+                    <clientes :config="children.cliente"></clientes>
+                </div>
             </template>
             <template v-else-if="active.first === 2">
                 <tiendas></tiendas>
@@ -28513,7 +30970,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -28547,7 +31004,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -28584,7 +31041,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -28621,7 +31078,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -28631,21 +31088,32 @@ module.exports = `
 `;
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, exports) {
 
 module.exports = `
-    <div>
-        <h1>Clientes</h1>
-        <span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=use_case_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fuse_case_diagram.xml" >Diagrama de casos de uso</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=activity_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Factivity_diagram.xml" >Diagrama de actividades</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=sequence_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fsequence_diagram.xml" >Diagrama de secuencia</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=mock_up.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fmock_up.xml" >Mock up</a></span>
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Clientes</h5>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                
+                </p>
+                <mcdatatable :title="'Clientes'" :config="config.grid"></mcdatatable>
+            </div>
+        </div>
     </div>
 `;
 
 /***/ }),
-/* 201 */
+/* 202 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -28659,7 +31127,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 202 */
+/* 203 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -28673,7 +31141,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -28687,7 +31155,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -28711,7 +31179,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 205 */
+/* 206 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -28796,7 +31264,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 206 */
+/* 207 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -28809,7 +31277,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 207 */
+/* 208 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -29180,7 +31648,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -29270,6 +31738,222 @@ module.exports = new Vue({
     },
     methods: {
         
+    }
+});
+
+/***/ }),
+/* 210 */
+/***/ (function(module, exports) {
+
+module.exports = new Vue({
+    data: {
+        models: {
+            cliente: null,
+            clienteEmpleado: null,
+            clienteSucursal: null
+        },
+        grid: null
+    },
+    methods: {
+        init(e){
+            this.models.cliente = e.cliente;
+            this.models.clienteEmpleado = e.clienteEmpleado;
+            this.models.clienteSucursal = e.clienteSucursal;
+            this.grid = new BUTO.requires.modules.mcdatatable({
+            id: "cliente",
+            head: [
+                {title: "id", hidden: true, input: {type: 'number'}},
+                {title: "nombre", orderable: true, editable: true, searchable: {active: true, type: "filter"}}
+            ],
+            style: {
+                noText: true,
+                general: [
+                    "table",
+                    "table-bordered"
+                ],
+                head: [
+                    "table-inverse"
+                ],
+                body: [
+                    "body-class"
+                ],
+                row: {
+                    active: false,
+                    //styleClass: [
+                    //    "grid-row-customized"
+                    //]
+                },
+                highlight: {
+                    active: true,
+                    styleClass: [
+                        "grid-row-highlight-customized"
+                    ]
+                },
+                responsive: true,
+                pagination: {
+                    rowPerPage: 25
+                },
+                draggable: false,
+            },
+            webService: {
+                active: true,
+                model: e.cliente,
+                headers: {
+                    currentPage: "X-Pagination-Current-Page",
+                    pageCount: "X-Pagination-Page-Count",
+                    rowPerPage: "X-Pagination-Per-Page",
+                    totalRowCount: "X-Pagination-Total-Count"
+                }
+            },
+            handlers: {
+                add: {
+                    active: true,
+                    type: "modal"
+                },
+                edit: {
+                    active: true,
+                    type: "modal"
+                },
+                remove: {
+                    active: true
+                },
+            },
+            customHandlers: [
+                {
+                    active: true,
+                    title: "Rutas",
+                    fullHandler: false,
+                    anchorCellClass: [
+                        "grid-row-anchor-customized"
+                    ],
+                    highlight: true,
+                    glyphiconClass: "glyphicon-briefcase",
+                    handler: function(data){
+                        console.log(data);
+                    }
+                }
+            ],
+            templateEdit: function(id, index){
+                console.log(id, index);
+            },
+            beforeEdit: function(){
+                console.log("A");
+                //BUTO.components.main.loader.loading();
+            },
+            beforeRemove: function(data, success){
+                console.log(data, success);
+                //BUTO.components.main.confirm.description.title = data.title;
+                //BUTO.components.main.confirm.description.text = data.text;
+                //BUTO.components.main.confirm.description.accept = data.accept;
+                //BUTO.components.main.confirm.description.cancel = data.cancel;
+                //BUTO.components.main.confirm.active = data.active;
+                //BUTO.components.main.confirm.onAccept = function(){
+                //    BUTO.components.main.loader.loading();
+                //    success();
+                //    BUTO.components.main.confirm.active = false;
+                //};
+            },
+            beforeAdd: function(){
+                console.log("B");
+                //BUTO.components.main.loader.loading();
+            },
+            onEdit: function(data, success){
+                console.log(data, success);
+                //if(success){
+                //    var postData = {
+                //        idUser: BUTO.components.main.header.userData.idUser,
+                //        username: BUTO.components.main.header.userData.username,
+                //        idData: data.id
+                //    };
+                //    socket.emit('editEmpresa', postData);
+                //}
+                //else{
+                //    BUTO.components.main.alert.description.title = data.title;
+                //    BUTO.components.main.alert.description.text = data.text;
+                //    BUTO.components.main.alert.description.ok = data.ok;
+                //    BUTO.components.main.alert.active = data.active;
+                //}
+                //BUTO.components.main.loader.loaded();
+            },
+            onRemove: function(data){
+                console.log(data);
+                //var postData = {
+                //    idUser: BUTO.components.main.header.userData.idUser,
+                //    username: BUTO.components.main.header.userData.username,
+                //    idData: data.id
+                //};
+                //socket.emit('deleteEmpresa', postData);
+                //BUTO.components.main.loader.loaded();
+            },
+            onAdd: function(data, success){
+                console.log(data, success);
+                //if(success){
+                //    var postData = {
+                //        idUser: BUTO.components.main.header.userData.idUser,
+                //        username: BUTO.components.main.header.userData.username
+                //    };
+                //    socket.emit('addEmpresa', postData);
+                //}
+                //else{
+                //    BUTO.components.main.alert.description.title = data.title;
+                //    BUTO.components.main.alert.description.text = data.text;
+                //    BUTO.components.main.alert.description.ok = data.ok;
+                //    BUTO.components.main.alert.active = data.active;
+                //}
+                //BUTO.components.main.loader.loaded();
+            },
+            onChangeColumns: function(data){
+                console.log(data);
+                //BUTO.components.main.loader.loading();
+                //var postData = {
+                //    update: {
+                //        updateData: {
+                //            "gridConfig.empresa.visibility": data
+                //        },
+                //        updateTable: "user",
+                //        flag: true
+                //    }
+                //};
+                //this.$http.post("/data-handler", postData).then(function(response){
+                //    if(response.body.success){
+                //        BUTO.components.main.loader.loaded();
+                //    }
+                //    else{
+                //        BUTO.components.main.loader.loaded();
+                //        BUTO.components.main.alert.description.title = "Edición de Configuración de Tablas";
+                //        BUTO.components.main.alert.description.text = "Ha ocurrido un error. Inténtalo de nuevo más tarde.";
+                //        BUTO.components.main.alert.description.ok = "Aceptar";
+                //        BUTO.components.main.alert.active = true;
+                //    }
+                //});
+            },
+            onDragEnd: function(data){
+                console.log(data);
+                //BUTO.components.main.loader.loading();
+                //var postData = {
+                //    update: {
+                //        updateData: {
+                //            "gridConfig.empresa.order": data
+                //        },
+                //        updateTable: "user",
+                //        flag: true
+                //    }
+                //};
+                //this.$http.post("/data-handler", postData).then(function(response){
+                //    if(response.body.success){
+                //        BUTO.components.main.loader.loaded();
+                //    }
+                //    else{
+                //        BUTO.components.main.loader.loaded();
+                //        BUTO.components.main.alert.description.title = "Edición de Configuración de Tablas";
+                //        BUTO.components.main.alert.description.text = "Ha ocurrido un error. Inténtalo de nuevo más tarde.";
+                //        BUTO.components.main.alert.description.ok = "Aceptar";
+                //        BUTO.components.main.alert.active = true;
+                //    }
+                //});
+            }
+        });
+        }
     }
 });
 
