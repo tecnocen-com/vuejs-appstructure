@@ -3,7 +3,7 @@ var webpack = require("webpack");
 var debug = process.env.NODE_ENV !== "production";
 module.exports = {
     entry: {
-        //login: './client/vue/login.js',
+        login: './client/js/login.js',
         main: './client/js/main.js'
     },
     output: {
@@ -15,10 +15,10 @@ module.exports = {
             'process.env': {
               NODE_ENV: '"production"'
             }
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            minimize: true,
-            compress: true
         })
+        //new webpack.optimize.UglifyJsPlugin({
+        //    minimize: true,
+        //    compress: true
+        //})
     ]
 };

@@ -10,7 +10,6 @@ module.exports = `
 
         <div class="navbar-collapse collapse" id="navbar-mobile">
             <p class="navbar-text"><span class="label bg-success-400">En línea</span></p>
-
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
@@ -21,7 +20,7 @@ module.exports = `
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li><a href="#"><i class="icon-cog5"></i> Configuración </a></li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="icon-switch2"></i> Cerrar Sesión </a></li>
+                        <li><a href="/logout"><i class="icon-switch2"></i> Cerrar Sesión </a></li>
                     </ul>
                 </li>
             </ul>

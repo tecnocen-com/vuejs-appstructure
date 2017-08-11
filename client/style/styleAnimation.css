@@ -1,0 +1,196 @@
+/*****************TRANSITION*********************/
+/*.fade-efect{
+    transition: all 0.25s ease-out;
+}
+.fade-efect-hide{
+    filter: blur(2px);
+    opacity: 0;
+}
+.fade-efect-show{
+    filter: blur(0px);
+    opacity: 1;
+}*/
+
+/*****************ANIMATION************************/
+    /*****************Login Component***********************/
+@keyframes fade-efect-hide {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+@-moz-keyframes fade-efect-hide {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+@-webkit-keyframes fade-efect-hide {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+.fade-efect-hide{
+    animation: fade-efect-hide 0.25s ease 1;
+    -moz-animation: fade-efect-hide 0.25s ease 1;
+    -webkit-animation: fade-efect-hide 0.25s ease 1;
+}
+
+@keyframes fade-efect-show {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@-moz-keyframes fade-efect-show {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@-webkit-keyframes fade-efect-show {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+.fade-efect-show{
+    animation: fade-efect-show 0.25s ease 1;
+    -moz-animation: fade-efect-show 0.25s ease 1;
+    -webkit-animation: fade-efect-show 0.25s ease 1;
+}
+    /*****************Menu Component************************/
+@keyframes app-button-hover-anim {
+    0% {-webkit-transform: rotate(0deg); transform: rotate(0deg);}
+    25% {-webkit-transform: rotate(-20deg); transform: rotate(-20deg);}
+    50% {-webkit-transform: rotate(20deg); transform: rotate(20deg);}
+    100% {-webkit-transform: rotate(0deg); transform: rotate(0deg);}
+}
+@-moz-keyframes app-button-hover-anim {
+    0% {-moz-transform: rotate(0deg);}
+    25% {-moz-transform: rotate(-20deg);}
+    50% {-moz-transform: rotate(20deg);}
+    100% {-moz-transform: rotate(0deg);}
+}
+@-webkit-keyframes app-button-hover-anim {
+    0% {-webkit-transform: rotate(0deg);}
+    25% {-webkit-transform: rotate(-20deg);}
+    50% {-webkit-transform: rotate(20deg);}
+    100% {-webkit-transform: rotate(0deg);}
+}
+.app-button-hover-anim{
+    animation: app-button-hover-anim 0.5s ease 1;
+    -moz-animation: app-button-hover-anim 0.5s ease 1;
+    -webkit-animation: app-button-hover-anim 0.5s ease 1;
+}
+
+
+@keyframes app-button-hide-anim {
+    0% { top: 0px; opacity: 1; filter: blur(0px); -webkit-filter: blur(0px);}
+    100% { top: -30px; opacity:0; filter: blur(2px); -webkit-filter: blur(2px);}
+}
+@-moz-keyframes app-button-hide-anim {
+    0% { top: 0px; opacity: 1; filter: blur(0px); -webkit-filter: blur(0px);}
+    100% { top: -30px; opacity:0; filter: blur(2px); -webkit-filter: blur(2px);}
+}
+@-webkit-keyframes app-button-hide-anim {
+    0% { top: 0px; opacity: 1; filter: blur(0px); -webkit-filter: blur(0px);}
+    100% { top: -30px; opacity:0; filter: blur(2px); -webkit-filter: blur(2px);}
+}
+.app-button-hide-anim{
+    animation: app-button-hide-anim 0.35s ease 1;
+    -moz-animation: app-button-hide-anim 0.35s ease 1;
+    -webkit-animation: app-button-hide-anim 0.35s ease 1;
+}
+@keyframes app-button-show-anim {
+    0% { top: 30px; opacity: 0; filter: blur(2px); -webkit-filter: blur(2px);}
+    100% { top: 0px; opacity: 1; filter: blur(0px); -webkit-filter: blur(0px);}
+}
+@-moz-keyframes app-button-show-anim {
+    0% { top: 30px; opacity: 0; filter: blur(2px); -webkit-filter: blur(2px);}
+    100% { top: 0px; opacity: 1; filter: blur(0px); -webkit-filter: blur(0px);}
+}
+@-webkit-keyframes app-button-show-anim {
+    0% { top: 30px; opacity: 0; filter: blur(2px); -webkit-filter: blur(2px);}
+    100% { top: 0px; opacity: 1; filter: blur(0px); -webkit-filter: blur(0px);}
+}
+.app-button-show-anim{
+    animation: app-button-show-anim 0.35s ease 1;
+    -moz-animation: app-button-show-anim 0.35s ease 1;
+    -webkit-animation: app-button-show-anim 0.35s ease 1;
+}
+
+    /***************Loader Component************************/
+@keyframes loading-anim {
+    0% {-webkit-transform: rotate(0deg); transform: rotate(0deg); filter: blur(0px); -webkit-filter: blur(0px);}
+    50% {-webkit-transform: rotate(180deg); transform: rotate(180deg); filter: blur(1px); -webkit-filter: blur(1px);}
+    100% {-webkit-transform: rotate(360deg); transform: rotate(360deg); filter: blur(0px); -webkit-filter: blur(0px);}
+}
+@-moz-keyframes loading-anim {
+    0% {-moz-transform: rotate(0deg); filter: blur(0px); -webkit-filter: blur(0px);}
+    50% {-moz-transform: rotate(180deg); filter: blur(1px); -webkit-filter: blur(1px);}
+    100% {-moz-transform: rotate(360deg); filter: blur(0px); -webkit-filter: blur(0px);}
+}
+@-webkit-keyframes loading-anim {
+    0% {-webkit-transform: rotate(0deg); filter: blur(0px); -webkit-filter: blur(0px);}
+    50% {-webkit-transform: rotate(180deg); filter: blur(1px); -webkit-filter: blur(1px);}
+    100% {-webkit-transform: rotate(360deg); filter: blur(0px); -webkit-filter: blur(0px);}
+}
+.loading-anim{
+    animation: loading-anim 0.5s linear infinite;
+    -moz-animation: loading-anim 0.5s linear infinite;
+    -webkit-animation: loading-anim 0.5s linear infinite;
+}
+    /*******************Formulario***************************/
+@keyframes section-drop {
+    50% {border-color: transparent;}
+}
+@-moz-keyframes section-drop {
+    50% {border-color: transparent;}
+}
+@-webkit-keyframes section-drop {
+    50% {border-color: transparent;}
+}
+.form-section-body.preview,
+.form-section-header.preview,
+.form-section-field.preview{
+    animation: section-drop 1s ease infinite;
+    -moz-animation: section-drop 1s ease infinite;
+    -webkit-animation: section-drop 1s ease infinite;
+}
+    /********************Workflow****************************/
+@keyframes preview-drop {
+    0% {opacity: 0; filter: blur(2px); -webkit-filter: blur(2px);}
+    50% {opacity: 1; filter: blur(0px); -webkit-filter: blur(0px);}
+    100% {opacity: 0; filter: blur(2px); -webkit-filter: blur(2px);}
+}
+@-moz-keyframes preview-drop {
+    0% {opacity: 0; filter: blur(2px); -webkit-filter: blur(2px);}
+    50% {opacity: 1; filter: blur(0px); -webkit-filter: blur(0px);}
+    100% {opacity: 0; filter: blur(2px); -webkit-filter: blur(2px);}
+}
+@-webkit-keyframes preview-drop {
+    0% {opacity: 0; filter: blur(2px); -webkit-filter: blur(2px);}
+    50% {opacity: 1; filter: blur(0px); -webkit-filter: blur(0px);}
+    100% {opacity: 0; filter: blur(2px); -webkit-filter: blur(2px);}
+}
+.workflow-stage.preview{
+    animation: preview-drop 1.5s linear infinite;
+    -moz-animation: preview-drop 1.5s linear infinite;
+    -webkit-animation: preview-drop 1.5s linear infinite;
+}
+.workflow-stage.droppable{
+    animation: preview-drop 0.75s linear infinite;
+    -moz-animation: preview-drop 0.75s linear infinite;
+    -webkit-animation: preview-drop 0.75s linear infinite;
+}
+
+@keyframes add-transition {
+    0% {border-style: outset; filter: brightness(125%); -webkit-filter: brightness(125%);}
+    50% {border-style: inset; filter: brightness(75%); -webkit-filter: brightness(75%);}
+    100% {border-style: outset; filter: brightness(125%); -webkit-filter: brightness(125%);}
+}
+@-moz-keyframes add-transition {
+    0% {border-style: outset; filter: brightness(125%); -webkit-filter: brightness(125%);}
+    50% {border-style: inset; filter: brightness(75%); -webkit-filter: brightness(75%);}
+    100% {border-style: outset; filter: brightness(125%); -webkit-filter: brightness(125%);}
+}
+@-webkit-keyframes add-transition {
+    0% {border-style: outset; filter: brightness(125%); -webkit-filter: brightness(125%);}
+    50% {border-style: inset; filter: brightness(75%); -webkit-filter: brightness(75%);}
+    100% {border-style: outset; filter: brightness(125%); -webkit-filter: brightness(125%);}
+}
+.workflow-stage.active.transition{
+    animation: add-transition 1.5s linear infinite;
+    -moz-animation: add-transition 1.5s linear infinite;
+    -webkit-animation: add-transition 1.5s linear infinite;
+}

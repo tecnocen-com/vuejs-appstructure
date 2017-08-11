@@ -1,40 +1,37 @@
 var express = require("express");
 var app = express();
 var http = require("http").Server(app);
-//var session = require("client-sessions");           //Sessions handler from mozilla
+var session = require("client-sessions");           //Sessions handler from mozilla
 //var io = require('socket.io')(http);
 //var MongoClient = require("mongodb").MongoClient;   //Importamos base de datos
 var requestHandlers = require("./requestHandlers"); //Modulo customizado para actuar según URL
-//app.use(session({
-//    cookieName: "alquimiaSession",
-//    secret: "spdosjcsdcmasojdsadkjassacmpsdichapoihcdpi",
-//    duration: 24*60*60*1000,       //Milliseconds, 1 hour will kill cookie
-//    activeDuration: 15*60*1000,  //Milliseconds, 5 minutes of inactivity will kill cookie
-//}));
+app.use(session({
+    cookieName: "alquimiaSession",
+    secret: "spdosjcsdcmasojdsadkjassacmpsdichapoihcdpi",
+    duration: 24*60*60*1000,       //Milliseconds, 1 hour will kill cookie
+    activeDuration: 15*60*1000,  //Milliseconds, 5 minutes of inactivity will kill cookie
+}));
 app.get("/", function(request, response){
     requestHandlers.init(request, response);
 });
-app.get("/api-key", function(request, response){
-    requestHandlers.apiKey(request, response);
+app.get("/home", function(request, response){
+    requestHandlers.home(request, response);
 });
-//app.get("/home", function(request, response){
-//    requestHandlers.home(request, response, app.locals.database);
-//});
-//app.post("/login", function(request, response){     //Doesn"t support express.static
-//    var data = "";
-//    request.on("data", function(dataPart){
-//        data += dataPart;
-//    }).on("end", function(){
-//        requestHandlers.login(request, response, data);
-//    });
-//});
-//app.get("/logout", function(request, response){
-//    request.alquimiaSession.reset();
-//    response.redirect("/");
-//});
-//app.get("/init-user-data", function(request, response){
-//    requestHandlers.initUserData(request, response);
-//});
+app.post("/login", function(request, response){     //Doesn"t support express.static
+    var data = "";
+    request.on("data", function(dataPart){
+        data += dataPart;
+    }).on("end", function(){
+        requestHandlers.login(request, response, data);
+    });
+});
+app.get("/logout", function(request, response){
+    request.alquimiaSession.reset();
+    response.redirect("/");
+});
+app.get("/init-user-data", function(request, response){
+    requestHandlers.initUserData(request, response);
+});
 //app.get("/config-user-data", function(request, response){
 //    requestHandlers.configUserData(request, response, app.locals.database);
 //});

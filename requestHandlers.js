@@ -1,69 +1,69 @@
 var path = require("path");
-//var httprequest = require("request");
-//var serviceUrl = {
-//	baseURL: "https://alquimia3.adelantoad.com/index.php/api/",
-//    tokenURL: "oauth2/token"
-//};
+var httprequest = require("request");
+var serviceUrl = {
+        baseURL: "http://localhost/ayp_rutas/backend/web/index.php/api/",
+        dataURL: "v1/",
+        tokenURL: "oauth2/token",
+        apiKey: "AIzaSyBRRmzVxMe4JRzwDmxcGrQRxm_WPlHiPRs"
+};
 //var dbConection = require("./dbConection");	//Módulo personalizado de conexión a Mongodb
 function init(request, response){
-	//if(request.alquimiaSession && request.alquimiaSession.userData)
-		response.sendFile(path.join(__dirname, "client/home.html"));
-	//else
-	//	response.sendFile(path.join(__dirname, "client/index.html"));
+	if(request.alquimiaSession && request.alquimiaSession.userData)
+                response.sendFile(path.join(__dirname, "client/home.html"));
+	else
+		response.sendFile(path.join(__dirname, "client/index.html"));
 }
-function apiKey(request, response){
-	response.writeHead(200, "application/json");
-	response.end(JSON.stringify({
-			success: true,
-			apiKey: "AIzaSyBRRmzVxMe4JRzwDmxcGrQRxm_WPlHiPRs"
-		})
+function home(request, response){
+	if(request.alquimiaSession && request.alquimiaSession.userData)
+		response.sendFile(path.join(__dirname, "client/home.html"));
+	else
+		response.redirect("/");
+}
+function login(request, response, data){
+	var parsedData = JSON.parse(data);
+	httprequest.post({
+			url: serviceUrl.baseURL + serviceUrl.tokenURL,
+			headers: {
+                Authorization: "Basic dGVzdGNsaWVudDp0ZXN0cGFzcw==",   //username: testclient || password: testpass
+            },
+			form: {
+				grant_type: "password", 
+				username: parsedData.user, 
+				password: parsedData.pass
+			}
+		},
+		function(errorRequest, responseRequest, bodyRequest){
+			if(errorRequest)
+				console.log("Error: "+ errorRequest);
+			else{
+				var body = JSON.parse(bodyRequest);
+				if(body.status !== 401){
+					request.alquimiaSession.userData = {
+						access_token: body.access_token
+					};
+				}
+				response.writeHead(200, "application/json");
+				response.end(bodyRequest);
+			}
+		}
 	);
 }
-//function home(request, response){
-//	if(request.alquimiaSession && request.alquimiaSession.userData)
-//		response.sendFile(path.join(__dirname, "client/home.html"));
-//	else
-//		response.redirect("/");
-//}
-//function login(request, response, data){
-//	var parsedData = JSON.parse(data);
-//	httprequest.post({
-//			url: serviceUrl.baseURL + serviceUrl.tokenURL,
-//			headers: {
-//                Authorization: "Basic dGVzdGNsaWVudDp0ZXN0cGFzcw==",   //username: testclient || password: testpass
-//            },
-//			form: {
-//				grant_type: "password", 
-//				username: parsedData.user, 
-//				password: parsedData.pass
-//			}
-//		},
-//		function(errorRequest, responseRequest, bodyRequest){
-//			if(errorRequest)
-//				console.log("Error: "+ errorRequest);
-//			else{
-//				var body = JSON.parse(bodyRequest);
-//				if(body.status !== 401){
-//					request.alquimiaSession.userData = {
-//						access_token: body.access_token
-//					};
-//				}
-//				response.writeHead(200, "application/json");
-//				response.end(bodyRequest);
-//			}
-//		}
-//	);
-//}
-//function initUserData(request, response){
-//	if(request.alquimiaSession && request.alquimiaSession.userData){
-//		response.writeHead(200, {"Content-Type": "json/application"}); //Escribimos cabecera (Typo de contenido, texto tipo html)
-//		response.end(JSON.stringify({success: true, access_token: request.alquimiaSession.userData.access_token}));  //Terminamos respuesta
-//	}
-//	else{
-//		response.writeHead(200, {"Content-Type": "json/application"}); //Escribimos cabecera (Typo de contenido, texto tipo html)
-//		response.end(JSON.stringify({success: false}));  //Terminamos respuesta
-//	}
-//}
+function initUserData(request, response){
+	if(request.alquimiaSession && request.alquimiaSession.userData){
+		response.writeHead(200, {"Content-Type": "json/application"}); //Escribimos cabecera (Typo de contenido, texto tipo html)
+		response.end(JSON.stringify({
+                        success: true,
+                        baseURL: serviceUrl.baseURL,
+                        dataURL: serviceUrl.dataURL,
+                        access_token: request.alquimiaSession.userData.access_token,
+                        apiKey: serviceUrl.apiKey
+                }));  //Terminamos respuesta
+	}
+	else{
+		response.writeHead(200, {"Content-Type": "json/application"}); //Escribimos cabecera (Typo de contenido, texto tipo html)
+		response.end(JSON.stringify({success: false}));  //Terminamos respuesta
+	}
+}
 //function configUserData(request, response, database){
 //	if(request.alquimiaSession && request.alquimiaSession.userData)
 //		dbConection.configUserData(request, response, database);
@@ -108,10 +108,9 @@ function apiKey(request, response){
 //	}
 //}
 exports.init = init;
-exports.apiKey = apiKey;
-//exports.login = login;
-//exports.home = home;
-//exports.initUserData = initUserData;
+exports.login = login;
+exports.home = home;
+exports.initUserData = initUserData;
 //exports.configUserData = configUserData;
 //exports.insertData = insertData;
 //exports.updateData = updateData;
