@@ -11,7 +11,10 @@ BUTO.requires = {
         toolbar: require("./component/toolbar.js"),
         map: require("./component/map.js"),
         menu: require("./component/common/menu.js"),
-        cliente: require("./component/clientes/general.js")
+        clientesRegistrados: require("./component/clientes/clientesRegistrados.js"),
+        tiendasRegistradas: require("./component/tiendas/tiendasRegistradas.js"),
+        nuevaTienda: require("./component/tiendas/nuevaTienda.js"),
+        recursosRegistrados: require("./component/recursos_humanos/recursosRegistrados.js")
     }
 };
 
@@ -49,6 +52,44 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 second: 0,
                                 third: 0
                             },
+                            loader: new Vue({
+                                data: {
+                                    active: false,
+                                    message: "Cargando"
+                                },
+                                methods: {
+                                    loading(){
+                                        this.active = true;
+                                    },
+                                    loaded(){
+                                        this.active = false;
+                                    }
+                                }
+                            }),
+                            confirm: new Vue({
+                                data: {
+                                    description: {
+                                        title: "",
+                                        text: "",
+                                        accept: "",
+                                        cancel: ""
+                                    },
+                                    active: false
+                                },
+                                methods: {
+                                    onAccept: function(){}
+                                }
+                            }),
+                            alert: new Vue({
+                                data: {
+                                    description: {
+                                        title: "",
+                                        text: "",
+                                        ok: ""
+                                    },
+                                    active: false
+                                }
+                            }),
                             models: {
                                 cliente: new modelCreator("cliente"),
                                 clienteEmpleado: new modelCreator(["cliente", "empleado"]),
@@ -68,7 +109,10 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 map: BUTO.requires.components.map,
                                 toolbar: BUTO.requires.components.toolbar,
                                 menu: BUTO.requires.components.menu,
-                                cliente: BUTO.requires.components.cliente
+                                clientesRegistrados: BUTO.requires.components.clientesRegistrados,
+                                tiendasRegistradas: BUTO.requires.components.tiendasRegistradas,
+                                nuevaTienda: BUTO.requires.components.nuevaTienda,
+                                recursosRegistrados: BUTO.requires.components.recursosRegistrados
                             }
                         },
                         methods: {
@@ -87,14 +131,18 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                         },
                         created: function(){
                             BUTO.init(userResponse);
-                            BUTO.requires.components.cliente.init({
-                                cliente: this.models.cliente,
-                                clienteEmpleado: this.models.clienteEmpleado,
-                                clienteSucursal: this.models.clienteSucursal
+                            BUTO.requires.components.clientesRegistrados.init({
+                                cliente: this.models.cliente
+                            });
+                            BUTO.requires.components.tiendasRegistradas.init({
+                                sucursal: this.models.sucursal
+                            });
+                            BUTO.requires.components.recursosRegistrados.init({
+                                empleado: this.models.empleado
                             });
                         },
                         mounted: function(){
-                            this.children.map.init();
+                            //this.children.map.init();
                         }
                     })
                 };

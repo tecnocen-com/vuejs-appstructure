@@ -8,13 +8,13 @@ var serviceUrl = {
 };
 //var dbConection = require("./dbConection");	//Módulo personalizado de conexión a Mongodb
 function init(request, response){
-	if(request.alquimiaSession && request.alquimiaSession.userData)
+	if(request.travelAppSession && request.travelAppSession.userData)
                 response.sendFile(path.join(__dirname, "client/home.html"));
 	else
 		response.sendFile(path.join(__dirname, "client/index.html"));
 }
 function home(request, response){
-	if(request.alquimiaSession && request.alquimiaSession.userData)
+	if(request.travelAppSession && request.travelAppSession.userData)
 		response.sendFile(path.join(__dirname, "client/home.html"));
 	else
 		response.redirect("/");
@@ -38,7 +38,7 @@ function login(request, response, data){
 			else{
 				var body = JSON.parse(bodyRequest);
 				if(body.status !== 401){
-					request.alquimiaSession.userData = {
+					request.travelAppSession.userData = {
 						access_token: body.access_token
 					};
 				}
@@ -49,13 +49,13 @@ function login(request, response, data){
 	);
 }
 function initUserData(request, response){
-	if(request.alquimiaSession && request.alquimiaSession.userData){
+	if(request.travelAppSession && request.travelAppSession.userData){
 		response.writeHead(200, {"Content-Type": "json/application"}); //Escribimos cabecera (Typo de contenido, texto tipo html)
 		response.end(JSON.stringify({
                         success: true,
                         baseURL: serviceUrl.baseURL,
                         dataURL: serviceUrl.dataURL,
-                        access_token: request.alquimiaSession.userData.access_token,
+                        access_token: request.travelAppSession.userData.access_token,
                         apiKey: serviceUrl.apiKey
                 }));  //Terminamos respuesta
 	}

@@ -308,9 +308,16 @@ var mcdatatableT = `
                                                         </template>
                                                     </td>
                                                     <td class="col-md-1 text-center">
-                                                        <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
-                                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                        </a>
+                                                        <template v-if="config.handlers.watch.type === 'modal'">
+                                                            <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
+                                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                            </a>
+                                                        </template>
+                                                        <template v-else-if="config.handlers.watch.type === 'template'">
+                                                            <a href="#" v-on:click.prevent="config.templateWatch(data.id, semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch">
+                                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                            </a>
+                                                        </template>
                                                         <template v-if="config.handlers.edit.active">
                                                             <template v-if="config.handlers.edit.type === 'inline'">
                                                                 <template v-if="!data._editing">
@@ -326,6 +333,11 @@ var mcdatatableT = `
                                                             </template>
                                                             <template v-else-if="config.handlers.edit.type === 'modal'">
                                                                 <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
+                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.edit.type === 'template'">
+                                                                <a href="#" v-on:click.prevent="config.templateEdit(data.id, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
                                                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                                 </a>
                                                             </template>
@@ -372,9 +384,18 @@ var mcdatatableT = `
                                                         </template>
                                                     </td>
                                                     <td class="col-md-1 text-center">
-                                                        <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
-                                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                        </a>
+                                                        <template v-if="config.handlers.watch.active">
+                                                            <template v-if="config.handlers.watch.type === 'modal'">
+                                                                <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
+                                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.watch.type === 'template'">
+                                                                <a href="#" v-on:click.prevent="config.templateWatch(data.id, semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch">
+                                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                        </template>
                                                         <template v-if="config.handlers.edit.active">
                                                             <template v-if="config.handlers.edit.type === 'inline'">
                                                                 <template v-if="!data._editing">
@@ -390,6 +411,11 @@ var mcdatatableT = `
                                                             </template>
                                                             <template v-else-if="config.handlers.edit.type === 'modal'">
                                                                 <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
+                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.edit.type === 'template'">
+                                                                <a href="#" v-on:click.prevent="config.templateEdit(data.id, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
                                                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                                 </a>
                                                             </template>
@@ -468,9 +494,18 @@ var mcdatatableT = `
                                         </template>
                                     </td>
                                     <td class="col-md-1 text-center">
-                                        <a href="#" v-on:click.prevent="config.watchRow(index)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
-                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                        </a>
+                                        <template v-if="config.handlers.watch.active">
+                                            <template v-if="config.handlers.watch.type === 'modal'">
+                                                <a href="#" v-on:click.prevent="config.watchRow(index)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
+                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                </a>
+                                            </template>
+                                            <template v-else-if="config.handlers.watch.type === 'template'">
+                                                <a href="#" v-on:click.prevent="config.templateWatch(data.id, index)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch">
+                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                </a>
+                                            </template>
+                                        </template>
                                         <template v-if="config.handlers.edit.active">
                                             <template v-if="config.handlers.edit.type === 'inline'">
                                                 <template v-if="!data._editing">
@@ -664,6 +699,8 @@ var mcdatatableT = `
 //    language: 'spa' || 'eng'
 
 //config in handlers:
+//    watch -> type (modal, template)
+//         -> active (true || false)
 //    add -> type (modal, inline, template)
 //        -> active (true || false)
 //    edit -> type (modal, inline, template)
@@ -679,6 +716,8 @@ var mcdatatableT = `
 //    anchorCellClass -> (array of styles for anchor of customHandler)
 //    handler (function) -> return data of clicked row
 // config root, callbacks:
+//    templateWatch (function) -> called on watch of template type
+//    templateEdit (function) -> called on edit of template type
 //    beforeEdit (function) -> called before edit
 //    beforeAdd (function) -> called before add
 //    beforeRemove (function) -> called before remove, return data confirm message and success function to run onAccept of confirm
@@ -769,6 +808,7 @@ var mcdatatable = function(configuration){
             beforeAdd = null,
             beforeRemove = null,
             templateEdit = null,
+            templateWatch = null,
             onEdit = null,
             onAdd = null,
             onRemove = null,
@@ -849,7 +889,11 @@ var mcdatatable = function(configuration){
         if(configuration.handlers.edit.active && typeof configuration.beforeEdit === "function")
             beforeEdit = configuration.beforeEdit;
         else
-            beforeEdit = function(){}; 
+            beforeEdit = function(){};
+        if(configuration.handlers.watch.active && typeof configuration.templateWatch === "function")
+            templateWatch = configuration.templateWatch;
+        else
+            templateWatch = function(){}; 
         if(configuration.handlers.edit.active && typeof configuration.templateEdit === "function")
             templateEdit = configuration.templateEdit;
         else
@@ -885,6 +929,7 @@ var mcdatatable = function(configuration){
         delete configuration.beforeAdd;
         delete configuration.beforeRemove;
         delete configuration.beforeEdit;
+        delete configuration.templateWatch;
         delete configuration.templateEdit;
         delete configuration.onEdit;
         delete configuration.onAdd;
@@ -1473,6 +1518,7 @@ var mcdatatable = function(configuration){
                         }
                     }
                 },
+                templateWatch: templateWatch,
                 beforeEdit: beforeEdit,
                 templateEdit: templateEdit,
                 onEdit: onEdit,

@@ -44,3 +44,173 @@ body{
 .copyright-info{
     font-size: small;
 }
+/******************************** Custom grids ******************************/
+    /**************FIXES*******************/
+.full-large-group .btn.dropdown-toggle{
+    margin-left: 0px !important;
+}
+.dropdown-submenu>a:after{
+    content: '' !important;
+}
+    /***************************************/
+.no-edit-mode{
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-radius: 5px;
+    text-align: center;
+    min-height: 34px;
+}
+.btn-customized,
+.grid-custom-handlers,
+.grid-handlers{
+    border: 1px solid;
+    border-left: 0px;
+    border-right: 0px;
+    margin-right: 3px;
+    border-radius: 3px;
+    background-color: white;
+    color: #4550a5;
+    border-color: #4550a5;
+}
+.open .btn-customized,
+.btn-customized:hover,
+.btn-customized:active,
+.btn-customized:focus,
+.grid-custom-handlers:hover,
+.grid-custom-handlers:active,
+.grid-custom-handlers:focus,
+.grid-handlers:hover,
+.grid-handlers:active,
+.grid-handlers:focus{
+    background-color: #292b2c !important;
+    color: white !important;
+    border-color: white !important;
+}
+div.grid-container>div>nav>ul.pagination>li>span{
+    color: #4550a5;
+}
+div.grid-container>div>nav>ul.pagination>li>span:hover{
+    color: #292b2c;
+}
+div.grid-container>div>nav>ul.pagination>li>a{
+    color: #4550a5;
+}
+div.grid-container>div>nav>ul.pagination>li.active>a{
+    background-color: #292b2c;
+    color: white;
+}
+a.grid-row-anchor-customized{
+    color: #333;
+}
+.grid-row-customized:hover{
+    background-color: #f5f5f5;
+    color: #4550a5;
+}
+.grid-row-highlight-customized{
+    background-color: #f5f5f5;
+}
+.pagination>li.active>a{
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+.alert-overlay-custom{
+    
+}
+.alert-box-custom{
+    border-radius: 4px !important;
+    padding-bottom: 15px;
+}
+.alert-btn-customized{
+    border-left: 0px;
+    border-right: 0px;
+    border-radius: 4px !important;
+}
+.custom-color-box{
+    height: 20px;
+    top: 7px;
+    border-left: #444444 1px solid;
+}
+.custom-style-handlers-container{
+    position: relative;
+    top: 7px;
+}
+.style-add-container{
+    position: relative;
+    z-index: 1000;
+}
+.loader-custom-container{
+    position: relative;
+    width: 150px;
+    height: 50px;
+    top: 50%;
+    bottom: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: #f8f8ff;
+    border-bottom: 1px solid #aaaaaa;
+    border-left: 1px solid #aaaaaa;
+    border-radius: 5px;
+}
+.footer{
+    clear: both;
+    position: relative;
+    height: 70px;
+}
+.footer-container{
+    position: relative;
+    height: 50px;
+    top: 20px;
+    text-align: center;
+    vertical-align: middle;
+    border-top-right-radius: 5px;
+    border-top: 1px solid;
+}
+.footer-text{
+    position: relative;
+    top: 15px;
+}
+.style-handlers{
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+/********************************** Modal styles *********************************/
+.modal-header-custom{
+    padding-bottom: 15px;
+    background-color: #292b2c;
+    color: white;
+}
+.modal-buttom-custom{
+    top: 30% !important;
+    color: white;
+}
+.modal-footer-custom{
+    background-color: rgba(238, 238, 238, 1);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+/********************************** Adaptations ***********************************/
+.switchery-custom.active{
+    background-color: rgb(100, 189, 99);
+    border-color: rgb(100, 189, 99);
+    box-shadow: rgb(100, 189, 99) 0px 0px 0px 12px inset;
+    transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
+}
+.switchery-custom.active small{
+    left: 22px;
+    background-color: rgb(255, 255, 255);
+    transition: background-color 0.4s, left 0.2s;
+}
+.switchery-custom.not-active{
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(223, 223, 223);
+    box-shadow: rgb(223, 223, 223) 0px 0px 0px 0px inset;
+    transition: border 0.4s, box-shadow 0.4s;
+}
+.switchery-custom.not-active small{
+    left: 0px;
+    transition: background-color 0.4s, left 0.2s;
+}

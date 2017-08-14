@@ -6,8 +6,8 @@ var session = require("client-sessions");           //Sessions handler from mozi
 //var MongoClient = require("mongodb").MongoClient;   //Importamos base de datos
 var requestHandlers = require("./requestHandlers"); //Modulo customizado para actuar según URL
 app.use(session({
-    cookieName: "alquimiaSession",
-    secret: "spdosjcsdcmasojdsadkjassacmpsdichapoihcdpi",
+    cookieName: "travelAppSession",
+    secret: "sapasdasdopaks+oaskdsfisdudfdssdpuohsdfsdf",
     duration: 24*60*60*1000,       //Milliseconds, 1 hour will kill cookie
     activeDuration: 15*60*1000,  //Milliseconds, 5 minutes of inactivity will kill cookie
 }));
@@ -26,7 +26,7 @@ app.post("/login", function(request, response){     //Doesn"t support express.st
     });
 });
 app.get("/logout", function(request, response){
-    request.alquimiaSession.reset();
+    request.travelAppSession.reset();
     response.redirect("/");
 });
 app.get("/init-user-data", function(request, response){

@@ -10767,9 +10767,16 @@ var mcdatatableT = `
                                                         </template>
                                                     </td>
                                                     <td class="col-md-1 text-center">
-                                                        <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
-                                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                        </a>
+                                                        <template v-if="config.handlers.watch.type === 'modal'">
+                                                            <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
+                                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                            </a>
+                                                        </template>
+                                                        <template v-else-if="config.handlers.watch.type === 'template'">
+                                                            <a href="#" v-on:click.prevent="config.templateWatch(data.id, semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch">
+                                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                            </a>
+                                                        </template>
                                                         <template v-if="config.handlers.edit.active">
                                                             <template v-if="config.handlers.edit.type === 'inline'">
                                                                 <template v-if="!data._editing">
@@ -10785,6 +10792,11 @@ var mcdatatableT = `
                                                             </template>
                                                             <template v-else-if="config.handlers.edit.type === 'modal'">
                                                                 <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
+                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.edit.type === 'template'">
+                                                                <a href="#" v-on:click.prevent="config.templateEdit(data.id, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
                                                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                                 </a>
                                                             </template>
@@ -10831,9 +10843,18 @@ var mcdatatableT = `
                                                         </template>
                                                     </td>
                                                     <td class="col-md-1 text-center">
-                                                        <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
-                                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                        </a>
+                                                        <template v-if="config.handlers.watch.active">
+                                                            <template v-if="config.handlers.watch.type === 'modal'">
+                                                                <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
+                                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.watch.type === 'template'">
+                                                                <a href="#" v-on:click.prevent="config.templateWatch(data.id, semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch">
+                                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                        </template>
                                                         <template v-if="config.handlers.edit.active">
                                                             <template v-if="config.handlers.edit.type === 'inline'">
                                                                 <template v-if="!data._editing">
@@ -10849,6 +10870,11 @@ var mcdatatableT = `
                                                             </template>
                                                             <template v-else-if="config.handlers.edit.type === 'modal'">
                                                                 <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
+                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.edit.type === 'template'">
+                                                                <a href="#" v-on:click.prevent="config.templateEdit(data.id, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
                                                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                                 </a>
                                                             </template>
@@ -10927,9 +10953,18 @@ var mcdatatableT = `
                                         </template>
                                     </td>
                                     <td class="col-md-1 text-center">
-                                        <a href="#" v-on:click.prevent="config.watchRow(index)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
-                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                        </a>
+                                        <template v-if="config.handlers.watch.active">
+                                            <template v-if="config.handlers.watch.type === 'modal'">
+                                                <a href="#" v-on:click.prevent="config.watchRow(index)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
+                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                </a>
+                                            </template>
+                                            <template v-else-if="config.handlers.watch.type === 'template'">
+                                                <a href="#" v-on:click.prevent="config.templateWatch(data.id, index)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch">
+                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                </a>
+                                            </template>
+                                        </template>
                                         <template v-if="config.handlers.edit.active">
                                             <template v-if="config.handlers.edit.type === 'inline'">
                                                 <template v-if="!data._editing">
@@ -11123,6 +11158,8 @@ var mcdatatableT = `
 //    language: 'spa' || 'eng'
 
 //config in handlers:
+//    watch -> type (modal, template)
+//         -> active (true || false)
 //    add -> type (modal, inline, template)
 //        -> active (true || false)
 //    edit -> type (modal, inline, template)
@@ -11138,6 +11175,8 @@ var mcdatatableT = `
 //    anchorCellClass -> (array of styles for anchor of customHandler)
 //    handler (function) -> return data of clicked row
 // config root, callbacks:
+//    templateWatch (function) -> called on watch of template type
+//    templateEdit (function) -> called on edit of template type
 //    beforeEdit (function) -> called before edit
 //    beforeAdd (function) -> called before add
 //    beforeRemove (function) -> called before remove, return data confirm message and success function to run onAccept of confirm
@@ -11228,6 +11267,7 @@ var mcdatatable = function(configuration){
             beforeAdd = null,
             beforeRemove = null,
             templateEdit = null,
+            templateWatch = null,
             onEdit = null,
             onAdd = null,
             onRemove = null,
@@ -11308,7 +11348,11 @@ var mcdatatable = function(configuration){
         if(configuration.handlers.edit.active && typeof configuration.beforeEdit === "function")
             beforeEdit = configuration.beforeEdit;
         else
-            beforeEdit = function(){}; 
+            beforeEdit = function(){};
+        if(configuration.handlers.watch.active && typeof configuration.templateWatch === "function")
+            templateWatch = configuration.templateWatch;
+        else
+            templateWatch = function(){}; 
         if(configuration.handlers.edit.active && typeof configuration.templateEdit === "function")
             templateEdit = configuration.templateEdit;
         else
@@ -11344,6 +11388,7 @@ var mcdatatable = function(configuration){
         delete configuration.beforeAdd;
         delete configuration.beforeRemove;
         delete configuration.beforeEdit;
+        delete configuration.templateWatch;
         delete configuration.templateEdit;
         delete configuration.onEdit;
         delete configuration.onAdd;
@@ -11932,6 +11977,7 @@ var mcdatatable = function(configuration){
                         }
                     }
                 },
+                templateWatch: templateWatch,
                 beforeEdit: beforeEdit,
                 templateEdit: templateEdit,
                 onEdit: onEdit,
@@ -16967,10 +17013,13 @@ BUTO.requires = {
         main: __webpack_require__(196)
     },
     components: {
-        toolbar: __webpack_require__(207),
-        map: __webpack_require__(208),
-        menu: __webpack_require__(209),
-        cliente: __webpack_require__(210)
+        toolbar: __webpack_require__(211),
+        map: __webpack_require__(212),
+        menu: __webpack_require__(213),
+        clientesRegistrados: __webpack_require__(214),
+        tiendasRegistradas: __webpack_require__(215),
+        nuevaTienda: __webpack_require__(216),
+        recursosRegistrados: __webpack_require__(217)
     }
 };
 
@@ -17008,6 +17057,44 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 second: 0,
                                 third: 0
                             },
+                            loader: new Vue({
+                                data: {
+                                    active: false,
+                                    message: "Cargando"
+                                },
+                                methods: {
+                                    loading(){
+                                        this.active = true;
+                                    },
+                                    loaded(){
+                                        this.active = false;
+                                    }
+                                }
+                            }),
+                            confirm: new Vue({
+                                data: {
+                                    description: {
+                                        title: "",
+                                        text: "",
+                                        accept: "",
+                                        cancel: ""
+                                    },
+                                    active: false
+                                },
+                                methods: {
+                                    onAccept: function(){}
+                                }
+                            }),
+                            alert: new Vue({
+                                data: {
+                                    description: {
+                                        title: "",
+                                        text: "",
+                                        ok: ""
+                                    },
+                                    active: false
+                                }
+                            }),
                             models: {
                                 cliente: new modelCreator("cliente"),
                                 clienteEmpleado: new modelCreator(["cliente", "empleado"]),
@@ -17027,7 +17114,10 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 map: BUTO.requires.components.map,
                                 toolbar: BUTO.requires.components.toolbar,
                                 menu: BUTO.requires.components.menu,
-                                cliente: BUTO.requires.components.cliente
+                                clientesRegistrados: BUTO.requires.components.clientesRegistrados,
+                                tiendasRegistradas: BUTO.requires.components.tiendasRegistradas,
+                                nuevaTienda: BUTO.requires.components.nuevaTienda,
+                                recursosRegistrados: BUTO.requires.components.recursosRegistrados
                             }
                         },
                         methods: {
@@ -17046,14 +17136,18 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                         },
                         created: function(){
                             BUTO.init(userResponse);
-                            BUTO.requires.components.cliente.init({
-                                cliente: this.models.cliente,
-                                clienteEmpleado: this.models.clienteEmpleado,
-                                clienteSucursal: this.models.clienteSucursal
+                            BUTO.requires.components.clientesRegistrados.init({
+                                cliente: this.models.cliente
+                            });
+                            BUTO.requires.components.tiendasRegistradas.init({
+                                sucursal: this.models.sucursal
+                            });
+                            BUTO.requires.components.recursosRegistrados.init({
+                                empleado: this.models.empleado
                             });
                         },
                         mounted: function(){
-                            this.children.map.init();
+                            //this.children.map.init();
                         }
                     })
                 };
@@ -30855,20 +30949,42 @@ exports.callback = function(error, response) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var mcdatatable = __webpack_require__(42).template;
-var heading = __webpack_require__(197);
-var menu = __webpack_require__(198);
-var pageHeading = __webpack_require__(199);
-var foot = __webpack_require__(200);
-var clientes = __webpack_require__(201);
-var tiendas = __webpack_require__(202);
-var recursosHumanos = __webpack_require__(203);
-var reportes = __webpack_require__(204);
-var map = __webpack_require__(205);
-var toolbar = __webpack_require__(206);
+var loader = __webpack_require__(197);
+var confirm = __webpack_require__(198);
+var alert = __webpack_require__(199);
+var heading = __webpack_require__(200);
+var menu = __webpack_require__(201);
+var pageHeading = __webpack_require__(202);
+var foot = __webpack_require__(203);
+var clientesRegistrados = __webpack_require__(204);
+var tiendasRegistradas = __webpack_require__(205);
+var nuevaTienda = __webpack_require__(206);
+var recursosRegistrados = __webpack_require__(207);
+var reportes = __webpack_require__(208);
+var map = __webpack_require__(209);
+var toolbar = __webpack_require__(210);
 Vue.component("mcdatatable", {
     template: mcdatatable,
     props: {
         title: String,
+        config: Object
+    }
+});
+Vue.component("loader", {
+    template: loader,
+    props: {
+        config: Object
+    }
+});
+Vue.component("confirm", {
+    template: confirm,
+    props: {
+        config: Object
+    }
+});
+Vue.component("alert", {
+    template: alert,
+    props: {
         config: Object
     }
 });
@@ -30901,26 +31017,32 @@ Vue.component("foot", {
         config: Object
     }
 });
-Vue.component("clientes", {
-    template: clientes,
+Vue.component("clientes-registrados", {
+    template: clientesRegistrados,
     props: {
         config: Object
     }
 });
-Vue.component("recursos-humanos", {
-    template: recursosHumanos,
+Vue.component("tiendas-registradas", {
+    template: tiendasRegistradas,
+    props: {
+        config: Object
+    }
+});
+Vue.component("nueva-tienda", {
+    template: nuevaTienda,
+    props: {
+        config: Object
+    }
+});
+Vue.component("recursos-registrados", {
+    template: recursosRegistrados,
     props: {
         config: Object
     }
 });
 Vue.component("reportes", {
     template: reportes,
-    props: {
-        config: Object
-    }
-});
-Vue.component("tiendas", {
-    template: tiendas,
     props: {
         config: Object
     }
@@ -30940,30 +31062,58 @@ Vue.component("mapping", {
 module.exports = `
     <!-- Main navbar -->
     <div>
+        <transition name="slide-fade">
+            <loader :config="loader"></loader>
+        </transition>
+        <transition name="slide-fade">
+            <confirm :config="confirm"></confirm>
+        </transition>
+        <transition name="slide-fade">
+            <alert :config="alert"></alert>
+        </transition>
         <heading></heading>
         <my-menu :config="children.menu" :active="active" :setview="setView"></my-menu>
         <page-heading :config="children.menu" :active="active" :setview="setView"></page-heading>
         <div class="page-container">
-            <template v-if="active.first === 0">
-                <div class="row">
-                    <mapping :config="children.map"></mapping>
-                    <toolbar :config="children.map"></toolbar>
-                </div>
-            </template>
-            <template v-else-if="active.first === 1">
-                <div class="row">
-                    <clientes :config="children.cliente"></clientes>
-                </div>
-            </template>
-            <template v-else-if="active.first === 2">
-                <tiendas></tiendas>
-            </template>
-            <template v-else-if="active.first === 3">
-                <recursos-humanos></recursos-humanos>
-            </template>
-            <template v-else-if="active.first === 4">
-                <reportes></reportes>
-            </template>
+            <div class="row">
+                <template v-if="active.first === 0">
+                    <transition name="slide-fade">
+                        <mapping :config="children.map"></mapping>
+                    </transition>
+                    <transition name="slide-fade">
+                        <toolbar :config="children.map"></toolbar>
+                    </transition>
+                </template>
+                <template v-else-if="active.first === 1">
+                    <transition name="slide-fade">
+                        <clientes-registrados :config="children.clientesRegistrados"></clientes-registrados>
+                    </transition>
+                </template>
+                <template v-else-if="active.first === 2">
+                    <template v-if="active.second === 0">
+                        <template v-if="active.third === 0">
+                            <transition name="slide-fade">
+                                <tiendas-registradas :config="children.tiendasRegistradas"></tiendas-registradas>
+                            </transition>
+                        </template>
+                        <template v-if="active.third === 1">
+                            <transition name="slide-fade">
+                                <nueva-tienda :config="children.nuevaTienda"></nueva-tienda>
+                            </transition>
+                        </template>
+                    </template>
+                </template>
+                <template v-else-if="active.first === 3">
+                    <transition name="slide-fade">
+                        <recursos-registrados :config="children.recursosRegistrados"></recursos-registrados>
+                    </transition>
+                </template>
+                <template v-else-if="active.first === 4">
+                    <transition name="slide-fade">
+                        <reportes></reportes>
+                    </transition>
+                </template>
+            </div>
         </div>
         <foot></foot>
     </div>
@@ -30971,6 +31121,56 @@ module.exports = `
 
 /***/ }),
 /* 197 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div v-if="config.active" class="alert-message-overlay alert-overlay-custom">
+        <div class="loader-custom-container container">
+            <b><span class="glyphicon glyphicon-repeat loading-anim"></span><br>
+            {{config.message}}</b>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 198 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div v-if="config.active" class="alert-message-overlay alert-overlay-custom">
+        <div class="alert-message-box alert-box-custom container">
+            <div class="alert-message-title alert-title-custom">
+                <h3>{{config.description.title}}</h3>
+            </div>
+            <p><b v-html="config.description.text"></b></p>
+            <div class="alert-buttons-box">
+                <a href="#" v-on:click.prevent="config.onAccept()" class="alert-message-button button btn btn-success alert-btn-customized" style="padding-top:8px;"><span>{{config.description.accept}}</span></a>
+                <a href="#" v-on:click.prevent="config.active = !config.active" class="alert-message-button button btn btn-danger alert-btn-customized" style="padding-top:8px;"><span>{{config.description.cancel}}</span></a>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div v-if="config.active" class="alert-message-overlay alert-overlay-custom">
+        <div class="alert-message-box alert-box-custom container">
+            <div class="alert-message-title alert-title-custom">
+                <h3>{{config.description.title}}</h3>
+            </div>
+            <p><b v-html="config.description.text"></b></p>
+            <div class="alert-buttons-box">
+                <a href="#" v-on:click.prevent="config.active = !config.active" class="alert-message-button button btn btn-success alert-btn-customized" style="padding-top:8px;"><span>{{config.description.ok}}</span></a>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 200 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -31004,7 +31204,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 198 */
+/* 201 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -31041,7 +31241,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 199 */
+/* 202 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -31078,7 +31278,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 200 */
+/* 203 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -31088,20 +31288,12 @@ module.exports = `
 `;
 
 /***/ }),
-/* 201 */
+/* 204 */
 /***/ (function(module, exports) {
 
 module.exports = `
     <div class="col-sm-12">
         <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Clientes</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                    </ul>
-                </div>
-            </div>
             <div class="panel-body">
                 <p class="content-group">
                 
@@ -31113,35 +31305,108 @@ module.exports = `
 `;
 
 /***/ }),
-/* 202 */
+/* 205 */
 /***/ (function(module, exports) {
 
 module.exports = `
-    <div>
-        <h1>Tiendas</h1>
-        <span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=use_case_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fuse_case_diagram.xml" >Diagrama de casos de uso</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=activity_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Factivity_diagram.xml" >Diagrama de actividades</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=sequence_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fsequence_diagram.xml" >Diagrama de secuencia</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=mock_up.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fmock_up.xml" >Mock up</a></span>
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-body">
+                <p class="content-group">
+                
+                </p>
+                <mcdatatable :title="'Tiendas'" :config="config.grid"></mcdatatable>
+            </div>
+        </div>
     </div>
 `;
 
 /***/ }),
-/* 203 */
+/* 206 */
 /***/ (function(module, exports) {
 
 module.exports = `
-    <div>
-        <h1>Recursos Humanos</h1>
-        <span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=use_case_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fuse_case_diagram.xml" >Diagrama de casos de uso</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=activity_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Factivity_diagram.xml" >Diagrama de actividades</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=sequence_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fsequence_diagram.xml" >Diagrama de secuencia</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=mock_up.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fmock_up.xml" >Mock up</a></span>
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Tipo de Registro</h5>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+                <div class="form-group">
+                    <div class="btn-group bootstrap-select show-tick" style="width: 100%;">
+                        <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button" :title="config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text">
+                            <span class="filter-option pull-left">{{config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text}}</span>&nbsp;
+                            <span class="bs-caret">
+                                <span class="caret"></span>
+                            </span>
+                        </button>
+                        <div class="dropdown-menu open" role="combobox">
+                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                <li v-for="options in config.typeSelection.options" :class="config.typeSelection.type === options.value ? 'selected' : ''">
+                                    <a href="#" v-on:click="config.typeSelection.type = options.value" tabindex="0" data-tokens="null" role="option" aria-disabled="false" aria-selected="true">
+                                        <span class="text">{{options.text}}</span>
+                                        <span class=" icon-checkmark3 check-mark"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">{{config.typeSelection.options[config.typeSelection.type].text}}</h5>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+            </div>
+        </div>
+        <div v-else-if="config.typeSelection.type === 1" class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">{{config.typeSelection.options[config.typeSelection.type].text}}</h5>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+                <div class="checkbox checkbox-right checkbox-switchery">
+                    <label v-on:click.prevent="config.manualAdd.active.mon = !config.manualAdd.active.mon">
+                        <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.active.mon ? 'active' : 'not-active'">
+                            <small></small>
+                        </span>
+                        Checked switch
+                    </label>
+                </div>
+            </div>
+        </div>
     </div>
 `;
 
 /***/ }),
-/* 204 */
+/* 207 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-body">
+                <p class="content-group">
+                
+                </p>
+                <mcdatatable :title="'Recursos Humanos'" :config="config.grid"></mcdatatable>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 208 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -31155,7 +31420,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 205 */
+/* 209 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -31163,23 +31428,19 @@ module.exports = `
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Basic map</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                    </ul>
-                </div>
             </div>
             <div class="panel-body">
                 <p class="content-group">
                 
-                </p><div id="map" class="map-container map-basic"></div>
+                </p>
+                <div id="map" class="map-container map-basic"></div>
             </div>
         </div>
     </div>
 `;
 
 /***/ }),
-/* 206 */
+/* 210 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -31187,11 +31448,6 @@ module.exports = `
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Basic map</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                    </ul>
-                </div>
             </div>
             <div class="panel-body">
                 <div class="map-toolbar">
@@ -31264,7 +31520,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 207 */
+/* 211 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -31277,7 +31533,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 208 */
+/* 212 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -31648,7 +31904,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 209 */
+/* 213 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -31742,25 +31998,17 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 210 */
+/* 214 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
     data: {
-        models: {
-            cliente: null,
-            clienteEmpleado: null,
-            clienteSucursal: null
-        },
         grid: null
     },
     methods: {
         init(e){
-            this.models.cliente = e.cliente;
-            this.models.clienteEmpleado = e.clienteEmpleado;
-            this.models.clienteSucursal = e.clienteSucursal;
             this.grid = new BUTO.requires.modules.mcdatatable({
-            id: "cliente",
+            id: "clientesRegistrados",
             head: [
                 {title: "id", hidden: true, input: {type: 'number'}},
                 {title: "nombre", orderable: true, editable: true, searchable: {active: true, type: "filter"}}
@@ -31778,10 +32026,10 @@ module.exports = new Vue({
                     "body-class"
                 ],
                 row: {
-                    active: false,
-                    //styleClass: [
-                    //    "grid-row-customized"
-                    //]
+                    active: true,
+                    styleClass: [
+                        "grid-row-customized"
+                    ]
                 },
                 highlight: {
                     active: true,
@@ -31806,6 +32054,10 @@ module.exports = new Vue({
                 }
             },
             handlers: {
+                watch: {
+                    active: true,
+                    type: "modal"
+                },
                 add: {
                     active: true,
                     type: "modal"
@@ -31837,121 +32089,380 @@ module.exports = new Vue({
                 console.log(id, index);
             },
             beforeEdit: function(){
-                console.log("A");
-                //BUTO.components.main.loader.loading();
+                BUTO.components.main.loader.loading();
             },
             beforeRemove: function(data, success){
                 console.log(data, success);
-                //BUTO.components.main.confirm.description.title = data.title;
-                //BUTO.components.main.confirm.description.text = data.text;
-                //BUTO.components.main.confirm.description.accept = data.accept;
-                //BUTO.components.main.confirm.description.cancel = data.cancel;
-                //BUTO.components.main.confirm.active = data.active;
-                //BUTO.components.main.confirm.onAccept = function(){
-                //    BUTO.components.main.loader.loading();
-                //    success();
-                //    BUTO.components.main.confirm.active = false;
-                //};
+                BUTO.components.main.confirm.description.title = data.title;
+                BUTO.components.main.confirm.description.text = data.text;
+                BUTO.components.main.confirm.description.accept = data.accept;
+                BUTO.components.main.confirm.description.cancel = data.cancel;
+                BUTO.components.main.confirm.active = data.active;
+                BUTO.components.main.confirm.onAccept = function(){
+                    BUTO.components.main.loader.loading();
+                    success();
+                    BUTO.components.main.confirm.active = false;
+                };
             },
             beforeAdd: function(){
-                console.log("B");
-                //BUTO.components.main.loader.loading();
+                BUTO.components.main.loader.loading();
             },
             onEdit: function(data, success){
-                console.log(data, success);
-                //if(success){
-                //    var postData = {
-                //        idUser: BUTO.components.main.header.userData.idUser,
-                //        username: BUTO.components.main.header.userData.username,
-                //        idData: data.id
-                //    };
-                //    socket.emit('editEmpresa', postData);
-                //}
-                //else{
-                //    BUTO.components.main.alert.description.title = data.title;
-                //    BUTO.components.main.alert.description.text = data.text;
-                //    BUTO.components.main.alert.description.ok = data.ok;
-                //    BUTO.components.main.alert.active = data.active;
-                //}
-                //BUTO.components.main.loader.loaded();
+                if(!success){
+                    BUTO.components.main.alert.description.title = data.title;
+                    BUTO.components.main.alert.description.text = data.text;
+                    BUTO.components.main.alert.description.ok = data.ok;
+                    BUTO.components.main.alert.active = data.active;
+                }
+                BUTO.components.main.loader.loaded();
             },
             onRemove: function(data){
-                console.log(data);
-                //var postData = {
-                //    idUser: BUTO.components.main.header.userData.idUser,
-                //    username: BUTO.components.main.header.userData.username,
-                //    idData: data.id
-                //};
-                //socket.emit('deleteEmpresa', postData);
-                //BUTO.components.main.loader.loaded();
+                BUTO.components.main.loader.loaded();
             },
             onAdd: function(data, success){
                 console.log(data, success);
-                //if(success){
-                //    var postData = {
-                //        idUser: BUTO.components.main.header.userData.idUser,
-                //        username: BUTO.components.main.header.userData.username
-                //    };
-                //    socket.emit('addEmpresa', postData);
-                //}
-                //else{
-                //    BUTO.components.main.alert.description.title = data.title;
-                //    BUTO.components.main.alert.description.text = data.text;
-                //    BUTO.components.main.alert.description.ok = data.ok;
-                //    BUTO.components.main.alert.active = data.active;
-                //}
-                //BUTO.components.main.loader.loaded();
+                if(!success){
+                    BUTO.components.main.alert.description.title = data.title;
+                    BUTO.components.main.alert.description.text = data.text;
+                    BUTO.components.main.alert.description.ok = data.ok;
+                    BUTO.components.main.alert.active = data.active;
+                }
+                BUTO.components.main.loader.loaded();
             },
             onChangeColumns: function(data){
                 console.log(data);
-                //BUTO.components.main.loader.loading();
-                //var postData = {
-                //    update: {
-                //        updateData: {
-                //            "gridConfig.empresa.visibility": data
-                //        },
-                //        updateTable: "user",
-                //        flag: true
-                //    }
-                //};
-                //this.$http.post("/data-handler", postData).then(function(response){
-                //    if(response.body.success){
-                //        BUTO.components.main.loader.loaded();
-                //    }
-                //    else{
-                //        BUTO.components.main.loader.loaded();
-                //        BUTO.components.main.alert.description.title = "Edición de Configuración de Tablas";
-                //        BUTO.components.main.alert.description.text = "Ha ocurrido un error. Inténtalo de nuevo más tarde.";
-                //        BUTO.components.main.alert.description.ok = "Aceptar";
-                //        BUTO.components.main.alert.active = true;
-                //    }
-                //});
             },
             onDragEnd: function(data){
                 console.log(data);
-                //BUTO.components.main.loader.loading();
-                //var postData = {
-                //    update: {
-                //        updateData: {
-                //            "gridConfig.empresa.order": data
-                //        },
-                //        updateTable: "user",
-                //        flag: true
-                //    }
-                //};
-                //this.$http.post("/data-handler", postData).then(function(response){
-                //    if(response.body.success){
-                //        BUTO.components.main.loader.loaded();
-                //    }
-                //    else{
-                //        BUTO.components.main.loader.loaded();
-                //        BUTO.components.main.alert.description.title = "Edición de Configuración de Tablas";
-                //        BUTO.components.main.alert.description.text = "Ha ocurrido un error. Inténtalo de nuevo más tarde.";
-                //        BUTO.components.main.alert.description.ok = "Aceptar";
-                //        BUTO.components.main.alert.active = true;
-                //    }
-                //});
             }
+        });
+        }
+    }
+});
+
+/***/ }),
+/* 215 */
+/***/ (function(module, exports) {
+
+module.exports = new Vue({
+    data: {
+        grid: null
+    },
+    methods: {
+        init(e){
+            this.grid = new BUTO.requires.modules.mcdatatable({
+            id: "tiendasRegistradas",
+            head: [
+                {title: "id", hidden: true, input: {type: 'number'}},
+                {title: "nombre", orderable: true, editable: true, searchable: {active: true, type: "filter"}}
+            ],
+            style: {
+                noText: true,
+                general: [
+                    "table",
+                    "table-bordered"
+                ],
+                head: [
+                    "table-inverse"
+                ],
+                body: [
+                    "body-class"
+                ],
+                row: {
+                    active: true,
+                    styleClass: [
+                        "grid-row-customized"
+                    ]
+                },
+                highlight: {
+                    active: true,
+                    styleClass: [
+                        "grid-row-highlight-customized"
+                    ]
+                },
+                responsive: true,
+                pagination: {
+                    rowPerPage: 25
+                },
+                draggable: false,
+            },
+            webService: {
+                active: true,
+                model: e.sucursal,
+                headers: {
+                    currentPage: "X-Pagination-Current-Page",
+                    pageCount: "X-Pagination-Page-Count",
+                    rowPerPage: "X-Pagination-Per-Page",
+                    totalRowCount: "X-Pagination-Total-Count"
+                }
+            },
+            handlers: {
+                watch: {
+                    active: true,
+                    type: "template"
+                },
+                add: {
+                    active: true,
+                    type: "template"
+                },
+                edit: {
+                    active: true,
+                    type: "template"
+                },
+                remove: {
+                    active: true
+                },
+            },
+            //customHandlers: [
+            //    {
+            //        active: true,
+            //        title: "Rutas",
+            //        fullHandler: false,
+            //        anchorCellClass: [
+            //            "grid-row-anchor-customized"
+            //        ],
+            //        highlight: true,
+            //        glyphiconClass: "glyphicon-briefcase",
+            //        handler: function(data){
+            //            console.log(data);
+            //        }
+            //    }
+            //],
+            templateWatch: function(id, index){
+                console.log(id, index);
+            },
+            templateEdit: function(id, index){
+                console.log(id, index);
+            },
+            //beforeEdit: function(){
+            //    BUTO.components.main.loader.loading();
+            //},
+            beforeRemove: function(data, success){
+                console.log(data, success);
+                BUTO.components.main.confirm.description.title = data.title;
+                BUTO.components.main.confirm.description.text = data.text;
+                BUTO.components.main.confirm.description.accept = data.accept;
+                BUTO.components.main.confirm.description.cancel = data.cancel;
+                BUTO.components.main.confirm.active = data.active;
+                BUTO.components.main.confirm.onAccept = function(){
+                    BUTO.components.main.loader.loading();
+                    success();
+                    BUTO.components.main.confirm.active = false;
+                };
+            },
+            //beforeAdd: function(){
+            //    BUTO.components.main.loader.loading();
+            //},
+            //onEdit: function(data, success){
+            //    if(!success){
+            //        BUTO.components.main.alert.description.title = data.title;
+            //        BUTO.components.main.alert.description.text = data.text;
+            //        BUTO.components.main.alert.description.ok = data.ok;
+            //        BUTO.components.main.alert.active = data.active;
+            //    }
+            //    BUTO.components.main.loader.loaded();
+            //},
+            onRemove: function(data){
+                BUTO.components.main.loader.loaded();
+            },
+            //onAdd: function(data, success){
+            //    console.log(data, success);
+            //    if(!success){
+            //        BUTO.components.main.alert.description.title = data.title;
+            //        BUTO.components.main.alert.description.text = data.text;
+            //        BUTO.components.main.alert.description.ok = data.ok;
+            //        BUTO.components.main.alert.active = data.active;
+            //    }
+            //    BUTO.components.main.loader.loaded();
+            //},
+            //onChangeColumns: function(data){
+            //    console.log(data);
+            //},
+            //onDragEnd: function(data){
+            //    console.log(data);
+            //}
+        });
+        }
+    }
+});
+
+/***/ }),
+/* 216 */
+/***/ (function(module, exports) {
+
+module.exports = new Vue({
+    data: {
+        typeSelection: {
+            type: null,
+            options: [
+                {
+                    value: 0,
+                    text: "Importación de datos"
+                },
+                {
+                    value: 1,
+                    text: "Agregado manual"
+                }
+            ]
+        },
+        manualAdd: {
+            active: {
+                mon: true,
+                tue: true,
+                wed: true,
+                thu: true,
+                fry: true,
+                sat: true,
+                sun: false
+            }
+        }
+    },
+    methods: {
+        
+    }
+});
+
+/***/ }),
+/* 217 */
+/***/ (function(module, exports) {
+
+module.exports = new Vue({
+    data: {
+        grid: null
+    },
+    methods: {
+        init(e){
+            this.grid = new BUTO.requires.modules.mcdatatable({
+            id: "recursosRegistrados",
+            head: [
+                {title: "id", hidden: true, input: {type: 'number'}},
+                {title: "fecha_ingreso", input: {type: 'date'}, orderable: true, editable: true, searchable: {active: true, type: "filter"}}
+            ],
+            style: {
+                noText: true,
+                general: [
+                    "table",
+                    "table-bordered"
+                ],
+                head: [
+                    "table-inverse"
+                ],
+                body: [
+                    "body-class"
+                ],
+                row: {
+                    active: true,
+                    styleClass: [
+                        "grid-row-customized"
+                    ]
+                },
+                highlight: {
+                    active: true,
+                    styleClass: [
+                        "grid-row-highlight-customized"
+                    ]
+                },
+                responsive: true,
+                pagination: {
+                    rowPerPage: 25
+                },
+                draggable: false,
+            },
+            webService: {
+                active: true,
+                model: e.empleado,
+                headers: {
+                    currentPage: "X-Pagination-Current-Page",
+                    pageCount: "X-Pagination-Page-Count",
+                    rowPerPage: "X-Pagination-Per-Page",
+                    totalRowCount: "X-Pagination-Total-Count"
+                }
+            },
+            handlers: {
+                watch: {
+                    active: true,
+                    type: "template"
+                },
+                add: {
+                    active: true,
+                    type: "template"
+                },
+                edit: {
+                    active: true,
+                    type: "template"
+                },
+                remove: {
+                    active: true
+                },
+            },
+            //customHandlers: [
+            //    {
+            //        active: true,
+            //        title: "Rutas",
+            //        fullHandler: false,
+            //        anchorCellClass: [
+            //            "grid-row-anchor-customized"
+            //        ],
+            //        highlight: true,
+            //        glyphiconClass: "glyphicon-briefcase",
+            //        handler: function(data){
+            //            console.log(data);
+            //        }
+            //    }
+            //],
+            templateWatch: function(id, index){
+                console.log(id, index);
+            },
+            templateEdit: function(id, index){
+                console.log(id, index);
+            },
+            //beforeEdit: function(){
+            //    BUTO.components.main.loader.loading();
+            //},
+            beforeRemove: function(data, success){
+                console.log(data, success);
+                BUTO.components.main.confirm.description.title = data.title;
+                BUTO.components.main.confirm.description.text = data.text;
+                BUTO.components.main.confirm.description.accept = data.accept;
+                BUTO.components.main.confirm.description.cancel = data.cancel;
+                BUTO.components.main.confirm.active = data.active;
+                BUTO.components.main.confirm.onAccept = function(){
+                    BUTO.components.main.loader.loading();
+                    success();
+                    BUTO.components.main.confirm.active = false;
+                };
+            },
+            //beforeAdd: function(){
+            //    BUTO.components.main.loader.loading();
+            //},
+            //onEdit: function(data, success){
+            //    if(!success){
+            //        BUTO.components.main.alert.description.title = data.title;
+            //        BUTO.components.main.alert.description.text = data.text;
+            //        BUTO.components.main.alert.description.ok = data.ok;
+            //        BUTO.components.main.alert.active = data.active;
+            //    }
+            //    BUTO.components.main.loader.loaded();
+            //},
+            onRemove: function(data){
+                BUTO.components.main.loader.loaded();
+            },
+            //onAdd: function(data, success){
+            //    console.log(data, success);
+            //    if(!success){
+            //        BUTO.components.main.alert.description.title = data.title;
+            //        BUTO.components.main.alert.description.text = data.text;
+            //        BUTO.components.main.alert.description.ok = data.ok;
+            //        BUTO.components.main.alert.active = data.active;
+            //    }
+            //    BUTO.components.main.loader.loaded();
+            //},
+            //onChangeColumns: function(data){
+            //    console.log(data);
+            //},
+            //onDragEnd: function(data){
+            //    console.log(data);
+            //}
         });
         }
     }
