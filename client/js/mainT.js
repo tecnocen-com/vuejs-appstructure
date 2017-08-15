@@ -82,7 +82,8 @@ Vue.component("tiendas-registradas", {
 Vue.component("nueva-tienda", {
     template: nuevaTienda,
     props: {
-        config: Object
+        config: Object,
+        mask: Function
     }
 });
 Vue.component("recursos-registrados", {
@@ -148,7 +149,7 @@ module.exports = `
                         </template>
                         <template v-if="active.third === 1">
                             <transition name="slide-fade">
-                                <nueva-tienda :config="children.nuevaTienda"></nueva-tienda>
+                                <nueva-tienda :mask="mask" :config="children.nuevaTienda"></nueva-tienda>
                             </transition>
                         </template>
                     </template>

@@ -214,3 +214,35 @@ a.grid-row-anchor-customized{
     left: 0px;
     transition: background-color 0.4s, left 0.2s;
 }
+.schedule-title{
+    border: 1px solid #aaaaaa;
+    border-radius: 5px;
+    border-top: 0px;
+}
+/********************************** Transitions ***********************************/
+button.btn-customized,
+a.grid-handlers{
+    -webkit-transition: background-color 0.5s ease;
+    -moz-transition: background-color 0.5s ease;
+    -o-transition: background-color 0.5s ease;
+    -ms-transition: background-color 0.5s ease;
+    transition: background-color 0.5s ease;
+}
+.col-sm-1,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12{
+    -webkit-transition: width 0.4s ease;
+    -moz-transition: width 0.4s ease;
+    -o-transition: width 0.4s ease;
+    -ms-transition: width 0.4s ease;
+    transition: width 0.4s ease;
+}

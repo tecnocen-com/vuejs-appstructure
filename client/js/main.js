@@ -121,12 +121,36 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 this.active.first = e.first;
                                 this.active.second = e.second;
                                 this.active.third = e.third;
-                                if(this.active.first === 0 &&
-                                   this.active.second === 0 &&
-                                   this.active.third === 0)
-                                    Vue.nextTick(function(){
+                                Vue.nextTick(function(){
+                                    if(e.first === 0 && e.second === 0 && e.third === 0)
                                         me.children.map.init();
-                                    });
+                                    else if(e.first === 2 && e.second === 0 && e.third === 1)
+                                        me.children.nuevaTienda.init(false);
+                                });
+                            },
+                            mask: function(t, e, val){
+                                var value,
+                                    i;
+                                if(e.key !== "Backspace"){
+                                    switch(t){
+                                        case "time":
+                                            if(val.length >= 2){
+                                                value = val.split(":").join("");
+                                                val = "";
+                                                for(i = 0; i < value.length; i++)
+                                                    val += (!isNaN(parseInt(value[i]))) ? value[i] : "";
+                                                value = val;
+                                                val = "";
+                                                for(i = 0; i < value.length; i++)
+                                                    val += (i === 1 || i === 3) ? value[i] + ":" : value[i];
+                                            }
+                                            break;
+                                        case "date":
+                                            
+                                            break;
+                                    }
+                                }
+                                return val;
                             }
                         },
                         created: function(){
@@ -136,6 +160,10 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                             });
                             BUTO.requires.components.tiendasRegistradas.init({
                                 sucursal: this.models.sucursal
+                            });
+                            BUTO.requires.components.nuevaTienda.init({
+                                sucursal: this.models.sucursal,
+                                sucursalHorario: this.models.sucursalHorario
                             });
                             BUTO.requires.components.recursosRegistrados.init({
                                 empleado: this.models.empleado
