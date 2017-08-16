@@ -55,7 +55,6 @@ module.exports = `
                         
                     </p>
                     <div class="row">
-                        <div style="padding-top: 20px"></div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <input class="form-control"  v-model="config.manualAdd.name" type="text" name="Nombre">
@@ -70,7 +69,6 @@ module.exports = `
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div style="padding-top: 20px"></div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <input id="searchAddStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
@@ -101,7 +99,6 @@ module.exports = `
                 </div>
                 <div class="panel-body">
                     <div v-if="config.manualAdd.sameConf" class="row">
-                        <div style="padding-top: 20px"></div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="steps-basic wizard clearfix">
@@ -159,7 +156,6 @@ module.exports = `
                         </div>
                     </div>
                     <div v-else class="row">
-                        <div style="padding-top: 20px"></div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="steps-basic wizard clearfix">
