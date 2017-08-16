@@ -10,6 +10,7 @@ var clientesRegistrados = require("./template/clientes/clientesRegistradosT.js")
 var tiendasRegistradas = require("./template/tiendas/tiendasRegistradasT.js");
 var nuevaTienda = require("./template/tiendas/nuevaTiendaT.js");
 var recursosRegistrados = require("./template/recursos_humanos/recursosRegistradosT.js");
+var nuevoRecurso = require("./template/recursos_humanos/nuevoRecursoT.js");
 var reportes = require("./template/reportes/reportesT.js");
 var map = require("./template/mapT.js");
 var toolbar = require("./template/toolbarT.js");
@@ -92,6 +93,13 @@ Vue.component("recursos-registrados", {
         config: Object
     }
 });
+Vue.component("nuevo-recurso", {
+    template: nuevoRecurso,
+    props: {
+        config: Object,
+        mask: Function
+    }
+});
 Vue.component("reportes", {
     template: reportes,
     props: {
@@ -155,9 +163,18 @@ module.exports = `
                     </template>
                 </template>
                 <template v-else-if="active.first === 3">
-                    <transition name="slide-fade">
-                        <recursos-registrados :config="children.recursosRegistrados"></recursos-registrados>
-                    </transition>
+                    <template v-if="active.second === 0">
+                        <template v-if="active.third === 0">
+                            <transition name="slide-fade">
+                                <recursos-registrados :config="children.recursosRegistrados"></recursos-registrados>
+                            </transition>
+                        </template>
+                        <template v-if="active.third === 1">
+                            <transition name="slide-fade">
+                                <nuevo-recurso :mask="mask" :config="children.nuevoRecurso"></nuevo-recurso>
+                            </transition>
+                        </template>
+                    </template>
                 </template>
                 <template v-else-if="active.first === 4">
                     <transition name="slide-fade">

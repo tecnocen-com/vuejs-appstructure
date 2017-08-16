@@ -16,10 +16,6 @@ module.exports = new Vue({
                             {
                                 title: "Clientes registrados",
                                 icon: "icon-users"
-                            },
-                            {
-                                title: "Nuevo cliente",
-                                icon: "icon-user-plus"
                             }
                         ]
                     },

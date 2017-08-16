@@ -14,7 +14,8 @@ BUTO.requires = {
         clientesRegistrados: require("./component/clientes/clientesRegistrados.js"),
         tiendasRegistradas: require("./component/tiendas/tiendasRegistradas.js"),
         nuevaTienda: require("./component/tiendas/nuevaTienda.js"),
-        recursosRegistrados: require("./component/recursos_humanos/recursosRegistrados.js")
+        recursosRegistrados: require("./component/recursos_humanos/recursosRegistrados.js"),
+        nuevoRecurso: require("./component/recursos_humanos/nuevoRecurso.js")
     }
 };
 
@@ -112,7 +113,8 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 clientesRegistrados: BUTO.requires.components.clientesRegistrados,
                                 tiendasRegistradas: BUTO.requires.components.tiendasRegistradas,
                                 nuevaTienda: BUTO.requires.components.nuevaTienda,
-                                recursosRegistrados: BUTO.requires.components.recursosRegistrados
+                                recursosRegistrados: BUTO.requires.components.recursosRegistrados,
+                                nuevoRecurso: BUTO.requires.components.nuevoRecurso
                             }
                         },
                         methods: {
@@ -134,6 +136,8 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                             me.children.map.init();
                                         else if(e.first === 2 && e.second === 0 && e.third === 1)
                                             me.children.nuevaTienda.init(false);
+                                        else if(e.first === 3 && e.second === 0 && e.third === 1)
+                                            me.children.nuevoRecurso.init(false);
                                     });
                             },
                             mask: function(t, e, val){
@@ -167,7 +171,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 cliente: this.models.cliente
                             });
                             BUTO.requires.components.tiendasRegistradas.init({
-                                sucursal: this.models.sucursal
+                                sucursal: this.models.sucursal,
+                                sucursalHorario: this.models.sucursalHorario,
+                                mask: this.mask
                             });
                             BUTO.requires.components.nuevaTienda.init({
                                 sucursal: this.models.sucursal,
@@ -175,6 +181,13 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                             });
                             BUTO.requires.components.recursosRegistrados.init({
                                 empleado: this.models.empleado
+                            });
+                            BUTO.requires.components.nuevoRecurso.init({
+                                empleado: this.models.empleado,
+                                empleadoCliente: this.models.empleadoCliente,
+                                empleadoHorario: this.models.empleadoHorario,
+                                empleadoHorarioRuta: this.models.empleadoHorarioRuta,
+                                empleadoHorarioRutaPunto: this.models.empleadoHorarioRutaPunto
                             });
                         },
                         mounted: function(){
