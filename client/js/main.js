@@ -117,16 +117,24 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                         },
                         methods: {
                             setView: function(e){
-                                var me = this;
-                                this.active.first = e.first;
-                                this.active.second = e.second;
-                                this.active.third = e.third;
-                                Vue.nextTick(function(){
-                                    if(e.first === 0 && e.second === 0 && e.third === 0)
-                                        me.children.map.init();
-                                    else if(e.first === 2 && e.second === 0 && e.third === 1)
-                                        me.children.nuevaTienda.init(false);
-                                });
+                                var me = this,
+                                    inPos = false;
+                                if(this.active.first === e.first &&
+                                   this.active.second === e.second &&
+                                   this.active.third === e.third)
+                                    inPos = true;
+                                else{
+                                    this.active.first = e.first;
+                                    this.active.second = e.second;
+                                    this.active.third = e.third;
+                                }
+                                if(!inPos)
+                                    Vue.nextTick(function(){
+                                        if(e.first === 0 && e.second === 0 && e.third === 0)
+                                            me.children.map.init();
+                                        else if(e.first === 2 && e.second === 0 && e.third === 1)
+                                            me.children.nuevaTienda.init(false);
+                                    });
                             },
                             mask: function(t, e, val){
                                 var value,
