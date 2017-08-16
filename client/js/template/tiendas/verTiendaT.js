@@ -5,8 +5,8 @@ module.exports = `
                 <h4 class="panel-title text-center">{{config.name}}</h4>
                 <div class="heading-elements">
                     <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="setview(2)" title="Editar"><i class="icon-pencil7"></i></i></a></li>
                         <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>
-                        <li><a href="#" v-on:click.prevent title="Editar"><i class="icon-pencil7"></i></i></a></li>
                     </ul>
                 </div>
             </div>

@@ -94,6 +94,9 @@ module.exports = new Vue({
             function(error){
                 console.log(error);
             });
+            for(var i = 0; i < me.steps.length; i++)
+                this.steps[i].schedule = [];
+            this.actualStep = 0;
             this.models.sucursalHorario.get({
                 delimiters: this.id,
                 params: {
@@ -102,7 +105,7 @@ module.exports = new Vue({
             },
             function(success){
                 var interval = [0, 0, 0, 0, 0, 0, 0];
-                for(var i = 0; i < success.body.length; i++){
+                for(i = 0; i < success.body.length; i++){
                     interval[success.body[i].dia - 1]++;
                     switch(success.body[i].dia){
                         case 1:     //SUN

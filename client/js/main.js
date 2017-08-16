@@ -130,7 +130,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                     this.active.second = e.second;
                                     this.active.third = e.third;
                                 }
-                                if(!inPos)
+                                if(!inPos){
+                                    if(e.first === 2 && e.second === 0 && e.third === 0)
+                                            me.children.tiendasRegistradas.active = 0;
                                     Vue.nextTick(function(){
                                         if(e.first === 0 && e.second === 0 && e.third === 0)
                                             me.children.map.init();
@@ -139,6 +141,8 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                         else if(e.first === 3 && e.second === 0 && e.third === 1)
                                             me.children.nuevoRecurso.init(false);
                                     });
+                                }
+                                
                             },
                             mask: function(t, e, val){
                                 var value,
