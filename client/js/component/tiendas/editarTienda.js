@@ -144,7 +144,8 @@ module.exports = new Vue({
             this.models.sucursalHorario.get({
                 delimiters: this.id,
                 params: {
-                    "per-page": 100
+                    "per-page": 100,
+                    "sort": "hora_inicio"
                 }
             },
             function(success){

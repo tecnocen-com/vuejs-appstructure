@@ -199,6 +199,12 @@ a.grid-row-anchor-customized{
     box-shadow: rgb(100, 189, 99) 0px 0px 0px 12px inset;
     transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
 }
+.switchery-custom.active.info{
+    background-color: rgb(33, 150, 243);
+    border-color: rgb(33, 150, 243);
+    box-shadow: rgb(33, 150, 243) 0px 0px 0px 12px inset;
+    transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
+}
 .switchery-custom.active small{
     left: 22px;
     background-color: rgb(255, 255, 255);
@@ -218,6 +224,9 @@ a.grid-row-anchor-customized{
     border: 1px solid #aaaaaa;
     border-radius: 5px;
     border-top: 0px;
+}
+.panel.panel-flat{
+    box-shadow: 6px 6px 6px #888888;
 }
 /********************************** Transitions ***********************************/
 button.btn-customized,

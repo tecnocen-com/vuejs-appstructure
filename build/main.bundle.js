@@ -17053,6 +17053,10 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                         el: "#main",
                         template: BUTO.requires.templates.main,
                         data: {
+                            profile: {
+                                name: "Unknown",
+                                email: null
+                            },
                             active: {
                                 first: 0,
                                 second: 0,
@@ -17097,9 +17101,12 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 }
                             }),
                             models: {
+                                perfil: new modelCreator("perfil"),
+                                usuario: new modelCreator("usuario"),
                                 cliente: new modelCreator("cliente"),
                                 clienteEmpleado: new modelCreator(["cliente", "empleado"]),
                                 clienteSucursal: new modelCreator(["cliente", "sucursal"]),
+                                usuarioEmpleado: new modelCreator("usuario-empleado"),
                                 empleado: new modelCreator("empleado"),
                                 empleadoCliente: new modelCreator(["empleado", "cliente"]),
                                 empleadoHorario: new modelCreator(["empleado", "horario"]),
@@ -17107,9 +17114,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 empleadoHorarioRutaPunto: new modelCreator(["empleado", "horario", "ruta", "punto"]),
                                 sucursal: new modelCreator("sucursal"),
                                 sucursalCliente: new modelCreator(["sucursal", "cliente"]),
-                                sucursalHorario: new modelCreator(["sucursal", "horario"]),
-                                perfil: new modelCreator("perfil"),
-                                usuario: new modelCreator("usuario")
+                                sucursalHorario: new modelCreator(["sucursal", "horario"])
                             },
                             children: {
                                 map: BUTO.requires.components.map,
@@ -17175,7 +17180,17 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                             }
                         },
                         created: function(){
+                            var me = this;
                             BUTO.init(userResponse);
+                            this.models.perfil.get({},
+                            function(success){
+                                me.profile.name = success.body.nombre;
+                                me.profile.email = success.body.correo;
+                            },
+                            function(error){
+                                console.log(error);
+                                //window.location = "/logout";
+                            });
                             BUTO.requires.components.clientesRegistrados.init({
                                 cliente: this.models.cliente
                             });
@@ -17189,14 +17204,11 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 sucursalHorario: this.models.sucursalHorario
                             });
                             BUTO.requires.components.recursosRegistrados.init({
-                                empleado: this.models.empleado
+                                usuarioEmpleado: this.models.usuarioEmpleado
                             });
                             BUTO.requires.components.nuevoRecurso.init({
                                 empleado: this.models.empleado,
-                                empleadoCliente: this.models.empleadoCliente,
-                                empleadoHorario: this.models.empleadoHorario,
-                                empleadoHorarioRuta: this.models.empleadoHorarioRuta,
-                                empleadoHorarioRutaPunto: this.models.empleadoHorarioRutaPunto
+                                empleadoHorario: this.models.empleadoHorario
                             });
                         },
                         mounted: function(){
@@ -31045,8 +31057,8 @@ Vue.component("alert", {
 Vue.component("heading", {
     template: heading,
     props: {
-        config: Object,
-        setview: Function
+        setview: Function,
+        profile: Object
     }
 });
 Vue.component("my-menu", {
@@ -31062,7 +31074,8 @@ Vue.component("page-heading", {
     props: {
         config: Object,
         active: Object,
-        setview: Function
+        setview: Function,
+        profile: Object
     }
 });
 Vue.component("foot", {
@@ -31133,9 +31146,9 @@ module.exports = `
         <transition name="slide-fade">
             <alert :config="alert"></alert>
         </transition>
-        <heading></heading>
+        <heading :setview="setView" :profile="profile"></heading>
         <my-menu :config="children.menu" :active="active" :setview="setView"></my-menu>
-        <page-heading :config="children.menu" :active="active" :setview="setView"></page-heading>
+        <page-heading :config="children.menu" :active="active" :setview="setView" :profile="profile"></page-heading>
         <div class="page-container">
             <div class="row">
                 <template v-if="active.first === 0">
@@ -31151,33 +31164,25 @@ module.exports = `
                         <clientes-registrados :config="children.clientesRegistrados"></clientes-registrados>
                     </transition>
                 </template>
-                <template v-else-if="active.first === 2">
-                    <template v-if="active.second === 0">
-                        <template v-if="active.third === 0">
-                            <transition name="slide-fade">
-                                <tiendas-registradas :config="children.tiendasRegistradas"></tiendas-registradas>
-                            </transition>
-                        </template>
-                        <template v-if="active.third === 1">
-                            <transition name="slide-fade">
-                                <nueva-tienda :mask="mask" :config="children.nuevaTienda"></nueva-tienda>
-                            </transition>
-                        </template>
-                    </template>
+                <template v-else-if="active.first === 2 && active.second === 0 && active.third === 0">
+                    <transition name="slide-fade">
+                        <tiendas-registradas :config="children.tiendasRegistradas"></tiendas-registradas>
+                    </transition>
                 </template>
-                <template v-else-if="active.first === 3">
-                    <template v-if="active.second === 0">
-                        <template v-if="active.third === 0">
-                            <transition name="slide-fade">
-                                <recursos-registrados :config="children.recursosRegistrados"></recursos-registrados>
-                            </transition>
-                        </template>
-                        <template v-if="active.third === 1">
-                            <transition name="slide-fade">
-                                <nuevo-recurso :mask="mask" :config="children.nuevoRecurso"></nuevo-recurso>
-                            </transition>
-                        </template>
-                    </template>
+                <template v-else-if="active.first === 2 && active.second === 0 && active.third === 1">
+                    <transition name="slide-fade">
+                        <nueva-tienda :mask="mask" :config="children.nuevaTienda"></nueva-tienda>
+                    </transition>
+                </template>
+                <template v-else-if="active.first === 3 && active.second === 0 && active.third === 0">
+                    <transition name="slide-fade">
+                        <recursos-registrados :config="children.recursosRegistrados"></recursos-registrados>
+                    </transition>
+                </template>
+                <template v-else-if="active.first === 3 && active.second === 0 && active.third === 1">
+                    <transition name="slide-fade">
+                        <nuevo-recurso :mask="mask" :config="children.nuevoRecurso"></nuevo-recurso>
+                    </transition>
                 </template>
                 <template v-else-if="active.first === 4">
                     <transition name="slide-fade">
@@ -31247,7 +31252,7 @@ module.exports = `
 module.exports = `
     <div class="navbar navbar-inverse">
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.html"><img src="assets/images/logo_light.png" alt=""></a>
+            <a class="navbar-brand" href="#" v-on:click.prevent="setview({first: 0, second: 0, third: 0})"><img src="assets/images/logo_light.png" alt=""></a>
 
             <ul class="nav navbar-nav pull-right visible-xs-block">
                 <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -31260,7 +31265,7 @@ module.exports = `
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <img src="assets/images/placeholder.jpg" alt="">
-                        <span>Administrador</span>
+                        <span>{{profile.name}}</span>
                         <i class="caret"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
@@ -31325,7 +31330,7 @@ module.exports = `
                         <b>{{config.menu[active.first].title}}</b>
                         {{config.menu[active.first].dropdown.length > 0 ? ' - ' + config.menu[active.first].dropdown[active.second].title : ''}}
                     </span>
-                    <small v-if="active.first === 0 && active.second === 0 && active.third === 0" class="display-block">Buen día, Administrador!</small>
+                    <small v-if="active.first === 0 && active.second === 0 && active.third === 0" class="display-block">Buen día, {{profile.name}}!</small>
                 </h4>
                 <ul v-if="active.first !== 0 || active.second !== 0 || active.third !== 0" class="breadcrumb breadcrumb-caret position-right">
                     <li><a href="#" v-on:click.prevent="setview({first: 0, second: 0, third: 0})">{{config.menu[0].title}}</a></li>
@@ -31752,7 +31757,7 @@ module.exports = `
                                         </span>
                                         {{config.manualAdd.sameConf ? 'Si' : 'No'}}
                                     </label>
-                                    <span class="help-block">¿Mismos horarios para todos los días?</span>
+                                    <span class="help-block">Generalizar horarios</span>
                                 </div>
                             </div>
                         </div>
@@ -31979,13 +31984,46 @@ module.exports = `
         <template v-else-if="config.typeSelection.type === 1">
             <div class="panel panel-flat">
                 <div class="panel-heading">
-                    <h5 class="panel-title">Nombre</h5>
+                    <h5 class="panel-title">General</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <input class="form-control"  v-model="config.manualAdd.name" type="text" name="Nombre">
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Nombre</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-model="config.manualAdd.name" type="text" name="Nombre">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Correo electrónico</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-model="config.manualAdd.email" type="text" name="Correo electrónico">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Contraseña</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-model="config.manualAdd.pass" type="password" name="Contraseña">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Confirmar contraseña</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-model="config.manualAdd.repass" type="password" name="Confirmar contraseña">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Fecha de ingreso</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-model="config.manualAdd.date" type="date" name="Fecha de ingreso">
                             </div>
                         </div>
                     </div>
@@ -31993,101 +32031,43 @@ module.exports = `
             </div>
             <div class="panel panel-flat">
                 <div class="panel-heading">
-                    <h5 class="panel-title">Ubicación</h5>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <input id="searchAddStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                                <div id="mapAddStore" class="map-container map-basic"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Horarios</h5>
+                    <h5 class="panel-title">Ubicaciones y Horarios</h5>
                     <div class="heading-elements">
                         <div class="heading-form">
+                            <div v-if="!config.manualAdd.sameConf" class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.setVisibilityPosition()">
+                                        <span class="switchery switchery-default switchery-custom info" :class="config.manualAdd.allPosVisible ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.manualAdd.allPosVisible ? 'Si' : 'No'}}
+                                    </label>
+                                    <span class="help-block">Todas las ubicaciones</span>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.manualAdd.sameConf = !config.manualAdd.sameConf; config.manualAdd.steps[0].active = true">
+                                    <label v-on:click.prevent="config.changeConf()">
                                         <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
                                             <small></small>
                                         </span>
                                         {{config.manualAdd.sameConf ? 'Si' : 'No'}}
                                     </label>
-                                    <span class="help-block">¿Mismos horarios para todos los días?</span>
+                                    <span class="help-block">Generalizar horarios</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div v-if="config.manualAdd.sameConf" class="row">
+                    <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="steps-basic wizard clearfix">
-                                    <div class="content clearfix">
+                                    <template v-if="config.manualAdd.sameConf">
                                         <div style="padding-top: 20px"></div>
-                                        <div class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div v-if="config.manualAdd.steps[0].active" class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4">Intervalos de atención</label>
-                                                    <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-model="config.manualAdd.steps[0].interval" type="number" name="Intervalos de atención">
-                                                        <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div v-if="config.manualAdd.steps[0].active && Math.floor(parseInt(config.manualAdd.steps[0].interval)) > 0" class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Inicio</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Final</label>
-                                                </div>
-                                            </div>
-                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[0].schedule">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">hh:mm:ss</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">hh:mm:ss</span>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </div>
-                                    </div>
-                                    <div class="actions clearfix">
-                                        <ul role="menu" aria-label="Pagination">
-                                            <li>
-                                                <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-else class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="steps-basic wizard clearfix">
-                                    <div class="steps clearfix">
+                                    </template>
+                                    <div v-else class="steps clearfix">
                                         <ul role="tablist">
                                             <li v-for="(steps, stepIndex) in config.manualAdd.steps" role="tab"
                                             :class="[stepIndex === 0 ? 'first' : '',
@@ -32100,11 +32080,19 @@ module.exports = `
                                     </div>
                                     <div class="content clearfix">
                                         <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                                    <div id="mapAddResource" class="map-container map-basic"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div style="padding-top: 20px"></div>
-                                            <div :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                            <div v-if="!config.manualAdd.sameConf" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
                                                 <div class="form-group">
                                                     <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                        <label v-on:click.prevent="config.manualAdd.steps[config.manualAdd.actualStep].active = !config.manualAdd.steps[config.manualAdd.actualStep].active">
+                                                        <label v-on:click.prevent="config.setActivity()">
                                                             <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'active' : 'not-active'">
                                                                 <small></small>
                                                             </span>
@@ -32114,7 +32102,7 @@ module.exports = `
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active" class="col-sm-6">
+                                            <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active" :class="config.manualAdd.sameConf ? 'col-sm-12' : 'col-sm-6'">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
@@ -32154,15 +32142,22 @@ module.exports = `
                                     </div>
                                     <div class="actions clearfix">
                                         <ul role="menu" aria-label="Pagination">
-                                            <li :class="config.manualAdd.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
-                                                <a class="btn btn-default" href="#previous" v-on:click.prevent="config.manualAdd.actualStep > 0 ? config.changeStep(config.manualAdd.actualStep - 1) : ''" role="menuitem">Anterior</a>
-                                            </li>
-                                            <li v-if="config.manualAdd.actualStep < config.manualAdd.steps.length - 1">
-                                                <a class="btn btn-info" href="#next" v-on:click.prevent="config.changeStep(config.manualAdd.actualStep + 1)" role="menuitem">Siguiente</a>
-                                            </li>
-                                            <li v-else>
-                                                <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
-                                            </li>
+                                            <template v-if="config.manualAdd.sameConf">
+                                                <li>
+                                                    <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                </li>
+                                            </template>
+                                            <template v-else>
+                                                <li :class="config.manualAdd.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
+                                                    <a class="btn btn-default" href="#previous" v-on:click.prevent="config.manualAdd.actualStep > 0 ? config.changeStep(config.manualAdd.actualStep - 1) : ''" role="menuitem">Anterior</a>
+                                                </li>
+                                                <li v-if="config.manualAdd.actualStep < config.manualAdd.steps.length - 1">
+                                                    <a class="btn btn-info" href="#next" v-on:click.prevent="config.changeStep(config.manualAdd.actualStep + 1)" role="menuitem">Siguiente</a>
+                                                </li>
+                                                <li v-else>
+                                                    <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                </li>
+                                            </template>
                                         </ul>
                                     </div>
                                 </div>
@@ -33185,7 +33180,8 @@ module.exports = new Vue({
             this.models.sucursalHorario.get({
                 delimiters: this.id,
                 params: {
-                    "per-page": 100
+                    "per-page": 100,
+                    "sort": "hora_inicio"
                 }
             },
             function(success){
@@ -33386,7 +33382,8 @@ module.exports = new Vue({
             this.models.sucursalHorario.get({
                 delimiters: this.id,
                 params: {
-                    "per-page": 100
+                    "per-page": 100,
+                    "sort": "hora_inicio"
                 }
             },
             function(success){
@@ -34264,7 +34261,8 @@ module.exports = new Vue({
             id: "recursosRegistrados",
             head: [
                 {title: "id", hidden: true, input: {type: 'number'}},
-                {title: "fecha_ingreso", input: {type: 'date'}, orderable: true, editable: true, searchable: {active: true, type: "filter"}}
+                {title: "nombre", input: {type: 'text'}, orderable: true, searchable: {active: true, type: "filter"}},
+                {title: "correo", input: {type: 'email'}, orderable: true, searchable: {active: true, type: "filter"}}
             ],
             style: {
                 noText: true,
@@ -34298,7 +34296,7 @@ module.exports = new Vue({
             },
             webService: {
                 active: true,
-                model: e.empleado,
+                model: e.usuarioEmpleado,
                 headers: {
                     currentPage: "X-Pagination-Current-Page",
                     pageCount: "X-Pagination-Page-Count",
@@ -34404,10 +34402,7 @@ module.exports = new Vue({
     data: {
         models: {
             empleado: null,
-            empleadoCliente: null,
-            empleadoHorario: null,
-            empleadoHorarioRuta: null,
-            empleadoHorarioRutaPunto: null
+            empleadoHorario: null
         },
         typeSelection: {
             type: null,
@@ -34424,22 +34419,87 @@ module.exports = new Vue({
         },
         manualAdd: {
             name: null,
+            email: null,
+            pass: null,
+            repass: null,
+            date: null,
             map: {
                 main: null,
                 geocoder: null,
-                marker: {
-                    main: null,
-                    position: {
-                        lat: null,
-                        lng: null
+                marker: [
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Lu",
+                        textU_begin: "I",
+                        textU_end: "F",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
                     },
-                },
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Ma",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    },
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Mi",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    },
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Ju",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    },
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Vi",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    },
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Sa",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    },
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Do",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    }
+                ],
                 data: {
                     address: "Chilpancingo_1_2, Hipódromo",
                     zoom: 18
                 }
             },
             sameConf: false,
+            allPosVisible: true,
             actualStep: 0,
             maxInterval: 5,
             steps: [
@@ -34549,10 +34609,7 @@ module.exports = new Vue({
             var me = this;
             if(e){
                 this.models.empleado = e.empleado;
-                this.models.empleadoCliente = e.empleadoCliente;
                 this.models.empleadoHorario = e.empleadoHorario;
-                this.models.empleadoHorarioRuta = e.empleadoHorarioRuta;
-                this.models.empleadoHorarioRutaPunto = e.empleadoHorarioRutaPunto;
             }
             if(this.typeSelection.type === 1)
                 Vue.nextTick(function(){
@@ -34561,15 +34618,18 @@ module.exports = new Vue({
         },
         initMap: function(){
             var me = this;
-            if(this.manualAdd.map.marker.main){
-                this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddStore'), {     //Define Map
+            if(this.manualAdd.map.marker[0].main_begin){
+                this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddResource'), {     //Define Map
                     zoom: this.manualAdd.map.data.zoom,
-                    center: this.manualAdd.map.marker.position
+                    center: {
+                        lat: this.manualAdd.map.marker[0].lat_begin,
+                        lng: this.manualAdd.map.marker[0].lng_begin
+                    }
                 });
                 this.initPosition();
             }
             else{
-                this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddStore'), {     //Define Map
+                this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddResource'), {     //Define Map
                     zoom: this.manualAdd.map.data.zoom
                 });
                 this.initGeocoder();
@@ -34581,7 +34641,7 @@ module.exports = new Vue({
         },
         initSearch: function(){
             var me = this;
-            var input = document.getElementById('searchAddStore');
+            var input = document.getElementById('searchAddResource');
             var searchBox = new google.maps.places.SearchBox(input);
             this.manualAdd.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     
@@ -34628,12 +34688,26 @@ module.exports = new Vue({
             });
         },
         initPosition: function(){
-            if(this.manualAdd.map.marker.position.lat !== null &&
-               this.manualAdd.map.marker.position.lng !== null)
-                this.manualAdd.map.marker.main = new google.maps.Marker({
-                    map: this.manualAdd.map.main,
-                    position: this.manualAdd.map.marker.position
-                });
+            for(var i = 0; i < this.manualAdd.map.marker.length; i++){
+                if(this.manualAdd.map.marker[i].lat_begin !== null &&
+                   this.manualAdd.map.marker[i].lng_begin !== null)
+                    this.manualAdd.map.marker[i].main_begin = new google.maps.Marker({
+                        map: this.manualAdd.map.main,
+                        position: {
+                            lat: this.manualAdd.map.marker[i].lat_begin,
+                            lng: this.manualAdd.map.marker[i].lng_begin
+                        }
+                    });
+                if(this.manualAdd.map.marker[i].lat_begin !== null &&
+                   this.manualAdd.map.marker[i].lng_begin !== null)
+                    this.manualAdd.map.marker[i].main_begin = new google.maps.Marker({
+                        map: this.manualAdd.map.main,
+                        position: {
+                            lat: this.manualAdd.map.marker[i].lat_end,
+                            lng: this.manualAdd.map.marker[i].lng_end
+                        }
+                    });
+            }
         },
         initGeocoder: function(){
             var me = this;
@@ -34657,19 +34731,117 @@ module.exports = new Vue({
                 });
         },
         positioner: function(pos){
-            if(this.manualAdd.map.marker.main)
-                this.manualAdd.map.marker.main.setPosition(pos);
-            else
-                this.manualAdd.map.marker.main = new google.maps.Marker({
-                    map: this.manualAdd.map.main,
-                    position: pos
+            if(this.manualAdd.steps[this.manualAdd.actualStep].active){
+                if(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin === null){
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin = new google.maps.Marker({
+                            map: this.manualAdd.map.main,
+                            position: pos,
+                            icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"
+                        });
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_begin = pos.lat();
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_begin = pos.lng();
+                    this.deleter("begin", this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep);
+                }
+                else if(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin &&
+                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_begin === null &&
+                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_begin === null){
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin.setMap(this.manualAdd.map.main);
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin.setPosition(pos);
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_begin = pos.lat();
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_begin = pos.lng();
+                }
+                else if(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin &&
+                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end === null){
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end = new google.maps.Marker({
+                            map: this.manualAdd.map.main,
+                            position: pos,
+                            icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"
+                        });
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end.addListener("dblclick", function(){
+                        
+                    });
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_end = pos.lat();
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_end = pos.lng();
+                    this.deleter("end", this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep);
+                }
+                else if(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end &&
+                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_end === null &&
+                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_end === null){
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end.setMap(this.manualAdd.map.main);
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end.setPosition(pos);
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_end = pos.lat();
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_end = pos.lng();
+                }
+            }
+        },
+        deleter: function(type, i){
+            var me = this;
+            if(type === "begin")
+                this.manualAdd.map.marker[i].main_begin.addListener("dblclick", function(){
+                    me.manualAdd.map.marker[i].main_begin.setMap(null);
+                    me.manualAdd.map.marker[i].lat_begin = null;
+                    me.manualAdd.map.marker[i].lng_begin = null;
                 });
-            this.manualAdd.map.marker.position.lat = pos.lat();
-            this.manualAdd.map.marker.position.lng = pos.lng();
+            else if(type === "end")
+                this.manualAdd.map.marker[i].main_end.addListener("dblclick", function(){
+                    me.manualAdd.map.marker[i].main_end.setMap(null);
+                    me.manualAdd.map.marker[i].lat_end = null;
+                    me.manualAdd.map.marker[i].lng_end = null;
+                });
+        },
+        setVisibilityPosition: function(auto){
+            var i;
+            if(!auto)
+                this.manualAdd.allPosVisible = !this.manualAdd.allPosVisible;
+            for(i = 0; i < this.manualAdd.map.marker.length; i++){
+                if(this.manualAdd.map.marker[i].main_begin !== null &&
+                   this.manualAdd.map.marker[i].lat_begin !== null &&
+                   this.manualAdd.map.marker[i].lng_begin !== null)
+                    this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
+                if(this.manualAdd.map.marker[i].main_end !== null &&
+                   this.manualAdd.map.marker[i].lat_end !== null &&
+                   this.manualAdd.map.marker[i].lng_end !== null)    //Is showed in map
+                    this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
+            }
+        },
+        changeConf: function(){
+            var i;
+            this.manualAdd.sameConf = !this.manualAdd.sameConf;
+            this.manualAdd.steps[0].active = true;
+            for(i = 0; i < this.manualAdd.map.marker.length; i++){
+                if(this.manualAdd.map.marker[i].main_begin !== null &&
+                   this.manualAdd.map.marker[i].lat_begin !== null &&
+                   this.manualAdd.map.marker[i].lng_begin !== null){    //Is showed in map
+                    if(i === 0){    //Is designed one for all
+                        this.manualAdd.map.marker[i].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_begin" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                        this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.map.main);
+                    }
+                    else           //All irrelevants
+                        this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.sameConf ? null : this.manualAdd.map.main);
+                }
+                if(this.manualAdd.map.marker[i].main_end !== null &&
+                   this.manualAdd.map.marker[i].lat_end !== null &&
+                   this.manualAdd.map.marker[i].lng_end !== null){    //Is showed in map
+                    if(i === 0){    //Is designed one for all
+                        this.manualAdd.map.marker[i].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_end" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                        this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.map.main);
+                    }
+                    else           //All irrelevants
+                        this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.sameConf ? null : this.manualAdd.map.main);
+                }
+            }
+            
+            if(!this.manualAdd.allPosVisible && !this.manualAdd.sameConf)
+                this.setVisibilityPosition(true); //AUTO
         },
         changeStep: function(e){
             this.manualAdd.actualStep = e;
             this.manualAdd.steps[e].seen = true;
+            
+            if(!this.manualAdd.allPosVisible)
+                this.setVisibilityPosition(true); //AUTO
         },
         setInterval: function(){
             var i,
@@ -34690,6 +34862,21 @@ module.exports = new Vue({
                 this.manualAdd.steps[this.manualAdd.actualStep].schedule = newSchedule;
             }
         },
+        setActivity: function(){
+            this.manualAdd.steps[this.manualAdd.actualStep].active = !this.manualAdd.steps[this.manualAdd.actualStep].active;
+            if(!this.manualAdd.steps[this.manualAdd.actualStep].active){
+                if(this.manualAdd.map.marker[this.manualAdd.actualStep].main_begin !== null &&
+                   this.manualAdd.map.marker[this.manualAdd.actualStep].lat_begin !== null &&
+                   this.manualAdd.map.marker[this.manualAdd.actualStep].lng_begin !== null)
+                    this.manualAdd.map.marker[this.manualAdd.actualStep].main_begin.setMap(null);
+                if(this.manualAdd.map.marker[this.manualAdd.actualStep].main_end !== null &&
+                   this.manualAdd.map.marker[this.manualAdd.actualStep].lat_end !== null &&
+                   this.manualAdd.map.marker[this.manualAdd.actualStep].lng_end !== null)    //Is showed in map
+                    this.manualAdd.map.marker[this.manualAdd.actualStep].main_end.setMap(null);
+            }
+            else 
+                this.setVisibilityPosition(true); //AUTO
+        },
         submit: function(e){
             var me = this;
             switch(e){
@@ -34700,84 +34887,92 @@ module.exports = new Vue({
                         error = "",
                         valid = true;
                     if(this.manualAdd.sameConf){
-                        if(this.manualAdd.name === null || this.manualAdd.name === ""){     //No name
+                        if(this.manualAdd.date === null || this.manualAdd.date === ""){     //No name
                             BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                        }
-                        else if(this.manualAdd.map.marker.main === null ||                  //No position
-                                this.manualAdd.map.marker.position.lat === null || this.manualAdd.map.marker.position.lng === null){
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
+                            BUTO.components.main.alert.description.text = "Fecha de ingreso no puede estar vacío.";
                             BUTO.components.main.alert.description.ok = "Aceptar";
                             BUTO.components.main.alert.active = true;
                         }
                         else{
                             i = 0;
-                            for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
-                                hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
-                                hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
-                                if(this.manualAdd.steps[i].schedule[j].begin === ""){
-                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
-                                    valid = false; k++;
-                                }
-                                if(this.manualAdd.steps[i].schedule[j].end === ""){
-                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
-                                    valid = false; k++;
-                                }
-                                if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                   (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
-                                    hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
-                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
-                                    valid = false; k++;
-                                }
-                                if(this.manualAdd.steps[i].schedule[j].end !== "" &&
-                                   (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
-                                    hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
-                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
-                                    valid = false; k++;
-                                }
-                                if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                   this.manualAdd.steps[i].schedule[j].end !== "" &&
-                                   this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
-                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo.<br>" : "";
-                                    valid = false; k++;
-                                }
-                                if(j > 0 &&
-                                   this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                   this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
-                                   this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
-                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + ".<br>": "";
-                                    valid = false; k++;
+                            if(this.manualAdd.map.marker[i].main_begin === null ||                  //No position
+                               this.manualAdd.map.marker[i].lat_begin === null ||
+                               this.manualAdd.map.marker[i].lng_begin === null ||
+                               this.manualAdd.map.marker[i].main_end === null ||                  //No position
+                               this.manualAdd.map.marker[i].lat_end === null ||
+                               this.manualAdd.map.marker[i].lng_end === null){
+                                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                BUTO.components.main.alert.description.text = "Debes escoger las ubicaciones de inicio y final.";
+                                BUTO.components.main.alert.description.ok = "Aceptar";
+                                BUTO.components.main.alert.active = true;
+                                valid = false;
+                            }
+                            if(valid){
+                                for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
+                                    hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
+                                    hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
+                                    if(this.manualAdd.steps[i].schedule[j].begin === ""){
+                                        error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
+                                        valid = false; k++;
+                                    }
+                                    if(this.manualAdd.steps[i].schedule[j].end === ""){
+                                        error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
+                                        valid = false; k++;
+                                    }
+                                    if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                       (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
+                                        hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
+                                        error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
+                                        valid = false; k++;
+                                    }
+                                    if(this.manualAdd.steps[i].schedule[j].end !== "" &&
+                                       (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
+                                        hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
+                                        error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
+                                        valid = false; k++;
+                                    }
+                                    if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                       this.manualAdd.steps[i].schedule[j].end !== "" &&
+                                       this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
+                                        error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo.<br>" : "";
+                                        valid = false; k++;
+                                    }
+                                    if(j > 0 &&
+                                       this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                       this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
+                                       this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
+                                        error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + ".<br>": "";
+                                        valid = false; k++;
+                                    }
                                 }
                             }
                             if(valid){
-                                this.models.sucursal.post({
-                                    params: {
-                                        nombre: this.manualAdd.name,
-                                        lat: this.manualAdd.map.marker.position.lat,
-                                        lng: this.manualAdd.map.marker.position.lng
-                                    }
-                                },
-                                function(success){
-                                    for(i = 0; i < me.manualAdd.steps.length; i++)
-                                        for(j = 0; j < me.manualAdd.steps[0].schedule.length; j++){
-                                            me.submitSchedule(i, j, success.body.id, first);
-                                            first = false;
-                                        }
-                                    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
-                                    BUTO.components.main.alert.description.title = "Registro de Tienda";
-                                    BUTO.components.main.alert.description.text = "Se ha registrado correctamente la tienda '" + success.body.nombre + "'";
-                                    BUTO.components.main.alert.description.ok = "Aceptar";
-                                    BUTO.components.main.alert.active = true;
-                                },
-                                function(error){
-                                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                    BUTO.components.main.alert.description.text = error.body[0].message;
-                                    BUTO.components.main.alert.description.ok = "Aceptar";
-                                    BUTO.components.main.alert.active = true;
-                                });
+                                console.log("ALL well SAME");
+                                //this.models.sucursal.post({
+                                //    params: {
+                                //        nombre: this.manualAdd.name,
+                                //        lat: this.manualAdd.map.marker.position.lat,
+                                //        lng: this.manualAdd.map.marker.position.lng
+                                //    }
+                                //},
+                                //function(success){
+                                //    for(i = 0; i < me.manualAdd.steps.length; i++)
+                                //        for(j = 0; j < me.manualAdd.steps[0].schedule.length; j++){
+                                //            me.submitSchedule(i, j, success.body.id, first);
+                                //            first = false;
+                                //        }
+                                //    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
+                                //    BUTO.components.main.alert.description.title = "Registro de Tienda";
+                                //    BUTO.components.main.alert.description.text = "Se ha registrado correctamente la tienda '" + success.body.nombre + "'";
+                                //    BUTO.components.main.alert.description.ok = "Aceptar";
+                                //    BUTO.components.main.alert.active = true;
+                                //},
+                                //function(error){
+                                //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                //    BUTO.components.main.alert.description.text = error.body[0].message;
+                                //    BUTO.components.main.alert.description.ok = "Aceptar";
+                                //    BUTO.components.main.alert.active = true;
+                                //});
                             }
                             else{
                                 BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -34794,83 +34989,99 @@ module.exports = new Vue({
                             BUTO.components.main.alert.description.ok = "Aceptar";
                             BUTO.components.main.alert.active = true;
                         }
-                        else if(this.manualAdd.map.marker.main === null ||                  //No position
-                                this.manualAdd.map.marker.position.lat === null || this.manualAdd.map.marker.position.lng === null){
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                        }
                         else{
-                            for(i = 0; i < this.manualAdd.steps.length; i++)
-                                if(this.manualAdd.steps[i].active)
-                                    for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
-                                        hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
-                                        hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
-                                        if(this.manualAdd.steps[i].schedule[j].begin === ""){
-                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
-                                            valid = false; k++;
-                                        }
-                                        if(this.manualAdd.steps[i].schedule[j].end === ""){
-                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
-                                            valid = false; k++;
-                                        }
-                                        if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                           (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
-                                            hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
-                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
-                                            valid = false; k++;
-                                        }
-                                        if(this.manualAdd.steps[i].schedule[j].end !== "" &&
-                                           (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
-                                            hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
-                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
-                                            valid = false; k++;
-                                        }
-                                        if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                           this.manualAdd.steps[i].schedule[j].end !== "" &&
-                                           this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
-                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " debe ser mayor al inicio del mismo.<br>" : "";
-                                            valid = false; k++;
-                                        }
-                                        if(j > 0 &&
-                                           this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                           this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
-                                           this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
-                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.manualAdd.steps[i].text + ".<br>": "";
-                                            valid = false; k++;
-                                        }
-                                    }
+                            for(i = 0; i < this.manualAdd.map.marker.length; i++){
+                                if(this.manualAdd.steps[i].active &&
+                                   (this.manualAdd.map.marker[i].main_begin === null ||                  //No position
+                                   this.manualAdd.map.marker[i].lat_begin === null ||
+                                   this.manualAdd.map.marker[i].lng_begin === null ||
+                                   this.manualAdd.map.marker[i].main_end === null ||                  //No position
+                                   this.manualAdd.map.marker[i].lat_end === null ||
+                                   this.manualAdd.map.marker[i].lng_end === null)){
+                                    error += (k <= limit) ? "Debes escoger las ubicaciones de inicio y final para el día " + this.manualAdd.steps[i].text + ".": "";
+                                    valid = false; k++;
+                                }
+                            }
                             if(valid){
-                                this.models.sucursal.post({
-                                    params: {
-                                        nombre: this.manualAdd.name,
-                                        lat: this.manualAdd.map.marker.position.lat,
-                                        lng: this.manualAdd.map.marker.position.lng
-                                    }
-                                },
-                                function(success){
-                                    for(i = 0; i < me.manualAdd.steps.length; i++)
-                                        if(me.manualAdd.steps[i].active){
-                                            for(j = 0; j < me.manualAdd.steps[i].schedule.length; j++){
-                                                me.submitSchedule(i, j, success.body.id, first);
-                                                first = false;
+                                error = "";
+                                k = 0;
+                                for(i = 0; i < this.manualAdd.steps.length; i++)
+                                    if(this.manualAdd.steps[i].active)
+                                        for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
+                                            hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
+                                            hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
+                                            if(this.manualAdd.steps[i].schedule[j].begin === ""){
+                                                error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
+                                                valid = false; k++;
+                                            }
+                                            if(this.manualAdd.steps[i].schedule[j].end === ""){
+                                                error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
+                                                valid = false; k++;
+                                            }
+                                            if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                               (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
+                                                hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
+                                                error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                                valid = false; k++;
+                                            }
+                                            if(this.manualAdd.steps[i].schedule[j].end !== "" &&
+                                               (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
+                                                hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
+                                                error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                                valid = false; k++;
+                                            }
+                                            if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                               this.manualAdd.steps[i].schedule[j].end !== "" &&
+                                               this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
+                                                error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " debe ser mayor al inicio del mismo.<br>" : "";
+                                                valid = false; k++;
+                                            }
+                                            if(j > 0 &&
+                                               this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                               this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
+                                               this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
+                                                error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.manualAdd.steps[i].text + ".<br>": "";
+                                                valid = false; k++;
                                             }
                                         }
-                                        else
-                                            me.reset("schedule", i);
-                                    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
-                                    BUTO.components.main.alert.description.title = "Registro de Tienda";
-                                    BUTO.components.main.alert.description.text = "Se ha registrado correctamente la tienda '" + success.body.nombre + "'";
-                                    BUTO.components.main.alert.description.ok = "Aceptar";
-                                    BUTO.components.main.alert.active = true;
-                                },
-                                function(error){
-                                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                    BUTO.components.main.alert.description.text = error.body[0].message;
-                                    BUTO.components.main.alert.description.ok = "Aceptar";
-                                    BUTO.components.main.alert.active = true;
-                                });
+                            }
+                            else{
+                                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                BUTO.components.main.alert.description.text = error;
+                                BUTO.components.main.alert.description.ok = "Aceptar";
+                                BUTO.components.main.alert.active = true;
+                            }
+                            if(valid){
+                                console.log("ALL well IND");
+                                //this.models.sucursal.post({
+                                //    params: {
+                                //        nombre: this.manualAdd.name,
+                                //        lat: this.manualAdd.map.marker.position.lat,
+                                //        lng: this.manualAdd.map.marker.position.lng
+                                //    }
+                                //},
+                                //function(success){
+                                //    for(i = 0; i < me.manualAdd.steps.length; i++)
+                                //        if(me.manualAdd.steps[i].active){
+                                //            for(j = 0; j < me.manualAdd.steps[i].schedule.length; j++){
+                                //                me.submitSchedule(i, j, success.body.id, first);
+                                //                first = false;
+                                //            }
+                                //        }
+                                //        else
+                                //            me.reset("schedule", i);
+                                //    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
+                                //    BUTO.components.main.alert.description.title = "Registro de Tienda";
+                                //    BUTO.components.main.alert.description.text = "Se ha registrado correctamente la tienda '" + success.body.nombre + "'";
+                                //    BUTO.components.main.alert.description.ok = "Aceptar";
+                                //    BUTO.components.main.alert.active = true;
+                                //},
+                                //function(error){
+                                //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                //    BUTO.components.main.alert.description.text = error.body[0].message;
+                                //    BUTO.components.main.alert.description.ok = "Aceptar";
+                                //    BUTO.components.main.alert.active = true;
+                                //});
                             }
                             else{
                                 BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";

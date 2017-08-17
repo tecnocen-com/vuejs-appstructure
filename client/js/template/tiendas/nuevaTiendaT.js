@@ -88,7 +88,7 @@ module.exports = `
                                         </span>
                                         {{config.manualAdd.sameConf ? 'Si' : 'No'}}
                                     </label>
-                                    <span class="help-block">¿Mismos horarios para todos los días?</span>
+                                    <span class="help-block">Generalizar horarios</span>
                                 </div>
                             </div>
                         </div>

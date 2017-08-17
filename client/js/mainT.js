@@ -42,8 +42,8 @@ Vue.component("alert", {
 Vue.component("heading", {
     template: heading,
     props: {
-        config: Object,
-        setview: Function
+        setview: Function,
+        profile: Object
     }
 });
 Vue.component("my-menu", {
@@ -59,7 +59,8 @@ Vue.component("page-heading", {
     props: {
         config: Object,
         active: Object,
-        setview: Function
+        setview: Function,
+        profile: Object
     }
 });
 Vue.component("foot", {
@@ -130,9 +131,9 @@ module.exports = `
         <transition name="slide-fade">
             <alert :config="alert"></alert>
         </transition>
-        <heading></heading>
+        <heading :setview="setView" :profile="profile"></heading>
         <my-menu :config="children.menu" :active="active" :setview="setView"></my-menu>
-        <page-heading :config="children.menu" :active="active" :setview="setView"></page-heading>
+        <page-heading :config="children.menu" :active="active" :setview="setView" :profile="profile"></page-heading>
         <div class="page-container">
             <div class="row">
                 <template v-if="active.first === 0">
@@ -148,33 +149,25 @@ module.exports = `
                         <clientes-registrados :config="children.clientesRegistrados"></clientes-registrados>
                     </transition>
                 </template>
-                <template v-else-if="active.first === 2">
-                    <template v-if="active.second === 0">
-                        <template v-if="active.third === 0">
-                            <transition name="slide-fade">
-                                <tiendas-registradas :config="children.tiendasRegistradas"></tiendas-registradas>
-                            </transition>
-                        </template>
-                        <template v-if="active.third === 1">
-                            <transition name="slide-fade">
-                                <nueva-tienda :mask="mask" :config="children.nuevaTienda"></nueva-tienda>
-                            </transition>
-                        </template>
-                    </template>
+                <template v-else-if="active.first === 2 && active.second === 0 && active.third === 0">
+                    <transition name="slide-fade">
+                        <tiendas-registradas :config="children.tiendasRegistradas"></tiendas-registradas>
+                    </transition>
                 </template>
-                <template v-else-if="active.first === 3">
-                    <template v-if="active.second === 0">
-                        <template v-if="active.third === 0">
-                            <transition name="slide-fade">
-                                <recursos-registrados :config="children.recursosRegistrados"></recursos-registrados>
-                            </transition>
-                        </template>
-                        <template v-if="active.third === 1">
-                            <transition name="slide-fade">
-                                <nuevo-recurso :mask="mask" :config="children.nuevoRecurso"></nuevo-recurso>
-                            </transition>
-                        </template>
-                    </template>
+                <template v-else-if="active.first === 2 && active.second === 0 && active.third === 1">
+                    <transition name="slide-fade">
+                        <nueva-tienda :mask="mask" :config="children.nuevaTienda"></nueva-tienda>
+                    </transition>
+                </template>
+                <template v-else-if="active.first === 3 && active.second === 0 && active.third === 0">
+                    <transition name="slide-fade">
+                        <recursos-registrados :config="children.recursosRegistrados"></recursos-registrados>
+                    </transition>
+                </template>
+                <template v-else-if="active.first === 3 && active.second === 0 && active.third === 1">
+                    <transition name="slide-fade">
+                        <nuevo-recurso :mask="mask" :config="children.nuevoRecurso"></nuevo-recurso>
+                    </transition>
                 </template>
                 <template v-else-if="active.first === 4">
                     <transition name="slide-fade">

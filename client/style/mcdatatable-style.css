@@ -201,13 +201,4 @@
 	width:5px;
 	height:33px
 }
-    /******************************ANIMATION*************************************/
-.slide-fade-enter-active {
-  transition: all .5s ease;
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for <2.1.8 */ {
-  transform: translateX(10px);
-  opacity: 0;
-}
 /**************************************************************************/

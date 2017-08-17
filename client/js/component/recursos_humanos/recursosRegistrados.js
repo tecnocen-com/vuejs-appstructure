@@ -8,7 +8,8 @@ module.exports = new Vue({
             id: "recursosRegistrados",
             head: [
                 {title: "id", hidden: true, input: {type: 'number'}},
-                {title: "fecha_ingreso", input: {type: 'date'}, orderable: true, editable: true, searchable: {active: true, type: "filter"}}
+                {title: "nombre", input: {type: 'text'}, orderable: true, searchable: {active: true, type: "filter"}},
+                {title: "correo", input: {type: 'email'}, orderable: true, searchable: {active: true, type: "filter"}}
             ],
             style: {
                 noText: true,
@@ -42,7 +43,7 @@ module.exports = new Vue({
             },
             webService: {
                 active: true,
-                model: e.empleado,
+                model: e.usuarioEmpleado,
                 headers: {
                     currentPage: "X-Pagination-Current-Page",
                     pageCount: "X-Pagination-Page-Count",

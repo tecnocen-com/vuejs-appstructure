@@ -48,6 +48,10 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                         el: "#main",
                         template: BUTO.requires.templates.main,
                         data: {
+                            profile: {
+                                name: "Unknown",
+                                email: null
+                            },
                             active: {
                                 first: 0,
                                 second: 0,
@@ -92,9 +96,12 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 }
                             }),
                             models: {
+                                perfil: new modelCreator("perfil"),
+                                usuario: new modelCreator("usuario"),
                                 cliente: new modelCreator("cliente"),
                                 clienteEmpleado: new modelCreator(["cliente", "empleado"]),
                                 clienteSucursal: new modelCreator(["cliente", "sucursal"]),
+                                usuarioEmpleado: new modelCreator("usuario-empleado"),
                                 empleado: new modelCreator("empleado"),
                                 empleadoCliente: new modelCreator(["empleado", "cliente"]),
                                 empleadoHorario: new modelCreator(["empleado", "horario"]),
@@ -102,9 +109,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 empleadoHorarioRutaPunto: new modelCreator(["empleado", "horario", "ruta", "punto"]),
                                 sucursal: new modelCreator("sucursal"),
                                 sucursalCliente: new modelCreator(["sucursal", "cliente"]),
-                                sucursalHorario: new modelCreator(["sucursal", "horario"]),
-                                perfil: new modelCreator("perfil"),
-                                usuario: new modelCreator("usuario")
+                                sucursalHorario: new modelCreator(["sucursal", "horario"])
                             },
                             children: {
                                 map: BUTO.requires.components.map,
@@ -170,7 +175,17 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                             }
                         },
                         created: function(){
+                            var me = this;
                             BUTO.init(userResponse);
+                            this.models.perfil.get({},
+                            function(success){
+                                me.profile.name = success.body.nombre;
+                                me.profile.email = success.body.correo;
+                            },
+                            function(error){
+                                console.log(error);
+                                //window.location = "/logout";
+                            });
                             BUTO.requires.components.clientesRegistrados.init({
                                 cliente: this.models.cliente
                             });
@@ -184,14 +199,11 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 sucursalHorario: this.models.sucursalHorario
                             });
                             BUTO.requires.components.recursosRegistrados.init({
-                                empleado: this.models.empleado
+                                usuarioEmpleado: this.models.usuarioEmpleado
                             });
                             BUTO.requires.components.nuevoRecurso.init({
                                 empleado: this.models.empleado,
-                                empleadoCliente: this.models.empleadoCliente,
-                                empleadoHorario: this.models.empleadoHorario,
-                                empleadoHorarioRuta: this.models.empleadoHorarioRuta,
-                                empleadoHorarioRutaPunto: this.models.empleadoHorarioRutaPunto
+                                empleadoHorario: this.models.empleadoHorario
                             });
                         },
                         mounted: function(){
