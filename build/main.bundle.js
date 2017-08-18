@@ -17207,9 +17207,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 mask: this.mask
                             });
                             BUTO.requires.components.nuevoRecurso.init({
+                                usuarioEmpleado: this.models.usuarioEmpleado,
                                 empleado: this.models.empleado,
-                                empleadoHorario: this.models.empleadoHorario,
-                                mask: this.mask
+                                empleadoHorario: this.models.empleadoHorario
                             });
                         },
                         mounted: function(){
@@ -33727,6 +33727,7 @@ module.exports = new Vue({
             }
         },
         submitSchedule: function(i, j, id){
+            var me = this;
             if(this.steps[i].schedule[j].id !== null && this.steps[i].schedule[j].remove === true){ //Lets delete this schedule
                 this.models.sucursalHorario.remove({
                     delimiters: [
@@ -33738,7 +33739,7 @@ module.exports = new Vue({
                     }
                 },
                 function(success){
-                    
+                    me.steps[i].schedule[j].id = null;
                 },
                 function(error){
                     console.log(error);
@@ -33761,6 +33762,7 @@ module.exports = new Vue({
                 },
                 function(error){
                     console.log(error);
+                    me.submitSchedule(i, j, id);
                 });
             }
             else if(this.steps[i].schedule[j].id === null && this.steps[i].schedule[j].remove === false){ //Lets create this schedule
@@ -33773,10 +33775,11 @@ module.exports = new Vue({
                     }
                 },
                 function(success){
-                    
+                    me.steps[i].schedule[j].id = success.body.id;
                 },
                 function(error){
                     console.log(error);
+                    me.submitSchedule(i, j, id);
                 });
             }
         }
@@ -34573,6 +34576,7 @@ module.exports = new Vue({
 module.exports = new Vue({
     data: {
         models: {
+            usuarioEmpleado: null,
             empleado: null,
             empleadoHorario: null
         },
@@ -34809,6 +34813,7 @@ module.exports = new Vue({
         init: function(e){
             var me = this;
             if(e){
+                this.models.usuarioEmpleado = e.usuarioEmpleado;
                 this.models.empleado = e.empleado;
                 this.models.empleadoHorario = e.empleadoHorario;
             }
@@ -34899,9 +34904,10 @@ module.exports = new Vue({
         },
         initConfiguration: function(auto){
             var i;
-            if(!auto)
+            if(!auto){
                 this.manualAdd.sameConf = !this.manualAdd.sameConf;
-            this.manualAdd.steps[0].active = true;
+                this.manualAdd.steps[0].active = true;
+            }
             for(i = 0; i < this.manualAdd.map.marker.length; i++){
                 if(this.manualAdd.map.marker[i].main_begin !== null &&
                    this.manualAdd.map.marker[i].lat_begin !== null &&
@@ -35309,32 +35315,33 @@ module.exports = new Vue({
                                         }
                                     }
                                     if(valid){
-                                        console.log("ALL well SAME");
-                                        //this.models.sucursal.post({
-                                        //    params: {
-                                        //        nombre: this.manualAdd.name.value,
-                                        //        lat: this.manualAdd.map.marker.position.lat,
-                                        //        lng: this.manualAdd.map.marker.position.lng
-                                        //    }
-                                        //},
-                                        //function(success){
-                                        //    for(i = 0; i < me.manualAdd.steps.length; i++)
-                                        //        for(j = 0; j < me.manualAdd.steps[0].schedule.length; j++){
-                                        //            me.submitSchedule(i, j, success.body.id, first);
-                                        //            first = false;
-                                        //        }
-                                        //    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
-                                        //    BUTO.components.main.alert.description.title = "Registro de Tienda";
-                                        //    BUTO.components.main.alert.description.text = "Se ha registrado correctamente la tienda '" + success.body.nombre + "'";
-                                        //    BUTO.components.main.alert.description.ok = "Aceptar";
-                                        //    BUTO.components.main.alert.active = true;
-                                        //},
-                                        //function(error){
-                                        //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                        //    BUTO.components.main.alert.description.text = error.body[0].message;
-                                        //    BUTO.components.main.alert.description.ok = "Aceptar";
-                                        //    BUTO.components.main.alert.active = true;
-                                        //});
+                                        this.models.usuarioEmpleado.post({
+                                            params: {
+                                                nombre: this.manualAdd.name.value,
+                                                correo: this.manualAdd.email.value,
+                                                pass: this.manualAdd.pass.value,
+                                                pass_repeat: this.manualAdd.repass.value,
+                                                fecha_ingreso: this.manualAdd.date.value
+                                            }
+                                        },
+                                        function(success){
+                                            for(i = 0; i < me.manualAdd.steps.length; i++)
+                                                for(j = 0; j < me.manualAdd.steps[0].schedule.length; j++){
+                                                    me.submitSchedule(i, j, success.body.id, first);
+                                                    first = false;
+                                                }
+                                            BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
+                                            BUTO.components.main.alert.description.title = "Registro de Recurso Humano";
+                                            BUTO.components.main.alert.description.text = "Se ha registrado correctamente el recurso humano '" + success.body.nombre + "'";
+                                            BUTO.components.main.alert.description.ok = "Aceptar";
+                                            BUTO.components.main.alert.active = true;
+                                        },
+                                        function(error){
+                                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                            BUTO.components.main.alert.description.text = error.body[0].message;
+                                            BUTO.components.main.alert.description.ok = "Aceptar";
+                                            BUTO.components.main.alert.active = true;
+                                        });
                                     }
                                     else{
                                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -35357,8 +35364,6 @@ module.exports = new Vue({
                                         valid = false; k++;
                                     }
                                 }
-                                
-                                //
                                 if(valid){
                                     error = "";
                                     k = 0;
@@ -35419,36 +35424,36 @@ module.exports = new Vue({
                                     BUTO.components.main.alert.active = true;
                                 }
                                 if(valid){
-                                    console.log("ALL well IND");
-                                    //this.models.sucursal.post({
-                                    //    params: {
-                                    //        nombre: this.manualAdd.name.value,
-                                    //        lat: this.manualAdd.map.marker.position.lat,
-                                    //        lng: this.manualAdd.map.marker.position.lng
-                                    //    }
-                                    //},
-                                    //function(success){
-                                    //    for(i = 0; i < me.manualAdd.steps.length; i++)
-                                    //        if(me.manualAdd.steps[i].active){
-                                    //            for(j = 0; j < me.manualAdd.steps[i].schedule.length; j++){
-                                    //                me.submitSchedule(i, j, success.body.id, first);
-                                    //                first = false;
-                                    //            }
-                                    //        }
-                                    //        else
-                                    //            me.reset("schedule", i);
-                                    //    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
-                                    //    BUTO.components.main.alert.description.title = "Registro de Tienda";
-                                    //    BUTO.components.main.alert.description.text = "Se ha registrado correctamente la tienda '" + success.body.nombre + "'";
-                                    //    BUTO.components.main.alert.description.ok = "Aceptar";
-                                    //    BUTO.components.main.alert.active = true;
-                                    //},
-                                    //function(error){
-                                    //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                    //    BUTO.components.main.alert.description.text = error.body[0].message;
-                                    //    BUTO.components.main.alert.description.ok = "Aceptar";
-                                    //    BUTO.components.main.alert.active = true;
-                                    //});
+                                    this.models.usuarioEmpleado.post({
+                                        params: {
+                                            nombre: this.manualAdd.name.value,
+                                            correo: this.manualAdd.email.value,
+                                            pass: this.manualAdd.pass.value,
+                                            pass_repeat: this.manualAdd.repass.value,
+                                            fecha_ingreso: this.manualAdd.date.value
+                                        }
+                                    },function(success){
+                                        for(i = 0; i < me.manualAdd.steps.length; i++)
+                                            if(me.manualAdd.steps[i].active){
+                                                for(j = 0; j < me.manualAdd.steps[i].schedule.length; j++){
+                                                    me.submitSchedule(i, j, success.body.id, first);
+                                                    first = false;
+                                                }
+                                            }
+                                            else
+                                                me.reset("schedule", i);
+                                        BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
+                                        BUTO.components.main.alert.description.title = "Registro de Recurso Humano";
+                                        BUTO.components.main.alert.description.text = "Se ha registrado correctamente el recurso humano '" + success.body.nombre + "'";
+                                        BUTO.components.main.alert.description.ok = "Aceptar";
+                                        BUTO.components.main.alert.active = true;
+                                    },
+                                    function(error){
+                                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                        BUTO.components.main.alert.description.text = error.body[0].message;
+                                        BUTO.components.main.alert.description.ok = "Aceptar";
+                                        BUTO.components.main.alert.active = true;
+                                    });
                                 }
                                 else{
                                     BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -35468,46 +35473,34 @@ module.exports = new Vue({
         submitSchedule: function(i, j, id, first){
             var me = this;
             if(first)
-                this.reset("store");
-            if(this.manualAdd.sameConf){
-                this.models.sucursalHorario.post({
-                    delimiters: id,
-                    params: {
-                        dia: this.manualAdd.steps[i].dayNumber,
-                        hora_inicio: this.manualAdd.steps[0].schedule[j].begin,
-                        hora_fin: this.manualAdd.steps[0].schedule[j].end
-                    }
-                },
-                function(success){
-                    me.reset("schedule", i, j);
-                },
-                function(error){
-                    console.log(error);
-                });
-            }
-            else{
-                this.models.sucursalHorario.post({
-                    delimiters: id,
-                    params: {
-                        dia: this.manualAdd.steps[i].dayNumber,
-                        hora_inicio: this.manualAdd.steps[i].schedule[j].begin,
-                        hora_fin: this.manualAdd.steps[i].schedule[j].end
-                    }
-                },
-                function(success){
-                    me.reset("schedule", i, j);
-                },
-                function(error){
-                    console.log(error);
-                });
-            }
+                this.reset("resource");
+            this.models.empleadoHorario.post({
+                delimiters: id,
+                params: {
+                    dia: this.manualAdd.steps[i].dayNumber,
+                    hora_inicio: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].begin,
+                    hora_fin: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].end,
+                    lat_inicio: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : i].lat_begin,
+                    lat_fin: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : i].lat_end,
+                    lng_inicio: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : i].lng_begin,
+                    lng_fin: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : i].lng_end
+                }
+            },
+            function(success){
+                me.reset("schedule", i, j);
+            },
+            function(error){
+                console.log(error);
+            });
         },
         reset: function(a, i, j){
             switch(a){
-                case "store":
+                case "resource":
                     this.manualAdd.name.value = null;
-                    this.manualAdd.map.marker.main.setMap(null);
-                    this.manualAdd.map.marker.main = null;
+                    this.manualAdd.email.value = null;
+                    this.manualAdd.pass.value = null;
+                    this.manualAdd.repass.value = null;
+                    this.manualAdd.date.value = null;
                     this.manualAdd.actualStep = 0;
                     break;
                 case "schedule":
@@ -35515,6 +35508,18 @@ module.exports = new Vue({
                     this.manualAdd.steps[i].interval = 1;
                     this.manualAdd.steps[i].seen = (this.manualAdd.steps[i].dayNumber === 2) ? true : false;
                     if((j && j === this.manualAdd.steps[i].schedule.length - 1) || !j){
+                        if(this.manualAdd.map.marker[i].main_begin !== null){
+                            this.manualAdd.map.marker[i].main_begin.setMap(null);
+                            this.manualAdd.map.marker[i].main_begin = null;
+                            this.manualAdd.map.marker[i].lat_begin = null;
+                            this.manualAdd.map.marker[i].lng_begin = null;
+                        }
+                        if(this.manualAdd.map.marker[i].main_end !== null){
+                            this.manualAdd.map.marker[i].main_end.setMap(null);
+                            this.manualAdd.map.marker[i].main_end = null;
+                            this.manualAdd.map.marker[i].lat_end = null;
+                            this.manualAdd.map.marker[i].lng_end = null;
+                        }
                         this.manualAdd.steps[i].schedule = [];
                         this.manualAdd.steps[i].schedule.push({
                             begin: "",
@@ -35527,14 +35532,26 @@ module.exports = new Vue({
                     break;
                 case "all":
                     this.manualAdd.name.value = null;
-                    if(this.manualAdd.map.marker.main){
-                        this.manualAdd.map.marker.main.setMap(null);
-                        this.manualAdd.map.marker.main = null;
-                    }
+                    this.manualAdd.email.value = null;
+                    this.manualAdd.pass.value = null;
+                    this.manualAdd.repass.value = null;
+                    this.manualAdd.date.value = null;
                     this.manualAdd.actualStep = 0;
                     this.manualAdd.sameConf = false;
                     
                     for(i = 0; i < this.manualAdd.steps.length; i++){
+                        if(this.manualAdd.map.marker[i].main_begin !== null){
+                            this.manualAdd.map.marker[i].main_begin.setMap(null);
+                            this.manualAdd.map.marker[i].main_begin = null;
+                            this.manualAdd.map.marker[i].lat_begin = null;
+                            this.manualAdd.map.marker[i].lng_begin = null;
+                        }
+                        if(this.manualAdd.map.marker[i].main_end !== null){
+                            this.manualAdd.map.marker[i].main_end.setMap(null);
+                            this.manualAdd.map.marker[i].main_end = null;
+                            this.manualAdd.map.marker[i].lat_end = null;
+                            this.manualAdd.map.marker[i].lng_end = null;
+                        }
                         this.manualAdd.steps[i].active = true;
                         this.manualAdd.steps[i].interval = 1;
                         this.manualAdd.steps[i].seen = (this.manualAdd.steps[i].dayNumber === 2) ? true : false;

@@ -466,6 +466,7 @@ module.exports = new Vue({
             }
         },
         submitSchedule: function(i, j, id){
+            var me = this;
             if(this.steps[i].schedule[j].id !== null && this.steps[i].schedule[j].remove === true){ //Lets delete this schedule
                 this.models.sucursalHorario.remove({
                     delimiters: [
@@ -477,7 +478,7 @@ module.exports = new Vue({
                     }
                 },
                 function(success){
-                    
+                    me.steps[i].schedule[j].id = null;
                 },
                 function(error){
                     console.log(error);
@@ -500,6 +501,7 @@ module.exports = new Vue({
                 },
                 function(error){
                     console.log(error);
+                    me.submitSchedule(i, j, id);
                 });
             }
             else if(this.steps[i].schedule[j].id === null && this.steps[i].schedule[j].remove === false){ //Lets create this schedule
@@ -512,10 +514,11 @@ module.exports = new Vue({
                     }
                 },
                 function(success){
-                    
+                    me.steps[i].schedule[j].id = success.body.id;
                 },
                 function(error){
                     console.log(error);
+                    me.submitSchedule(i, j, id);
                 });
             }
         }

@@ -202,9 +202,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 mask: this.mask
                             });
                             BUTO.requires.components.nuevoRecurso.init({
+                                usuarioEmpleado: this.models.usuarioEmpleado,
                                 empleado: this.models.empleado,
-                                empleadoHorario: this.models.empleadoHorario,
-                                mask: this.mask
+                                empleadoHorario: this.models.empleadoHorario
                             });
                         },
                         mounted: function(){
