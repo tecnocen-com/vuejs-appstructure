@@ -53,8 +53,8 @@ module.exports = `
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group">
-                                <input class="form-control"  v-model="config.manualAdd.name" type="text" name="Nombre">
+                            <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
+                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
                             </div>
                         </div>
                     </div>
@@ -69,6 +69,9 @@ module.exports = `
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <input id="searchAddStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                <div id="mapFocusPositionAddStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                    <i class="icon-shrink3"></i>
+                                </div>
                                 <div id="mapAddStore" class="map-container map-basic"></div>
                             </div>
                         </div>
@@ -127,14 +130,14 @@ module.exports = `
                                             </div>
                                             <template v-for="(interval, intervalIndex) in config.manualAdd.steps[0].schedule">
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">hh:mm:ss</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">hh:mm:ss</span>
                                                     </div>
                                                 </div>
@@ -207,14 +210,14 @@ module.exports = `
                                             </div>
                                             <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.actualStep].schedule">
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">hh:mm:ss</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">hh:mm:ss</span>
                                                     </div>
                                                 </div>

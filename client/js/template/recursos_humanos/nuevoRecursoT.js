@@ -52,42 +52,42 @@ module.exports = `
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="form-group">
+                        <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Nombre</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-model="config.manualAdd.name" type="text" name="Nombre">
+                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group">
+                        <div :class="config.manualAdd.email.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Correo electrónico</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-model="config.manualAdd.email" type="text" name="Correo electrónico">
+                                <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group">
+                        <div :class="config.manualAdd.pass.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Contraseña</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-model="config.manualAdd.pass" type="password" name="Contraseña">
+                                <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group">
+                        <div :class="config.manualAdd.repass.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Confirmar contraseña</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-model="config.manualAdd.repass" type="password" name="Confirmar contraseña">
+                                <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group">
+                        <div :class="config.manualAdd.date.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Fecha de ingreso</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-model="config.manualAdd.date" type="date" name="Fecha de ingreso">
+                                <input class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.manualAdd.date.value" type="date" name="Fecha de ingreso">
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@ module.exports = `
                             </div>
                             <div class="form-group">
                                 <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.changeConf()">
+                                    <label v-on:click.prevent="config.initConfiguration()">
                                         <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
                                             <small></small>
                                         </span>
@@ -147,6 +147,9 @@ module.exports = `
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                        <i class="icon-shrink3"></i>
+                                                    </div>
                                                     <div id="mapAddResource" class="map-container map-basic"></div>
                                                 </div>
                                             </div>
@@ -190,14 +193,14 @@ module.exports = `
                                             </div>
                                             <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.actualStep].schedule">
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">hh:mm:ss</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">hh:mm:ss</span>
                                                     </div>
                                                 </div>

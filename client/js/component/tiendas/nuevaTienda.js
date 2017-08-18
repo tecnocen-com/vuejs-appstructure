@@ -18,7 +18,10 @@ module.exports = new Vue({
             ]
         },
         manualAdd: {
-            name: null,
+            name: {
+                value: null,
+                valid: true
+            },
             map: {
                 main: null,
                 geocoder: null,
@@ -46,6 +49,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -60,6 +65,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -74,6 +81,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -88,6 +97,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -102,6 +113,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -116,6 +129,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -130,6 +145,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -147,6 +164,14 @@ module.exports = new Vue({
                 this.models.sucursalHorario = e.sucursalHorario;
             }
             if(this.typeSelection.type === 1)
+                Vue.nextTick(function(){
+                    me.initMap();
+                });
+        },
+        mainSelect: function(e){
+            var me = this;
+            this.typeSelection.type = e;
+            if(e === 1)
                 Vue.nextTick(function(){
                     me.initMap();
                 });
@@ -170,6 +195,10 @@ module.exports = new Vue({
                 me.positioner(e.latLng);
             });
             this.initSearch();
+            this.initFocus();
+        },
+        initFocus: function(){
+            this.manualAdd.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddStore'));
         },
         initSearch: function(){
             var me = this;
@@ -240,13 +269,15 @@ module.exports = new Vue({
                     console.log(status);
             });
         },
-        mainSelect: function(e){
-            var me = this;
-            this.typeSelection.type = e;
-            if(e === 1)
-                Vue.nextTick(function(){
-                    me.initMap();
+        focusPosition: function(){
+            if(this.manualAdd.map.marker.position.lat !== null &&
+               this.manualAdd.map.marker.position.lng !== null){
+                this.manualAdd.map.main.setCenter({
+                    lat: this.manualAdd.map.marker.position.lat,
+                    lng: this.manualAdd.map.marker.position.lng
                 });
+                this.manualAdd.map.main.setZoom(this.manualAdd.map.data.zoom);
+            }
         },
         positioner: function(pos){
             if(this.manualAdd.map.marker.main)
@@ -273,6 +304,8 @@ module.exports = new Vue({
                     this.manualAdd.steps[this.manualAdd.actualStep].schedule.push({
                         begin: "",
                         end: "",
+                        validBegin: true,
+                        validEnd: true,
                         id: null
                     });
             }
@@ -280,6 +313,24 @@ module.exports = new Vue({
                 for(i = 0; i < interval; i++)
                     newSchedule.push(this.manualAdd.steps[this.manualAdd.actualStep].schedule[i]);
                 this.manualAdd.steps[this.manualAdd.actualStep].schedule = newSchedule;
+            }
+        },
+        validation: function(type, i){
+            switch(type){
+                case "name":
+                    if(this.manualAdd.name.value === null ||
+                       this.manualAdd.name.value === "" ||
+                       this.manualAdd.name.value.length < 6)
+                        this.manualAdd.name.valid = false;
+                    else
+                        this.manualAdd.name.valid = true;
+                    break;
+                case "time-begin":
+                    this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].validBegin = this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].begin !== "" && this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].begin.length === 8;
+                    break;
+                case "time-end":
+                    this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].validEnd = this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].end !== "" && this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].end.length === 8;
+                    break;
             }
         },
         submit: function(e){
@@ -291,49 +342,65 @@ module.exports = new Vue({
                         hmdB, hmdE,
                         error = "",
                         valid = true;
-                    if(this.manualAdd.sameConf){
-                        if(this.manualAdd.name === null || this.manualAdd.name === ""){     //No name
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                        }
-                        else if(this.manualAdd.map.marker.main === null ||                  //No position
-                                this.manualAdd.map.marker.position.lat === null || this.manualAdd.map.marker.position.lng === null){
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                        }
-                        else{
+                    if(this.manualAdd.name.value === null || this.manualAdd.name.value === ""){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.name.valid = false;
+                    }
+                    else if(valid && (this.manualAdd.name.value.length < 6)){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Nombre debe contener al menos 6 caracteres.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.name.valid = false;
+                    }
+                    else if(this.manualAdd.map.marker.main === null ||                  //No position
+                            this.manualAdd.map.marker.position.lat === null || this.manualAdd.map.marker.position.lng === null){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    }
+                    else{
+                        if(this.manualAdd.sameConf){
                             i = 0;
                             for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
                                 hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
                                 hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
+                                this.manualAdd.steps[i].schedule[j].validBegin = true;
+                                this.manualAdd.steps[i].schedule[j].validEnd = true;
                                 if(this.manualAdd.steps[i].schedule[j].begin === ""){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
+                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
                                     valid = false; k++;
                                 }
                                 if(this.manualAdd.steps[i].schedule[j].end === ""){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
+                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
                                     valid = false; k++;
                                 }
                                 if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
                                    (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
                                     hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
+                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
                                     valid = false; k++;
                                 }
                                 if(this.manualAdd.steps[i].schedule[j].end !== "" &&
                                    (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
                                     hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
+                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
                                     valid = false; k++;
                                 }
                                 if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
                                    this.manualAdd.steps[i].schedule[j].end !== "" &&
                                    this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo.<br>" : "";
+                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
                                     valid = false; k++;
                                 }
                                 if(j > 0 &&
@@ -341,13 +408,15 @@ module.exports = new Vue({
                                    this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
                                    this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + ".<br>": "";
+                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                    this.manualAdd.steps[i].schedule[j - 1].validEnd = false;
                                     valid = false; k++;
                                 }
                             }
                             if(valid){
                                 this.models.sucursal.post({
                                     params: {
-                                        nombre: this.manualAdd.name,
+                                        nombre: this.manualAdd.name.value,
                                         lat: this.manualAdd.map.marker.position.lat,
                                         lng: this.manualAdd.map.marker.position.lng
                                     }
@@ -378,51 +447,44 @@ module.exports = new Vue({
                                 BUTO.components.main.alert.active = true;
                             }
                         }
-                    }
-                    else{
-                        if(this.manualAdd.name === null || this.manualAdd.name === ""){     //No name
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                        }
-                        else if(this.manualAdd.map.marker.main === null ||                  //No position
-                                this.manualAdd.map.marker.position.lat === null || this.manualAdd.map.marker.position.lng === null){
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                        }
                         else{
                             for(i = 0; i < this.manualAdd.steps.length; i++)
                                 if(this.manualAdd.steps[i].active)
                                     for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
                                         hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
                                         hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
+                                        this.manualAdd.steps[i].schedule[j].validBegin = true;
+                                        this.manualAdd.steps[i].schedule[j].validEnd = true;
                                         if(this.manualAdd.steps[i].schedule[j].begin === ""){
                                             error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
                                             valid = false; k++;
                                         }
                                         if(this.manualAdd.steps[i].schedule[j].end === ""){
                                             error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validEnd = false;
                                             valid = false; k++;
                                         }
                                         if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
                                            (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
                                             hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
                                             error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
                                             valid = false; k++;
                                         }
                                         if(this.manualAdd.steps[i].schedule[j].end !== "" &&
                                            (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
                                             hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
                                             error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validEnd = false;
                                             valid = false; k++;
                                         }
                                         if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
                                            this.manualAdd.steps[i].schedule[j].end !== "" &&
                                            this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
                                             error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " debe ser mayor al inicio del mismo.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            this.manualAdd.steps[i].schedule[j].validEnd = false;
                                             valid = false; k++;
                                         }
                                         if(j > 0 &&
@@ -430,13 +492,15 @@ module.exports = new Vue({
                                            this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
                                            this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
                                             error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.manualAdd.steps[i].text + ".<br>": "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            this.manualAdd.steps[i].schedule[j - 1].validEnd = false;
                                             valid = false; k++;
                                         }
                                     }
                             if(valid){
                                 this.models.sucursal.post({
                                     params: {
-                                        nombre: this.manualAdd.name,
+                                        nombre: this.manualAdd.name.value,
                                         lat: this.manualAdd.map.marker.position.lat,
                                         lng: this.manualAdd.map.marker.position.lng
                                     }
@@ -518,7 +582,7 @@ module.exports = new Vue({
         reset: function(a, i, j){
             switch(a){
                 case "store":
-                    this.manualAdd.name = null;
+                    this.manualAdd.name.value = null;
                     this.manualAdd.map.marker.main.setMap(null);
                     this.manualAdd.map.marker.main = null;
                     this.manualAdd.actualStep = 0;
@@ -532,12 +596,14 @@ module.exports = new Vue({
                         this.manualAdd.steps[i].schedule.push({
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         });
                     }
                     break;
                 case "all":
-                    this.manualAdd.name = null;
+                    this.manualAdd.name.value = null;
                     if(this.manualAdd.map.marker.main){
                         this.manualAdd.map.marker.main.setMap(null);
                         this.manualAdd.map.marker.main = null;
@@ -553,6 +619,8 @@ module.exports = new Vue({
                         this.manualAdd.steps[i].schedule.push({
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         });
                     }

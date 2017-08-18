@@ -19,8 +19,10 @@ module.exports = `
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <input id="searchAddStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                            <div id="mapAddStore" class="map-container map-basic"></div>
+                            <div id="mapFocusPositionSeeStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                <i class="icon-shrink3"></i>
+                            </div>
+                            <div id="mapSeeStore" class="map-container map-basic"></div>
                         </div>
                     </div>
                 </div>

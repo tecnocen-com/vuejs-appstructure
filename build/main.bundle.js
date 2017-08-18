@@ -17171,8 +17171,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                                     val += (i === 1 || i === 3) ? value[i] + ":" : value[i];
                                             }
                                             break;
-                                        case "date":
-                                            
+                                        case "date":                                            
                                             break;
                                     }
                                 }
@@ -17204,11 +17203,13 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 sucursalHorario: this.models.sucursalHorario
                             });
                             BUTO.requires.components.recursosRegistrados.init({
-                                usuarioEmpleado: this.models.usuarioEmpleado
+                                usuarioEmpleado: this.models.usuarioEmpleado,
+                                mask: this.mask
                             });
                             BUTO.requires.components.nuevoRecurso.init({
                                 empleado: this.models.empleado,
-                                empleadoHorario: this.models.empleadoHorario
+                                empleadoHorario: this.models.empleadoHorario,
+                                mask: this.mask
                             });
                         },
                         mounted: function(){
@@ -31444,8 +31445,10 @@ module.exports = `
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <input id="searchAddStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                            <div id="mapAddStore" class="map-container map-basic"></div>
+                            <div id="mapFocusPositionSeeStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                <i class="icon-shrink3"></i>
+                            </div>
+                            <div id="mapSeeStore" class="map-container map-basic"></div>
                         </div>
                     </div>
                 </div>
@@ -31541,7 +31544,7 @@ module.exports = `
     <div class="col-sm-12">
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title">{{config.name}}</h5>
+                <h5 class="panel-title">{{config.name.value}}</h5>
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>
@@ -31551,8 +31554,8 @@ module.exports = `
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="form-group">
-                            <input class="form-control" v-model="config.name" type="text" name="Nombre">
+                        <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
+                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre">
                         </div>
                     </div>
                 </div>
@@ -31566,8 +31569,11 @@ module.exports = `
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <input id="searchAddStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                            <div id="mapAddStore" class="map-container map-basic"></div>
+                            <input id="searchEditStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                            <div id="mapFocusPositionEditStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                <i class="icon-shrink3"></i>
+                            </div>
+                            <div id="mapEditStore" class="map-container map-basic"></div>
                         </div>
                     </div>
                 </div>
@@ -31633,14 +31639,14 @@ module.exports = `
                                         </div>
                                         <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule" v-if="!interval.remove">
                                             <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">hh:mm:ss</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">hh:mm:ss</span>
                                                 </div>
                                             </div>
@@ -31722,8 +31728,8 @@ module.exports = `
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group">
-                                <input class="form-control"  v-model="config.manualAdd.name" type="text" name="Nombre">
+                            <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
+                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
                             </div>
                         </div>
                     </div>
@@ -31738,6 +31744,9 @@ module.exports = `
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <input id="searchAddStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                <div id="mapFocusPositionAddStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                    <i class="icon-shrink3"></i>
+                                </div>
                                 <div id="mapAddStore" class="map-container map-basic"></div>
                             </div>
                         </div>
@@ -31796,14 +31805,14 @@ module.exports = `
                                             </div>
                                             <template v-for="(interval, intervalIndex) in config.manualAdd.steps[0].schedule">
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">hh:mm:ss</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">hh:mm:ss</span>
                                                     </div>
                                                 </div>
@@ -31876,14 +31885,14 @@ module.exports = `
                                             </div>
                                             <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.actualStep].schedule">
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">hh:mm:ss</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">hh:mm:ss</span>
                                                     </div>
                                                 </div>
@@ -31988,42 +31997,42 @@ module.exports = `
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="form-group">
+                        <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Nombre</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-model="config.manualAdd.name" type="text" name="Nombre">
+                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group">
+                        <div :class="config.manualAdd.email.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Correo electrónico</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-model="config.manualAdd.email" type="text" name="Correo electrónico">
+                                <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group">
+                        <div :class="config.manualAdd.pass.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Contraseña</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-model="config.manualAdd.pass" type="password" name="Contraseña">
+                                <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group">
+                        <div :class="config.manualAdd.repass.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Confirmar contraseña</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-model="config.manualAdd.repass" type="password" name="Confirmar contraseña">
+                                <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group">
+                        <div :class="config.manualAdd.date.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Fecha de ingreso</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-model="config.manualAdd.date" type="date" name="Fecha de ingreso">
+                                <input class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.manualAdd.date.value" type="date" name="Fecha de ingreso">
                             </div>
                         </div>
                     </div>
@@ -32047,7 +32056,7 @@ module.exports = `
                             </div>
                             <div class="form-group">
                                 <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.changeConf()">
+                                    <label v-on:click.prevent="config.initConfiguration()">
                                         <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
                                             <small></small>
                                         </span>
@@ -32083,6 +32092,9 @@ module.exports = `
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                        <i class="icon-shrink3"></i>
+                                                    </div>
                                                     <div id="mapAddResource" class="map-container map-basic"></div>
                                                 </div>
                                             </div>
@@ -32126,14 +32138,14 @@ module.exports = `
                                             </div>
                                             <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.actualStep].schedule">
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">hh:mm:ss</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">hh:mm:ss</span>
                                                     </div>
                                                 </div>
@@ -33213,17 +33225,28 @@ module.exports = new Vue({
             });
         },
         initMap: function(){
-            this.map.main = new google.maps.Map(document.getElementById('mapAddStore'), {     //Define Map
+            this.map.main = new google.maps.Map(document.getElementById('mapSeeStore'), {     //Define Map
                 zoom: this.map.data.zoom,
                 center: this.map.marker.position
             });
             this.initPosition();
+            this.initFocus();
+        },
+        initFocus: function(){
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeStore'));
         },
         initPosition: function(){
             this.map.marker.main = new google.maps.Marker({
                 map: this.map.main,
                 position: this.map.marker.position
             });
+        },
+        focusPosition: function(){
+            this.map.main.setCenter({
+                lat: this.map.marker.position.lat,
+                lng: this.map.marker.position.lng
+            });
+            this.map.main.setZoom(this.map.data.zoom);
         },
         changeStep: function(e){
             this.actualStep = e;
@@ -33239,7 +33262,10 @@ module.exports = new Vue({
 module.exports = new Vue({
     data: {
         id: null,
-        name: null,
+        name: {
+            value: null,
+            valid: true
+        },
         models: {
             sucursal: null,
             sucursalHorario: null
@@ -33269,7 +33295,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -33283,7 +33312,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -33297,7 +33329,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -33311,7 +33346,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -33325,7 +33363,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -33339,7 +33380,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -33353,7 +33397,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -33368,7 +33415,7 @@ module.exports = new Vue({
                 delimiters: this.id
             },
             function(success){
-                me.name = success.body.nombre;
+                me.name.value = success.body.nombre;
                 me.map.marker.position.lat = success.body.lat;
                 me.map.marker.position.lng = success.body.lng;
                 me.initMap();
@@ -33396,6 +33443,8 @@ module.exports = new Vue({
                                 begin: success.body[i].hora_inicio,
                                 end: success.body[i].hora_fin,
                                 id: success.body[i].id,
+                                validBegin: true,
+                                validEnd: true,
                                 remove: false
                             });
                             break;
@@ -33404,6 +33453,8 @@ module.exports = new Vue({
                                 begin: success.body[i].hora_inicio,
                                 end: success.body[i].hora_fin,
                                 id: success.body[i].id,
+                                validBegin: true,
+                                validEnd: true,
                                 remove: false
                             });
                             break;
@@ -33420,7 +33471,7 @@ module.exports = new Vue({
         },
         initMap: function(){
             var me = this;
-            this.map.main = new google.maps.Map(document.getElementById('mapAddStore'), {     //Define Map
+            this.map.main = new google.maps.Map(document.getElementById('mapEditStore'), {     //Define Map
                 zoom: this.map.data.zoom,
                 center: this.map.marker.position
             });
@@ -33429,10 +33480,14 @@ module.exports = new Vue({
             });
             this.initPosition();
             this.initSearch();
+            this.initFocus();
+        },
+        initFocus: function(){
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionEditStore'));
         },
         initSearch: function(){
             var me = this;
-            var input = document.getElementById('searchAddStore');
+            var input = document.getElementById('searchEditStore');
             var searchBox = new google.maps.places.SearchBox(input);
             this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     
@@ -33486,6 +33541,16 @@ module.exports = new Vue({
                     position: this.map.marker.position
                 });
         },
+        focusPosition: function(){
+            if(this.map.marker.position.lat !== null &&
+               this.map.marker.position.lng !== null){
+                this.map.main.setCenter({
+                    lat: this.map.marker.position.lat,
+                    lng: this.map.marker.position.lng
+                });
+                this.map.main.setZoom(this.map.data.zoom);
+            }
+        },
         positioner: function(pos){
             if(this.map.marker.main)
                 this.map.marker.main.setPosition(pos);
@@ -33510,6 +33575,8 @@ module.exports = new Vue({
                     this.steps[this.actualStep].schedule.push({
                         begin: "",
                         end: "",
+                        validBegin: true,
+                        validEnd: true,
                         id: null,
                         remove: false
                     });
@@ -33524,17 +33591,43 @@ module.exports = new Vue({
                 for(i = 0; i < length; i++)
                     this.steps[this.actualStep].schedule[i].remove = false;
         },
+        validation: function(type, i){
+            switch(type){
+                case "name":
+                    if(this.name.value === null ||
+                       this.name.value === "" ||
+                       this.name.value.length < 6)
+                        this.name.valid = false;
+                    else
+                        this.name.valid = true;
+                    break;
+                case "time-begin":
+                    this.steps[this.actualStep].schedule[i].validBegin = this.steps[this.actualStep].schedule[i].begin !== "" && this.steps[this.actualStep].schedule[i].begin.length === 8;
+                    break;
+                case "time-end":
+                    this.steps[this.actualStep].schedule[i].validEnd = this.steps[this.actualStep].schedule[i].end !== "" && this.steps[this.actualStep].schedule[i].end.length === 8;
+                    break;
+            }
+        },
         submit: function(){
             var me = this,
                 i, j, k = 0, limit = 4,
                 hmdB, hmdE,
                 error = "",
                 valid = true;
-            if(this.name === null || this.name === ""){     //No name
+            if(this.name.value === null || this.name.value === ""){     //No name
                 BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                 BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
                 BUTO.components.main.alert.description.ok = "Aceptar";
                 BUTO.components.main.alert.active = true;
+                this.name.valid = false;
+            }
+            else if(valid && (this.name.value.length < 6)){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "Nombre debe contener al menos 6 caracteres.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.name.valid = false;
             }
             else if(this.map.marker.main === null ||                  //No position
                     this.map.marker.position.lat === null || this.map.marker.position.lng === null){
@@ -33542,6 +33635,7 @@ module.exports = new Vue({
                 BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
                 BUTO.components.main.alert.description.ok = "Aceptar";
                 BUTO.components.main.alert.active = true;
+                this.name.valid = false;
             }
             else{
                 for(i = 0; i < this.steps.length; i++)
@@ -33550,30 +33644,38 @@ module.exports = new Vue({
                             if(this.steps[i].schedule[j].remove === false){
                                 hmdB = this.steps[i].schedule[j].begin.split(":");
                                 hmdE = this.steps[i].schedule[j].end.split(":");
+                                this.steps[i].schedule[j].validBegin = true;
+                                this.steps[i].schedule[j].validEnd = true;
                                 if(this.steps[i].schedule[j].begin === ""){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no puede estar vacío.<br>" : "";
+                                    this.steps[i].schedule[j].validBegin = false;
                                     valid = false; k++;
                                 }
                                 if(this.steps[i].schedule[j].end === ""){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no puede estar vacío.<br>" : "";
+                                    this.steps[i].schedule[j].validEnd = false;
                                     valid = false; k++;
                                 }
                                 if(this.steps[i].schedule[j].begin !== "" &&
                                    (this.steps[i].schedule[j].begin > "23:59:59" ||
                                     hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                    this.steps[i].schedule[j].validBegin = false;
                                     valid = false; k++;
                                 }
                                 if(this.steps[i].schedule[j].end !== "" &&
                                    (this.steps[i].schedule[j].end > "23:59:59" ||
                                     hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                    this.steps[i].schedule[j].validEnd = false;
                                     valid = false; k++;
                                 }
                                 if(this.steps[i].schedule[j].begin !== "" &&
                                    this.steps[i].schedule[j].end !== "" &&
                                    this.steps[i].schedule[j].begin >= this.steps[i].schedule[j].end){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " debe ser mayor al inicio del mismo.<br>" : "";
+                                    this.steps[i].schedule[j].validBegin = false;
+                                    this.steps[i].schedule[j].validEnd = false;
                                     valid = false; k++;
                                 }
                                 if(j > 0 &&
@@ -33581,6 +33683,8 @@ module.exports = new Vue({
                                    this.steps[i].schedule[j - 1].end !== "" &&
                                    this.steps[i].schedule[j].begin <= this.steps[i].schedule[j - 1].end){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.steps[i].text + ".<br>": "";
+                                    this.steps[i].schedule[j].validBegin = false;
+                                    this.steps[i].schedule[j - 1].validEnd = false;
                                     valid = false; k++;
                                 }
                             }
@@ -33592,7 +33696,7 @@ module.exports = new Vue({
                     this.models.sucursal.patch({
                         delimiters: this.id,
                         params: {
-                            nombre: this.name,
+                            nombre: this.name.value,
                             lat: this.map.marker.position.lat,
                             lng: this.map.marker.position.lng
                         }
@@ -33703,7 +33807,10 @@ module.exports = new Vue({
             ]
         },
         manualAdd: {
-            name: null,
+            name: {
+                value: null,
+                valid: true
+            },
             map: {
                 main: null,
                 geocoder: null,
@@ -33731,6 +33838,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -33745,6 +33854,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -33759,6 +33870,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -33773,6 +33886,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -33787,6 +33902,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -33801,6 +33918,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -33815,6 +33934,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -33832,6 +33953,14 @@ module.exports = new Vue({
                 this.models.sucursalHorario = e.sucursalHorario;
             }
             if(this.typeSelection.type === 1)
+                Vue.nextTick(function(){
+                    me.initMap();
+                });
+        },
+        mainSelect: function(e){
+            var me = this;
+            this.typeSelection.type = e;
+            if(e === 1)
                 Vue.nextTick(function(){
                     me.initMap();
                 });
@@ -33855,6 +33984,10 @@ module.exports = new Vue({
                 me.positioner(e.latLng);
             });
             this.initSearch();
+            this.initFocus();
+        },
+        initFocus: function(){
+            this.manualAdd.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddStore'));
         },
         initSearch: function(){
             var me = this;
@@ -33925,13 +34058,15 @@ module.exports = new Vue({
                     console.log(status);
             });
         },
-        mainSelect: function(e){
-            var me = this;
-            this.typeSelection.type = e;
-            if(e === 1)
-                Vue.nextTick(function(){
-                    me.initMap();
+        focusPosition: function(){
+            if(this.manualAdd.map.marker.position.lat !== null &&
+               this.manualAdd.map.marker.position.lng !== null){
+                this.manualAdd.map.main.setCenter({
+                    lat: this.manualAdd.map.marker.position.lat,
+                    lng: this.manualAdd.map.marker.position.lng
                 });
+                this.manualAdd.map.main.setZoom(this.manualAdd.map.data.zoom);
+            }
         },
         positioner: function(pos){
             if(this.manualAdd.map.marker.main)
@@ -33958,6 +34093,8 @@ module.exports = new Vue({
                     this.manualAdd.steps[this.manualAdd.actualStep].schedule.push({
                         begin: "",
                         end: "",
+                        validBegin: true,
+                        validEnd: true,
                         id: null
                     });
             }
@@ -33965,6 +34102,24 @@ module.exports = new Vue({
                 for(i = 0; i < interval; i++)
                     newSchedule.push(this.manualAdd.steps[this.manualAdd.actualStep].schedule[i]);
                 this.manualAdd.steps[this.manualAdd.actualStep].schedule = newSchedule;
+            }
+        },
+        validation: function(type, i){
+            switch(type){
+                case "name":
+                    if(this.manualAdd.name.value === null ||
+                       this.manualAdd.name.value === "" ||
+                       this.manualAdd.name.value.length < 6)
+                        this.manualAdd.name.valid = false;
+                    else
+                        this.manualAdd.name.valid = true;
+                    break;
+                case "time-begin":
+                    this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].validBegin = this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].begin !== "" && this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].begin.length === 8;
+                    break;
+                case "time-end":
+                    this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].validEnd = this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].end !== "" && this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].end.length === 8;
+                    break;
             }
         },
         submit: function(e){
@@ -33976,49 +34131,65 @@ module.exports = new Vue({
                         hmdB, hmdE,
                         error = "",
                         valid = true;
-                    if(this.manualAdd.sameConf){
-                        if(this.manualAdd.name === null || this.manualAdd.name === ""){     //No name
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                        }
-                        else if(this.manualAdd.map.marker.main === null ||                  //No position
-                                this.manualAdd.map.marker.position.lat === null || this.manualAdd.map.marker.position.lng === null){
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                        }
-                        else{
+                    if(this.manualAdd.name.value === null || this.manualAdd.name.value === ""){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.name.valid = false;
+                    }
+                    else if(valid && (this.manualAdd.name.value.length < 6)){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Nombre debe contener al menos 6 caracteres.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.name.valid = false;
+                    }
+                    else if(this.manualAdd.map.marker.main === null ||                  //No position
+                            this.manualAdd.map.marker.position.lat === null || this.manualAdd.map.marker.position.lng === null){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    }
+                    else{
+                        if(this.manualAdd.sameConf){
                             i = 0;
                             for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
                                 hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
                                 hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
+                                this.manualAdd.steps[i].schedule[j].validBegin = true;
+                                this.manualAdd.steps[i].schedule[j].validEnd = true;
                                 if(this.manualAdd.steps[i].schedule[j].begin === ""){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
+                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
                                     valid = false; k++;
                                 }
                                 if(this.manualAdd.steps[i].schedule[j].end === ""){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
+                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
                                     valid = false; k++;
                                 }
                                 if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
                                    (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
                                     hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
+                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
                                     valid = false; k++;
                                 }
                                 if(this.manualAdd.steps[i].schedule[j].end !== "" &&
                                    (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
                                     hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
+                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
                                     valid = false; k++;
                                 }
                                 if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
                                    this.manualAdd.steps[i].schedule[j].end !== "" &&
                                    this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo.<br>" : "";
+                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
                                     valid = false; k++;
                                 }
                                 if(j > 0 &&
@@ -34026,13 +34197,15 @@ module.exports = new Vue({
                                    this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
                                    this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + ".<br>": "";
+                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                    this.manualAdd.steps[i].schedule[j - 1].validEnd = false;
                                     valid = false; k++;
                                 }
                             }
                             if(valid){
                                 this.models.sucursal.post({
                                     params: {
-                                        nombre: this.manualAdd.name,
+                                        nombre: this.manualAdd.name.value,
                                         lat: this.manualAdd.map.marker.position.lat,
                                         lng: this.manualAdd.map.marker.position.lng
                                     }
@@ -34063,51 +34236,44 @@ module.exports = new Vue({
                                 BUTO.components.main.alert.active = true;
                             }
                         }
-                    }
-                    else{
-                        if(this.manualAdd.name === null || this.manualAdd.name === ""){     //No name
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                        }
-                        else if(this.manualAdd.map.marker.main === null ||                  //No position
-                                this.manualAdd.map.marker.position.lat === null || this.manualAdd.map.marker.position.lng === null){
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                        }
                         else{
                             for(i = 0; i < this.manualAdd.steps.length; i++)
                                 if(this.manualAdd.steps[i].active)
                                     for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
                                         hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
                                         hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
+                                        this.manualAdd.steps[i].schedule[j].validBegin = true;
+                                        this.manualAdd.steps[i].schedule[j].validEnd = true;
                                         if(this.manualAdd.steps[i].schedule[j].begin === ""){
                                             error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
                                             valid = false; k++;
                                         }
                                         if(this.manualAdd.steps[i].schedule[j].end === ""){
                                             error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validEnd = false;
                                             valid = false; k++;
                                         }
                                         if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
                                            (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
                                             hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
                                             error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
                                             valid = false; k++;
                                         }
                                         if(this.manualAdd.steps[i].schedule[j].end !== "" &&
                                            (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
                                             hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
                                             error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validEnd = false;
                                             valid = false; k++;
                                         }
                                         if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
                                            this.manualAdd.steps[i].schedule[j].end !== "" &&
                                            this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
                                             error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " debe ser mayor al inicio del mismo.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            this.manualAdd.steps[i].schedule[j].validEnd = false;
                                             valid = false; k++;
                                         }
                                         if(j > 0 &&
@@ -34115,13 +34281,15 @@ module.exports = new Vue({
                                            this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
                                            this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
                                             error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.manualAdd.steps[i].text + ".<br>": "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            this.manualAdd.steps[i].schedule[j - 1].validEnd = false;
                                             valid = false; k++;
                                         }
                                     }
                             if(valid){
                                 this.models.sucursal.post({
                                     params: {
-                                        nombre: this.manualAdd.name,
+                                        nombre: this.manualAdd.name.value,
                                         lat: this.manualAdd.map.marker.position.lat,
                                         lng: this.manualAdd.map.marker.position.lng
                                     }
@@ -34203,7 +34371,7 @@ module.exports = new Vue({
         reset: function(a, i, j){
             switch(a){
                 case "store":
-                    this.manualAdd.name = null;
+                    this.manualAdd.name.value = null;
                     this.manualAdd.map.marker.main.setMap(null);
                     this.manualAdd.map.marker.main = null;
                     this.manualAdd.actualStep = 0;
@@ -34217,12 +34385,14 @@ module.exports = new Vue({
                         this.manualAdd.steps[i].schedule.push({
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         });
                     }
                     break;
                 case "all":
-                    this.manualAdd.name = null;
+                    this.manualAdd.name.value = null;
                     if(this.manualAdd.map.marker.main){
                         this.manualAdd.map.marker.main.setMap(null);
                         this.manualAdd.map.marker.main = null;
@@ -34238,6 +34408,8 @@ module.exports = new Vue({
                         this.manualAdd.steps[i].schedule.push({
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         });
                     }
@@ -34418,11 +34590,26 @@ module.exports = new Vue({
             ]
         },
         manualAdd: {
-            name: null,
-            email: null,
-            pass: null,
-            repass: null,
-            date: null,
+            name: {
+                value: null,
+                valid: true
+            },
+            email: {
+                value: null,
+                valid: true
+            },
+            pass: {
+                value: null,
+                valid: true
+            },
+            repass: {
+                value: null,
+                valid: true
+            },
+            date: {
+                value: null,
+                valid: true
+            },
             map: {
                 main: null,
                 geocoder: null,
@@ -34511,6 +34698,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -34525,6 +34714,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -34539,6 +34730,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -34553,6 +34746,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -34567,6 +34762,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -34581,6 +34778,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -34595,6 +34794,8 @@ module.exports = new Vue({
                         {
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         }
                     ],
@@ -34616,6 +34817,14 @@ module.exports = new Vue({
                     me.initMap();
                 });
         },
+        mainSelect: function(e){
+            var me = this;
+            this.typeSelection.type = e;
+            if(e === 1)
+                Vue.nextTick(function(){
+                    me.initMap();
+                });
+        },
         initMap: function(){
             var me = this;
             if(this.manualAdd.map.marker[0].main_begin){
@@ -34626,7 +34835,7 @@ module.exports = new Vue({
                         lng: this.manualAdd.map.marker[0].lng_begin
                     }
                 });
-                this.initPosition();
+                this.initConfiguration(true);
             }
             else{
                 this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddResource'), {     //Define Map
@@ -34638,6 +34847,10 @@ module.exports = new Vue({
                 me.positioner(e.latLng);
             });
             this.initSearch();
+            this.initFocus();
+        },
+        initFocus: function(){
+            this.manualAdd.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddResource'));
         },
         initSearch: function(){
             var me = this;
@@ -34660,22 +34873,6 @@ module.exports = new Vue({
                       console.log("Returned place contains no geometry");
                       return;
                     }
-                    //var icon = {
-                    //  url: place.icon,
-                    //  size: new google.maps.Size(71, 71),
-                    //  origin: new google.maps.Point(0, 0),
-                    //  anchor: new google.maps.Point(17, 34),
-                    //  scaledSize: new google.maps.Size(25, 25)
-                    //};
-                    //
-                    //// Create a marker for each place.
-                    //markers.push(new google.maps.Marker({
-                    //  map: map,
-                    //  icon: icon,
-                    //  title: place.name,
-                    //  position: place.geometry.location
-                    //}));
-        
                     if(place.geometry.viewport){
                       // Only geocodes have viewport.
                       bounds.union(place.geometry.viewport);
@@ -34686,28 +34883,6 @@ module.exports = new Vue({
                   });
                 me.manualAdd.map.main.fitBounds(bounds);
             });
-        },
-        initPosition: function(){
-            for(var i = 0; i < this.manualAdd.map.marker.length; i++){
-                if(this.manualAdd.map.marker[i].lat_begin !== null &&
-                   this.manualAdd.map.marker[i].lng_begin !== null)
-                    this.manualAdd.map.marker[i].main_begin = new google.maps.Marker({
-                        map: this.manualAdd.map.main,
-                        position: {
-                            lat: this.manualAdd.map.marker[i].lat_begin,
-                            lng: this.manualAdd.map.marker[i].lng_begin
-                        }
-                    });
-                if(this.manualAdd.map.marker[i].lat_begin !== null &&
-                   this.manualAdd.map.marker[i].lng_begin !== null)
-                    this.manualAdd.map.marker[i].main_begin = new google.maps.Marker({
-                        map: this.manualAdd.map.main,
-                        position: {
-                            lat: this.manualAdd.map.marker[i].lat_end,
-                            lng: this.manualAdd.map.marker[i].lng_end
-                        }
-                    });
-            }
         },
         initGeocoder: function(){
             var me = this;
@@ -34722,13 +34897,108 @@ module.exports = new Vue({
                     console.log(status);
             });
         },
-        mainSelect: function(e){
-            var me = this;
-            this.typeSelection.type = e;
-            if(e === 1)
-                Vue.nextTick(function(){
-                    me.initMap();
+        initConfiguration: function(auto){
+            var i;
+            if(!auto)
+                this.manualAdd.sameConf = !this.manualAdd.sameConf;
+            this.manualAdd.steps[0].active = true;
+            for(i = 0; i < this.manualAdd.map.marker.length; i++){
+                if(this.manualAdd.map.marker[i].main_begin !== null &&
+                   this.manualAdd.map.marker[i].lat_begin !== null &&
+                   this.manualAdd.map.marker[i].lng_begin !== null){    //Is showed in map
+                    if(i === 0){    //Is designed one for all
+                        this.manualAdd.map.marker[i].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_begin" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                        this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.map.main);
+                    }
+                    else           //All irrelevants
+                        this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.sameConf ? null : this.manualAdd.map.main);
+                }
+                if(this.manualAdd.map.marker[i].main_end !== null &&
+                   this.manualAdd.map.marker[i].lat_end !== null &&
+                   this.manualAdd.map.marker[i].lng_end !== null){    //Is showed in map
+                    if(i === 0){    //Is designed one for all
+                        this.manualAdd.map.marker[i].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_end" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                        this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.map.main);
+                    }
+                    else           //All irrelevants
+                        this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.sameConf ? null : this.manualAdd.map.main);
+                }
+            }
+            
+            if(!this.manualAdd.allPosVisible && !this.manualAdd.sameConf)
+                this.setVisibilityPosition(true); //AUTO
+        },
+        setVisibilityPosition: function(auto){
+            var i;
+            if(!auto)
+                this.manualAdd.allPosVisible = !this.manualAdd.allPosVisible;
+            for(i = 0; i < this.manualAdd.map.marker.length; i++){
+                if(this.manualAdd.map.marker[i].main_begin !== null &&
+                   this.manualAdd.map.marker[i].lat_begin !== null &&
+                   this.manualAdd.map.marker[i].lng_begin !== null)
+                    this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
+                if(this.manualAdd.map.marker[i].main_end !== null &&
+                   this.manualAdd.map.marker[i].lat_end !== null &&
+                   this.manualAdd.map.marker[i].lng_end !== null)    //Is showed in map
+                    this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
+            }
+        },
+        focusPosition: function(){
+            var i,
+                counter = 0,
+                totalLat = 0,
+                totalLng = 0,
+                bounds = new google.maps.LatLngBounds();
+            if(this.manualAdd.sameConf || !this.manualAdd.allPosVisible){
+                i = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+                if(this.manualAdd.map.marker[i].main_begin !== null &&
+                    this.manualAdd.map.marker[i].lat_begin !== null &&
+                    this.manualAdd.map.marker[i].lng_begin !== null){
+                     counter++;
+                     totalLat += this.manualAdd.map.marker[i].lat_begin;
+                     totalLng += this.manualAdd.map.marker[i].lng_begin;
+                     bounds.extend(this.manualAdd.map.marker[i].main_begin.getPosition());
+                     
+                    }
+                 if(this.manualAdd.map.marker[i].main_end !== null &&
+                    this.manualAdd.map.marker[i].lat_end !== null &&
+                    this.manualAdd.map.marker[i].lng_end !== null){    //Is showed in map
+                     counter++;
+                     totalLat += this.manualAdd.map.marker[i].lat_end;
+                     totalLng += this.manualAdd.map.marker[i].lng_end;
+                     bounds.extend(this.manualAdd.map.marker[i].main_end.getPosition());
+                 }
+            }
+            else
+                for(i = 0; i < this.manualAdd.map.marker.length; i++){
+                    if(this.manualAdd.map.marker[i].main_begin !== null &&
+                       this.manualAdd.map.marker[i].lat_begin !== null &&
+                       this.manualAdd.map.marker[i].lng_begin !== null){
+                        counter++;
+                        totalLat += this.manualAdd.map.marker[i].lat_begin;
+                        totalLng += this.manualAdd.map.marker[i].lng_begin;
+                        bounds.extend(this.manualAdd.map.marker[i].main_begin.getPosition());
+                        
+                       }
+                    if(this.manualAdd.map.marker[i].main_end !== null &&
+                       this.manualAdd.map.marker[i].lat_end !== null &&
+                       this.manualAdd.map.marker[i].lng_end !== null){    //Is showed in map
+                        counter++;
+                        totalLat += this.manualAdd.map.marker[i].lat_end;
+                        totalLng += this.manualAdd.map.marker[i].lng_end;
+                        bounds.extend(this.manualAdd.map.marker[i].main_end.getPosition());
+                    }
+                }
+            if(counter > 0){
+                this.manualAdd.map.main.setCenter({
+                    lat: totalLat/counter,
+                    lng: totalLng/counter
                 });
+                if(counter > 1)
+                    this.manualAdd.map.main.fitBounds(bounds);
+                else
+                    this.manualAdd.map.main.setZoom(this.manualAdd.map.data.zoom);
+            }
         },
         positioner: function(pos){
             if(this.manualAdd.steps[this.manualAdd.actualStep].active){
@@ -34791,51 +35061,6 @@ module.exports = new Vue({
                     me.manualAdd.map.marker[i].lng_end = null;
                 });
         },
-        setVisibilityPosition: function(auto){
-            var i;
-            if(!auto)
-                this.manualAdd.allPosVisible = !this.manualAdd.allPosVisible;
-            for(i = 0; i < this.manualAdd.map.marker.length; i++){
-                if(this.manualAdd.map.marker[i].main_begin !== null &&
-                   this.manualAdd.map.marker[i].lat_begin !== null &&
-                   this.manualAdd.map.marker[i].lng_begin !== null)
-                    this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
-                if(this.manualAdd.map.marker[i].main_end !== null &&
-                   this.manualAdd.map.marker[i].lat_end !== null &&
-                   this.manualAdd.map.marker[i].lng_end !== null)    //Is showed in map
-                    this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
-            }
-        },
-        changeConf: function(){
-            var i;
-            this.manualAdd.sameConf = !this.manualAdd.sameConf;
-            this.manualAdd.steps[0].active = true;
-            for(i = 0; i < this.manualAdd.map.marker.length; i++){
-                if(this.manualAdd.map.marker[i].main_begin !== null &&
-                   this.manualAdd.map.marker[i].lat_begin !== null &&
-                   this.manualAdd.map.marker[i].lng_begin !== null){    //Is showed in map
-                    if(i === 0){    //Is designed one for all
-                        this.manualAdd.map.marker[i].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_begin" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
-                        this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.map.main);
-                    }
-                    else           //All irrelevants
-                        this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.sameConf ? null : this.manualAdd.map.main);
-                }
-                if(this.manualAdd.map.marker[i].main_end !== null &&
-                   this.manualAdd.map.marker[i].lat_end !== null &&
-                   this.manualAdd.map.marker[i].lng_end !== null){    //Is showed in map
-                    if(i === 0){    //Is designed one for all
-                        this.manualAdd.map.marker[i].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_end" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
-                        this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.map.main);
-                    }
-                    else           //All irrelevants
-                        this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.sameConf ? null : this.manualAdd.map.main);
-                }
-            }
-            
-            if(!this.manualAdd.allPosVisible && !this.manualAdd.sameConf)
-                this.setVisibilityPosition(true); //AUTO
-        },
         changeStep: function(e){
             this.manualAdd.actualStep = e;
             this.manualAdd.steps[e].seen = true;
@@ -34853,6 +35078,8 @@ module.exports = new Vue({
                     this.manualAdd.steps[this.manualAdd.actualStep].schedule.push({
                         begin: "",
                         end: "",
+                        validBegin: true,
+                        validEnd: true,
                         id: null
                     });
             }
@@ -34877,6 +35104,56 @@ module.exports = new Vue({
             else 
                 this.setVisibilityPosition(true); //AUTO
         },
+        validation: function(type, i){
+            switch(type){
+                case "name":
+                    if(this.manualAdd.name.value === null ||
+                       this.manualAdd.name.value === "" ||
+                       this.manualAdd.name.value.length < 8)
+                        this.manualAdd.name.valid = false;
+                    else
+                        this.manualAdd.name.valid = true;
+                    break;
+                case "email":
+                    var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    if(this.manualAdd.email.value === null ||
+                       this.manualAdd.email.value === "" ||
+                       !emailTest.test(this.manualAdd.email.value))
+                        this.manualAdd.email.valid = false;
+                    else
+                        this.manualAdd.email.valid = true;
+                    break;
+                case "pass":
+                    if(this.manualAdd.pass.value === null ||
+                       this.manualAdd.pass.value === "" ||
+                       this.manualAdd.pass.value.length < 8)
+                        this.manualAdd.pass.valid = false;
+                    else
+                        this.manualAdd.pass.valid = true;
+                    break;
+                case "repass":
+                    if(this.manualAdd.repass.value === null ||
+                       this.manualAdd.repass.value === "" ||
+                       this.manualAdd.repass.value !== this.manualAdd.pass.value)
+                        this.manualAdd.repass.valid = false;
+                    else
+                        this.manualAdd.repass.valid = true;
+                    break;
+                case "date":
+                    if(this.manualAdd.date.value === null ||
+                       this.manualAdd.date.value === "")
+                        this.manualAdd.date.valid = false;
+                    else
+                        this.manualAdd.date.valid = true;
+                    break;
+                case "time-begin":
+                    this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].validBegin = this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].begin !== "" && this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].begin.length === 8;
+                    break;
+                case "time-end":
+                    this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].validEnd = this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].end !== "" && this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].end.length === 8;
+                    break;
+            }
+        },
         submit: function(e){
             var me = this;
             switch(e){
@@ -34886,208 +35163,299 @@ module.exports = new Vue({
                         hmdB, hmdE,
                         error = "",
                         valid = true;
-                    if(this.manualAdd.sameConf){
-                        if(this.manualAdd.date === null || this.manualAdd.date === ""){     //No name
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Fecha de ingreso no puede estar vacío.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                        }
-                        else{
-                            i = 0;
-                            if(this.manualAdd.map.marker[i].main_begin === null ||                  //No position
-                               this.manualAdd.map.marker[i].lat_begin === null ||
-                               this.manualAdd.map.marker[i].lng_begin === null ||
-                               this.manualAdd.map.marker[i].main_end === null ||                  //No position
-                               this.manualAdd.map.marker[i].lat_end === null ||
-                               this.manualAdd.map.marker[i].lng_end === null){
-                                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                BUTO.components.main.alert.description.text = "Debes escoger las ubicaciones de inicio y final.";
-                                BUTO.components.main.alert.description.ok = "Aceptar";
-                                BUTO.components.main.alert.active = true;
-                                valid = false;
-                            }
-                            if(valid){
-                                for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
-                                    hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
-                                    hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
-                                    if(this.manualAdd.steps[i].schedule[j].begin === ""){
-                                        error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
-                                        valid = false; k++;
-                                    }
-                                    if(this.manualAdd.steps[i].schedule[j].end === ""){
-                                        error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
-                                        valid = false; k++;
-                                    }
-                                    if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                       (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
-                                        hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
-                                        error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
-                                        valid = false; k++;
-                                    }
-                                    if(this.manualAdd.steps[i].schedule[j].end !== "" &&
-                                       (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
-                                        hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
-                                        error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
-                                        valid = false; k++;
-                                    }
-                                    if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                       this.manualAdd.steps[i].schedule[j].end !== "" &&
-                                       this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
-                                        error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo.<br>" : "";
-                                        valid = false; k++;
-                                    }
-                                    if(j > 0 &&
-                                       this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                       this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
-                                       this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
-                                        error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + ".<br>": "";
-                                        valid = false; k++;
-                                    }
-                                }
-                            }
-                            if(valid){
-                                console.log("ALL well SAME");
-                                //this.models.sucursal.post({
-                                //    params: {
-                                //        nombre: this.manualAdd.name,
-                                //        lat: this.manualAdd.map.marker.position.lat,
-                                //        lng: this.manualAdd.map.marker.position.lng
-                                //    }
-                                //},
-                                //function(success){
-                                //    for(i = 0; i < me.manualAdd.steps.length; i++)
-                                //        for(j = 0; j < me.manualAdd.steps[0].schedule.length; j++){
-                                //            me.submitSchedule(i, j, success.body.id, first);
-                                //            first = false;
-                                //        }
-                                //    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
-                                //    BUTO.components.main.alert.description.title = "Registro de Tienda";
-                                //    BUTO.components.main.alert.description.text = "Se ha registrado correctamente la tienda '" + success.body.nombre + "'";
-                                //    BUTO.components.main.alert.description.ok = "Aceptar";
-                                //    BUTO.components.main.alert.active = true;
-                                //},
-                                //function(error){
-                                //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                //    BUTO.components.main.alert.description.text = error.body[0].message;
-                                //    BUTO.components.main.alert.description.ok = "Aceptar";
-                                //    BUTO.components.main.alert.active = true;
-                                //});
-                            }
-                            else{
-                                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
-                                BUTO.components.main.alert.description.ok = "Aceptar";
-                                BUTO.components.main.alert.active = true;
-                            }
-                        }
+                    if(this.manualAdd.name.value === null || this.manualAdd.name.value === ""){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.name.valid = false;
+                        valid = false;
+                    }
+                    else if(valid && this.manualAdd.name.value.length < 8){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Nombre debe contener al menos 8 caracteres.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.name.valid = false;
+                        valid = false;
+                    }
+                    if(valid && (this.manualAdd.email.value === null || this.manualAdd.email.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Correo electrónico no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.email.valid = false;
+                        valid = false;
                     }
                     else{
-                        if(this.manualAdd.name === null || this.manualAdd.name === ""){     //No name
+                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                        if(valid && !emailTest.test(this.manualAdd.email.value)){
                             BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
+                            BUTO.components.main.alert.description.text = "Correo electrónico no tiene una forma válida.";
                             BUTO.components.main.alert.description.ok = "Aceptar";
                             BUTO.components.main.alert.active = true;
+                            this.manualAdd.email.valid = false;
+                            valid = false;
                         }
-                        else{
-                            for(i = 0; i < this.manualAdd.map.marker.length; i++){
-                                if(this.manualAdd.steps[i].active &&
-                                   (this.manualAdd.map.marker[i].main_begin === null ||                  //No position
+                    }
+                    if(valid && (this.manualAdd.pass.value === null || this.manualAdd.pass.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Contraseña no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.pass.valid = false;
+                        valid = false;
+                    }
+                    else{
+                        if(valid && this.manualAdd.pass.value.length < 8){
+                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                            BUTO.components.main.alert.description.text = "Contraseña debe contener al menos 8 caracteres.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                            this.manualAdd.pass.valid = false;
+                            valid = false;
+                        }
+                    }
+                    if(valid && (this.manualAdd.repass.value === null || this.manualAdd.repass.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Confirmar contraseña no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.repass.valid = false;
+                        valid = false;
+                    }
+                    else{
+                        if(valid && (this.manualAdd.repass.value !== this.manualAdd.pass.value)){
+                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                            BUTO.components.main.alert.description.text = "Las contraseñas no coinciden.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                            this.manualAdd.repass.valid = false;
+                            valid = false;
+                        }
+                    }
+                    if(valid && (this.manualAdd.date.value === null || this.manualAdd.date.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Fecha de ingreso no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.date.valid = false;
+                        valid = false;
+                    }
+                    else {
+                        if(valid){
+                            if(this.manualAdd.sameConf){
+                                i = 0;
+                                if(this.manualAdd.map.marker[i].main_begin === null ||                  //No position
                                    this.manualAdd.map.marker[i].lat_begin === null ||
                                    this.manualAdd.map.marker[i].lng_begin === null ||
                                    this.manualAdd.map.marker[i].main_end === null ||                  //No position
                                    this.manualAdd.map.marker[i].lat_end === null ||
-                                   this.manualAdd.map.marker[i].lng_end === null)){
-                                    error += (k <= limit) ? "Debes escoger las ubicaciones de inicio y final para el día " + this.manualAdd.steps[i].text + ".": "";
-                                    valid = false; k++;
+                                   this.manualAdd.map.marker[i].lng_end === null){
+                                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                    BUTO.components.main.alert.description.text = "Debes escoger las ubicaciones de inicio y final.";
+                                    BUTO.components.main.alert.description.ok = "Aceptar";
+                                    BUTO.components.main.alert.active = true;
+                                    valid = false;
+                                }
+                                
+                                //
+                                if(valid){
+                                    for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
+                                        hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
+                                        hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
+                                        this.manualAdd.steps[i].schedule[j].validBegin = true;
+                                        this.manualAdd.steps[i].schedule[j].validEnd = true;
+                                        if(this.manualAdd.steps[i].schedule[j].begin === ""){
+                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            valid = false; k++;
+                                        }
+                                        if(this.manualAdd.steps[i].schedule[j].end === ""){
+                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                            valid = false; k++;
+                                        }
+                                        if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                           (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
+                                            hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
+                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            valid = false; k++;
+                                        }
+                                        if(this.manualAdd.steps[i].schedule[j].end !== "" &&
+                                           (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
+                                            hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
+                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                            valid = false; k++;
+                                        }
+                                        if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                           this.manualAdd.steps[i].schedule[j].end !== "" &&
+                                           this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
+                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                            valid = false; k++;
+                                        }
+                                        if(j > 0 &&
+                                           this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                           this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
+                                           this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
+                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + ".<br>": "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            this.manualAdd.steps[i].schedule[j - 1].validEnd = false;
+                                            valid = false; k++;
+                                        }
+                                    }
+                                    if(valid){
+                                        console.log("ALL well SAME");
+                                        //this.models.sucursal.post({
+                                        //    params: {
+                                        //        nombre: this.manualAdd.name.value,
+                                        //        lat: this.manualAdd.map.marker.position.lat,
+                                        //        lng: this.manualAdd.map.marker.position.lng
+                                        //    }
+                                        //},
+                                        //function(success){
+                                        //    for(i = 0; i < me.manualAdd.steps.length; i++)
+                                        //        for(j = 0; j < me.manualAdd.steps[0].schedule.length; j++){
+                                        //            me.submitSchedule(i, j, success.body.id, first);
+                                        //            first = false;
+                                        //        }
+                                        //    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
+                                        //    BUTO.components.main.alert.description.title = "Registro de Tienda";
+                                        //    BUTO.components.main.alert.description.text = "Se ha registrado correctamente la tienda '" + success.body.nombre + "'";
+                                        //    BUTO.components.main.alert.description.ok = "Aceptar";
+                                        //    BUTO.components.main.alert.active = true;
+                                        //},
+                                        //function(error){
+                                        //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                        //    BUTO.components.main.alert.description.text = error.body[0].message;
+                                        //    BUTO.components.main.alert.description.ok = "Aceptar";
+                                        //    BUTO.components.main.alert.active = true;
+                                        //});
+                                    }
+                                    else{
+                                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                        BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
+                                        BUTO.components.main.alert.description.ok = "Aceptar";
+                                        BUTO.components.main.alert.active = true;
+                                    }
                                 }
                             }
-                            if(valid){
-                                error = "";
-                                k = 0;
-                                for(i = 0; i < this.manualAdd.steps.length; i++)
-                                    if(this.manualAdd.steps[i].active)
-                                        for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
-                                            hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
-                                            hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
-                                            if(this.manualAdd.steps[i].schedule[j].begin === ""){
-                                                error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
-                                                valid = false; k++;
-                                            }
-                                            if(this.manualAdd.steps[i].schedule[j].end === ""){
-                                                error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
-                                                valid = false; k++;
-                                            }
-                                            if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                               (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
-                                                hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
-                                                error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
-                                                valid = false; k++;
-                                            }
-                                            if(this.manualAdd.steps[i].schedule[j].end !== "" &&
-                                               (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
-                                                hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
-                                                error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
-                                                valid = false; k++;
-                                            }
-                                            if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                               this.manualAdd.steps[i].schedule[j].end !== "" &&
-                                               this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
-                                                error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " debe ser mayor al inicio del mismo.<br>" : "";
-                                                valid = false; k++;
-                                            }
-                                            if(j > 0 &&
-                                               this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                               this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
-                                               this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
-                                                error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.manualAdd.steps[i].text + ".<br>": "";
-                                                valid = false; k++;
-                                            }
-                                        }
-                            }
                             else{
-                                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                BUTO.components.main.alert.description.text = error;
-                                BUTO.components.main.alert.description.ok = "Aceptar";
-                                BUTO.components.main.alert.active = true;
-                            }
-                            if(valid){
-                                console.log("ALL well IND");
-                                //this.models.sucursal.post({
-                                //    params: {
-                                //        nombre: this.manualAdd.name,
-                                //        lat: this.manualAdd.map.marker.position.lat,
-                                //        lng: this.manualAdd.map.marker.position.lng
-                                //    }
-                                //},
-                                //function(success){
-                                //    for(i = 0; i < me.manualAdd.steps.length; i++)
-                                //        if(me.manualAdd.steps[i].active){
-                                //            for(j = 0; j < me.manualAdd.steps[i].schedule.length; j++){
-                                //                me.submitSchedule(i, j, success.body.id, first);
-                                //                first = false;
-                                //            }
-                                //        }
-                                //        else
-                                //            me.reset("schedule", i);
-                                //    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
-                                //    BUTO.components.main.alert.description.title = "Registro de Tienda";
-                                //    BUTO.components.main.alert.description.text = "Se ha registrado correctamente la tienda '" + success.body.nombre + "'";
-                                //    BUTO.components.main.alert.description.ok = "Aceptar";
-                                //    BUTO.components.main.alert.active = true;
-                                //},
-                                //function(error){
-                                //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                //    BUTO.components.main.alert.description.text = error.body[0].message;
-                                //    BUTO.components.main.alert.description.ok = "Aceptar";
-                                //    BUTO.components.main.alert.active = true;
-                                //});
-                            }
-                            else{
-                                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
-                                BUTO.components.main.alert.description.ok = "Aceptar";
-                                BUTO.components.main.alert.active = true;
+                                for(i = 0; i < this.manualAdd.map.marker.length; i++){
+                                    if(this.manualAdd.steps[i].active &&
+                                       (this.manualAdd.map.marker[i].main_begin === null ||                  //No position
+                                       this.manualAdd.map.marker[i].lat_begin === null ||
+                                       this.manualAdd.map.marker[i].lng_begin === null ||
+                                       this.manualAdd.map.marker[i].main_end === null ||                  //No position
+                                       this.manualAdd.map.marker[i].lat_end === null ||
+                                       this.manualAdd.map.marker[i].lng_end === null)){
+                                        error += (k <= limit) ? "Debes escoger las ubicaciones de inicio y final para el día " + this.manualAdd.steps[i].text + ".<br>": "";
+                                        valid = false; k++;
+                                    }
+                                }
+                                
+                                //
+                                if(valid){
+                                    error = "";
+                                    k = 0;
+                                    for(i = 0; i < this.manualAdd.steps.length; i++)
+                                        if(this.manualAdd.steps[i].active)
+                                            for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
+                                                hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
+                                                hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
+                                                this.manualAdd.steps[i].schedule[j].validBegin = true;
+                                                this.manualAdd.steps[i].schedule[j].validEnd = true;
+                                                if(this.manualAdd.steps[i].schedule[j].begin === ""){
+                                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
+                                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                                    valid = false; k++;
+                                                }
+                                                if(this.manualAdd.steps[i].schedule[j].end === ""){
+                                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
+                                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                                    valid = false; k++;
+                                                }
+                                                if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                                   (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
+                                                    hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
+                                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                                    valid = false; k++;
+                                                }
+                                                if(this.manualAdd.steps[i].schedule[j].end !== "" &&
+                                                   (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
+                                                    hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
+                                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                                    valid = false; k++;
+                                                }
+                                                if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                                   this.manualAdd.steps[i].schedule[j].end !== "" &&
+                                                   this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
+                                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo en el día " + this.manualAdd.steps[i].text + ".<br>" : "";
+                                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                                    valid = false; k++;
+                                                }
+                                                if(j > 0 &&
+                                                   this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                                   this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
+                                                   this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
+                                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.manualAdd.steps[i].text + ".<br>": "";
+                                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                                    this.manualAdd.steps[i].schedule[j - 1].validEnd = false;
+                                                    valid = false; k++;
+                                                }
+                                            }
+                                }
+                                else{
+                                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                    BUTO.components.main.alert.description.text = error;
+                                    BUTO.components.main.alert.description.ok = "Aceptar";
+                                    BUTO.components.main.alert.active = true;
+                                }
+                                if(valid){
+                                    console.log("ALL well IND");
+                                    //this.models.sucursal.post({
+                                    //    params: {
+                                    //        nombre: this.manualAdd.name.value,
+                                    //        lat: this.manualAdd.map.marker.position.lat,
+                                    //        lng: this.manualAdd.map.marker.position.lng
+                                    //    }
+                                    //},
+                                    //function(success){
+                                    //    for(i = 0; i < me.manualAdd.steps.length; i++)
+                                    //        if(me.manualAdd.steps[i].active){
+                                    //            for(j = 0; j < me.manualAdd.steps[i].schedule.length; j++){
+                                    //                me.submitSchedule(i, j, success.body.id, first);
+                                    //                first = false;
+                                    //            }
+                                    //        }
+                                    //        else
+                                    //            me.reset("schedule", i);
+                                    //    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
+                                    //    BUTO.components.main.alert.description.title = "Registro de Tienda";
+                                    //    BUTO.components.main.alert.description.text = "Se ha registrado correctamente la tienda '" + success.body.nombre + "'";
+                                    //    BUTO.components.main.alert.description.ok = "Aceptar";
+                                    //    BUTO.components.main.alert.active = true;
+                                    //},
+                                    //function(error){
+                                    //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                    //    BUTO.components.main.alert.description.text = error.body[0].message;
+                                    //    BUTO.components.main.alert.description.ok = "Aceptar";
+                                    //    BUTO.components.main.alert.active = true;
+                                    //});
+                                }
+                                else{
+                                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                    BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
+                                    BUTO.components.main.alert.description.ok = "Aceptar";
+                                    BUTO.components.main.alert.active = true;
+                                }
                             }
                         }
                     }
@@ -35137,7 +35505,7 @@ module.exports = new Vue({
         reset: function(a, i, j){
             switch(a){
                 case "store":
-                    this.manualAdd.name = null;
+                    this.manualAdd.name.value = null;
                     this.manualAdd.map.marker.main.setMap(null);
                     this.manualAdd.map.marker.main = null;
                     this.manualAdd.actualStep = 0;
@@ -35151,12 +35519,14 @@ module.exports = new Vue({
                         this.manualAdd.steps[i].schedule.push({
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         });
                     }
                     break;
                 case "all":
-                    this.manualAdd.name = null;
+                    this.manualAdd.name.value = null;
                     if(this.manualAdd.map.marker.main){
                         this.manualAdd.map.marker.main.setMap(null);
                         this.manualAdd.map.marker.main = null;
@@ -35172,6 +35542,8 @@ module.exports = new Vue({
                         this.manualAdd.steps[i].schedule.push({
                             begin: "",
                             end: "",
+                            validBegin: true,
+                            validEnd: true,
                             id: null
                         });
                     }

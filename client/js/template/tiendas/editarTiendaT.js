@@ -2,7 +2,7 @@ module.exports = `
     <div class="col-sm-12">
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title">{{config.name}}</h5>
+                <h5 class="panel-title">{{config.name.value}}</h5>
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>
@@ -12,8 +12,8 @@ module.exports = `
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="form-group">
-                            <input class="form-control" v-model="config.name" type="text" name="Nombre">
+                        <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
+                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre">
                         </div>
                     </div>
                 </div>
@@ -27,8 +27,11 @@ module.exports = `
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <input id="searchAddStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                            <div id="mapAddStore" class="map-container map-basic"></div>
+                            <input id="searchEditStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                            <div id="mapFocusPositionEditStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                <i class="icon-shrink3"></i>
+                            </div>
+                            <div id="mapEditStore" class="map-container map-basic"></div>
                         </div>
                     </div>
                 </div>
@@ -94,14 +97,14 @@ module.exports = `
                                         </div>
                                         <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule" v-if="!interval.remove">
                                             <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">hh:mm:ss</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">hh:mm:ss</span>
                                                 </div>
                                             </div>

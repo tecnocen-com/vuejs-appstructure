@@ -166,8 +166,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                                     val += (i === 1 || i === 3) ? value[i] + ":" : value[i];
                                             }
                                             break;
-                                        case "date":
-                                            
+                                        case "date":                                            
                                             break;
                                     }
                                 }
@@ -199,11 +198,13 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 sucursalHorario: this.models.sucursalHorario
                             });
                             BUTO.requires.components.recursosRegistrados.init({
-                                usuarioEmpleado: this.models.usuarioEmpleado
+                                usuarioEmpleado: this.models.usuarioEmpleado,
+                                mask: this.mask
                             });
                             BUTO.requires.components.nuevoRecurso.init({
                                 empleado: this.models.empleado,
-                                empleadoHorario: this.models.empleadoHorario
+                                empleadoHorario: this.models.empleadoHorario,
+                                mask: this.mask
                             });
                         },
                         mounted: function(){

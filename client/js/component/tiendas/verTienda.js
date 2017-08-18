@@ -133,17 +133,28 @@ module.exports = new Vue({
             });
         },
         initMap: function(){
-            this.map.main = new google.maps.Map(document.getElementById('mapAddStore'), {     //Define Map
+            this.map.main = new google.maps.Map(document.getElementById('mapSeeStore'), {     //Define Map
                 zoom: this.map.data.zoom,
                 center: this.map.marker.position
             });
             this.initPosition();
+            this.initFocus();
+        },
+        initFocus: function(){
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeStore'));
         },
         initPosition: function(){
             this.map.marker.main = new google.maps.Marker({
                 map: this.map.main,
                 position: this.map.marker.position
             });
+        },
+        focusPosition: function(){
+            this.map.main.setCenter({
+                lat: this.map.marker.position.lat,
+                lng: this.map.marker.position.lng
+            });
+            this.map.main.setZoom(this.map.data.zoom);
         },
         changeStep: function(e){
             this.actualStep = e;

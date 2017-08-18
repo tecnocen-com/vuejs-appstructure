@@ -1,7 +1,10 @@
 module.exports = new Vue({
     data: {
         id: null,
-        name: null,
+        name: {
+            value: null,
+            valid: true
+        },
         models: {
             sucursal: null,
             sucursalHorario: null
@@ -31,7 +34,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -45,7 +51,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -59,7 +68,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -73,7 +85,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -87,7 +102,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -101,7 +119,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -115,7 +136,10 @@ module.exports = new Vue({
                     {
                         begin: "",
                         end: "",
-                        id: null
+                        validBegin: true,
+                        validEnd: true,
+                        id: null,
+                        remove: false
                     }
                 ],
                 interval: 1,
@@ -130,7 +154,7 @@ module.exports = new Vue({
                 delimiters: this.id
             },
             function(success){
-                me.name = success.body.nombre;
+                me.name.value = success.body.nombre;
                 me.map.marker.position.lat = success.body.lat;
                 me.map.marker.position.lng = success.body.lng;
                 me.initMap();
@@ -158,6 +182,8 @@ module.exports = new Vue({
                                 begin: success.body[i].hora_inicio,
                                 end: success.body[i].hora_fin,
                                 id: success.body[i].id,
+                                validBegin: true,
+                                validEnd: true,
                                 remove: false
                             });
                             break;
@@ -166,6 +192,8 @@ module.exports = new Vue({
                                 begin: success.body[i].hora_inicio,
                                 end: success.body[i].hora_fin,
                                 id: success.body[i].id,
+                                validBegin: true,
+                                validEnd: true,
                                 remove: false
                             });
                             break;
@@ -182,7 +210,7 @@ module.exports = new Vue({
         },
         initMap: function(){
             var me = this;
-            this.map.main = new google.maps.Map(document.getElementById('mapAddStore'), {     //Define Map
+            this.map.main = new google.maps.Map(document.getElementById('mapEditStore'), {     //Define Map
                 zoom: this.map.data.zoom,
                 center: this.map.marker.position
             });
@@ -191,10 +219,14 @@ module.exports = new Vue({
             });
             this.initPosition();
             this.initSearch();
+            this.initFocus();
+        },
+        initFocus: function(){
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionEditStore'));
         },
         initSearch: function(){
             var me = this;
-            var input = document.getElementById('searchAddStore');
+            var input = document.getElementById('searchEditStore');
             var searchBox = new google.maps.places.SearchBox(input);
             this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     
@@ -248,6 +280,16 @@ module.exports = new Vue({
                     position: this.map.marker.position
                 });
         },
+        focusPosition: function(){
+            if(this.map.marker.position.lat !== null &&
+               this.map.marker.position.lng !== null){
+                this.map.main.setCenter({
+                    lat: this.map.marker.position.lat,
+                    lng: this.map.marker.position.lng
+                });
+                this.map.main.setZoom(this.map.data.zoom);
+            }
+        },
         positioner: function(pos){
             if(this.map.marker.main)
                 this.map.marker.main.setPosition(pos);
@@ -272,6 +314,8 @@ module.exports = new Vue({
                     this.steps[this.actualStep].schedule.push({
                         begin: "",
                         end: "",
+                        validBegin: true,
+                        validEnd: true,
                         id: null,
                         remove: false
                     });
@@ -286,17 +330,43 @@ module.exports = new Vue({
                 for(i = 0; i < length; i++)
                     this.steps[this.actualStep].schedule[i].remove = false;
         },
+        validation: function(type, i){
+            switch(type){
+                case "name":
+                    if(this.name.value === null ||
+                       this.name.value === "" ||
+                       this.name.value.length < 6)
+                        this.name.valid = false;
+                    else
+                        this.name.valid = true;
+                    break;
+                case "time-begin":
+                    this.steps[this.actualStep].schedule[i].validBegin = this.steps[this.actualStep].schedule[i].begin !== "" && this.steps[this.actualStep].schedule[i].begin.length === 8;
+                    break;
+                case "time-end":
+                    this.steps[this.actualStep].schedule[i].validEnd = this.steps[this.actualStep].schedule[i].end !== "" && this.steps[this.actualStep].schedule[i].end.length === 8;
+                    break;
+            }
+        },
         submit: function(){
             var me = this,
                 i, j, k = 0, limit = 4,
                 hmdB, hmdE,
                 error = "",
                 valid = true;
-            if(this.name === null || this.name === ""){     //No name
+            if(this.name.value === null || this.name.value === ""){     //No name
                 BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                 BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
                 BUTO.components.main.alert.description.ok = "Aceptar";
                 BUTO.components.main.alert.active = true;
+                this.name.valid = false;
+            }
+            else if(valid && (this.name.value.length < 6)){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "Nombre debe contener al menos 6 caracteres.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.name.valid = false;
             }
             else if(this.map.marker.main === null ||                  //No position
                     this.map.marker.position.lat === null || this.map.marker.position.lng === null){
@@ -304,6 +374,7 @@ module.exports = new Vue({
                 BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
                 BUTO.components.main.alert.description.ok = "Aceptar";
                 BUTO.components.main.alert.active = true;
+                this.name.valid = false;
             }
             else{
                 for(i = 0; i < this.steps.length; i++)
@@ -312,30 +383,38 @@ module.exports = new Vue({
                             if(this.steps[i].schedule[j].remove === false){
                                 hmdB = this.steps[i].schedule[j].begin.split(":");
                                 hmdE = this.steps[i].schedule[j].end.split(":");
+                                this.steps[i].schedule[j].validBegin = true;
+                                this.steps[i].schedule[j].validEnd = true;
                                 if(this.steps[i].schedule[j].begin === ""){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no puede estar vacío.<br>" : "";
+                                    this.steps[i].schedule[j].validBegin = false;
                                     valid = false; k++;
                                 }
                                 if(this.steps[i].schedule[j].end === ""){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no puede estar vacío.<br>" : "";
+                                    this.steps[i].schedule[j].validEnd = false;
                                     valid = false; k++;
                                 }
                                 if(this.steps[i].schedule[j].begin !== "" &&
                                    (this.steps[i].schedule[j].begin > "23:59:59" ||
                                     hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                    this.steps[i].schedule[j].validBegin = false;
                                     valid = false; k++;
                                 }
                                 if(this.steps[i].schedule[j].end !== "" &&
                                    (this.steps[i].schedule[j].end > "23:59:59" ||
                                     hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                    this.steps[i].schedule[j].validEnd = false;
                                     valid = false; k++;
                                 }
                                 if(this.steps[i].schedule[j].begin !== "" &&
                                    this.steps[i].schedule[j].end !== "" &&
                                    this.steps[i].schedule[j].begin >= this.steps[i].schedule[j].end){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " debe ser mayor al inicio del mismo.<br>" : "";
+                                    this.steps[i].schedule[j].validBegin = false;
+                                    this.steps[i].schedule[j].validEnd = false;
                                     valid = false; k++;
                                 }
                                 if(j > 0 &&
@@ -343,6 +422,8 @@ module.exports = new Vue({
                                    this.steps[i].schedule[j - 1].end !== "" &&
                                    this.steps[i].schedule[j].begin <= this.steps[i].schedule[j - 1].end){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.steps[i].text + ".<br>": "";
+                                    this.steps[i].schedule[j].validBegin = false;
+                                    this.steps[i].schedule[j - 1].validEnd = false;
                                     valid = false; k++;
                                 }
                             }
@@ -354,7 +435,7 @@ module.exports = new Vue({
                     this.models.sucursal.patch({
                         delimiters: this.id,
                         params: {
-                            nombre: this.name,
+                            nombre: this.name.value,
                             lat: this.map.marker.position.lat,
                             lng: this.map.marker.position.lng
                         }

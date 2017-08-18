@@ -44,6 +44,19 @@ body{
 .copyright-info{
     font-size: small;
 }
+.map-focus-position{
+    width: 25px;
+    height: 25px;
+    padding-top: 2.5px;
+    margin-left: 5px;
+    top: 11px !important;
+    cursor: pointer;
+    color: #666666;
+    background-color: #ffffff;
+}
+.map-focus-position i{
+    font-size: 20px;
+}
 /******************************** Custom grids ******************************/
     /**************FIXES*******************/
 .full-large-group .btn.dropdown-toggle{
