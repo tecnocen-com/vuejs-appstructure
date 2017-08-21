@@ -297,11 +297,11 @@ module.exports = new Vue({
         setInterval: function(){
             var i,
                 newSchedule = [],
-                interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
-                length = this.manualAdd.steps[this.manualAdd.actualStep].schedule.length;
-            if(this.manualAdd.steps[this.manualAdd.actualStep].schedule.length < interval){
+                interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
+                length = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length;
+            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
                 for(i = 0; i < interval - length; i++)
-                    this.manualAdd.steps[this.manualAdd.actualStep].schedule.push({
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
                         begin: "",
                         end: "",
                         validBegin: true,
@@ -311,8 +311,8 @@ module.exports = new Vue({
             }
             else if(length > interval){
                 for(i = 0; i < interval; i++)
-                    newSchedule.push(this.manualAdd.steps[this.manualAdd.actualStep].schedule[i]);
-                this.manualAdd.steps[this.manualAdd.actualStep].schedule = newSchedule;
+                    newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
+                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
             }
         },
         validation: function(type, i){
@@ -326,10 +326,10 @@ module.exports = new Vue({
                         this.manualAdd.name.valid = true;
                     break;
                 case "time-begin":
-                    this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].validBegin = this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].begin !== "" && this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].begin.length === 8;
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validBegin = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin !== "" && this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin.length === 8;
                     break;
                 case "time-end":
-                    this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].validEnd = this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].end !== "" && this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].end.length === 8;
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validEnd = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end !== "" && this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end.length === 8;
                     break;
             }
         },
@@ -514,7 +514,7 @@ module.exports = new Vue({
                                             }
                                         }
                                         else
-                                            me.reset("schedule", i);
+                                            me.reset("schedule", i, null);
                                     BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
                                     BUTO.components.main.alert.description.title = "Registro de Tienda";
                                     BUTO.components.main.alert.description.text = "Se ha registrado correctamente la tienda '" + success.body.nombre + "'";
@@ -591,7 +591,7 @@ module.exports = new Vue({
                     this.manualAdd.steps[i].active = true;
                     this.manualAdd.steps[i].interval = 1;
                     this.manualAdd.steps[i].seen = (this.manualAdd.steps[i].dayNumber === 2) ? true : false;
-                    if((j && j === this.manualAdd.steps[i].schedule.length - 1) || !j){
+                    if((j !== null && j === this.manualAdd.steps[i].schedule.length - 1) || j === null){
                         this.manualAdd.steps[i].schedule = [];
                         this.manualAdd.steps[i].schedule.push({
                             begin: "",

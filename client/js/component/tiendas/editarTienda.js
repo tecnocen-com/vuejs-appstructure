@@ -378,8 +378,8 @@ module.exports = new Vue({
             }
             else{
                 for(i = 0; i < this.steps.length; i++)
-                    if(this.steps[i].active)
-                        for(j = 0; j < this.steps[i].schedule.length; j++){
+                    for(j = 0; j < this.steps[i].schedule.length; j++)
+                        if(this.steps[i].active){
                             if(this.steps[i].schedule[j].remove === false){
                                 hmdB = this.steps[i].schedule[j].begin.split(":");
                                 hmdE = this.steps[i].schedule[j].end.split(":");
@@ -428,8 +428,7 @@ module.exports = new Vue({
                                 }
                             }
                         }
-                    else
-                        for(j = 0; j < this.steps[i].schedule.length; j++)
+                        else
                             this.steps[i].schedule[j].remove = true;
                 if(valid){
                     this.models.sucursal.patch({

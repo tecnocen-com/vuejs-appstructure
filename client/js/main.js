@@ -138,6 +138,8 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 if(!inPos){
                                     if(e.first === 2 && e.second === 0 && e.third === 0)
                                             me.children.tiendasRegistradas.active = 0;
+                                    if(e.first === 3 && e.second === 0 && e.third === 0)
+                                            me.children.recursosRegistrados.active = 0;
                                     Vue.nextTick(function(){
                                         if(e.first === 0 && e.second === 0 && e.third === 0)
                                             me.children.map.init();
@@ -199,6 +201,8 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                             });
                             BUTO.requires.components.recursosRegistrados.init({
                                 usuarioEmpleado: this.models.usuarioEmpleado,
+                                empleado: this.models.empleado,
+                                empleadoHorario: this.models.empleadoHorario,
                                 mask: this.mask
                             });
                             BUTO.requires.components.nuevoRecurso.init({

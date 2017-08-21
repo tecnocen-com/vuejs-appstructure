@@ -82,6 +82,9 @@ module.exports = new Vue({
     methods: {
         init: function(){
             var me = this;
+            this.actualStep = 0;
+            for(var i = 0; i < me.steps.length; i++)
+                this.steps[i].schedule = [];
             this.models.sucursal.get({
                 delimiters: this.id
             },
@@ -94,9 +97,6 @@ module.exports = new Vue({
             function(error){
                 console.log(error);
             });
-            for(var i = 0; i < me.steps.length; i++)
-                this.steps[i].schedule = [];
-            this.actualStep = 0;
             this.models.sucursalHorario.get({
                 delimiters: this.id,
                 params: {

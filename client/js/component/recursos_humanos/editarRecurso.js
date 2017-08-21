@@ -502,11 +502,11 @@ module.exports = new Vue({
         setInterval: function(){
             var i,
                 newSchedule = [],
-                interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
-                length = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length;
-            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
+                interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
+                length = this.manualAdd.steps[this.manualAdd.actualStep].schedule.length;
+            if(this.manualAdd.steps[this.manualAdd.actualStep].schedule.length < interval){
                 for(i = 0; i < interval - length; i++)
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
+                    this.manualAdd.steps[this.manualAdd.actualStep].schedule.push({
                         begin: "",
                         end: "",
                         validBegin: true,
@@ -516,8 +516,8 @@ module.exports = new Vue({
             }
             else if(length > interval){
                 for(i = 0; i < interval; i++)
-                    newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
-                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
+                    newSchedule.push(this.manualAdd.steps[this.manualAdd.actualStep].schedule[i]);
+                this.manualAdd.steps[this.manualAdd.actualStep].schedule = newSchedule;
             }
         },
         setActivity: function(){
@@ -578,10 +578,10 @@ module.exports = new Vue({
                         this.manualAdd.date.valid = true;
                     break;
                 case "time-begin":
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validBegin = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin !== "" && this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin.length === 8;
+                    this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].validBegin = this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].begin !== "" && this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].begin.length === 8;
                     break;
                 case "time-end":
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validEnd = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end !== "" && this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end.length === 8;
+                    this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].validEnd = this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].end !== "" && this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].end.length === 8;
                     break;
             }
         },
@@ -689,6 +689,8 @@ module.exports = new Vue({
                                     BUTO.components.main.alert.active = true;
                                     valid = false;
                                 }
+                                
+                                //
                                 if(valid){
                                     for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
                                         hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
@@ -864,7 +866,7 @@ module.exports = new Vue({
                                                 }
                                             }
                                             else
-                                                me.reset("schedule", i, null);
+                                                me.reset("schedule", i);
                                         BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
                                         BUTO.components.main.alert.description.title = "Registro de Recurso Humano";
                                         BUTO.components.main.alert.description.text = "Se ha registrado correctamente el recurso humano '" + success.body.nombre + "'";
@@ -930,46 +932,35 @@ module.exports = new Vue({
                     this.manualAdd.steps[i].active = true;
                     this.manualAdd.steps[i].interval = 1;
                     this.manualAdd.steps[i].seen = (this.manualAdd.steps[i].dayNumber === 2) ? true : false;
-                    console.log("W", i, j, this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule.length - 1);
-                    if((j !== null && j === this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule.length - 1) || j === null){
-                        if(this.manualAdd.sameConf && this.manualAdd.steps[i].dayNumber === 1){
-                            this.reset("all");
+                    if((j && j === this.manualAdd.steps[i].schedule.length - 1) || !j){
+                        if(this.manualAdd.map.marker[i].main_begin !== null){
+                            this.manualAdd.map.marker[i].main_begin.setMap(null);
+                            this.manualAdd.map.marker[i].main_begin = null;
+                            this.manualAdd.map.marker[i].lat_begin = null;
+                            this.manualAdd.map.marker[i].lng_begin = null;
                         }
-                        else if(!this.manualAdd.sameConf){
-                            if(this.manualAdd.map.marker[i].main_begin !== null){
-                                this.manualAdd.map.marker[i].main_begin.setMap(null);
-                                this.manualAdd.map.marker[i].main_begin = null;
-                                this.manualAdd.map.marker[i].lat_begin = null;
-                                this.manualAdd.map.marker[i].lng_begin = null;
-                            }
-                            if(this.manualAdd.map.marker[i].main_end !== null){
-                                this.manualAdd.map.marker[i].main_end.setMap(null);
-                                this.manualAdd.map.marker[i].main_end = null;
-                                this.manualAdd.map.marker[i].lat_end = null;
-                                this.manualAdd.map.marker[i].lng_end = null;
-                            }
-                            this.manualAdd.steps[i].schedule = [];
-                            this.manualAdd.steps[i].schedule.push({
-                                begin: "",
-                                end: "",
-                                validBegin: true,
-                                validEnd: true,
-                                id: null
-                            });
+                        if(this.manualAdd.map.marker[i].main_end !== null){
+                            this.manualAdd.map.marker[i].main_end.setMap(null);
+                            this.manualAdd.map.marker[i].main_end = null;
+                            this.manualAdd.map.marker[i].lat_end = null;
+                            this.manualAdd.map.marker[i].lng_end = null;
                         }
+                        this.manualAdd.steps[i].schedule = [];
+                        this.manualAdd.steps[i].schedule.push({
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            id: null
+                        });
                     }
                     break;
                 case "all":
                     this.manualAdd.name.value = null;
-                    this.manualAdd.name.valid = true;
                     this.manualAdd.email.value = null;
-                    this.manualAdd.email.valid = true;
                     this.manualAdd.pass.value = null;
-                    this.manualAdd.pass.valid = true;
                     this.manualAdd.repass.value = null;
-                    this.manualAdd.repass.valid = true;
                     this.manualAdd.date.value = null;
-                    this.manualAdd.date.valid = true;
                     this.manualAdd.actualStep = 0;
                     this.manualAdd.sameConf = false;
                     

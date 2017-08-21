@@ -169,17 +169,17 @@ module.exports = `
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div v-if="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].active" :class="config.manualAdd.sameConf ? 'col-sm-12' : 'col-sm-6'">
+                                            <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active" :class="config.manualAdd.sameConf ? 'col-sm-12' : 'col-sm-6'">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval" type="number" name="Intervalos de atención">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" name="Intervalos de atención">
                                                         <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div v-if="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].active && Math.floor(parseInt(config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval)) > 0" class="row">
+                                        <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active && Math.floor(parseInt(config.manualAdd.steps[config.manualAdd.actualStep].interval)) > 0" class="row">
                                             <div style="padding-top: 20px"></div>
                                             <div class="col-sm-6">
                                                 <div class="form-group text-center schedule-title">
@@ -191,7 +191,7 @@ module.exports = `
                                                     <label>Final</label>
                                                 </div>
                                             </div>
-                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].schedule">
+                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.actualStep].schedule">
                                                 <div class="col-sm-6">
                                                     <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
                                                         <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">

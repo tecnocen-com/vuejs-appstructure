@@ -17013,14 +17013,14 @@ BUTO.requires = {
         main: __webpack_require__(196)
     },
     components: {
-        toolbar: __webpack_require__(214),
-        map: __webpack_require__(215),
-        menu: __webpack_require__(216),
-        clientesRegistrados: __webpack_require__(217),
-        tiendasRegistradas: __webpack_require__(218),
-        nuevaTienda: __webpack_require__(221),
-        recursosRegistrados: __webpack_require__(222),
-        nuevoRecurso: __webpack_require__(223)
+        toolbar: __webpack_require__(216),
+        map: __webpack_require__(217),
+        menu: __webpack_require__(218),
+        clientesRegistrados: __webpack_require__(219),
+        tiendasRegistradas: __webpack_require__(220),
+        nuevaTienda: __webpack_require__(223),
+        recursosRegistrados: __webpack_require__(224),
+        nuevoRecurso: __webpack_require__(227)
     }
 };
 
@@ -17143,6 +17143,8 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 if(!inPos){
                                     if(e.first === 2 && e.second === 0 && e.third === 0)
                                             me.children.tiendasRegistradas.active = 0;
+                                    if(e.first === 3 && e.second === 0 && e.third === 0)
+                                            me.children.recursosRegistrados.active = 0;
                                     Vue.nextTick(function(){
                                         if(e.first === 0 && e.second === 0 && e.third === 0)
                                             me.children.map.init();
@@ -17204,6 +17206,8 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                             });
                             BUTO.requires.components.recursosRegistrados.init({
                                 usuarioEmpleado: this.models.usuarioEmpleado,
+                                empleado: this.models.empleado,
+                                empleadoHorario: this.models.empleadoHorario,
                                 mask: this.mask
                             });
                             BUTO.requires.components.nuevoRecurso.init({
@@ -31026,10 +31030,10 @@ var clientesRegistrados = __webpack_require__(204);
 var tiendasRegistradas = __webpack_require__(205);
 var nuevaTienda = __webpack_require__(208);
 var recursosRegistrados = __webpack_require__(209);
-var nuevoRecurso = __webpack_require__(210);
-var reportes = __webpack_require__(211);
-var map = __webpack_require__(212);
-var toolbar = __webpack_require__(213);
+var nuevoRecurso = __webpack_require__(212);
+var reportes = __webpack_require__(213);
+var map = __webpack_require__(214);
+var toolbar = __webpack_require__(215);
 Vue.component("mcdatatable", {
     template: mcdatatable,
     props: {
@@ -31619,7 +31623,7 @@ module.exports = `
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Intervalos de atención</label>
                                                 <div class="col-md-8">
-                                                    <input class="form-control" v-on:keyup="config.setInterval()" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
+                                                    <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
                                                     <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
                                                 </div>
                                             </div>
@@ -31785,7 +31789,7 @@ module.exports = `
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-model="config.manualAdd.steps[0].interval" type="number" name="Intervalos de atención">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[0].interval" type="number" name="Intervalos de atención">
                                                         <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                     </div>
                                                 </div>
@@ -31865,7 +31869,7 @@ module.exports = `
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" name="Intervalos de atención">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" name="Intervalos de atención">
                                                         <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                     </div>
                                                 </div>
@@ -31924,23 +31928,187 @@ module.exports = `
 
 /***/ }),
 /* 209 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var verRecurso = __webpack_require__(210);
+var editarRecurso = __webpack_require__(211);
+Vue.component("ver-recurso", {
+    template: verRecurso,
+    props: {
+        config: Object,
+        mask: Function,
+        setview: Function
+    }
+});
+Vue.component("editar-recurso", {
+    template: editarRecurso,
+    props: {
+        config: Object,
+        mask: Function,
+        setview: Function
+    }
+});
+module.exports = `
+    <div>
+        <div v-if="config.active === 0" class="col-sm-12">
+            <div class="panel panel-flat">
+                <div class="panel-body">
+                    <p class="content-group">
+                    
+                    </p>
+                    <mcdatatable :title="'Recursos Humanos'" :config="config.grid"></mcdatatable>
+                </div>
+            </div>
+        </div>
+        <ver-recurso v-else-if="config.active === 1" :config="config.watch" :mask="config.mask" :setview="config.setView"></ver-recurso>
+        <editar-recurso v-else-if="config.active === 2" :config="config.edit" :mask="config.mask" :setview="config.setView"></editar-recurso>
+    </div>
+`;
+
+/***/ }),
+/* 210 */
 /***/ (function(module, exports) {
 
 module.exports = `
     <div class="col-sm-12">
         <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h4 class="panel-title text-center">{{config.name}}</h4>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="setview(2)" title="Editar"><i class="icon-pencil7"></i></i></a></li>
+                        <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="panel-body">
-                <p class="content-group">
-                
-                </p>
-                <mcdatatable :title="'Recursos Humanos'" :config="config.grid"></mcdatatable>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Correo electrónico</label>
+                        <div class="col-lg-10">
+                            <input disabled="disabled" class="form-control" v-model="config.email" type="text" name="Correo electrónico">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Fecha de ingreso</label>
+                        <div class="col-lg-10">
+                            <input disabled="disabled" class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.date" type="date" name="Fecha de ingreso">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Ubicaciones y Horarios</h5>
+                <div class="heading-elements">
+                    <div class="heading-form">
+                        <div class="form-group">
+                            <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                <label v-on:click.prevent="config.setVisibilityPosition()">
+                                    <span class="switchery switchery-default switchery-custom info" :class="config.allPosVisible ? 'active' : 'not-active'">
+                                        <small></small>
+                                    </span>
+                                    {{config.allPosVisible ? 'Si' : 'No'}}
+                                </label>
+                                <span class="help-block">Todas las ubicaciones</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="steps-basic wizard clearfix">
+                                <div class="steps clearfix">
+                                    <ul role="tablist">
+                                        <li v-for="(steps, stepIndex) in config.steps" role="tab"
+                                        :class="[stepIndex === 0 ? 'first' : '',
+                                                config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                            <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="content clearfix">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div id="mapFocusPositionSeeResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                    <i class="icon-shrink3"></i>
+                                                </div>
+                                                <div id="mapSeeResource" class="map-container map-basic"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div style="padding-top: 20px"></div>
+                                        <div :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                            <div class="form-group">
+                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                    <label>
+                                                        <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
+                                                            <small></small>
+                                                        </span>
+                                                        {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
+                                                    </label>
+                                                    <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="config.steps[config.actualStep].active" class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Intervalos de atención</label>
+                                                <div class="col-md-8">
+                                                    <input disabled="disabled" class="form-control" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
+                                        <div style="padding-top: 20px"></div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Inicio</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Final</label>
+                                            </div>
+                                        </div>
+                                        <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <span class="help-block">hh:mm:ss</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <span class="help-block">hh:mm:ss</span>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 `;
 
 /***/ }),
-/* 210 */
+/* 211 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -32183,7 +32351,250 @@ module.exports = `
 `;
 
 /***/ }),
-/* 211 */
+/* 212 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Tipo de Registro</h5>
+                <div v-if="config.typeSelection.type === 0 || config.typeSelection.type === 1" class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="config.reset('all')" title="Reinicializar"><i class="icon-reset"></i></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+                <div class="form-group">
+                    <div class="btn-group bootstrap-select show-tick" style="width: 100%;">
+                        <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button" :title="config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text">
+                            <span class="filter-option pull-left">{{config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text}}</span>&nbsp;
+                            <span class="bs-caret">
+                                <span class="caret"></span>
+                            </span>
+                        </button>
+                        <div class="dropdown-menu open" role="combobox">
+                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                <li v-for="options in config.typeSelection.options" :class="config.typeSelection.type === options.value ? 'selected' : ''">
+                                    <a href="#" v-on:click.prevent="config.mainSelect(options.value)" tabindex="0" data-tokens="null" role="option" aria-disabled="false" aria-selected="true">
+                                        <span class="text">{{options.text}}</span>
+                                        <span class=" icon-checkmark3 check-mark"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">{{config.typeSelection.options[config.typeSelection.type].text}}</h5>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+            </div>
+        </div>
+        <template v-else-if="config.typeSelection.type === 1">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">General</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Nombre</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.email.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Correo electrónico</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.pass.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Contraseña</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.repass.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Confirmar contraseña</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.date.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Fecha de ingreso</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.manualAdd.date.value" type="date" name="Fecha de ingreso">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Ubicaciones y Horarios</h5>
+                    <div class="heading-elements">
+                        <div class="heading-form">
+                            <div v-if="!config.manualAdd.sameConf" class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.setVisibilityPosition()">
+                                        <span class="switchery switchery-default switchery-custom info" :class="config.manualAdd.allPosVisible ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.manualAdd.allPosVisible ? 'Si' : 'No'}}
+                                    </label>
+                                    <span class="help-block">Todas las ubicaciones</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.initConfiguration()">
+                                        <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.manualAdd.sameConf ? 'Si' : 'No'}}
+                                    </label>
+                                    <span class="help-block">Generalizar horarios</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="steps-basic wizard clearfix">
+                                    <template v-if="config.manualAdd.sameConf">
+                                        <div style="padding-top: 20px"></div>
+                                    </template>
+                                    <div v-else class="steps clearfix">
+                                        <ul role="tablist">
+                                            <li v-for="(steps, stepIndex) in config.manualAdd.steps" role="tab"
+                                            :class="[stepIndex === 0 ? 'first' : '',
+                                                    config.manualAdd.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                <a href="#" v-on:click.prevent="steps.seen && config.manualAdd.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                    <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="content clearfix">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                        <i class="icon-shrink3"></i>
+                                                    </div>
+                                                    <div id="mapAddResource" class="map-container map-basic"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div v-if="!config.manualAdd.sameConf" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                <div class="form-group">
+                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                        <label v-on:click.prevent="config.setActivity()">
+                                                            <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'active' : 'not-active'">
+                                                                <small></small>
+                                                            </span>
+                                                            {{config.manualAdd.steps[config.manualAdd.actualStep].active ? 'Si' : 'No'}}
+                                                        </label>
+                                                        <span class="help-block">¿Opera en {{config.manualAdd.steps[config.manualAdd.actualStep].text}}?</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].active" :class="config.manualAdd.sameConf ? 'col-sm-12' : 'col-sm-6'">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">Intervalos de atención</label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval" type="number" name="Intervalos de atención">
+                                                        <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].active && Math.floor(parseInt(config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval)) > 0" class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Inicio</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Final</label>
+                                                </div>
+                                            </div>
+                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].schedule">
+                                                <div class="col-sm-6">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">hh:mm:ss</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">hh:mm:ss</span>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div class="actions clearfix">
+                                        <ul role="menu" aria-label="Pagination">
+                                            <template v-if="config.manualAdd.sameConf">
+                                                <li>
+                                                    <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                </li>
+                                            </template>
+                                            <template v-else>
+                                                <li :class="config.manualAdd.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
+                                                    <a class="btn btn-default" href="#previous" v-on:click.prevent="config.manualAdd.actualStep > 0 ? config.changeStep(config.manualAdd.actualStep - 1) : ''" role="menuitem">Anterior</a>
+                                                </li>
+                                                <li v-if="config.manualAdd.actualStep < config.manualAdd.steps.length - 1">
+                                                    <a class="btn btn-info" href="#next" v-on:click.prevent="config.changeStep(config.manualAdd.actualStep + 1)" role="menuitem">Siguiente</a>
+                                                </li>
+                                                <li v-else>
+                                                    <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+`;
+
+/***/ }),
+/* 213 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -32197,7 +32608,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 212 */
+/* 214 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -32217,7 +32628,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 213 */
+/* 215 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -32297,7 +32708,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 214 */
+/* 216 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -32310,7 +32721,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 215 */
+/* 217 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -32681,7 +33092,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 216 */
+/* 218 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -32771,7 +33182,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 217 */
+/* 219 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -32914,17 +33325,17 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 218 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var verTienda = __webpack_require__(219);
-var editarTienda = __webpack_require__(220);
+var verTienda = __webpack_require__(221);
+var editarTienda = __webpack_require__(222);
 module.exports = new Vue({
     data: {
         active: 0,
         grid: null,
         watch: verTienda,
-        edit: editarTienda,
+        edit: editarTienda
     },
     methods: {
         init(e){
@@ -33087,7 +33498,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 219 */
+/* 221 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -33174,6 +33585,9 @@ module.exports = new Vue({
     methods: {
         init: function(){
             var me = this;
+            this.actualStep = 0;
+            for(var i = 0; i < me.steps.length; i++)
+                this.steps[i].schedule = [];
             this.models.sucursal.get({
                 delimiters: this.id
             },
@@ -33186,9 +33600,6 @@ module.exports = new Vue({
             function(error){
                 console.log(error);
             });
-            for(var i = 0; i < me.steps.length; i++)
-                this.steps[i].schedule = [];
-            this.actualStep = 0;
             this.models.sucursalHorario.get({
                 delimiters: this.id,
                 params: {
@@ -33256,7 +33667,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 220 */
+/* 222 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -33639,8 +34050,8 @@ module.exports = new Vue({
             }
             else{
                 for(i = 0; i < this.steps.length; i++)
-                    if(this.steps[i].active)
-                        for(j = 0; j < this.steps[i].schedule.length; j++){
+                    for(j = 0; j < this.steps[i].schedule.length; j++)
+                        if(this.steps[i].active){
                             if(this.steps[i].schedule[j].remove === false){
                                 hmdB = this.steps[i].schedule[j].begin.split(":");
                                 hmdE = this.steps[i].schedule[j].end.split(":");
@@ -33689,8 +34100,7 @@ module.exports = new Vue({
                                 }
                             }
                         }
-                    else
-                        for(j = 0; j < this.steps[i].schedule.length; j++)
+                        else
                             this.steps[i].schedule[j].remove = true;
                 if(valid){
                     this.models.sucursal.patch({
@@ -33787,7 +34197,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 221 */
+/* 223 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -34089,11 +34499,11 @@ module.exports = new Vue({
         setInterval: function(){
             var i,
                 newSchedule = [],
-                interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
-                length = this.manualAdd.steps[this.manualAdd.actualStep].schedule.length;
-            if(this.manualAdd.steps[this.manualAdd.actualStep].schedule.length < interval){
+                interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
+                length = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length;
+            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
                 for(i = 0; i < interval - length; i++)
-                    this.manualAdd.steps[this.manualAdd.actualStep].schedule.push({
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
                         begin: "",
                         end: "",
                         validBegin: true,
@@ -34103,8 +34513,8 @@ module.exports = new Vue({
             }
             else if(length > interval){
                 for(i = 0; i < interval; i++)
-                    newSchedule.push(this.manualAdd.steps[this.manualAdd.actualStep].schedule[i]);
-                this.manualAdd.steps[this.manualAdd.actualStep].schedule = newSchedule;
+                    newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
+                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
             }
         },
         validation: function(type, i){
@@ -34118,10 +34528,10 @@ module.exports = new Vue({
                         this.manualAdd.name.valid = true;
                     break;
                 case "time-begin":
-                    this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].validBegin = this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].begin !== "" && this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].begin.length === 8;
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validBegin = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin !== "" && this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin.length === 8;
                     break;
                 case "time-end":
-                    this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].validEnd = this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].end !== "" && this.manualAdd.steps[this.manualAdd.actualStep].schedule[i].end.length === 8;
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validEnd = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end !== "" && this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end.length === 8;
                     break;
             }
         },
@@ -34306,7 +34716,7 @@ module.exports = new Vue({
                                             }
                                         }
                                         else
-                                            me.reset("schedule", i);
+                                            me.reset("schedule", i, null);
                                     BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
                                     BUTO.components.main.alert.description.title = "Registro de Tienda";
                                     BUTO.components.main.alert.description.text = "Se ha registrado correctamente la tienda '" + success.body.nombre + "'";
@@ -34383,7 +34793,7 @@ module.exports = new Vue({
                     this.manualAdd.steps[i].active = true;
                     this.manualAdd.steps[i].interval = 1;
                     this.manualAdd.steps[i].seen = (this.manualAdd.steps[i].dayNumber === 2) ? true : false;
-                    if((j && j === this.manualAdd.steps[i].schedule.length - 1) || !j){
+                    if((j !== null && j === this.manualAdd.steps[i].schedule.length - 1) || j === null){
                         this.manualAdd.steps[i].schedule = [];
                         this.manualAdd.steps[i].schedule.push({
                             begin: "",
@@ -34423,154 +34833,552 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 222 */
-/***/ (function(module, exports) {
+/* 224 */
+/***/ (function(module, exports, __webpack_require__) {
 
+var verRecurso = __webpack_require__(225);
+var editarRecurso = __webpack_require__(226);
 module.exports = new Vue({
     data: {
-        grid: null
+        active: 0,
+        grid: null,
+        watch: verRecurso,
+        edit: editarRecurso
     },
     methods: {
         init(e){
+            var me = this;
+            this.mask = e.mask;
+            this.watch.models.usuarioEmpleado = e.usuarioEmpleado;
+            this.watch.models.empleado = e.empleado;
+            this.watch.models.empleadoHorario = e.empleadoHorario;
+            this.edit.models.usuarioEmpleado = e.usuarioEmpleado;
+            this.edit.models.empleado = e.empleado;
+            this.edit.models.empleadoHorario = e.empleadoHorario;
             this.grid = new BUTO.requires.modules.mcdatatable({
-            id: "recursosRegistrados",
-            head: [
-                {title: "id", hidden: true, input: {type: 'number'}},
-                {title: "nombre", input: {type: 'text'}, orderable: true, searchable: {active: true, type: "filter"}},
-                {title: "correo", input: {type: 'email'}, orderable: true, searchable: {active: true, type: "filter"}}
-            ],
-            style: {
-                noText: true,
-                general: [
-                    "table",
-                    "table-bordered"
-                ],
+                id: "recursosRegistrados",
                 head: [
-                    "table-inverse"
+                    {title: "id", hidden: true, input: {type: 'number'}},
+                    {title: "nombre", input: {type: 'text'}, editable: true, orderable: true, searchable: {active: true, type: "filter"}},
+                    {title: "correo", input: {type: 'email'}, editable: true, orderable: true, searchable: {active: true, type: "filter"}}
                 ],
-                body: [
-                    "body-class"
-                ],
-                row: {
+                style: {
+                    noText: true,
+                    general: [
+                        "table",
+                        "table-bordered"
+                    ],
+                    head: [
+                        "table-inverse"
+                    ],
+                    body: [
+                        "body-class"
+                    ],
+                    row: {
+                        active: true,
+                        styleClass: [
+                            "grid-row-customized"
+                        ]
+                    },
+                    highlight: {
+                        active: true,
+                        styleClass: [
+                            "grid-row-highlight-customized"
+                        ]
+                    },
+                    responsive: true,
+                    pagination: {
+                        rowPerPage: 25
+                    },
+                    draggable: false,
+                },
+                webService: {
                     active: true,
-                    styleClass: [
-                        "grid-row-customized"
-                    ]
+                    model: e.usuarioEmpleado,
+                    headers: {
+                        currentPage: "X-Pagination-Current-Page",
+                        pageCount: "X-Pagination-Page-Count",
+                        rowPerPage: "X-Pagination-Per-Page",
+                        totalRowCount: "X-Pagination-Total-Count"
+                    }
                 },
-                highlight: {
-                    active: true,
-                    styleClass: [
-                        "grid-row-highlight-customized"
-                    ]
+                handlers: {
+                    watch: {
+                        active: true,
+                        type: "template"
+                    },
+                    add: {
+                        active: true,
+                        type: "template"
+                    },
+                    edit: {
+                        active: true,
+                        type: "template"
+                    },
+                    remove: {
+                        active: true
+                    },
                 },
-                responsive: true,
-                pagination: {
-                    rowPerPage: 25
+                //customHandlers: [
+                //    {
+                //        active: true,
+                //        title: "Rutas",
+                //        fullHandler: false,
+                //        anchorCellClass: [
+                //            "grid-row-anchor-customized"
+                //        ],
+                //        highlight: true,
+                //        glyphiconClass: "glyphicon-briefcase",
+                //        handler: function(data){
+                //            console.log(data);
+                //        }
+                //    }
+                //],
+                templateWatch: function(id, index){
+                    me.watch.id = id;
+                    me.edit.id = id;
+                    me.setView(1);
                 },
-                draggable: false,
-            },
-            webService: {
-                active: true,
-                model: e.usuarioEmpleado,
-                headers: {
-                    currentPage: "X-Pagination-Current-Page",
-                    pageCount: "X-Pagination-Page-Count",
-                    rowPerPage: "X-Pagination-Per-Page",
-                    totalRowCount: "X-Pagination-Total-Count"
-                }
-            },
-            handlers: {
-                watch: {
-                    active: true,
-                    type: "template"
+                templateEdit: function(id, index){
+                    me.edit.id = id;
+                    me.setView(2);
                 },
-                add: {
-                    active: true,
-                    type: "template"
+                //beforeEdit: function(){
+                //    BUTO.components.main.loader.loading();
+                //},
+                beforeRemove: function(data, success){
+                    console.log(data, success);
+                    BUTO.components.main.confirm.description.title = data.title;
+                    BUTO.components.main.confirm.description.text = data.text;
+                    BUTO.components.main.confirm.description.accept = data.accept;
+                    BUTO.components.main.confirm.description.cancel = data.cancel;
+                    BUTO.components.main.confirm.active = data.active;
+                    BUTO.components.main.confirm.onAccept = function(){
+                        BUTO.components.main.loader.loading();
+                        success();
+                        BUTO.components.main.confirm.active = false;
+                    };
                 },
-                edit: {
-                    active: true,
-                    type: "template"
+                //beforeAdd: function(){
+                //    BUTO.components.main.loader.loading();
+                //},
+                //onEdit: function(data, success){
+                //    if(!success){
+                //        BUTO.components.main.alert.description.title = data.title;
+                //        BUTO.components.main.alert.description.text = data.text;
+                //        BUTO.components.main.alert.description.ok = data.ok;
+                //        BUTO.components.main.alert.active = data.active;
+                //    }
+                //    BUTO.components.main.loader.loaded();
+                //},
+                onRemove: function(data){
+                    BUTO.components.main.loader.loaded();
                 },
-                remove: {
-                    active: true
-                },
-            },
-            //customHandlers: [
-            //    {
-            //        active: true,
-            //        title: "Rutas",
-            //        fullHandler: false,
-            //        anchorCellClass: [
-            //            "grid-row-anchor-customized"
-            //        ],
-            //        highlight: true,
-            //        glyphiconClass: "glyphicon-briefcase",
-            //        handler: function(data){
-            //            console.log(data);
-            //        }
-            //    }
-            //],
-            templateWatch: function(id, index){
-                console.log(id, index);
-            },
-            templateEdit: function(id, index){
-                console.log(id, index);
-            },
-            //beforeEdit: function(){
-            //    BUTO.components.main.loader.loading();
-            //},
-            beforeRemove: function(data, success){
-                console.log(data, success);
-                BUTO.components.main.confirm.description.title = data.title;
-                BUTO.components.main.confirm.description.text = data.text;
-                BUTO.components.main.confirm.description.accept = data.accept;
-                BUTO.components.main.confirm.description.cancel = data.cancel;
-                BUTO.components.main.confirm.active = data.active;
-                BUTO.components.main.confirm.onAccept = function(){
-                    BUTO.components.main.loader.loading();
-                    success();
-                    BUTO.components.main.confirm.active = false;
-                };
-            },
-            //beforeAdd: function(){
-            //    BUTO.components.main.loader.loading();
-            //},
-            //onEdit: function(data, success){
-            //    if(!success){
-            //        BUTO.components.main.alert.description.title = data.title;
-            //        BUTO.components.main.alert.description.text = data.text;
-            //        BUTO.components.main.alert.description.ok = data.ok;
-            //        BUTO.components.main.alert.active = data.active;
-            //    }
-            //    BUTO.components.main.loader.loaded();
-            //},
-            onRemove: function(data){
-                BUTO.components.main.loader.loaded();
-            },
-            //onAdd: function(data, success){
-            //    console.log(data, success);
-            //    if(!success){
-            //        BUTO.components.main.alert.description.title = data.title;
-            //        BUTO.components.main.alert.description.text = data.text;
-            //        BUTO.components.main.alert.description.ok = data.ok;
-            //        BUTO.components.main.alert.active = data.active;
-            //    }
-            //    BUTO.components.main.loader.loaded();
-            //},
-            //onChangeColumns: function(data){
-            //    console.log(data);
-            //},
-            //onDragEnd: function(data){
-            //    console.log(data);
-            //}
-        });
+                //onAdd: function(data, success){
+                //    console.log(data, success);
+                //    if(!success){
+                //        BUTO.components.main.alert.description.title = data.title;
+                //        BUTO.components.main.alert.description.text = data.text;
+                //        BUTO.components.main.alert.description.ok = data.ok;
+                //        BUTO.components.main.alert.active = data.active;
+                //    }
+                //    BUTO.components.main.loader.loaded();
+                //},
+                //onChangeColumns: function(data){
+                //    console.log(data);
+                //},
+                //onDragEnd: function(data){
+                //    console.log(data);
+                //}
+            });
+        },
+        setView: function(e){
+            var me = this;
+            this.active = e;
+            Vue.nextTick(function(){
+                if(e === 1)
+                    me.watch.init();
+                else if(e === 2)
+                    me.edit.init();
+            });
+        },
+        mask: function(){
+            
         }
     }
 });
 
 /***/ }),
-/* 223 */
+/* 225 */
+/***/ (function(module, exports) {
+
+module.exports = new Vue({
+    data: {
+        id: null,
+        name: null,
+        email: null,
+        date: null,
+        models: {
+            usuarioEmpleado: null,
+            empleado: null,
+            empleadoHorario: null
+        },
+        map: {
+            main: null,
+            geocoder: null,
+            marker: [
+                {
+                    main_begin: null,
+                    main_end: null,
+                    text: "Lu",
+                    lat_begin: null,
+                    lng_begin: null,
+                    lat_end: null,
+                    lng_end: null
+                },
+                {
+                    main_begin: null,
+                    main_end: null,
+                    text: "Ma",
+                    lat_begin: null,
+                    lng_begin: null,
+                    lat_end: null,
+                    lng_end: null
+                },
+                {
+                    main_begin: null,
+                    main_end: null,
+                    text: "Mi",
+                    lat_begin: null,
+                    lng_begin: null,
+                    lat_end: null,
+                    lng_end: null
+                },
+                {
+                    main_begin: null,
+                    main_end: null,
+                    text: "Ju",
+                    lat_begin: null,
+                    lng_begin: null,
+                    lat_end: null,
+                    lng_end: null
+                },
+                {
+                    main_begin: null,
+                    main_end: null,
+                    text: "Vi",
+                    lat_begin: null,
+                    lng_begin: null,
+                    lat_end: null,
+                    lng_end: null
+                },
+                {
+                    main_begin: null,
+                    main_end: null,
+                    text: "Sa",
+                    lat_begin: null,
+                    lng_begin: null,
+                    lat_end: null,
+                    lng_end: null
+                },
+                {
+                    main_begin: null,
+                    main_end: null,
+                    text: "Do",
+                    lat_begin: null,
+                    lng_begin: null,
+                    lat_end: null,
+                    lng_end: null
+                }
+            ],
+            data: {
+                address: "Chilpancingo_1_2, Hipódromo",
+                zoom: 18
+            }
+        },
+        allPosVisible: true,
+        actualStep: 0,
+        steps: [
+            {
+                text: "Lunes",
+                dayNumber: 2,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Martes",
+                dayNumber: 3,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Miércoles",
+                dayNumber: 4,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Jueves",
+                dayNumber: 5,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Viernes",
+                dayNumber: 6,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Sábado",
+                dayNumber: 7,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Domingo",
+                dayNumber: 1,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+        ]
+    },
+    methods: {
+        init: function(){
+            var me = this;
+            this.actualStep = 0;
+            this.allPosVisible = true;
+            this.initMap();
+            for(var i = 0; i < me.steps.length; i++){
+                this.steps[i].schedule = [];
+                this.map.marker[i].main_begin = null;
+                this.map.marker[i].lat_begin = null;
+                this.map.marker[i].lng_begin = null;
+                this.map.marker[i].main_end = null;
+                this.map.marker[i].lat_end = null;
+                this.map.marker[i].lng_end = null;
+            }
+            this.models.usuarioEmpleado.get({
+                delimiters: this.id
+            },
+            function(success){
+                me.name = success.body.nombre;
+                me.email = success.body.correo;
+                me.date = success.body.fecha_ingreso;
+            },
+            function(error){
+                console.log(error);
+            });
+            this.models.empleadoHorario.get({
+                delimiters: this.id,
+                params: {
+                    "per-page": 100,
+                    "sort": "hora_inicio"
+                }
+            },
+            function(success){
+                var interval = [0, 0, 0, 0, 0, 0, 0];
+                for(i = 0; i < success.body.length; i++){
+                    interval[success.body[i].dia - 1]++;
+                    switch(success.body[i].dia){
+                        case 1:     //SUN
+                            if(me.map.marker[6].lat_begin === null)
+                                me.map.marker[6].lat_begin = success.body[i].lat_inicio;
+                            if(me.map.marker[6].lng_begin === null)
+                                me.map.marker[6].lng_begin = success.body[i].lng_inicio;
+                            if(me.map.marker[6].lat_end === null)
+                                me.map.marker[6].lat_end = success.body[i].lat_fin;
+                            if(me.map.marker[6].lng_end === null)
+                                me.map.marker[6].lng_end = success.body[i].lng_fin;
+                            me.steps[6].schedule.push({
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin
+                            });
+                            break;
+                        default:
+                            if(me.map.marker[success.body[i].dia - 2].lat_begin === null)
+                                me.map.marker[success.body[i].dia - 2].lat_begin = success.body[i].lat_inicio;
+                            if(me.map.marker[success.body[i].dia - 2].lng_begin === null)
+                                me.map.marker[success.body[i].dia - 2].lng_begin = success.body[i].lng_inicio;
+                            if(me.map.marker[success.body[i].dia - 2].lat_end === null)
+                                me.map.marker[success.body[i].dia - 2].lat_end = success.body[i].lat_fin;
+                            if(me.map.marker[success.body[i].dia - 2].lng_end === null)
+                                me.map.marker[success.body[i].dia - 2].lng_end = success.body[i].lng_fin;
+                            me.steps[success.body[i].dia - 2].schedule.push({
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin
+                            });
+                            break;
+                    }
+                }
+                for(i = 0; i < me.steps.length; i++){
+                    me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
+                    me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
+                    if(me.steps[i].active)
+                        me.initPosition(i);
+                }
+                me.focusPosition(true);     //JUST ON INIT
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initMap: function(){
+            this.map.main = new google.maps.Map(document.getElementById('mapSeeResource'), {     //Define Map
+                zoom: this.map.data.zoom
+            });
+            this.initFocus();
+        },
+        initFocus: function(){
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeResource'));
+        },
+        initGeocoder: function(){
+            var me = this;
+            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
+            this.map.geocoder.geocode({                          //Geocoder for placing
+                address: this.map.data.address
+            },
+            function(response, status){
+                if(status === "OK")
+                    me.map.main.setCenter(response[0].geometry.location);
+                else
+                    console.log(status);
+            });
+        },
+        initPosition: function(i){
+            this.map.marker[i].main_begin = new google.maps.Marker({
+                map: this.map.main,
+                icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.map.marker[i].text + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1",
+                position: {
+                    lat: this.map.marker[i].lat_begin,
+                    lng: this.map.marker[i].lng_begin,
+                }
+            });
+            this.map.marker[i].main_end = new google.maps.Marker({
+                map: this.map.main,
+                icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.map.marker[i].text + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1",
+                position: {
+                    lat: this.map.marker[i].lat_end,
+                    lng: this.map.marker[i].lng_end,
+                }
+            });
+        },
+        initConfiguration: function(){
+            var i;
+            for(i = 0; i < this.map.marker.length; i++){
+                if(this.map.marker[i].main_begin !== null &&
+                   this.map.marker[i].lat_begin !== null &&
+                   this.map.marker[i].lng_begin !== null)    //Is showed in map
+                    this.map.marker[i].main_begin.setMap(this.map.main);
+                if(this.map.marker[i].main_end !== null &&
+                   this.map.marker[i].lat_end !== null &&
+                   this.map.marker[i].lng_end !== null)    //Is showed in map
+                    this.map.marker[i].main_end.setMap(this.map.main);
+            }
+            
+            if(!this.allPosVisible)
+                this.setVisibilityPosition(true); //AUTO
+        },
+        setVisibilityPosition: function(auto){
+            var i;
+            if(!auto)
+                this.allPosVisible = !this.allPosVisible;
+            for(i = 0; i < this.map.marker.length; i++){
+                if(this.map.marker[i].main_begin !== null &&
+                   this.map.marker[i].lat_begin !== null &&
+                   this.map.marker[i].lng_begin !== null)
+                    this.map.marker[i].main_begin.setMap(this.allPosVisible ? this.map.main : (i === this.actualStep) ? this.map.main : null);
+                if(this.map.marker[i].main_end !== null &&
+                   this.map.marker[i].lat_end !== null &&
+                   this.map.marker[i].lng_end !== null)    //Is showed in map
+                    this.map.marker[i].main_end.setMap(this.allPosVisible ? this.map.main : (i === this.actualStep) ? this.map.main : null);
+            }
+        },
+        focusPosition: function(a){
+            var i,
+                counter = 0,
+                totalLat = 0,
+                totalLng = 0,
+                bounds = new google.maps.LatLngBounds();
+            if(this.allPosVisible)
+                for(i = 0; i < this.map.marker.length; i++){
+                    if(this.map.marker[i].main_begin !== null &&
+                       this.map.marker[i].lat_begin !== null &&
+                       this.map.marker[i].lng_begin !== null){
+                        counter++;
+                        totalLat += this.map.marker[i].lat_begin;
+                        totalLng += this.map.marker[i].lng_begin;
+                        bounds.extend(this.map.marker[i].main_begin.getPosition());
+                        
+                       }
+                    if(this.map.marker[i].main_end !== null &&
+                       this.map.marker[i].lat_end !== null &&
+                       this.map.marker[i].lng_end !== null){    //Is showed in map
+                        counter++;
+                        totalLat += this.map.marker[i].lat_end;
+                        totalLng += this.map.marker[i].lng_end;
+                        bounds.extend(this.map.marker[i].main_end.getPosition());
+                    }
+                }
+            else{
+                i = this.actualStep;
+                if(this.map.marker[i].main_begin !== null &&
+                    this.map.marker[i].lat_begin !== null &&
+                    this.map.marker[i].lng_begin !== null){
+                     counter++;
+                     totalLat += this.map.marker[i].lat_begin;
+                     totalLng += this.map.marker[i].lng_begin;
+                     bounds.extend(this.map.marker[i].main_begin.getPosition());
+                     
+                    }
+                 if(this.map.marker[i].main_end !== null &&
+                    this.map.marker[i].lat_end !== null &&
+                    this.map.marker[i].lng_end !== null){    //Is showed in map
+                     counter++;
+                     totalLat += this.map.marker[i].lat_end;
+                     totalLng += this.map.marker[i].lng_end;
+                     bounds.extend(this.map.marker[i].main_end.getPosition());
+                 }
+            }
+            if(counter > 0){
+                this.map.main.setCenter({
+                    lat: totalLat/counter,
+                    lng: totalLng/counter
+                });
+                if(counter > 1)
+                    this.map.main.fitBounds(bounds);
+                else
+                    this.map.main.setZoom(this.map.data.zoom);
+            }
+            else if(a)
+                this.initGeocoder();
+        },
+        changeStep: function(e){
+            this.actualStep = e;
+            this.steps[e].seen = true;
+            
+            if(!this.allPosVisible)
+                this.setVisibilityPosition(true); //AUTO
+        }
+    }
+});
+
+/***/ }),
+/* 226 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -35536,6 +36344,1016 @@ module.exports = new Vue({
                     this.manualAdd.pass.value = null;
                     this.manualAdd.repass.value = null;
                     this.manualAdd.date.value = null;
+                    this.manualAdd.actualStep = 0;
+                    this.manualAdd.sameConf = false;
+                    
+                    for(i = 0; i < this.manualAdd.steps.length; i++){
+                        if(this.manualAdd.map.marker[i].main_begin !== null){
+                            this.manualAdd.map.marker[i].main_begin.setMap(null);
+                            this.manualAdd.map.marker[i].main_begin = null;
+                            this.manualAdd.map.marker[i].lat_begin = null;
+                            this.manualAdd.map.marker[i].lng_begin = null;
+                        }
+                        if(this.manualAdd.map.marker[i].main_end !== null){
+                            this.manualAdd.map.marker[i].main_end.setMap(null);
+                            this.manualAdd.map.marker[i].main_end = null;
+                            this.manualAdd.map.marker[i].lat_end = null;
+                            this.manualAdd.map.marker[i].lng_end = null;
+                        }
+                        this.manualAdd.steps[i].active = true;
+                        this.manualAdd.steps[i].interval = 1;
+                        this.manualAdd.steps[i].seen = (this.manualAdd.steps[i].dayNumber === 2) ? true : false;
+                        this.manualAdd.steps[i].schedule = [];
+                        this.manualAdd.steps[i].schedule.push({
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            id: null
+                        });
+                    }
+                    break;
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 227 */
+/***/ (function(module, exports) {
+
+module.exports = new Vue({
+    data: {
+        models: {
+            usuarioEmpleado: null,
+            empleado: null,
+            empleadoHorario: null
+        },
+        typeSelection: {
+            type: null,
+            options: [
+                {
+                    value: 0,
+                    text: "Importación de datos"
+                },
+                {
+                    value: 1,
+                    text: "Agregado manual"
+                }
+            ]
+        },
+        manualAdd: {
+            name: {
+                value: null,
+                valid: true
+            },
+            email: {
+                value: null,
+                valid: true
+            },
+            pass: {
+                value: null,
+                valid: true
+            },
+            repass: {
+                value: null,
+                valid: true
+            },
+            date: {
+                value: null,
+                valid: true
+            },
+            map: {
+                main: null,
+                geocoder: null,
+                marker: [
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Lu",
+                        textU_begin: "I",
+                        textU_end: "F",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    },
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Ma",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    },
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Mi",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    },
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Ju",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    },
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Vi",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    },
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Sa",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    },
+                    {
+                        main_begin: null,
+                        main_end: null,
+                        text: "Do",
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null
+                    }
+                ],
+                data: {
+                    address: "Chilpancingo_1_2, Hipódromo",
+                    zoom: 18
+                }
+            },
+            sameConf: false,
+            allPosVisible: true,
+            actualStep: 0,
+            maxInterval: 5,
+            steps: [
+                {
+                    text: "Lunes",
+                    dayNumber: 2,
+                    active: true,
+                    schedule: [
+                        {
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            id: null
+                        }
+                    ],
+                    interval: 1,
+                    seen: true
+                },
+                {
+                    text: "Martes",
+                    dayNumber: 3,
+                    active: true,
+                    schedule: [
+                        {
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            id: null
+                        }
+                    ],
+                    interval: 1,
+                    seen: false
+                },
+                {
+                    text: "Miércoles",
+                    dayNumber: 4,
+                    active: true,
+                    schedule: [
+                        {
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            id: null
+                        }
+                    ],
+                    interval: 1,
+                    seen: false
+                },
+                {
+                    text: "Jueves",
+                    dayNumber: 5,
+                    active: true,
+                    schedule: [
+                        {
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            id: null
+                        }
+                    ],
+                    interval: 1,
+                    seen: false
+                },
+                {
+                    text: "Viernes",
+                    dayNumber: 6,
+                    active: true,
+                    schedule: [
+                        {
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            id: null
+                        }
+                    ],
+                    interval: 1,
+                    seen: false
+                },
+                {
+                    text: "Sábado",
+                    dayNumber: 7,
+                    active: true,
+                    schedule: [
+                        {
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            id: null
+                        }
+                    ],
+                    interval: 1,
+                    seen: false
+                },
+                {
+                    text: "Domingo",
+                    dayNumber: 1,
+                    active: true,
+                    schedule: [
+                        {
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            id: null
+                        }
+                    ],
+                    interval: 1,
+                    seen: false
+                },
+            ]
+        }
+    },
+    methods: {
+        init: function(e){
+            var me = this;
+            if(e){
+                this.models.usuarioEmpleado = e.usuarioEmpleado;
+                this.models.empleado = e.empleado;
+                this.models.empleadoHorario = e.empleadoHorario;
+            }
+            if(this.typeSelection.type === 1)
+                Vue.nextTick(function(){
+                    me.initMap();
+                });
+        },
+        mainSelect: function(e){
+            var me = this;
+            this.typeSelection.type = e;
+            if(e === 1)
+                Vue.nextTick(function(){
+                    me.initMap();
+                });
+        },
+        initMap: function(){
+            var me = this;
+            if(this.manualAdd.map.marker[0].main_begin){
+                this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddResource'), {     //Define Map
+                    zoom: this.manualAdd.map.data.zoom,
+                    center: {
+                        lat: this.manualAdd.map.marker[0].lat_begin,
+                        lng: this.manualAdd.map.marker[0].lng_begin
+                    }
+                });
+                this.initConfiguration(true);
+            }
+            else{
+                this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddResource'), {     //Define Map
+                    zoom: this.manualAdd.map.data.zoom
+                });
+                this.initGeocoder();
+            }
+            this.manualAdd.map.main.addListener("click", function(e){       //Define on click listener for map
+                me.positioner(e.latLng);
+            });
+            this.initSearch();
+            this.initFocus();
+        },
+        initFocus: function(){
+            this.manualAdd.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddResource'));
+        },
+        initSearch: function(){
+            var me = this;
+            var input = document.getElementById('searchAddResource');
+            var searchBox = new google.maps.places.SearchBox(input);
+            this.manualAdd.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    
+            // Bias the SearchBox results towards current map's viewport.
+            this.manualAdd.map.main.addListener('bounds_changed', function() {
+              searchBox.setBounds(me.manualAdd.map.main.getBounds());
+            });
+            searchBox.addListener('places_changed', function() {
+                var places = searchBox.getPlaces();
+                if(places.length == 0){
+                    return;
+                }
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                    if(!place.geometry){
+                      console.log("Returned place contains no geometry");
+                      return;
+                    }
+                    if(place.geometry.viewport){
+                      // Only geocodes have viewport.
+                      bounds.union(place.geometry.viewport);
+                    }
+                    else{
+                      bounds.extend(place.geometry.location);
+                    }
+                  });
+                me.manualAdd.map.main.fitBounds(bounds);
+            });
+        },
+        initGeocoder: function(){
+            var me = this;
+            this.manualAdd.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
+            this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                address: this.manualAdd.map.data.address
+            },
+            function(response, status){
+                if(status === "OK")
+                    me.manualAdd.map.main.setCenter(response[0].geometry.location);
+                else
+                    console.log(status);
+            });
+        },
+        initConfiguration: function(auto){
+            var i;
+            if(!auto){
+                this.manualAdd.sameConf = !this.manualAdd.sameConf;
+                this.manualAdd.steps[0].active = true;
+            }
+            for(i = 0; i < this.manualAdd.map.marker.length; i++){
+                if(this.manualAdd.map.marker[i].main_begin !== null &&
+                   this.manualAdd.map.marker[i].lat_begin !== null &&
+                   this.manualAdd.map.marker[i].lng_begin !== null){    //Is showed in map
+                    if(i === 0){    //Is designed one for all
+                        this.manualAdd.map.marker[i].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_begin" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                        this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.map.main);
+                    }
+                    else           //All irrelevants
+                        this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.sameConf ? null : this.manualAdd.map.main);
+                }
+                if(this.manualAdd.map.marker[i].main_end !== null &&
+                   this.manualAdd.map.marker[i].lat_end !== null &&
+                   this.manualAdd.map.marker[i].lng_end !== null){    //Is showed in map
+                    if(i === 0){    //Is designed one for all
+                        this.manualAdd.map.marker[i].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_end" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                        this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.map.main);
+                    }
+                    else           //All irrelevants
+                        this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.sameConf ? null : this.manualAdd.map.main);
+                }
+            }
+            
+            if(!this.manualAdd.allPosVisible && !this.manualAdd.sameConf)
+                this.setVisibilityPosition(true); //AUTO
+        },
+        setVisibilityPosition: function(auto){
+            var i;
+            if(!auto)
+                this.manualAdd.allPosVisible = !this.manualAdd.allPosVisible;
+            for(i = 0; i < this.manualAdd.map.marker.length; i++){
+                if(this.manualAdd.map.marker[i].main_begin !== null &&
+                   this.manualAdd.map.marker[i].lat_begin !== null &&
+                   this.manualAdd.map.marker[i].lng_begin !== null)
+                    this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
+                if(this.manualAdd.map.marker[i].main_end !== null &&
+                   this.manualAdd.map.marker[i].lat_end !== null &&
+                   this.manualAdd.map.marker[i].lng_end !== null)    //Is showed in map
+                    this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
+            }
+        },
+        focusPosition: function(){
+            var i,
+                counter = 0,
+                totalLat = 0,
+                totalLng = 0,
+                bounds = new google.maps.LatLngBounds();
+            if(this.manualAdd.sameConf || !this.manualAdd.allPosVisible){
+                i = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+                if(this.manualAdd.map.marker[i].main_begin !== null &&
+                    this.manualAdd.map.marker[i].lat_begin !== null &&
+                    this.manualAdd.map.marker[i].lng_begin !== null){
+                     counter++;
+                     totalLat += this.manualAdd.map.marker[i].lat_begin;
+                     totalLng += this.manualAdd.map.marker[i].lng_begin;
+                     bounds.extend(this.manualAdd.map.marker[i].main_begin.getPosition());
+                     
+                    }
+                 if(this.manualAdd.map.marker[i].main_end !== null &&
+                    this.manualAdd.map.marker[i].lat_end !== null &&
+                    this.manualAdd.map.marker[i].lng_end !== null){    //Is showed in map
+                     counter++;
+                     totalLat += this.manualAdd.map.marker[i].lat_end;
+                     totalLng += this.manualAdd.map.marker[i].lng_end;
+                     bounds.extend(this.manualAdd.map.marker[i].main_end.getPosition());
+                 }
+            }
+            else
+                for(i = 0; i < this.manualAdd.map.marker.length; i++){
+                    if(this.manualAdd.map.marker[i].main_begin !== null &&
+                       this.manualAdd.map.marker[i].lat_begin !== null &&
+                       this.manualAdd.map.marker[i].lng_begin !== null){
+                        counter++;
+                        totalLat += this.manualAdd.map.marker[i].lat_begin;
+                        totalLng += this.manualAdd.map.marker[i].lng_begin;
+                        bounds.extend(this.manualAdd.map.marker[i].main_begin.getPosition());
+                        
+                       }
+                    if(this.manualAdd.map.marker[i].main_end !== null &&
+                       this.manualAdd.map.marker[i].lat_end !== null &&
+                       this.manualAdd.map.marker[i].lng_end !== null){    //Is showed in map
+                        counter++;
+                        totalLat += this.manualAdd.map.marker[i].lat_end;
+                        totalLng += this.manualAdd.map.marker[i].lng_end;
+                        bounds.extend(this.manualAdd.map.marker[i].main_end.getPosition());
+                    }
+                }
+            if(counter > 0){
+                this.manualAdd.map.main.setCenter({
+                    lat: totalLat/counter,
+                    lng: totalLng/counter
+                });
+                if(counter > 1)
+                    this.manualAdd.map.main.fitBounds(bounds);
+                else
+                    this.manualAdd.map.main.setZoom(this.manualAdd.map.data.zoom);
+            }
+        },
+        positioner: function(pos){
+            if(this.manualAdd.steps[this.manualAdd.actualStep].active){
+                if(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin === null){
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin = new google.maps.Marker({
+                            map: this.manualAdd.map.main,
+                            position: pos,
+                            icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"
+                        });
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_begin = pos.lat();
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_begin = pos.lng();
+                    this.deleter("begin", this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep);
+                }
+                else if(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin &&
+                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_begin === null &&
+                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_begin === null){
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin.setMap(this.manualAdd.map.main);
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin.setPosition(pos);
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_begin = pos.lat();
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_begin = pos.lng();
+                }
+                else if(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin &&
+                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end === null){
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end = new google.maps.Marker({
+                            map: this.manualAdd.map.main,
+                            position: pos,
+                            icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"
+                        });
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end.addListener("dblclick", function(){
+                        
+                    });
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_end = pos.lat();
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_end = pos.lng();
+                    this.deleter("end", this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep);
+                }
+                else if(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end &&
+                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_end === null &&
+                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_end === null){
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end.setMap(this.manualAdd.map.main);
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end.setPosition(pos);
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_end = pos.lat();
+                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_end = pos.lng();
+                }
+            }
+        },
+        deleter: function(type, i){
+            var me = this;
+            if(type === "begin")
+                this.manualAdd.map.marker[i].main_begin.addListener("dblclick", function(){
+                    me.manualAdd.map.marker[i].main_begin.setMap(null);
+                    me.manualAdd.map.marker[i].lat_begin = null;
+                    me.manualAdd.map.marker[i].lng_begin = null;
+                });
+            else if(type === "end")
+                this.manualAdd.map.marker[i].main_end.addListener("dblclick", function(){
+                    me.manualAdd.map.marker[i].main_end.setMap(null);
+                    me.manualAdd.map.marker[i].lat_end = null;
+                    me.manualAdd.map.marker[i].lng_end = null;
+                });
+        },
+        changeStep: function(e){
+            this.manualAdd.actualStep = e;
+            this.manualAdd.steps[e].seen = true;
+            
+            if(!this.manualAdd.allPosVisible)
+                this.setVisibilityPosition(true); //AUTO
+        },
+        setInterval: function(){
+            var i,
+                newSchedule = [],
+                interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
+                length = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length;
+            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
+                for(i = 0; i < interval - length; i++)
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
+                        begin: "",
+                        end: "",
+                        validBegin: true,
+                        validEnd: true,
+                        id: null
+                    });
+            }
+            else if(length > interval){
+                for(i = 0; i < interval; i++)
+                    newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
+                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
+            }
+        },
+        setActivity: function(){
+            this.manualAdd.steps[this.manualAdd.actualStep].active = !this.manualAdd.steps[this.manualAdd.actualStep].active;
+            if(!this.manualAdd.steps[this.manualAdd.actualStep].active){
+                if(this.manualAdd.map.marker[this.manualAdd.actualStep].main_begin !== null &&
+                   this.manualAdd.map.marker[this.manualAdd.actualStep].lat_begin !== null &&
+                   this.manualAdd.map.marker[this.manualAdd.actualStep].lng_begin !== null)
+                    this.manualAdd.map.marker[this.manualAdd.actualStep].main_begin.setMap(null);
+                if(this.manualAdd.map.marker[this.manualAdd.actualStep].main_end !== null &&
+                   this.manualAdd.map.marker[this.manualAdd.actualStep].lat_end !== null &&
+                   this.manualAdd.map.marker[this.manualAdd.actualStep].lng_end !== null)    //Is showed in map
+                    this.manualAdd.map.marker[this.manualAdd.actualStep].main_end.setMap(null);
+            }
+            else 
+                this.setVisibilityPosition(true); //AUTO
+        },
+        validation: function(type, i){
+            switch(type){
+                case "name":
+                    if(this.manualAdd.name.value === null ||
+                       this.manualAdd.name.value === "" ||
+                       this.manualAdd.name.value.length < 8)
+                        this.manualAdd.name.valid = false;
+                    else
+                        this.manualAdd.name.valid = true;
+                    break;
+                case "email":
+                    var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    if(this.manualAdd.email.value === null ||
+                       this.manualAdd.email.value === "" ||
+                       !emailTest.test(this.manualAdd.email.value))
+                        this.manualAdd.email.valid = false;
+                    else
+                        this.manualAdd.email.valid = true;
+                    break;
+                case "pass":
+                    if(this.manualAdd.pass.value === null ||
+                       this.manualAdd.pass.value === "" ||
+                       this.manualAdd.pass.value.length < 8)
+                        this.manualAdd.pass.valid = false;
+                    else
+                        this.manualAdd.pass.valid = true;
+                    break;
+                case "repass":
+                    if(this.manualAdd.repass.value === null ||
+                       this.manualAdd.repass.value === "" ||
+                       this.manualAdd.repass.value !== this.manualAdd.pass.value)
+                        this.manualAdd.repass.valid = false;
+                    else
+                        this.manualAdd.repass.valid = true;
+                    break;
+                case "date":
+                    if(this.manualAdd.date.value === null ||
+                       this.manualAdd.date.value === "")
+                        this.manualAdd.date.valid = false;
+                    else
+                        this.manualAdd.date.valid = true;
+                    break;
+                case "time-begin":
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validBegin = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin !== "" && this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin.length === 8;
+                    break;
+                case "time-end":
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validEnd = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end !== "" && this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end.length === 8;
+                    break;
+            }
+        },
+        submit: function(e){
+            var me = this;
+            switch(e){
+                case "manual":
+                    var i, j, k = 0, limit = 4,
+                        first = true,
+                        hmdB, hmdE,
+                        error = "",
+                        valid = true;
+                    if(this.manualAdd.name.value === null || this.manualAdd.name.value === ""){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.name.valid = false;
+                        valid = false;
+                    }
+                    else if(valid && this.manualAdd.name.value.length < 8){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Nombre debe contener al menos 8 caracteres.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.name.valid = false;
+                        valid = false;
+                    }
+                    if(valid && (this.manualAdd.email.value === null || this.manualAdd.email.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Correo electrónico no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.email.valid = false;
+                        valid = false;
+                    }
+                    else{
+                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                        if(valid && !emailTest.test(this.manualAdd.email.value)){
+                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                            BUTO.components.main.alert.description.text = "Correo electrónico no tiene una forma válida.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                            this.manualAdd.email.valid = false;
+                            valid = false;
+                        }
+                    }
+                    if(valid && (this.manualAdd.pass.value === null || this.manualAdd.pass.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Contraseña no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.pass.valid = false;
+                        valid = false;
+                    }
+                    else{
+                        if(valid && this.manualAdd.pass.value.length < 8){
+                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                            BUTO.components.main.alert.description.text = "Contraseña debe contener al menos 8 caracteres.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                            this.manualAdd.pass.valid = false;
+                            valid = false;
+                        }
+                    }
+                    if(valid && (this.manualAdd.repass.value === null || this.manualAdd.repass.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Confirmar contraseña no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.repass.valid = false;
+                        valid = false;
+                    }
+                    else{
+                        if(valid && (this.manualAdd.repass.value !== this.manualAdd.pass.value)){
+                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                            BUTO.components.main.alert.description.text = "Las contraseñas no coinciden.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                            this.manualAdd.repass.valid = false;
+                            valid = false;
+                        }
+                    }
+                    if(valid && (this.manualAdd.date.value === null || this.manualAdd.date.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Fecha de ingreso no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.date.valid = false;
+                        valid = false;
+                    }
+                    else {
+                        if(valid){
+                            if(this.manualAdd.sameConf){
+                                i = 0;
+                                if(this.manualAdd.map.marker[i].main_begin === null ||                  //No position
+                                   this.manualAdd.map.marker[i].lat_begin === null ||
+                                   this.manualAdd.map.marker[i].lng_begin === null ||
+                                   this.manualAdd.map.marker[i].main_end === null ||                  //No position
+                                   this.manualAdd.map.marker[i].lat_end === null ||
+                                   this.manualAdd.map.marker[i].lng_end === null){
+                                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                    BUTO.components.main.alert.description.text = "Debes escoger las ubicaciones de inicio y final.";
+                                    BUTO.components.main.alert.description.ok = "Aceptar";
+                                    BUTO.components.main.alert.active = true;
+                                    valid = false;
+                                }
+                                if(valid){
+                                    for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
+                                        hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
+                                        hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
+                                        this.manualAdd.steps[i].schedule[j].validBegin = true;
+                                        this.manualAdd.steps[i].schedule[j].validEnd = true;
+                                        if(this.manualAdd.steps[i].schedule[j].begin === ""){
+                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            valid = false; k++;
+                                        }
+                                        if(this.manualAdd.steps[i].schedule[j].end === ""){
+                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                            valid = false; k++;
+                                        }
+                                        if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                           (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
+                                            hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
+                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            valid = false; k++;
+                                        }
+                                        if(this.manualAdd.steps[i].schedule[j].end !== "" &&
+                                           (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
+                                            hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
+                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                            valid = false; k++;
+                                        }
+                                        if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                           this.manualAdd.steps[i].schedule[j].end !== "" &&
+                                           this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
+                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo.<br>" : "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                            valid = false; k++;
+                                        }
+                                        if(j > 0 &&
+                                           this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                           this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
+                                           this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
+                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + ".<br>": "";
+                                            this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            this.manualAdd.steps[i].schedule[j - 1].validEnd = false;
+                                            valid = false; k++;
+                                        }
+                                    }
+                                    if(valid){
+                                        this.models.usuarioEmpleado.post({
+                                            params: {
+                                                nombre: this.manualAdd.name.value,
+                                                correo: this.manualAdd.email.value,
+                                                pass: this.manualAdd.pass.value,
+                                                pass_repeat: this.manualAdd.repass.value,
+                                                fecha_ingreso: this.manualAdd.date.value
+                                            }
+                                        },
+                                        function(success){
+                                            for(i = 0; i < me.manualAdd.steps.length; i++)
+                                                for(j = 0; j < me.manualAdd.steps[0].schedule.length; j++){
+                                                    me.submitSchedule(i, j, success.body.id, first);
+                                                    first = false;
+                                                }
+                                            BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
+                                            BUTO.components.main.alert.description.title = "Registro de Recurso Humano";
+                                            BUTO.components.main.alert.description.text = "Se ha registrado correctamente el recurso humano '" + success.body.nombre + "'";
+                                            BUTO.components.main.alert.description.ok = "Aceptar";
+                                            BUTO.components.main.alert.active = true;
+                                        },
+                                        function(error){
+                                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                            BUTO.components.main.alert.description.text = error.body[0].message;
+                                            BUTO.components.main.alert.description.ok = "Aceptar";
+                                            BUTO.components.main.alert.active = true;
+                                        });
+                                    }
+                                    else{
+                                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                        BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
+                                        BUTO.components.main.alert.description.ok = "Aceptar";
+                                        BUTO.components.main.alert.active = true;
+                                    }
+                                }
+                            }
+                            else{
+                                for(i = 0; i < this.manualAdd.map.marker.length; i++){
+                                    if(this.manualAdd.steps[i].active &&
+                                       (this.manualAdd.map.marker[i].main_begin === null ||                  //No position
+                                       this.manualAdd.map.marker[i].lat_begin === null ||
+                                       this.manualAdd.map.marker[i].lng_begin === null ||
+                                       this.manualAdd.map.marker[i].main_end === null ||                  //No position
+                                       this.manualAdd.map.marker[i].lat_end === null ||
+                                       this.manualAdd.map.marker[i].lng_end === null)){
+                                        error += (k <= limit) ? "Debes escoger las ubicaciones de inicio y final para el día " + this.manualAdd.steps[i].text + ".<br>": "";
+                                        valid = false; k++;
+                                    }
+                                }
+                                if(valid){
+                                    error = "";
+                                    k = 0;
+                                    for(i = 0; i < this.manualAdd.steps.length; i++)
+                                        if(this.manualAdd.steps[i].active)
+                                            for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
+                                                hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
+                                                hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
+                                                this.manualAdd.steps[i].schedule[j].validBegin = true;
+                                                this.manualAdd.steps[i].schedule[j].validEnd = true;
+                                                if(this.manualAdd.steps[i].schedule[j].begin === ""){
+                                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
+                                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                                    valid = false; k++;
+                                                }
+                                                if(this.manualAdd.steps[i].schedule[j].end === ""){
+                                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
+                                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                                    valid = false; k++;
+                                                }
+                                                if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                                   (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
+                                                    hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
+                                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                                    valid = false; k++;
+                                                }
+                                                if(this.manualAdd.steps[i].schedule[j].end !== "" &&
+                                                   (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
+                                                    hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
+                                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                                    valid = false; k++;
+                                                }
+                                                if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                                   this.manualAdd.steps[i].schedule[j].end !== "" &&
+                                                   this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
+                                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo en el día " + this.manualAdd.steps[i].text + ".<br>" : "";
+                                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                                    valid = false; k++;
+                                                }
+                                                if(j > 0 &&
+                                                   this.manualAdd.steps[i].schedule[j].begin !== "" &&
+                                                   this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
+                                                   this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
+                                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.manualAdd.steps[i].text + ".<br>": "";
+                                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                                    this.manualAdd.steps[i].schedule[j - 1].validEnd = false;
+                                                    valid = false; k++;
+                                                }
+                                            }
+                                }
+                                else{
+                                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                    BUTO.components.main.alert.description.text = error;
+                                    BUTO.components.main.alert.description.ok = "Aceptar";
+                                    BUTO.components.main.alert.active = true;
+                                }
+                                if(valid){
+                                    this.models.usuarioEmpleado.post({
+                                        params: {
+                                            nombre: this.manualAdd.name.value,
+                                            correo: this.manualAdd.email.value,
+                                            pass: this.manualAdd.pass.value,
+                                            pass_repeat: this.manualAdd.repass.value,
+                                            fecha_ingreso: this.manualAdd.date.value
+                                        }
+                                    },function(success){
+                                        for(i = 0; i < me.manualAdd.steps.length; i++)
+                                            if(me.manualAdd.steps[i].active){
+                                                for(j = 0; j < me.manualAdd.steps[i].schedule.length; j++){
+                                                    me.submitSchedule(i, j, success.body.id, first);
+                                                    first = false;
+                                                }
+                                            }
+                                            else
+                                                me.reset("schedule", i, null);
+                                        BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
+                                        BUTO.components.main.alert.description.title = "Registro de Recurso Humano";
+                                        BUTO.components.main.alert.description.text = "Se ha registrado correctamente el recurso humano '" + success.body.nombre + "'";
+                                        BUTO.components.main.alert.description.ok = "Aceptar";
+                                        BUTO.components.main.alert.active = true;
+                                    },
+                                    function(error){
+                                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                        BUTO.components.main.alert.description.text = error.body[0].message;
+                                        BUTO.components.main.alert.description.ok = "Aceptar";
+                                        BUTO.components.main.alert.active = true;
+                                    });
+                                }
+                                else{
+                                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                    BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
+                                    BUTO.components.main.alert.description.ok = "Aceptar";
+                                    BUTO.components.main.alert.active = true;
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case "import":
+                    
+                    break;
+            }
+        },
+        submitSchedule: function(i, j, id, first){
+            var me = this;
+            if(first)
+                this.reset("resource");
+            this.models.empleadoHorario.post({
+                delimiters: id,
+                params: {
+                    dia: this.manualAdd.steps[i].dayNumber,
+                    hora_inicio: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].begin,
+                    hora_fin: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].end,
+                    lat_inicio: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : i].lat_begin,
+                    lat_fin: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : i].lat_end,
+                    lng_inicio: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : i].lng_begin,
+                    lng_fin: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : i].lng_end
+                }
+            },
+            function(success){
+                me.reset("schedule", i, j);
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        reset: function(a, i, j){
+            switch(a){
+                case "resource":
+                    this.manualAdd.name.value = null;
+                    this.manualAdd.email.value = null;
+                    this.manualAdd.pass.value = null;
+                    this.manualAdd.repass.value = null;
+                    this.manualAdd.date.value = null;
+                    this.manualAdd.actualStep = 0;
+                    break;
+                case "schedule":
+                    this.manualAdd.steps[i].active = true;
+                    this.manualAdd.steps[i].interval = 1;
+                    this.manualAdd.steps[i].seen = (this.manualAdd.steps[i].dayNumber === 2) ? true : false;
+                    console.log("W", i, j, this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule.length - 1);
+                    if((j !== null && j === this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule.length - 1) || j === null){
+                        if(this.manualAdd.sameConf && this.manualAdd.steps[i].dayNumber === 1){
+                            this.reset("all");
+                        }
+                        else if(!this.manualAdd.sameConf){
+                            if(this.manualAdd.map.marker[i].main_begin !== null){
+                                this.manualAdd.map.marker[i].main_begin.setMap(null);
+                                this.manualAdd.map.marker[i].main_begin = null;
+                                this.manualAdd.map.marker[i].lat_begin = null;
+                                this.manualAdd.map.marker[i].lng_begin = null;
+                            }
+                            if(this.manualAdd.map.marker[i].main_end !== null){
+                                this.manualAdd.map.marker[i].main_end.setMap(null);
+                                this.manualAdd.map.marker[i].main_end = null;
+                                this.manualAdd.map.marker[i].lat_end = null;
+                                this.manualAdd.map.marker[i].lng_end = null;
+                            }
+                            this.manualAdd.steps[i].schedule = [];
+                            this.manualAdd.steps[i].schedule.push({
+                                begin: "",
+                                end: "",
+                                validBegin: true,
+                                validEnd: true,
+                                id: null
+                            });
+                        }
+                    }
+                    break;
+                case "all":
+                    this.manualAdd.name.value = null;
+                    this.manualAdd.name.valid = true;
+                    this.manualAdd.email.value = null;
+                    this.manualAdd.email.valid = true;
+                    this.manualAdd.pass.value = null;
+                    this.manualAdd.pass.valid = true;
+                    this.manualAdd.repass.value = null;
+                    this.manualAdd.repass.valid = true;
+                    this.manualAdd.date.value = null;
+                    this.manualAdd.date.valid = true;
                     this.manualAdd.actualStep = 0;
                     this.manualAdd.sameConf = false;
                     

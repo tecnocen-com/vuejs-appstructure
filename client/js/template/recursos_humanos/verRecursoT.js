@@ -2,36 +2,28 @@ module.exports = `
     <div class="col-sm-12">
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title">{{config.name.value}}</h5>
+                <h4 class="panel-title text-center">{{config.name}}</h4>
                 <div class="heading-elements">
                     <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="setview(2)" title="Editar"><i class="icon-pencil7"></i></i></a></li>
                         <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>
                     </ul>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
-                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre">
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Correo electrónico</label>
+                        <div class="col-lg-10">
+                            <input disabled="disabled" class="form-control" v-model="config.email" type="text" name="Correo electrónico">
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Ubicación</h5>
-            </div>
-            <div class="panel-body">
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <input id="searchEditStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                            <div id="mapFocusPositionEditStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                <i class="icon-shrink3"></i>
-                            </div>
-                            <div id="mapEditStore" class="map-container map-basic"></div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Fecha de ingreso</label>
+                        <div class="col-lg-10">
+                            <input disabled="disabled" class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.date" type="date" name="Fecha de ingreso">
                         </div>
                     </div>
                 </div>
@@ -39,7 +31,22 @@ module.exports = `
         </div>
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title">Horarios</h5>
+                <h5 class="panel-title">Ubicaciones y Horarios</h5>
+                <div class="heading-elements">
+                    <div class="heading-form">
+                        <div class="form-group">
+                            <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                <label v-on:click.prevent="config.setVisibilityPosition()">
+                                    <span class="switchery switchery-default switchery-custom info" :class="config.allPosVisible ? 'active' : 'not-active'">
+                                        <small></small>
+                                    </span>
+                                    {{config.allPosVisible ? 'Si' : 'No'}}
+                                </label>
+                                <span class="help-block">Todas las ubicaciones</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -59,11 +66,21 @@ module.exports = `
                                 </div>
                                 <div class="content clearfix">
                                     <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div id="mapFocusPositionSeeResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                    <i class="icon-shrink3"></i>
+                                                </div>
+                                                <div id="mapSeeResource" class="map-container map-basic"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div style="padding-top: 20px"></div>
                                         <div :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
                                             <div class="form-group">
                                                 <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                    <label v-on:click.prevent="config.steps[config.actualStep].active = !config.steps[config.actualStep].active">
+                                                    <label>
                                                         <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
                                                             <small></small>
                                                         </span>
@@ -77,8 +94,7 @@ module.exports = `
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Intervalos de atención</label>
                                                 <div class="col-md-8">
-                                                    <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
-                                                    <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
+                                                    <input disabled="disabled" class="form-control" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
                                                 </div>
                                             </div>
                                         </div>
@@ -95,28 +111,21 @@ module.exports = `
                                                 <label>Final</label>
                                             </div>
                                         </div>
-                                        <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule" v-if="!interval.remove">
+                                        <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule">
                                             <div class="col-sm-6">
-                                                <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                <div class="form-group">
+                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">hh:mm:ss</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                <div class="form-group">
+                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">hh:mm:ss</span>
                                                 </div>
                                             </div>
                                         </template>
                                     </div>
-                                </div>
-                                <div class="actions clearfix">
-                                    <ul role="menu" aria-label="Pagination">
-                                        <li>
-                                            <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit()" role="menuitem">Guardar</a>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>

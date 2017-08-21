@@ -5,7 +5,7 @@ module.exports = new Vue({
         active: 0,
         grid: null,
         watch: verTienda,
-        edit: editarTienda,
+        edit: editarTienda
     },
     methods: {
         init(e){
