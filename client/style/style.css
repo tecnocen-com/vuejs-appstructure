@@ -130,7 +130,15 @@ a.grid-row-anchor-customized{
 .alert-overlay-custom{
     
 }
+.alert-title-custom{
+    background-color: #101010 !important;
+    color: white !important;
+}
 .alert-box-custom{
+    border-radius: 4px !important;
+    padding-bottom: 15px;
+}
+.alert-box-custom p{
     border-radius: 4px !important;
     padding-bottom: 15px;
 }
@@ -138,6 +146,22 @@ a.grid-row-anchor-customized{
     border-left: 0px;
     border-right: 0px;
     border-radius: 4px !important;
+    
+    border: 1px solid;
+    border-left: 0px;
+    border-right: 0px;
+    margin-right: 3px;
+    border-radius: 3px;
+    background-color: white;
+    color: #4550a5;
+    border-color: #4550a5;
+}
+.alert-btn-customized:hover,
+.alert-btn-customized:active,
+.alert-btn-customized:focus{
+    background-color: #292b2c !important;
+    color: white !important;
+    border-color: white !important;
 }
 .custom-color-box{
     height: 20px;

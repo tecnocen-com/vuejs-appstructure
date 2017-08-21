@@ -89,7 +89,6 @@ module.exports = new Vue({
                 BUTO.components.main.loader.loading();
             },
             beforeRemove: function(data, success){
-                //console.log(data, success);
                 BUTO.components.main.confirm.description.title = data.title;
                 BUTO.components.main.confirm.description.text = data.text;
                 BUTO.components.main.confirm.description.accept = data.accept;
@@ -117,7 +116,6 @@ module.exports = new Vue({
                 BUTO.components.main.loader.loaded();
             },
             onAdd: function(data, success){
-                //console.log(data, success);
                 if(!success){
                     BUTO.components.main.alert.description.title = data.title;
                     BUTO.components.main.alert.description.text = data.text;
