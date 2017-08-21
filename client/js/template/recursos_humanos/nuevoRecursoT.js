@@ -37,12 +37,21 @@ module.exports = `
         </div>
         <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title">{{config.typeSelection.options[config.typeSelection.type].text}}</h5>
+                <h5 class="panel-title">Selección de archivo</h5>
             </div>
             <div class="panel-body">
                 <p class="content-group">
                     
                 </p>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <div class="uploader">
+                            <input type="file" class="file-styled">
+                            <span class="filename">No has seleccionado ningún archivo</span>
+                            <span class="action btn btn-default import-file">Selecciona un archivo</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <template v-else-if="config.typeSelection.type === 1">
@@ -211,7 +220,7 @@ module.exports = `
                                         <ul role="menu" aria-label="Pagination">
                                             <template v-if="config.manualAdd.sameConf">
                                                 <li>
-                                                    <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
                                                 </li>
                                             </template>
                                             <template v-else>
@@ -219,10 +228,10 @@ module.exports = `
                                                     <a class="btn btn-default" href="#previous" v-on:click.prevent="config.manualAdd.actualStep > 0 ? config.changeStep(config.manualAdd.actualStep - 1) : ''" role="menuitem">Anterior</a>
                                                 </li>
                                                 <li v-if="config.manualAdd.actualStep < config.manualAdd.steps.length - 1">
-                                                    <a class="btn btn-info" href="#next" v-on:click.prevent="config.changeStep(config.manualAdd.actualStep + 1)" role="menuitem">Siguiente</a>
+                                                    <a class="btn btn-info btn-customized" href="#next" v-on:click.prevent="config.changeStep(config.manualAdd.actualStep + 1)" role="menuitem">Siguiente</a>
                                                 </li>
                                                 <li v-else>
-                                                    <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
                                                 </li>
                                             </template>
                                         </ul>

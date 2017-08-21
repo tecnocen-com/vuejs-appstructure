@@ -81,9 +81,9 @@ body{
     border-right: 0px;
     margin-right: 3px;
     border-radius: 3px;
-    background-color: white;
-    color: #4550a5;
-    border-color: #4550a5;
+    background-color: white !important;
+    color: #4550a5 !important;
+    border-color: #4550a5 !important;
 }
 .open .btn-customized,
 .btn-customized:hover,
@@ -264,6 +264,45 @@ a.grid-row-anchor-customized{
 }
 .panel.panel-flat{
     box-shadow: 6px 6px 6px #888888;
+}
+.wizard > .steps > ul > li.current .number{
+    border-color: #4550a5 !important;
+    color: #4550a5 !important;
+}
+.wizard > .steps > ul > li.done .number{
+    background-color: #4550a5 !important;
+    border-color: #4550a5 !important;
+}
+.wizard > .steps > ul > li:before,
+.wizard > .steps > ul > li:after{
+    background-color: #4550a5;
+}
+.bootstrap-select.btn-group.open > .btn-default.dropdown-toggle,
+.form-control:focus,
+.form-control:active{
+    border-bottom-color: #4550a5 !important;
+    -webkit-box-shadow: 0 1px 0 #4550a5 !important;
+    box-shadow: 0 1px 0 #4550a5 !important;
+}
+.bootstrap-select.btn-group .dropdown-menu > .selected > a{
+        background-color: #4550a5;
+}
+.filename{
+    color: #999999 !important;
+    border-right-color: #999999 !important;
+    border-top-color: #999999 !important;
+    border-bottom-color: #999999 !important;
+    border-radius: 5px;
+}
+.import-file{
+    border: 1px solid;
+    border-left: 0px;
+    border-right: 0px;
+    margin-right: 3px;
+    border-radius: 3px;
+    background-color: #4550a5 !important;
+    color: white !important;
+    border-color: white !important;
 }
 /********************************** Transitions ***********************************/
 button.btn-customized,
