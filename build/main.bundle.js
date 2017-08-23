@@ -32737,20 +32737,20 @@ module.exports = `
                                             <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].schedule">
                                                 <div class="col-sm-5">
                                                     <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">{{interval.textBegin}}</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">{{interval.textEnd}}</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                        <label v-on:click.prevent>
-                                                            <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
+                                                        <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
+                                                            <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
                                                                 <small></small>
                                                             </span>
                                                         </label>
@@ -36897,69 +36897,27 @@ module.exports = new Vue({
                 geocoder: null,
                 marker: [
                     {
-                        main_begin: null,
-                        main_end: null,
                         text: "Lu",
                         textU_begin: "I",
-                        textU_end: "F",
-                        lat_begin: null,
-                        lng_begin: null,
-                        lat_end: null,
-                        lng_end: null
+                        textU_end: "F"
                     },
                     {
-                        main_begin: null,
-                        main_end: null,
-                        text: "Ma",
-                        lat_begin: null,
-                        lng_begin: null,
-                        lat_end: null,
-                        lng_end: null
+                        text: "Ma"
                     },
                     {
-                        main_begin: null,
-                        main_end: null,
-                        text: "Mi",
-                        lat_begin: null,
-                        lng_begin: null,
-                        lat_end: null,
-                        lng_end: null
+                        text: "Mi"
                     },
                     {
-                        main_begin: null,
-                        main_end: null,
-                        text: "Ju",
-                        lat_begin: null,
-                        lng_begin: null,
-                        lat_end: null,
-                        lng_end: null
+                        text: "Ju"
                     },
                     {
-                        main_begin: null,
-                        main_end: null,
-                        text: "Vi",
-                        lat_begin: null,
-                        lng_begin: null,
-                        lat_end: null,
-                        lng_end: null
+                        text: "Vi"
                     },
                     {
-                        main_begin: null,
-                        main_end: null,
-                        text: "Sa",
-                        lat_begin: null,
-                        lng_begin: null,
-                        lat_end: null,
-                        lng_end: null
+                        text: "Sa"
                     },
                     {
-                        main_begin: null,
-                        main_end: null,
-                        text: "Do",
-                        lat_begin: null,
-                        lng_begin: null,
-                        lat_end: null,
-                        lng_end: null
+                        text: "Do"
                     }
                 ],
                 data: {
@@ -36984,7 +36942,14 @@ module.exports = new Vue({
                             validEnd: true,
                             textBegin: "hh:mm:ss",
                             textEnd: "hh:mm:ss",
-                            id: null
+                            
+                            main_begin: null,
+                            main_end: null,
+                            lat_begin: null,
+                            lng_begin: null,
+                            lat_end: null,
+                            lng_end: null,
+                            active: true
                         }
                     ],
                     interval: 1,
@@ -37002,7 +36967,14 @@ module.exports = new Vue({
                             validEnd: true,
                             textBegin: "hh:mm:ss",
                             textEnd: "hh:mm:ss",
-                            id: null
+                            
+                            main_begin: null,
+                            main_end: null,
+                            lat_begin: null,
+                            lng_begin: null,
+                            lat_end: null,
+                            lng_end: null,
+                            active: true
                         }
                     ],
                     interval: 1,
@@ -37020,7 +36992,14 @@ module.exports = new Vue({
                             validEnd: true,
                             textBegin: "hh:mm:ss",
                             textEnd: "hh:mm:ss",
-                            id: null
+                            
+                            main_begin: null,
+                            main_end: null,
+                            lat_begin: null,
+                            lng_begin: null,
+                            lat_end: null,
+                            lng_end: null,
+                            active: true
                         }
                     ],
                     interval: 1,
@@ -37038,7 +37017,14 @@ module.exports = new Vue({
                             validEnd: true,
                             textBegin: "hh:mm:ss",
                             textEnd: "hh:mm:ss",
-                            id: null
+                            
+                            main_begin: null,
+                            main_end: null,
+                            lat_begin: null,
+                            lng_begin: null,
+                            lat_end: null,
+                            lng_end: null,
+                            active: true
                         }
                     ],
                     interval: 1,
@@ -37056,7 +37042,14 @@ module.exports = new Vue({
                             validEnd: true,
                             textBegin: "hh:mm:ss",
                             textEnd: "hh:mm:ss",
-                            id: null
+                            
+                            main_begin: null,
+                            main_end: null,
+                            lat_begin: null,
+                            lng_begin: null,
+                            lat_end: null,
+                            lng_end: null,
+                            active: true
                         }
                     ],
                     interval: 1,
@@ -37074,7 +37067,14 @@ module.exports = new Vue({
                             validEnd: true,
                             textBegin: "hh:mm:ss",
                             textEnd: "hh:mm:ss",
-                            id: null
+                            
+                            main_begin: null,
+                            main_end: null,
+                            lat_begin: null,
+                            lng_begin: null,
+                            lat_end: null,
+                            lng_end: null,
+                            active: true
                         }
                     ],
                     interval: 1,
@@ -37092,7 +37092,14 @@ module.exports = new Vue({
                             validEnd: true,
                             textBegin: "hh:mm:ss",
                             textEnd: "hh:mm:ss",
-                            id: null
+                            
+                            main_begin: null,
+                            main_end: null,
+                            lat_begin: null,
+                            lng_begin: null,
+                            lat_end: null,
+                            lng_end: null,
+                            active: true
                         }
                     ],
                     interval: 1,
@@ -37124,25 +37131,14 @@ module.exports = new Vue({
         },
         initMap: function(){
             var me = this;
-            if(this.manualAdd.map.marker[0].main_begin){
-                this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddResource'), {     //Define Map
-                    zoom: this.manualAdd.map.data.zoom,
-                    center: {
-                        lat: this.manualAdd.map.marker[0].lat_begin,
-                        lng: this.manualAdd.map.marker[0].lng_begin
-                    }
-                });
-                this.initConfiguration(true);
-            }
-            else{
-                this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddResource'), {     //Define Map
-                    zoom: this.manualAdd.map.data.zoom
-                });
-                this.initGeocoder();
-            }
+            this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddResource'), {     //Define Map
+                zoom: this.manualAdd.map.data.zoom
+            });
             this.manualAdd.map.main.addListener("click", function(e){       //Define on click listener for map
                 me.positioner(e.latLng);
             });
+            this.initGeocoder();
+            this.initConfiguration(true);
             this.initSearch();
             this.initFocus();
         },
@@ -37195,31 +37191,33 @@ module.exports = new Vue({
             });
         },
         initConfiguration: function(auto){
-            var i;
+            var i, j;
             if(!auto){
                 this.manualAdd.sameConf = !this.manualAdd.sameConf;
                 this.manualAdd.steps[0].active = true;
             }
-            for(i = 0; i < this.manualAdd.map.marker.length; i++){
-                if(this.manualAdd.map.marker[i].main_begin !== null &&
-                   this.manualAdd.map.marker[i].lat_begin !== null &&
-                   this.manualAdd.map.marker[i].lng_begin !== null){    //Is showed in map
-                    if(i === 0){    //Is designed one for all
-                        this.manualAdd.map.marker[i].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_begin" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
-                        this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.map.main);
+            for(i = 0; i < this.manualAdd.steps.length; i++){
+                for(j = 0; j < this.manualAdd.steps[i].schedule; j++){
+                    if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
+                       this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
+                       this.manualAdd.steps[i].schedule[j].lng_begin !== null){    //Is showed in map
+                        if(i === 0){    //Is designed one for all
+                            this.manualAdd.steps[i].schedule[j].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                            this.manualAdd.steps[i].schedule[j].main_begin.setMap(this.manualAdd.map.main);
+                        }
+                        else           //All irrelevants
+                            this.manualAdd.steps[i].schedule[j].main_begin.setMap(this.manualAdd.sameConf ? null : this.manualAdd.map.main);
                     }
-                    else           //All irrelevants
-                        this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.sameConf ? null : this.manualAdd.map.main);
-                }
-                if(this.manualAdd.map.marker[i].main_end !== null &&
-                   this.manualAdd.map.marker[i].lat_end !== null &&
-                   this.manualAdd.map.marker[i].lng_end !== null){    //Is showed in map
-                    if(i === 0){    //Is designed one for all
-                        this.manualAdd.map.marker[i].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_end" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
-                        this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.map.main);
+                    if(this.manualAdd.steps[i].schedule[j].main_end !== null &&
+                       this.manualAdd.steps[i].schedule[j].lat_end !== null &&
+                       this.manualAdd.steps[i].schedule[j].lng_end !== null){    //Is showed in map
+                        if(i === 0){    //Is designed one for all
+                            this.manualAdd.steps[i].schedule[j].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                            this.manualAdd.steps[i].schedule[j].main_end.setMap(this.manualAdd.map.main);
+                        }
+                        else           //All irrelevants
+                            this.manualAdd.steps[i].schedule[j].main_end.setMap(this.manualAdd.sameConf ? null : this.manualAdd.map.main);
                     }
-                    else           //All irrelevants
-                        this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.sameConf ? null : this.manualAdd.map.main);
                 }
             }
             
@@ -37227,64 +37225,70 @@ module.exports = new Vue({
                 this.setVisibilityPosition(true); //AUTO
         },
         setVisibilityPosition: function(auto){
-            var i;
+            var i, j;
             if(!auto)
                 this.manualAdd.allPosVisible = !this.manualAdd.allPosVisible;
             for(i = 0; i < this.manualAdd.map.marker.length; i++){
-                if(this.manualAdd.map.marker[i].main_begin !== null &&
-                   this.manualAdd.map.marker[i].lat_begin !== null &&
-                   this.manualAdd.map.marker[i].lng_begin !== null)
-                    this.manualAdd.map.marker[i].main_begin.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
-                if(this.manualAdd.map.marker[i].main_end !== null &&
-                   this.manualAdd.map.marker[i].lat_end !== null &&
-                   this.manualAdd.map.marker[i].lng_end !== null)    //Is showed in map
-                    this.manualAdd.map.marker[i].main_end.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
+                for(j = 0; j < this.manualAdd.steps[i].schedule; j++){
+                    if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
+                       this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
+                       this.manualAdd.steps[i].schedule[j].lng_begin !== null)
+                        this.manualAdd.steps[i].schedule[j].main_begin.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
+                    if(this.manualAdd.steps[i].schedule[j].main_end !== null &&
+                       this.manualAdd.steps[i].schedule[j].lat_end !== null &&
+                       this.manualAdd.steps[i].schedule[j].lng_end !== null)    //Is showed in map
+                        this.manualAdd.steps[i].schedule[j].main_end.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
+                }
             }
         },
         focusPosition: function(){
-            var i,
+            var i, j,
                 counter = 0,
                 totalLat = 0,
                 totalLng = 0,
                 bounds = new google.maps.LatLngBounds();
             if(this.manualAdd.sameConf || !this.manualAdd.allPosVisible){
                 i = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
-                if(this.manualAdd.map.marker[i].main_begin !== null &&
-                    this.manualAdd.map.marker[i].lat_begin !== null &&
-                    this.manualAdd.map.marker[i].lng_begin !== null){
-                     counter++;
-                     totalLat += this.manualAdd.map.marker[i].lat_begin;
-                     totalLng += this.manualAdd.map.marker[i].lng_begin;
-                     bounds.extend(this.manualAdd.map.marker[i].main_begin.getPosition());
-                     
-                    }
-                 if(this.manualAdd.map.marker[i].main_end !== null &&
-                    this.manualAdd.map.marker[i].lat_end !== null &&
-                    this.manualAdd.map.marker[i].lng_end !== null){    //Is showed in map
-                     counter++;
-                     totalLat += this.manualAdd.map.marker[i].lat_end;
-                     totalLng += this.manualAdd.map.marker[i].lng_end;
-                     bounds.extend(this.manualAdd.map.marker[i].main_end.getPosition());
-                 }
+                for(j = 0; j < this.manualAdd.steps[i].schedule; j++){
+                    if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
+                        this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
+                        this.manualAdd.steps[i].schedule[j].lng_begin !== null){
+                         counter++;
+                         totalLat += this.manualAdd.steps[i].schedule[j].lat_begin;
+                         totalLng += this.manualAdd.steps[i].schedule[j].lng_begin;
+                         bounds.extend(this.manualAdd.steps[i].schedule[j].main_begin.getPosition());
+                         
+                        }
+                     if(this.manualAdd.steps[i].schedule[j].main_end !== null &&
+                        this.manualAdd.steps[i].schedule[j].lat_end !== null &&
+                        this.manualAdd.steps[i].schedule[j].lng_end !== null){    //Is showed in map
+                         counter++;
+                         totalLat += this.manualAdd.steps[i].schedule[j].lat_end;
+                         totalLng += this.manualAdd.steps[i].schedule[j].lng_end;
+                         bounds.extend(this.manualAdd.steps[i].schedule[j].main_end.getPosition());
+                     }
+                }
             }
             else
                 for(i = 0; i < this.manualAdd.map.marker.length; i++){
-                    if(this.manualAdd.map.marker[i].main_begin !== null &&
-                       this.manualAdd.map.marker[i].lat_begin !== null &&
-                       this.manualAdd.map.marker[i].lng_begin !== null){
-                        counter++;
-                        totalLat += this.manualAdd.map.marker[i].lat_begin;
-                        totalLng += this.manualAdd.map.marker[i].lng_begin;
-                        bounds.extend(this.manualAdd.map.marker[i].main_begin.getPosition());
-                        
-                       }
-                    if(this.manualAdd.map.marker[i].main_end !== null &&
-                       this.manualAdd.map.marker[i].lat_end !== null &&
-                       this.manualAdd.map.marker[i].lng_end !== null){    //Is showed in map
-                        counter++;
-                        totalLat += this.manualAdd.map.marker[i].lat_end;
-                        totalLng += this.manualAdd.map.marker[i].lng_end;
-                        bounds.extend(this.manualAdd.map.marker[i].main_end.getPosition());
+                    for(j = 0; j < this.manualAdd.steps[i].schedule; j++){
+                        if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
+                           this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
+                           this.manualAdd.steps[i].schedule[j].lng_begin !== null){
+                            counter++;
+                            totalLat += this.manualAdd.steps[i].schedule[j].lat_begin;
+                            totalLng += this.manualAdd.steps[i].schedule[j].lng_begin;
+                            bounds.extend(this.manualAdd.steps[i].schedule[j].main_begin.getPosition());
+                            
+                           }
+                        if(this.manualAdd.steps[i].schedule[j].main_end !== null &&
+                           this.manualAdd.steps[i].schedule[j].lat_end !== null &&
+                           this.manualAdd.steps[i].schedule[j].lng_end !== null){    //Is showed in map
+                            counter++;
+                            totalLat += this.manualAdd.steps[i].schedule[j].lat_end;
+                            totalLng += this.manualAdd.steps[i].schedule[j].lng_end;
+                            bounds.extend(this.manualAdd.steps[i].schedule[j].main_end.getPosition());
+                        }
                     }
                 }
             if(counter > 0){
@@ -37298,65 +37302,70 @@ module.exports = new Vue({
                     this.manualAdd.map.main.setZoom(this.manualAdd.map.data.zoom);
             }
         },
-        positioner: function(pos){
-            if(this.manualAdd.steps[this.manualAdd.actualStep].active){
-                if(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin === null){
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin = new google.maps.Marker({
-                            map: this.manualAdd.map.main,
-                            position: pos,
-                            icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"
-                        });
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_begin = pos.lat();
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_begin = pos.lng();
-                    this.deleter("begin", this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep);
-                }
-                else if(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin &&
-                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_begin === null &&
-                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_begin === null){
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin.setMap(this.manualAdd.map.main);
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin.setPosition(pos);
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_begin = pos.lat();
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_begin = pos.lng();
-                }
-                else if(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_begin &&
-                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end === null){
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end = new google.maps.Marker({
-                            map: this.manualAdd.map.main,
-                            position: pos,
-                            icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"
-                        });
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end.addListener("dblclick", function(){
-                        
-                    });
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_end = pos.lat();
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_end = pos.lng();
-                    this.deleter("end", this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep);
-                }
-                else if(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end &&
-                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_end === null &&
-                        this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_end === null){
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end.setMap(this.manualAdd.map.main);
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end.setPosition(pos);
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lat_end = pos.lat();
-                    this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].lng_end = pos.lng();
-                }
-            }
+        setActiveInterval: function(i){
+            for(var j = 0; j < this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length; j++)
+                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].active = j === i;
         },
-        deleter: function(type, i){
+        positioner: function(pos){
+            for(var j = 0; j < this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length; j++)
+                if(this.manualAdd.steps[this.manualAdd.actualStep].active && this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].active){
+                    if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin === null){
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin = new google.maps.Marker({
+                                map: this.manualAdd.map.main,
+                                position: pos,
+                                icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"
+                            });
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_begin = pos.lat();
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_begin = pos.lng();
+                        this.deleter("begin", this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep, j);
+                    }
+                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin &&
+                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_begin === null &&
+                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_begin === null){
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setMap(this.manualAdd.map.main);
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setPosition(pos);
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_begin = pos.lat();
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_begin = pos.lng();
+                    }
+                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin &&
+                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end === null){
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end = new google.maps.Marker({
+                                map: this.manualAdd.map.main,
+                                position: pos,
+                                icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"
+                            });
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.addListener("dblclick", function(){
+                            
+                        });
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_end = pos.lat();
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_end = pos.lng();
+                        this.deleter("end", this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep, j);
+                    }
+                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end &&
+                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_end === null &&
+                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_end === null){
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setMap(this.manualAdd.map.main);
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setPosition(pos);
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_end = pos.lat();
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_end = pos.lng();
+                    }
+                }
+        },
+        deleter: function(type, i, j){
             var me = this;
             if(type === "begin")
-                this.manualAdd.map.marker[i].main_begin.addListener("dblclick", function(){
-                    me.manualAdd.map.marker[i].main_begin.setMap(null);
-                    me.manualAdd.map.marker[i].lat_begin = null;
-                    me.manualAdd.map.marker[i].lng_begin = null;
+                this.manualAdd.steps[i].schedule[j].main_begin.addListener("dblclick", function(){
+                    me.manualAdd.steps[i].schedule[j].main_begin.setMap(null);
+                    me.manualAdd.steps[i].schedule[j].lat_begin = null;
+                    me.manualAdd.steps[i].schedule[j].lng_begin = null;
                 });
             else if(type === "end")
-                this.manualAdd.map.marker[i].main_end.addListener("dblclick", function(){
-                    me.manualAdd.map.marker[i].main_end.setMap(null);
-                    me.manualAdd.map.marker[i].lat_end = null;
-                    me.manualAdd.map.marker[i].lng_end = null;
+                this.manualAdd.steps[i].schedule[j].main_end.addListener("dblclick", function(){
+                    me.manualAdd.steps[i].schedule[j].main_end.setMap(null);
+                    me.manualAdd.steps[i].schedule[j].lat_end = null;
+                    me.manualAdd.steps[i].schedule[j].lng_end = null;
                 });
         },
         changeStep: function(e){
@@ -37380,7 +37389,14 @@ module.exports = new Vue({
                         validEnd: true,
                         textBegin: "hh:mm:ss",
                         textEnd: "hh:mm:ss",
-                        id: null
+                        
+                        main_begin: null,
+                        main_end: null,
+                        lat_begin: null,
+                        lng_begin: null,
+                        lat_end: null,
+                        lng_end: null,
+                        active: false
                     });
             }
             else if(length > interval){
@@ -37388,18 +37404,22 @@ module.exports = new Vue({
                     newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
                 this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
             }
+            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length > 0)
+                this.setActiveInterval(0);
         },
         setActivity: function(){
             this.manualAdd.steps[this.manualAdd.actualStep].active = !this.manualAdd.steps[this.manualAdd.actualStep].active;
             if(!this.manualAdd.steps[this.manualAdd.actualStep].active){
-                if(this.manualAdd.map.marker[this.manualAdd.actualStep].main_begin !== null &&
-                   this.manualAdd.map.marker[this.manualAdd.actualStep].lat_begin !== null &&
-                   this.manualAdd.map.marker[this.manualAdd.actualStep].lng_begin !== null)
-                    this.manualAdd.map.marker[this.manualAdd.actualStep].main_begin.setMap(null);
-                if(this.manualAdd.map.marker[this.manualAdd.actualStep].main_end !== null &&
-                   this.manualAdd.map.marker[this.manualAdd.actualStep].lat_end !== null &&
-                   this.manualAdd.map.marker[this.manualAdd.actualStep].lng_end !== null)    //Is showed in map
-                    this.manualAdd.map.marker[this.manualAdd.actualStep].main_end.setMap(null);
+                for(var j = 0; j < this.manualAdd.steps[this.manualAdd.actualStep].schedule; j++){
+                    if(this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].main_begin !== null &&
+                       this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].lat_begin !== null &&
+                       this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].lng_begin !== null)
+                        this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].main_begin.setMap(null);
+                    if(this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].main_end !== null &&
+                       this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].lat_end !== null &&
+                       this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].lng_end !== null)    //Is showed in map
+                        this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].main_end.setMap(null);
+                }
             }
             else 
                 this.setVisibilityPosition(true); //AUTO
@@ -37789,7 +37809,14 @@ module.exports = new Vue({
                                 validEnd: true,
                                 textBegin: "hh:mm:ss",
                                 textEnd: "hh:mm:ss",
-                                id: null
+                        
+                                main_begin: null,
+                                main_end: null,
+                                lat_begin: null,
+                                lng_begin: null,
+                                lat_end: null,
+                                lng_end: null,
+                                active: true
                             });
                         }
                     }
@@ -37832,7 +37859,14 @@ module.exports = new Vue({
                             validEnd: true,
                             textBegin: "hh:mm:ss",
                             textEnd: "hh:mm:ss",
-                            id: null
+                        
+                            main_begin: null,
+                            main_end: null,
+                            lat_begin: null,
+                            lng_begin: null,
+                            lat_end: null,
+                            lng_end: null,
+                            active: true
                         });
                     }
                     break;

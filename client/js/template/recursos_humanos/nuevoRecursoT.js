@@ -212,20 +212,20 @@ module.exports = `
                                             <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].schedule">
                                                 <div class="col-sm-5">
                                                     <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">{{interval.textBegin}}</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                         <span class="help-block">{{interval.textEnd}}</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                        <label v-on:click.prevent>
-                                                            <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
+                                                        <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
+                                                            <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
                                                                 <small></small>
                                                             </span>
                                                         </label>
