@@ -395,7 +395,7 @@ module.exports = new Vue({
             }
         },
         focusPosition: function(){
-            var i, j,
+            var i, j,//
                 counter = 0,
                 totalLat = 0,
                 totalLng = 0,
