@@ -1,12 +1,13 @@
 module.exports = new Vue({
     data: {
+        test: 0,
         models: {
             usuarioEmpleado: null,
             empleado: null,
             empleadoHorario: null
         },
         typeSelection: {
-            type: null,
+            type: 1,    //null
             options: [
                 {
                     value: 0,
@@ -21,23 +22,28 @@ module.exports = new Vue({
         manualAdd: {
             name: {
                 value: null,
-                valid: true
+                valid: true,
+                text: ""
             },
             email: {
                 value: null,
-                valid: true
+                valid: true,
+                text: ""
             },
             pass: {
                 value: null,
-                valid: true
+                valid: true,
+                text: ""
             },
             repass: {
                 value: null,
-                valid: true
+                valid: true,
+                text: ""
             },
             date: {
                 value: null,
-                valid: true
+                valid: true,
+                text: ""
             },
             map: {
                 main: null,
@@ -129,6 +135,8 @@ module.exports = new Vue({
                             end: "",
                             validBegin: true,
                             validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
                             id: null
                         }
                     ],
@@ -145,6 +153,8 @@ module.exports = new Vue({
                             end: "",
                             validBegin: true,
                             validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
                             id: null
                         }
                     ],
@@ -161,6 +171,8 @@ module.exports = new Vue({
                             end: "",
                             validBegin: true,
                             validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
                             id: null
                         }
                     ],
@@ -177,6 +189,8 @@ module.exports = new Vue({
                             end: "",
                             validBegin: true,
                             validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
                             id: null
                         }
                     ],
@@ -193,6 +207,8 @@ module.exports = new Vue({
                             end: "",
                             validBegin: true,
                             validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
                             id: null
                         }
                     ],
@@ -209,6 +225,8 @@ module.exports = new Vue({
                             end: "",
                             validBegin: true,
                             validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
                             id: null
                         }
                     ],
@@ -225,6 +243,8 @@ module.exports = new Vue({
                             end: "",
                             validBegin: true,
                             validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
                             id: null
                         }
                     ],
@@ -242,7 +262,7 @@ module.exports = new Vue({
                 this.models.empleado = e.empleado;
                 this.models.empleadoHorario = e.empleadoHorario;
             }
-            if(this.typeSelection.type === 1)
+            else if(this.typeSelection.type === 1)
                 Vue.nextTick(function(){
                     me.initMap();
                 });
@@ -511,6 +531,8 @@ module.exports = new Vue({
                         end: "",
                         validBegin: true,
                         validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
                         id: null
                     });
             }
@@ -538,50 +560,85 @@ module.exports = new Vue({
         validation: function(type, i){
             switch(type){
                 case "name":
+                    this.manualAdd.name.valid = false;
                     if(this.manualAdd.name.value === null ||
-                       this.manualAdd.name.value === "" ||
-                       this.manualAdd.name.value.length < 8)
-                        this.manualAdd.name.valid = false;
-                    else
+                       this.manualAdd.name.value === "")
+                        this.manualAdd.name.text = "Nombre no puede estar vacío";
+                    else if(this.manualAdd.name.value.length < 8)
+                        this.manualAdd.name.text = "Nombre debe contener al menos 8 caracteres";
+                    else{
+                        this.manualAdd.name.text = "";
                         this.manualAdd.name.valid = true;
+                    }
                     break;
                 case "email":
                     var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    this.manualAdd.email.valid = false;
                     if(this.manualAdd.email.value === null ||
-                       this.manualAdd.email.value === "" ||
-                       !emailTest.test(this.manualAdd.email.value))
-                        this.manualAdd.email.valid = false;
-                    else
+                       this.manualAdd.email.value === "")
+                        this.manualAdd.email.text = "Correo electrónico no puede estar vacío";
+                    else if(!emailTest.test(this.manualAdd.email.value))
+                        this.manualAdd.email.text = "Correo electrónico no tiene una forma válida";
+                    else{
+                        this.manualAdd.email.text = "";
                         this.manualAdd.email.valid = true;
+                    }
                     break;
                 case "pass":
+                    this.manualAdd.pass.valid = false;
                     if(this.manualAdd.pass.value === null ||
-                       this.manualAdd.pass.value === "" ||
-                       this.manualAdd.pass.value.length < 8)
-                        this.manualAdd.pass.valid = false;
-                    else
+                       this.manualAdd.pass.value === "")
+                        this.manualAdd.pass.text = "Contraseña no puede estar vacío";
+                    else if(this.manualAdd.pass.value.length < 8)
+                        this.manualAdd.pass.text = "Contraseña debe contener al menos 8 caracteres";
+                    else{
+                        this.manualAdd.pass.text = "";
                         this.manualAdd.pass.valid = true;
+                    }
                     break;
                 case "repass":
+                    this.manualAdd.repass.valid = false;
                     if(this.manualAdd.repass.value === null ||
-                       this.manualAdd.repass.value === "" ||
-                       this.manualAdd.repass.value !== this.manualAdd.pass.value)
-                        this.manualAdd.repass.valid = false;
-                    else
+                       this.manualAdd.repass.value === "")
+                        this.manualAdd.repass.text = "Confirmar contraseña no puede estar vacío";
+                    else if(this.manualAdd.repass.value !== this.manualAdd.pass.value)
+                        this.manualAdd.repass.text = "Las contraseñas no coinciden";
+                    else{
+                        this.manualAdd.repass.text = "";
                         this.manualAdd.repass.valid = true;
+                    }
                     break;
                 case "date":
+                    this.manualAdd.date.valid = false;
                     if(this.manualAdd.date.value === null ||
                        this.manualAdd.date.value === "")
-                        this.manualAdd.date.valid = false;
-                    else
+                        this.manualAdd.date.text = "Fecha de ingreso no puede estar vacío";
+                    else{
+                        this.manualAdd.date.text = "";
                         this.manualAdd.date.valid = true;
+                    }
                     break;
                 case "time-begin":
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validBegin = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin !== "" && this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin.length === 8;
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validBegin = false;
+                    if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin === "")
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textBegin = "El inicio del intervalo no puede estar vacío";
+                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin.length !== 8)
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                    else{
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textBegin = "hh:mm:ss";
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validBegin = true;
+                    }
                     break;
                 case "time-end":
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validEnd = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end !== "" && this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end.length === 8;
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validEnd = false;
+                    if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end === "")
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textEnd = "El final del intervalo no puede estar vacío";
+                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end.length !== 8)
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textEnd = "El final del intervalo no tiene un formato apropiado";
+                    else{
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textEnd = "hh:mm:ss";
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validEnd = true;
+                    }
                     break;
             }
         },
@@ -600,6 +657,7 @@ module.exports = new Vue({
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
                         this.manualAdd.name.valid = false;
+                        this.manualAdd.name.text = "Nombre no puede estar vacío";
                         valid = false;
                     }
                     else if(valid && this.manualAdd.name.value.length < 8){
@@ -608,6 +666,7 @@ module.exports = new Vue({
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
                         this.manualAdd.name.valid = false;
+                        this.manualAdd.name.text = "Nombre debe contener al menos 8 caracteres";
                         valid = false;
                     }
                     if(valid && (this.manualAdd.email.value === null || this.manualAdd.email.value === "")){     //No name
@@ -616,6 +675,7 @@ module.exports = new Vue({
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
                         this.manualAdd.email.valid = false;
+                        this.manualAdd.email.text = "Correo electrónico no puede estar vacío";
                         valid = false;
                     }
                     else{
@@ -626,6 +686,7 @@ module.exports = new Vue({
                             BUTO.components.main.alert.description.ok = "Aceptar";
                             BUTO.components.main.alert.active = true;
                             this.manualAdd.email.valid = false;
+                            this.manualAdd.email.text = "Correo electrónico no tiene una forma válida";
                             valid = false;
                         }
                     }
@@ -635,6 +696,7 @@ module.exports = new Vue({
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
                         this.manualAdd.pass.valid = false;
+                        this.manualAdd.pass.text = "Contraseña no puede estar vacío";
                         valid = false;
                     }
                     else{
@@ -644,6 +706,7 @@ module.exports = new Vue({
                             BUTO.components.main.alert.description.ok = "Aceptar";
                             BUTO.components.main.alert.active = true;
                             this.manualAdd.pass.valid = false;
+                            this.manualAdd.pass.text = "Contraseña debe contener al menos 8 caracteres";
                             valid = false;
                         }
                     }
@@ -653,6 +716,7 @@ module.exports = new Vue({
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
                         this.manualAdd.repass.valid = false;
+                        this.manualAdd.repass.text = "Confirmar contraseña no puede estar vacío";
                         valid = false;
                     }
                     else{
@@ -662,6 +726,7 @@ module.exports = new Vue({
                             BUTO.components.main.alert.description.ok = "Aceptar";
                             BUTO.components.main.alert.active = true;
                             this.manualAdd.repass.valid = false;
+                            this.manualAdd.repass.text = "Las contraseñas no coinciden";
                             valid = false;
                         }
                     }
@@ -671,220 +736,142 @@ module.exports = new Vue({
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
                         this.manualAdd.date.valid = false;
+                        this.manualAdd.date.text = "Fecha de ingreso no puede estar vacío";
                         valid = false;
                     }
-                    else {
+                    else if(valid){
+                        for(i = 0; i < (this.manualAdd.sameConf ? 1 : this.manualAdd.map.marker.length); i++){
+                            if(this.manualAdd.steps[i].active &&
+                               (this.manualAdd.map.marker[i].main_begin === null ||                  //No position
+                               this.manualAdd.map.marker[i].lat_begin === null ||
+                               this.manualAdd.map.marker[i].lng_begin === null ||
+                               this.manualAdd.map.marker[i].main_end === null ||                  //No position
+                               this.manualAdd.map.marker[i].lat_end === null ||
+                               this.manualAdd.map.marker[i].lng_end === null)){
+                                error += (k <= limit) ? "Debes escoger las ubicaciones de inicio y final" + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[i].text) + ".<br>": "";
+                                valid = false; k++;
+                            }
+                        }
                         if(valid){
-                            if(this.manualAdd.sameConf){
-                                i = 0;
-                                if(this.manualAdd.map.marker[i].main_begin === null ||                  //No position
-                                   this.manualAdd.map.marker[i].lat_begin === null ||
-                                   this.manualAdd.map.marker[i].lng_begin === null ||
-                                   this.manualAdd.map.marker[i].main_end === null ||                  //No position
-                                   this.manualAdd.map.marker[i].lat_end === null ||
-                                   this.manualAdd.map.marker[i].lng_end === null){
-                                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                    BUTO.components.main.alert.description.text = "Debes escoger las ubicaciones de inicio y final.";
-                                    BUTO.components.main.alert.description.ok = "Aceptar";
-                                    BUTO.components.main.alert.active = true;
-                                    valid = false;
-                                }
-                                if(valid){
+                            error = "";
+                            k = 0;
+                            for(i = 0; i < (this.manualAdd.sameConf ? 1 : this.manualAdd.steps.length); i++)
+                                if(this.manualAdd.steps[i].active)
                                     for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
                                         hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
                                         hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
                                         this.manualAdd.steps[i].schedule[j].validBegin = true;
                                         this.manualAdd.steps[i].schedule[j].validEnd = true;
+                                        this.manualAdd.steps[i].schedule[j].textBegin = "hh:mm:ss";
+                                        this.manualAdd.steps[i].schedule[j].textEnd = "hh:mm:ss";
                                         if(this.manualAdd.steps[i].schedule[j].begin === ""){
-                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
+                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " en el día " + this.manualAdd.steps[i].text) + " no puede estar vacío.<br>" : "";
                                             this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            this.manualAdd.steps[i].schedule[j].textBegin = "El inicio del intervalo no puede estar vacío";
                                             valid = false; k++;
                                         }
                                         if(this.manualAdd.steps[i].schedule[j].end === ""){
-                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no puede estar vacío.<br>" : "";
+                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? " " : " en el día " + this.manualAdd.steps[i].text) + " no puede estar vacío.<br>" : "";
                                             this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                            this.manualAdd.steps[i].schedule[j].textEnd = "El final del intervalo no puede estar vacío";
                                             valid = false; k++;
                                         }
                                         if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
                                            (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
                                             hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
-                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
+                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " en el día " + this.manualAdd.steps[i].text) + " no tiene un formato apropiado.<br>" : "";
                                             this.manualAdd.steps[i].schedule[j].validBegin = false;
+                                            this.manualAdd.steps[i].schedule[j].textBegin = "El inicio del intervalo no tiene un formato apropiado";
                                             valid = false; k++;
                                         }
                                         if(this.manualAdd.steps[i].schedule[j].end !== "" &&
                                            (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
                                             hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
-                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " no tiene un formato apropiado.<br>" : "";
+                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " en el día " + this.manualAdd.steps[i].text) + " no tiene un formato apropiado.<br>" : "";
                                             this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                            this.manualAdd.steps[i].schedule[j].textEnd = "El final del intervalo no tiene un formato apropiado";
                                             valid = false; k++;
                                         }
                                         if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
                                            this.manualAdd.steps[i].schedule[j].end !== "" &&
                                            this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
-                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo.<br>" : "";
+                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo" + (this.manualAdd.sameConf ? "" : " en el día " + this.manualAdd.steps[i].text) + ".<br>" : "";
                                             this.manualAdd.steps[i].schedule[j].validBegin = false;
                                             this.manualAdd.steps[i].schedule[j].validEnd = false;
+                                            this.manualAdd.steps[i].schedule[j].textBegin = "El inicio del intervalo debe ser menor al final del mismo";
+                                            this.manualAdd.steps[i].schedule[j].textEnd = "El final del intervalo debe ser mayor al inicio del mismo";
                                             valid = false; k++;
                                         }
                                         if(j > 0 &&
                                            this.manualAdd.steps[i].schedule[j].begin !== "" &&
                                            this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
                                            this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
-                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + ".<br>": "";
+                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + (this.manualAdd.sameConf ? "" : " en el día " + this.manualAdd.steps[i].text) + ".<br>": "";
                                             this.manualAdd.steps[i].schedule[j].validBegin = false;
                                             this.manualAdd.steps[i].schedule[j - 1].validEnd = false;
+                                            this.manualAdd.steps[i].schedule[j].textBegin = "El inicio del intervalo debe ser mayor al final del intervalo anterior";
+                                            this.manualAdd.steps[i].schedule[j - 1].textEnd = "El final del intervalo debe ser menor al inicio del intervalo posterior";
                                             valid = false; k++;
                                         }
                                     }
-                                    if(valid){
-                                        this.models.usuarioEmpleado.post({
-                                            params: {
-                                                nombre: this.manualAdd.name.value,
-                                                correo: this.manualAdd.email.value,
-                                                pass: this.manualAdd.pass.value,
-                                                pass_repeat: this.manualAdd.repass.value,
-                                                fecha_ingreso: this.manualAdd.date.value
-                                            }
-                                        },
-                                        function(success){
-                                            for(i = 0; i < me.manualAdd.steps.length; i++)
-                                                for(j = 0; j < me.manualAdd.steps[0].schedule.length; j++){
-                                                    me.submitSchedule(i, j, success.body.id, first);
-                                                    first = false;
-                                                }
-                                            BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
-                                            BUTO.components.main.alert.description.title = "Registro de Recurso Humano";
-                                            BUTO.components.main.alert.description.text = "Se ha registrado correctamente el recurso humano '" + success.body.nombre + "'";
-                                            BUTO.components.main.alert.description.ok = "Aceptar";
-                                            BUTO.components.main.alert.active = true;
-                                        },
-                                        function(error){
-                                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                            BUTO.components.main.alert.description.text = error.body[0].message;
-                                            BUTO.components.main.alert.description.ok = "Aceptar";
-                                            BUTO.components.main.alert.active = true;
-                                        });
-                                    }
-                                    else{
-                                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                        BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
-                                        BUTO.components.main.alert.description.ok = "Aceptar";
-                                        BUTO.components.main.alert.active = true;
-                                    }
+                        }
+                        else{
+                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                            BUTO.components.main.alert.description.text = error;
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                        }
+                        if(valid){
+                            this.models.usuarioEmpleado.post({
+                                params: {
+                                    nombre: this.manualAdd.name.value,
+                                    correo: this.manualAdd.email.value,
+                                    pass: this.manualAdd.pass.value,
+                                    pass_repeat: this.manualAdd.repass.value,
+                                    fecha_ingreso: this.manualAdd.date.value
                                 }
-                            }
-                            else{
-                                for(i = 0; i < this.manualAdd.map.marker.length; i++){
-                                    if(this.manualAdd.steps[i].active &&
-                                       (this.manualAdd.map.marker[i].main_begin === null ||                  //No position
-                                       this.manualAdd.map.marker[i].lat_begin === null ||
-                                       this.manualAdd.map.marker[i].lng_begin === null ||
-                                       this.manualAdd.map.marker[i].main_end === null ||                  //No position
-                                       this.manualAdd.map.marker[i].lat_end === null ||
-                                       this.manualAdd.map.marker[i].lng_end === null)){
-                                        error += (k <= limit) ? "Debes escoger las ubicaciones de inicio y final para el día " + this.manualAdd.steps[i].text + ".<br>": "";
-                                        valid = false; k++;
-                                    }
-                                }
-                                if(valid){
-                                    error = "";
-                                    k = 0;
-                                    for(i = 0; i < this.manualAdd.steps.length; i++)
-                                        if(this.manualAdd.steps[i].active)
-                                            for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
-                                                hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
-                                                hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
-                                                this.manualAdd.steps[i].schedule[j].validBegin = true;
-                                                this.manualAdd.steps[i].schedule[j].validEnd = true;
-                                                if(this.manualAdd.steps[i].schedule[j].begin === ""){
-                                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
-                                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
-                                                    valid = false; k++;
-                                                }
-                                                if(this.manualAdd.steps[i].schedule[j].end === ""){
-                                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no puede estar vacío.<br>" : "";
-                                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
-                                                    valid = false; k++;
-                                                }
-                                                if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                                   (this.manualAdd.steps[i].schedule[j].begin > "23:59:59" ||
-                                                    hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
-                                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
-                                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
-                                                    valid = false; k++;
-                                                }
-                                                if(this.manualAdd.steps[i].schedule[j].end !== "" &&
-                                                   (this.manualAdd.steps[i].schedule[j].end > "23:59:59" ||
-                                                    hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
-                                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.manualAdd.steps[i].text + " no tiene un formato apropiado.<br>" : "";
-                                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
-                                                    valid = false; k++;
-                                                }
-                                                if(this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                                   this.manualAdd.steps[i].schedule[j].end !== "" &&
-                                                   this.manualAdd.steps[i].schedule[j].begin >= this.manualAdd.steps[i].schedule[j].end){
-                                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo en el día " + this.manualAdd.steps[i].text + ".<br>" : "";
-                                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
-                                                    this.manualAdd.steps[i].schedule[j].validEnd = false;
-                                                    valid = false; k++;
-                                                }
-                                                if(j > 0 &&
-                                                   this.manualAdd.steps[i].schedule[j].begin !== "" &&
-                                                   this.manualAdd.steps[i].schedule[j - 1].end !== "" &&
-                                                   this.manualAdd.steps[i].schedule[j].begin <= this.manualAdd.steps[i].schedule[j - 1].end){
-                                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.manualAdd.steps[i].text + ".<br>": "";
-                                                    this.manualAdd.steps[i].schedule[j].validBegin = false;
-                                                    this.manualAdd.steps[i].schedule[j - 1].validEnd = false;
-                                                    valid = false; k++;
-                                                }
-                                            }
-                                }
-                                else{
-                                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                    BUTO.components.main.alert.description.text = error;
-                                    BUTO.components.main.alert.description.ok = "Aceptar";
-                                    BUTO.components.main.alert.active = true;
-                                }
-                                if(valid){
-                                    this.models.usuarioEmpleado.post({
-                                        params: {
-                                            nombre: this.manualAdd.name.value,
-                                            correo: this.manualAdd.email.value,
-                                            pass: this.manualAdd.pass.value,
-                                            pass_repeat: this.manualAdd.repass.value,
-                                            fecha_ingreso: this.manualAdd.date.value
+                            },function(success){
+                                for(i = 0; i < me.manualAdd.steps.length; i++)
+                                    if(me.manualAdd.steps[i].active || me.manualAdd.sameConf){
+                                        for(j = 0; j < me.manualAdd.steps[me.manualAdd.sameConf ? 0 : i].schedule.length; j++){
+                                            me.submitSchedule(i, j, success.body.id, first);
+                                            first = false;
                                         }
-                                    },function(success){
-                                        for(i = 0; i < me.manualAdd.steps.length; i++)
-                                            if(me.manualAdd.steps[i].active){
-                                                for(j = 0; j < me.manualAdd.steps[i].schedule.length; j++){
-                                                    me.submitSchedule(i, j, success.body.id, first);
-                                                    first = false;
-                                                }
-                                            }
-                                            else
-                                                me.reset("schedule", i, null);
-                                        BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
-                                        BUTO.components.main.alert.description.title = "Registro de Recurso Humano";
-                                        BUTO.components.main.alert.description.text = "Se ha registrado correctamente el recurso humano '" + success.body.nombre + "'";
-                                        BUTO.components.main.alert.description.ok = "Aceptar";
-                                        BUTO.components.main.alert.active = true;
-                                    },
-                                    function(error){
-                                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                        BUTO.components.main.alert.description.text = error.body[0].message;
-                                        BUTO.components.main.alert.description.ok = "Aceptar";
-                                        BUTO.components.main.alert.active = true;
-                                    });
-                                }
-                                else{
-                                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                                    BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
-                                    BUTO.components.main.alert.description.ok = "Aceptar";
-                                    BUTO.components.main.alert.active = true;
-                                }
-                            }
+                                    }
+                                    else
+                                        me.reset("schedule", i, null);
+                                BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
+                                BUTO.components.main.alert.description.title = "Registro de Recurso Humano";
+                                BUTO.components.main.alert.description.text = "Se ha registrado correctamente el recurso humano '" + success.body.nombre + "'";
+                                BUTO.components.main.alert.description.ok = "Aceptar";
+                                BUTO.components.main.alert.active = true;
+                            },
+                            function(error){
+                                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                BUTO.components.main.alert.description.text = "";
+                                if(error.body.length > 0)
+                                    for(var k = 0; k < error.body.length; k++){
+                                        BUTO.components.main.alert.description.text += error.body[k].message + "<br>";
+                                        switch(error.body[k].field){
+                                            case "nombre":
+                                                me.manualAdd.name.valid = false;
+                                                me.manualAdd.name.text = error.body[k].message;
+                                                break;
+                                            case "correo":
+                                                me.manualAdd.email.valid = false;
+                                                me.manualAdd.email.text = error.body[k].message;
+                                                break;
+                                        }
+                                    }
+                                BUTO.components.main.alert.description.ok = "Aceptar";
+                                BUTO.components.main.alert.active = true;
+                            });
+                        }
+                        else{
+                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                            BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
                         }
                     }
                     break;
@@ -930,7 +917,6 @@ module.exports = new Vue({
                     this.manualAdd.steps[i].active = true;
                     this.manualAdd.steps[i].interval = 1;
                     this.manualAdd.steps[i].seen = (this.manualAdd.steps[i].dayNumber === 2) ? true : false;
-                    console.log("W", i, j, this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule.length - 1);
                     if((j !== null && j === this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule.length - 1) || j === null){
                         if(this.manualAdd.sameConf && this.manualAdd.steps[i].dayNumber === 1){
                             this.reset("all");
@@ -954,6 +940,8 @@ module.exports = new Vue({
                                 end: "",
                                 validBegin: true,
                                 validEnd: true,
+                                textBegin: "hh:mm:ss",
+                                textEnd: "hh:mm:ss",
                                 id: null
                             });
                         }
@@ -995,6 +983,8 @@ module.exports = new Vue({
                             end: "",
                             validBegin: true,
                             validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
                             id: null
                         });
                     }

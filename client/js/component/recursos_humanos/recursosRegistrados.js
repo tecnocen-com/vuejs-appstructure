@@ -78,24 +78,24 @@ module.exports = new Vue({
                         type: "template"
                     },
                     remove: {
-                        active: true
+                        active: false
                     },
                 },
-                //customHandlers: [
-                //    {
-                //        active: true,
-                //        title: "Rutas",
-                //        fullHandler: false,
-                //        anchorCellClass: [
-                //            "grid-row-anchor-customized"
-                //        ],
-                //        highlight: true,
-                //        glyphiconClass: "glyphicon-briefcase",
-                //        handler: function(data){
-                //            console.log(data);
-                //        }
-                //    }
-                //],
+                customHandlers: [
+                    {
+                        active: true,
+                        title: "Eliminar usuario",
+                        fullHandler: false,
+                        anchorCellClass: [
+                            ""
+                        ],
+                        highlight: true,
+                        glyphiconClass: "glyphicon-remove",
+                        handler: function(data){
+                            console.log(data);
+                        }
+                    }
+                ],
                 templateWatch: function(id, index){
                     me.watch.id = id;
                     me.edit.id = id;

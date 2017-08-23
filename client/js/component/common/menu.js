@@ -18,19 +18,6 @@ module.exports = new Vue({
                                 icon: "icon-users"
                             }
                         ]
-                    },
-                    {
-                        title: "Rutas",
-                        subs: [
-                            {
-                                title: "Rutas registradas",
-                                icon: "icon-direction"
-                            },
-                            {
-                                title: "Nueva ruta",
-                                icon: "icon-stack-plus"
-                            }
-                        ]
                     }
                 ]
             },

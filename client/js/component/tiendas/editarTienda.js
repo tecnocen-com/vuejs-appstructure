@@ -3,7 +3,8 @@ module.exports = new Vue({
         id: null,
         name: {
             value: null,
-            valid: true
+            valid: true,
+            text: ""
         },
         models: {
             sucursal: null,
@@ -36,6 +37,8 @@ module.exports = new Vue({
                         end: "",
                         validBegin: true,
                         validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
                         id: null,
                         remove: false
                     }
@@ -53,6 +56,8 @@ module.exports = new Vue({
                         end: "",
                         validBegin: true,
                         validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
                         id: null,
                         remove: false
                     }
@@ -70,6 +75,8 @@ module.exports = new Vue({
                         end: "",
                         validBegin: true,
                         validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
                         id: null,
                         remove: false
                     }
@@ -87,6 +94,8 @@ module.exports = new Vue({
                         end: "",
                         validBegin: true,
                         validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
                         id: null,
                         remove: false
                     }
@@ -104,6 +113,8 @@ module.exports = new Vue({
                         end: "",
                         validBegin: true,
                         validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
                         id: null,
                         remove: false
                     }
@@ -121,6 +132,8 @@ module.exports = new Vue({
                         end: "",
                         validBegin: true,
                         validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
                         id: null,
                         remove: false
                     }
@@ -138,6 +151,8 @@ module.exports = new Vue({
                         end: "",
                         validBegin: true,
                         validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
                         id: null,
                         remove: false
                     }
@@ -184,6 +199,8 @@ module.exports = new Vue({
                                 id: success.body[i].id,
                                 validBegin: true,
                                 validEnd: true,
+                                textBegin: "hh:mm:ss",
+                                textEnd: "hh:mm:ss",
                                 remove: false
                             });
                             break;
@@ -194,6 +211,8 @@ module.exports = new Vue({
                                 id: success.body[i].id,
                                 validBegin: true,
                                 validEnd: true,
+                                textBegin: "hh:mm:ss",
+                                textEnd: "hh:mm:ss",
                                 remove: false
                             });
                             break;
@@ -316,6 +335,8 @@ module.exports = new Vue({
                         end: "",
                         validBegin: true,
                         validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
                         id: null,
                         remove: false
                     });
@@ -333,18 +354,38 @@ module.exports = new Vue({
         validation: function(type, i){
             switch(type){
                 case "name":
+                    this.name.valid = false;
                     if(this.name.value === null ||
-                       this.name.value === "" ||
-                       this.name.value.length < 6)
-                        this.name.valid = false;
-                    else
+                       this.name.value === "")
+                        this.name.text = "Nombre no puede estar vacío";
+                    else if(this.name.value.length < 6)
+                        this.name.text = "Nombre debe contener al menos 6 caracteres";
+                    else{
                         this.name.valid = true;
+                        this.name.text = "";
+                    }
                     break;
                 case "time-begin":
-                    this.steps[this.actualStep].schedule[i].validBegin = this.steps[this.actualStep].schedule[i].begin !== "" && this.steps[this.actualStep].schedule[i].begin.length === 8;
+                    this.steps[this.actualStep].schedule[i].validBegin = false;
+                    if(this.steps[this.actualStep].schedule[i].begin === "")
+                        this.steps[this.actualStep].schedule[i].textBegin = "El inicio del intervalo no puede estar vacío";
+                    else if(this.steps[this.actualStep].schedule[i].begin.length !== 8)
+                        this.steps[this.actualStep].schedule[i].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                    else{
+                        this.steps[this.actualStep].schedule[i].textBegin = "hh:mm:ss";
+                        this.steps[this.actualStep].schedule[i].validBegin = true;
+                    }
                     break;
                 case "time-end":
-                    this.steps[this.actualStep].schedule[i].validEnd = this.steps[this.actualStep].schedule[i].end !== "" && this.steps[this.actualStep].schedule[i].end.length === 8;
+                    this.steps[this.actualStep].schedule[i].validEnd = false;
+                    if(this.steps[this.actualStep].schedule[i].end === "")
+                        this.steps[this.actualStep].schedule[i].textEnd = "El final del intervalo no puede estar vacío";
+                    else if(this.steps[this.actualStep].schedule[i].end.length !== 8)
+                        this.steps[this.actualStep].schedule[i].textEnd = "El final del intervalo no tiene un formato apropiado";
+                    else{
+                        this.steps[this.actualStep].schedule[i].textEnd = "hh:mm:ss";
+                        this.steps[this.actualStep].schedule[i].validEnd = true;
+                    }
                     break;
             }
         },
@@ -359,6 +400,7 @@ module.exports = new Vue({
                 BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
                 BUTO.components.main.alert.description.ok = "Aceptar";
                 BUTO.components.main.alert.active = true;
+                this.name.text = "Nombre no puede estar vacío";
                 this.name.valid = false;
             }
             else if(valid && (this.name.value.length < 6)){
@@ -374,6 +416,7 @@ module.exports = new Vue({
                 BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
                 BUTO.components.main.alert.description.ok = "Aceptar";
                 BUTO.components.main.alert.active = true;
+                this.name.text = "Nombre debe contener al menos 6 caracteres";
                 this.name.valid = false;
             }
             else{
@@ -388,11 +431,13 @@ module.exports = new Vue({
                                 if(this.steps[i].schedule[j].begin === ""){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no puede estar vacío.<br>" : "";
                                     this.steps[i].schedule[j].validBegin = false;
+                                    this.steps[i].schedule[j].textBegin = "El inicio del intervalo no puede estar vacío";
                                     valid = false; k++;
                                 }
                                 if(this.steps[i].schedule[j].end === ""){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no puede estar vacío.<br>" : "";
                                     this.steps[i].schedule[j].validEnd = false;
+                                    this.steps[i].schedule[j].textEnd = "El final del intervalo no puede estar vacío";
                                     valid = false; k++;
                                 }
                                 if(this.steps[i].schedule[j].begin !== "" &&
@@ -400,6 +445,7 @@ module.exports = new Vue({
                                     hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no tiene un formato apropiado.<br>" : "";
                                     this.steps[i].schedule[j].validBegin = false;
+                                    this.steps[i].schedule[j].textBegin = "El inicio del intervalo no tiene un formato apropiado";
                                     valid = false; k++;
                                 }
                                 if(this.steps[i].schedule[j].end !== "" &&
@@ -407,6 +453,7 @@ module.exports = new Vue({
                                     hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no tiene un formato apropiado.<br>" : "";
                                     this.steps[i].schedule[j].validEnd = false;
+                                    this.steps[i].schedule[j].textEnd = "El final del intervalo no tiene un formato apropiado";
                                     valid = false; k++;
                                 }
                                 if(this.steps[i].schedule[j].begin !== "" &&
@@ -415,6 +462,8 @@ module.exports = new Vue({
                                     error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " debe ser mayor al inicio del mismo.<br>" : "";
                                     this.steps[i].schedule[j].validBegin = false;
                                     this.steps[i].schedule[j].validEnd = false;
+                                    this.steps[i].schedule[j].textBegin = "El inicio del intervalo debe ser menor al final del mismo";
+                                    this.steps[i].schedule[j].textEnd = "El final del intervalo debe ser mayor al inicio del mismo";
                                     valid = false; k++;
                                 }
                                 if(j > 0 &&
@@ -424,6 +473,8 @@ module.exports = new Vue({
                                     error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.steps[i].text + ".<br>": "";
                                     this.steps[i].schedule[j].validBegin = false;
                                     this.steps[i].schedule[j - 1].validEnd = false;
+                                    this.steps[i].schedule[j].textBegin = "El inicio del intervalo debe ser mayor al final del intervalo anterior";
+                                    this.steps[i].schedule[j - 1].textEnd = "El final del intervalo debe ser menor al inicio del intervalo posterior";
                                     valid = false; k++;
                                 }
                             }
@@ -454,6 +505,9 @@ module.exports = new Vue({
                         BUTO.components.main.alert.description.text = error.body[0].message;
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
+                        
+                        me.name.valid = false;
+                        me.name.text = error.body[0].message;
                     });
                 }
                 else{

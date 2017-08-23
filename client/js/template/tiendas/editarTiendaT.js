@@ -14,6 +14,7 @@ module.exports = `
                     <div class="col-sm-12">
                         <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
                             <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre">
+                            <span class="help-block">{{config.name.text}}</span>
                         </div>
                     </div>
                 </div>
@@ -99,13 +100,13 @@ module.exports = `
                                             <div class="col-sm-6">
                                                 <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
                                                     <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                    <span class="help-block">hh:mm:ss</span>
+                                                    <span class="help-block">{{interval.textBegin}}</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
                                                     <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                    <span class="help-block">hh:mm:ss</span>
+                                                    <span class="help-block">{{interval.textEnd}}</span>
                                                 </div>
                                             </div>
                                         </template>
@@ -114,7 +115,7 @@ module.exports = `
                                 <div class="actions clearfix">
                                     <ul role="menu" aria-label="Pagination">
                                         <li>
-                                            <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit()" role="menuitem">Guardar</a>
+                                            <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit()" role="menuitem">Guardar</a>
                                         </li>
                                     </ul>
                                 </div>

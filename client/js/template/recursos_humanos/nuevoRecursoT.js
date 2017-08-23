@@ -65,6 +65,7 @@ module.exports = `
                             <label class="control-label col-lg-2">Nombre</label>
                             <div class="col-lg-10">
                                 <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
+                                <span class="help-block">{{config.manualAdd.name.text}}</span>
                             </div>
                         </div>
                     </div>
@@ -73,6 +74,7 @@ module.exports = `
                             <label class="control-label col-lg-2">Correo electrónico</label>
                             <div class="col-lg-10">
                                 <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico">
+                                <span class="help-block">{{config.manualAdd.email.text}}</span>
                             </div>
                         </div>
                     </div>
@@ -81,6 +83,7 @@ module.exports = `
                             <label class="control-label col-lg-2">Contraseña</label>
                             <div class="col-lg-10">
                                 <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña">
+                                <span class="help-block">{{config.manualAdd.pass.text}}</span>
                             </div>
                         </div>
                     </div>
@@ -89,6 +92,7 @@ module.exports = `
                             <label class="control-label col-lg-2">Confirmar contraseña</label>
                             <div class="col-lg-10">
                                 <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña">
+                                <span class="help-block">{{config.manualAdd.repass.text}}</span>
                             </div>
                         </div>
                     </div>
@@ -97,6 +101,7 @@ module.exports = `
                             <label class="control-label col-lg-2">Fecha de ingreso</label>
                             <div class="col-lg-10">
                                 <input class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.manualAdd.date.value" type="date" name="Fecha de ingreso">
+                                <span class="help-block">{{config.manualAdd.date.text}}</span>
                             </div>
                         </div>
                     </div>
@@ -104,9 +109,20 @@ module.exports = `
             </div>
             <div class="panel panel-flat">
                 <div class="panel-heading">
-                    <h5 class="panel-title">Ubicaciones y Horarios</h5>
+                    <h5 class="panel-title">Horarios y Ubicaciones</h5>
                     <div class="heading-elements">
                         <div class="heading-form">
+                            <div class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.test = config.test < 2 ? config.test + 1 : 0;" class="label-three-option">
+                                        <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.test === 0 ? 'one' : config.test === 1 ? 'two' : 'three'">
+                                            <small></small>
+                                        </span>
+                                        {{config.test === 0 ? 'Todas' : config.test === 1 ? 'Día' : 'Intervalo'}}
+                                    </label>
+                                    <span class="help-block">Ubicaciones</span>
+                                </div>
+                            </div>
                             <div v-if="!config.manualAdd.sameConf" class="form-group">
                                 <div class="checkbox checkbox-right checkbox-switchery text-center">
                                     <label v-on:click.prevent="config.setVisibilityPosition()">
@@ -153,18 +169,6 @@ module.exports = `
                                     </div>
                                     <div class="content clearfix">
                                         <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                                        <i class="icon-shrink3"></i>
-                                                    </div>
-                                                    <div id="mapAddResource" class="map-container map-basic"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div style="padding-top: 20px"></div>
                                             <div v-if="!config.manualAdd.sameConf" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
                                                 <div class="form-group">
                                                     <div class="checkbox checkbox-right checkbox-switchery text-center">
@@ -190,33 +194,60 @@ module.exports = `
                                         </div>
                                         <div v-if="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].active && Math.floor(parseInt(config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval)) > 0" class="row">
                                             <div style="padding-top: 20px"></div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-5">
                                                 <div class="form-group text-center schedule-title">
                                                     <label>Inicio</label>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-5">
                                                 <div class="form-group text-center schedule-title">
                                                     <label>Final</label>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Posición</label>
+                                                </div>
+                                            </div>
                                             <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].schedule">
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-5">
                                                     <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
                                                         <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">hh:mm:ss</span>
+                                                        <span class="help-block">{{interval.textBegin}}</span>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-5">
                                                     <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
                                                         <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">hh:mm:ss</span>
+                                                        <span class="help-block">{{interval.textEnd}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                        <label v-on:click.prevent>
+                                                            <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
+                                                                <small></small>
+                                                            </span>
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </template>
                                         </div>
+                                        <div class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                        <i class="icon-shrink3"></i>
+                                                    </div>
+                                                    <div id="mapAddResource" class="map-container map-basic"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="actions clearfix">
+                                        <div style="padding-top: 20px"></div>
                                         <ul role="menu" aria-label="Pagination">
                                             <template v-if="config.manualAdd.sameConf">
                                                 <li>

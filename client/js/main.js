@@ -136,9 +136,11 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                     this.active.third = e.third;
                                 }
                                 if(!inPos){
-                                    if(e.first === 2 && e.second === 0 && e.third === 0)
+                                    if(e.first === 1 && e.second === 0 && e.third === 0)
+                                            me.children.clientesRegistrados.active = 0;
+                                    else if(e.first === 2 && e.second === 0 && e.third === 0)
                                             me.children.tiendasRegistradas.active = 0;
-                                    if(e.first === 3 && e.second === 0 && e.third === 0)
+                                    else if(e.first === 3 && e.second === 0 && e.third === 0)
                                             me.children.recursosRegistrados.active = 0;
                                     Vue.nextTick(function(){
                                         if(e.first === 0 && e.second === 0 && e.third === 0)
@@ -188,7 +190,16 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 //window.location = "/logout";
                             });
                             BUTO.requires.components.clientesRegistrados.init({
-                                cliente: this.models.cliente
+                                cliente: this.models.cliente,
+                                clienteSucursal: this.models.clienteSucursal,
+                                sucursal: this.models.sucursal,
+                                sucursalHorario: this.models.sucursalHorario,
+                                clienteEmpleado: this.models.clienteEmpleado,
+                                usuarioEmpleado: this.models.usuarioEmpleado,
+                                empleado: this.models.empleado,
+                                empleadoHorario: this.models.empleadoHorario,
+                                empleadoHorarioRuta: this.models.empleadoHorarioRuta,
+                                empleadoHorarioRutaPunto: this.models.empleadoHorarioRutaPunto,
                             });
                             BUTO.requires.components.tiendasRegistradas.init({
                                 sucursal: this.models.sucursal,
