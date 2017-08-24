@@ -110,6 +110,7 @@ app.get("/init-user-data", function(request, response){
 app.use('/', express.static(__dirname + '/client'));   //Vuelve estática la carpeta especificada, sin "__dirname" será ruta relativa a donde inicia el proceso Node, usándolo será absoluto a la raiz del proyecto
 app.use('/css', express.static(__dirname + '/client/style'));
 app.use('/file', express.static(__dirname + '/client/file'));
+app.use('/image', express.static(__dirname + '/client/image'));
 app.use('/assets', express.static(__dirname + '/client/assets'));
 app.use('/build', express.static(__dirname + '/build'));
 

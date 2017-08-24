@@ -2,7 +2,7 @@ body{
     position: absolute;
     height: 100%;
     width: 100%;
-    background: url(/image/street2.jpg) no-repeat center center fixed;
+    background: url(/image/street1.jpg) no-repeat center center fixed;
     background-size: cover;
 }
 .login-container{
@@ -28,10 +28,16 @@ body{
 }
 .login-box{
     position: absolute;
-    background-color: #eeeeff; /* For browsers that do not support gradients */
-    border-radius: 5px;
+    background-color: #333;
+    border: 3px outset #eeeeff;
+    border-radius: 10px;
     padding: 25px;
     width: 400px;
+}
+.inner-login-box{
+    padding-bottom: 10px;
+    background-color: #eeeeff;
+    border-top-right-radius: 10px;
 }
 .login-box .form-group label{
     color: #a2a7a9;
@@ -44,8 +50,12 @@ body{
 }
 .forgotten-container{
     text-align: right;
-    border-radius: 5px;
-    border-top: 1px double #f8f8f8;
+    background-color: #eeeeff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 10px;
+    /*border-radius: 5px;
+    border-top: 1px double #f8f8f8;*/
 }
 .login-link{
     color: #273133;
@@ -64,7 +74,7 @@ body{
 }
 
 .login-box form .header{
-    border-top: solid 1px rgb(227, 227, 227);
+    /*border-top: solid 1px rgb(227, 227, 227);*/
     background: rgba(39, 49, 53, 0.03);
     padding: 5px 8px 8px;
     border-bottom: solid 1px rgb(227, 227, 227);
@@ -85,6 +95,10 @@ body{
 }
 .login-box .box-login{
     padding: 8px 25px;
+}
+.Logo{
+    border-top: 1px solid #eeeeff;
+    border-left: 1px solid #eeeeff;
 }
 .wrong-message-box{
     border-left: 1px double #ff3434 !important;
@@ -121,7 +135,7 @@ body{
 }
 @media (min-width: 768px){
     .login-box{
-        left: 50%;
+        left: 45%;
         top: 30%;
         box-shadow: -15px 15px 5px rgba(0,0,25,0.5);
     }

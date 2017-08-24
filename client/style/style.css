@@ -220,7 +220,8 @@ a.grid-row-anchor-customized{
     color: white;
 }
 .grid-relation{
-    max-height: 1250px;
+    max-height: 1000px;
+    min-height: 500px;
     overflow-y: auto;
 }
     /**************************************/
@@ -240,6 +241,12 @@ a.grid-row-anchor-customized{
     border-bottom-right-radius: 4px;
 }
 /********************************** Adaptations ***********************************/
+.navbar-brand{
+    padding: 5px !important;
+}
+.navbar-brand img{
+    height: 38px !important;
+}
 .switchery-custom.active{
     background-color: rgb(100, 189, 99);
     border-color: rgb(100, 189, 99);
@@ -353,6 +360,21 @@ a.grid-row-anchor-customized{
 .flat-handler-custom{
     padding-left: 5px;
     padding-right: 5px;
+}
+nav>ul.pagination>li>span{
+    color: #4550a5;
+}
+nav>ul.pagination>li>span:hover{
+    color: #292b2c;
+}
+nav>ul.pagination>li>a{
+    color: #4550a5;
+}
+nav>ul.pagination>li.active>a,
+nav>ul.pagination>li.active>a:focus,
+nav>ul.pagination>li.active>a:hover{
+    background-color: #292b2c;
+    color: white;
 }
 /********************************** Transitions ***********************************/
 button.btn-customized,

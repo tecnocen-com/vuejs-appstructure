@@ -194,7 +194,7 @@ module.exports = new Vue({
             var me = this;
             this.active = e;
             if(e === 1)
-                me.tienda.init(0);
+                me.tienda.init(0, 1);
             else if(e === 2)
                 me.recurso.init();
             else if(e === 3)

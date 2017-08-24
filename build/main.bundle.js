@@ -31268,7 +31268,9 @@ module.exports = `
 module.exports = `
     <div class="navbar navbar-inverse">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#" v-on:click.prevent="setview({first: 0, second: 0, third: 0})"><img src="assets/images/logo_light.png" alt=""></a>
+            <a class="navbar-brand" href="#" v-on:click.prevent="setview({first: 0, second: 0, third: 0})">
+                <img src="/image/logo/techfor180-45.png" alt="">
+            </a>
 
             <ul class="nav navbar-nav pull-right visible-xs-block">
                 <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -31375,7 +31377,7 @@ module.exports = `
 
 module.exports = `
     <div class="footer text-muted">
-        &copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
+        &copy; 2017. <a href="#" v-on:click.prevent>Tech For Data</a>
     </div>
 `;
 
@@ -31453,6 +31455,14 @@ module.exports = `
                 </div>
                 <div class="panel-body">
                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
+                                <input type="text" v-model="config.data.search.store" v-on:keyup="config.init(1)" class="form-control" placeholder="Búsqueda">
+                                <div class="form-control-feedback" style="width: 30px;">
+                                    <i class="icon-search4 text-size-base"></i>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-12 grid-relation">
                             <table class="table table-bordered">
                                 <tbody class="body-class">
@@ -31473,6 +31483,97 @@ module.exports = `
                             </table>
                         </div>
                     </div>
+                    <div class="row">
+                        <nav class="pull-right">
+                            <ul class="pagination">
+                                <li>
+                                    <span><b>Mostrando {{config.store.length}} de {{config.data.page.store.totalCount}} filas en la página {{config.data.page.store.currentPage}} de {{config.data.page.store.pageCount}}.</b></span>
+                                </li>
+                                <li  :class="config.data.page.store.currentPage === 1 ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(1, 1);">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <template v-if="config.data.page.store.pageCount <= 3">
+                                    <li v-for="page in config.data.page.store.pageCount" :class="page === config.data.page.store.currentPage ? 'active' : ''">
+                                        <a href="#" v-on:click.prevent="page === config.data.page.store.currentPage ? '' : config.init(1, page);">
+                                            {{page}}
+                                        </a>
+                                    </li>
+                                </template>
+                                <template v-else>
+                                    <template v-if="config.data.page.store.currentPage < 3">
+                                        <li :class="config.data.page.store.currentPage === 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === 1 ? '' : config.init(1, 1);">
+                                                1
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.store.currentPage === 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === 2 ? '' : config.init(1, 2);">
+                                                2
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.store.currentPage === 3 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === 3 ? '' : config.init(1, 3);">
+                                                3
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                    <template v-else-if="config.data.page.store.currentPage > config.data.page.store.pageCount - 2">
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li :class="config.data.page.store.currentPage === config.data.page.store.pageCount - 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === config.data.page.store.pageCount - 2 ? '' : config.init(1, config.data.page.store.pageCount - 2);">
+                                                {{config.data.page.store.pageCount - 2}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.store.currentPage === config.data.page.store.pageCount - 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === config.data.page.store.pageCount - 1 ? '' : config.init(1, config.data.page.store.pageCount - 1);">
+                                                {{config.data.page.store.pageCount - 1}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.store.currentPage === config.data.page.store.pageCount ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === config.data.page.store.pageCount ? '' : config.init(1, config.data.page.store.pageCount);">
+                                                {{config.data.page.store.pageCount}}
+                                            </a>
+                                        </li>
+                                    </template>
+                                    <template v-else>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.store.currentPage - 1)">
+                                                {{config.data.page.store.currentPage - 1}}
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#" v-on:click.prevent>
+                                                {{config.data.page.store.currentPage}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.store.currentPage + 1)">
+                                                {{config.data.page.store.currentPage + 1}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                </template>
+                                <li :class="config.data.page.store.pageCount === config.data.page.store.currentPage ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(1, config.data.page.store.pageCount);">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31485,6 +31586,16 @@ module.exports = `
                     <div class="row">
                         <div class="col-sm-12 grid-relation">
                             <table class="table table-bordered">
+                                <!--<thead>
+                                    <tr>
+                                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
+                                            <input type="text" class="form-control" placeholder="Búsqueda">
+                                            <div class="form-control-feedback" style="width: 30px;">
+                                                <i class="icon-search4 text-size-base"></i>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                </thead>-->
                                 <tbody class="body-class">
                                     <tr v-for="store in config.storeLinked" class="grid-row-customized grid-row-highlight-customized">
                                         <td class="col-md-1">
@@ -31493,7 +31604,7 @@ module.exports = `
                                                 <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver">
                                                     <i class="icon-eye" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" v-on:click.prevent="config.setLink('unlink', store.id)" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Desligar">
+                                                <a href="#" v-on:click.prevent="config.setLink('unlink', store.id)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Desligar">
                                                     <i class="icon-unlink" aria-hidden="true"></i>
                                                 </a>
                                             </div>
@@ -31502,6 +31613,41 @@ module.exports = `
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div class="row">
+                        <nav class="pull-right">
+                            <ul class="pagination">
+                                <li>
+                                    <span><b>Mostrando {{config.storeLinked.length}} de {{config.data.page.storeLinked.totalCount}} filas en la página {{config.data.page.storeLinked.currentPage}} de {{config.data.page.storeLinked.pageCount}}.</b></span>
+                                </li>
+                                <li class="disabled not-active">
+                                    <a href="#" v-on:click.prevent>
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <span aria-hidden="true">...</span>
+                                </li>
+                                <li class="active">
+                                    <a href="#" v-on:click.prevent>
+                                        1
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" v-on:click.prevent>
+                                        2
+                                    </a>
+                                </li>
+                                <li>
+                                    <span aria-hidden="true">...</span>
+                                </li>
+                                <li>
+                                    <a href="#" v-on:click.prevent>
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -33591,7 +33737,7 @@ module.exports = new Vue({
             var me = this;
             this.active = e;
             if(e === 1)
-                me.tienda.init(0);
+                me.tienda.init(0, 1);
             else if(e === 2)
                 me.recurso.init();
             else if(e === 3)
@@ -33611,7 +33757,23 @@ module.exports = new Vue({
             name: null
         },
         data: {
-            perPage: 10,
+            perPage: 30,
+            search: {
+                store: "",
+                storeLinked: ""
+            },
+            page: {
+                store: {
+                    currentPage: 1,
+                    pageCount: null,
+                    totalCount: null
+                },
+                storeLinked: {
+                    currentPage: 1,
+                    pageCount: null,
+                    totalCount: null
+                }
+            }
         },
         models: {
             clienteSucursal: null,
@@ -33622,29 +33784,38 @@ module.exports = new Vue({
         storeLinked: []
     },
     methods: {
-        init: function(e){
-            var me = this;
+        init: function(e, page){
+            var i,
+                me = this;
+            this.data.page.store.currentPage = page;
             if(e === 0 || e === 1){             //0 all, 1 store, 2 storeLinked
                 this.store = [];
                 this.models.sucursal.get({
                     params: {
                         "per-page": this.data.perPage,
-                        "sort": "nombre"
+                        "sort": "nombre",
+                        "page": this.data.page.store.currentPage,
+                        "nombre": this.data.search.store
                     }
                 },
                 function(success){
-                    for(var i in success.body)
+                    me.data.page.store.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
+                    me.data.page.store.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                    for(i in success.body)
                         me.initStore(success.body[i]);
                     if(e === 0){
                         me.storeLinked = [];
                         me.models.clienteSucursal.get({
                             delimiters: me.client.id,
                             params: {
-                                "per-page": me.data.perPage
+                                "per-page": me.data.perPage,
+                                "page": me.data.page.storeLinked.currentPage
                             }
                         },
                         function(success){
-                            for(var i in success.body)
+                            me.data.page.storeLinked.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
+                            me.data.page.storeLinked.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                            for(i in success.body)
                                 me.initStoreLinked(success.body[i]);
                         },
                         function(error){
@@ -33661,11 +33832,14 @@ module.exports = new Vue({
                 this.models.clienteSucursal.get({
                     delimiters: this.client.id,
                     params: {
-                        "per-page": this.data.perPage
+                        "per-page": this.data.perPage,
+                        "page": this.data.page.storeLinked.currentPage
                     }
                 },
                 function(success){
-                    for(var i in success.body)
+                    me.data.page.storeLinked.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
+                    me.data.page.storeLinked.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                    for(i in success.body)
                         me.initStoreLinked(success.body[i]);
                 },
                 function(error){
@@ -33674,7 +33848,13 @@ module.exports = new Vue({
             }
         },
         initStore: function(e){
-            var me = this;
+            var me = this,
+                length = me.store.length;
+            me.store.push({
+                id: e.id,
+                name: e.nombre,
+                selected: false
+            });
             this.models.clienteSucursal.get({
                 delimiters: [
                     me.client.id,
@@ -33682,23 +33862,9 @@ module.exports = new Vue({
                 ]
             },
             function(){
-                me.store.push({
-                    id: e.id,
-                    name: e.nombre,
-                    lat: e.lat,
-                    lng: e.lng,
-                    selected: true
-                });
+                me.store[length].selected = true;
             },
-            function(){
-                me.store.push({
-                    id: e.id,
-                    name: e.nombre,
-                    lat: e.lat,
-                    lng: e.lng,
-                    selected: false
-                });
-            });
+            function(){});
         },
         initStoreLinked: function(e){
             var me = this;
@@ -33709,9 +33875,7 @@ module.exports = new Vue({
                 me.storeLinked.push({
                     id: success.body.id,
                     time: e.tiempo_solicitado,
-                    name: success.body.nombre,
-                    lat: success.body.lat,
-                    lng: success.body.lng
+                    name: success.body.nombre
                 });
             },
             function(error){
@@ -37714,7 +37878,7 @@ module.exports = new Vue({
                             error = "";
                             k = 0;
                             for(i = 0; i < (this.manualAdd.sameConf ? 1 : this.manualAdd.steps.length); i++)
-                                if(this.manualAdd.steps[i].active)
+                                if(this.manualAdd.steps[i].active && this.manualAdd.steps[i].schedule.length > 0)
                                     for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
                                         hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
                                         hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
@@ -37790,7 +37954,7 @@ module.exports = new Vue({
                                 }
                             },function(success){
                                 for(i = 0; i < me.manualAdd.steps.length; i++)
-                                    if(me.manualAdd.steps[i].active || me.manualAdd.sameConf){
+                                    if((me.manualAdd.steps[i].active && me.manualAdd.steps[i].schedule.length > 0) || me.manualAdd.sameConf){
                                         for(j = 0; j < me.manualAdd.steps[me.manualAdd.sameConf ? 0 : i].schedule.length; j++){
                                             me.submitSchedule(i, j, success.body.id, first);
                                             first = false;

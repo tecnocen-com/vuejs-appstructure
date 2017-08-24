@@ -853,7 +853,7 @@ module.exports = new Vue({
                             error = "";
                             k = 0;
                             for(i = 0; i < (this.manualAdd.sameConf ? 1 : this.manualAdd.steps.length); i++)
-                                if(this.manualAdd.steps[i].active)
+                                if(this.manualAdd.steps[i].active && this.manualAdd.steps[i].schedule.length > 0)
                                     for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
                                         hmdB = this.manualAdd.steps[i].schedule[j].begin.split(":");
                                         hmdE = this.manualAdd.steps[i].schedule[j].end.split(":");
@@ -929,7 +929,7 @@ module.exports = new Vue({
                                 }
                             },function(success){
                                 for(i = 0; i < me.manualAdd.steps.length; i++)
-                                    if(me.manualAdd.steps[i].active || me.manualAdd.sameConf){
+                                    if((me.manualAdd.steps[i].active && me.manualAdd.steps[i].schedule.length > 0) || me.manualAdd.sameConf){
                                         for(j = 0; j < me.manualAdd.steps[me.manualAdd.sameConf ? 0 : i].schedule.length; j++){
                                             me.submitSchedule(i, j, success.body.id, first);
                                             first = false;
