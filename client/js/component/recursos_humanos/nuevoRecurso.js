@@ -1,6 +1,5 @@
 module.exports = new Vue({
     data: {
-        test: 0,
         models: {
             usuarioEmpleado: null,
             empleado: null,
@@ -79,7 +78,7 @@ module.exports = new Vue({
                 }
             },
             sameConf: false,
-            allPosVisible: true,
+            allPosVisible: 0,
             actualStep: 0,
             maxInterval: 5,
             steps: [
@@ -380,17 +379,41 @@ module.exports = new Vue({
         setVisibilityPosition: function(auto){
             var i, j;
             if(!auto)
-                this.manualAdd.allPosVisible = !this.manualAdd.allPosVisible;
+                this.manualAdd.allPosVisible = this.manualAdd.allPosVisible < 2 ? this.manualAdd.allPosVisible + 1 : 0;
             for(i = 0; i < this.manualAdd.map.marker.length; i++){
-                for(j = 0; j < this.manualAdd.steps[i].schedule; j++){
-                    if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
-                       this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
-                       this.manualAdd.steps[i].schedule[j].lng_begin !== null)
-                        this.manualAdd.steps[i].schedule[j].main_begin.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
-                    if(this.manualAdd.steps[i].schedule[j].main_end !== null &&
-                       this.manualAdd.steps[i].schedule[j].lat_end !== null &&
-                       this.manualAdd.steps[i].schedule[j].lng_end !== null)    //Is showed in map
-                        this.manualAdd.steps[i].schedule[j].main_end.setMap(this.manualAdd.allPosVisible ? this.manualAdd.map.main : (i === this.manualAdd.actualStep) ? this.manualAdd.map.main : null);
+                for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
+                    switch(this.manualAdd.allPosVisible){
+                        case 0:     //All positions
+                            if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
+                               this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
+                               this.manualAdd.steps[i].schedule[j].lng_begin !== null)
+                                this.manualAdd.steps[i].schedule[j].main_begin.setMap(this.manualAdd.map.main);
+                            if(this.manualAdd.steps[i].schedule[j].main_end !== null &&
+                               this.manualAdd.steps[i].schedule[j].lat_end !== null &&
+                               this.manualAdd.steps[i].schedule[j].lng_end !== null)    //Is showed in map
+                                this.manualAdd.steps[i].schedule[j].main_end.setMap(this.manualAdd.map.main);
+                            break;
+                        case 1:     //Positions per day
+                            //if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
+                            //   this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
+                            //   this.manualAdd.steps[i].schedule[j].lng_begin !== null)
+                            //    this.manualAdd.steps[i].schedule[j].main_begin.setMap(this.manualAdd.map.main);
+                            //if(this.manualAdd.steps[i].schedule[j].main_end !== null &&
+                            //   this.manualAdd.steps[i].schedule[j].lat_end !== null &&
+                            //   this.manualAdd.steps[i].schedule[j].lng_end !== null)    //Is showed in map
+                            //    this.manualAdd.steps[i].schedule[j].main_end.setMap(this.manualAdd.map.main);
+                            break;
+                        case 2:     //Positions per interval
+                            //if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
+                            //   this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
+                            //   this.manualAdd.steps[i].schedule[j].lng_begin !== null)
+                            //    this.manualAdd.steps[i].schedule[j].main_begin.setMap(this.manualAdd.map.main);
+                            //if(this.manualAdd.steps[i].schedule[j].main_end !== null &&
+                            //   this.manualAdd.steps[i].schedule[j].lat_end !== null &&
+                            //   this.manualAdd.steps[i].schedule[j].lng_end !== null)    //Is showed in map
+                            //    this.manualAdd.steps[i].schedule[j].main_end.setMap(this.manualAdd.map.main);
+                            break;
+                    }
                 }
             }
         },
@@ -553,17 +576,30 @@ module.exports = new Vue({
                     });
             }
             else if(length > interval){
-                for(i = 0; i < interval; i++)
-                    newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
+                for(i = 0; i < length; i++)
+                    if(i < interval)
+                        newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
+                    else{
+                        if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin !== null &&
+                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_begin !== null &&
+                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_begin !== null)
+                             this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin.setMap(null);
+                        if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end !== null &&
+                           this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_end !== null &&
+                           this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_end !== null)    //Is showed in map
+                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end.setMap(null);
+                    }
                 this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
+                this.setActivity(true);
             }
             if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length > 0)
                 this.setActiveInterval(0);
         },
-        setActivity: function(){
-            this.manualAdd.steps[this.manualAdd.actualStep].active = !this.manualAdd.steps[this.manualAdd.actualStep].active;
+        setActivity: function(auto){
+            if(!auto)
+                this.manualAdd.steps[this.manualAdd.actualStep].active = !this.manualAdd.steps[this.manualAdd.actualStep].active;
             if(!this.manualAdd.steps[this.manualAdd.actualStep].active){
-                for(var j = 0; j < this.manualAdd.steps[this.manualAdd.actualStep].schedule; j++){
+                for(var j = 0; j < this.manualAdd.steps[this.manualAdd.actualStep].schedule.length; j++){
                     if(this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].main_begin !== null &&
                        this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].lat_begin !== null &&
                        this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].lng_begin !== null)
