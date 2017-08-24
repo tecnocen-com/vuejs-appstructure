@@ -112,7 +112,18 @@ module.exports = `
                     <h5 class="panel-title">Horarios y Ubicaciones</h5>
                     <div class="heading-elements">
                         <div class="heading-form">
-                            <div v-if="!config.manualAdd.sameConf" class="form-group">
+                            <div v-if="config.manualAdd.sameConf" class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.manualAdd.allPosVisible = config.manualAdd.allPosVisible === 1 ? 2 : 1; config.setVisibilityPosition(true)">
+                                        <span class="switchery switchery-default switchery-custom info" :class="config.manualAdd.allPosVisible === 1 ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.manualAdd.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                    </label>
+                                    <span class="help-block">Ubicaciones</span>
+                                </div>
+                            </div>
+                            <div v-else class="form-group">
                                 <div class="checkbox checkbox-right checkbox-switchery text-center">
                                     <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
                                         <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.manualAdd.allPosVisible === 0 ? 'one' : config.manualAdd.allPosVisible === 1 ? 'two' : 'three'">

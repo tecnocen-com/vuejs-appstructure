@@ -31,22 +31,22 @@ module.exports = `
         </div>
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title">Ubicaciones y Horarios</h5>
+                <h5 class="panel-title">Horarios y Ubicaciones</h5>
                 <div class="heading-elements">
-                    <div class="heading-form">
-                        <div class="form-group">
-                            <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                <label v-on:click.prevent="config.setVisibilityPosition()">
-                                    <span class="switchery switchery-default switchery-custom info" :class="config.allPosVisible ? 'active' : 'not-active'">
-                                        <small></small>
-                                    </span>
-                                    {{config.allPosVisible ? 'Si' : 'No'}}
-                                </label>
-                                <span class="help-block">Todas las ubicaciones</span>
+                        <div class="heading-form">
+                            <div class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
+                                        <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.allPosVisible === 0 ? 'one' : config.allPosVisible === 1 ? 'two' : 'three'">
+                                            <small></small>
+                                        </span>
+                                        {{config.allPosVisible === 0 ? 'Todas' : config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                    </label>
+                                    <span class="help-block">Ubicaciones</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -65,16 +65,6 @@ module.exports = `
                                     </ul>
                                 </div>
                                 <div class="content clearfix">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div id="mapFocusPositionSeeResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                                    <i class="icon-shrink3"></i>
-                                                </div>
-                                                <div id="mapSeeResource" class="map-container map-basic"></div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="row">
                                         <div style="padding-top: 20px"></div>
                                         <div :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
@@ -101,30 +91,54 @@ module.exports = `
                                     </div>
                                     <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
                                         <div style="padding-top: 20px"></div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-5">
                                             <div class="form-group text-center schedule-title">
                                                 <label>Inicio</label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-5">
                                             <div class="form-group text-center schedule-title">
                                                 <label>Final</label>
                                             </div>
                                         </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Posición</label>
+                                            </div>
+                                        </div>
                                         <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">hh:mm:ss</span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">hh:mm:ss</span>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-2">
+                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                    <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
+                                                        <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
+                                                            <small></small>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </template>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div id="mapFocusPositionSeeResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                    <i class="icon-shrink3"></i>
+                                                </div>
+                                                <div id="mapSeeResource" class="map-container map-basic"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
