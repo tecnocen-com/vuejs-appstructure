@@ -5,14 +5,16 @@ Vue.component("tiendas-ligadas", {
     template: tiendasLigadas,
     props: {
         config: Object,
-        setview: Function
+        setview: Function,
+        mask: Function
     }
 });
 Vue.component("recursos-ligados", {
     template: recursosLigados,
     props: {
         config: Object,
-        setview: Function
+        setview: Function,
+        mask: Function
     }
 });
 Vue.component("rutas", {
@@ -34,8 +36,8 @@ module.exports = `
                 </div>
             </div>
         </div>
-        <tiendas-ligadas v-else-if="config.active === 1" :config="config.tienda" :setview="config.setView"></tiendas-ligadas>
-        <recursos-ligados v-else-if="config.active === 2" :config="config.recurso" :setview="config.setView"></recursos-ligados>
+        <tiendas-ligadas v-else-if="config.active === 1" :config="config.tienda" :setview="config.setView" :mask="config.mask"></tiendas-ligadas>
+        <recursos-ligados v-else-if="config.active === 2" :config="config.recurso" :setview="config.setView" :mask="config.mask"></recursos-ligados>
         <rutas v-else-if="config.active === 3" :config="config.ruta" :setview="config.setView"></rutas>
     </div>
 `;

@@ -17192,7 +17192,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                             },
                             function(error){
                                 console.log(error);
-                                //window.location = "/logout";
+                                window.location = "/logout";
                             });
                             BUTO.requires.components.clientesRegistrados.init({
                                 cliente: this.models.cliente,
@@ -17205,6 +17205,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 empleadoHorario: this.models.empleadoHorario,
                                 empleadoHorarioRuta: this.models.empleadoHorarioRuta,
                                 empleadoHorarioRutaPunto: this.models.empleadoHorarioRutaPunto,
+                                mask: this.mask
                             });
                             BUTO.requires.components.tiendasRegistradas.init({
                                 sucursal: this.models.sucursal,
@@ -31392,14 +31393,16 @@ Vue.component("tiendas-ligadas", {
     template: tiendasLigadas,
     props: {
         config: Object,
-        setview: Function
+        setview: Function,
+        mask: Function
     }
 });
 Vue.component("recursos-ligados", {
     template: recursosLigados,
     props: {
         config: Object,
-        setview: Function
+        setview: Function,
+        mask: Function
     }
 });
 Vue.component("rutas", {
@@ -31421,8 +31424,8 @@ module.exports = `
                 </div>
             </div>
         </div>
-        <tiendas-ligadas v-else-if="config.active === 1" :config="config.tienda" :setview="config.setView"></tiendas-ligadas>
-        <recursos-ligados v-else-if="config.active === 2" :config="config.recurso" :setview="config.setView"></recursos-ligados>
+        <tiendas-ligadas v-else-if="config.active === 1" :config="config.tienda" :setview="config.setView" :mask="config.mask"></tiendas-ligadas>
+        <recursos-ligados v-else-if="config.active === 2" :config="config.recurso" :setview="config.setView" :mask="config.mask"></recursos-ligados>
         <rutas v-else-if="config.active === 3" :config="config.ruta" :setview="config.setView"></rutas>
     </div>
 `;
@@ -31439,7 +31442,7 @@ module.exports = `
                     <h4 class="panel-title text-center">{{config.client.name}}</h4>
                     <div class="heading-elements">
                         <ul class="icons-list">
-                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(1)" title="Tiendas"><span aria-hidden="true" class="glyphicon glyphicon-tags"></span></a></li>
+                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent title="Tiendas"><span aria-hidden="true" class="glyphicon glyphicon-tags"></span></a></li>
                             <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(2)" title="Recursos humanos"><span aria-hidden="true" class="glyphicon glyphicon-briefcase"></span></a></li>
                             <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(3)" title="Rutas"><span aria-hidden="true" class="glyphicon glyphicon-road"></span></a></li>
                             <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></a></li>
@@ -31466,14 +31469,19 @@ module.exports = `
                         <div class="col-sm-12 grid-relation">
                             <table class="table table-bordered">
                                 <tbody class="body-class">
-                                    <tr v-for="store in config.store" :class="store.selected ? 'selected' : ''" class="grid-row-customized grid-row-highlight-customized">
-                                        <td class="col-md-1">
+                                    <tr v-for="(store, storeIndex) in config.store"
+                                        :draggable="store.selected"
+                                        @dragstart="config.initDrag('add')"
+                                        @dragend="config.alterLinkDef.masive.config.active = 0;"
+                                        :class="store.linked ? 'selected' : store.selected ? 'link-row-select' : ''"
+                                        class="grid-row-customized grid-row-highlight-customized">
+                                        <td v-on:click.self="store.linked ? '' : store.selected = !store.selected" class="col-md-1">
                                             {{store.name}}
                                             <div class="pull-right">
                                                 <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver">
                                                     <i class="icon-eye" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" v-on:click.prevent="config.setLink('link', store.id)" :class="store.selected ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar">
+                                                <a href="#" v-on:click.prevent="config.setLink('add', storeIndex)" :class="store.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar" data-toggle="modal" data-target="#add">
                                                     <i class="icon-link" aria-hidden="true"></i>
                                                 </a>
                                             </div>
@@ -31597,14 +31605,22 @@ module.exports = `
                                     </tr>
                                 </thead>-->
                                 <tbody class="body-class">
-                                    <tr v-for="store in config.storeLinked" class="grid-row-customized grid-row-highlight-customized">
-                                        <td class="col-md-1">
+                                    <tr v-for="(store, storeIndex) in config.storeLinked"
+                                        :draggable="store.selected"
+                                        @dragstart="config.initDrag('remove')"
+                                        @dragend="config.alterLinkDef.masive.config.active = 0;"
+                                        :class="store.selected ? 'link-row-select' : ''"
+                                        class="grid-row-customized grid-row-highlight-customized">
+                                        <td v-on:click.self="store.selected = !store.selected" class="col-md-1">
                                             {{store.name}}
                                             <div class="pull-right">
-                                                <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver">
+                                                <a href="#" v-on:click.prevent="config.setLink('seeLinked', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#seeLinked">
                                                     <i class="icon-eye" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" v-on:click.prevent="config.setLink('unlink', store.id)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Desligar">
+                                                <a href="#" v-on:click.prevent="config.setLink('edit', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Editar" data-toggle="modal" data-target="#edit">
+                                                    <i class="icon-pencil6" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.remove(store.id)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Desligar">
                                                     <i class="icon-unlink" aria-hidden="true"></i>
                                                 </a>
                                             </div>
@@ -31620,35 +31636,212 @@ module.exports = `
                                 <li>
                                     <span><b>Mostrando {{config.storeLinked.length}} de {{config.data.page.storeLinked.totalCount}} filas en la página {{config.data.page.storeLinked.currentPage}} de {{config.data.page.storeLinked.pageCount}}.</b></span>
                                 </li>
-                                <li class="disabled not-active">
-                                    <a href="#" v-on:click.prevent>
+                                <li  :class="config.data.page.storeLinked.currentPage === 1 ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(2, null, 1);">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <span aria-hidden="true">...</span>
-                                </li>
-                                <li class="active">
-                                    <a href="#" v-on:click.prevent>
-                                        1
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" v-on:click.prevent>
-                                        2
-                                    </a>
-                                </li>
-                                <li>
-                                    <span aria-hidden="true">...</span>
-                                </li>
-                                <li>
-                                    <a href="#" v-on:click.prevent>
+                                <template v-if="config.data.page.storeLinked.pageCount <= 3">
+                                    <li v-for="page in config.data.page.storeLinked.pageCount" :class="page === config.data.page.storeLinked.currentPage ? 'active' : ''">
+                                        <a href="#" v-on:click.prevent="page === config.data.page.storeLinked.currentPage ? '' : config.init(2, null, page);">
+                                            {{page}}
+                                        </a>
+                                    </li>
+                                </template>
+                                <template v-else>
+                                    <template v-if="config.data.page.storeLinked.currentPage < 3">
+                                        <li :class="config.data.page.storeLinked.currentPage === 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === 1 ? '' : config.init(2, null, 1);">
+                                                1
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.storeLinked.currentPage === 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === 2 ? '' : config.init(2, null, 2);">
+                                                2
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.storeLinked.currentPage === 3 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === 3 ? '' : config.init(2, null, 3);">
+                                                3
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                    <template v-else-if="config.data.page.storeLinked.currentPage > config.data.page.storeLinked.pageCount - 2">
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li :class="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount - 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount - 2 ? '' : config.init(2, null, config.data.page.storeLinked.pageCount - 2);">
+                                                {{config.data.page.storeLinked.pageCount - 2}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount - 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount - 1 ? '' : config.init(2, null, config.data.page.storeLinked.pageCount - 1);">
+                                                {{config.data.page.storeLinked.pageCount - 1}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount ? '' : config.init(2, null, config.data.page.storeLinked.pageCount);">
+                                                {{config.data.page.storeLinked.pageCount}}
+                                            </a>
+                                        </li>
+                                    </template>
+                                    <template v-else>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.storeLinked.currentPage - 1)">
+                                                {{config.data.page.storeLinked.currentPage - 1}}
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#" v-on:click.prevent>
+                                                {{config.data.page.storeLinked.currentPage}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.storeLinked.currentPage + 1)">
+                                                {{config.data.page.storeLinked.currentPage + 1}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                </template>
+                                <li :class="config.data.page.storeLinked.pageCount === config.data.page.storeLinked.currentPage ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.storeLinked.pageCount);">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Ligar tiendas</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                            <div v-for="(link, linkIndex) in config.alterLinkDef.add" class="row">
+                                <div class="col-sm-6">
+                                    <span><b>{{config.store[link.index].name}}</b></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div :class="link.valid ? '' : 'has-error'" class="form-group">
+                                        <input v-model="link.time" v-on:keyup="link.time = mask('time', $event, link.time); config.validation('add', linkIndex)" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
+                                        <span class="help-block">{{link.text}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" v-on:click="config.alterLink('add')">Ligar</button>
+                        <button id="closeAdd" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.edit.name}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <span><b>Tiempo requerido</b></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div :class="config.alterLinkDef.edit.valid ? '' : 'has-error'" class="form-group">
+                                        <input v-model="config.alterLinkDef.edit.time" v-on:keyup="config.alterLinkDef.edit.time = mask('time', $event, config.alterLinkDef.edit.time); config.validation('edit')" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
+                                        <span class="help-block">{{config.alterLinkDef.edit.text}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" v-on:click="config.alterLink('edit')">Guardar</button>
+                        <button id="closeEdit" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Ligar tiendas</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                            <div v-for="(link, linkIndex) in config.alterLinkDef.add" class="row">
+                                <div class="col-sm-6">
+                                    <span><b>{{config.store[link.index].name}}</b></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div :class="link.valid ? '' : 'has-error'" class="form-group">
+                                        <input v-model="link.time" v-on:keyup="link.time = mask('time', $event, link.time); config.validation('add', linkIndex)" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
+                                        <span class="help-block">{{link.text}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="seeLinked" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.name}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <span><b>Tiempo requerido</b></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span>{{config.alterLinkDef.see.time}}</span>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div :class="config.alterLinkDef.masive.config.active === 0 ? '' : 'active'" class="link-button-container">
+            <div class="row">
+                <div class="col-sm-6 text-center button">
+                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('remove')" v-if="config.alterLinkDef.masive.config.active === 1" href="#">
+                        <img src="/image/remove.png">
+                    </a>
+                </div>
+                <div class="col-sm-6 text-center button">
+                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('add')" v-if="config.alterLinkDef.masive.config.active === 2" href="#">
+                        <img src="/image/add.png">
+                    </a>
                 </div>
             </div>
         </div>
@@ -32104,13 +32297,13 @@ module.exports = `
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[0].interval" type="number" name="Intervalos de atención">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[0].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
                                                         <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div v-if="config.manualAdd.steps[0].active && Math.floor(parseInt(config.manualAdd.steps[0].interval)) > 0" class="row">
+                                        <div v-if="config.manualAdd.steps[0].active" class="row">
                                             <div style="padding-top: 20px"></div>
                                             <div class="col-sm-6">
                                                 <div class="form-group text-center schedule-title">
@@ -32184,13 +32377,13 @@ module.exports = `
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" name="Intervalos de atención">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
                                                         <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active && Math.floor(parseInt(config.manualAdd.steps[config.manualAdd.actualStep].interval)) > 0" class="row">
+                                        <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active" class="row">
                                             <div style="padding-top: 20px"></div>
                                             <div class="col-sm-6">
                                                 <div class="form-group text-center schedule-title">
@@ -32871,13 +33064,13 @@ module.exports = `
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval" type="number" name="Intervalos de atención">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
                                                         <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div v-if="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].active && Math.floor(parseInt(config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval)) > 0" class="row">
+                                        <div v-if="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].active" class="row">
                                             <div style="padding-top: 20px"></div>
                                             <div class="col-sm-5">
                                                 <div class="form-group text-center schedule-title">
@@ -33555,6 +33748,7 @@ module.exports = new Vue({
     methods: {
         init: function(e){
             var me = this;
+            this.mask = e.mask;
             this.tienda.models.clienteSucursal = e.clienteSucursal;
             this.tienda.models.sucursal = e.sucursal;
             this.tienda.models.sucursalHorario = e.sucursalHorario;
@@ -33742,7 +33936,8 @@ module.exports = new Vue({
                 me.recurso.init();
             else if(e === 3)
                 me.ruta.init();
-        }
+        },
+        mask: function(){}
     }
 });
 
@@ -33781,13 +33976,37 @@ module.exports = new Vue({
             sucursalHorario: null
         },
         store: [],
-        storeLinked: []
+        storeLinked: [],
+        alterLinkDef: {
+            masive: {
+                config: {
+                    active: 0,  //0 nothing to see, 1 remove, 2 add
+                }
+            },
+            add: [],
+            remove: [],
+            edit: {
+                    id: null,
+                    index: null,
+                    name: null,
+                    time: null,
+                    valid: true,
+                    text: "hh:mm:ss"
+            },
+            see: {
+                name: null,
+                time: null
+            }
+        }
     },
     methods: {
-        init: function(e, page){
+        init: function(e, page, pageLinked){
             var i,
                 me = this;
-            this.data.page.store.currentPage = page;
+            if(page)
+                this.data.page.store.currentPage = page;
+            if(pageLinked)
+                this.data.page.storeLinked.currentPage = pageLinked;
             if(e === 0 || e === 1){             //0 all, 1 store, 2 storeLinked
                 this.store = [];
                 this.models.sucursal.get({
@@ -33809,7 +34028,8 @@ module.exports = new Vue({
                             delimiters: me.client.id,
                             params: {
                                 "per-page": me.data.perPage,
-                                "page": me.data.page.storeLinked.currentPage
+                                "page": me.data.page.storeLinked.currentPage,
+                                "expand": "sucursal"
                             }
                         },
                         function(success){
@@ -33833,7 +34053,8 @@ module.exports = new Vue({
                     delimiters: this.client.id,
                     params: {
                         "per-page": this.data.perPage,
-                        "page": this.data.page.storeLinked.currentPage
+                        "page": this.data.page.storeLinked.currentPage,
+                        "expand": "sucursal"
                     }
                 },
                 function(success){
@@ -33853,6 +34074,7 @@ module.exports = new Vue({
             me.store.push({
                 id: e.id,
                 name: e.nombre,
+                linked: false,
                 selected: false
             });
             this.models.clienteSucursal.get({
@@ -33862,34 +34084,272 @@ module.exports = new Vue({
                 ]
             },
             function(){
-                me.store[length].selected = true;
+                me.store[length].linked = true;
             },
             function(){});
         },
         initStoreLinked: function(e){
+            this.storeLinked.push({
+                id: e.sucursal_id,
+                time: e.tiempo_solicitado,
+                name: e.sucursal.nombre,
+                selected: false
+            });
+        },
+        initDrag: function(type){
             var me = this;
-            this.models.sucursal.get({
-                delimiters: e.sucursal_id
+            switch(type){
+                case "add":
+                    Vue.nextTick(function(){
+                        setTimeout(function(){
+                            me.alterLinkDef.masive.config.active = 2;
+                        }, 50);
+                    });
+                    break;
+                case "remove":
+                    Vue.nextTick(function(){
+                        setTimeout(function(){
+                            me.alterLinkDef.masive.config.active = 1;
+                        }, 50);
+                    });
+                    break;
+            }
+        },
+        validation: function(type, i){
+            var hmd;
+            switch(type){
+                case "add":
+                    hmd = this.alterLinkDef.add[i].time.split(":");
+                    this.alterLinkDef.add[i].valid = false;
+                    if(this.alterLinkDef.add[i].time === "")
+                        this.alterLinkDef.add[i].text = "Tiempo requerido no puede estar vacío";
+                    else if(this.alterLinkDef.add[i].time.length !== 8)
+                        this.alterLinkDef.add[i].text = "Tiempo requerido no tiene un formato apropiado";
+                    else if(this.alterLinkDef.add[i].time > "23:59:59" ||
+                    hmd.length !== 3 || hmd[0].length !== 2 || parseInt(hmd[0]) > 23 ||
+                    !hmd[1] || hmd[1].length !== 2 || parseInt(hmd[1]) > 59 ||
+                    !hmd[2] || hmd[2].length !== 2 || parseInt(hmd[2]) > 59)
+                        this.alterLinkDef.add[i].time.text = "Tiempo requerido no tiene un formato apropiado";
+                    else{
+                        this.alterLinkDef.add[i].text = "hh:mm:ss";
+                        this.alterLinkDef.add[i].valid = true;
+                    }
+                    break;
+                case "edit":
+                    hmd = this.alterLinkDef.edit.time.split(":");
+                    this.alterLinkDef.edit.valid = false;
+                    if(this.alterLinkDef.edit.time === "")
+                        this.alterLinkDef.edit.text = "Tiempo requerido no puede estar vacío";
+                    else if(this.alterLinkDef.edit.time.length !== 8)
+                        this.alterLinkDef.edit.text = "Tiempo requerido no tiene un formato apropiado";
+                    else if(this.alterLinkDef.edit.time > "23:59:59" ||
+                    hmd.length !== 3 || hmd[0].length !== 2 || parseInt(hmd[0]) > 23 ||
+                    !hmd[1] || hmd[1].length !== 2 || parseInt(hmd[1]) > 59 ||
+                    !hmd[2] || hmd[2].length !== 2 || parseInt(hmd[2]) > 59)
+                        this.alterLinkDef.edit.time.text = "Tiempo requerido no tiene un formato apropiado";
+                    else{
+                        this.alterLinkDef.edit.text = "hh:mm:ss";
+                        this.alterLinkDef.edit.valid = true;
+                    }
+                    break;
+            }
+        },
+        setMasive: function(type){
+            var i,
+                me = this;
+            switch(type){
+                case "add":
+                    this.alterLinkDef.add = [];
+                    for(i = 0; i < this.store.length; i++)
+                        if(this.store[i].selected === true &&
+                           this.store[i].linked === false)
+                            this.setLink(type, i, true); //AUTO
+                    $('#add').modal('show');
+                    break;
+                case "remove":
+                    this.alterLinkDef.remove = [];
+                    for(i = 0; i < this.storeLinked.length; i++)
+                        if(this.storeLinked[i].selected === true)
+                            this.alterLinkDef.remove.push({
+                                id: this.storeLinked[i].id
+                            });
+                    BUTO.components.main.confirm.description.title = "Confirmación de borrado";
+                    BUTO.components.main.confirm.description.text = "¿Deseas borrar todos los registros seleccionados?";
+                    BUTO.components.main.confirm.description.accept = "Aceptar";
+                    BUTO.components.main.confirm.description.cancel = "Cancelar";
+                    BUTO.components.main.confirm.active = true;
+                    BUTO.components.main.confirm.onAccept = function(){
+                        for(i = 0; i < me.alterLinkDef.remove.length; i++)
+                            me.remove(me.alterLinkDef.remove[i].id, true, i);
+                    };
+                    break;
+            }
+        },
+        setLink: function(type, i, auto){
+            switch(type){
+                case "add":
+                    if(!auto)
+                        this.alterLinkDef.add = [];
+                    this.alterLinkDef.add.push({
+                        id: this.store[i].id,
+                        index: i,
+                        time: "",
+                        valid: true,
+                        text: "hh:mm:ss"
+                    });
+                    break;
+                case "edit":
+                    this.alterLinkDef.edit.index = i;
+                    this.alterLinkDef.edit.name = this.storeLinked[i].name;
+                    this.alterLinkDef.edit.time = this.storeLinked[i].time;
+                    this.alterLinkDef.edit.id = this.storeLinked[i].id;
+                    break;
+                case "see":
+                    console.log(type, id);
+                    break;
+                case "seeLinked":
+                    this.alterLinkDef.see.name = this.storeLinked[i].name;
+                    this.alterLinkDef.see.time = this.storeLinked[i].time;
+                    break;
+            }
+        },
+        alterLink: function(type){
+            var i,
+                valid = true;
+            switch(type){
+                case "add":
+                    for(i = 0; i < this.alterLinkDef.add.length; i++){
+                        this.validation(type, i);
+                        if(this.alterLinkDef.add[i].valid === false)
+                            valid = false;
+                    }
+                    if(valid){
+                        for(i = 0; i < this.alterLinkDef.add.length; i++)
+                            this.add(this.alterLinkDef.add[i].id, this.alterLinkDef.add[i].time, i);
+                    }
+                    else{
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Existen errores en los tiempos requeridos, inténtalo de nuevo.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    }
+                    break;
+                case "edit":
+                    if(this.alterLinkDef.edit.time === null){
+                        this.alterLinkDef.edit.time = "";
+                        this.validation(type);
+                    }
+                    if(this.alterLinkDef.edit.valid === false)
+                        valid = false;
+                    if(valid)
+                        this.edit();
+                    else{
+                        BUTO.components.main.alert.description.title = "Errores en Edición de Registro";
+                        BUTO.components.main.alert.description.text = "Existen errores en los tiempos requeridos, inténtalo de nuevo.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    }
+                    break;
+            }
+        },
+        add: function(id, time, i){
+            var me = this;
+            this.models.clienteSucursal.post({
+                delimiters: this.client.id,
+                params: {
+                    sucursal_id: id,
+                    tiempo_solicitado: time,
+                }
             },
             function(success){
-                me.storeLinked.push({
-                    id: success.body.id,
-                    time: e.tiempo_solicitado,
-                    name: success.body.nombre
-                });
+                if(me.alterLinkDef.add.length - 1 === i){
+                    me.alterLinkDef.add = [];
+                    me.init(0);
+                    document.getElementById("closeAdd").click();
+                }
             },
             function(error){
                 console.log(error);
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = error.body[0].message;
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
             });
         },
-        setLink: function(type, id){
-            switch(type){
-                case "link":
-                    
-                    break;
-                case "unlink":
-                    
-                    break;
+        edit: function(){
+            var me = this;
+            this.models.clienteSucursal.patch({
+                delimiters: [
+                    this.client.id,
+                    this.alterLinkDef.edit.id
+                ],
+                params: {
+                    tiempo_solicitado: this.alterLinkDef.edit.time,
+                }
+            },
+            function(success){
+                me.storeLinked[me.alterLinkDef.edit.index].time = success.body.tiempo_solicitado;
+                document.getElementById("closeEdit").click();
+            },
+            function(error){
+                console.log(error);
+                BUTO.components.main.alert.description.title = "Errores en Edición de Registro";
+                BUTO.components.main.alert.description.text = error.body[0].message;
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+            });
+        },
+        remove: function(id, auto, i){
+            var me = this;
+            if(auto)
+                this.models.clienteSucursal.remove({
+                    delimiters: [
+                        me.client.id,
+                        id
+                    ],
+                    params: {}
+                },
+                function(success){
+                    if(me.alterLinkDef.remove.length - 1 === i){
+                        me.init(0);
+                        BUTO.components.main.confirm.active = false;
+                    }
+                },
+                function(error){
+                    console.log(error);
+                    BUTO.components.main.alert.description.title = "Errores en Borrado de Registro";
+                    BUTO.components.main.alert.description.text = error.body.message;
+                    BUTO.components.main.alert.description.ok = "Aceptar";
+                    BUTO.components.main.alert.active = true;
+                    BUTO.components.main.confirm.active = false;
+                });
+            else{
+                BUTO.components.main.confirm.description.title = "Confirmación de borrado";
+                BUTO.components.main.confirm.description.text = "¿Deseas borrar el registro seleccionado?";
+                BUTO.components.main.confirm.description.accept = "Aceptar";
+                BUTO.components.main.confirm.description.cancel = "Cancelar";
+                BUTO.components.main.confirm.active = true;
+                BUTO.components.main.confirm.onAccept = function(){
+                    me.models.clienteSucursal.remove({
+                        delimiters: [
+                            me.client.id,
+                            id
+                        ],
+                        params: {}
+                    },
+                    function(success){
+                        me.init(0);
+                        BUTO.components.main.confirm.active = false;
+                    },
+                    function(error){
+                        console.log(error);
+                        BUTO.components.main.alert.description.title = "Errores en Borrado de Registro";
+                        BUTO.components.main.alert.description.text = error.body.message;
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        BUTO.components.main.confirm.active = false;
+                    });
+                };
             }
         }
     }
@@ -35187,22 +35647,24 @@ module.exports = new Vue({
                 newSchedule = [],
                 interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
                 length = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length;
-            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
-                for(i = 0; i < interval - length; i++)
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
-                        begin: "",
-                        end: "",
-                        validBegin: true,
-                        validEnd: true,
-                        textBegin: "hh:mm:ss",
-                        textEnd: "hh:mm:ss",
-                        id: null
-                    });
-            }
-            else if(length > interval){
-                for(i = 0; i < interval; i++)
-                    newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
-                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
+            if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)))){
+                if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
+                    for(i = 0; i < interval - length; i++)
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
+                            id: null
+                        });
+                }
+                else if(length > interval){
+                    for(i = 0; i < interval; i++)
+                        newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
+                }
             }
         },
         validation: function(type, i){
@@ -37621,44 +38083,46 @@ module.exports = new Vue({
                 newSchedule = [],
                 interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
                 length = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length;
-            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
-                for(i = 0; i < interval - length; i++)
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
-                        begin: "",
-                        end: "",
-                        validBegin: true,
-                        validEnd: true,
-                        textBegin: "hh:mm:ss",
-                        textEnd: "hh:mm:ss",
-                        
-                        main_begin: null,
-                        main_end: null,
-                        lat_begin: null,
-                        lng_begin: null,
-                        lat_end: null,
-                        lng_end: null,
-                        active: false
-                    });
+            if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)))){
+                if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
+                    for(i = 0; i < interval - length; i++)
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
+                            
+                            main_begin: null,
+                            main_end: null,
+                            lat_begin: null,
+                            lng_begin: null,
+                            lat_end: null,
+                            lng_end: null,
+                            active: false
+                        });
+                }
+                else if(length > interval){
+                    for(i = 0; i < length; i++)
+                        if(i < interval)
+                            newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
+                        else{
+                            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin !== null &&
+                                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_begin !== null &&
+                                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_begin !== null)
+                                 this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin.setMap(null);
+                            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end !== null &&
+                               this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_end !== null &&
+                               this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_end !== null)    //Is showed in map
+                                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end.setMap(null);
+                        }
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
+                    this.setActivity(true);
+                }
+                if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length > 0)
+                    this.setActiveInterval(0);
             }
-            else if(length > interval){
-                for(i = 0; i < length; i++)
-                    if(i < interval)
-                        newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
-                    else{
-                        if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin !== null &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_begin !== null &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_begin !== null)
-                             this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin.setMap(null);
-                        if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end !== null &&
-                           this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_end !== null &&
-                           this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_end !== null)    //Is showed in map
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end.setMap(null);
-                    }
-                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
-                this.setActivity(true);
-            }
-            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length > 0)
-                this.setActiveInterval(0);
         },
         setActivity: function(auto){
             if(!auto)

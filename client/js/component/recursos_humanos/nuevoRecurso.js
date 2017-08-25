@@ -596,44 +596,46 @@ module.exports = new Vue({
                 newSchedule = [],
                 interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
                 length = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length;
-            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
-                for(i = 0; i < interval - length; i++)
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
-                        begin: "",
-                        end: "",
-                        validBegin: true,
-                        validEnd: true,
-                        textBegin: "hh:mm:ss",
-                        textEnd: "hh:mm:ss",
-                        
-                        main_begin: null,
-                        main_end: null,
-                        lat_begin: null,
-                        lng_begin: null,
-                        lat_end: null,
-                        lng_end: null,
-                        active: false
-                    });
+            if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)))){
+                if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
+                    for(i = 0; i < interval - length; i++)
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
+                            
+                            main_begin: null,
+                            main_end: null,
+                            lat_begin: null,
+                            lng_begin: null,
+                            lat_end: null,
+                            lng_end: null,
+                            active: false
+                        });
+                }
+                else if(length > interval){
+                    for(i = 0; i < length; i++)
+                        if(i < interval)
+                            newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
+                        else{
+                            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin !== null &&
+                                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_begin !== null &&
+                                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_begin !== null)
+                                 this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin.setMap(null);
+                            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end !== null &&
+                               this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_end !== null &&
+                               this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_end !== null)    //Is showed in map
+                                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end.setMap(null);
+                        }
+                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
+                    this.setActivity(true);
+                }
+                if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length > 0)
+                    this.setActiveInterval(0);
             }
-            else if(length > interval){
-                for(i = 0; i < length; i++)
-                    if(i < interval)
-                        newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
-                    else{
-                        if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin !== null &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_begin !== null &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_begin !== null)
-                             this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin.setMap(null);
-                        if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end !== null &&
-                           this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_end !== null &&
-                           this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_end !== null)    //Is showed in map
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end.setMap(null);
-                    }
-                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
-                this.setActivity(true);
-            }
-            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length > 0)
-                this.setActiveInterval(0);
         },
         setActivity: function(auto){
             if(!auto)

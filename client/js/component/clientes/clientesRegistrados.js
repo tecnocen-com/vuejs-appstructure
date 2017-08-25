@@ -12,6 +12,7 @@ module.exports = new Vue({
     methods: {
         init: function(e){
             var me = this;
+            this.mask = e.mask;
             this.tienda.models.clienteSucursal = e.clienteSucursal;
             this.tienda.models.sucursal = e.sucursal;
             this.tienda.models.sucursalHorario = e.sucursalHorario;
@@ -199,6 +200,7 @@ module.exports = new Vue({
                 me.recurso.init();
             else if(e === 3)
                 me.ruta.init();
-        }
+        },
+        mask: function(){}
     }
 });

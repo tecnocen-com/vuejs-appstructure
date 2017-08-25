@@ -376,6 +376,23 @@ nav>ul.pagination>li.active>a:hover{
     background-color: #292b2c;
     color: white;
 }
+.link-row-select{
+    background-color: #292b2c !important;
+    color: white;
+}
+.link-button-container{
+    z-index: -10;
+    top: 50px;
+    width: 100%;
+    position: fixed;
+    padding: 30px;
+}
+.link-button-container.active{
+    z-index: 10;
+}
+.link-button-container .button a img{
+    width: 150px;
+}
 /********************************** Transitions ***********************************/
 button.btn-customized,
 a.grid-handlers{

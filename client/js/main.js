@@ -187,7 +187,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                             },
                             function(error){
                                 console.log(error);
-                                //window.location = "/logout";
+                                window.location = "/logout";
                             });
                             BUTO.requires.components.clientesRegistrados.init({
                                 cliente: this.models.cliente,
@@ -200,6 +200,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 empleadoHorario: this.models.empleadoHorario,
                                 empleadoHorarioRuta: this.models.empleadoHorarioRuta,
                                 empleadoHorarioRutaPunto: this.models.empleadoHorarioRutaPunto,
+                                mask: this.mask
                             });
                             BUTO.requires.components.tiendasRegistradas.init({
                                 sucursal: this.models.sucursal,
