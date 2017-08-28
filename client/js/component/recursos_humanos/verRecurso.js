@@ -102,11 +102,16 @@ module.exports = new Vue({
         ]
     },
     methods: {
-        init: function(){
+        init: function(type, first){
             var i, j, me = this;
             this.actualStep = 0;
             this.allPosVisible = 0;
-            this.initMap();
+            if(type !== "modal")
+                this.initMap(type, first);
+            else
+                setTimeout(function(){
+                    me.initMap(type, first);
+                }, 250);
             for(i = 0; i < this.steps.length; i++)
                 this.steps[i].schedule = [];
             this.models.usuarioEmpleado.get({
@@ -160,24 +165,40 @@ module.exports = new Vue({
                             break;
                     }
                 }
-                for(i = 0; i < me.steps.length; i++){
-                    me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
-                    me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
-                    if(me.steps[i].active)
-                        for(j = 0; j < me.steps[i].schedule.length; j++)
-                            me.initPosition(i, j);
+                if(type === "modal"){
+                    setTimeout(function(){
+                        for(i = 0; i < me.steps.length; i++){
+                            me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
+                            me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
+                            if(me.steps[i].active)
+                                for(j = 0; j < me.steps[i].schedule.length; j++)
+                                    me.initPosition(i, j);
+                        }
+                        me.focusPosition(true);     //JUST ON INIT
+                    }, 250);
                 }
-                me.focusPosition(true);     //JUST ON INIT
+                else{
+                    for(i = 0; i < me.steps.length; i++){
+                        me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
+                        me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
+                        if(me.steps[i].active)
+                            for(j = 0; j < me.steps[i].schedule.length; j++)
+                                me.initPosition(i, j);
+                    }
+                    me.focusPosition(true);     //JUST ON INIT
+                }
             },
             function(error){
                 console.log(error);
             });
         },
-        initMap: function(){
-            this.map.main = new google.maps.Map(document.getElementById('mapSeeResource'), {     //Define Map
-                zoom: this.map.data.zoom
-            });
-            this.initFocus();
+        initMap: function(type, first){
+            if(type !== "modal" || (type === "modal" && first))
+                this.map.main = new google.maps.Map(document.getElementById('mapSeeResource'), {     //Define Map
+                    zoom: this.map.data.zoom
+                });
+            if(type !== "modal" || first)
+                this.initFocus();
         },
         initFocus: function(){
             this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeResource'));

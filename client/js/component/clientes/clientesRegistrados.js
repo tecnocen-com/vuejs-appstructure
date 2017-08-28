@@ -107,6 +107,8 @@ module.exports = new Vue({
                         handler: function(data){
                             me.tienda.client.id = data.id;
                             me.tienda.client.name = data.nombre;
+                            me.recurso.client.id = data.id;
+                            me.recurso.client.name = data.nombre;
                             me.setView(1);
                         }
                     },
@@ -122,6 +124,8 @@ module.exports = new Vue({
                         handler: function(data){
                             me.tienda.client.id = data.id;
                             me.tienda.client.name = data.nombre;
+                            me.recurso.client.id = data.id;
+                            me.recurso.client.name = data.nombre;
                             me.setView(2);
                         }
                     },
@@ -137,6 +141,8 @@ module.exports = new Vue({
                         handler: function(data){
                             me.tienda.client.id = data.id;
                             me.tienda.client.name = data.nombre;
+                            me.recurso.client.id = data.id;
+                            me.recurso.client.name = data.nombre;
                             me.setView(3);
                         }
                     }
@@ -195,9 +201,9 @@ module.exports = new Vue({
             var me = this;
             this.active = e;
             if(e === 1)
-                me.tienda.init(0, 1);
+                me.tienda.init(0, 1, 1);
             else if(e === 2)
-                me.recurso.init();
+                me.recurso.init(0, 1, 1);
             else if(e === 3)
                 me.ruta.init();
         },

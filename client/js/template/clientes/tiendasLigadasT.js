@@ -42,7 +42,7 @@ module.exports = `
                                         <td v-on:click.self="store.linked ? '' : store.selected = !store.selected" class="col-md-1">
                                             {{store.name}}
                                             <div class="pull-right">
-                                                <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver">
+                                                <a href="#" v-on:click.prevent="config.setLink('see', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
                                                     <i class="icon-eye" aria-hidden="true"></i>
                                                 </a>
                                                 <a href="#" v-on:click.prevent="config.setLink('add', storeIndex)" :class="store.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar" data-toggle="modal" data-target="#add">
@@ -296,18 +296,42 @@ module.exports = `
                         <h4 class="modal-title" id="myModalLabel">Ligar tiendas</h4>
                     </div>
                     <div class="modal-body modal-body-custom">
-                            <div v-for="(link, linkIndex) in config.alterLinkDef.add" class="row">
-                                <div class="col-sm-6">
-                                    <span><b>{{config.store[link.index].name}}</b></span>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div :class="link.valid ? '' : 'has-error'" class="form-group">
-                                        <input v-model="link.time" v-on:keyup="link.time = mask('time', $event, link.time); config.validation('add', linkIndex)" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
-                                        <span class="help-block">{{link.text}}</span>
-                                    </div>
+                        <div v-if="config.alterLinkDef.add.length > 1" class="row">
+                            <div class="form-group text-center">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.alterLinkDef.masive.config.same = !config.alterLinkDef.masive.config.same">
+                                        <span class="switchery switchery-default switchery-custom" :class="config.alterLinkDef.masive.config.same ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.alterLinkDef.masive.config.same ? 'Si' : 'No'}}
+                                    </label>
+                                    <span class="help-block">Generalizar tiempos solicitados</span>
                                 </div>
                             </div>
-                            <div style="height: 10px;"></div>
+                        </div>
+                        <div v-if="config.alterLinkDef.masive.config.same" class="row">
+                            <div class="col-sm-6">
+                                <span><b>Tiempo General</b></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <div v-if="config.alterLinkDef.add.length > 0" :class="config.alterLinkDef.add[0].valid ? '' : 'has-error'" class="form-group">
+                                    <input v-model="config.alterLinkDef.add[0].time" v-on:keyup="config.alterLinkDef.add[0].time = mask('time', $event, config.alterLinkDef.add[0].time); config.validation('add', 0)" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
+                                    <span class="help-block">{{config.alterLinkDef.add[0].text}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else v-for="(link, linkIndex) in config.alterLinkDef.add" class="row">
+                            <div class="col-sm-6">
+                                <span><b>{{config.store[link.index].name}}</b></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <div :class="link.valid ? '' : 'has-error'" class="form-group">
+                                    <input v-model="link.time" v-on:keyup="link.time = mask('time', $event, link.time); config.validation('add', linkIndex)" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
+                                    <span class="help-block">{{link.text}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height: 10px;"></div>
                     </div>
                     <div class="modal-footer modal-footer-custom">
                         <button type="button" class="btn btn-default btn-customized" v-on:click="config.alterLink('add')">Ligar</button>
@@ -349,21 +373,92 @@ module.exports = `
                 <div class="modal-content">
                     <div class="modal-header modal-header-custom">
                         <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Ligar tiendas</h4>
+                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.store.name}}</h4>
                     </div>
                     <div class="modal-body modal-body-custom">
-                            <div v-for="(link, linkIndex) in config.alterLinkDef.add" class="row">
-                                <div class="col-sm-6">
-                                    <span><b>{{config.store[link.index].name}}</b></span>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div id="mapFocusPositionSeeStore" v-on:click="config.alterLinkDef.see.store.focusPosition()" class="map-focus-position text-center">
+                                        <i class="icon-shrink3"></i>
+                                    </div>
+                                    <div id="mapSeeStore" class="map-container-modal map-basic"></div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div :class="link.valid ? '' : 'has-error'" class="form-group">
-                                        <input v-model="link.time" v-on:keyup="link.time = mask('time', $event, link.time); config.validation('add', linkIndex)" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
-                                        <span class="help-block">{{link.text}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="steps-basic wizard clearfix">
+                                        <div class="steps clearfix">
+                                            <ul role="tablist">
+                                                <li v-for="(steps, stepIndex) in config.alterLinkDef.see.store.steps" role="tab"
+                                                :class="[stepIndex === 0 ? 'first' : '',
+                                                        config.alterLinkDef.see.store.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                    <a href="#" v-on:click.prevent="steps.seen && config.alterLinkDef.see.store.actualStep !== stepIndex ? config.alterLinkDef.see.store.changeStep(stepIndex) : ''">
+                                                        <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="content clearfix">
+                                            <div class="row">
+                                                <div style="padding-top: 20px"></div>
+                                                <div :class="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                    <div class="form-group">
+                                                        <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                            <label>
+                                                                <span class="switchery switchery-default switchery-custom" :class="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active ? 'active' : 'not-active'">
+                                                                    <small></small>
+                                                                </span>
+                                                                {{config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active ? 'Si' : 'No'}}
+                                                            </label>
+                                                            <span class="help-block">¿Opera en {{config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].text}}?</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div v-if="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active" class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">Intervalos de atención</label>
+                                                        <div class="col-md-8">
+                                                            <input disabled="disabled" class="form-control" v-model="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].interval" type="number" name="Intervalos de atención">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active && Math.floor(parseInt(config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].interval)) > 0" class="row">
+                                                <div style="padding-top: 20px"></div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group text-center schedule-title">
+                                                        <label>Inicio</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group text-center schedule-title">
+                                                        <label>Final</label>
+                                                    </div>
+                                                </div>
+                                                <template v-for="(interval, intervalIndex) in config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].schedule">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                            <span class="help-block">hh:mm:ss</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                            <span class="help-block">hh:mm:ss</span>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div style="height: 10px;"></div>
+                        </div>
+                        <div style="height: 10px;"></div>
                     </div>
                     <div class="modal-footer modal-footer-custom">
                         <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
@@ -376,7 +471,7 @@ module.exports = `
                 <div class="modal-content">
                     <div class="modal-header modal-header-custom">
                         <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.name}}</h4>
+                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.storeLinked.name}}</h4>
                     </div>
                     <div class="modal-body modal-body-custom">
                             <div class="row">
@@ -384,7 +479,7 @@ module.exports = `
                                     <span><b>Tiempo requerido</b></span>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span>{{config.alterLinkDef.see.time}}</span>
+                                    <span>{{config.alterLinkDef.see.storeLinked.time}}</span>
                                 </div>
                             </div>
                             <div style="height: 10px;"></div>

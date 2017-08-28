@@ -393,6 +393,9 @@ nav>ul.pagination>li.active>a:hover{
 .link-button-container .button a img{
     width: 150px;
 }
+.map-container-modal{
+    height: 250px;
+}
 /********************************** Transitions ***********************************/
 button.btn-customized,
 a.grid-handlers{

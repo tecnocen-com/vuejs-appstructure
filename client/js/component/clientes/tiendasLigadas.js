@@ -1,3 +1,4 @@
+var verTienda = require("./../tiendas/verTienda.js");
 module.exports = new Vue({
     data: {
         client: {
@@ -34,6 +35,7 @@ module.exports = new Vue({
             masive: {
                 config: {
                     active: 0,  //0 nothing to see, 1 remove, 2 add
+                    same: false
                 }
             },
             add: [],
@@ -47,8 +49,12 @@ module.exports = new Vue({
                     text: "hh:mm:ss"
             },
             see: {
-                name: null,
-                time: null
+                first: true,
+                store: verTienda,
+                storeLinked: {
+                    name: null,
+                    time: null
+                }
             }
         }
     },
@@ -60,6 +66,8 @@ module.exports = new Vue({
                 this.data.page.store.currentPage = page;
             if(pageLinked)
                 this.data.page.storeLinked.currentPage = pageLinked;
+            if(e === 0 && page && pageLinked)
+                this.alterLinkDef.see.first = true;
             if(e === 0 || e === 1){             //0 all, 1 store, 2 storeLinked
                 this.store = [];
                 this.models.sucursal.get({
@@ -145,7 +153,7 @@ module.exports = new Vue({
             this.storeLinked.push({
                 id: e.sucursal_id,
                 time: e.tiempo_solicitado,
-                name: e.sucursal.nombre,
+                name: e._embedded.sucursal.nombre,
                 selected: false
             });
         },
@@ -213,6 +221,7 @@ module.exports = new Vue({
             switch(type){
                 case "add":
                     this.alterLinkDef.add = [];
+                    this.alterLinkDef.masive.config.same = false;
                     for(i = 0; i < this.store.length; i++)
                         if(this.store[i].selected === true &&
                            this.store[i].linked === false)
@@ -239,10 +248,13 @@ module.exports = new Vue({
             }
         },
         setLink: function(type, i, auto){
+            var me = this;
             switch(type){
                 case "add":
-                    if(!auto)
+                    if(!auto){
                         this.alterLinkDef.add = [];
+                        this.alterLinkDef.masive.config.same = false;
+                    }
                     this.alterLinkDef.add.push({
                         id: this.store[i].id,
                         index: i,
@@ -258,11 +270,16 @@ module.exports = new Vue({
                     this.alterLinkDef.edit.id = this.storeLinked[i].id;
                     break;
                 case "see":
-                    console.log(type, id);
+                    this.alterLinkDef.see.store.id = this.store[i].id;
+                    Vue.nextTick(function(){
+                        me.alterLinkDef.see.store.init("modal", me.alterLinkDef.see.first);
+                        if(me.alterLinkDef.see.first === true)
+                            me.alterLinkDef.see.first = false;
+                    });
                     break;
                 case "seeLinked":
-                    this.alterLinkDef.see.name = this.storeLinked[i].name;
-                    this.alterLinkDef.see.time = this.storeLinked[i].time;
+                    this.alterLinkDef.see.storeLinked.name = this.storeLinked[i].name;
+                    this.alterLinkDef.see.storeLinked.time = this.storeLinked[i].time;
                     break;
             }
         },
@@ -272,13 +289,13 @@ module.exports = new Vue({
             switch(type){
                 case "add":
                     for(i = 0; i < this.alterLinkDef.add.length; i++){
-                        this.validation(type, i);
-                        if(this.alterLinkDef.add[i].valid === false)
+                        this.validation(type, this.alterLinkDef.masive.config.same ? 0 : i);
+                        if(this.alterLinkDef.add[this.alterLinkDef.masive.config.same ? 0 : i].valid === false)
                             valid = false;
                     }
                     if(valid){
                         for(i = 0; i < this.alterLinkDef.add.length; i++)
-                            this.add(this.alterLinkDef.add[i].id, this.alterLinkDef.add[i].time, i);
+                            this.add(this.alterLinkDef.add[i].id, this.alterLinkDef.add[this.alterLinkDef.masive.config.same ? 0 : i].time, i);
                     }
                     else{
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";

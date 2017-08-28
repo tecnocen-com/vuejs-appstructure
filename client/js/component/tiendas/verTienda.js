@@ -80,7 +80,7 @@ module.exports = new Vue({
         ]
     },
     methods: {
-        init: function(){
+        init: function(type, first){
             var me = this;
             this.actualStep = 0;
             for(var i = 0; i < me.steps.length; i++)
@@ -92,7 +92,13 @@ module.exports = new Vue({
                 me.name = success.body.nombre;
                 me.map.marker.position.lat = success.body.lat;
                 me.map.marker.position.lng = success.body.lng;
-                me.initMap();
+                if(type === "modal"){
+                    setTimeout(function(){
+                        me.initMap(type, first);
+                    }, 250);
+                }
+                else
+                    me.initMap(type, first);
             },
             function(error){
                 console.log(error);
@@ -132,13 +138,17 @@ module.exports = new Vue({
                 console.log(error);
             });
         },
-        initMap: function(){
-            this.map.main = new google.maps.Map(document.getElementById('mapSeeStore'), {     //Define Map
-                zoom: this.map.data.zoom,
-                center: this.map.marker.position
-            });
+        initMap: function(type, first){
+            if(type !== "modal" || (type === "modal" && first))
+                this.map.main = new google.maps.Map(document.getElementById('mapSeeStore'), {     //Define Map
+                    zoom: this.map.data.zoom,
+                    center: this.map.marker.position
+                });
+            else
+                this.map.main.setCenter(this.map.marker.position);
             this.initPosition();
-            this.initFocus();
+            if(type !== "modal" || first)
+                this.initFocus();
         },
         initFocus: function(){
             this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeStore'));

@@ -1,3 +1,4 @@
+var verRecurso = require("./../recursos_humanos/verRecurso.js");
 module.exports = new Vue({
     data: {
         client: {
@@ -34,7 +35,7 @@ module.exports = new Vue({
         alterLinkDef: {
             masive: {
                 config: {
-                    active: 0,  //0 nothing to see, 1 remove, 2 add
+                    active: 0  //0 nothing to see, 1 remove, 2 add
                 }
             },
             add: [],
@@ -48,8 +49,12 @@ module.exports = new Vue({
                     text: "hh:mm:ss"
             },
             see: {
-                name: null,
-                time: null
+                first: true,
+                resource: verRecurso,
+                resourceLinked: {
+                    name: null,
+                    time: null
+                }
             }
         }
     },
@@ -61,9 +66,11 @@ module.exports = new Vue({
                 this.data.page.resource.currentPage = page;
             if(pageLinked)
                 this.data.page.resourceLinked.currentPage = pageLinked;
+            if(e === 0 && page && pageLinked)
+                this.alterLinkDef.see.first = true;
             if(e === 0 || e === 1){             //0 all, 1 resource, 2 resourceLinked
                 this.resource = [];
-                this.models.sucursal.get({
+                this.models.usuarioEmpleado.get({
                     params: {
                         "per-page": this.data.perPage,
                         "sort": "nombre",
@@ -75,22 +82,22 @@ module.exports = new Vue({
                     me.data.page.resource.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
                     me.data.page.resource.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
                     for(i in success.body)
-                        me.initStore(success.body[i]);
+                        me.initResource(success.body[i]);
                     if(e === 0){
                         me.resourceLinked = [];
-                        me.models.clienteSucursal.get({
+                        me.models.clienteEmpleado.get({
                             delimiters: me.client.id,
                             params: {
                                 "per-page": me.data.perPage,
                                 "page": me.data.page.resourceLinked.currentPage,
-                                "expand": "sucursal"
+                                "expand": "empleado"
                             }
                         },
                         function(success){
                             me.data.page.resourceLinked.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
                             me.data.page.resourceLinked.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
                             for(i in success.body)
-                                me.initStoreLinked(success.body[i]);
+                                me.initResourceLinked(success.body[i].empleado_id);
                         },
                         function(error){
                             console.log(error);
@@ -103,26 +110,26 @@ module.exports = new Vue({
             }
             else if(e === 2){
                 this.resourceLinked = [];
-                this.models.clienteSucursal.get({
+                this.models.clienteEmpleado.get({
                     delimiters: this.client.id,
                     params: {
                         "per-page": this.data.perPage,
                         "page": this.data.page.resourceLinked.currentPage,
-                        "expand": "sucursal"
+                        "expand": "empleado"
                     }
                 },
                 function(success){
                     me.data.page.resourceLinked.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
                     me.data.page.resourceLinked.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
                     for(i in success.body)
-                        me.initStoreLinked(success.body[i]);
+                        me.initResourceLinked(success.body[i].empleado_id);
                 },
                 function(error){
                     console.log(error);
                 });
             }
         },
-        initStore: function(e){
+        initResource: function(e){
             var me = this,
                 length = me.resource.length;
             me.resource.push({
@@ -131,7 +138,7 @@ module.exports = new Vue({
                 linked: false,
                 selected: false
             });
-            this.models.clienteSucursal.get({
+            this.models.clienteEmpleado.get({
                 delimiters: [
                     me.client.id,
                     e.id
@@ -142,12 +149,21 @@ module.exports = new Vue({
             },
             function(){});
         },
-        initStoreLinked: function(e){
-            this.resourceLinked.push({
-                id: e.sucursal_id,
-                time: e.tiempo_solicitado,
-                name: e.sucursal.nombre,
-                selected: false
+        initResourceLinked: function(id){
+            var me = this;
+            this.models.usuarioEmpleado.get({
+                delimiters: id,
+                params: {}
+            },
+            function(success){
+                me.resourceLinked.push({
+                    id: success.body.id,
+                    name: success.body.nombre,
+                    selected: false
+                });
+            },
+            function(error){
+                console.log(error);
             });
         },
         initDrag: function(type){
@@ -169,56 +185,24 @@ module.exports = new Vue({
                     break;
             }
         },
-        validation: function(type, i){
-            var hmd;
-            switch(type){
-                case "add":
-                    hmd = this.alterLinkDef.add[i].time.split(":");
-                    this.alterLinkDef.add[i].valid = false;
-                    if(this.alterLinkDef.add[i].time === "")
-                        this.alterLinkDef.add[i].text = "Tiempo requerido no puede estar vacío";
-                    else if(this.alterLinkDef.add[i].time.length !== 8)
-                        this.alterLinkDef.add[i].text = "Tiempo requerido no tiene un formato apropiado";
-                    else if(this.alterLinkDef.add[i].time > "23:59:59" ||
-                    hmd.length !== 3 || hmd[0].length !== 2 || parseInt(hmd[0]) > 23 ||
-                    !hmd[1] || hmd[1].length !== 2 || parseInt(hmd[1]) > 59 ||
-                    !hmd[2] || hmd[2].length !== 2 || parseInt(hmd[2]) > 59)
-                        this.alterLinkDef.add[i].time.text = "Tiempo requerido no tiene un formato apropiado";
-                    else{
-                        this.alterLinkDef.add[i].text = "hh:mm:ss";
-                        this.alterLinkDef.add[i].valid = true;
-                    }
-                    break;
-                case "edit":
-                    hmd = this.alterLinkDef.edit.time.split(":");
-                    this.alterLinkDef.edit.valid = false;
-                    if(this.alterLinkDef.edit.time === "")
-                        this.alterLinkDef.edit.text = "Tiempo requerido no puede estar vacío";
-                    else if(this.alterLinkDef.edit.time.length !== 8)
-                        this.alterLinkDef.edit.text = "Tiempo requerido no tiene un formato apropiado";
-                    else if(this.alterLinkDef.edit.time > "23:59:59" ||
-                    hmd.length !== 3 || hmd[0].length !== 2 || parseInt(hmd[0]) > 23 ||
-                    !hmd[1] || hmd[1].length !== 2 || parseInt(hmd[1]) > 59 ||
-                    !hmd[2] || hmd[2].length !== 2 || parseInt(hmd[2]) > 59)
-                        this.alterLinkDef.edit.time.text = "Tiempo requerido no tiene un formato apropiado";
-                    else{
-                        this.alterLinkDef.edit.text = "hh:mm:ss";
-                        this.alterLinkDef.edit.valid = true;
-                    }
-                    break;
-            }
-        },
         setMasive: function(type){
             var i,
                 me = this;
             switch(type){
                 case "add":
-                    this.alterLinkDef.add = [];
-                    for(i = 0; i < this.resource.length; i++)
-                        if(this.resource[i].selected === true &&
-                           this.resource[i].linked === false)
-                            this.setLink(type, i, true); //AUTO
-                    $('#add').modal('show');
+                    BUTO.components.main.confirm.description.title = "Confirmación de ligado de recursos";
+                    BUTO.components.main.confirm.description.text = "¿Deseas ligar todos los registros seleccionados?";
+                    BUTO.components.main.confirm.description.accept = "Aceptar";
+                    BUTO.components.main.confirm.description.cancel = "Cancelar";
+                    BUTO.components.main.confirm.active = true;
+                    BUTO.components.main.confirm.onAccept = function(){
+                        me.alterLinkDef.add = [];
+                        for(i = 0; i < me.resource.length; i++)
+                            if(me.resource[i].selected === true &&
+                               me.resource[i].linked === false)
+                                me.setLink(type, i, true); //AUTO
+                        me.alterLink("add");
+                    };
                     break;
                 case "remove":
                     this.alterLinkDef.remove = [];
@@ -240,17 +224,25 @@ module.exports = new Vue({
             }
         },
         setLink: function(type, i, auto){
+            var me = this;
             switch(type){
                 case "add":
                     if(!auto)
                         this.alterLinkDef.add = [];
                     this.alterLinkDef.add.push({
                         id: this.resource[i].id,
-                        index: i,
-                        time: "",
-                        valid: true,
-                        text: "hh:mm:ss"
+                        index: i
                     });
+                    if(!auto){
+                        BUTO.components.main.confirm.description.title = "Confirmación de ligado de recursos";
+                        BUTO.components.main.confirm.description.text = "¿Deseas ligar el registro seleccionado?";
+                        BUTO.components.main.confirm.description.accept = "Aceptar";
+                        BUTO.components.main.confirm.description.cancel = "Cancelar";
+                        BUTO.components.main.confirm.active = true;
+                        BUTO.components.main.confirm.onAccept = function(){
+                            me.alterLink("add");
+                        };
+                    }
                     break;
                 case "edit":
                     this.alterLinkDef.edit.index = i;
@@ -259,11 +251,16 @@ module.exports = new Vue({
                     this.alterLinkDef.edit.id = this.resourceLinked[i].id;
                     break;
                 case "see":
-                    console.log(type, id);
+                    this.alterLinkDef.see.resource.id = this.resource[i].id;
+                    Vue.nextTick(function(){
+                        me.alterLinkDef.see.resource.init("modal", me.alterLinkDef.see.first);
+                        if(me.alterLinkDef.see.first === true)
+                            me.alterLinkDef.see.first = false;
+                    });
                     break;
                 case "seeLinked":
-                    this.alterLinkDef.see.name = this.resourceLinked[i].name;
-                    this.alterLinkDef.see.time = this.resourceLinked[i].time;
+                    this.alterLinkDef.see.resourceLinked.name = this.resourceLinked[i].name;
+                    this.alterLinkDef.see.resourceLinked.time = this.resourceLinked[i].time;
                     break;
             }
         },
@@ -272,21 +269,8 @@ module.exports = new Vue({
                 valid = true;
             switch(type){
                 case "add":
-                    for(i = 0; i < this.alterLinkDef.add.length; i++){
-                        this.validation(type, i);
-                        if(this.alterLinkDef.add[i].valid === false)
-                            valid = false;
-                    }
-                    if(valid){
-                        for(i = 0; i < this.alterLinkDef.add.length; i++)
-                            this.add(this.alterLinkDef.add[i].id, this.alterLinkDef.add[i].time, i);
-                    }
-                    else{
-                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                        BUTO.components.main.alert.description.text = "Existen errores en los tiempos requeridos, inténtalo de nuevo.";
-                        BUTO.components.main.alert.description.ok = "Aceptar";
-                        BUTO.components.main.alert.active = true;
-                    }
+                    for(i = 0; i < this.alterLinkDef.add.length; i++)
+                        this.add(this.alterLinkDef.add[i].id, i);
                     break;
                 case "edit":
                     if(this.alterLinkDef.edit.time === null){
@@ -306,20 +290,19 @@ module.exports = new Vue({
                     break;
             }
         },
-        add: function(id, time, i){
+        add: function(id, i){
             var me = this;
-            this.models.clienteSucursal.post({
+            this.models.clienteEmpleado.post({
                 delimiters: this.client.id,
                 params: {
-                    sucursal_id: id,
-                    tiempo_solicitado: time,
+                    empleado_id: id
                 }
             },
             function(success){
                 if(me.alterLinkDef.add.length - 1 === i){
                     me.alterLinkDef.add = [];
                     me.init(0);
-                    document.getElementById("closeAdd").click();
+                    BUTO.components.main.confirm.active = false;
                 }
             },
             function(error){
@@ -330,33 +313,10 @@ module.exports = new Vue({
                 BUTO.components.main.alert.active = true;
             });
         },
-        edit: function(){
-            var me = this;
-            this.models.clienteSucursal.patch({
-                delimiters: [
-                    this.client.id,
-                    this.alterLinkDef.edit.id
-                ],
-                params: {
-                    tiempo_solicitado: this.alterLinkDef.edit.time,
-                }
-            },
-            function(success){
-                me.resourceLinked[me.alterLinkDef.edit.index].time = success.body.tiempo_solicitado;
-                document.getElementById("closeEdit").click();
-            },
-            function(error){
-                console.log(error);
-                BUTO.components.main.alert.description.title = "Errores en Edición de Registro";
-                BUTO.components.main.alert.description.text = error.body[0].message;
-                BUTO.components.main.alert.description.ok = "Aceptar";
-                BUTO.components.main.alert.active = true;
-            });
-        },
         remove: function(id, auto, i){
             var me = this;
             if(auto)
-                this.models.clienteSucursal.remove({
+                this.models.clienteEmpleado.remove({
                     delimiters: [
                         me.client.id,
                         id
@@ -384,7 +344,7 @@ module.exports = new Vue({
                 BUTO.components.main.confirm.description.cancel = "Cancelar";
                 BUTO.components.main.confirm.active = true;
                 BUTO.components.main.confirm.onAccept = function(){
-                    me.models.clienteSucursal.remove({
+                    me.models.clienteEmpleado.remove({
                         delimiters: [
                             me.client.id,
                             id

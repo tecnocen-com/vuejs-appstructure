@@ -18,7 +18,7 @@ module.exports = `
         <div class="col-sm-6">
             <div class="panel panel-flat">
                 <div class="panel-heading">
-                    <h4 class="panel-title text-center">Todas las tiendas</h4>
+                    <h4 class="panel-title text-center">Todos los recursos</h4>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -42,10 +42,10 @@ module.exports = `
                                         <td v-on:click.self="resource.linked ? '' : resource.selected = !resource.selected" class="col-md-1">
                                             {{resource.name}}
                                             <div class="pull-right">
-                                                <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver">
+                                                <a href="#" v-on:click.prevent="config.setLink('see', resourceIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
                                                     <i class="icon-eye" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" v-on:click.prevent="config.setLink('add', resourceIndex)" :class="resource.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar" data-toggle="modal" data-target="#add">
+                                                <a href="#" v-on:click.prevent="config.setLink('add', resourceIndex)" :class="resource.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar">
                                                     <i class="icon-link" aria-hidden="true"></i>
                                                 </a>
                                             </div>
@@ -152,7 +152,7 @@ module.exports = `
         <div class="col-sm-6">
             <div class="panel panel-flat">
                 <div class="panel-heading">
-                    <h4 class="panel-title text-center">Tiendas ligadas</h4>
+                    <h4 class="panel-title text-center">Recursos ligados</h4>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -178,12 +178,6 @@ module.exports = `
                                         <td v-on:click.self="resource.selected = !resource.selected" class="col-md-1">
                                             {{resource.name}}
                                             <div class="pull-right">
-                                                <a href="#" v-on:click.prevent="config.setLink('seeLinked', resourceIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#seeLinked">
-                                                    <i class="icon-eye" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="#" v-on:click.prevent="config.setLink('edit', resourceIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Editar" data-toggle="modal" data-target="#edit">
-                                                    <i class="icon-pencil6" aria-hidden="true"></i>
-                                                </a>
                                                 <a href="#" v-on:click.prevent="config.remove(resource.id)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Desligar">
                                                     <i class="icon-unlink" aria-hidden="true"></i>
                                                 </a>
@@ -288,105 +282,124 @@ module.exports = `
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header modal-header-custom">
-                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Ligar tiendas</h4>
-                    </div>
-                    <div class="modal-body modal-body-custom">
-                            <div v-for="(link, linkIndex) in config.alterLinkDef.add" class="row">
-                                <div class="col-sm-6">
-                                    <span><b>{{config.resource[link.index].name}}</b></span>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div :class="link.valid ? '' : 'has-error'" class="form-group">
-                                        <input v-model="link.time" v-on:keyup="link.time = mask('time', $event, link.time); config.validation('add', linkIndex)" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
-                                        <span class="help-block">{{link.text}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="height: 10px;"></div>
-                    </div>
-                    <div class="modal-footer modal-footer-custom">
-                        <button type="button" class="btn btn-default btn-customized" v-on:click="config.alterLink('add')">Ligar</button>
-                        <button id="closeAdd" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header modal-header-custom">
-                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.edit.name}}</h4>
-                    </div>
-                    <div class="modal-body modal-body-custom">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <span><b>Tiempo requerido</b></span>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div :class="config.alterLinkDef.edit.valid ? '' : 'has-error'" class="form-group">
-                                        <input v-model="config.alterLinkDef.edit.time" v-on:keyup="config.alterLinkDef.edit.time = mask('time', $event, config.alterLinkDef.edit.time); config.validation('edit')" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
-                                        <span class="help-block">{{config.alterLinkDef.edit.text}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="height: 10px;"></div>
-                    </div>
-                    <div class="modal-footer modal-footer-custom">
-                        <button type="button" class="btn btn-default btn-customized" v-on:click="config.alterLink('edit')">Guardar</button>
-                        <button id="closeEdit" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header modal-header-custom">
                         <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Ligar tiendas</h4>
-                    </div>
-                    <div class="modal-body modal-body-custom">
-                            <div v-for="(link, linkIndex) in config.alterLinkDef.add" class="row">
-                                <div class="col-sm-6">
-                                    <span><b>{{config.resource[link.index].name}}</b></span>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div :class="link.valid ? '' : 'has-error'" class="form-group">
-                                        <input v-model="link.time" v-on:keyup="link.time = mask('time', $event, link.time); config.validation('add', linkIndex)" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
-                                        <span class="help-block">{{link.text}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="height: 10px;"></div>
-                    </div>
-                    <div class="modal-footer modal-footer-custom">
-                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="seeLinked" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header modal-header-custom">
-                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.name}}</h4>
+                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.resource.name}}</h4>
                     </div>
                     <div class="modal-body modal-body-custom">
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <span><b>Tiempo requerido</b></span>
-                                </div>
-                                <div class="col-sm-6">
-                                    <span>{{config.alterLinkDef.see.time}}</span>
+                                <div class="form-group">
+                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                        <label v-on:click.prevent="config.alterLinkDef.see.resource.setVisibilityPosition()" class="label-three-option">
+                                            <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.alterLinkDef.see.resource.allPosVisible === 0 ? 'one' : config.alterLinkDef.see.resource.allPosVisible === 1 ? 'two' : 'three'">
+                                                <small></small>
+                                            </span>
+                                            {{config.alterLinkDef.see.resource.allPosVisible === 0 ? 'Todas' : config.alterLinkDef.see.resource.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                        </label>
+                                        <span class="help-block">Ubicaciones</span>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="steps-basic wizard clearfix">
+                                            <div class="steps clearfix">
+                                                <ul role="tablist">
+                                                    <li v-for="(steps, stepIndex) in config.alterLinkDef.see.resource.steps" role="tab"
+                                                    :class="[stepIndex === 0 ? 'first' : '',
+                                                            config.alterLinkDef.see.resource.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                        <a href="#" v-on:click.prevent="steps.seen && config.alterLinkDef.see.resource.actualStep !== stepIndex ? config.alterLinkDef.see.resource.changeStep(stepIndex) : ''">
+                                                            <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="content clearfix">
+                                                <div class="row">
+                                                    <div style="padding-top: 20px"></div>
+                                                    <div :class="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                        <div class="form-group">
+                                                            <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                                <label>
+                                                                    <span class="switchery switchery-default switchery-custom" :class="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active ? 'active' : 'not-active'">
+                                                                        <small></small>
+                                                                    </span>
+                                                                    {{config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active ? 'Si' : 'No'}}
+                                                                </label>
+                                                                <span class="help-block">¿Opera en {{config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].text}}?</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div v-if="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active" class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4">Intervalos de atención</label>
+                                                            <div class="col-md-8">
+                                                                <input disabled="disabled" class="form-control" v-model="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].interval" type="number" name="Intervalos de atención">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div v-if="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active && Math.floor(parseInt(config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].interval)) > 0" class="row">
+                                                    <div style="padding-top: 20px"></div>
+                                                    <div class="col-sm-5">
+                                                        <div class="form-group text-center schedule-title">
+                                                            <label>Inicio</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <div class="form-group text-center schedule-title">
+                                                            <label>Final</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group text-center schedule-title">
+                                                            <label>Posición</label>
+                                                        </div>
+                                                    </div>
+                                                    <template v-for="(interval, intervalIndex) in config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].schedule">
+                                                        <div class="col-sm-5">
+                                                            <div class="form-group">
+                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                                <span class="help-block">hh:mm:ss</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                            <div class="form-group">
+                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                                <span class="help-block">hh:mm:ss</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                                <label v-on:click.prevent="config.alterLinkDef.see.resource.setActiveInterval(intervalIndex)">
+                                                                    <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
+                                                                        <small></small>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <div id="mapFocusPositionSeeResource" v-on:click="config.alterLinkDef.see.resource.focusPosition()" class="map-focus-position text-center">
+                                                                <i class="icon-shrink3"></i>
+                                                            </div>
+                                                            <div id="mapSeeResource" class="map-container-modal map-basic"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div style="height: 10px;"></div>
                     </div>
                     <div class="modal-footer modal-footer-custom">
