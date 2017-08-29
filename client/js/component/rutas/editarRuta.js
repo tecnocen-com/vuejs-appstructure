@@ -7,8 +7,9 @@ module.exports = new Vue({
             text: ""
         },
         models: {
-            sucursal: null,
-            sucursalHorario: null
+            ruta: null,
+            rutaPunto: null,
+            rutaPuntoServicio: null
         },
         map: {
             main: null,
@@ -164,68 +165,68 @@ module.exports = new Vue({
     },
     methods: {
         init: function(){
-            var me = this;
-            this.models.sucursal.get({
-                delimiters: this.id
-            },
-            function(success){
-                me.name.value = success.body.nombre;
-                me.map.marker.position.lat = success.body.lat;
-                me.map.marker.position.lng = success.body.lng;
-                me.initMap();
-            },
-            function(error){
-                console.log(error);
-            });
-            for(var i = 0; i < me.steps.length; i++)
-                me.steps[i].schedule = [];
-            this.actualStep = 0;
-            this.models.sucursalHorario.get({
-                delimiters: this.id,
-                params: {
-                    "per-page": 100,
-                    "sort": "hora_inicio"
-                }
-            },
-            function(success){
-                var interval = [0, 0, 0, 0, 0, 0, 0];
-                for(i = 0; i < success.body.length; i++){
-                    interval[success.body[i].dia - 1]++;
-                    switch(success.body[i].dia){
-                        case 1:     //SUN
-                            me.steps[6].schedule.push({
-                                begin: success.body[i].hora_inicio,
-                                end: success.body[i].hora_fin,
-                                id: success.body[i].id,
-                                validBegin: true,
-                                validEnd: true,
-                                textBegin: "hh:mm:ss",
-                                textEnd: "hh:mm:ss",
-                                remove: false
-                            });
-                            break;
-                        default:
-                            me.steps[success.body[i].dia - 2].schedule.push({
-                                begin: success.body[i].hora_inicio,
-                                end: success.body[i].hora_fin,
-                                id: success.body[i].id,
-                                validBegin: true,
-                                validEnd: true,
-                                textBegin: "hh:mm:ss",
-                                textEnd: "hh:mm:ss",
-                                remove: false
-                            });
-                            break;
-                    }
-                }
-                for(i = 0; i < me.steps.length; i++){
-                    me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
-                    me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
-                }
-            },
-            function(error){
-                console.log(error);
-            });
+            //var me = this;
+            //this.models.sucursal.get({
+            //    delimiters: this.id
+            //},
+            //function(success){
+            //    me.name.value = success.body.nombre;
+            //    me.map.marker.position.lat = success.body.lat;
+            //    me.map.marker.position.lng = success.body.lng;
+            //    me.initMap();
+            //},
+            //function(error){
+            //    console.log(error);
+            //});
+            //for(var i = 0; i < me.steps.length; i++)
+            //    me.steps[i].schedule = [];
+            //this.actualStep = 0;
+            //this.models.sucursalHorario.get({
+            //    delimiters: this.id,
+            //    params: {
+            //        "per-page": 100,
+            //        "sort": "hora_inicio"
+            //    }
+            //},
+            //function(success){
+            //    var interval = [0, 0, 0, 0, 0, 0, 0];
+            //    for(i = 0; i < success.body.length; i++){
+            //        interval[success.body[i].dia - 1]++;
+            //        switch(success.body[i].dia){
+            //            case 1:     //SUN
+            //                me.steps[6].schedule.push({
+            //                    begin: success.body[i].hora_inicio,
+            //                    end: success.body[i].hora_fin,
+            //                    id: success.body[i].id,
+            //                    validBegin: true,
+            //                    validEnd: true,
+            //                    textBegin: "hh:mm:ss",
+            //                    textEnd: "hh:mm:ss",
+            //                    remove: false
+            //                });
+            //                break;
+            //            default:
+            //                me.steps[success.body[i].dia - 2].schedule.push({
+            //                    begin: success.body[i].hora_inicio,
+            //                    end: success.body[i].hora_fin,
+            //                    id: success.body[i].id,
+            //                    validBegin: true,
+            //                    validEnd: true,
+            //                    textBegin: "hh:mm:ss",
+            //                    textEnd: "hh:mm:ss",
+            //                    remove: false
+            //                });
+            //                break;
+            //        }
+            //    }
+            //    for(i = 0; i < me.steps.length; i++){
+            //        me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
+            //        me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
+            //    }
+            //},
+            //function(error){
+            //    console.log(error);
+            //});
         },
         initMap: function(){
             var me = this;
@@ -296,8 +297,7 @@ module.exports = new Vue({
                this.map.marker.position.lng !== null)
                 this.map.marker.main = new google.maps.Marker({
                     map: this.map.main,
-                    position: this.map.marker.position,
-                    icon: "/image/maps/blue.png"
+                    position: this.map.marker.position
                 });
         },
         focusPosition: function(){
@@ -316,8 +316,7 @@ module.exports = new Vue({
             else
                 this.map.marker.main = new google.maps.Marker({
                     map: this.map.main,
-                    position: pos,
-                    icon: "/image/maps/blue.png"
+                    position: pos
                 });
             this.map.marker.position.lat = pos.lat();
             this.map.marker.position.lng = pos.lng();

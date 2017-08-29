@@ -60,6 +60,25 @@ module.exports = new Vue({
                 ]
             },
             {
+                title: "Rutas",
+                icon: "icon-direction",
+                dropdown: [
+                    {
+                        title: "General",
+                        subs: [
+                            {
+                                title: "Rutas registradas",
+                                icon: "icon-location4"
+                            },
+                            {
+                                title: "Nueva ruta",
+                                icon: "icon-compass4"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
                 title: "Reportes",
                 icon: "icon-drawer3",
                 dropdown: []

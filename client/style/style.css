@@ -224,6 +224,10 @@ a.grid-row-anchor-customized{
     min-height: 500px;
     overflow-y: auto;
 }
+.grid-route{
+    height: 656px;
+    overflow-y: auto;
+}
     /**************************************/
 /********************************** Modal styles *********************************/
 .modal-header-custom{
@@ -326,6 +330,13 @@ a.grid-row-anchor-customized{
     background-color: #4550a5 !important;
     border-color: #4550a5 !important;
 }
+.wizard > .steps > ul > li.done.active a{
+    color: #333333;
+}
+.wizard > .steps > ul > li.active a{
+    border-color: #4550a5 !important;
+    color: #ccc;
+}
 .wizard > .steps > ul > li:before,
 .wizard > .steps > ul > li:after{
     background-color: #4550a5;
@@ -395,6 +406,9 @@ nav>ul.pagination>li.active>a:hover{
 }
 .map-container-modal{
     height: 250px;
+}
+.map-container-route{
+    height: 750px;
 }
 /********************************** Transitions ***********************************/
 button.btn-customized,

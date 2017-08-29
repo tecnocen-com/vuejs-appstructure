@@ -78,9 +78,9 @@
 
 
 
-var base64 = __webpack_require__(89)
-var ieee754 = __webpack_require__(90)
-var isArray = __webpack_require__(43)
+var base64 = __webpack_require__(116)
+var ieee754 = __webpack_require__(117)
+var isArray = __webpack_require__(44)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -5322,7 +5322,7 @@ if (typeof Object.create === 'function') {
   };
 })(typeof module === 'undefined' || module, this);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)(module)))
 
 /***/ }),
 /* 3 */
@@ -5333,15 +5333,15 @@ if (typeof Object.create === 'function') {
 
 var elliptic = exports;
 
-elliptic.version = __webpack_require__(146).version;
-elliptic.utils = __webpack_require__(147);
-elliptic.rand = __webpack_require__(68);
+elliptic.version = __webpack_require__(173).version;
+elliptic.utils = __webpack_require__(174);
+elliptic.rand = __webpack_require__(69);
 elliptic.curve = __webpack_require__(29);
-elliptic.curves = __webpack_require__(152);
+elliptic.curves = __webpack_require__(179);
 
 // Protocols
-elliptic.ec = __webpack_require__(160);
-elliptic.eddsa = __webpack_require__(164);
+elliptic.ec = __webpack_require__(187);
+elliptic.eddsa = __webpack_require__(191);
 
 
 /***/ }),
@@ -6341,7 +6341,7 @@ var util = __webpack_require__(15);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
-var Readable = __webpack_require__(46);
+var Readable = __webpack_require__(47);
 var Writable = __webpack_require__(33);
 
 util.inherits(Duplex, Readable);
@@ -6497,13 +6497,13 @@ module.exports = Hash
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(46);
+exports = module.exports = __webpack_require__(47);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(33);
 exports.Duplex = __webpack_require__(12);
-exports.Transform = __webpack_require__(49);
-exports.PassThrough = __webpack_require__(106);
+exports.Transform = __webpack_require__(50);
+exports.PassThrough = __webpack_require__(133);
 
 
 /***/ }),
@@ -6850,11 +6850,11 @@ var asn1 = exports;
 
 asn1.bignum = __webpack_require__(2);
 
-asn1.define = __webpack_require__(168).define;
+asn1.define = __webpack_require__(195).define;
 asn1.base = __webpack_require__(21);
-asn1.constants = __webpack_require__(74);
-asn1.decoders = __webpack_require__(174);
-asn1.encoders = __webpack_require__(176);
+asn1.constants = __webpack_require__(75);
+asn1.decoders = __webpack_require__(201);
+asn1.encoders = __webpack_require__(203);
 
 
 /***/ }),
@@ -6863,10 +6863,10 @@ asn1.encoders = __webpack_require__(176);
 
 var base = exports;
 
-base.Reporter = __webpack_require__(171).Reporter;
-base.DecoderBuffer = __webpack_require__(73).DecoderBuffer;
-base.EncoderBuffer = __webpack_require__(73).EncoderBuffer;
-base.Node = __webpack_require__(172);
+base.Reporter = __webpack_require__(198).Reporter;
+base.DecoderBuffer = __webpack_require__(74).DecoderBuffer;
+base.EncoderBuffer = __webpack_require__(74).EncoderBuffer;
+base.Node = __webpack_require__(199);
 
 
 /***/ }),
@@ -7211,7 +7211,7 @@ function nextTick(fn, arg1, arg2, arg3) {
  * See http://pajhome.org.uk/crypt/md5 for more info.
  */
 
-var makeHash = __webpack_require__(116)
+var makeHash = __webpack_require__(143)
 
 /*
  * Calculate the MD5 of an array of little-endian words, and a bit length
@@ -7837,21 +7837,21 @@ exports.encrypt = function (self, chunk) {
 
 var curve = exports;
 
-curve.base = __webpack_require__(148);
-curve.short = __webpack_require__(149);
-curve.mont = __webpack_require__(150);
-curve.edwards = __webpack_require__(151);
+curve.base = __webpack_require__(175);
+curve.short = __webpack_require__(176);
+curve.mont = __webpack_require__(177);
+curve.edwards = __webpack_require__(178);
 
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var asn1 = __webpack_require__(167)
-var aesid = __webpack_require__(179)
-var fixProc = __webpack_require__(180)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var asn1 = __webpack_require__(194)
+var aesid = __webpack_require__(206)
+var fixProc = __webpack_require__(207)
 var ciphers = __webpack_require__(38)
-var compat = __webpack_require__(54)
+var compat = __webpack_require__(55)
 module.exports = parseKeys
 
 function parseKeys (buffer) {
@@ -7984,8 +7984,8 @@ function decrypt (data, password) {
 
 
 
-var punycode = __webpack_require__(91);
-var util = __webpack_require__(92);
+var punycode = __webpack_require__(118);
+var util = __webpack_require__(119);
 
 exports.parse = urlParse;
 exports.resolve = urlResolve;
@@ -8060,7 +8060,7 @@ var protocolPattern = /^([a-z0-9.+-]+:)/i,
       'gopher:': true,
       'file:': true
     },
-    querystring = __webpack_require__(93);
+    querystring = __webpack_require__(120);
 
 function urlParse(url, parseQueryString, slashesDenoteHost) {
   if (url && util.isObject(url) && url instanceof Url) return url;
@@ -9080,12 +9080,12 @@ util.inherits = __webpack_require__(1);
 
 /*<replacement>*/
 var internalUtil = {
-  deprecate: __webpack_require__(105)
+  deprecate: __webpack_require__(132)
 };
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(47);
+var Stream = __webpack_require__(48);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -9099,7 +9099,7 @@ function _isUint8Array(obj) {
 }
 /*</replacement>*/
 
-var destroyImpl = __webpack_require__(48);
+var destroyImpl = __webpack_require__(49);
 
 util.inherits(Writable, Stream);
 
@@ -9672,7 +9672,7 @@ Writable.prototype._destroy = function (err, cb) {
   this.end();
   cb(err);
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(103).setImmediate, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(130).setImmediate, __webpack_require__(5)))
 
 /***/ }),
 /* 34 */
@@ -9908,7 +9908,7 @@ function base64DetectIncompleteChar(buffer) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {
 var inherits = __webpack_require__(1)
-var HashBase = __webpack_require__(117)
+var HashBase = __webpack_require__(144)
 
 function RIPEMD160 () {
   HashBase.call(this, 64)
@@ -10232,10 +10232,10 @@ var inherits = __webpack_require__(1);
 
 inherits(Stream, EE);
 Stream.Readable = __webpack_require__(14);
-Stream.Writable = __webpack_require__(118);
-Stream.Duplex = __webpack_require__(119);
-Stream.Transform = __webpack_require__(120);
-Stream.PassThrough = __webpack_require__(121);
+Stream.Writable = __webpack_require__(145);
+Stream.Duplex = __webpack_require__(146);
+Stream.Transform = __webpack_require__(147);
+Stream.PassThrough = __webpack_require__(148);
 
 // Backwards-compat with node 0.4.x
 Stream.Stream = Stream;
@@ -10346,22 +10346,22 @@ var exports = module.exports = function SHA (algorithm) {
   return new Algorithm()
 }
 
-exports.sha = __webpack_require__(122)
-exports.sha1 = __webpack_require__(123)
-exports.sha224 = __webpack_require__(124)
-exports.sha256 = __webpack_require__(50)
-exports.sha384 = __webpack_require__(125)
-exports.sha512 = __webpack_require__(51)
+exports.sha = __webpack_require__(149)
+exports.sha1 = __webpack_require__(150)
+exports.sha224 = __webpack_require__(151)
+exports.sha256 = __webpack_require__(51)
+exports.sha384 = __webpack_require__(152)
+exports.sha512 = __webpack_require__(52)
 
 
 /***/ }),
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ciphers = __webpack_require__(130)
+var ciphers = __webpack_require__(157)
 exports.createCipher = exports.Cipher = ciphers.createCipher
 exports.createCipheriv = exports.Cipheriv = ciphers.createCipheriv
-var deciphers = __webpack_require__(132)
+var deciphers = __webpack_require__(159)
 exports.createDecipher = exports.Decipher = deciphers.createDecipher
 exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv
 var modes = __webpack_require__(27)
@@ -10378,11 +10378,11 @@ exports.listCiphers = exports.getCiphers = getCiphers
 "use strict";
 
 
-exports.utils = __webpack_require__(134);
-exports.Cipher = __webpack_require__(135);
-exports.DES = __webpack_require__(136);
-exports.CBC = __webpack_require__(137);
-exports.EDE = __webpack_require__(138);
+exports.utils = __webpack_require__(161);
+exports.Cipher = __webpack_require__(162);
+exports.DES = __webpack_require__(163);
+exports.CBC = __webpack_require__(164);
+exports.EDE = __webpack_require__(165);
 
 
 /***/ }),
@@ -10440,9 +10440,9 @@ var hash = exports;
 
 hash.utils = __webpack_require__(7);
 hash.common = __webpack_require__(19);
-hash.sha = __webpack_require__(153);
-hash.ripemd = __webpack_require__(157);
-hash.hmac = __webpack_require__(158);
+hash.sha = __webpack_require__(180);
+hash.ripemd = __webpack_require__(184);
+hash.hmac = __webpack_require__(185);
 
 // Proxy hash functions to the main object
 hash.sha1 = hash.sha.sha1;
@@ -10455,6 +10455,186 @@ hash.ripemd160 = hash.ripemd.ripemd160;
 
 /***/ }),
 /* 42 */
+/***/ (function(module, exports) {
+
+module.exports = new Vue({
+    data: {
+        id: null,
+        name: null,
+        models: {
+            sucursal: null,
+            sucursalHorario: null
+        },
+        map: {
+            main: null,
+            marker: {
+                main: null,
+                position: {
+                    lat: null,
+                    lng: null
+                },
+            },
+            data: {
+                zoom: 18
+            }
+        },
+        actualStep: 0,
+        steps: [
+            {
+                text: "Lunes",
+                dayNumber: 2,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Martes",
+                dayNumber: 3,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Miércoles",
+                dayNumber: 4,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Jueves",
+                dayNumber: 5,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Viernes",
+                dayNumber: 6,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Sábado",
+                dayNumber: 7,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Domingo",
+                dayNumber: 1,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+        ]
+    },
+    methods: {
+        init: function(type, first){
+            var me = this;
+            this.actualStep = 0;
+            for(var i = 0; i < me.steps.length; i++)
+                this.steps[i].schedule = [];
+            this.models.sucursal.get({
+                delimiters: this.id
+            },
+            function(success){
+                me.name = success.body.nombre;
+                me.map.marker.position.lat = success.body.lat;
+                me.map.marker.position.lng = success.body.lng;
+                if(type === "modal"){
+                    setTimeout(function(){
+                        me.initMap(type, first);
+                    }, 250);
+                }
+                else
+                    me.initMap(type, first);
+            },
+            function(error){
+                console.log(error);
+            });
+            this.models.sucursalHorario.get({
+                delimiters: this.id,
+                params: {
+                    "per-page": 100,
+                    "sort": "hora_inicio"
+                }
+            },
+            function(success){
+                var interval = [0, 0, 0, 0, 0, 0, 0];
+                for(i = 0; i < success.body.length; i++){
+                    interval[success.body[i].dia - 1]++;
+                    switch(success.body[i].dia){
+                        case 1:     //SUN
+                            me.steps[6].schedule.push({
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin
+                            });
+                            break;
+                        default:
+                            me.steps[success.body[i].dia - 2].schedule.push({
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin
+                            });
+                            break;
+                    }
+                }
+                for(i = 0; i < me.steps.length; i++){
+                    me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
+                    me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
+                }
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initMap: function(type, first){
+            if(type !== "modal" || (type === "modal" && first))
+                this.map.main = new google.maps.Map(document.getElementById('mapSeeStore'), {     //Define Map
+                    zoom: this.map.data.zoom,
+                    center: this.map.marker.position
+                });
+            else
+                this.map.main.setCenter(this.map.marker.position);
+            this.initPosition();
+            if(type !== "modal" || first)
+                this.initFocus();
+        },
+        initFocus: function(){
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeStore'));
+        },
+        initPosition: function(){
+            this.map.marker.main = new google.maps.Marker({
+                map: this.map.main,
+                position: this.map.marker.position,
+                icon: "/image/maps/blue.png"
+            });
+        },
+        focusPosition: function(){
+            this.map.main.setCenter({
+                lat: this.map.marker.position.lat,
+                lng: this.map.marker.position.lng
+            });
+            this.map.main.setZoom(this.map.data.zoom);
+        },
+        changeStep: function(e){
+            this.actualStep = e;
+            this.steps[e].seen = true;
+        }
+    }
+});
+
+/***/ }),
+/* 43 */
 /***/ (function(module, exports) {
 
 var mcdatatableT = `
@@ -12922,7 +13102,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -12933,7 +13113,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -12961,7 +13141,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
@@ -13037,7 +13217,7 @@ xhr = null // Help gc
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13072,7 +13252,7 @@ var processNextTick = __webpack_require__(23);
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(43);
+var isArray = __webpack_require__(44);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -13090,7 +13270,7 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(47);
+var Stream = __webpack_require__(48);
 /*</replacement>*/
 
 // TODO(bmeurer): Change this back to const once hole checks are
@@ -13112,7 +13292,7 @@ util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(101);
+var debugUtil = __webpack_require__(128);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -13121,8 +13301,8 @@ if (debugUtil && debugUtil.debuglog) {
 }
 /*</replacement>*/
 
-var BufferList = __webpack_require__(102);
-var destroyImpl = __webpack_require__(48);
+var BufferList = __webpack_require__(129);
+var destroyImpl = __webpack_require__(49);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -14051,14 +14231,14 @@ function indexOf(xs, x) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(32).EventEmitter;
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14136,7 +14316,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14356,7 +14536,7 @@ function done(stream, er, data) {
 }
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/**
@@ -14497,7 +14677,7 @@ module.exports = Sha256
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var inherits = __webpack_require__(1)
@@ -14763,13 +14943,13 @@ module.exports = Sha512
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var inherits = __webpack_require__(1)
-var Legacy = __webpack_require__(126)
+var Legacy = __webpack_require__(153)
 var Base = __webpack_require__(10)
 var Buffer = __webpack_require__(8).Buffer
 var md5 = __webpack_require__(24)
@@ -14832,23 +15012,23 @@ module.exports = function createHmac (alg, key) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = {"sha224WithRSAEncryption":{"sign":"rsa","hash":"sha224","id":"302d300d06096086480165030402040500041c"},"RSA-SHA224":{"sign":"ecdsa/rsa","hash":"sha224","id":"302d300d06096086480165030402040500041c"},"sha256WithRSAEncryption":{"sign":"rsa","hash":"sha256","id":"3031300d060960864801650304020105000420"},"RSA-SHA256":{"sign":"ecdsa/rsa","hash":"sha256","id":"3031300d060960864801650304020105000420"},"sha384WithRSAEncryption":{"sign":"rsa","hash":"sha384","id":"3041300d060960864801650304020205000430"},"RSA-SHA384":{"sign":"ecdsa/rsa","hash":"sha384","id":"3041300d060960864801650304020205000430"},"sha512WithRSAEncryption":{"sign":"rsa","hash":"sha512","id":"3051300d060960864801650304020305000440"},"RSA-SHA512":{"sign":"ecdsa/rsa","hash":"sha512","id":"3051300d060960864801650304020305000440"},"RSA-SHA1":{"sign":"rsa","hash":"sha1","id":"3021300906052b0e03021a05000414"},"ecdsa-with-SHA1":{"sign":"ecdsa","hash":"sha1","id":""},"sha256":{"sign":"ecdsa","hash":"sha256","id":""},"sha224":{"sign":"ecdsa","hash":"sha224","id":""},"sha384":{"sign":"ecdsa","hash":"sha384","id":""},"sha512":{"sign":"ecdsa","hash":"sha512","id":""},"DSA-SHA":{"sign":"dsa","hash":"sha1","id":""},"DSA-SHA1":{"sign":"dsa","hash":"sha1","id":""},"DSA":{"sign":"dsa","hash":"sha1","id":""},"DSA-WITH-SHA224":{"sign":"dsa","hash":"sha224","id":""},"DSA-SHA224":{"sign":"dsa","hash":"sha224","id":""},"DSA-WITH-SHA256":{"sign":"dsa","hash":"sha256","id":""},"DSA-SHA256":{"sign":"dsa","hash":"sha256","id":""},"DSA-WITH-SHA384":{"sign":"dsa","hash":"sha384","id":""},"DSA-SHA384":{"sign":"dsa","hash":"sha384","id":""},"DSA-WITH-SHA512":{"sign":"dsa","hash":"sha512","id":""},"DSA-SHA512":{"sign":"dsa","hash":"sha512","id":""},"DSA-RIPEMD160":{"sign":"dsa","hash":"rmd160","id":""},"ripemd160WithRSA":{"sign":"rsa","hash":"rmd160","id":"3021300906052b2403020105000414"},"RSA-RIPEMD160":{"sign":"rsa","hash":"rmd160","id":"3021300906052b2403020105000414"},"md5WithRSAEncryption":{"sign":"rsa","hash":"md5","id":"3020300c06082a864886f70d020505000410"},"RSA-MD5":{"sign":"rsa","hash":"md5","id":"3020300c06082a864886f70d020505000410"}}
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-exports.pbkdf2 = __webpack_require__(128)
+exports.pbkdf2 = __webpack_require__(155)
 
-exports.pbkdf2Sync = __webpack_require__(57)
+exports.pbkdf2Sync = __webpack_require__(58)
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 var MAX_ALLOC = Math.pow(2, 30) - 1 // default in iojs
@@ -14872,7 +15052,7 @@ module.exports = function (iterations, keylen) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {var defaultEncoding
@@ -14889,15 +15069,15 @@ module.exports = defaultEncoding
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var md5 = __webpack_require__(24)
 var rmd160 = __webpack_require__(35)
 var sha = __webpack_require__(37)
 
-var checkParameters = __webpack_require__(55)
-var defaultEncoding = __webpack_require__(56)
+var checkParameters = __webpack_require__(56)
+var defaultEncoding = __webpack_require__(57)
 var Buffer = __webpack_require__(8).Buffer
 var ZEROS = Buffer.alloc(128)
 var sizes = {
@@ -14997,7 +15177,7 @@ module.exports = function (password, salt, iterations, keylen, digest) {
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
@@ -15029,13 +15209,13 @@ StreamCipher.prototype._final = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
 var Transform = __webpack_require__(10)
 var inherits = __webpack_require__(1)
-var GHASH = __webpack_require__(131)
+var GHASH = __webpack_require__(158)
 var xor = __webpack_require__(18)
 inherits(StreamCipher, Transform)
 module.exports = StreamCipher
@@ -15133,7 +15313,7 @@ function xorTest (a, b) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports) {
 
 exports.encrypt = function (self, block) {
@@ -15145,7 +15325,7 @@ exports.decrypt = function (self, block) {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var xor = __webpack_require__(18)
@@ -15168,7 +15348,7 @@ exports.decrypt = function (self, block) {
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(18)
@@ -15206,7 +15386,7 @@ function encryptStart (self, data, decrypt) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {function encryptByte (self, byteParam, decrypt) {
@@ -15228,7 +15408,7 @@ exports.encrypt = function (self, chunk, decrypt) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {function encryptByte (self, byteParam, decrypt) {
@@ -15269,7 +15449,7 @@ function shiftIn (buffer, value) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(18)
@@ -15292,7 +15472,7 @@ exports.encrypt = function (self, chunk) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var randomBytes = __webpack_require__(16);
@@ -15301,7 +15481,7 @@ findPrime.simpleSieve = simpleSieve;
 findPrime.fermatTest = fermatTest;
 var BN = __webpack_require__(2);
 var TWENTYFOUR = new BN(24);
-var MillerRabin = __webpack_require__(67);
+var MillerRabin = __webpack_require__(68);
 var millerRabin = new MillerRabin();
 var ONE = new BN(1);
 var TWO = new BN(2);
@@ -15403,11 +15583,11 @@ function findPrime(bits, gen) {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var bn = __webpack_require__(2);
-var brorand = __webpack_require__(68);
+var brorand = __webpack_require__(69);
 
 function MillerRabin(rand) {
   this.rand = rand || new brorand.Rand();
@@ -15522,7 +15702,7 @@ MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var r;
@@ -15580,7 +15760,7 @@ if (typeof self === 'object') {
 } else {
   // Node.js or Web worker with no crypto support
   try {
-    var crypto = __webpack_require__(141);
+    var crypto = __webpack_require__(168);
     if (typeof crypto.randomBytes !== 'function')
       throw new Error('Not supported');
 
@@ -15593,7 +15773,7 @@ if (typeof self === 'object') {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15658,7 +15838,7 @@ utils.encode = function encode(arr, enc) {
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15714,7 +15894,7 @@ exports.g1_256 = g1_256;
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15722,7 +15902,7 @@ exports.g1_256 = g1_256;
 
 var utils = __webpack_require__(7);
 var common = __webpack_require__(19);
-var shaCommon = __webpack_require__(70);
+var shaCommon = __webpack_require__(71);
 var assert = __webpack_require__(6);
 
 var sum32 = utils.sum32;
@@ -15826,7 +16006,7 @@ SHA256.prototype._digest = function digest(enc) {
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16163,7 +16343,7 @@ function g1_512_lo(xh, xl) {
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
@@ -16285,7 +16465,7 @@ EncoderBuffer.prototype.join = function join(out, offset) {
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var constants = exports;
@@ -16306,11 +16486,11 @@ constants._reverse = function reverse(map) {
   return res;
 };
 
-constants.der = __webpack_require__(173);
+constants.der = __webpack_require__(200);
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
@@ -16640,7 +16820,7 @@ function derDecodeLen(buf, primitive, fail) {
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
@@ -16941,13 +17121,13 @@ function encodeTag(tag, primitive, cls, reporter) {
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports) {
 
 module.exports = {"1.3.132.0.10":"secp256k1","1.3.132.0.33":"p224","1.2.840.10045.3.1.1":"p192","1.2.840.10045.3.1.7":"p256","1.3.132.0.34":"p384","1.3.132.0.35":"p521"}
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(17);
@@ -16969,7 +17149,7 @@ function i2ops(c) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports) {
 
 module.exports = function xor(a, b) {
@@ -16982,7 +17162,7 @@ module.exports = function xor(a, b) {
 };
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var bn = __webpack_require__(2);
@@ -16996,185 +17176,6 @@ function withPublic(paddedMsg, key) {
 
 module.exports = withPublic;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 81 */
-/***/ (function(module, exports) {
-
-module.exports = new Vue({
-    data: {
-        id: null,
-        name: null,
-        models: {
-            sucursal: null,
-            sucursalHorario: null
-        },
-        map: {
-            main: null,
-            marker: {
-                main: null,
-                position: {
-                    lat: null,
-                    lng: null
-                },
-            },
-            data: {
-                zoom: 18
-            }
-        },
-        actualStep: 0,
-        steps: [
-            {
-                text: "Lunes",
-                dayNumber: 2,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Martes",
-                dayNumber: 3,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Miércoles",
-                dayNumber: 4,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Jueves",
-                dayNumber: 5,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Viernes",
-                dayNumber: 6,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Sábado",
-                dayNumber: 7,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Domingo",
-                dayNumber: 1,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-        ]
-    },
-    methods: {
-        init: function(type, first){
-            var me = this;
-            this.actualStep = 0;
-            for(var i = 0; i < me.steps.length; i++)
-                this.steps[i].schedule = [];
-            this.models.sucursal.get({
-                delimiters: this.id
-            },
-            function(success){
-                me.name = success.body.nombre;
-                me.map.marker.position.lat = success.body.lat;
-                me.map.marker.position.lng = success.body.lng;
-                if(type === "modal"){
-                    setTimeout(function(){
-                        me.initMap(type, first);
-                    }, 250);
-                }
-                else
-                    me.initMap(type, first);
-            },
-            function(error){
-                console.log(error);
-            });
-            this.models.sucursalHorario.get({
-                delimiters: this.id,
-                params: {
-                    "per-page": 100,
-                    "sort": "hora_inicio"
-                }
-            },
-            function(success){
-                var interval = [0, 0, 0, 0, 0, 0, 0];
-                for(i = 0; i < success.body.length; i++){
-                    interval[success.body[i].dia - 1]++;
-                    switch(success.body[i].dia){
-                        case 1:     //SUN
-                            me.steps[6].schedule.push({
-                                begin: success.body[i].hora_inicio,
-                                end: success.body[i].hora_fin
-                            });
-                            break;
-                        default:
-                            me.steps[success.body[i].dia - 2].schedule.push({
-                                begin: success.body[i].hora_inicio,
-                                end: success.body[i].hora_fin
-                            });
-                            break;
-                    }
-                }
-                for(i = 0; i < me.steps.length; i++){
-                    me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
-                    me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
-                }
-            },
-            function(error){
-                console.log(error);
-            });
-        },
-        initMap: function(type, first){
-            if(type !== "modal" || (type === "modal" && first))
-                this.map.main = new google.maps.Map(document.getElementById('mapSeeStore'), {     //Define Map
-                    zoom: this.map.data.zoom,
-                    center: this.map.marker.position
-                });
-            else
-                this.map.main.setCenter(this.map.marker.position);
-            this.initPosition();
-            if(type !== "modal" || first)
-                this.initFocus();
-        },
-        initFocus: function(){
-            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeStore'));
-        },
-        initPosition: function(){
-            this.map.marker.main = new google.maps.Marker({
-                map: this.map.main,
-                position: this.map.marker.position
-            });
-        },
-        focusPosition: function(){
-            this.map.main.setCenter({
-                lat: this.map.marker.position.lat,
-                lng: this.map.marker.position.lng
-            });
-            this.map.main.setZoom(this.map.data.zoom);
-        },
-        changeStep: function(e){
-            this.actualStep = e;
-            this.steps[e].seen = true;
-        }
-    }
-});
 
 /***/ }),
 /* 82 */
@@ -17401,7 +17402,12 @@ module.exports = new Vue({
         initPosition: function(i, j){
             this.steps[i].schedule[j].main_begin = new google.maps.Marker({
                 map: this.map.main,
-                icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.map.marker[i].text + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1",
+                icon: {
+                    url: "/image/maps/green-empty.png",
+                    labelOrigin: new google.maps.Point(11, 11)
+                },
+                label: this.map.marker[i].text + (j + 1),
+                title: "Inicio del intervalo " + (j + 1) + " para el día " + this.steps[i].text,
                 position: {
                     lat: this.steps[i].schedule[j].lat_begin,
                     lng: this.steps[i].schedule[j].lng_begin
@@ -17409,7 +17415,12 @@ module.exports = new Vue({
             });
             this.steps[i].schedule[j].main_end = new google.maps.Marker({
                 map: this.map.main,
-                icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.map.marker[i].text + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1",
+                icon: {
+                    url: "/image/maps/red-empty.png",
+                    labelOrigin: new google.maps.Point(11, 11)
+                },
+                label: this.map.marker[i].text + (j + 1),
+                title: "Final del intervalo " + (j + 1) + " para el día " + this.steps[i].text,
                 position: {
                     lat: this.steps[i].schedule[j].lat_end,
                     lng: this.steps[i].schedule[j].lng_end
@@ -17573,23 +17584,28 @@ module.exports = new Vue({
 /***/ (function(module, exports, __webpack_require__) {
 
 BUTO.requires = {
+    mainTemplate: __webpack_require__(86),
     modules: {
-        modelAR: __webpack_require__(86),
-        mcdatatable: __webpack_require__(42).component,
-        mapsClient: __webpack_require__(87)
-    },
-    templates: {
-        main: __webpack_require__(198)
+        modelAR: __webpack_require__(113),
+        mcdatatable: __webpack_require__(43).component,
+        mapsClient: __webpack_require__(114)
     },
     components: {
-        toolbar: __webpack_require__(221),
-        map: __webpack_require__(222),
-        menu: __webpack_require__(223),
-        clientesRegistrados: __webpack_require__(224),
-        tiendasRegistradas: __webpack_require__(228),
-        nuevaTienda: __webpack_require__(230),
-        recursosRegistrados: __webpack_require__(231),
-        nuevoRecurso: __webpack_require__(233)
+        toolbar: __webpack_require__(225),
+        map: __webpack_require__(226),
+        
+        menu: __webpack_require__(227),
+        
+        clientesRegistrados: __webpack_require__(228),
+        
+        tiendasRegistradas: __webpack_require__(232),
+        nuevaTienda: __webpack_require__(234),
+        
+        recursosRegistrados: __webpack_require__(235),
+        nuevoRecurso: __webpack_require__(237),
+        
+        rutasRegistradas: __webpack_require__(238),
+        nuevaRuta: __webpack_require__(241)
     }
 };
 
@@ -17620,7 +17636,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                 BUTO.components = {
                     main: new Vue({
                         el: "#main",
-                        template: BUTO.requires.templates.main,
+                        template: BUTO.requires.mainTemplate,
                         data: {
                             profile: {
                                 name: "Unknown",
@@ -17679,11 +17695,15 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 empleado: new modelCreator("empleado"),
                                 empleadoCliente: new modelCreator(["empleado", "cliente"]),
                                 empleadoHorario: new modelCreator(["empleado", "horario"]),
-                                empleadoHorarioRuta: new modelCreator(["empleado", "horario", "ruta"]),
-                                empleadoHorarioRutaPunto: new modelCreator(["empleado", "horario", "ruta", "punto"]),
                                 sucursal: new modelCreator("sucursal"),
                                 sucursalCliente: new modelCreator(["sucursal", "cliente"]),
-                                sucursalHorario: new modelCreator(["sucursal", "horario"])
+                                sucursalHorario: new modelCreator(["sucursal", "horario"]),
+                                ruta: new modelCreator("ruta"),
+                                rutaPunto: new modelCreator(["ruta", "punto"]),
+                                rutaPuntoServicio: new modelCreator(["ruta", "punto", "servicio"]),
+                                proyeccionServicio: new modelCreator("proyeccion-servicio"),
+                                proyeccionTrabajo: new modelCreator("proyeccion-trabajo"),
+                                proyeccionTrabajoServicio: new modelCreator(["proyeccion-trabajo", "servicio"])
                             },
                             children: {
                                 map: BUTO.requires.components.map,
@@ -17693,7 +17713,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 tiendasRegistradas: BUTO.requires.components.tiendasRegistradas,
                                 nuevaTienda: BUTO.requires.components.nuevaTienda,
                                 recursosRegistrados: BUTO.requires.components.recursosRegistrados,
-                                nuevoRecurso: BUTO.requires.components.nuevoRecurso
+                                nuevoRecurso: BUTO.requires.components.nuevoRecurso,
+                                rutasRegistradas: BUTO.requires.components.rutasRegistradas,
+                                nuevaRuta: BUTO.requires.components.nuevaRuta,
                             }
                         },
                         methods: {
@@ -17716,6 +17738,8 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                             me.children.tiendasRegistradas.active = 0;
                                     else if(e.first === 3 && e.second === 0 && e.third === 0)
                                             me.children.recursosRegistrados.active = 0;
+                                    else if(e.first === 4 && e.second === 0 && e.third === 0)
+                                            me.children.rutasRegistradas.active = 0;
                                     Vue.nextTick(function(){
                                         if(e.first === 0 && e.second === 0 && e.third === 0)
                                             me.children.map.init();
@@ -17723,6 +17747,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                             me.children.nuevaTienda.init(false);
                                         else if(e.first === 3 && e.second === 0 && e.third === 1)
                                             me.children.nuevoRecurso.init(false);
+                                        else if(e.first === 4 && e.second === 0 && e.third === 1)
+                                            me.children.nuevaRuta.init(false);
+                                        
                                     });
                                 }
                                 
@@ -17733,7 +17760,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 if(e.key !== "Backspace"){
                                     switch(t){
                                         case "time":
-                                            if(val.length >= 2){
+                                            if(val !== null && val.length >= 2){
                                                 value = val.split(":").join("");
                                                 val = "";
                                                 for(i = 0; i < value.length; i++)
@@ -17772,10 +17799,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 usuarioEmpleado: this.models.usuarioEmpleado,
                                 empleado: this.models.empleado,
                                 empleadoHorario: this.models.empleadoHorario,
-                                empleadoHorarioRuta: this.models.empleadoHorarioRuta,
-                                empleadoHorarioRutaPunto: this.models.empleadoHorarioRutaPunto,
                                 mask: this.mask
                             });
+                            
                             BUTO.requires.components.tiendasRegistradas.init({
                                 sucursal: this.models.sucursal,
                                 sucursalHorario: this.models.sucursalHorario,
@@ -17785,6 +17811,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 sucursal: this.models.sucursal,
                                 sucursalHorario: this.models.sucursalHorario
                             });
+                            
                             BUTO.requires.components.recursosRegistrados.init({
                                 usuarioEmpleado: this.models.usuarioEmpleado,
                                 empleado: this.models.empleado,
@@ -17795,6 +17822,22 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 usuarioEmpleado: this.models.usuarioEmpleado,
                                 empleado: this.models.empleado,
                                 empleadoHorario: this.models.empleadoHorario
+                            });
+                            
+                            BUTO.requires.components.rutasRegistradas.init({
+                                ruta: this.models.ruta,
+                                rutaPunto: this.models.rutaPunto,
+                                rutaPuntoServicio: this.models.rutaPuntoServicio,
+                                mask: this.mask
+                            });
+                            BUTO.requires.components.nuevaRuta.init({
+                                ruta: this.models.ruta,
+                                rutaPunto: this.models.rutaPunto,
+                                rutaPuntoServicio: this.models.rutaPuntoServicio,
+                                cliente: this.models.cliente,
+                                sucursal: this.models.sucursal,
+                                sucursalHorario: this.models.sucursalHorario,
+                                sucursalCliente: this.models.sucursalCliente
                             });
                         },
                         mounted: function(){
@@ -17821,6 +17864,3747 @@ BUTO.init = function(response){
 
 /***/ }),
 /* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+BUTO.templates = {
+    mcdatatable: __webpack_require__(43).template,
+    
+    loader: __webpack_require__(87),
+    confirm: __webpack_require__(88),
+    alert: __webpack_require__(89),
+    
+    heading: __webpack_require__(90),
+    menu: __webpack_require__(91),
+    pageHeading: __webpack_require__(92),
+    foot: __webpack_require__(93),
+    
+    clientesRegistrados: __webpack_require__(94),
+    
+    tiendasRegistradas: __webpack_require__(98),
+    nuevaTienda: __webpack_require__(101),
+    
+    recursosRegistrados: __webpack_require__(102),
+    nuevoRecurso: __webpack_require__(105),
+    
+    rutasRegistradas: __webpack_require__(106),
+    nuevaRuta: __webpack_require__(109),
+    
+    reportes: __webpack_require__(110),
+    
+    map: __webpack_require__(111),
+    toolbar: __webpack_require__(112)
+};
+
+Vue.component("mcdatatable", {
+    template: BUTO.templates.mcdatatable,
+    props: {
+        title: String,
+        config: Object
+    }
+});
+
+Vue.component("loader", {
+    template: BUTO.templates.loader,
+    props: {
+        config: Object
+    }
+});
+Vue.component("confirm", {
+    template: BUTO.templates.confirm,
+    props: {
+        config: Object
+    }
+});
+Vue.component("alert", {
+    template: BUTO.templates.alert,
+    props: {
+        config: Object
+    }
+});
+
+Vue.component("heading", {
+    template: BUTO.templates.heading,
+    props: {
+        setview: Function,
+        profile: Object
+    }
+});
+Vue.component("my-menu", {
+    template: BUTO.templates.menu,
+    props: {
+        config: Object,
+        active: Object,
+        setview: Function
+    }
+});
+Vue.component("page-heading", {
+    template: BUTO.templates.pageHeading,
+    props: {
+        config: Object,
+        active: Object,
+        setview: Function,
+        profile: Object
+    }
+});
+Vue.component("foot", {
+    template: BUTO.templates.foot,
+    props: {
+        config: Object
+    }
+});
+
+Vue.component("clientes-registrados", {
+    template: BUTO.templates.clientesRegistrados,
+    props: {
+        config: Object
+    }
+});
+
+Vue.component("tiendas-registradas", {
+    template: BUTO.templates.tiendasRegistradas,
+    props: {
+        config: Object
+    }
+});
+Vue.component("nueva-tienda", {
+    template: BUTO.templates.nuevaTienda,
+    props: {
+        config: Object,
+        mask: Function
+    }
+});
+
+Vue.component("recursos-registrados", {
+    template: BUTO.templates.recursosRegistrados,
+    props: {
+        config: Object
+    }
+});
+Vue.component("nuevo-recurso", {
+    template: BUTO.templates.nuevoRecurso,
+    props: {
+        config: Object,
+        mask: Function
+    }
+});
+
+Vue.component("rutas-registradas", {
+    template: BUTO.templates.rutasRegistradas,
+    props: {
+        config: Object
+    }
+});
+Vue.component("nueva-ruta", {
+    template: BUTO.templates.nuevaRuta,
+    props: {
+        config: Object,
+        mask: Function
+    }
+});
+
+Vue.component("reportes", {
+    template: BUTO.templates.reportes,
+    props: {
+        config: Object
+    }
+});
+
+Vue.component("toolbar", {
+    template: BUTO.templates.toolbar,
+    props: {
+        config: Object
+    }
+});
+Vue.component("mapping", {
+    template: BUTO.templates.map,
+    props: {
+        config: Object
+    }
+});
+
+module.exports = `
+    <!-- Main navbar -->
+    <div>
+        <transition name="slide-fade">
+            <loader :config="loader"></loader>
+        </transition>
+        <transition name="slide-fade">
+            <confirm :config="confirm"></confirm>
+        </transition>
+        <transition name="slide-fade">
+            <alert :config="alert"></alert>
+        </transition>
+        <heading :setview="setView" :profile="profile"></heading>
+        <my-menu :config="children.menu" :active="active" :setview="setView"></my-menu>
+        <page-heading :config="children.menu" :active="active" :setview="setView" :profile="profile"></page-heading>
+        <div class="page-container">
+            <div class="row">
+                <template v-if="active.first === 0">
+                    <transition name="slide-fade">
+                        <mapping :config="children.map"></mapping>
+                    </transition>
+                    <transition name="slide-fade">
+                        <toolbar :config="children.map"></toolbar>
+                    </transition>
+                </template>
+
+                <template v-else-if="active.first === 1">
+                    <transition name="slide-fade">
+                        <clientes-registrados :config="children.clientesRegistrados"></clientes-registrados>
+                    </transition>
+                </template>
+
+                <template v-else-if="active.first === 2 && active.second === 0 && active.third === 0">
+                    <transition name="slide-fade">
+                        <tiendas-registradas :config="children.tiendasRegistradas"></tiendas-registradas>
+                    </transition>
+                </template>
+                <template v-else-if="active.first === 2 && active.second === 0 && active.third === 1">
+                    <transition name="slide-fade">
+                        <nueva-tienda :mask="mask" :config="children.nuevaTienda"></nueva-tienda>
+                    </transition>
+                </template>
+
+                <template v-else-if="active.first === 3 && active.second === 0 && active.third === 0">
+                    <transition name="slide-fade">
+                        <recursos-registrados :config="children.recursosRegistrados"></recursos-registrados>
+                    </transition>
+                </template>
+                <template v-else-if="active.first === 3 && active.second === 0 && active.third === 1">
+                    <transition name="slide-fade">
+                        <nuevo-recurso :mask="mask" :config="children.nuevoRecurso"></nuevo-recurso>
+                    </transition>
+                </template>
+                
+                <template v-else-if="active.first === 4 && active.second === 0 && active.third === 0">
+                    <transition name="slide-fade">
+                        <rutas-registradas :config="children.rutasRegistradas"></rutas-registradas>
+                    </transition>
+                </template>
+                <template v-else-if="active.first === 4 && active.second === 0 && active.third === 1">
+                    <transition name="slide-fade">
+                        <nueva-ruta :mask="mask" :config="children.nuevaRuta"></nueva-ruta>
+                    </transition>
+                </template>
+
+                <template v-else-if="active.first === 5">
+                    <transition name="slide-fade">
+                        <reportes></reportes>
+                    </transition>
+                </template>
+            </div>
+        </div>
+        <foot></foot>
+    </div>
+`;
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div v-if="config.active" class="alert-message-overlay alert-overlay-custom">
+        <div class="loader-custom-container container">
+            <b><span class="glyphicon glyphicon-repeat loading-anim"></span><br>
+            {{config.message}}</b>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div v-if="config.active" class="alert-message-overlay alert-overlay-custom">
+        <div class="alert-message-box alert-box-custom container">
+            <div class="alert-message-title alert-title-custom">
+                <h3>{{config.description.title}}</h3>
+            </div>
+            <p><b v-html="config.description.text"></b></p>
+            <div class="alert-buttons-box">
+                <a href="#" v-on:click.prevent="config.onAccept()" class="alert-message-button button btn btn-success alert-btn-customized" style="padding-top:8px;"><span>{{config.description.accept}}</span></a>
+                <a href="#" v-on:click.prevent="config.active = !config.active" class="alert-message-button button btn btn-danger alert-btn-customized" style="padding-top:8px;"><span>{{config.description.cancel}}</span></a>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div v-if="config.active" class="alert-message-overlay alert-overlay-custom">
+        <div class="alert-message-box alert-box-custom container">
+            <div class="alert-message-title alert-title-custom">
+                <h3>{{config.description.title}}</h3>
+            </div>
+            <p><b v-html="config.description.text"></b></p>
+            <div class="alert-buttons-box">
+                <a href="#" v-on:click.prevent="config.active = !config.active" class="alert-message-button button btn btn-success alert-btn-customized" style="padding-top:8px;"><span>{{config.description.ok}}</span></a>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" v-on:click.prevent="setview({first: 0, second: 0, third: 0})">
+                <img src="/image/logo/techfor180-45.png" alt="">
+            </a>
+
+            <ul class="nav navbar-nav pull-right visible-xs-block">
+                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-collapse collapse" id="navbar-mobile">
+            <p class="navbar-text"><span class="label bg-success-400">En línea</span></p>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown dropdown-user">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="assets/images/placeholder.jpg" alt="">
+                        <span>{{profile.name}}</span>
+                        <i class="caret"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#"><i class="icon-cog5"></i> Configuración </a></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout"><i class="icon-switch2"></i> Cerrar Sesión </a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="navbar navbar-default" id="navbar-second">
+        <ul class="nav navbar-nav no-border visible-xs-block">
+            <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i class="icon-menu7"></i></a></li>
+        </ul>
+        
+        <div class="navbar-collapse collapse" id="navbar-second-toggle">
+            <ul class="nav navbar-nav" v-for="(menu, menuIndex) in config.menu">
+                <li :class="[active.first === menuIndex ? 'active' : '',
+                            menu.dropdown.length > 0 ? 'dropdown' : '']">
+                    <a href="#" v-on:click.prevent="menu.dropdown.length > 0 ? function(){} : setview({first: menuIndex, second: 0, third: 0})" :class="menu.dropdown.length > 0 ? 'dropdown-toogle' : ''"
+                                :data-toggle="menu.dropdown.length > 0 ? 'dropdown' : ''">
+                        <i :class="menu.icon" class="position-left"></i> {{menu.title}}
+                        <template v-if="menu.dropdown.length > 0">
+                            <span class="caret"></span>
+                        </template>
+                    </a>
+                    <ul v-if="menu.dropdown.length > 0" class="dropdown-menu width-200">
+                        <template v-for="(dropdown, dropdownIndex) in menu.dropdown">
+                            <li class="dropdown-header">{{dropdown.title}}</li>
+                            <li v-for="(subs, subsIndex) in dropdown.subs">
+                                <a href="#" v-on:click.prevent="setview({first: menuIndex, second: dropdownIndex, third: subsIndex})">
+                                    <i :class="subs.icon"></i> {{subs.title}}
+                                </a>
+                            </li>
+                        </template>
+                    </ul>
+                </li>                    
+            </ul>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4>
+                    <i class="icon-arrow-left52 position-left"></i>
+                    <span class="text-semibold">
+                        <b>{{config.menu[active.first].title}}</b>
+                        {{config.menu[active.first].dropdown.length > 0 ? ' - ' + config.menu[active.first].dropdown[active.second].title : ''}}
+                    </span>
+                    <small v-if="active.first === 0 && active.second === 0 && active.third === 0" class="display-block">Buen día, {{profile.name}}!</small>
+                </h4>
+                <ul v-if="active.first !== 0 || active.second !== 0 || active.third !== 0" class="breadcrumb breadcrumb-caret position-right">
+                    <li><a href="#" v-on:click.prevent="setview({first: 0, second: 0, third: 0})">{{config.menu[0].title}}</a></li>
+                    <li><a href="#" v-on:click.prevent>{{config.menu[active.first].title}}</a></li>
+                    <li v-if="config.menu[active.first].dropdown.length > 0"><a href="#" v-on:click.prevent>{{config.menu[active.first].dropdown[active.second].title}}</a></li>
+                    <li v-if="config.menu[active.first].dropdown.length > 0" class="active">{{config.menu[active.first].dropdown[active.second].subs[active.third].title}}</li>
+                </ul>
+            </div>
+            
+            <div class="heading-elements">
+                <div v-if="config.menu[active.first].dropdown.length > 0" class="heading-btn-group">
+                    <a href="#" v-on:click.prevent="setview({first: active.first, second: active.second, third: subsIndex})"
+                                v-for="(subs, subsIndex) in config.menu[active.first].dropdown[active.second].subs" class="btn btn-link btn-float has-text">
+                        <i :class="subs.icon" class="text-primary"></i><span>{{subs.title}}</span>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="footer text-muted">
+        &copy; 2017. <a href="#" v-on:click.prevent>Tech For Data</a>
+    </div>
+`;
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var tiendasLigadas = __webpack_require__(95);
+var recursosLigados = __webpack_require__(96);
+var rutas = __webpack_require__(97);
+Vue.component("tiendas-ligadas", {
+    template: tiendasLigadas,
+    props: {
+        config: Object,
+        setview: Function,
+        mask: Function
+    }
+});
+Vue.component("recursos-ligados", {
+    template: recursosLigados,
+    props: {
+        config: Object,
+        setview: Function,
+        mask: Function
+    }
+});
+Vue.component("rutas", {
+    template: rutas,
+    props: {
+        config: Object,
+        setview: Function
+    }
+});
+module.exports = `
+    <div class="col-sm-12">
+        <div v-if="config.active === 0" class="col-sm-12">
+            <div class="panel panel-flat">
+                <div class="panel-body">
+                    <p class="content-group">
+                    
+                    </p>
+                    <mcdatatable :title="'Clientes'" :config="config.grid"></mcdatatable>
+                </div>
+            </div>
+        </div>
+        <tiendas-ligadas v-else-if="config.active === 1" :config="config.tienda" :setview="config.setView" :mask="config.mask"></tiendas-ligadas>
+        <recursos-ligados v-else-if="config.active === 2" :config="config.recurso" :setview="config.setView" :mask="config.mask"></recursos-ligados>
+        <rutas v-else-if="config.active === 3" :config="config.ruta" :setview="config.setView"></rutas>
+    </div>
+`;
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-center">{{config.client.name}}</h4>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent title="Tiendas"><span aria-hidden="true" class="glyphicon glyphicon-tags"></span></a></li>
+                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(2)" title="Recursos humanos"><span aria-hidden="true" class="glyphicon glyphicon-briefcase"></span></a></li>
+                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(3)" title="Rutas"><span aria-hidden="true" class="glyphicon glyphicon-road"></span></a></li>
+                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title text-center">Todas las tiendas</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
+                                <input type="text" v-model="config.data.search.store" v-on:keyup="config.init(1)" class="form-control" placeholder="Búsqueda">
+                                <div class="form-control-feedback" style="width: 30px;">
+                                    <i class="icon-search4 text-size-base"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 grid-relation">
+                            <table class="table table-bordered">
+                                <tbody class="body-class">
+                                    <tr v-for="(store, storeIndex) in config.store"
+                                        :draggable="store.selected"
+                                        @dragstart="config.initDrag('add')"
+                                        @dragend="config.alterLinkDef.masive.config.active = 0;"
+                                        :class="store.linked ? 'selected' : store.selected ? 'link-row-select' : ''"
+                                        class="grid-row-customized grid-row-highlight-customized">
+                                        <td v-on:click.self="store.linked ? '' : store.selected = !store.selected" class="col-md-1">
+                                            {{store.name}}
+                                            <div class="pull-right">
+                                                <a href="#" v-on:click.prevent="config.setLink('see', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                    <i class="icon-eye" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.setLink('add', storeIndex)" :class="store.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar" data-toggle="modal" data-target="#add">
+                                                    <i class="icon-link" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <nav class="pull-right">
+                            <ul class="pagination">
+                                <li>
+                                    <span><b>Mostrando {{config.store.length}} de {{config.data.page.store.totalCount}} filas en la página {{config.data.page.store.currentPage}} de {{config.data.page.store.pageCount}}.</b></span>
+                                </li>
+                                <li  :class="config.data.page.store.currentPage === 1 ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(1, 1);">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <template v-if="config.data.page.store.pageCount <= 3">
+                                    <li v-for="page in config.data.page.store.pageCount" :class="page === config.data.page.store.currentPage ? 'active' : ''">
+                                        <a href="#" v-on:click.prevent="page === config.data.page.store.currentPage ? '' : config.init(1, page);">
+                                            {{page}}
+                                        </a>
+                                    </li>
+                                </template>
+                                <template v-else>
+                                    <template v-if="config.data.page.store.currentPage < 3">
+                                        <li :class="config.data.page.store.currentPage === 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === 1 ? '' : config.init(1, 1);">
+                                                1
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.store.currentPage === 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === 2 ? '' : config.init(1, 2);">
+                                                2
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.store.currentPage === 3 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === 3 ? '' : config.init(1, 3);">
+                                                3
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                    <template v-else-if="config.data.page.store.currentPage > config.data.page.store.pageCount - 2">
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li :class="config.data.page.store.currentPage === config.data.page.store.pageCount - 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === config.data.page.store.pageCount - 2 ? '' : config.init(1, config.data.page.store.pageCount - 2);">
+                                                {{config.data.page.store.pageCount - 2}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.store.currentPage === config.data.page.store.pageCount - 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === config.data.page.store.pageCount - 1 ? '' : config.init(1, config.data.page.store.pageCount - 1);">
+                                                {{config.data.page.store.pageCount - 1}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.store.currentPage === config.data.page.store.pageCount ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === config.data.page.store.pageCount ? '' : config.init(1, config.data.page.store.pageCount);">
+                                                {{config.data.page.store.pageCount}}
+                                            </a>
+                                        </li>
+                                    </template>
+                                    <template v-else>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.store.currentPage - 1)">
+                                                {{config.data.page.store.currentPage - 1}}
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#" v-on:click.prevent>
+                                                {{config.data.page.store.currentPage}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.store.currentPage + 1)">
+                                                {{config.data.page.store.currentPage + 1}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                </template>
+                                <li :class="config.data.page.store.pageCount === config.data.page.store.currentPage ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(1, config.data.page.store.pageCount);">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title text-center">Tiendas ligadas</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12 grid-relation">
+                            <table class="table table-bordered">
+                                <!--<thead>
+                                    <tr>
+                                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
+                                            <input type="text" class="form-control" placeholder="Búsqueda">
+                                            <div class="form-control-feedback" style="width: 30px;">
+                                                <i class="icon-search4 text-size-base"></i>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                </thead>-->
+                                <tbody class="body-class">
+                                    <tr v-for="(store, storeIndex) in config.storeLinked"
+                                        :draggable="store.selected"
+                                        @dragstart="config.initDrag('remove')"
+                                        @dragend="config.alterLinkDef.masive.config.active = 0;"
+                                        :class="store.selected ? 'link-row-select' : ''"
+                                        class="grid-row-customized grid-row-highlight-customized">
+                                        <td v-on:click.self="store.selected = !store.selected" class="col-md-1">
+                                            {{store.name}}
+                                            <div class="pull-right">
+                                                <a href="#" v-on:click.prevent="config.setLink('seeLinked', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#seeLinked">
+                                                    <i class="icon-eye" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.setLink('edit', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Editar" data-toggle="modal" data-target="#edit">
+                                                    <i class="icon-pencil6" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.remove(store.id)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Desligar">
+                                                    <i class="icon-unlink" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <nav class="pull-right">
+                            <ul class="pagination">
+                                <li>
+                                    <span><b>Mostrando {{config.storeLinked.length}} de {{config.data.page.storeLinked.totalCount}} filas en la página {{config.data.page.storeLinked.currentPage}} de {{config.data.page.storeLinked.pageCount}}.</b></span>
+                                </li>
+                                <li  :class="config.data.page.storeLinked.currentPage === 1 ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(2, null, 1);">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <template v-if="config.data.page.storeLinked.pageCount <= 3">
+                                    <li v-for="page in config.data.page.storeLinked.pageCount" :class="page === config.data.page.storeLinked.currentPage ? 'active' : ''">
+                                        <a href="#" v-on:click.prevent="page === config.data.page.storeLinked.currentPage ? '' : config.init(2, null, page);">
+                                            {{page}}
+                                        </a>
+                                    </li>
+                                </template>
+                                <template v-else>
+                                    <template v-if="config.data.page.storeLinked.currentPage < 3">
+                                        <li :class="config.data.page.storeLinked.currentPage === 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === 1 ? '' : config.init(2, null, 1);">
+                                                1
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.storeLinked.currentPage === 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === 2 ? '' : config.init(2, null, 2);">
+                                                2
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.storeLinked.currentPage === 3 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === 3 ? '' : config.init(2, null, 3);">
+                                                3
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                    <template v-else-if="config.data.page.storeLinked.currentPage > config.data.page.storeLinked.pageCount - 2">
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li :class="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount - 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount - 2 ? '' : config.init(2, null, config.data.page.storeLinked.pageCount - 2);">
+                                                {{config.data.page.storeLinked.pageCount - 2}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount - 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount - 1 ? '' : config.init(2, null, config.data.page.storeLinked.pageCount - 1);">
+                                                {{config.data.page.storeLinked.pageCount - 1}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount ? '' : config.init(2, null, config.data.page.storeLinked.pageCount);">
+                                                {{config.data.page.storeLinked.pageCount}}
+                                            </a>
+                                        </li>
+                                    </template>
+                                    <template v-else>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.storeLinked.currentPage - 1)">
+                                                {{config.data.page.storeLinked.currentPage - 1}}
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#" v-on:click.prevent>
+                                                {{config.data.page.storeLinked.currentPage}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.storeLinked.currentPage + 1)">
+                                                {{config.data.page.storeLinked.currentPage + 1}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                </template>
+                                <li :class="config.data.page.storeLinked.pageCount === config.data.page.storeLinked.currentPage ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.storeLinked.pageCount);">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Ligar tiendas</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                        <div v-if="config.alterLinkDef.add.length > 1" class="row">
+                            <div class="form-group text-center">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.alterLinkDef.masive.config.same = !config.alterLinkDef.masive.config.same">
+                                        <span class="switchery switchery-default switchery-custom" :class="config.alterLinkDef.masive.config.same ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.alterLinkDef.masive.config.same ? 'Si' : 'No'}}
+                                    </label>
+                                    <span class="help-block">Generalizar tiempos solicitados</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="config.alterLinkDef.masive.config.same" class="row">
+                            <div class="col-sm-6">
+                                <span><b>Tiempo General</b></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <div v-if="config.alterLinkDef.add.length > 0" :class="config.alterLinkDef.add[0].valid ? '' : 'has-error'" class="form-group">
+                                    <input v-model="config.alterLinkDef.add[0].time" v-on:keyup="config.alterLinkDef.add[0].time = mask('time', $event, config.alterLinkDef.add[0].time); config.validation('add', 0)" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
+                                    <span class="help-block">{{config.alterLinkDef.add[0].text}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else v-for="(link, linkIndex) in config.alterLinkDef.add" class="row">
+                            <div class="col-sm-6">
+                                <span><b>{{config.store[link.index].name}}</b></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <div :class="link.valid ? '' : 'has-error'" class="form-group">
+                                    <input v-model="link.time" v-on:keyup="link.time = mask('time', $event, link.time); config.validation('add', linkIndex)" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
+                                    <span class="help-block">{{link.text}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" v-on:click="config.alterLink('add')">Ligar</button>
+                        <button id="closeAdd" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.edit.name}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <span><b>Tiempo requerido</b></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div :class="config.alterLinkDef.edit.valid ? '' : 'has-error'" class="form-group">
+                                        <input v-model="config.alterLinkDef.edit.time" v-on:keyup="config.alterLinkDef.edit.time = mask('time', $event, config.alterLinkDef.edit.time); config.validation('edit')" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
+                                        <span class="help-block">{{config.alterLinkDef.edit.text}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" v-on:click="config.alterLink('edit')">Guardar</button>
+                        <button id="closeEdit" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.store.name}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div id="mapFocusPositionSeeStore" v-on:click="config.alterLinkDef.see.store.focusPosition()" class="map-focus-position text-center">
+                                        <i class="icon-shrink3"></i>
+                                    </div>
+                                    <div id="mapSeeStore" class="map-container-modal map-basic"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="steps-basic wizard clearfix">
+                                        <div class="steps clearfix">
+                                            <ul role="tablist">
+                                                <li v-for="(steps, stepIndex) in config.alterLinkDef.see.store.steps" role="tab"
+                                                :class="[stepIndex === 0 ? 'first' : '',
+                                                        config.alterLinkDef.see.store.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                    <a href="#" v-on:click.prevent="steps.seen && config.alterLinkDef.see.store.actualStep !== stepIndex ? config.alterLinkDef.see.store.changeStep(stepIndex) : ''">
+                                                        <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="content clearfix">
+                                            <div class="row">
+                                                <div style="padding-top: 20px"></div>
+                                                <div :class="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                    <div class="form-group">
+                                                        <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                            <label>
+                                                                <span class="switchery switchery-default switchery-custom" :class="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active ? 'active' : 'not-active'">
+                                                                    <small></small>
+                                                                </span>
+                                                                {{config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active ? 'Si' : 'No'}}
+                                                            </label>
+                                                            <span class="help-block">¿Opera en {{config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].text}}?</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div v-if="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active" class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">Intervalos de atención</label>
+                                                        <div class="col-md-8">
+                                                            <input disabled="disabled" class="form-control" v-model="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].interval" type="number" name="Intervalos de atención">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active && Math.floor(parseInt(config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].interval)) > 0" class="row">
+                                                <div style="padding-top: 20px"></div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group text-center schedule-title">
+                                                        <label>Inicio</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group text-center schedule-title">
+                                                        <label>Final</label>
+                                                    </div>
+                                                </div>
+                                                <template v-for="(interval, intervalIndex) in config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].schedule">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                            <span class="help-block">hh:mm:ss</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                            <span class="help-block">hh:mm:ss</span>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="seeLinked" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.storeLinked.name}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <span><b>Tiempo requerido</b></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span>{{config.alterLinkDef.see.storeLinked.time}}</span>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div :class="config.alterLinkDef.masive.config.active === 0 ? '' : 'active'" class="link-button-container">
+            <div class="row">
+                <div class="col-sm-6 text-center button">
+                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('remove')" v-if="config.alterLinkDef.masive.config.active === 1" href="#">
+                        <img src="/image/remove.png">
+                    </a>
+                </div>
+                <div class="col-sm-6 text-center button">
+                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('add')" v-if="config.alterLinkDef.masive.config.active === 2" href="#">
+                        <img src="/image/add.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-center">{{config.client.name}}</h4>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(1)" title="Tiendas"><span aria-hidden="true" class="glyphicon glyphicon-tags"></span></a></li>
+                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent title="Recursos humanos"><span aria-hidden="true" class="glyphicon glyphicon-briefcase"></span></a></li>
+                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(3)" title="Rutas"><span aria-hidden="true" class="glyphicon glyphicon-road"></span></a></li>
+                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title text-center">Todos los recursos</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
+                                <input type="text" v-model="config.data.search.resource" v-on:keyup="config.init(1)" class="form-control" placeholder="Búsqueda">
+                                <div class="form-control-feedback" style="width: 30px;">
+                                    <i class="icon-search4 text-size-base"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 grid-relation">
+                            <table class="table table-bordered">
+                                <tbody class="body-class">
+                                    <tr v-for="(resource, resourceIndex) in config.resource"
+                                        :draggable="resource.selected"
+                                        @dragstart="config.initDrag('add')"
+                                        @dragend="config.alterLinkDef.masive.config.active = 0;"
+                                        :class="resource.linked ? 'selected' : resource.selected ? 'link-row-select' : ''"
+                                        class="grid-row-customized grid-row-highlight-customized">
+                                        <td v-on:click.self="resource.linked ? '' : resource.selected = !resource.selected" class="col-md-1">
+                                            {{resource.name}}
+                                            <div class="pull-right">
+                                                <a href="#" v-on:click.prevent="config.setLink('see', resourceIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                    <i class="icon-eye" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.setLink('add', resourceIndex)" :class="resource.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar">
+                                                    <i class="icon-link" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <nav class="pull-right">
+                            <ul class="pagination">
+                                <li>
+                                    <span><b>Mostrando {{config.resource.length}} de {{config.data.page.resource.totalCount}} filas en la página {{config.data.page.resource.currentPage}} de {{config.data.page.resource.pageCount}}.</b></span>
+                                </li>
+                                <li  :class="config.data.page.resource.currentPage === 1 ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(1, 1);">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <template v-if="config.data.page.resource.pageCount <= 3">
+                                    <li v-for="page in config.data.page.resource.pageCount" :class="page === config.data.page.resource.currentPage ? 'active' : ''">
+                                        <a href="#" v-on:click.prevent="page === config.data.page.resource.currentPage ? '' : config.init(1, page);">
+                                            {{page}}
+                                        </a>
+                                    </li>
+                                </template>
+                                <template v-else>
+                                    <template v-if="config.data.page.resource.currentPage < 3">
+                                        <li :class="config.data.page.resource.currentPage === 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.resource.currentPage === 1 ? '' : config.init(1, 1);">
+                                                1
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.resource.currentPage === 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.resource.currentPage === 2 ? '' : config.init(1, 2);">
+                                                2
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.resource.currentPage === 3 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.resource.currentPage === 3 ? '' : config.init(1, 3);">
+                                                3
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                    <template v-else-if="config.data.page.resource.currentPage > config.data.page.resource.pageCount - 2">
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li :class="config.data.page.resource.currentPage === config.data.page.resource.pageCount - 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.resource.currentPage === config.data.page.resource.pageCount - 2 ? '' : config.init(1, config.data.page.resource.pageCount - 2);">
+                                                {{config.data.page.resource.pageCount - 2}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.resource.currentPage === config.data.page.resource.pageCount - 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.resource.currentPage === config.data.page.resource.pageCount - 1 ? '' : config.init(1, config.data.page.resource.pageCount - 1);">
+                                                {{config.data.page.resource.pageCount - 1}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.resource.currentPage === config.data.page.resource.pageCount ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.resource.currentPage === config.data.page.resource.pageCount ? '' : config.init(1, config.data.page.resource.pageCount);">
+                                                {{config.data.page.resource.pageCount}}
+                                            </a>
+                                        </li>
+                                    </template>
+                                    <template v-else>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.resource.currentPage - 1)">
+                                                {{config.data.page.resource.currentPage - 1}}
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#" v-on:click.prevent>
+                                                {{config.data.page.resource.currentPage}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.resource.currentPage + 1)">
+                                                {{config.data.page.resource.currentPage + 1}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                </template>
+                                <li :class="config.data.page.resource.pageCount === config.data.page.resource.currentPage ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(1, config.data.page.resource.pageCount);">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title text-center">Recursos ligados</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12 grid-relation">
+                            <table class="table table-bordered">
+                                <!--<thead>
+                                    <tr>
+                                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
+                                            <input type="text" class="form-control" placeholder="Búsqueda">
+                                            <div class="form-control-feedback" style="width: 30px;">
+                                                <i class="icon-search4 text-size-base"></i>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                </thead>-->
+                                <tbody class="body-class">
+                                    <tr v-for="(resource, resourceIndex) in config.resourceLinked"
+                                        :draggable="resource.selected"
+                                        @dragstart="config.initDrag('remove')"
+                                        @dragend="config.alterLinkDef.masive.config.active = 0;"
+                                        :class="resource.selected ? 'link-row-select' : ''"
+                                        class="grid-row-customized grid-row-highlight-customized">
+                                        <td v-on:click.self="resource.selected = !resource.selected" class="col-md-1">
+                                            {{resource.name}}
+                                            <div class="pull-right">
+                                                <a href="#" v-on:click.prevent="config.remove(resource.id)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Desligar">
+                                                    <i class="icon-unlink" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <nav class="pull-right">
+                            <ul class="pagination">
+                                <li>
+                                    <span><b>Mostrando {{config.resourceLinked.length}} de {{config.data.page.resourceLinked.totalCount}} filas en la página {{config.data.page.resourceLinked.currentPage}} de {{config.data.page.resourceLinked.pageCount}}.</b></span>
+                                </li>
+                                <li  :class="config.data.page.resourceLinked.currentPage === 1 ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(2, null, 1);">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <template v-if="config.data.page.resourceLinked.pageCount <= 3">
+                                    <li v-for="page in config.data.page.resourceLinked.pageCount" :class="page === config.data.page.resourceLinked.currentPage ? 'active' : ''">
+                                        <a href="#" v-on:click.prevent="page === config.data.page.resourceLinked.currentPage ? '' : config.init(2, null, page);">
+                                            {{page}}
+                                        </a>
+                                    </li>
+                                </template>
+                                <template v-else>
+                                    <template v-if="config.data.page.resourceLinked.currentPage < 3">
+                                        <li :class="config.data.page.resourceLinked.currentPage === 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.resourceLinked.currentPage === 1 ? '' : config.init(2, null, 1);">
+                                                1
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.resourceLinked.currentPage === 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.resourceLinked.currentPage === 2 ? '' : config.init(2, null, 2);">
+                                                2
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.resourceLinked.currentPage === 3 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.resourceLinked.currentPage === 3 ? '' : config.init(2, null, 3);">
+                                                3
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                    <template v-else-if="config.data.page.resourceLinked.currentPage > config.data.page.resourceLinked.pageCount - 2">
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li :class="config.data.page.resourceLinked.currentPage === config.data.page.resourceLinked.pageCount - 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.resourceLinked.currentPage === config.data.page.resourceLinked.pageCount - 2 ? '' : config.init(2, null, config.data.page.resourceLinked.pageCount - 2);">
+                                                {{config.data.page.resourceLinked.pageCount - 2}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.resourceLinked.currentPage === config.data.page.resourceLinked.pageCount - 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.resourceLinked.currentPage === config.data.page.resourceLinked.pageCount - 1 ? '' : config.init(2, null, config.data.page.resourceLinked.pageCount - 1);">
+                                                {{config.data.page.resourceLinked.pageCount - 1}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.resourceLinked.currentPage === config.data.page.resourceLinked.pageCount ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.resourceLinked.currentPage === config.data.page.resourceLinked.pageCount ? '' : config.init(2, null, config.data.page.resourceLinked.pageCount);">
+                                                {{config.data.page.resourceLinked.pageCount}}
+                                            </a>
+                                        </li>
+                                    </template>
+                                    <template v-else>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.resourceLinked.currentPage - 1)">
+                                                {{config.data.page.resourceLinked.currentPage - 1}}
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#" v-on:click.prevent>
+                                                {{config.data.page.resourceLinked.currentPage}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.resourceLinked.currentPage + 1)">
+                                                {{config.data.page.resourceLinked.currentPage + 1}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                </template>
+                                <li :class="config.data.page.resourceLinked.pageCount === config.data.page.resourceLinked.currentPage ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.resourceLinked.pageCount);">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.resource.name}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                        <label v-on:click.prevent="config.alterLinkDef.see.resource.setVisibilityPosition()" class="label-three-option">
+                                            <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.alterLinkDef.see.resource.allPosVisible === 0 ? 'one' : config.alterLinkDef.see.resource.allPosVisible === 1 ? 'two' : 'three'">
+                                                <small></small>
+                                            </span>
+                                            {{config.alterLinkDef.see.resource.allPosVisible === 0 ? 'Todas' : config.alterLinkDef.see.resource.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                        </label>
+                                        <span class="help-block">Ubicaciones</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="steps-basic wizard clearfix">
+                                            <div class="steps clearfix">
+                                                <ul role="tablist">
+                                                    <li v-for="(steps, stepIndex) in config.alterLinkDef.see.resource.steps" role="tab"
+                                                    :class="[stepIndex === 0 ? 'first' : '',
+                                                            config.alterLinkDef.see.resource.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                        <a href="#" v-on:click.prevent="steps.seen && config.alterLinkDef.see.resource.actualStep !== stepIndex ? config.alterLinkDef.see.resource.changeStep(stepIndex) : ''">
+                                                            <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="content clearfix">
+                                                <div class="row">
+                                                    <div style="padding-top: 20px"></div>
+                                                    <div :class="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                        <div class="form-group">
+                                                            <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                                <label>
+                                                                    <span class="switchery switchery-default switchery-custom" :class="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active ? 'active' : 'not-active'">
+                                                                        <small></small>
+                                                                    </span>
+                                                                    {{config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active ? 'Si' : 'No'}}
+                                                                </label>
+                                                                <span class="help-block">¿Opera en {{config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].text}}?</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div v-if="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active" class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4">Intervalos de atención</label>
+                                                            <div class="col-md-8">
+                                                                <input disabled="disabled" class="form-control" v-model="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].interval" type="number" name="Intervalos de atención">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div v-if="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active && Math.floor(parseInt(config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].interval)) > 0" class="row">
+                                                    <div style="padding-top: 20px"></div>
+                                                    <div class="col-sm-5">
+                                                        <div class="form-group text-center schedule-title">
+                                                            <label>Inicio</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <div class="form-group text-center schedule-title">
+                                                            <label>Final</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group text-center schedule-title">
+                                                            <label>Posición</label>
+                                                        </div>
+                                                    </div>
+                                                    <template v-for="(interval, intervalIndex) in config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].schedule">
+                                                        <div class="col-sm-5">
+                                                            <div class="form-group">
+                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                                <span class="help-block">hh:mm:ss</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                            <div class="form-group">
+                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                                <span class="help-block">hh:mm:ss</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                                <label v-on:click.prevent="config.alterLinkDef.see.resource.setActiveInterval(intervalIndex)">
+                                                                    <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
+                                                                        <small></small>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <div id="mapFocusPositionSeeResource" v-on:click="config.alterLinkDef.see.resource.focusPosition()" class="map-focus-position text-center">
+                                                                <i class="icon-shrink3"></i>
+                                                            </div>
+                                                            <div id="mapSeeResource" class="map-container-modal map-basic"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div :class="config.alterLinkDef.masive.config.active === 0 ? '' : 'active'" class="link-button-container">
+            <div class="row">
+                <div class="col-sm-6 text-center button">
+                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('remove')" v-if="config.alterLinkDef.masive.config.active === 1" href="#">
+                        <img src="/image/remove.png">
+                    </a>
+                </div>
+                <div class="col-sm-6 text-center button">
+                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('add')" v-if="config.alterLinkDef.masive.config.active === 2" href="#">
+                        <img src="/image/add.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 97 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-body">
+                <p class="content-group">
+                    RUTAS
+                </p>
+                
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var verTienda = __webpack_require__(99);
+var editarTienda = __webpack_require__(100);
+Vue.component("ver-tienda", {
+    template: verTienda,
+    props: {
+        config: Object,
+        mask: Function,
+        setview: Function
+    }
+});
+Vue.component("editar-tienda", {
+    template: editarTienda,
+    props: {
+        config: Object,
+        mask: Function,
+        setview: Function
+    }
+});
+module.exports = `
+    <div>
+        <div v-if="config.active === 0" class="col-sm-12">
+            <div class="panel panel-flat">
+                <div class="panel-body">
+                    <p class="content-group">
+                    
+                    </p>
+                    <mcdatatable :title="'Tiendas'" :config="config.grid"></mcdatatable>
+                </div>
+            </div>
+        </div>
+        <ver-tienda v-else-if="config.active === 1" :config="config.watch" :mask="config.mask" :setview="config.setView"></ver-tienda>
+        <editar-tienda v-else-if="config.active === 2" :config="config.edit" :mask="config.mask" :setview="config.setView"></editar-tienda>
+    </div>
+`;
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h4 class="panel-title text-center">{{config.name}}</h4>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="setview(2)" title="Editar"><i class="icon-pencil7"></i></i></a></li>
+                        <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Ubicación</h5>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div id="mapFocusPositionSeeStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                <i class="icon-shrink3"></i>
+                            </div>
+                            <div id="mapSeeStore" class="map-container map-basic"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Horarios</h5>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="steps-basic wizard clearfix">
+                                <div class="steps clearfix">
+                                    <ul role="tablist">
+                                        <li v-for="(steps, stepIndex) in config.steps" role="tab"
+                                        :class="[stepIndex === 0 ? 'first' : '',
+                                                config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                            <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="content clearfix">
+                                    <div class="row">
+                                        <div style="padding-top: 20px"></div>
+                                        <div :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                            <div class="form-group">
+                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                    <label>
+                                                        <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
+                                                            <small></small>
+                                                        </span>
+                                                        {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
+                                                    </label>
+                                                    <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="config.steps[config.actualStep].active" class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Intervalos de atención</label>
+                                                <div class="col-md-8">
+                                                    <input disabled="disabled" class="form-control" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
+                                        <div style="padding-top: 20px"></div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Inicio</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Final</label>
+                                            </div>
+                                        </div>
+                                        <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <span class="help-block">hh:mm:ss</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <span class="help-block">hh:mm:ss</span>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 100 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">{{config.name.value}}</h5>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
+                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre">
+                            <span class="help-block">{{config.name.text}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Ubicación</h5>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <input id="searchEditStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                            <div id="mapFocusPositionEditStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                <i class="icon-shrink3"></i>
+                            </div>
+                            <div id="mapEditStore" class="map-container map-basic"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Horarios</h5>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="steps-basic wizard clearfix">
+                                <div class="steps clearfix">
+                                    <ul role="tablist">
+                                        <li v-for="(steps, stepIndex) in config.steps" role="tab"
+                                        :class="[stepIndex === 0 ? 'first' : '',
+                                                config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                            <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="content clearfix">
+                                    <div class="row">
+                                        <div style="padding-top: 20px"></div>
+                                        <div :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                            <div class="form-group">
+                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                    <label v-on:click.prevent="config.steps[config.actualStep].active = !config.steps[config.actualStep].active">
+                                                        <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
+                                                            <small></small>
+                                                        </span>
+                                                        {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
+                                                    </label>
+                                                    <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="config.steps[config.actualStep].active" class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Intervalos de atención</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
+                                                    <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
+                                        <div style="padding-top: 20px"></div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Inicio</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Final</label>
+                                            </div>
+                                        </div>
+                                        <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule" v-if="!interval.remove">
+                                            <div class="col-sm-6">
+                                                <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <span class="help-block">{{interval.textBegin}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <span class="help-block">{{interval.textEnd}}</span>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                                <div class="actions clearfix">
+                                    <ul role="menu" aria-label="Pagination">
+                                        <li>
+                                            <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit()" role="menuitem">Guardar</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Tipo de Registro</h5>
+                <div v-if="config.typeSelection.type === 0 || config.typeSelection.type === 1" class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="config.reset('all')" title="Reinicializar"><i class="icon-reset"></i></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+                <div class="form-group">
+                    <div class="btn-group bootstrap-select show-tick" style="width: 100%;">
+                        <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button" :title="config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text">
+                            <span class="filter-option pull-left">{{config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text}}</span>&nbsp;
+                            <span class="bs-caret">
+                                <span class="caret"></span>
+                            </span>
+                        </button>
+                        <div class="dropdown-menu open" role="combobox">
+                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                <li v-for="options in config.typeSelection.options" :class="config.typeSelection.type === options.value ? 'selected' : ''">
+                                    <a href="#" v-on:click.prevent="config.mainSelect(options.value)" tabindex="0" data-tokens="null" role="option" aria-disabled="false" aria-selected="true">
+                                        <span class="text">{{options.text}}</span>
+                                        <span class=" icon-checkmark3 check-mark"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Selección de archivo</h5>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <div class="uploader">
+                            <input type="file" class="file-styled">
+                            <span class="filename">No has seleccionado ningún archivo</span>
+                            <span class="action btn btn-default import-file">Selecciona un archivo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <template v-else-if="config.typeSelection.type === 1">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Nombre</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
+                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
+                                <span class="help-block">{{config.manualAdd.name.text}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Ubicación</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input id="searchAddStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                <div id="mapFocusPositionAddStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                    <i class="icon-shrink3"></i>
+                                </div>
+                                <div id="mapAddStore" class="map-container map-basic"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Horarios</h5>
+                    <div class="heading-elements">
+                        <div class="heading-form">
+                            <div class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.manualAdd.sameConf = !config.manualAdd.sameConf; config.manualAdd.steps[0].active = true">
+                                        <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.manualAdd.sameConf ? 'Si' : 'No'}}
+                                    </label>
+                                    <span class="help-block">Generalizar horarios</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div v-if="config.manualAdd.sameConf" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="steps-basic wizard clearfix">
+                                    <div class="content clearfix">
+                                        <div style="padding-top: 20px"></div>
+                                        <div class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div v-if="config.manualAdd.steps[0].active" class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">Intervalos de atención</label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[0].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
+                                                        <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="config.manualAdd.steps[0].active" class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Inicio</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Final</label>
+                                                </div>
+                                            </div>
+                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[0].schedule">
+                                                <div class="col-sm-6">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">{{interval.textBegin}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">{{interval.textEnd}}</span>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div class="actions clearfix">
+                                        <ul role="menu" aria-label="Pagination">
+                                            <li>
+                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="steps-basic wizard clearfix">
+                                    <div class="steps clearfix">
+                                        <ul role="tablist">
+                                            <li v-for="(steps, stepIndex) in config.manualAdd.steps" role="tab"
+                                            :class="[stepIndex === 0 ? 'first' : '',
+                                                    config.manualAdd.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                <a href="#" v-on:click.prevent="steps.seen && config.manualAdd.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                    <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="content clearfix">
+                                        <div class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                <div class="form-group">
+                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                        <label v-on:click.prevent="config.manualAdd.steps[config.manualAdd.actualStep].active = !config.manualAdd.steps[config.manualAdd.actualStep].active">
+                                                            <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'active' : 'not-active'">
+                                                                <small></small>
+                                                            </span>
+                                                            {{config.manualAdd.steps[config.manualAdd.actualStep].active ? 'Si' : 'No'}}
+                                                        </label>
+                                                        <span class="help-block">¿Opera en {{config.manualAdd.steps[config.manualAdd.actualStep].text}}?</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active" class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">Intervalos de atención</label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
+                                                        <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active" class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Inicio</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Final</label>
+                                                </div>
+                                            </div>
+                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.actualStep].schedule">
+                                                <div class="col-sm-6">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">{{interval.textBegin}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">{{interval.textEnd}}</span>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div class="actions clearfix">
+                                        <ul role="menu" aria-label="Pagination">
+                                            <li :class="config.manualAdd.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
+                                                <a class="btn btn-default" href="#previous" v-on:click.prevent="config.manualAdd.actualStep > 0 ? config.changeStep(config.manualAdd.actualStep - 1) : ''" role="menuitem">Anterior</a>
+                                            </li>
+                                            <li v-if="config.manualAdd.actualStep < config.manualAdd.steps.length - 1">
+                                                <a class="btn btn-info btn-customized" href="#next" v-on:click.prevent="config.changeStep(config.manualAdd.actualStep + 1)" role="menuitem">Siguiente</a>
+                                            </li>
+                                            <li v-else>
+                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+`;
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var verRecurso = __webpack_require__(103);
+var editarRecurso = __webpack_require__(104);
+Vue.component("ver-recurso", {
+    template: verRecurso,
+    props: {
+        config: Object,
+        mask: Function,
+        setview: Function
+    }
+});
+Vue.component("editar-recurso", {
+    template: editarRecurso,
+    props: {
+        config: Object,
+        mask: Function,
+        setview: Function
+    }
+});
+module.exports = `
+    <div>
+        <div v-if="config.active === 0" class="col-sm-12">
+            <div class="panel panel-flat">
+                <div class="panel-body">
+                    <p class="content-group">
+                    
+                    </p>
+                    <mcdatatable :title="'Recursos Humanos'" :config="config.grid"></mcdatatable>
+                </div>
+            </div>
+        </div>
+        <ver-recurso v-else-if="config.active === 1" :config="config.watch" :mask="config.mask" :setview="config.setView"></ver-recurso>
+        <editar-recurso v-else-if="config.active === 2" :config="config.edit" :mask="config.mask" :setview="config.setView"></editar-recurso>
+    </div>
+`;
+
+/***/ }),
+/* 103 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h4 class="panel-title text-center">{{config.name}}</h4>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="setview(2)" title="Editar"><i class="icon-pencil7"></i></i></a></li>
+                        <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Correo electrónico</label>
+                        <div class="col-lg-10">
+                            <input disabled="disabled" class="form-control" v-model="config.email" type="text" name="Correo electrónico">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Fecha de ingreso</label>
+                        <div class="col-lg-10">
+                            <input disabled="disabled" class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.date" type="date" name="Fecha de ingreso">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Horarios y Ubicaciones</h5>
+                <div class="heading-elements">
+                        <div class="heading-form">
+                            <div class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
+                                        <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.allPosVisible === 0 ? 'one' : config.allPosVisible === 1 ? 'two' : 'three'">
+                                            <small></small>
+                                        </span>
+                                        {{config.allPosVisible === 0 ? 'Todas' : config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                    </label>
+                                    <span class="help-block">Ubicaciones</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="steps-basic wizard clearfix">
+                                <div class="steps clearfix">
+                                    <ul role="tablist">
+                                        <li v-for="(steps, stepIndex) in config.steps" role="tab"
+                                        :class="[stepIndex === 0 ? 'first' : '',
+                                                config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                            <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="content clearfix">
+                                    <div class="row">
+                                        <div style="padding-top: 20px"></div>
+                                        <div :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                            <div class="form-group">
+                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                    <label>
+                                                        <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
+                                                            <small></small>
+                                                        </span>
+                                                        {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
+                                                    </label>
+                                                    <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="config.steps[config.actualStep].active" class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Intervalos de atención</label>
+                                                <div class="col-md-8">
+                                                    <input disabled="disabled" class="form-control" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
+                                        <div style="padding-top: 20px"></div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Inicio</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Final</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Posición</label>
+                                            </div>
+                                        </div>
+                                        <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule">
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <span class="help-block">hh:mm:ss</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <span class="help-block">hh:mm:ss</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                    <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
+                                                        <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
+                                                            <small></small>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div id="mapFocusPositionSeeResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                    <i class="icon-shrink3"></i>
+                                                </div>
+                                                <div id="mapSeeResource" class="map-container map-basic"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 104 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Tipo de Registro</h5>
+                <div v-if="config.typeSelection.type === 0 || config.typeSelection.type === 1" class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="config.reset('all')" title="Reinicializar"><i class="icon-reset"></i></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+                <div class="form-group">
+                    <div class="btn-group bootstrap-select show-tick" style="width: 100%;">
+                        <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button" :title="config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text">
+                            <span class="filter-option pull-left">{{config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text}}</span>&nbsp;
+                            <span class="bs-caret">
+                                <span class="caret"></span>
+                            </span>
+                        </button>
+                        <div class="dropdown-menu open" role="combobox">
+                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                <li v-for="options in config.typeSelection.options" :class="config.typeSelection.type === options.value ? 'selected' : ''">
+                                    <a href="#" v-on:click.prevent="config.mainSelect(options.value)" tabindex="0" data-tokens="null" role="option" aria-disabled="false" aria-selected="true">
+                                        <span class="text">{{options.text}}</span>
+                                        <span class=" icon-checkmark3 check-mark"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">{{config.typeSelection.options[config.typeSelection.type].text}}</h5>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+            </div>
+        </div>
+        <template v-else-if="config.typeSelection.type === 1">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">General</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Nombre</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.email.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Correo electrónico</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.pass.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Contraseña</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.repass.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Confirmar contraseña</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.date.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Fecha de ingreso</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.manualAdd.date.value" type="date" name="Fecha de ingreso">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Ubicaciones y Horarios</h5>
+                    <div class="heading-elements">
+                        <div class="heading-form">
+                            <div v-if="!config.manualAdd.sameConf" class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.setVisibilityPosition()">
+                                        <span class="switchery switchery-default switchery-custom info" :class="config.manualAdd.allPosVisible ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.manualAdd.allPosVisible ? 'Si' : 'No'}}
+                                    </label>
+                                    <span class="help-block">Todas las ubicaciones</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.initConfiguration()">
+                                        <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.manualAdd.sameConf ? 'Si' : 'No'}}
+                                    </label>
+                                    <span class="help-block">Generalizar horarios</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="steps-basic wizard clearfix">
+                                    <template v-if="config.manualAdd.sameConf">
+                                        <div style="padding-top: 20px"></div>
+                                    </template>
+                                    <div v-else class="steps clearfix">
+                                        <ul role="tablist">
+                                            <li v-for="(steps, stepIndex) in config.manualAdd.steps" role="tab"
+                                            :class="[stepIndex === 0 ? 'first' : '',
+                                                    config.manualAdd.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                <a href="#" v-on:click.prevent="steps.seen && config.manualAdd.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                    <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="content clearfix">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                        <i class="icon-shrink3"></i>
+                                                    </div>
+                                                    <div id="mapAddResource" class="map-container map-basic"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div v-if="!config.manualAdd.sameConf" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                <div class="form-group">
+                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                        <label v-on:click.prevent="config.setActivity()">
+                                                            <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'active' : 'not-active'">
+                                                                <small></small>
+                                                            </span>
+                                                            {{config.manualAdd.steps[config.manualAdd.actualStep].active ? 'Si' : 'No'}}
+                                                        </label>
+                                                        <span class="help-block">¿Opera en {{config.manualAdd.steps[config.manualAdd.actualStep].text}}?</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active" :class="config.manualAdd.sameConf ? 'col-sm-12' : 'col-sm-6'">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">Intervalos de atención</label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" name="Intervalos de atención">
+                                                        <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active && Math.floor(parseInt(config.manualAdd.steps[config.manualAdd.actualStep].interval)) > 0" class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Inicio</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Final</label>
+                                                </div>
+                                            </div>
+                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.actualStep].schedule">
+                                                <div class="col-sm-6">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">hh:mm:ss</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">hh:mm:ss</span>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div class="actions clearfix">
+                                        <ul role="menu" aria-label="Pagination">
+                                            <template v-if="config.manualAdd.sameConf">
+                                                <li>
+                                                    <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                </li>
+                                            </template>
+                                            <template v-else>
+                                                <li :class="config.manualAdd.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
+                                                    <a class="btn btn-default" href="#previous" v-on:click.prevent="config.manualAdd.actualStep > 0 ? config.changeStep(config.manualAdd.actualStep - 1) : ''" role="menuitem">Anterior</a>
+                                                </li>
+                                                <li v-if="config.manualAdd.actualStep < config.manualAdd.steps.length - 1">
+                                                    <a class="btn btn-info" href="#next" v-on:click.prevent="config.changeStep(config.manualAdd.actualStep + 1)" role="menuitem">Siguiente</a>
+                                                </li>
+                                                <li v-else>
+                                                    <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+`;
+
+/***/ }),
+/* 105 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Tipo de Registro</h5>
+                <div v-if="config.typeSelection.type === 0 || config.typeSelection.type === 1" class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="config.reset('all')" title="Reinicializar"><i class="icon-reset"></i></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+                <div class="form-group">
+                    <div class="btn-group bootstrap-select show-tick" style="width: 100%;">
+                        <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button" :title="config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text">
+                            <span class="filter-option pull-left">{{config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text}}</span>&nbsp;
+                            <span class="bs-caret">
+                                <span class="caret"></span>
+                            </span>
+                        </button>
+                        <div class="dropdown-menu open" role="combobox">
+                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                <li v-for="options in config.typeSelection.options" :class="config.typeSelection.type === options.value ? 'selected' : ''">
+                                    <a href="#" v-on:click.prevent="config.mainSelect(options.value)" tabindex="0" data-tokens="null" role="option" aria-disabled="false" aria-selected="true">
+                                        <span class="text">{{options.text}}</span>
+                                        <span class=" icon-checkmark3 check-mark"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Selección de archivo</h5>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <div class="uploader">
+                            <input type="file" class="file-styled">
+                            <span class="filename">No has seleccionado ningún archivo</span>
+                            <span class="action btn btn-default import-file">Selecciona un archivo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <template v-else-if="config.typeSelection.type === 1">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">General</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Nombre</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
+                                <span class="help-block">{{config.manualAdd.name.text}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.email.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Correo electrónico</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico">
+                                <span class="help-block">{{config.manualAdd.email.text}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.pass.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Contraseña</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña">
+                                <span class="help-block">{{config.manualAdd.pass.text}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.repass.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Confirmar contraseña</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña">
+                                <span class="help-block">{{config.manualAdd.repass.text}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.date.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Fecha de ingreso</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.manualAdd.date.value" type="date" name="Fecha de ingreso">
+                                <span class="help-block">{{config.manualAdd.date.text}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Horarios y Ubicaciones</h5>
+                    <div class="heading-elements">
+                        <div class="heading-form">
+                            <div v-if="config.manualAdd.sameConf" class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.manualAdd.allPosVisible = config.manualAdd.allPosVisible === 1 ? 2 : 1; config.setVisibilityPosition(true)">
+                                        <span class="switchery switchery-default switchery-custom info" :class="config.manualAdd.allPosVisible === 1 ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.manualAdd.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                    </label>
+                                    <span class="help-block">Ubicaciones</span>
+                                </div>
+                            </div>
+                            <div v-else class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
+                                        <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.manualAdd.allPosVisible === 0 ? 'one' : config.manualAdd.allPosVisible === 1 ? 'two' : 'three'">
+                                            <small></small>
+                                        </span>
+                                        {{config.manualAdd.allPosVisible === 0 ? 'Todas' : config.manualAdd.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                    </label>
+                                    <span class="help-block">Ubicaciones</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.initConfiguration()">
+                                        <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.manualAdd.sameConf ? 'Si' : 'No'}}
+                                    </label>
+                                    <span class="help-block">Generalizar horarios</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="steps-basic wizard clearfix">
+                                    <template v-if="config.manualAdd.sameConf">
+                                        <div style="padding-top: 20px"></div>
+                                    </template>
+                                    <div v-else class="steps clearfix">
+                                        <ul role="tablist">
+                                            <li v-for="(steps, stepIndex) in config.manualAdd.steps" role="tab"
+                                            :class="[stepIndex === 0 ? 'first' : '',
+                                                    config.manualAdd.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                <a href="#" v-on:click.prevent="steps.seen && config.manualAdd.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                    <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="content clearfix">
+                                        <div class="row">
+                                            <div v-if="!config.manualAdd.sameConf" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                <div class="form-group">
+                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                        <label v-on:click.prevent="config.setActivity()">
+                                                            <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'active' : 'not-active'">
+                                                                <small></small>
+                                                            </span>
+                                                            {{config.manualAdd.steps[config.manualAdd.actualStep].active ? 'Si' : 'No'}}
+                                                        </label>
+                                                        <span class="help-block">¿Opera en {{config.manualAdd.steps[config.manualAdd.actualStep].text}}?</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].active" :class="config.manualAdd.sameConf ? 'col-sm-12' : 'col-sm-6'">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">Intervalos de atención</label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
+                                                        <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].active" class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Inicio</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Final</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Posición</label>
+                                                </div>
+                                            </div>
+                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].schedule">
+                                                <div class="col-sm-5">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">{{interval.textBegin}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">{{interval.textEnd}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                        <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
+                                                            <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
+                                                                <small></small>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                        <i class="icon-shrink3"></i>
+                                                    </div>
+                                                    <div id="mapAddResource" class="map-container map-basic"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="actions clearfix">
+                                        <div style="padding-top: 20px"></div>
+                                        <ul role="menu" aria-label="Pagination">
+                                            <template v-if="config.manualAdd.sameConf">
+                                                <li>
+                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                </li>
+                                            </template>
+                                            <template v-else>
+                                                <li :class="config.manualAdd.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
+                                                    <a class="btn btn-default" href="#previous" v-on:click.prevent="config.manualAdd.actualStep > 0 ? config.changeStep(config.manualAdd.actualStep - 1) : ''" role="menuitem">Anterior</a>
+                                                </li>
+                                                <li v-if="config.manualAdd.actualStep < config.manualAdd.steps.length - 1">
+                                                    <a class="btn btn-info btn-customized" href="#next" v-on:click.prevent="config.changeStep(config.manualAdd.actualStep + 1)" role="menuitem">Siguiente</a>
+                                                </li>
+                                                <li v-else>
+                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+`;
+
+/***/ }),
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var verRuta = __webpack_require__(107);
+var editarRuta = __webpack_require__(108);
+Vue.component("ver-ruta", {
+    template: verRuta,
+    props: {
+        config: Object,
+        mask: Function,
+        setview: Function
+    }
+});
+Vue.component("editar-ruta", {
+    template: editarRuta,
+    props: {
+        config: Object,
+        mask: Function,
+        setview: Function
+    }
+});
+module.exports = `
+    <div>
+        <div v-if="config.active === 0" class="col-sm-12">
+            <div class="panel panel-flat">
+                <div class="panel-body">
+                    <p class="content-group">
+                    
+                    </p>
+                    <mcdatatable :title="'Rutas'" :config="config.grid"></mcdatatable>
+                </div>
+            </div>
+        </div>
+        <ver-ruta v-else-if="config.active === 1" :config="config.watch" :mask="config.mask" :setview="config.setView"></ver-ruta>
+        <editar-ruta v-else-if="config.active === 2" :config="config.edit" :mask="config.mask" :setview="config.setView"></editar-ruta>
+    </div>
+`;
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h4 class="panel-title text-center">{{config.name}}</h4>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="setview(2)" title="Editar"><i class="icon-pencil7"></i></i></a></li>
+                        <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Correo electrónico</label>
+                        <div class="col-lg-10">
+                            <input disabled="disabled" class="form-control" v-model="config.email" type="text" name="Correo electrónico">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Fecha de ingreso</label>
+                        <div class="col-lg-10">
+                            <input disabled="disabled" class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.date" type="date" name="Fecha de ingreso">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Horarios y Ubicaciones</h5>
+                <div class="heading-elements">
+                        <div class="heading-form">
+                            <div class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
+                                        <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.allPosVisible === 0 ? 'one' : config.allPosVisible === 1 ? 'two' : 'three'">
+                                            <small></small>
+                                        </span>
+                                        {{config.allPosVisible === 0 ? 'Todas' : config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                    </label>
+                                    <span class="help-block">Ubicaciones</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="steps-basic wizard clearfix">
+                                <div class="steps clearfix">
+                                    <ul role="tablist">
+                                        <li v-for="(steps, stepIndex) in config.steps" role="tab"
+                                        :class="[stepIndex === 0 ? 'first' : '',
+                                                config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                            <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="content clearfix">
+                                    <div class="row">
+                                        <div style="padding-top: 20px"></div>
+                                        <div :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                            <div class="form-group">
+                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                    <label>
+                                                        <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
+                                                            <small></small>
+                                                        </span>
+                                                        {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
+                                                    </label>
+                                                    <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="config.steps[config.actualStep].active" class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Intervalos de atención</label>
+                                                <div class="col-md-8">
+                                                    <input disabled="disabled" class="form-control" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
+                                        <div style="padding-top: 20px"></div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Inicio</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Final</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Posición</label>
+                                            </div>
+                                        </div>
+                                        <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule">
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <span class="help-block">hh:mm:ss</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <span class="help-block">hh:mm:ss</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                    <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
+                                                        <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
+                                                            <small></small>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div id="mapFocusPositionSeeResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                    <i class="icon-shrink3"></i>
+                                                </div>
+                                                <div id="mapSeeResource" class="map-container map-basic"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 108 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Tipo de Registro</h5>
+                <div v-if="config.typeSelection.type === 0 || config.typeSelection.type === 1" class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="config.reset('all')" title="Reinicializar"><i class="icon-reset"></i></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+                <div class="form-group">
+                    <div class="btn-group bootstrap-select show-tick" style="width: 100%;">
+                        <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button" :title="config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text">
+                            <span class="filter-option pull-left">{{config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text}}</span>&nbsp;
+                            <span class="bs-caret">
+                                <span class="caret"></span>
+                            </span>
+                        </button>
+                        <div class="dropdown-menu open" role="combobox">
+                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                <li v-for="options in config.typeSelection.options" :class="config.typeSelection.type === options.value ? 'selected' : ''">
+                                    <a href="#" v-on:click.prevent="config.mainSelect(options.value)" tabindex="0" data-tokens="null" role="option" aria-disabled="false" aria-selected="true">
+                                        <span class="text">{{options.text}}</span>
+                                        <span class=" icon-checkmark3 check-mark"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">{{config.typeSelection.options[config.typeSelection.type].text}}</h5>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                    
+                </p>
+            </div>
+        </div>
+        <template v-else-if="config.typeSelection.type === 1">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">General</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Nombre</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.email.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Correo electrónico</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.pass.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Contraseña</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.repass.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Confirmar contraseña</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div :class="config.manualAdd.date.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Fecha de ingreso</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.manualAdd.date.value" type="date" name="Fecha de ingreso">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Ubicaciones y Horarios</h5>
+                    <div class="heading-elements">
+                        <div class="heading-form">
+                            <div v-if="!config.manualAdd.sameConf" class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.setVisibilityPosition()">
+                                        <span class="switchery switchery-default switchery-custom info" :class="config.manualAdd.allPosVisible ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.manualAdd.allPosVisible ? 'Si' : 'No'}}
+                                    </label>
+                                    <span class="help-block">Todas las ubicaciones</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.initConfiguration()">
+                                        <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.manualAdd.sameConf ? 'Si' : 'No'}}
+                                    </label>
+                                    <span class="help-block">Generalizar horarios</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="steps-basic wizard clearfix">
+                                    <template v-if="config.manualAdd.sameConf">
+                                        <div style="padding-top: 20px"></div>
+                                    </template>
+                                    <div v-else class="steps clearfix">
+                                        <ul role="tablist">
+                                            <li v-for="(steps, stepIndex) in config.manualAdd.steps" role="tab"
+                                            :class="[stepIndex === 0 ? 'first' : '',
+                                                    config.manualAdd.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                <a href="#" v-on:click.prevent="steps.seen && config.manualAdd.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                    <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="content clearfix">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                        <i class="icon-shrink3"></i>
+                                                    </div>
+                                                    <div id="mapAddResource" class="map-container map-basic"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div v-if="!config.manualAdd.sameConf" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                <div class="form-group">
+                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                        <label v-on:click.prevent="config.setActivity()">
+                                                            <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'active' : 'not-active'">
+                                                                <small></small>
+                                                            </span>
+                                                            {{config.manualAdd.steps[config.manualAdd.actualStep].active ? 'Si' : 'No'}}
+                                                        </label>
+                                                        <span class="help-block">¿Opera en {{config.manualAdd.steps[config.manualAdd.actualStep].text}}?</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active" :class="config.manualAdd.sameConf ? 'col-sm-12' : 'col-sm-6'">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">Intervalos de atención</label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" name="Intervalos de atención">
+                                                        <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active && Math.floor(parseInt(config.manualAdd.steps[config.manualAdd.actualStep].interval)) > 0" class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Inicio</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Final</label>
+                                                </div>
+                                            </div>
+                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.actualStep].schedule">
+                                                <div class="col-sm-6">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">hh:mm:ss</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">hh:mm:ss</span>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div class="actions clearfix">
+                                        <ul role="menu" aria-label="Pagination">
+                                            <template v-if="config.manualAdd.sameConf">
+                                                <li>
+                                                    <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                </li>
+                                            </template>
+                                            <template v-else>
+                                                <li :class="config.manualAdd.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
+                                                    <a class="btn btn-default" href="#previous" v-on:click.prevent="config.manualAdd.actualStep > 0 ? config.changeStep(config.manualAdd.actualStep - 1) : ''" role="menuitem">Anterior</a>
+                                                </li>
+                                                <li v-if="config.manualAdd.actualStep < config.manualAdd.steps.length - 1">
+                                                    <a class="btn btn-info" href="#next" v-on:click.prevent="config.changeStep(config.manualAdd.actualStep + 1)" role="menuitem">Siguiente</a>
+                                                </li>
+                                                <li v-else>
+                                                    <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+`;
+
+/***/ }),
+/* 109 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Nombre</h5>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
+                        <div class="col-sm-12">
+                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre">
+                            <span class="help-block">{{config.name.text}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Filtrar por</h5>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div style="padding-top: 20px"></div>
+                    <div class="col-sm-6">
+                        <div class="form-group text-center schedule-title">
+                            <label>Inicio</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group text-center schedule-title">
+                            <label>Final</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div :class="config.begin.valid ? '' : 'has-error'" class="form-group">
+                            <input type="text" maxlength="8" v-model="config.begin.value" v-on:keyup="config.begin.value = mask('time', $event, config.begin.value); config.validation('time-begin')" class="form-control">
+                            <span class="help-block">{{config.begin.text}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div :class="config.end.valid ? '' : 'has-error'" class="form-group">
+                            <input type="text" maxlength="8" v-model="config.end.value" v-on:keyup="config.end.value = mask('time', $event, config.end.value); config.validation('time-end')" class="form-control">
+                            <span class="help-block">{{config.end.text}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="steps-basic wizard clearfix">
+                                    <div class="steps clearfix">
+                                        <ul role="tablist">
+                                            <li v-for="(steps, stepIndex) in config.day.options" role="tab"
+                                            :class="[stepIndex === 0 ? 'first' : '',
+                                                    config.day.value === steps.value ? 'done active' : 'active']" aria-disabled="false" aria-selected="true">
+                                                <a href="#" v-on:click.prevent="config.day.value = steps.value">
+                                                    <span class="number">X</span> {{steps.text}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="actions clearfix">
+                                        <ul role="menu" aria-label="Pagination">
+                                            <li>
+                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent role="menuitem">Filtrar</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Tiendas filtradas</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
+                                    <input type="text" v-model="config.store.data.search.store" v-on:keyup="config.initStore(1)" class="form-control" placeholder="Búsqueda">
+                                    <div class="form-control-feedback" style="width: 30px;">
+                                        <i class="icon-search4 text-size-base"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 grid-route">
+                                <table class="table table-bordered">
+                                    <tbody class="body-class">
+                                        <tr v-for="(store, storeIndex) in config.store.position"
+                                            :class="store.linked ? 'selected' : store.selected ? 'link-row-select' : ''"
+                                            class="grid-row-customized grid-row-highlight-customized">
+                                            <td v-on:click.self="store.linked ? '' : store.selected = !store.selected" class="col-md-1">
+                                                {{store.name}}
+                                                <div class="pull-right">
+                                                    <a href="#" v-on:click.prevent="config.seeStore(storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                        <i class="icon-eye" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Agregar">
+                                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <nav class="pull-right">
+                                <ul class="pagination">
+                                    <li>
+                                        <span><b>Mostrando {{config.store.position.length}} de {{config.store.data.page.store.totalCount}} filas en la página {{config.store.data.page.store.currentPage}} de {{config.store.data.page.store.pageCount}}.</b></span>
+                                    </li>
+                                    <li  :class="config.store.data.page.store.currentPage === 1 ? 'not-active disabled' : ''">
+                                        <a href="#" v-on:click.prevent="config.initStore(1, 1);">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <template v-if="config.store.data.page.store.pageCount <= 3">
+                                        <li v-for="page in config.store.data.page.store.pageCount" :class="page === config.store.data.page.store.currentPage ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="page === config.store.data.page.store.currentPage ? '' : config.initStore(1, page);">
+                                                {{page}}
+                                            </a>
+                                        </li>
+                                    </template>
+                                    <template v-else>
+                                        <template v-if="config.store.data.page.store.currentPage < 3">
+                                            <li :class="config.store.data.page.store.currentPage === 1 ? 'active' : ''">
+                                                <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 1 ? '' : config.initStore(1, 1);">
+                                                    1
+                                                </a>
+                                            </li>
+                                            <li :class="config.store.data.page.store.currentPage === 2 ? 'active' : ''">
+                                                <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 2 ? '' : config.initStore(1, 2);">
+                                                    2
+                                                </a>
+                                            </li>
+                                            <li :class="config.store.data.page.store.currentPage === 3 ? 'active' : ''">
+                                                <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 3 ? '' : config.initStore(1, 3);">
+                                                    3
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span aria-hidden="true">...</span>
+                                            </li>
+                                        </template>
+                                        <template v-else-if="config.store.data.page.store.currentPage > config.store.data.page.store.pageCount - 2">
+                                            <li>
+                                                <span aria-hidden="true">...</span>
+                                            </li>
+                                            <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 2 ? 'active' : ''">
+                                                <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 2 ? '' : config.initStore(1, config.store.data.page.store.pageCount - 2);">
+                                                    {{config.store.data.page.store.pageCount - 2}}
+                                                </a>
+                                            </li>
+                                            <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 1 ? 'active' : ''">
+                                                <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 1 ? '' : config.initStore(1, config.store.data.page.store.pageCount - 1);">
+                                                    {{config.store.data.page.store.pageCount - 1}}
+                                                </a>
+                                            </li>
+                                            <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount ? 'active' : ''">
+                                                <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount ? '' : config.initStore(1, config.store.data.page.store.pageCount);">
+                                                    {{config.store.data.page.store.pageCount}}
+                                                </a>
+                                            </li>
+                                        </template>
+                                        <template v-else>
+                                            <li>
+                                                <span aria-hidden="true">...</span>
+                                            </li>
+                                            <li>
+                                                <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.currentPage - 1)">
+                                                    {{config.store.data.page.store.currentPage - 1}}
+                                                </a>
+                                            </li>
+                                            <li class="active">
+                                                <a href="#" v-on:click.prevent>
+                                                    {{config.store.data.page.store.currentPage}}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.currentPage + 1)">
+                                                    {{config.store.data.page.store.currentPage + 1}}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span aria-hidden="true">...</span>
+                                            </li>
+                                        </template>
+                                    </template>
+                                    <li :class="config.store.data.page.store.pageCount === config.store.data.page.store.currentPage ? 'not-active disabled' : ''">
+                                        <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.pageCount);">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Trazado de ruta</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input id="searchAddRoute" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                    <div id="mapFocusPositionAddRoute" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                        <i class="icon-shrink3"></i>
+                                    </div>
+                                    <div id="mapAddRoute" class="map-container-route map-basic"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Ruta</h5>
+                <div class="heading-elements">
+                    <div class="heading-form">
+                        <div v-if="config.sameConf" class="form-group">
+                            <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                <label v-on:click.prevent="config.allPosVisible = config.allPosVisible === 1 ? 2 : 1; config.setVisibilityPosition(true)">
+                                    <span class="switchery switchery-default switchery-custom info" :class="config.allPosVisible === 1 ? 'active' : 'not-active'">
+                                        <small></small>
+                                    </span>
+                                    {{config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                </label>
+                                <span class="help-block">Ubicaciones</span>
+                            </div>
+                        </div>
+                        <div v-else class="form-group">
+                            <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
+                                    <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.allPosVisible === 0 ? 'one' : config.allPosVisible === 1 ? 'two' : 'three'">
+                                        <small></small>
+                                    </span>
+                                    {{config.allPosVisible === 0 ? 'Todas' : config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                </label>
+                                <span class="help-block">Ubicaciones</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                <label v-on:click.prevent="config.initConfiguration()">
+                                    <span class="switchery switchery-default switchery-custom" :class="config.sameConf ? 'active' : 'not-active'">
+                                        <small></small>
+                                    </span>
+                                    {{config.sameConf ? 'Si' : 'No'}}
+                                </label>
+                                <span class="help-block">Generalizar horarios</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="steps-basic wizard clearfix">
+                                <template v-if="config.sameConf">
+                                    <div style="padding-top: 20px"></div>
+                                </template>
+                                <div v-else class="steps clearfix">
+                                    <ul role="tablist">
+                                        <li v-for="(steps, stepIndex) in config.steps" role="tab"
+                                        :class="[stepIndex === 0 ? 'first' : '',
+                                                config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                            <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="content clearfix">
+                                    <div class="row">
+                                        <div v-if="!config.sameConf" :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                            <div class="form-group">
+                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                    <label v-on:click.prevent="config.setActivity()">
+                                                        <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
+                                                            <small></small>
+                                                        </span>
+                                                        {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
+                                                    </label>
+                                                    <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="config.steps[config.sameConf ? 0 : config.actualStep].active" :class="config.sameConf ? 'col-sm-12' : 'col-sm-6'">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Intervalos de atención</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.sameConf ? 0 : config.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
+                                                    <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-if="config.steps[config.sameConf ? 0 : config.actualStep].active" class="row">
+                                        <div style="padding-top: 20px"></div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Inicio</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Final</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group text-center schedule-title">
+                                                <label>Posición</label>
+                                            </div>
+                                        </div>
+                                        <template v-for="(interval, intervalIndex) in config.steps[config.sameConf ? 0 : config.actualStep].schedule">
+                                            <div class="col-sm-5">
+                                                <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <span class="help-block">{{interval.textBegin}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <span class="help-block">{{interval.textEnd}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                    <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
+                                                        <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
+                                                            <small></small>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div class="row">
+                                        <div style="padding-top: 20px"></div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                                <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                    <i class="icon-shrink3"></i>
+                                                </div>
+                                                <div id="mapAddResource" class="map-container map-basic"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="actions clearfix">
+                                    <div style="padding-top: 20px"></div>
+                                    <ul role="menu" aria-label="Pagination">
+                                        <template v-if="config.sameConf">
+                                            <li>
+                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                            </li>
+                                        </template>
+                                        <template v-else>
+                                            <li :class="config.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
+                                                <a class="btn btn-default" href="#previous" v-on:click.prevent="config.actualStep > 0 ? config.changeStep(config.actualStep - 1) : ''" role="menuitem">Anterior</a>
+                                            </li>
+                                            <li v-if="config.actualStep < config.steps.length - 1">
+                                                <a class="btn btn-info btn-customized" href="#next" v-on:click.prevent="config.changeStep(config.actualStep + 1)" role="menuitem">Siguiente</a>
+                                            </li>
+                                            <li v-else>
+                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{config.store.alterLinkDef.see.store.name}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div id="mapFocusPositionSeeStore" v-on:click="config.store.alterLinkDef.see.store.focusPosition()" class="map-focus-position text-center">
+                                        <i class="icon-shrink3"></i>
+                                    </div>
+                                    <div id="mapSeeStore" class="map-container-modal map-basic"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="steps-basic wizard clearfix">
+                                        <div class="steps clearfix">
+                                            <ul role="tablist">
+                                                <li v-for="(steps, stepIndex) in config.store.alterLinkDef.see.store.steps" role="tab"
+                                                :class="[stepIndex === 0 ? 'first' : '',
+                                                        config.store.alterLinkDef.see.store.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                    <a href="#" v-on:click.prevent="steps.seen && config.store.alterLinkDef.see.store.actualStep !== stepIndex ? config.store.alterLinkDef.see.store.changeStep(stepIndex) : ''">
+                                                        <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="content clearfix">
+                                            <div class="row">
+                                                <div style="padding-top: 20px"></div>
+                                                <div :class="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                    <div class="form-group">
+                                                        <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                            <label>
+                                                                <span class="switchery switchery-default switchery-custom" :class="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'active' : 'not-active'">
+                                                                    <small></small>
+                                                                </span>
+                                                                {{config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'Si' : 'No'}}
+                                                            </label>
+                                                            <span class="help-block">¿Opera en {{config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].text}}?</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div v-if="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active" class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">Intervalos de atención</label>
+                                                        <div class="col-md-8">
+                                                            <input disabled="disabled" class="form-control" v-model="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].interval" type="number" name="Intervalos de atención">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active && Math.floor(parseInt(config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].interval)) > 0" class="row">
+                                                <div style="padding-top: 20px"></div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group text-center schedule-title">
+                                                        <label>Inicio</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group text-center schedule-title">
+                                                        <label>Final</label>
+                                                    </div>
+                                                </div>
+                                                <template v-for="(interval, intervalIndex) in config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].schedule">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                            <span class="help-block">hh:mm:ss</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                            <span class="help-block">hh:mm:ss</span>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 110 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div>
+        <h1>Reportes</h1>
+        <span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=use_case_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fuse_case_diagram.xml" >Diagrama de casos de uso</a></span>
+        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=activity_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Factivity_diagram.xml" >Diagrama de actividades</a></span>
+        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=sequence_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fsequence_diagram.xml" >Diagrama de secuencia</a></span>
+        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=mock_up.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fmock_up.xml" >Mock up</a></span>
+    </div>
+`;
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-8">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Basic map</h5>
+            </div>
+            <div class="panel-body">
+                <p class="content-group">
+                
+                </p>
+                <div id="map" class="map-container map-basic"></div>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 112 */
+/***/ (function(module, exports) {
+
+module.exports = `
+    <div class="col-sm-4">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Basic map</h5>
+            </div>
+            <div class="panel-body">
+                <div class="map-toolbar">
+                    <div class="row title-info">
+                        <div class="col-sm-12">
+                            <span>Distancia Total: {{config.configuration.service.totalDistance / 1000}} km.</span>
+                        </div>
+                        <div class="col-sm-12">
+                            <span>Tiempo Total: {{Math.floor((config.configuration.service.totalTime + config.configuration.service.deathTime * 60) / 60) + ' min. ' + Math.floor(((config.configuration.service.totalTime / 60) % 1) * 60) + ' seg.'}}</span>
+                        </div>
+                        <div class="col-sm-12 text-right">
+                            <button v-on:click="config.collapse()" class="btn btn-info btn-small">
+                                {{config.configuration.stepsHidden ? 'Expandir' : 'Colapsar'}} <i :class="config.configuration.stepsHidden ? 'fa-sort-desc' : 'fa-sort-asc'" class="fa" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <template v-if="config.configuration.service.travelDetails.legs.length > 0">
+                        <template v-for="(data, dataIndex) in config.configuration.service.travelDetails.legs">
+                            <div class="row main-info">
+                                <div class="col-sm-2">
+                                    <img :src="data.iconStart">
+                                </div>
+                                <div class="col-sm-10">
+                                    <a href="#" v-on:click.prevent="data.hidden = !data.hidden">
+                                        <span>{{data.start}}</span>
+                                    </a>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span>Tiempo Muerto (minutos):</span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input v-on:keyup="config.computeRoute(false)" class="form-control" v-model="data.deathTime" type="number" value="0">
+                                </div>
+                            </div>
+                            <template v-for="steps in data.steps" v-if="!data.hidden">
+                                <div class="row second-info">
+                                    <div class="col-sm-12">
+                                        <span>{{steps.instructions}}</span>
+                                    </div>
+                                    <div class="col-sm-12 value-info text-center">
+                                        <span>(Distancia aproximada: {{steps.distance.text}}. Tiempo aproximado: {{steps.duration.text}})</span>
+                                    </div>
+                                </div>
+                            </template>
+                            <div v-if="config.configuration.service.travelDetails.legs.length - 1 === dataIndex" class="row main-info">
+                                <div class="col-sm-1">
+                                    <img :src="data.iconEnd">
+                                </div>
+                                <div class="col-sm-10">
+                                    <span>{{data.end}}</span>
+                                </div>
+                            </div>
+                        </template>
+                        <div class="row warning-info">
+                            <span>Notas:</span>
+                            <div v-for="data in config.configuration.service.travelDetails.warnings" class="col-sm-12">
+                                <span>{{data.text}}</span>
+                            </div>
+                        </div>
+                        <div class="row copyright-info text-center">
+                            <div class="col-sm-12">
+                                <span>{{config.configuration.service.travelDetails.copyrights}}</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 113 */
 /***/ (function(module, exports) {
 
 var modelAR = function(init, activity, activityError){
@@ -18521,7 +22305,7 @@ var modelAR = function(init, activity, activityError){
 module.exports = modelAR;
 
 /***/ }),
-/* 87 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -18573,8 +22357,8 @@ module.exports = modelAR;
  exports.createClient = function(options) {
 
   options = options || {};
-  var makeApiCall = __webpack_require__(88).inject(options);
-  var deprecate = __webpack_require__(186).deprecate;
+  var makeApiCall = __webpack_require__(115).inject(options);
+  var deprecate = __webpack_require__(213).deprecate;
 
   var makeApiMethod = function(apiConfig) {
     return function(query, callback, customParams) {
@@ -18596,14 +22380,14 @@ module.exports = modelAR;
     };
   };
 
-  var geocode = __webpack_require__(189);
-  var geolocation = __webpack_require__(190);
-  var timezone = __webpack_require__(191);
-  var directions = __webpack_require__(192);
-  var distanceMatrix = __webpack_require__(193);
-  var elevation = __webpack_require__(194);
-  var roads = __webpack_require__(195);
-  var places = __webpack_require__(196);
+  var geocode = __webpack_require__(216);
+  var geolocation = __webpack_require__(217);
+  var timezone = __webpack_require__(218);
+  var directions = __webpack_require__(219);
+  var distanceMatrix = __webpack_require__(220);
+  var elevation = __webpack_require__(221);
+  var roads = __webpack_require__(222);
+  var places = __webpack_require__(223);
 
   return {
     directions: makeApiMethod(directions.directions),
@@ -18629,11 +22413,11 @@ module.exports = modelAR;
 
 };
 
-exports.cli = __webpack_require__(197);
+exports.cli = __webpack_require__(224);
 
 
 /***/ }),
-/* 88 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, Buffer) {/**
@@ -18667,13 +22451,13 @@ exports.inject = function(options) {
   var rateLimit = rate.limit || 10;  // 10 requests per ratePeriod.
   var ratePeriod = rate.period || 1000;  // 1 second.
 
-  var makeUrlRequest = options.makeUrlRequest || __webpack_require__(96);
+  var makeUrlRequest = options.makeUrlRequest || __webpack_require__(123);
   var mySetTimeout = options.setTimeout || setTimeout;
   var myClearTimeout = options.clearTimeout || clearTimeout;
   var getTime = options.getTime || function() {return new Date().getTime();};
-  var wait = __webpack_require__(111).inject(mySetTimeout, myClearTimeout);
-  var attempt = __webpack_require__(112).inject(wait).attempt;
-  var ThrottledQueue = __webpack_require__(113).inject(wait, getTime);
+  var wait = __webpack_require__(138).inject(mySetTimeout, myClearTimeout);
+  var attempt = __webpack_require__(139).inject(wait).attempt;
+  var ThrottledQueue = __webpack_require__(140).inject(wait, getTime);
   var requestQueue = ThrottledQueue.create(rateLimit, ratePeriod);
 
   /**
@@ -18842,7 +22626,7 @@ exports.inject = function(options) {
   function computeSignature(secret, payload) {
     var signature =
         new Buffer(
-            __webpack_require__(115)
+            __webpack_require__(142)
             .createHmac('sha1', secret)
             .update(payload)
             .digest('base64'))
@@ -18861,7 +22645,7 @@ exports.inject = function(options) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 89 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18982,7 +22766,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 90 */
+/* 117 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -19072,7 +22856,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 91 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.4.1 by @mathias */
@@ -19608,10 +23392,10 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)(module), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)(module), __webpack_require__(5)))
 
 /***/ }),
-/* 92 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19634,18 +23418,18 @@ module.exports = {
 
 
 /***/ }),
-/* 93 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.decode = exports.parse = __webpack_require__(94);
-exports.encode = exports.stringify = __webpack_require__(95);
+exports.decode = exports.parse = __webpack_require__(121);
+exports.encode = exports.stringify = __webpack_require__(122);
 
 
 /***/ }),
-/* 94 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19736,7 +23520,7 @@ var isArray = Array.isArray || function (xs) {
 
 
 /***/ }),
-/* 95 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19828,7 +23612,7 @@ var objectKeys = Object.keys || function (obj) {
 
 
 /***/ }),
-/* 96 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/**
@@ -19848,9 +23632,9 @@ var objectKeys = Object.keys || function (obj) {
  * limitations under the License.
  */
 
-var https = __webpack_require__(97);
+var https = __webpack_require__(124);
 var parse = __webpack_require__(31).parse;
-var version = __webpack_require__(110);
+var version = __webpack_require__(137);
 
 
 // add keep-alive header to speed up request
@@ -19944,10 +23728,10 @@ module.exports = function makeUrlRequest(url, onSuccess, onError, options) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 97 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var http = __webpack_require__(98);
+var http = __webpack_require__(125);
 
 var https = module.exports;
 
@@ -19964,12 +23748,12 @@ https.request = function (params, cb) {
 
 
 /***/ }),
-/* 98 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var ClientRequest = __webpack_require__(99)
-var extend = __webpack_require__(108)
-var statusCodes = __webpack_require__(109)
+/* WEBPACK VAR INJECTION */(function(global) {var ClientRequest = __webpack_require__(126)
+var extend = __webpack_require__(135)
+var statusCodes = __webpack_require__(136)
 var url = __webpack_require__(31)
 
 var http = exports
@@ -20049,14 +23833,14 @@ http.METHODS = [
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 99 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(45)
+/* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(46)
 var inherits = __webpack_require__(1)
-var response = __webpack_require__(100)
+var response = __webpack_require__(127)
 var stream = __webpack_require__(14)
-var toArrayBuffer = __webpack_require__(107)
+var toArrayBuffer = __webpack_require__(134)
 
 var IncomingMessage = response.IncomingMessage
 var rStates = response.readyStates
@@ -20362,10 +24146,10 @@ var unsafeHeaders = [
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 100 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(45)
+/* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(46)
 var inherits = __webpack_require__(1)
 var stream = __webpack_require__(14)
 
@@ -20551,13 +24335,13 @@ IncomingMessage.prototype._onXHRProgress = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(0).Buffer, __webpack_require__(5)))
 
 /***/ }),
-/* 101 */
+/* 128 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 102 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20637,7 +24421,7 @@ module.exports = function () {
 }();
 
 /***/ }),
-/* 103 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -20690,13 +24474,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(104);
+__webpack_require__(131);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 104 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -20889,7 +24673,7 @@ exports.clearImmediate = clearImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 105 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -20963,7 +24747,7 @@ function config (name) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 106 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20996,7 +24780,7 @@ function config (name) {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(49);
+var Transform = __webpack_require__(50);
 
 /*<replacement>*/
 var util = __webpack_require__(15);
@@ -21016,7 +24800,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 };
 
 /***/ }),
-/* 107 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(0).Buffer
@@ -21049,7 +24833,7 @@ module.exports = function (buf) {
 
 
 /***/ }),
-/* 108 */
+/* 135 */
 /***/ (function(module, exports) {
 
 module.exports = extend
@@ -21074,7 +24858,7 @@ function extend() {
 
 
 /***/ }),
-/* 109 */
+/* 136 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -21144,14 +24928,14 @@ module.exports = {
 
 
 /***/ }),
-/* 110 */
+/* 137 */
 /***/ (function(module, exports) {
 
 module.exports = '0.0.1';
 
 
 /***/ }),
-/* 111 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -21191,7 +24975,7 @@ exports.inject = function(setTimeout, clearTimeout) {
 
 
 /***/ }),
-/* 112 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -21251,7 +25035,7 @@ exports.inject = function(wait) {
 
 
 /***/ }),
-/* 113 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -21271,7 +25055,7 @@ exports.inject = function(wait) {
  * limitations under the License.
  */
 
-var CircularBuffer = __webpack_require__(114);
+var CircularBuffer = __webpack_require__(141);
 var Task = __webpack_require__(22);
 
 exports.inject = function(wait, getTime) {
@@ -21331,7 +25115,7 @@ exports.inject = function(wait, getTime) {
 
 
 /***/ }),
-/* 114 */
+/* 141 */
 /***/ (function(module, exports) {
 
 /**
@@ -21377,7 +25161,7 @@ exports.create = function(size) {
 
 
 /***/ }),
-/* 115 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21385,20 +25169,20 @@ exports.create = function(size) {
 
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = __webpack_require__(16)
 exports.createHash = exports.Hash = __webpack_require__(17)
-exports.createHmac = exports.Hmac = __webpack_require__(52)
+exports.createHmac = exports.Hmac = __webpack_require__(53)
 
-var algos = __webpack_require__(127)
+var algos = __webpack_require__(154)
 var algoKeys = Object.keys(algos)
 var hashes = ['sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'md5', 'rmd160'].concat(algoKeys)
 exports.getHashes = function () {
   return hashes
 }
 
-var p = __webpack_require__(54)
+var p = __webpack_require__(55)
 exports.pbkdf2 = p.pbkdf2
 exports.pbkdf2Sync = p.pbkdf2Sync
 
-var aes = __webpack_require__(129)
+var aes = __webpack_require__(156)
 
 exports.Cipher = aes.Cipher
 exports.createCipher = aes.createCipher
@@ -21411,7 +25195,7 @@ exports.createDecipheriv = aes.createDecipheriv
 exports.getCiphers = aes.getCiphers
 exports.listCiphers = aes.listCiphers
 
-var dh = __webpack_require__(140)
+var dh = __webpack_require__(167)
 
 exports.DiffieHellmanGroup = dh.DiffieHellmanGroup
 exports.createDiffieHellmanGroup = dh.createDiffieHellmanGroup
@@ -21419,16 +25203,16 @@ exports.getDiffieHellman = dh.getDiffieHellman
 exports.createDiffieHellman = dh.createDiffieHellman
 exports.DiffieHellman = dh.DiffieHellman
 
-var sign = __webpack_require__(144)
+var sign = __webpack_require__(171)
 
 exports.createSign = sign.createSign
 exports.Sign = sign.Sign
 exports.createVerify = sign.createVerify
 exports.Verify = sign.Verify
 
-exports.createECDH = __webpack_require__(182)
+exports.createECDH = __webpack_require__(209)
 
-var publicEncrypt = __webpack_require__(183)
+var publicEncrypt = __webpack_require__(210)
 
 exports.publicEncrypt = publicEncrypt.publicEncrypt
 exports.privateEncrypt = publicEncrypt.privateEncrypt
@@ -21476,7 +25260,7 @@ exports.constants = {
 
 
 /***/ }),
-/* 116 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21514,7 +25298,7 @@ module.exports = function hash (buf, fn) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 117 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21605,35 +25389,35 @@ module.exports = HashBase
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 118 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(33);
 
 
 /***/ }),
-/* 119 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(12);
 
 
 /***/ }),
-/* 120 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(14).Transform
 
 
 /***/ }),
-/* 121 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(14).PassThrough
 
 
 /***/ }),
-/* 122 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*
@@ -21733,7 +25517,7 @@ module.exports = Sha
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 123 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*
@@ -21838,7 +25622,7 @@ module.exports = Sha1
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 124 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/**
@@ -21850,7 +25634,7 @@ module.exports = Sha1
  */
 
 var inherits = __webpack_require__(1)
-var Sha256 = __webpack_require__(50)
+var Sha256 = __webpack_require__(51)
 var Hash = __webpack_require__(13)
 
 var W = new Array(64)
@@ -21897,11 +25681,11 @@ module.exports = Sha224
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 125 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var inherits = __webpack_require__(1)
-var SHA512 = __webpack_require__(51)
+var SHA512 = __webpack_require__(52)
 var Hash = __webpack_require__(13)
 
 var W = new Array(160)
@@ -21960,7 +25744,7 @@ module.exports = Sha384
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 126 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22013,19 +25797,19 @@ module.exports = Hmac
 
 
 /***/ }),
-/* 127 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(53)
+module.exports = __webpack_require__(54)
 
 
 /***/ }),
-/* 128 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global, process) {var checkParameters = __webpack_require__(55)
-var defaultEncoding = __webpack_require__(56)
-var sync = __webpack_require__(57)
+/* WEBPACK VAR INJECTION */(function(global, process) {var checkParameters = __webpack_require__(56)
+var defaultEncoding = __webpack_require__(57)
+var sync = __webpack_require__(58)
 var Buffer = __webpack_require__(8).Buffer
 
 var ZERO_BUF
@@ -22125,13 +25909,13 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 129 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ebtk = __webpack_require__(25)
 var aes = __webpack_require__(38)
-var DES = __webpack_require__(133)
-var desModes = __webpack_require__(139)
+var DES = __webpack_require__(160)
+var desModes = __webpack_require__(166)
 var aesModes = __webpack_require__(27)
 function createCipher (suite, password) {
   var keyLen, ivLen
@@ -22204,7 +25988,7 @@ exports.listCiphers = exports.getCiphers = getCiphers
 
 
 /***/ }),
-/* 130 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
@@ -22212,8 +25996,8 @@ var Transform = __webpack_require__(10)
 var inherits = __webpack_require__(1)
 var modes = __webpack_require__(27)
 var ebtk = __webpack_require__(25)
-var StreamCipher = __webpack_require__(58)
-var AuthCipher = __webpack_require__(59)
+var StreamCipher = __webpack_require__(59)
+var AuthCipher = __webpack_require__(60)
 inherits(Cipher, Transform)
 function Cipher (mode, key, iv) {
   if (!(this instanceof Cipher)) {
@@ -22284,12 +26068,12 @@ Splitter.prototype.flush = function () {
   return out
 }
 var modelist = {
-  ECB: __webpack_require__(60),
-  CBC: __webpack_require__(61),
-  CFB: __webpack_require__(62),
-  CFB8: __webpack_require__(63),
-  CFB1: __webpack_require__(64),
-  OFB: __webpack_require__(65),
+  ECB: __webpack_require__(61),
+  CBC: __webpack_require__(62),
+  CFB: __webpack_require__(63),
+  CFB8: __webpack_require__(64),
+  CFB1: __webpack_require__(65),
+  OFB: __webpack_require__(66),
   CTR: __webpack_require__(28),
   GCM: __webpack_require__(28)
 }
@@ -22333,7 +26117,7 @@ exports.createCipher = createCipher
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 131 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var zeros = new Buffer(16)
@@ -22438,15 +26222,15 @@ function xor (a, b) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 132 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
 var Transform = __webpack_require__(10)
 var inherits = __webpack_require__(1)
 var modes = __webpack_require__(27)
-var StreamCipher = __webpack_require__(58)
-var AuthCipher = __webpack_require__(59)
+var StreamCipher = __webpack_require__(59)
+var AuthCipher = __webpack_require__(60)
 var ebtk = __webpack_require__(25)
 
 inherits(Decipher, Transform)
@@ -22533,12 +26317,12 @@ function unpad (last) {
 }
 
 var modelist = {
-  ECB: __webpack_require__(60),
-  CBC: __webpack_require__(61),
-  CFB: __webpack_require__(62),
-  CFB8: __webpack_require__(63),
-  CFB1: __webpack_require__(64),
-  OFB: __webpack_require__(65),
+  ECB: __webpack_require__(61),
+  CBC: __webpack_require__(62),
+  CFB: __webpack_require__(63),
+  CFB8: __webpack_require__(64),
+  CFB1: __webpack_require__(65),
+  OFB: __webpack_require__(66),
   CTR: __webpack_require__(28),
   GCM: __webpack_require__(28)
 }
@@ -22582,7 +26366,7 @@ exports.createDecipheriv = createDecipheriv
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 133 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var CipherBase = __webpack_require__(10)
@@ -22632,7 +26416,7 @@ DES.prototype._final = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 134 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22895,7 +26679,7 @@ exports.padSplit = function padSplit(num, size, group) {
 
 
 /***/ }),
-/* 135 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23043,7 +26827,7 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
 
 
 /***/ }),
-/* 136 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23193,7 +26977,7 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
 
 
 /***/ }),
-/* 137 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23265,7 +27049,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
 
 
 /***/ }),
-/* 138 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23327,7 +27111,7 @@ EDE.prototype._unpad = DES.prototype._unpad;
 
 
 /***/ }),
-/* 139 */
+/* 166 */
 /***/ (function(module, exports) {
 
 exports['des-ecb'] = {
@@ -23357,13 +27141,13 @@ exports['des-ede'] = {
 
 
 /***/ }),
-/* 140 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var generatePrime = __webpack_require__(66)
-var primes = __webpack_require__(142)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var generatePrime = __webpack_require__(67)
+var primes = __webpack_require__(169)
 
-var DH = __webpack_require__(143)
+var DH = __webpack_require__(170)
 
 function getDiffieHellman (mod) {
   var prime = new Buffer(primes[mod].prime, 'hex')
@@ -23406,30 +27190,30 @@ exports.createDiffieHellman = exports.DiffieHellman = createDiffieHellman
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 141 */
+/* 168 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 142 */
+/* 169 */
 /***/ (function(module, exports) {
 
 module.exports = {"modp1":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a63a3620ffffffffffffffff"},"modp2":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece65381ffffffffffffffff"},"modp5":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca237327ffffffffffffffff"},"modp14":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aacaa68ffffffffffffffff"},"modp15":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a93ad2caffffffffffffffff"},"modp16":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c934063199ffffffffffffffff"},"modp17":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dcc4024ffffffffffffffff"},"modp18":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dbe115974a3926f12fee5e438777cb6a932df8cd8bec4d073b931ba3bc832b68d9dd300741fa7bf8afc47ed2576f6936ba424663aab639c5ae4f5683423b4742bf1c978238f16cbe39d652de3fdb8befc848ad922222e04a4037c0713eb57a81a23f0c73473fc646cea306b4bcbc8862f8385ddfa9d4b7fa2c087e879683303ed5bdd3a062b3cf5b3a278a66d2a13f83f44f82ddf310ee074ab6a364597e899a0255dc164f31cc50846851df9ab48195ded7ea1b1d510bd7ee74d73faf36bc31ecfa268359046f4eb879f924009438b481c6cd7889a002ed5ee382bc9190da6fc026e479558e4475677e9aa9e3050e2765694dfc81f56e880b96e7160c980dd98edd3dfffffffffffffffff"}}
 
 /***/ }),
-/* 143 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var BN = __webpack_require__(2);
-var MillerRabin = __webpack_require__(67);
+var MillerRabin = __webpack_require__(68);
 var millerRabin = new MillerRabin();
 var TWENTYFOUR = new BN(24);
 var ELEVEN = new BN(11);
 var TEN = new BN(10);
 var THREE = new BN(3);
 var SEVEN = new BN(7);
-var primes = __webpack_require__(66);
+var primes = __webpack_require__(67);
 var randomBytes = __webpack_require__(16);
 module.exports = DH;
 
@@ -23589,16 +27373,16 @@ function formatReturnValue(bn, enc) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 144 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(17)
 var stream = __webpack_require__(36)
 var inherits = __webpack_require__(1)
-var sign = __webpack_require__(145)
-var verify = __webpack_require__(181)
+var sign = __webpack_require__(172)
+var verify = __webpack_require__(208)
 
-var algorithms = __webpack_require__(53)
+var algorithms = __webpack_require__(54)
 Object.keys(algorithms).forEach(function (key) {
   algorithms[key].id = new Buffer(algorithms[key].id, 'hex')
   algorithms[key.toLowerCase()] = algorithms[key]
@@ -23687,16 +27471,16 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 145 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
-var createHmac = __webpack_require__(52)
+var createHmac = __webpack_require__(53)
 var crt = __webpack_require__(40)
 var EC = __webpack_require__(3).ec
 var BN = __webpack_require__(2)
 var parseKeys = __webpack_require__(30)
-var curves = __webpack_require__(77)
+var curves = __webpack_require__(78)
 
 function sign (hash, key, hashType, signType, tag) {
   var priv = parseKeys(key)
@@ -23839,13 +27623,13 @@ module.exports.makeKey = makeKey
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 146 */
+/* 173 */
 /***/ (function(module, exports) {
 
 module.exports = {"_args":[["elliptic@6.4.0","/var/www/node/travelAppT"]],"_development":true,"_from":"elliptic@6.4.0","_id":"elliptic@6.4.0","_inBundle":false,"_integrity":"sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.4.0","name":"elliptic","escapedName":"elliptic","rawSpec":"6.4.0","saveSpec":null,"fetchSpec":"6.4.0"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz","_spec":"6.4.0","_where":"/var/www/node/travelAppT","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.0"}
 
 /***/ }),
-/* 147 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23854,7 +27638,7 @@ module.exports = {"_args":[["elliptic@6.4.0","/var/www/node/travelAppT"]],"_deve
 var utils = exports;
 var BN = __webpack_require__(2);
 var minAssert = __webpack_require__(6);
-var minUtils = __webpack_require__(69);
+var minUtils = __webpack_require__(70);
 
 utils.assert = minAssert;
 utils.toArray = minUtils.toArray;
@@ -23972,7 +27756,7 @@ utils.intFromLE = intFromLE;
 
 
 /***/ }),
-/* 148 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24354,7 +28138,7 @@ BasePoint.prototype.dblp = function dblp(k) {
 
 
 /***/ }),
-/* 149 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25299,7 +29083,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
 
 
 /***/ }),
-/* 150 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25486,7 +29270,7 @@ Point.prototype.getX = function getX() {
 
 
 /***/ }),
-/* 151 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25926,7 +29710,7 @@ Point.prototype.mixedAdd = Point.prototype.add;
 
 
 /***/ }),
-/* 152 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26099,7 +29883,7 @@ defineCurve('ed25519', {
 
 var pre;
 try {
-  pre = __webpack_require__(159);
+  pre = __webpack_require__(186);
 } catch (e) {
   pre = undefined;
 }
@@ -26138,21 +29922,21 @@ defineCurve('secp256k1', {
 
 
 /***/ }),
-/* 153 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.sha1 = __webpack_require__(154);
-exports.sha224 = __webpack_require__(155);
-exports.sha256 = __webpack_require__(71);
-exports.sha384 = __webpack_require__(156);
-exports.sha512 = __webpack_require__(72);
+exports.sha1 = __webpack_require__(181);
+exports.sha224 = __webpack_require__(182);
+exports.sha256 = __webpack_require__(72);
+exports.sha384 = __webpack_require__(183);
+exports.sha512 = __webpack_require__(73);
 
 
 /***/ }),
-/* 154 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26160,7 +29944,7 @@ exports.sha512 = __webpack_require__(72);
 
 var utils = __webpack_require__(7);
 var common = __webpack_require__(19);
-var shaCommon = __webpack_require__(70);
+var shaCommon = __webpack_require__(71);
 
 var rotl32 = utils.rotl32;
 var sum32 = utils.sum32;
@@ -26233,14 +30017,14 @@ SHA1.prototype._digest = function digest(enc) {
 
 
 /***/ }),
-/* 155 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(7);
-var SHA256 = __webpack_require__(71);
+var SHA256 = __webpack_require__(72);
 
 function SHA224() {
   if (!(this instanceof SHA224))
@@ -26270,7 +30054,7 @@ SHA224.prototype._digest = function digest(enc) {
 
 
 /***/ }),
-/* 156 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26278,7 +30062,7 @@ SHA224.prototype._digest = function digest(enc) {
 
 var utils = __webpack_require__(7);
 
-var SHA512 = __webpack_require__(72);
+var SHA512 = __webpack_require__(73);
 
 function SHA384() {
   if (!(this instanceof SHA384))
@@ -26312,7 +30096,7 @@ SHA384.prototype._digest = function digest(enc) {
 
 
 /***/ }),
-/* 157 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26465,7 +30249,7 @@ var sh = [
 
 
 /***/ }),
-/* 158 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26519,7 +30303,7 @@ Hmac.prototype.digest = function digest(enc) {
 
 
 /***/ }),
-/* 159 */
+/* 186 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -27305,20 +31089,20 @@ module.exports = {
 
 
 /***/ }),
-/* 160 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var BN = __webpack_require__(2);
-var HmacDRBG = __webpack_require__(161);
+var HmacDRBG = __webpack_require__(188);
 var elliptic = __webpack_require__(3);
 var utils = elliptic.utils;
 var assert = utils.assert;
 
-var KeyPair = __webpack_require__(162);
-var Signature = __webpack_require__(163);
+var KeyPair = __webpack_require__(189);
+var Signature = __webpack_require__(190);
 
 function EC(options) {
   if (!(this instanceof EC))
@@ -27552,14 +31336,14 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
 
 
 /***/ }),
-/* 161 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var hash = __webpack_require__(41);
-var utils = __webpack_require__(69);
+var utils = __webpack_require__(70);
 var assert = __webpack_require__(6);
 
 function HmacDRBG(options) {
@@ -27672,7 +31456,7 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
 
 
 /***/ }),
-/* 162 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27798,7 +31582,7 @@ KeyPair.prototype.inspect = function inspect() {
 
 
 /***/ }),
-/* 163 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27940,7 +31724,7 @@ Signature.prototype.toDER = function toDER(enc) {
 
 
 /***/ }),
-/* 164 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27951,8 +31735,8 @@ var elliptic = __webpack_require__(3);
 var utils = elliptic.utils;
 var assert = utils.assert;
 var parseBytes = utils.parseBytes;
-var KeyPair = __webpack_require__(165);
-var Signature = __webpack_require__(166);
+var KeyPair = __webpack_require__(192);
+var Signature = __webpack_require__(193);
 
 function EDDSA(curve) {
   assert(curve === 'ed25519', 'only tested with ed25519 so far');
@@ -28065,7 +31849,7 @@ EDDSA.prototype.isPoint = function isPoint(val) {
 
 
 /***/ }),
-/* 165 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28168,7 +31952,7 @@ module.exports = KeyPair;
 
 
 /***/ }),
-/* 166 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28241,7 +32025,7 @@ module.exports = Signature;
 
 
 /***/ }),
-/* 167 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28251,7 +32035,7 @@ module.exports = Signature;
 
 var asn1 = __webpack_require__(20)
 
-exports.certificate = __webpack_require__(178)
+exports.certificate = __webpack_require__(205)
 
 var RSAPrivateKey = asn1.define('RSAPrivateKey', function () {
   this.seq().obj(
@@ -28370,7 +32154,7 @@ exports.signature = asn1.define('signature', function () {
 
 
 /***/ }),
-/* 168 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var asn1 = __webpack_require__(20);
@@ -28393,7 +32177,7 @@ function Entity(name, body) {
 Entity.prototype._createNamed = function createNamed(base) {
   var named;
   try {
-    named = __webpack_require__(169).runInThisContext(
+    named = __webpack_require__(196).runInThisContext(
       '(function ' + this.name + '(entity) {\n' +
       '  this._initNamed(entity);\n' +
       '})'
@@ -28437,10 +32221,10 @@ Entity.prototype.encode = function encode(data, enc, /* internal */ reporter) {
 
 
 /***/ }),
-/* 169 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var indexOf = __webpack_require__(170);
+var indexOf = __webpack_require__(197);
 
 var Object_keys = function (obj) {
     if (Object.keys) return Object.keys(obj)
@@ -28581,7 +32365,7 @@ exports.createContext = Script.createContext = function (context) {
 
 
 /***/ }),
-/* 170 */
+/* 197 */
 /***/ (function(module, exports) {
 
 
@@ -28596,7 +32380,7 @@ module.exports = function(arr, obj){
 };
 
 /***/ }),
-/* 171 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
@@ -28723,7 +32507,7 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
 
 
 /***/ }),
-/* 172 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Reporter = __webpack_require__(21).Reporter;
@@ -29363,10 +33147,10 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
 
 
 /***/ }),
-/* 173 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var constants = __webpack_require__(74);
+var constants = __webpack_require__(75);
 
 exports.tagClass = {
   0: 'universal',
@@ -29411,23 +33195,23 @@ exports.tagByName = constants._reverse(exports.tag);
 
 
 /***/ }),
-/* 174 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var decoders = exports;
 
-decoders.der = __webpack_require__(75);
-decoders.pem = __webpack_require__(175);
+decoders.der = __webpack_require__(76);
+decoders.pem = __webpack_require__(202);
 
 
 /***/ }),
-/* 175 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
 var Buffer = __webpack_require__(0).Buffer;
 
-var DERDecoder = __webpack_require__(75);
+var DERDecoder = __webpack_require__(76);
 
 function PEMDecoder(entity) {
   DERDecoder.call(this, entity);
@@ -29476,22 +33260,22 @@ PEMDecoder.prototype.decode = function decode(data, options) {
 
 
 /***/ }),
-/* 176 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var encoders = exports;
 
-encoders.der = __webpack_require__(76);
-encoders.pem = __webpack_require__(177);
+encoders.der = __webpack_require__(77);
+encoders.pem = __webpack_require__(204);
 
 
 /***/ }),
-/* 177 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
 
-var DEREncoder = __webpack_require__(76);
+var DEREncoder = __webpack_require__(77);
 
 function PEMEncoder(entity) {
   DEREncoder.call(this, entity);
@@ -29513,7 +33297,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
 
 
 /***/ }),
-/* 178 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29608,13 +33392,13 @@ module.exports = X509Certificate
 
 
 /***/ }),
-/* 179 */
+/* 206 */
 /***/ (function(module, exports) {
 
 module.exports = {"2.16.840.1.101.3.4.1.1":"aes-128-ecb","2.16.840.1.101.3.4.1.2":"aes-128-cbc","2.16.840.1.101.3.4.1.3":"aes-128-ofb","2.16.840.1.101.3.4.1.4":"aes-128-cfb","2.16.840.1.101.3.4.1.21":"aes-192-ecb","2.16.840.1.101.3.4.1.22":"aes-192-cbc","2.16.840.1.101.3.4.1.23":"aes-192-ofb","2.16.840.1.101.3.4.1.24":"aes-192-cfb","2.16.840.1.101.3.4.1.41":"aes-256-ecb","2.16.840.1.101.3.4.1.42":"aes-256-cbc","2.16.840.1.101.3.4.1.43":"aes-256-ofb","2.16.840.1.101.3.4.1.44":"aes-256-cfb"}
 
 /***/ }),
-/* 180 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// adapted from https://github.com/apatil/pemstrip
@@ -29651,14 +33435,14 @@ module.exports = function (okey, password) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 181 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
 var BN = __webpack_require__(2)
 var EC = __webpack_require__(3).ec
 var parseKeys = __webpack_require__(30)
-var curves = __webpack_require__(77)
+var curves = __webpack_require__(78)
 
 function verify (sig, hash, key, signType, tag) {
   var pub = parseKeys(key)
@@ -29741,7 +33525,7 @@ module.exports = verify
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 182 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var elliptic = __webpack_require__(3);
@@ -29870,11 +33654,11 @@ function formatReturnValue(bn, enc, len) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 183 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports.publicEncrypt = __webpack_require__(184);
-exports.privateDecrypt = __webpack_require__(185);
+exports.publicEncrypt = __webpack_require__(211);
+exports.privateDecrypt = __webpack_require__(212);
 
 exports.privateEncrypt = function privateEncrypt(key, buf) {
   return exports.publicEncrypt(key, buf, true);
@@ -29885,16 +33669,16 @@ exports.publicDecrypt = function publicDecrypt(key, buf) {
 };
 
 /***/ }),
-/* 184 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(30);
 var randomBytes = __webpack_require__(16);
 var createHash = __webpack_require__(17);
-var mgf = __webpack_require__(78);
-var xor = __webpack_require__(79);
+var mgf = __webpack_require__(79);
+var xor = __webpack_require__(80);
 var bn = __webpack_require__(2);
-var withPublic = __webpack_require__(80);
+var withPublic = __webpack_require__(81);
 var crt = __webpack_require__(40);
 
 var constants = {
@@ -29986,16 +33770,16 @@ function nonZero(len, crypto) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 185 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(30);
-var mgf = __webpack_require__(78);
-var xor = __webpack_require__(79);
+var mgf = __webpack_require__(79);
+var xor = __webpack_require__(80);
 var bn = __webpack_require__(2);
 var crt = __webpack_require__(40);
 var createHash = __webpack_require__(17);
-var withPublic = __webpack_require__(80);
+var withPublic = __webpack_require__(81);
 module.exports = function privateDecrypt(private_key, enc, reverse) {
   var padding;
   if (private_key.padding) {
@@ -30100,7 +33884,7 @@ function compare(a, b){
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 186 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -30628,7 +34412,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(187);
+exports.isBuffer = __webpack_require__(214);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -30672,7 +34456,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(188);
+exports.inherits = __webpack_require__(215);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -30693,7 +34477,7 @@ function hasOwnProperty(obj, prop) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 187 */
+/* 214 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -30704,7 +34488,7 @@ module.exports = function isBuffer(arg) {
 }
 
 /***/ }),
-/* 188 */
+/* 215 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -30733,7 +34517,7 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 189 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -30821,7 +34605,7 @@ exports.reverseGeocode = {
 
 
 /***/ }),
-/* 190 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -30903,7 +34687,7 @@ exports.geolocate = {
 
 
 /***/ }),
-/* 191 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -30951,7 +34735,7 @@ exports.timezone = {
 
 
 /***/ }),
-/* 192 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -31051,7 +34835,7 @@ exports.directions = {
 
 
 /***/ }),
-/* 193 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -31129,7 +34913,7 @@ exports.distanceMatrix = {
 
 
 /***/ }),
-/* 194 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -31200,7 +34984,7 @@ exports.elevationAlongPath = {
 
 
 /***/ }),
-/* 195 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -31311,7 +35095,7 @@ exports.snappedSpeedLimits = {
 
 
 /***/ }),
-/* 196 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -31550,7 +35334,7 @@ exports.placesQueryAutoComplete = {
 
 
 /***/ }),
-/* 197 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -31596,2759 +35380,7 @@ exports.callback = function(error, response) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 198 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var mcdatatable = __webpack_require__(42).template;
-var loader = __webpack_require__(199);
-var confirm = __webpack_require__(200);
-var alert = __webpack_require__(201);
-var heading = __webpack_require__(202);
-var menu = __webpack_require__(203);
-var pageHeading = __webpack_require__(204);
-var foot = __webpack_require__(205);
-var clientesRegistrados = __webpack_require__(206);
-var tiendasRegistradas = __webpack_require__(210);
-var nuevaTienda = __webpack_require__(213);
-var recursosRegistrados = __webpack_require__(214);
-var nuevoRecurso = __webpack_require__(217);
-var reportes = __webpack_require__(218);
-var map = __webpack_require__(219);
-var toolbar = __webpack_require__(220);
-Vue.component("mcdatatable", {
-    template: mcdatatable,
-    props: {
-        title: String,
-        config: Object
-    }
-});
-Vue.component("loader", {
-    template: loader,
-    props: {
-        config: Object
-    }
-});
-Vue.component("confirm", {
-    template: confirm,
-    props: {
-        config: Object
-    }
-});
-Vue.component("alert", {
-    template: alert,
-    props: {
-        config: Object
-    }
-});
-Vue.component("heading", {
-    template: heading,
-    props: {
-        setview: Function,
-        profile: Object
-    }
-});
-Vue.component("my-menu", {
-    template: menu,
-    props: {
-        config: Object,
-        active: Object,
-        setview: Function
-    }
-});
-Vue.component("page-heading", {
-    template: pageHeading,
-    props: {
-        config: Object,
-        active: Object,
-        setview: Function,
-        profile: Object
-    }
-});
-Vue.component("foot", {
-    template: foot,
-    props: {
-        config: Object
-    }
-});
-Vue.component("clientes-registrados", {
-    template: clientesRegistrados,
-    props: {
-        config: Object
-    }
-});
-Vue.component("tiendas-registradas", {
-    template: tiendasRegistradas,
-    props: {
-        config: Object
-    }
-});
-Vue.component("nueva-tienda", {
-    template: nuevaTienda,
-    props: {
-        config: Object,
-        mask: Function
-    }
-});
-Vue.component("recursos-registrados", {
-    template: recursosRegistrados,
-    props: {
-        config: Object
-    }
-});
-Vue.component("nuevo-recurso", {
-    template: nuevoRecurso,
-    props: {
-        config: Object,
-        mask: Function
-    }
-});
-Vue.component("reportes", {
-    template: reportes,
-    props: {
-        config: Object
-    }
-});
-Vue.component("toolbar", {
-    template: toolbar,
-    props: {
-        config: Object
-    }
-});
-Vue.component("mapping", {
-    template: map,
-    props: {
-        config: Object
-    }
-});
-module.exports = `
-    <!-- Main navbar -->
-    <div>
-        <transition name="slide-fade">
-            <loader :config="loader"></loader>
-        </transition>
-        <transition name="slide-fade">
-            <confirm :config="confirm"></confirm>
-        </transition>
-        <transition name="slide-fade">
-            <alert :config="alert"></alert>
-        </transition>
-        <heading :setview="setView" :profile="profile"></heading>
-        <my-menu :config="children.menu" :active="active" :setview="setView"></my-menu>
-        <page-heading :config="children.menu" :active="active" :setview="setView" :profile="profile"></page-heading>
-        <div class="page-container">
-            <div class="row">
-                <template v-if="active.first === 0">
-                    <transition name="slide-fade">
-                        <mapping :config="children.map"></mapping>
-                    </transition>
-                    <transition name="slide-fade">
-                        <toolbar :config="children.map"></toolbar>
-                    </transition>
-                </template>
-                <template v-else-if="active.first === 1">
-                    <transition name="slide-fade">
-                        <clientes-registrados :config="children.clientesRegistrados"></clientes-registrados>
-                    </transition>
-                </template>
-                <template v-else-if="active.first === 2 && active.second === 0 && active.third === 0">
-                    <transition name="slide-fade">
-                        <tiendas-registradas :config="children.tiendasRegistradas"></tiendas-registradas>
-                    </transition>
-                </template>
-                <template v-else-if="active.first === 2 && active.second === 0 && active.third === 1">
-                    <transition name="slide-fade">
-                        <nueva-tienda :mask="mask" :config="children.nuevaTienda"></nueva-tienda>
-                    </transition>
-                </template>
-                <template v-else-if="active.first === 3 && active.second === 0 && active.third === 0">
-                    <transition name="slide-fade">
-                        <recursos-registrados :config="children.recursosRegistrados"></recursos-registrados>
-                    </transition>
-                </template>
-                <template v-else-if="active.first === 3 && active.second === 0 && active.third === 1">
-                    <transition name="slide-fade">
-                        <nuevo-recurso :mask="mask" :config="children.nuevoRecurso"></nuevo-recurso>
-                    </transition>
-                </template>
-                <template v-else-if="active.first === 4">
-                    <transition name="slide-fade">
-                        <reportes></reportes>
-                    </transition>
-                </template>
-            </div>
-        </div>
-        <foot></foot>
-    </div>
-`;
-
-/***/ }),
-/* 199 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div v-if="config.active" class="alert-message-overlay alert-overlay-custom">
-        <div class="loader-custom-container container">
-            <b><span class="glyphicon glyphicon-repeat loading-anim"></span><br>
-            {{config.message}}</b>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 200 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div v-if="config.active" class="alert-message-overlay alert-overlay-custom">
-        <div class="alert-message-box alert-box-custom container">
-            <div class="alert-message-title alert-title-custom">
-                <h3>{{config.description.title}}</h3>
-            </div>
-            <p><b v-html="config.description.text"></b></p>
-            <div class="alert-buttons-box">
-                <a href="#" v-on:click.prevent="config.onAccept()" class="alert-message-button button btn btn-success alert-btn-customized" style="padding-top:8px;"><span>{{config.description.accept}}</span></a>
-                <a href="#" v-on:click.prevent="config.active = !config.active" class="alert-message-button button btn btn-danger alert-btn-customized" style="padding-top:8px;"><span>{{config.description.cancel}}</span></a>
-            </div>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 201 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div v-if="config.active" class="alert-message-overlay alert-overlay-custom">
-        <div class="alert-message-box alert-box-custom container">
-            <div class="alert-message-title alert-title-custom">
-                <h3>{{config.description.title}}</h3>
-            </div>
-            <p><b v-html="config.description.text"></b></p>
-            <div class="alert-buttons-box">
-                <a href="#" v-on:click.prevent="config.active = !config.active" class="alert-message-button button btn btn-success alert-btn-customized" style="padding-top:8px;"><span>{{config.description.ok}}</span></a>
-            </div>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 202 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#" v-on:click.prevent="setview({first: 0, second: 0, third: 0})">
-                <img src="/image/logo/techfor180-45.png" alt="">
-            </a>
-
-            <ul class="nav navbar-nav pull-right visible-xs-block">
-                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
-            </ul>
-        </div>
-
-        <div class="navbar-collapse collapse" id="navbar-mobile">
-            <p class="navbar-text"><span class="label bg-success-400">En línea</span></p>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown dropdown-user">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="assets/images/placeholder.jpg" alt="">
-                        <span>{{profile.name}}</span>
-                        <i class="caret"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#"><i class="icon-cog5"></i> Configuración </a></li>
-                        <li class="divider"></li>
-                        <li><a href="/logout"><i class="icon-switch2"></i> Cerrar Sesión </a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 203 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="navbar navbar-default" id="navbar-second">
-        <ul class="nav navbar-nav no-border visible-xs-block">
-            <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i class="icon-menu7"></i></a></li>
-        </ul>
-        
-        <div class="navbar-collapse collapse" id="navbar-second-toggle">
-            <ul class="nav navbar-nav" v-for="(menu, menuIndex) in config.menu">
-                <li :class="[active.first === menuIndex ? 'active' : '',
-                            menu.dropdown.length > 0 ? 'dropdown' : '']">
-                    <a href="#" v-on:click.prevent="menu.dropdown.length > 0 ? function(){} : setview({first: menuIndex, second: 0, third: 0})" :class="menu.dropdown.length > 0 ? 'dropdown-toogle' : ''"
-                                :data-toggle="menu.dropdown.length > 0 ? 'dropdown' : ''">
-                        <i :class="menu.icon" class="position-left"></i> {{menu.title}}
-                        <template v-if="menu.dropdown.length > 0">
-                            <span class="caret"></span>
-                        </template>
-                    </a>
-                    <ul v-if="menu.dropdown.length > 0" class="dropdown-menu width-200">
-                        <template v-for="(dropdown, dropdownIndex) in menu.dropdown">
-                            <li class="dropdown-header">{{dropdown.title}}</li>
-                            <li v-for="(subs, subsIndex) in dropdown.subs">
-                                <a href="#" v-on:click.prevent="setview({first: menuIndex, second: dropdownIndex, third: subsIndex})">
-                                    <i :class="subs.icon"></i> {{subs.title}}
-                                </a>
-                            </li>
-                        </template>
-                    </ul>
-                </li>                    
-            </ul>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 204 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="page-header">
-        <div class="page-header-content">
-            <div class="page-title">
-                <h4>
-                    <i class="icon-arrow-left52 position-left"></i>
-                    <span class="text-semibold">
-                        <b>{{config.menu[active.first].title}}</b>
-                        {{config.menu[active.first].dropdown.length > 0 ? ' - ' + config.menu[active.first].dropdown[active.second].title : ''}}
-                    </span>
-                    <small v-if="active.first === 0 && active.second === 0 && active.third === 0" class="display-block">Buen día, {{profile.name}}!</small>
-                </h4>
-                <ul v-if="active.first !== 0 || active.second !== 0 || active.third !== 0" class="breadcrumb breadcrumb-caret position-right">
-                    <li><a href="#" v-on:click.prevent="setview({first: 0, second: 0, third: 0})">{{config.menu[0].title}}</a></li>
-                    <li><a href="#" v-on:click.prevent>{{config.menu[active.first].title}}</a></li>
-                    <li v-if="config.menu[active.first].dropdown.length > 0"><a href="#" v-on:click.prevent>{{config.menu[active.first].dropdown[active.second].title}}</a></li>
-                    <li v-if="config.menu[active.first].dropdown.length > 0" class="active">{{config.menu[active.first].dropdown[active.second].subs[active.third].title}}</li>
-                </ul>
-            </div>
-            
-            <div class="heading-elements">
-                <div v-if="config.menu[active.first].dropdown.length > 0" class="heading-btn-group">
-                    <a href="#" v-on:click.prevent="setview({first: active.first, second: active.second, third: subsIndex})"
-                                v-for="(subs, subsIndex) in config.menu[active.first].dropdown[active.second].subs" class="btn btn-link btn-float has-text">
-                        <i :class="subs.icon" class="text-primary"></i><span>{{subs.title}}</span>
-                    </a>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 205 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="footer text-muted">
-        &copy; 2017. <a href="#" v-on:click.prevent>Tech For Data</a>
-    </div>
-`;
-
-/***/ }),
-/* 206 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var tiendasLigadas = __webpack_require__(207);
-var recursosLigados = __webpack_require__(208);
-var rutas = __webpack_require__(209);
-Vue.component("tiendas-ligadas", {
-    template: tiendasLigadas,
-    props: {
-        config: Object,
-        setview: Function,
-        mask: Function
-    }
-});
-Vue.component("recursos-ligados", {
-    template: recursosLigados,
-    props: {
-        config: Object,
-        setview: Function,
-        mask: Function
-    }
-});
-Vue.component("rutas", {
-    template: rutas,
-    props: {
-        config: Object,
-        setview: Function
-    }
-});
-module.exports = `
-    <div class="col-sm-12">
-        <div v-if="config.active === 0" class="col-sm-12">
-            <div class="panel panel-flat">
-                <div class="panel-body">
-                    <p class="content-group">
-                    
-                    </p>
-                    <mcdatatable :title="'Clientes'" :config="config.grid"></mcdatatable>
-                </div>
-            </div>
-        </div>
-        <tiendas-ligadas v-else-if="config.active === 1" :config="config.tienda" :setview="config.setView" :mask="config.mask"></tiendas-ligadas>
-        <recursos-ligados v-else-if="config.active === 2" :config="config.recurso" :setview="config.setView" :mask="config.mask"></recursos-ligados>
-        <rutas v-else-if="config.active === 3" :config="config.ruta" :setview="config.setView"></rutas>
-    </div>
-`;
-
-/***/ }),
-/* 207 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h4 class="panel-title text-center">{{config.client.name}}</h4>
-                    <div class="heading-elements">
-                        <ul class="icons-list">
-                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent title="Tiendas"><span aria-hidden="true" class="glyphicon glyphicon-tags"></span></a></li>
-                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(2)" title="Recursos humanos"><span aria-hidden="true" class="glyphicon glyphicon-briefcase"></span></a></li>
-                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(3)" title="Rutas"><span aria-hidden="true" class="glyphicon glyphicon-road"></span></a></li>
-                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h4 class="panel-title text-center">Todas las tiendas</h4>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
-                                <input type="text" v-model="config.data.search.store" v-on:keyup="config.init(1)" class="form-control" placeholder="Búsqueda">
-                                <div class="form-control-feedback" style="width: 30px;">
-                                    <i class="icon-search4 text-size-base"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 grid-relation">
-                            <table class="table table-bordered">
-                                <tbody class="body-class">
-                                    <tr v-for="(store, storeIndex) in config.store"
-                                        :draggable="store.selected"
-                                        @dragstart="config.initDrag('add')"
-                                        @dragend="config.alterLinkDef.masive.config.active = 0;"
-                                        :class="store.linked ? 'selected' : store.selected ? 'link-row-select' : ''"
-                                        class="grid-row-customized grid-row-highlight-customized">
-                                        <td v-on:click.self="store.linked ? '' : store.selected = !store.selected" class="col-md-1">
-                                            {{store.name}}
-                                            <div class="pull-right">
-                                                <a href="#" v-on:click.prevent="config.setLink('see', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
-                                                    <i class="icon-eye" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="#" v-on:click.prevent="config.setLink('add', storeIndex)" :class="store.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar" data-toggle="modal" data-target="#add">
-                                                    <i class="icon-link" aria-hidden="true"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <nav class="pull-right">
-                            <ul class="pagination">
-                                <li>
-                                    <span><b>Mostrando {{config.store.length}} de {{config.data.page.store.totalCount}} filas en la página {{config.data.page.store.currentPage}} de {{config.data.page.store.pageCount}}.</b></span>
-                                </li>
-                                <li  :class="config.data.page.store.currentPage === 1 ? 'not-active disabled' : ''">
-                                    <a href="#" v-on:click.prevent="config.init(1, 1);">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <template v-if="config.data.page.store.pageCount <= 3">
-                                    <li v-for="page in config.data.page.store.pageCount" :class="page === config.data.page.store.currentPage ? 'active' : ''">
-                                        <a href="#" v-on:click.prevent="page === config.data.page.store.currentPage ? '' : config.init(1, page);">
-                                            {{page}}
-                                        </a>
-                                    </li>
-                                </template>
-                                <template v-else>
-                                    <template v-if="config.data.page.store.currentPage < 3">
-                                        <li :class="config.data.page.store.currentPage === 1 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === 1 ? '' : config.init(1, 1);">
-                                                1
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.store.currentPage === 2 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === 2 ? '' : config.init(1, 2);">
-                                                2
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.store.currentPage === 3 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === 3 ? '' : config.init(1, 3);">
-                                                3
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                    </template>
-                                    <template v-else-if="config.data.page.store.currentPage > config.data.page.store.pageCount - 2">
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                        <li :class="config.data.page.store.currentPage === config.data.page.store.pageCount - 2 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === config.data.page.store.pageCount - 2 ? '' : config.init(1, config.data.page.store.pageCount - 2);">
-                                                {{config.data.page.store.pageCount - 2}}
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.store.currentPage === config.data.page.store.pageCount - 1 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === config.data.page.store.pageCount - 1 ? '' : config.init(1, config.data.page.store.pageCount - 1);">
-                                                {{config.data.page.store.pageCount - 1}}
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.store.currentPage === config.data.page.store.pageCount ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.store.currentPage === config.data.page.store.pageCount ? '' : config.init(1, config.data.page.store.pageCount);">
-                                                {{config.data.page.store.pageCount}}
-                                            </a>
-                                        </li>
-                                    </template>
-                                    <template v-else>
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                        <li>
-                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.store.currentPage - 1)">
-                                                {{config.data.page.store.currentPage - 1}}
-                                            </a>
-                                        </li>
-                                        <li class="active">
-                                            <a href="#" v-on:click.prevent>
-                                                {{config.data.page.store.currentPage}}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.store.currentPage + 1)">
-                                                {{config.data.page.store.currentPage + 1}}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                    </template>
-                                </template>
-                                <li :class="config.data.page.store.pageCount === config.data.page.store.currentPage ? 'not-active disabled' : ''">
-                                    <a href="#" v-on:click.prevent="config.init(1, config.data.page.store.pageCount);">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h4 class="panel-title text-center">Tiendas ligadas</h4>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12 grid-relation">
-                            <table class="table table-bordered">
-                                <!--<thead>
-                                    <tr>
-                                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
-                                            <input type="text" class="form-control" placeholder="Búsqueda">
-                                            <div class="form-control-feedback" style="width: 30px;">
-                                                <i class="icon-search4 text-size-base"></i>
-                                            </div>
-                                        </div>
-                                    </tr>
-                                </thead>-->
-                                <tbody class="body-class">
-                                    <tr v-for="(store, storeIndex) in config.storeLinked"
-                                        :draggable="store.selected"
-                                        @dragstart="config.initDrag('remove')"
-                                        @dragend="config.alterLinkDef.masive.config.active = 0;"
-                                        :class="store.selected ? 'link-row-select' : ''"
-                                        class="grid-row-customized grid-row-highlight-customized">
-                                        <td v-on:click.self="store.selected = !store.selected" class="col-md-1">
-                                            {{store.name}}
-                                            <div class="pull-right">
-                                                <a href="#" v-on:click.prevent="config.setLink('seeLinked', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#seeLinked">
-                                                    <i class="icon-eye" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="#" v-on:click.prevent="config.setLink('edit', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Editar" data-toggle="modal" data-target="#edit">
-                                                    <i class="icon-pencil6" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="#" v-on:click.prevent="config.remove(store.id)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Desligar">
-                                                    <i class="icon-unlink" aria-hidden="true"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <nav class="pull-right">
-                            <ul class="pagination">
-                                <li>
-                                    <span><b>Mostrando {{config.storeLinked.length}} de {{config.data.page.storeLinked.totalCount}} filas en la página {{config.data.page.storeLinked.currentPage}} de {{config.data.page.storeLinked.pageCount}}.</b></span>
-                                </li>
-                                <li  :class="config.data.page.storeLinked.currentPage === 1 ? 'not-active disabled' : ''">
-                                    <a href="#" v-on:click.prevent="config.init(2, null, 1);">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <template v-if="config.data.page.storeLinked.pageCount <= 3">
-                                    <li v-for="page in config.data.page.storeLinked.pageCount" :class="page === config.data.page.storeLinked.currentPage ? 'active' : ''">
-                                        <a href="#" v-on:click.prevent="page === config.data.page.storeLinked.currentPage ? '' : config.init(2, null, page);">
-                                            {{page}}
-                                        </a>
-                                    </li>
-                                </template>
-                                <template v-else>
-                                    <template v-if="config.data.page.storeLinked.currentPage < 3">
-                                        <li :class="config.data.page.storeLinked.currentPage === 1 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === 1 ? '' : config.init(2, null, 1);">
-                                                1
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.storeLinked.currentPage === 2 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === 2 ? '' : config.init(2, null, 2);">
-                                                2
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.storeLinked.currentPage === 3 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === 3 ? '' : config.init(2, null, 3);">
-                                                3
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                    </template>
-                                    <template v-else-if="config.data.page.storeLinked.currentPage > config.data.page.storeLinked.pageCount - 2">
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                        <li :class="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount - 2 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount - 2 ? '' : config.init(2, null, config.data.page.storeLinked.pageCount - 2);">
-                                                {{config.data.page.storeLinked.pageCount - 2}}
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount - 1 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount - 1 ? '' : config.init(2, null, config.data.page.storeLinked.pageCount - 1);">
-                                                {{config.data.page.storeLinked.pageCount - 1}}
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.storeLinked.currentPage === config.data.page.storeLinked.pageCount ? '' : config.init(2, null, config.data.page.storeLinked.pageCount);">
-                                                {{config.data.page.storeLinked.pageCount}}
-                                            </a>
-                                        </li>
-                                    </template>
-                                    <template v-else>
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                        <li>
-                                            <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.storeLinked.currentPage - 1)">
-                                                {{config.data.page.storeLinked.currentPage - 1}}
-                                            </a>
-                                        </li>
-                                        <li class="active">
-                                            <a href="#" v-on:click.prevent>
-                                                {{config.data.page.storeLinked.currentPage}}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.storeLinked.currentPage + 1)">
-                                                {{config.data.page.storeLinked.currentPage + 1}}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                    </template>
-                                </template>
-                                <li :class="config.data.page.storeLinked.pageCount === config.data.page.storeLinked.currentPage ? 'not-active disabled' : ''">
-                                    <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.storeLinked.pageCount);">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header modal-header-custom">
-                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Ligar tiendas</h4>
-                    </div>
-                    <div class="modal-body modal-body-custom">
-                        <div v-if="config.alterLinkDef.add.length > 1" class="row">
-                            <div class="form-group text-center">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.alterLinkDef.masive.config.same = !config.alterLinkDef.masive.config.same">
-                                        <span class="switchery switchery-default switchery-custom" :class="config.alterLinkDef.masive.config.same ? 'active' : 'not-active'">
-                                            <small></small>
-                                        </span>
-                                        {{config.alterLinkDef.masive.config.same ? 'Si' : 'No'}}
-                                    </label>
-                                    <span class="help-block">Generalizar tiempos solicitados</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div v-if="config.alterLinkDef.masive.config.same" class="row">
-                            <div class="col-sm-6">
-                                <span><b>Tiempo General</b></span>
-                            </div>
-                            <div class="col-sm-6">
-                                <div v-if="config.alterLinkDef.add.length > 0" :class="config.alterLinkDef.add[0].valid ? '' : 'has-error'" class="form-group">
-                                    <input v-model="config.alterLinkDef.add[0].time" v-on:keyup="config.alterLinkDef.add[0].time = mask('time', $event, config.alterLinkDef.add[0].time); config.validation('add', 0)" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
-                                    <span class="help-block">{{config.alterLinkDef.add[0].text}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div v-else v-for="(link, linkIndex) in config.alterLinkDef.add" class="row">
-                            <div class="col-sm-6">
-                                <span><b>{{config.store[link.index].name}}</b></span>
-                            </div>
-                            <div class="col-sm-6">
-                                <div :class="link.valid ? '' : 'has-error'" class="form-group">
-                                    <input v-model="link.time" v-on:keyup="link.time = mask('time', $event, link.time); config.validation('add', linkIndex)" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
-                                    <span class="help-block">{{link.text}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="height: 10px;"></div>
-                    </div>
-                    <div class="modal-footer modal-footer-custom">
-                        <button type="button" class="btn btn-default btn-customized" v-on:click="config.alterLink('add')">Ligar</button>
-                        <button id="closeAdd" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header modal-header-custom">
-                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.edit.name}}</h4>
-                    </div>
-                    <div class="modal-body modal-body-custom">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <span><b>Tiempo requerido</b></span>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div :class="config.alterLinkDef.edit.valid ? '' : 'has-error'" class="form-group">
-                                        <input v-model="config.alterLinkDef.edit.time" v-on:keyup="config.alterLinkDef.edit.time = mask('time', $event, config.alterLinkDef.edit.time); config.validation('edit')" name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
-                                        <span class="help-block">{{config.alterLinkDef.edit.text}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="height: 10px;"></div>
-                    </div>
-                    <div class="modal-footer modal-footer-custom">
-                        <button type="button" class="btn btn-default btn-customized" v-on:click="config.alterLink('edit')">Guardar</button>
-                        <button id="closeEdit" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header modal-header-custom">
-                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.store.name}}</h4>
-                    </div>
-                    <div class="modal-body modal-body-custom">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div id="mapFocusPositionSeeStore" v-on:click="config.alterLinkDef.see.store.focusPosition()" class="map-focus-position text-center">
-                                        <i class="icon-shrink3"></i>
-                                    </div>
-                                    <div id="mapSeeStore" class="map-container-modal map-basic"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div class="steps-basic wizard clearfix">
-                                        <div class="steps clearfix">
-                                            <ul role="tablist">
-                                                <li v-for="(steps, stepIndex) in config.alterLinkDef.see.store.steps" role="tab"
-                                                :class="[stepIndex === 0 ? 'first' : '',
-                                                        config.alterLinkDef.see.store.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                                    <a href="#" v-on:click.prevent="steps.seen && config.alterLinkDef.see.store.actualStep !== stepIndex ? config.alterLinkDef.see.store.changeStep(stepIndex) : ''">
-                                                        <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="content clearfix">
-                                            <div class="row">
-                                                <div style="padding-top: 20px"></div>
-                                                <div :class="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                                    <div class="form-group">
-                                                        <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                            <label>
-                                                                <span class="switchery switchery-default switchery-custom" :class="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active ? 'active' : 'not-active'">
-                                                                    <small></small>
-                                                                </span>
-                                                                {{config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active ? 'Si' : 'No'}}
-                                                            </label>
-                                                            <span class="help-block">¿Opera en {{config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].text}}?</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div v-if="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active" class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-4">Intervalos de atención</label>
-                                                        <div class="col-md-8">
-                                                            <input disabled="disabled" class="form-control" v-model="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].interval" type="number" name="Intervalos de atención">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-if="config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].active && Math.floor(parseInt(config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].interval)) > 0" class="row">
-                                                <div style="padding-top: 20px"></div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group text-center schedule-title">
-                                                        <label>Inicio</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group text-center schedule-title">
-                                                        <label>Final</label>
-                                                    </div>
-                                                </div>
-                                                <template v-for="(interval, intervalIndex) in config.alterLinkDef.see.store.steps[config.alterLinkDef.see.store.actualStep].schedule">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                            <span class="help-block">hh:mm:ss</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                            <span class="help-block">hh:mm:ss</span>
-                                                        </div>
-                                                    </div>
-                                                </template>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="height: 10px;"></div>
-                    </div>
-                    <div class="modal-footer modal-footer-custom">
-                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="seeLinked" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header modal-header-custom">
-                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.storeLinked.name}}</h4>
-                    </div>
-                    <div class="modal-body modal-body-custom">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <span><b>Tiempo requerido</b></span>
-                                </div>
-                                <div class="col-sm-6">
-                                    <span>{{config.alterLinkDef.see.storeLinked.time}}</span>
-                                </div>
-                            </div>
-                            <div style="height: 10px;"></div>
-                    </div>
-                    <div class="modal-footer modal-footer-custom">
-                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div :class="config.alterLinkDef.masive.config.active === 0 ? '' : 'active'" class="link-button-container">
-            <div class="row">
-                <div class="col-sm-6 text-center button">
-                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('remove')" v-if="config.alterLinkDef.masive.config.active === 1" href="#">
-                        <img src="/image/remove.png">
-                    </a>
-                </div>
-                <div class="col-sm-6 text-center button">
-                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('add')" v-if="config.alterLinkDef.masive.config.active === 2" href="#">
-                        <img src="/image/add.png">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 208 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h4 class="panel-title text-center">{{config.client.name}}</h4>
-                    <div class="heading-elements">
-                        <ul class="icons-list">
-                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(1)" title="Tiendas"><span aria-hidden="true" class="glyphicon glyphicon-tags"></span></a></li>
-                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent title="Recursos humanos"><span aria-hidden="true" class="glyphicon glyphicon-briefcase"></span></a></li>
-                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(3)" title="Rutas"><span aria-hidden="true" class="glyphicon glyphicon-road"></span></a></li>
-                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h4 class="panel-title text-center">Todos los recursos</h4>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
-                                <input type="text" v-model="config.data.search.resource" v-on:keyup="config.init(1)" class="form-control" placeholder="Búsqueda">
-                                <div class="form-control-feedback" style="width: 30px;">
-                                    <i class="icon-search4 text-size-base"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 grid-relation">
-                            <table class="table table-bordered">
-                                <tbody class="body-class">
-                                    <tr v-for="(resource, resourceIndex) in config.resource"
-                                        :draggable="resource.selected"
-                                        @dragstart="config.initDrag('add')"
-                                        @dragend="config.alterLinkDef.masive.config.active = 0;"
-                                        :class="resource.linked ? 'selected' : resource.selected ? 'link-row-select' : ''"
-                                        class="grid-row-customized grid-row-highlight-customized">
-                                        <td v-on:click.self="resource.linked ? '' : resource.selected = !resource.selected" class="col-md-1">
-                                            {{resource.name}}
-                                            <div class="pull-right">
-                                                <a href="#" v-on:click.prevent="config.setLink('see', resourceIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
-                                                    <i class="icon-eye" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="#" v-on:click.prevent="config.setLink('add', resourceIndex)" :class="resource.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar">
-                                                    <i class="icon-link" aria-hidden="true"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <nav class="pull-right">
-                            <ul class="pagination">
-                                <li>
-                                    <span><b>Mostrando {{config.resource.length}} de {{config.data.page.resource.totalCount}} filas en la página {{config.data.page.resource.currentPage}} de {{config.data.page.resource.pageCount}}.</b></span>
-                                </li>
-                                <li  :class="config.data.page.resource.currentPage === 1 ? 'not-active disabled' : ''">
-                                    <a href="#" v-on:click.prevent="config.init(1, 1);">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <template v-if="config.data.page.resource.pageCount <= 3">
-                                    <li v-for="page in config.data.page.resource.pageCount" :class="page === config.data.page.resource.currentPage ? 'active' : ''">
-                                        <a href="#" v-on:click.prevent="page === config.data.page.resource.currentPage ? '' : config.init(1, page);">
-                                            {{page}}
-                                        </a>
-                                    </li>
-                                </template>
-                                <template v-else>
-                                    <template v-if="config.data.page.resource.currentPage < 3">
-                                        <li :class="config.data.page.resource.currentPage === 1 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.resource.currentPage === 1 ? '' : config.init(1, 1);">
-                                                1
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.resource.currentPage === 2 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.resource.currentPage === 2 ? '' : config.init(1, 2);">
-                                                2
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.resource.currentPage === 3 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.resource.currentPage === 3 ? '' : config.init(1, 3);">
-                                                3
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                    </template>
-                                    <template v-else-if="config.data.page.resource.currentPage > config.data.page.resource.pageCount - 2">
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                        <li :class="config.data.page.resource.currentPage === config.data.page.resource.pageCount - 2 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.resource.currentPage === config.data.page.resource.pageCount - 2 ? '' : config.init(1, config.data.page.resource.pageCount - 2);">
-                                                {{config.data.page.resource.pageCount - 2}}
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.resource.currentPage === config.data.page.resource.pageCount - 1 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.resource.currentPage === config.data.page.resource.pageCount - 1 ? '' : config.init(1, config.data.page.resource.pageCount - 1);">
-                                                {{config.data.page.resource.pageCount - 1}}
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.resource.currentPage === config.data.page.resource.pageCount ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.resource.currentPage === config.data.page.resource.pageCount ? '' : config.init(1, config.data.page.resource.pageCount);">
-                                                {{config.data.page.resource.pageCount}}
-                                            </a>
-                                        </li>
-                                    </template>
-                                    <template v-else>
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                        <li>
-                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.resource.currentPage - 1)">
-                                                {{config.data.page.resource.currentPage - 1}}
-                                            </a>
-                                        </li>
-                                        <li class="active">
-                                            <a href="#" v-on:click.prevent>
-                                                {{config.data.page.resource.currentPage}}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.resource.currentPage + 1)">
-                                                {{config.data.page.resource.currentPage + 1}}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                    </template>
-                                </template>
-                                <li :class="config.data.page.resource.pageCount === config.data.page.resource.currentPage ? 'not-active disabled' : ''">
-                                    <a href="#" v-on:click.prevent="config.init(1, config.data.page.resource.pageCount);">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h4 class="panel-title text-center">Recursos ligados</h4>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12 grid-relation">
-                            <table class="table table-bordered">
-                                <!--<thead>
-                                    <tr>
-                                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
-                                            <input type="text" class="form-control" placeholder="Búsqueda">
-                                            <div class="form-control-feedback" style="width: 30px;">
-                                                <i class="icon-search4 text-size-base"></i>
-                                            </div>
-                                        </div>
-                                    </tr>
-                                </thead>-->
-                                <tbody class="body-class">
-                                    <tr v-for="(resource, resourceIndex) in config.resourceLinked"
-                                        :draggable="resource.selected"
-                                        @dragstart="config.initDrag('remove')"
-                                        @dragend="config.alterLinkDef.masive.config.active = 0;"
-                                        :class="resource.selected ? 'link-row-select' : ''"
-                                        class="grid-row-customized grid-row-highlight-customized">
-                                        <td v-on:click.self="resource.selected = !resource.selected" class="col-md-1">
-                                            {{resource.name}}
-                                            <div class="pull-right">
-                                                <a href="#" v-on:click.prevent="config.remove(resource.id)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Desligar">
-                                                    <i class="icon-unlink" aria-hidden="true"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <nav class="pull-right">
-                            <ul class="pagination">
-                                <li>
-                                    <span><b>Mostrando {{config.resourceLinked.length}} de {{config.data.page.resourceLinked.totalCount}} filas en la página {{config.data.page.resourceLinked.currentPage}} de {{config.data.page.resourceLinked.pageCount}}.</b></span>
-                                </li>
-                                <li  :class="config.data.page.resourceLinked.currentPage === 1 ? 'not-active disabled' : ''">
-                                    <a href="#" v-on:click.prevent="config.init(2, null, 1);">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <template v-if="config.data.page.resourceLinked.pageCount <= 3">
-                                    <li v-for="page in config.data.page.resourceLinked.pageCount" :class="page === config.data.page.resourceLinked.currentPage ? 'active' : ''">
-                                        <a href="#" v-on:click.prevent="page === config.data.page.resourceLinked.currentPage ? '' : config.init(2, null, page);">
-                                            {{page}}
-                                        </a>
-                                    </li>
-                                </template>
-                                <template v-else>
-                                    <template v-if="config.data.page.resourceLinked.currentPage < 3">
-                                        <li :class="config.data.page.resourceLinked.currentPage === 1 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.resourceLinked.currentPage === 1 ? '' : config.init(2, null, 1);">
-                                                1
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.resourceLinked.currentPage === 2 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.resourceLinked.currentPage === 2 ? '' : config.init(2, null, 2);">
-                                                2
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.resourceLinked.currentPage === 3 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.resourceLinked.currentPage === 3 ? '' : config.init(2, null, 3);">
-                                                3
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                    </template>
-                                    <template v-else-if="config.data.page.resourceLinked.currentPage > config.data.page.resourceLinked.pageCount - 2">
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                        <li :class="config.data.page.resourceLinked.currentPage === config.data.page.resourceLinked.pageCount - 2 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.resourceLinked.currentPage === config.data.page.resourceLinked.pageCount - 2 ? '' : config.init(2, null, config.data.page.resourceLinked.pageCount - 2);">
-                                                {{config.data.page.resourceLinked.pageCount - 2}}
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.resourceLinked.currentPage === config.data.page.resourceLinked.pageCount - 1 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.resourceLinked.currentPage === config.data.page.resourceLinked.pageCount - 1 ? '' : config.init(2, null, config.data.page.resourceLinked.pageCount - 1);">
-                                                {{config.data.page.resourceLinked.pageCount - 1}}
-                                            </a>
-                                        </li>
-                                        <li :class="config.data.page.resourceLinked.currentPage === config.data.page.resourceLinked.pageCount ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.resourceLinked.currentPage === config.data.page.resourceLinked.pageCount ? '' : config.init(2, null, config.data.page.resourceLinked.pageCount);">
-                                                {{config.data.page.resourceLinked.pageCount}}
-                                            </a>
-                                        </li>
-                                    </template>
-                                    <template v-else>
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                        <li>
-                                            <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.resourceLinked.currentPage - 1)">
-                                                {{config.data.page.resourceLinked.currentPage - 1}}
-                                            </a>
-                                        </li>
-                                        <li class="active">
-                                            <a href="#" v-on:click.prevent>
-                                                {{config.data.page.resourceLinked.currentPage}}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.resourceLinked.currentPage + 1)">
-                                                {{config.data.page.resourceLinked.currentPage + 1}}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <span aria-hidden="true">...</span>
-                                        </li>
-                                    </template>
-                                </template>
-                                <li :class="config.data.page.resourceLinked.pageCount === config.data.page.resourceLinked.currentPage ? 'not-active disabled' : ''">
-                                    <a href="#" v-on:click.prevent="config.init(2, null, config.data.page.resourceLinked.pageCount);">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header modal-header-custom">
-                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.resource.name}}</h4>
-                    </div>
-                    <div class="modal-body modal-body-custom">
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                        <label v-on:click.prevent="config.alterLinkDef.see.resource.setVisibilityPosition()" class="label-three-option">
-                                            <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.alterLinkDef.see.resource.allPosVisible === 0 ? 'one' : config.alterLinkDef.see.resource.allPosVisible === 1 ? 'two' : 'three'">
-                                                <small></small>
-                                            </span>
-                                            {{config.alterLinkDef.see.resource.allPosVisible === 0 ? 'Todas' : config.alterLinkDef.see.resource.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
-                                        </label>
-                                        <span class="help-block">Ubicaciones</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <div class="steps-basic wizard clearfix">
-                                            <div class="steps clearfix">
-                                                <ul role="tablist">
-                                                    <li v-for="(steps, stepIndex) in config.alterLinkDef.see.resource.steps" role="tab"
-                                                    :class="[stepIndex === 0 ? 'first' : '',
-                                                            config.alterLinkDef.see.resource.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                                        <a href="#" v-on:click.prevent="steps.seen && config.alterLinkDef.see.resource.actualStep !== stepIndex ? config.alterLinkDef.see.resource.changeStep(stepIndex) : ''">
-                                                            <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="content clearfix">
-                                                <div class="row">
-                                                    <div style="padding-top: 20px"></div>
-                                                    <div :class="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                                        <div class="form-group">
-                                                            <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                                <label>
-                                                                    <span class="switchery switchery-default switchery-custom" :class="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active ? 'active' : 'not-active'">
-                                                                        <small></small>
-                                                                    </span>
-                                                                    {{config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active ? 'Si' : 'No'}}
-                                                                </label>
-                                                                <span class="help-block">¿Opera en {{config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].text}}?</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div v-if="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active" class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-4">Intervalos de atención</label>
-                                                            <div class="col-md-8">
-                                                                <input disabled="disabled" class="form-control" v-model="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].interval" type="number" name="Intervalos de atención">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div v-if="config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].active && Math.floor(parseInt(config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].interval)) > 0" class="row">
-                                                    <div style="padding-top: 20px"></div>
-                                                    <div class="col-sm-5">
-                                                        <div class="form-group text-center schedule-title">
-                                                            <label>Inicio</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                        <div class="form-group text-center schedule-title">
-                                                            <label>Final</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <div class="form-group text-center schedule-title">
-                                                            <label>Posición</label>
-                                                        </div>
-                                                    </div>
-                                                    <template v-for="(interval, intervalIndex) in config.alterLinkDef.see.resource.steps[config.alterLinkDef.see.resource.actualStep].schedule">
-                                                        <div class="col-sm-5">
-                                                            <div class="form-group">
-                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                                <span class="help-block">hh:mm:ss</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-5">
-                                                            <div class="form-group">
-                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                                <span class="help-block">hh:mm:ss</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                                <label v-on:click.prevent="config.alterLinkDef.see.resource.setActiveInterval(intervalIndex)">
-                                                                    <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
-                                                                        <small></small>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </template>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <div id="mapFocusPositionSeeResource" v-on:click="config.alterLinkDef.see.resource.focusPosition()" class="map-focus-position text-center">
-                                                                <i class="icon-shrink3"></i>
-                                                            </div>
-                                                            <div id="mapSeeResource" class="map-container-modal map-basic"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div style="height: 10px;"></div>
-                    </div>
-                    <div class="modal-footer modal-footer-custom">
-                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div :class="config.alterLinkDef.masive.config.active === 0 ? '' : 'active'" class="link-button-container">
-            <div class="row">
-                <div class="col-sm-6 text-center button">
-                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('remove')" v-if="config.alterLinkDef.masive.config.active === 1" href="#">
-                        <img src="/image/remove.png">
-                    </a>
-                </div>
-                <div class="col-sm-6 text-center button">
-                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('add')" v-if="config.alterLinkDef.masive.config.active === 2" href="#">
-                        <img src="/image/add.png">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 209 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="col-sm-12">
-        <div class="panel panel-flat">
-            <div class="panel-body">
-                <p class="content-group">
-                    RUTAS
-                </p>
-                
-            </div>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 210 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var verTienda = __webpack_require__(211);
-var editarTienda = __webpack_require__(212);
-Vue.component("ver-tienda", {
-    template: verTienda,
-    props: {
-        config: Object,
-        mask: Function,
-        setview: Function
-    }
-});
-Vue.component("editar-tienda", {
-    template: editarTienda,
-    props: {
-        config: Object,
-        mask: Function,
-        setview: Function
-    }
-});
-module.exports = `
-    <div>
-        <div v-if="config.active === 0" class="col-sm-12">
-            <div class="panel panel-flat">
-                <div class="panel-body">
-                    <p class="content-group">
-                    
-                    </p>
-                    <mcdatatable :title="'Tiendas'" :config="config.grid"></mcdatatable>
-                </div>
-            </div>
-        </div>
-        <ver-tienda v-else-if="config.active === 1" :config="config.watch" :mask="config.mask" :setview="config.setView"></ver-tienda>
-        <editar-tienda v-else-if="config.active === 2" :config="config.edit" :mask="config.mask" :setview="config.setView"></editar-tienda>
-    </div>
-`;
-
-/***/ }),
-/* 211 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="col-sm-12">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h4 class="panel-title text-center">{{config.name}}</h4>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a href="#" v-on:click.prevent="setview(2)" title="Editar"><i class="icon-pencil7"></i></i></a></li>
-                        <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Ubicación</h5>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <div id="mapFocusPositionSeeStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                <i class="icon-shrink3"></i>
-                            </div>
-                            <div id="mapSeeStore" class="map-container map-basic"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Horarios</h5>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <div class="steps-basic wizard clearfix">
-                                <div class="steps clearfix">
-                                    <ul role="tablist">
-                                        <li v-for="(steps, stepIndex) in config.steps" role="tab"
-                                        :class="[stepIndex === 0 ? 'first' : '',
-                                                config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                            <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
-                                                <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="content clearfix">
-                                    <div class="row">
-                                        <div style="padding-top: 20px"></div>
-                                        <div :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                            <div class="form-group">
-                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                    <label>
-                                                        <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
-                                                            <small></small>
-                                                        </span>
-                                                        {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
-                                                    </label>
-                                                    <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div v-if="config.steps[config.actualStep].active" class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Intervalos de atención</label>
-                                                <div class="col-md-8">
-                                                    <input disabled="disabled" class="form-control" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
-                                        <div style="padding-top: 20px"></div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group text-center schedule-title">
-                                                <label>Inicio</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group text-center schedule-title">
-                                                <label>Final</label>
-                                            </div>
-                                        </div>
-                                        <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                    <span class="help-block">hh:mm:ss</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                    <span class="help-block">hh:mm:ss</span>
-                                                </div>
-                                            </div>
-                                        </template>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 212 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="col-sm-12">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">{{config.name.value}}</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
-                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre">
-                            <span class="help-block">{{config.name.text}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Ubicación</h5>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <input id="searchEditStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                            <div id="mapFocusPositionEditStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                <i class="icon-shrink3"></i>
-                            </div>
-                            <div id="mapEditStore" class="map-container map-basic"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Horarios</h5>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <div class="steps-basic wizard clearfix">
-                                <div class="steps clearfix">
-                                    <ul role="tablist">
-                                        <li v-for="(steps, stepIndex) in config.steps" role="tab"
-                                        :class="[stepIndex === 0 ? 'first' : '',
-                                                config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                            <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
-                                                <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="content clearfix">
-                                    <div class="row">
-                                        <div style="padding-top: 20px"></div>
-                                        <div :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                            <div class="form-group">
-                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                    <label v-on:click.prevent="config.steps[config.actualStep].active = !config.steps[config.actualStep].active">
-                                                        <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
-                                                            <small></small>
-                                                        </span>
-                                                        {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
-                                                    </label>
-                                                    <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div v-if="config.steps[config.actualStep].active" class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Intervalos de atención</label>
-                                                <div class="col-md-8">
-                                                    <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
-                                                    <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
-                                        <div style="padding-top: 20px"></div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group text-center schedule-title">
-                                                <label>Inicio</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group text-center schedule-title">
-                                                <label>Final</label>
-                                            </div>
-                                        </div>
-                                        <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule" v-if="!interval.remove">
-                                            <div class="col-sm-6">
-                                                <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                    <span class="help-block">{{interval.textBegin}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                    <span class="help-block">{{interval.textEnd}}</span>
-                                                </div>
-                                            </div>
-                                        </template>
-                                    </div>
-                                </div>
-                                <div class="actions clearfix">
-                                    <ul role="menu" aria-label="Pagination">
-                                        <li>
-                                            <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit()" role="menuitem">Guardar</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 213 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="col-sm-12">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Tipo de Registro</h5>
-                <div v-if="config.typeSelection.type === 0 || config.typeSelection.type === 1" class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a href="#" v-on:click.prevent="config.reset('all')" title="Reinicializar"><i class="icon-reset"></i></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="panel-body">
-                <p class="content-group">
-                    
-                </p>
-                <div class="form-group">
-                    <div class="btn-group bootstrap-select show-tick" style="width: 100%;">
-                        <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button" :title="config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text">
-                            <span class="filter-option pull-left">{{config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text}}</span>&nbsp;
-                            <span class="bs-caret">
-                                <span class="caret"></span>
-                            </span>
-                        </button>
-                        <div class="dropdown-menu open" role="combobox">
-                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
-                                <li v-for="options in config.typeSelection.options" :class="config.typeSelection.type === options.value ? 'selected' : ''">
-                                    <a href="#" v-on:click.prevent="config.mainSelect(options.value)" tabindex="0" data-tokens="null" role="option" aria-disabled="false" aria-selected="true">
-                                        <span class="text">{{options.text}}</span>
-                                        <span class=" icon-checkmark3 check-mark"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Selección de archivo</h5>
-            </div>
-            <div class="panel-body">
-                <p class="content-group">
-                    
-                </p>
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <div class="uploader">
-                            <input type="file" class="file-styled">
-                            <span class="filename">No has seleccionado ningún archivo</span>
-                            <span class="action btn btn-default import-file">Selecciona un archivo</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <template v-else-if="config.typeSelection.type === 1">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Nombre</h5>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
-                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
-                                <span class="help-block">{{config.manualAdd.name.text}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Ubicación</h5>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <input id="searchAddStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                                <div id="mapFocusPositionAddStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                    <i class="icon-shrink3"></i>
-                                </div>
-                                <div id="mapAddStore" class="map-container map-basic"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Horarios</h5>
-                    <div class="heading-elements">
-                        <div class="heading-form">
-                            <div class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.manualAdd.sameConf = !config.manualAdd.sameConf; config.manualAdd.steps[0].active = true">
-                                        <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
-                                            <small></small>
-                                        </span>
-                                        {{config.manualAdd.sameConf ? 'Si' : 'No'}}
-                                    </label>
-                                    <span class="help-block">Generalizar horarios</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div v-if="config.manualAdd.sameConf" class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="steps-basic wizard clearfix">
-                                    <div class="content clearfix">
-                                        <div style="padding-top: 20px"></div>
-                                        <div class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div v-if="config.manualAdd.steps[0].active" class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4">Intervalos de atención</label>
-                                                    <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[0].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
-                                                        <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div v-if="config.manualAdd.steps[0].active" class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Inicio</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Final</label>
-                                                </div>
-                                            </div>
-                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[0].schedule">
-                                                <div class="col-sm-6">
-                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">{{interval.textBegin}}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">{{interval.textEnd}}</span>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </div>
-                                    </div>
-                                    <div class="actions clearfix">
-                                        <ul role="menu" aria-label="Pagination">
-                                            <li>
-                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-else class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="steps-basic wizard clearfix">
-                                    <div class="steps clearfix">
-                                        <ul role="tablist">
-                                            <li v-for="(steps, stepIndex) in config.manualAdd.steps" role="tab"
-                                            :class="[stepIndex === 0 ? 'first' : '',
-                                                    config.manualAdd.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                                <a href="#" v-on:click.prevent="steps.seen && config.manualAdd.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
-                                                    <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="content clearfix">
-                                        <div class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                                <div class="form-group">
-                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                        <label v-on:click.prevent="config.manualAdd.steps[config.manualAdd.actualStep].active = !config.manualAdd.steps[config.manualAdd.actualStep].active">
-                                                            <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'active' : 'not-active'">
-                                                                <small></small>
-                                                            </span>
-                                                            {{config.manualAdd.steps[config.manualAdd.actualStep].active ? 'Si' : 'No'}}
-                                                        </label>
-                                                        <span class="help-block">¿Opera en {{config.manualAdd.steps[config.manualAdd.actualStep].text}}?</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active" class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4">Intervalos de atención</label>
-                                                    <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
-                                                        <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active" class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Inicio</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Final</label>
-                                                </div>
-                                            </div>
-                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.actualStep].schedule">
-                                                <div class="col-sm-6">
-                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">{{interval.textBegin}}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">{{interval.textEnd}}</span>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </div>
-                                    </div>
-                                    <div class="actions clearfix">
-                                        <ul role="menu" aria-label="Pagination">
-                                            <li :class="config.manualAdd.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
-                                                <a class="btn btn-default" href="#previous" v-on:click.prevent="config.manualAdd.actualStep > 0 ? config.changeStep(config.manualAdd.actualStep - 1) : ''" role="menuitem">Anterior</a>
-                                            </li>
-                                            <li v-if="config.manualAdd.actualStep < config.manualAdd.steps.length - 1">
-                                                <a class="btn btn-info btn-customized" href="#next" v-on:click.prevent="config.changeStep(config.manualAdd.actualStep + 1)" role="menuitem">Siguiente</a>
-                                            </li>
-                                            <li v-else>
-                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
-    </div>
-`;
-
-/***/ }),
-/* 214 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var verRecurso = __webpack_require__(215);
-var editarRecurso = __webpack_require__(216);
-Vue.component("ver-recurso", {
-    template: verRecurso,
-    props: {
-        config: Object,
-        mask: Function,
-        setview: Function
-    }
-});
-Vue.component("editar-recurso", {
-    template: editarRecurso,
-    props: {
-        config: Object,
-        mask: Function,
-        setview: Function
-    }
-});
-module.exports = `
-    <div>
-        <div v-if="config.active === 0" class="col-sm-12">
-            <div class="panel panel-flat">
-                <div class="panel-body">
-                    <p class="content-group">
-                    
-                    </p>
-                    <mcdatatable :title="'Recursos Humanos'" :config="config.grid"></mcdatatable>
-                </div>
-            </div>
-        </div>
-        <ver-recurso v-else-if="config.active === 1" :config="config.watch" :mask="config.mask" :setview="config.setView"></ver-recurso>
-        <editar-recurso v-else-if="config.active === 2" :config="config.edit" :mask="config.mask" :setview="config.setView"></editar-recurso>
-    </div>
-`;
-
-/***/ }),
-/* 215 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="col-sm-12">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h4 class="panel-title text-center">{{config.name}}</h4>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a href="#" v-on:click.prevent="setview(2)" title="Editar"><i class="icon-pencil7"></i></i></a></li>
-                        <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Correo electrónico</label>
-                        <div class="col-lg-10">
-                            <input disabled="disabled" class="form-control" v-model="config.email" type="text" name="Correo electrónico">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Fecha de ingreso</label>
-                        <div class="col-lg-10">
-                            <input disabled="disabled" class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.date" type="date" name="Fecha de ingreso">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Horarios y Ubicaciones</h5>
-                <div class="heading-elements">
-                        <div class="heading-form">
-                            <div class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
-                                        <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.allPosVisible === 0 ? 'one' : config.allPosVisible === 1 ? 'two' : 'three'">
-                                            <small></small>
-                                        </span>
-                                        {{config.allPosVisible === 0 ? 'Todas' : config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
-                                    </label>
-                                    <span class="help-block">Ubicaciones</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <div class="steps-basic wizard clearfix">
-                                <div class="steps clearfix">
-                                    <ul role="tablist">
-                                        <li v-for="(steps, stepIndex) in config.steps" role="tab"
-                                        :class="[stepIndex === 0 ? 'first' : '',
-                                                config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                            <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
-                                                <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="content clearfix">
-                                    <div class="row">
-                                        <div style="padding-top: 20px"></div>
-                                        <div :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                            <div class="form-group">
-                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                    <label>
-                                                        <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
-                                                            <small></small>
-                                                        </span>
-                                                        {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
-                                                    </label>
-                                                    <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div v-if="config.steps[config.actualStep].active" class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Intervalos de atención</label>
-                                                <div class="col-md-8">
-                                                    <input disabled="disabled" class="form-control" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
-                                        <div style="padding-top: 20px"></div>
-                                        <div class="col-sm-5">
-                                            <div class="form-group text-center schedule-title">
-                                                <label>Inicio</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-5">
-                                            <div class="form-group text-center schedule-title">
-                                                <label>Final</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group text-center schedule-title">
-                                                <label>Posición</label>
-                                            </div>
-                                        </div>
-                                        <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule">
-                                            <div class="col-sm-5">
-                                                <div class="form-group">
-                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                    <span class="help-block">hh:mm:ss</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <div class="form-group">
-                                                    <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                    <span class="help-block">hh:mm:ss</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                    <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
-                                                        <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
-                                                            <small></small>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </template>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div id="mapFocusPositionSeeResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                                    <i class="icon-shrink3"></i>
-                                                </div>
-                                                <div id="mapSeeResource" class="map-container map-basic"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 216 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="col-sm-12">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Tipo de Registro</h5>
-                <div v-if="config.typeSelection.type === 0 || config.typeSelection.type === 1" class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a href="#" v-on:click.prevent="config.reset('all')" title="Reinicializar"><i class="icon-reset"></i></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="panel-body">
-                <p class="content-group">
-                    
-                </p>
-                <div class="form-group">
-                    <div class="btn-group bootstrap-select show-tick" style="width: 100%;">
-                        <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button" :title="config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text">
-                            <span class="filter-option pull-left">{{config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text}}</span>&nbsp;
-                            <span class="bs-caret">
-                                <span class="caret"></span>
-                            </span>
-                        </button>
-                        <div class="dropdown-menu open" role="combobox">
-                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
-                                <li v-for="options in config.typeSelection.options" :class="config.typeSelection.type === options.value ? 'selected' : ''">
-                                    <a href="#" v-on:click.prevent="config.mainSelect(options.value)" tabindex="0" data-tokens="null" role="option" aria-disabled="false" aria-selected="true">
-                                        <span class="text">{{options.text}}</span>
-                                        <span class=" icon-checkmark3 check-mark"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">{{config.typeSelection.options[config.typeSelection.type].text}}</h5>
-            </div>
-            <div class="panel-body">
-                <p class="content-group">
-                    
-                </p>
-            </div>
-        </div>
-        <template v-else-if="config.typeSelection.type === 1">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">General</h5>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
-                            <label class="control-label col-lg-2">Nombre</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div :class="config.manualAdd.email.valid ? '' : 'has-error'" class="form-group">
-                            <label class="control-label col-lg-2">Correo electrónico</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div :class="config.manualAdd.pass.valid ? '' : 'has-error'" class="form-group">
-                            <label class="control-label col-lg-2">Contraseña</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div :class="config.manualAdd.repass.valid ? '' : 'has-error'" class="form-group">
-                            <label class="control-label col-lg-2">Confirmar contraseña</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div :class="config.manualAdd.date.valid ? '' : 'has-error'" class="form-group">
-                            <label class="control-label col-lg-2">Fecha de ingreso</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.manualAdd.date.value" type="date" name="Fecha de ingreso">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Ubicaciones y Horarios</h5>
-                    <div class="heading-elements">
-                        <div class="heading-form">
-                            <div v-if="!config.manualAdd.sameConf" class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.setVisibilityPosition()">
-                                        <span class="switchery switchery-default switchery-custom info" :class="config.manualAdd.allPosVisible ? 'active' : 'not-active'">
-                                            <small></small>
-                                        </span>
-                                        {{config.manualAdd.allPosVisible ? 'Si' : 'No'}}
-                                    </label>
-                                    <span class="help-block">Todas las ubicaciones</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.initConfiguration()">
-                                        <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
-                                            <small></small>
-                                        </span>
-                                        {{config.manualAdd.sameConf ? 'Si' : 'No'}}
-                                    </label>
-                                    <span class="help-block">Generalizar horarios</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="steps-basic wizard clearfix">
-                                    <template v-if="config.manualAdd.sameConf">
-                                        <div style="padding-top: 20px"></div>
-                                    </template>
-                                    <div v-else class="steps clearfix">
-                                        <ul role="tablist">
-                                            <li v-for="(steps, stepIndex) in config.manualAdd.steps" role="tab"
-                                            :class="[stepIndex === 0 ? 'first' : '',
-                                                    config.manualAdd.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                                <a href="#" v-on:click.prevent="steps.seen && config.manualAdd.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
-                                                    <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="content clearfix">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                                        <i class="icon-shrink3"></i>
-                                                    </div>
-                                                    <div id="mapAddResource" class="map-container map-basic"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div v-if="!config.manualAdd.sameConf" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                                <div class="form-group">
-                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                        <label v-on:click.prevent="config.setActivity()">
-                                                            <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'active' : 'not-active'">
-                                                                <small></small>
-                                                            </span>
-                                                            {{config.manualAdd.steps[config.manualAdd.actualStep].active ? 'Si' : 'No'}}
-                                                        </label>
-                                                        <span class="help-block">¿Opera en {{config.manualAdd.steps[config.manualAdd.actualStep].text}}?</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active" :class="config.manualAdd.sameConf ? 'col-sm-12' : 'col-sm-6'">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4">Intervalos de atención</label>
-                                                    <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" name="Intervalos de atención">
-                                                        <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div v-if="config.manualAdd.steps[config.manualAdd.actualStep].active && Math.floor(parseInt(config.manualAdd.steps[config.manualAdd.actualStep].interval)) > 0" class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Inicio</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Final</label>
-                                                </div>
-                                            </div>
-                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.actualStep].schedule">
-                                                <div class="col-sm-6">
-                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">hh:mm:ss</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">hh:mm:ss</span>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </div>
-                                    </div>
-                                    <div class="actions clearfix">
-                                        <ul role="menu" aria-label="Pagination">
-                                            <template v-if="config.manualAdd.sameConf">
-                                                <li>
-                                                    <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
-                                                </li>
-                                            </template>
-                                            <template v-else>
-                                                <li :class="config.manualAdd.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
-                                                    <a class="btn btn-default" href="#previous" v-on:click.prevent="config.manualAdd.actualStep > 0 ? config.changeStep(config.manualAdd.actualStep - 1) : ''" role="menuitem">Anterior</a>
-                                                </li>
-                                                <li v-if="config.manualAdd.actualStep < config.manualAdd.steps.length - 1">
-                                                    <a class="btn btn-info" href="#next" v-on:click.prevent="config.changeStep(config.manualAdd.actualStep + 1)" role="menuitem">Siguiente</a>
-                                                </li>
-                                                <li v-else>
-                                                    <a class="btn btn-info" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
-                                                </li>
-                                            </template>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
-    </div>
-`;
-
-/***/ }),
-/* 217 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="col-sm-12">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Tipo de Registro</h5>
-                <div v-if="config.typeSelection.type === 0 || config.typeSelection.type === 1" class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a href="#" v-on:click.prevent="config.reset('all')" title="Reinicializar"><i class="icon-reset"></i></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="panel-body">
-                <p class="content-group">
-                    
-                </p>
-                <div class="form-group">
-                    <div class="btn-group bootstrap-select show-tick" style="width: 100%;">
-                        <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" role="button" :title="config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text">
-                            <span class="filter-option pull-left">{{config.typeSelection.type === null ? 'Selecciona una opción' : config.typeSelection.options[config.typeSelection.type].text}}</span>&nbsp;
-                            <span class="bs-caret">
-                                <span class="caret"></span>
-                            </span>
-                        </button>
-                        <div class="dropdown-menu open" role="combobox">
-                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
-                                <li v-for="options in config.typeSelection.options" :class="config.typeSelection.type === options.value ? 'selected' : ''">
-                                    <a href="#" v-on:click.prevent="config.mainSelect(options.value)" tabindex="0" data-tokens="null" role="option" aria-disabled="false" aria-selected="true">
-                                        <span class="text">{{options.text}}</span>
-                                        <span class=" icon-checkmark3 check-mark"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Selección de archivo</h5>
-            </div>
-            <div class="panel-body">
-                <p class="content-group">
-                    
-                </p>
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <div class="uploader">
-                            <input type="file" class="file-styled">
-                            <span class="filename">No has seleccionado ningún archivo</span>
-                            <span class="action btn btn-default import-file">Selecciona un archivo</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <template v-else-if="config.typeSelection.type === 1">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">General</h5>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
-                            <label class="control-label col-lg-2">Nombre</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
-                                <span class="help-block">{{config.manualAdd.name.text}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div :class="config.manualAdd.email.valid ? '' : 'has-error'" class="form-group">
-                            <label class="control-label col-lg-2">Correo electrónico</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico">
-                                <span class="help-block">{{config.manualAdd.email.text}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div :class="config.manualAdd.pass.valid ? '' : 'has-error'" class="form-group">
-                            <label class="control-label col-lg-2">Contraseña</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña">
-                                <span class="help-block">{{config.manualAdd.pass.text}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div :class="config.manualAdd.repass.valid ? '' : 'has-error'" class="form-group">
-                            <label class="control-label col-lg-2">Confirmar contraseña</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña">
-                                <span class="help-block">{{config.manualAdd.repass.text}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div :class="config.manualAdd.date.valid ? '' : 'has-error'" class="form-group">
-                            <label class="control-label col-lg-2">Fecha de ingreso</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.manualAdd.date.value" type="date" name="Fecha de ingreso">
-                                <span class="help-block">{{config.manualAdd.date.text}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Horarios y Ubicaciones</h5>
-                    <div class="heading-elements">
-                        <div class="heading-form">
-                            <div v-if="config.manualAdd.sameConf" class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.manualAdd.allPosVisible = config.manualAdd.allPosVisible === 1 ? 2 : 1; config.setVisibilityPosition(true)">
-                                        <span class="switchery switchery-default switchery-custom info" :class="config.manualAdd.allPosVisible === 1 ? 'active' : 'not-active'">
-                                            <small></small>
-                                        </span>
-                                        {{config.manualAdd.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
-                                    </label>
-                                    <span class="help-block">Ubicaciones</span>
-                                </div>
-                            </div>
-                            <div v-else class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
-                                        <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.manualAdd.allPosVisible === 0 ? 'one' : config.manualAdd.allPosVisible === 1 ? 'two' : 'three'">
-                                            <small></small>
-                                        </span>
-                                        {{config.manualAdd.allPosVisible === 0 ? 'Todas' : config.manualAdd.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
-                                    </label>
-                                    <span class="help-block">Ubicaciones</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.initConfiguration()">
-                                        <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.sameConf ? 'active' : 'not-active'">
-                                            <small></small>
-                                        </span>
-                                        {{config.manualAdd.sameConf ? 'Si' : 'No'}}
-                                    </label>
-                                    <span class="help-block">Generalizar horarios</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="steps-basic wizard clearfix">
-                                    <template v-if="config.manualAdd.sameConf">
-                                        <div style="padding-top: 20px"></div>
-                                    </template>
-                                    <div v-else class="steps clearfix">
-                                        <ul role="tablist">
-                                            <li v-for="(steps, stepIndex) in config.manualAdd.steps" role="tab"
-                                            :class="[stepIndex === 0 ? 'first' : '',
-                                                    config.manualAdd.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                                <a href="#" v-on:click.prevent="steps.seen && config.manualAdd.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
-                                                    <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="content clearfix">
-                                        <div class="row">
-                                            <div v-if="!config.manualAdd.sameConf" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                                <div class="form-group">
-                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                        <label v-on:click.prevent="config.setActivity()">
-                                                            <span class="switchery switchery-default switchery-custom" :class="config.manualAdd.steps[config.manualAdd.actualStep].active ? 'active' : 'not-active'">
-                                                                <small></small>
-                                                            </span>
-                                                            {{config.manualAdd.steps[config.manualAdd.actualStep].active ? 'Si' : 'No'}}
-                                                        </label>
-                                                        <span class="help-block">¿Opera en {{config.manualAdd.steps[config.manualAdd.actualStep].text}}?</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-if="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].active" :class="config.manualAdd.sameConf ? 'col-sm-12' : 'col-sm-6'">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4">Intervalos de atención</label>
-                                                    <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
-                                                        <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div v-if="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].active" class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div class="col-sm-5">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Inicio</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Final</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Posición</label>
-                                                </div>
-                                            </div>
-                                            <template v-for="(interval, intervalIndex) in config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].schedule">
-                                                <div class="col-sm-5">
-                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">{{interval.textBegin}}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-5">
-                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">{{interval.textEnd}}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                        <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
-                                                            <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
-                                                                <small></small>
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </div>
-                                        <div class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                                        <i class="icon-shrink3"></i>
-                                                    </div>
-                                                    <div id="mapAddResource" class="map-container map-basic"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="actions clearfix">
-                                        <div style="padding-top: 20px"></div>
-                                        <ul role="menu" aria-label="Pagination">
-                                            <template v-if="config.manualAdd.sameConf">
-                                                <li>
-                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
-                                                </li>
-                                            </template>
-                                            <template v-else>
-                                                <li :class="config.manualAdd.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
-                                                    <a class="btn btn-default" href="#previous" v-on:click.prevent="config.manualAdd.actualStep > 0 ? config.changeStep(config.manualAdd.actualStep - 1) : ''" role="menuitem">Anterior</a>
-                                                </li>
-                                                <li v-if="config.manualAdd.actualStep < config.manualAdd.steps.length - 1">
-                                                    <a class="btn btn-info btn-customized" href="#next" v-on:click.prevent="config.changeStep(config.manualAdd.actualStep + 1)" role="menuitem">Siguiente</a>
-                                                </li>
-                                                <li v-else>
-                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
-                                                </li>
-                                            </template>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
-    </div>
-`;
-
-/***/ }),
-/* 218 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div>
-        <h1>Reportes</h1>
-        <span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=use_case_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fuse_case_diagram.xml" >Diagrama de casos de uso</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=activity_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Factivity_diagram.xml" >Diagrama de actividades</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=sequence_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fsequence_diagram.xml" >Diagrama de secuencia</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=mock_up.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fmock_up.xml" >Mock up</a></span>
-    </div>
-`;
-
-/***/ }),
-/* 219 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="col-sm-8">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Basic map</h5>
-            </div>
-            <div class="panel-body">
-                <p class="content-group">
-                
-                </p>
-                <div id="map" class="map-container map-basic"></div>
-            </div>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 220 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="col-sm-4">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Basic map</h5>
-            </div>
-            <div class="panel-body">
-                <div class="map-toolbar">
-                    <div class="row title-info">
-                        <div class="col-sm-12">
-                            <span>Distancia Total: {{config.configuration.service.totalDistance / 1000}} km.</span>
-                        </div>
-                        <div class="col-sm-12">
-                            <span>Tiempo Total: {{Math.floor((config.configuration.service.totalTime + config.configuration.service.deathTime * 60) / 60) + ' min. ' + Math.floor(((config.configuration.service.totalTime / 60) % 1) * 60) + ' seg.'}}</span>
-                        </div>
-                        <div class="col-sm-12 text-right">
-                            <button v-on:click="config.collapse()" class="btn btn-info btn-small">
-                                {{config.configuration.stepsHidden ? 'Expandir' : 'Colapsar'}} <i :class="config.configuration.stepsHidden ? 'fa-sort-desc' : 'fa-sort-asc'" class="fa" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <template v-if="config.configuration.service.travelDetails.legs.length > 0">
-                        <template v-for="(data, dataIndex) in config.configuration.service.travelDetails.legs">
-                            <div class="row main-info">
-                                <div class="col-sm-2">
-                                    <img :src="data.iconStart">
-                                </div>
-                                <div class="col-sm-10">
-                                    <a href="#" v-on:click.prevent="data.hidden = !data.hidden">
-                                        <span>{{data.start}}</span>
-                                    </a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <span>Tiempo Muerto (minutos):</span>
-                                </div>
-                                <div class="col-sm-6">
-                                    <input v-on:keyup="config.computeRoute(false)" class="form-control" v-model="data.deathTime" type="number" value="0">
-                                </div>
-                            </div>
-                            <template v-for="steps in data.steps" v-if="!data.hidden">
-                                <div class="row second-info">
-                                    <div class="col-sm-12">
-                                        <span>{{steps.instructions}}</span>
-                                    </div>
-                                    <div class="col-sm-12 value-info text-center">
-                                        <span>(Distancia aproximada: {{steps.distance.text}}. Tiempo aproximado: {{steps.duration.text}})</span>
-                                    </div>
-                                </div>
-                            </template>
-                            <div v-if="config.configuration.service.travelDetails.legs.length - 1 === dataIndex" class="row main-info">
-                                <div class="col-sm-1">
-                                    <img :src="data.iconEnd">
-                                </div>
-                                <div class="col-sm-10">
-                                    <span>{{data.end}}</span>
-                                </div>
-                            </div>
-                        </template>
-                        <div class="row warning-info">
-                            <span>Notas:</span>
-                            <div v-for="data in config.configuration.service.travelDetails.warnings" class="col-sm-12">
-                                <span>{{data.text}}</span>
-                            </div>
-                        </div>
-                        <div class="row copyright-info text-center">
-                            <div class="col-sm-12">
-                                <span>{{config.configuration.service.travelDetails.copyrights}}</span>
-                            </div>
-                        </div>
-                    </template>
-                </div>
-            </div>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 221 */
+/* 225 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -34361,7 +35393,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 222 */
+/* 226 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -34732,7 +35764,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 223 */
+/* 227 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -34797,6 +35829,25 @@ module.exports = new Vue({
                 ]
             },
             {
+                title: "Rutas",
+                icon: "icon-direction",
+                dropdown: [
+                    {
+                        title: "General",
+                        subs: [
+                            {
+                                title: "Rutas registradas",
+                                icon: "icon-location4"
+                            },
+                            {
+                                title: "Nueva ruta",
+                                icon: "icon-compass4"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
                 title: "Reportes",
                 icon: "icon-drawer3",
                 dropdown: []
@@ -34809,12 +35860,12 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 224 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var tiendasLigadas = __webpack_require__(225);
-var recursosLigados = __webpack_require__(226);
-var rutas = __webpack_require__(227);
+var tiendasLigadas = __webpack_require__(229);
+var recursosLigados = __webpack_require__(230);
+var rutas = __webpack_require__(231);
 module.exports = new Vue({
     data: {
         active: 0,
@@ -35026,10 +36077,10 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 225 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var verTienda = __webpack_require__(81);
+var verTienda = __webpack_require__(42);
 module.exports = new Vue({
     data: {
         client: {
@@ -35457,7 +36508,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 226 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var verRecurso = __webpack_require__(82);
@@ -35832,7 +36883,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 227 */
+/* 231 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -35858,11 +36909,11 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 228 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var verTienda = __webpack_require__(81);
-var editarTienda = __webpack_require__(229);
+var verTienda = __webpack_require__(42);
+var editarTienda = __webpack_require__(233);
 module.exports = new Vue({
     data: {
         active: 0,
@@ -36030,7 +37081,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 229 */
+/* 233 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -36331,7 +37382,8 @@ module.exports = new Vue({
                this.map.marker.position.lng !== null)
                 this.map.marker.main = new google.maps.Marker({
                     map: this.map.main,
-                    position: this.map.marker.position
+                    position: this.map.marker.position,
+                    icon: "/image/maps/blue.png"
                 });
         },
         focusPosition: function(){
@@ -36350,7 +37402,8 @@ module.exports = new Vue({
             else
                 this.map.marker.main = new google.maps.Marker({
                     map: this.map.main,
-                    position: pos
+                    position: pos,
+                    icon: "/image/maps/blue.png"
                 });
             this.map.marker.position.lat = pos.lat();
             this.map.marker.position.lng = pos.lng();
@@ -36614,7 +37667,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 230 */
+/* 234 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -36919,7 +37972,8 @@ module.exports = new Vue({
             else
                 this.manualAdd.map.marker.main = new google.maps.Marker({
                     map: this.manualAdd.map.main,
-                    position: pos
+                    position: pos,
+                    icon: "/image/maps/blue.png"
                 });
             this.manualAdd.map.marker.position.lat = pos.lat();
             this.manualAdd.map.marker.position.lng = pos.lng();
@@ -37223,11 +38277,11 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 231 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var verRecurso = __webpack_require__(82);
-var editarRecurso = __webpack_require__(232);
+var editarRecurso = __webpack_require__(236);
 module.exports = new Vue({
     data: {
         active: 0,
@@ -37398,7 +38452,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 232 */
+/* 236 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -38399,7 +39453,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 233 */
+/* 237 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -38773,13 +39827,15 @@ module.exports = new Vue({
                 if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
                    this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
                    this.manualAdd.steps[i].schedule[j].lng_begin !== null){    //Is showed in map
-                    this.manualAdd.steps[i].schedule[j].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                    this.manualAdd.steps[i].schedule[j].main_begin.setLabel(this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1));
+                    this.manualAdd.steps[i].schedule[j].main_begin.setTitle("Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[i].text));
                     this.manualAdd.steps[i].schedule[j].main_begin.setMap(this.manualAdd.map.main);
                 }
                 if(this.manualAdd.steps[i].schedule[j].main_end !== null &&
                    this.manualAdd.steps[i].schedule[j].lat_end !== null &&
                    this.manualAdd.steps[i].schedule[j].lng_end !== null){    //Is showed in map
-                    this.manualAdd.steps[i].schedule[j].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                    this.manualAdd.steps[i].schedule[j].main_end.setLabel(this.manualAdd.map.marker[i][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1));
+                    this.manualAdd.steps[i].schedule[j].main_end.setTitle("Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[i].text));
                     this.manualAdd.steps[i].schedule[j].main_end.setMap(this.manualAdd.map.main);
                 }
             }
@@ -38933,7 +39989,12 @@ module.exports = new Vue({
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin = new google.maps.Marker({
                                 map: this.manualAdd.map.main,
                                 position: pos,
-                                icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"
+                                icon: {
+                                    url: "/image/maps/green-empty.png",
+                                    labelOrigin: new google.maps.Point(11, 11)
+                                },
+                                label: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1),
+                                title: "Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text),
                             });
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_begin = pos.lat();
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_begin = pos.lng();
@@ -38944,7 +40005,8 @@ module.exports = new Vue({
                             this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_begin === null){
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setMap(this.manualAdd.map.main);
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setPosition(pos);
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setLabel(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1));
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setTitle("Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text));
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_begin = pos.lat();
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_begin = pos.lng();
                     }
@@ -38953,7 +40015,12 @@ module.exports = new Vue({
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end = new google.maps.Marker({
                                 map: this.manualAdd.map.main,
                                 position: pos,
-                                icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"
+                                icon: {
+                                    url: "/image/maps/red-empty.png",
+                                    labelOrigin: new google.maps.Point(11, 11)
+                                },
+                                label: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1),
+                                title: "Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text),
                             });
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.addListener("dblclick", function(){
                             
@@ -38967,7 +40034,8 @@ module.exports = new Vue({
                             this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_end === null){
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setMap(this.manualAdd.map.main);
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setPosition(pos);
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setLabel(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1));
+                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setTitle("Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text));
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_end = pos.lat();
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_end = pos.lng();
                     }
@@ -39468,6 +40536,2030 @@ module.exports = new Vue({
                         this.manualAdd.steps[i].seen = (this.manualAdd.steps[i].dayNumber === 2) ? true : false;
                         this.manualAdd.steps[i].schedule = [];
                         this.manualAdd.steps[i].schedule.push({
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
+                        
+                            main_begin: null,
+                            main_end: null,
+                            lat_begin: null,
+                            lng_begin: null,
+                            lat_end: null,
+                            lng_end: null,
+                            active: true
+                        });
+                    }
+                    break;
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 238 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var verRuta = __webpack_require__(239);
+var editarRuta = __webpack_require__(240);
+module.exports = new Vue({
+    data: {
+        active: 0,
+        grid: null,
+        watch: verRuta,
+        edit: editarRuta
+    },
+    methods: {
+        init(e){
+            var me = this;
+            this.mask = e.mask;
+            this.watch.models.ruta = e.ruta;
+            this.watch.models.rutaPunto = e.rutaPunto;
+            this.watch.models.rutaPuntoServicio = e.rutaPuntoServicio;
+            this.edit.models.ruta = e.ruta;
+            this.edit.models.rutaPunto = e.rutaPunto;
+            this.edit.models.rutaPuntoServicio = e.rutaPuntoServicio;
+            this.grid = new BUTO.requires.modules.mcdatatable({
+                id: "rutasRegistradas",
+                head: [
+                    {title: "id", hidden: true, input: {type: 'number'}},
+                    {title: "nombre", input: {type: 'text'}, editable: true, orderable: true, searchable: {active: true, type: "filter"}},
+                    {
+                        title: "dia",
+                        input: {
+                            type: 'select',
+                            options:[
+                                {
+                                    text: "Domingo",
+                                    value: 1
+                                },
+                                {
+                                    text: "Lunes",
+                                    value: 2
+                                },
+                                {
+                                    text: "Martes",
+                                    value: 3
+                                },
+                                {
+                                    text: "Miércoles",
+                                    value: 4
+                                },
+                                {
+                                    text: "Jueves",
+                                    value: 5
+                                },
+                                {
+                                    text: "Viernes",
+                                    value: 6
+                                },
+                                {
+                                    text: "Sábado",
+                                    value: 7
+                                }
+                            ]
+                        },
+                        editable: true,
+                        orderable: true,
+                        searchable: {
+                            active: true,
+                            type: "status"
+                            }
+                        },
+                    {title: "hora_inicio", input: {type: 'email'}, editable: true, orderable: true, searchable: {active: true, type: "filter"}},
+                    {title: "hora_fin", input: {type: 'email'}, editable: true, orderable: true, searchable: {active: true, type: "filter"}}
+                ],
+                style: {
+                    noText: true,
+                    general: [
+                        "table",
+                        "table-bordered"
+                    ],
+                    head: [
+                        "table-inverse"
+                    ],
+                    body: [
+                        "body-class"
+                    ],
+                    row: {
+                        active: true,
+                        styleClass: [
+                            "grid-row-customized"
+                        ]
+                    },
+                    highlight: {
+                        active: true,
+                        styleClass: [
+                            "grid-row-highlight-customized"
+                        ]
+                    },
+                    responsive: true,
+                    pagination: {
+                        rowPerPage: 25
+                    },
+                    draggable: false,
+                },
+                webService: {
+                    active: true,
+                    model: e.ruta,
+                    headers: {
+                        currentPage: "X-Pagination-Current-Page",
+                        pageCount: "X-Pagination-Page-Count",
+                        rowPerPage: "X-Pagination-Per-Page",
+                        totalRowCount: "X-Pagination-Total-Count"
+                    }
+                },
+                handlers: {
+                    watch: {
+                        active: true,
+                        type: "template"
+                    },
+                    add: {
+                        active: true,
+                        type: "template"
+                    },
+                    edit: {
+                        active: true,
+                        type: "template"
+                    },
+                    remove: {
+                        active: false
+                    },
+                },
+                customHandlers: [
+                    {
+                        active: true,
+                        title: "Eliminar usuario",
+                        fullHandler: false,
+                        anchorCellClass: [
+                            ""
+                        ],
+                        highlight: true,
+                        glyphiconClass: "glyphicon-remove",
+                        handler: function(data){
+                            console.log(data);
+                        }
+                    }
+                ],
+                templateWatch: function(id, index){
+                    me.watch.id = id;
+                    me.edit.id = id;
+                    me.setView(1);
+                },
+                templateEdit: function(id, index){
+                    me.edit.id = id;
+                    me.setView(2);
+                },
+                //beforeEdit: function(){
+                //    BUTO.components.main.loader.loading();
+                //},
+                beforeRemove: function(data, success){
+                    BUTO.components.main.confirm.description.title = data.title;
+                    BUTO.components.main.confirm.description.text = data.text;
+                    BUTO.components.main.confirm.description.accept = data.accept;
+                    BUTO.components.main.confirm.description.cancel = data.cancel;
+                    BUTO.components.main.confirm.active = data.active;
+                    BUTO.components.main.confirm.onAccept = function(){
+                        BUTO.components.main.loader.loading();
+                        success();
+                        BUTO.components.main.confirm.active = false;
+                    };
+                },
+                //beforeAdd: function(){
+                //    BUTO.components.main.loader.loading();
+                //},
+                //onEdit: function(data, success){
+                //    if(!success){
+                //        BUTO.components.main.alert.description.title = data.title;
+                //        BUTO.components.main.alert.description.text = data.text;
+                //        BUTO.components.main.alert.description.ok = data.ok;
+                //        BUTO.components.main.alert.active = data.active;
+                //    }
+                //    BUTO.components.main.loader.loaded();
+                //},
+                onRemove: function(data){
+                    BUTO.components.main.loader.loaded();
+                },
+                //onAdd: function(data, success){
+                //    console.log(data, success);
+                //    if(!success){
+                //        BUTO.components.main.alert.description.title = data.title;
+                //        BUTO.components.main.alert.description.text = data.text;
+                //        BUTO.components.main.alert.description.ok = data.ok;
+                //        BUTO.components.main.alert.active = data.active;
+                //    }
+                //    BUTO.components.main.loader.loaded();
+                //},
+                //onChangeColumns: function(data){
+                //    console.log(data);
+                //},
+                //onDragEnd: function(data){
+                //    console.log(data);
+                //}
+            });
+        },
+        setView: function(e){
+            var me = this;
+            this.active = e;
+            Vue.nextTick(function(){
+                if(e === 1)
+                    me.watch.init();
+                else if(e === 2)
+                    me.edit.init();
+            });
+        },
+        mask: function(){
+            
+        }
+    }
+});
+
+/***/ }),
+/* 239 */
+/***/ (function(module, exports) {
+
+module.exports = new Vue({
+    data: {
+        id: null,
+        name: null,
+        models: {
+            ruta: null,
+            rutaPunto: null,
+            rutaPuntoServicio: null
+        },
+        map: {
+            main: null,
+            marker: {
+                main: null,
+                position: {
+                    lat: null,
+                    lng: null
+                },
+            },
+            data: {
+                zoom: 18
+            }
+        },
+        actualStep: 0,
+        steps: [
+            {
+                text: "Lunes",
+                dayNumber: 2,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Martes",
+                dayNumber: 3,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Miércoles",
+                dayNumber: 4,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Jueves",
+                dayNumber: 5,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Viernes",
+                dayNumber: 6,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Sábado",
+                dayNumber: 7,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Domingo",
+                dayNumber: 1,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+        ]
+    },
+    methods: {
+        init: function(type, first){
+            //var me = this;
+            //this.actualStep = 0;
+            //for(var i = 0; i < me.steps.length; i++)
+            //    this.steps[i].schedule = [];
+            //this.models.sucursal.get({
+            //    delimiters: this.id
+            //},
+            //function(success){
+            //    me.name = success.body.nombre;
+            //    me.map.marker.position.lat = success.body.lat;
+            //    me.map.marker.position.lng = success.body.lng;
+            //    if(type === "modal"){
+            //        setTimeout(function(){
+            //            me.initMap(type, first);
+            //        }, 250);
+            //    }
+            //    else
+            //        me.initMap(type, first);
+            //},
+            //function(error){
+            //    console.log(error);
+            //});
+            //this.models.sucursalHorario.get({
+            //    delimiters: this.id,
+            //    params: {
+            //        "per-page": 100,
+            //        "sort": "hora_inicio"
+            //    }
+            //},
+            //function(success){
+            //    var interval = [0, 0, 0, 0, 0, 0, 0];
+            //    for(i = 0; i < success.body.length; i++){
+            //        interval[success.body[i].dia - 1]++;
+            //        switch(success.body[i].dia){
+            //            case 1:     //SUN
+            //                me.steps[6].schedule.push({
+            //                    begin: success.body[i].hora_inicio,
+            //                    end: success.body[i].hora_fin
+            //                });
+            //                break;
+            //            default:
+            //                me.steps[success.body[i].dia - 2].schedule.push({
+            //                    begin: success.body[i].hora_inicio,
+            //                    end: success.body[i].hora_fin
+            //                });
+            //                break;
+            //        }
+            //    }
+            //    for(i = 0; i < me.steps.length; i++){
+            //        me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
+            //        me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
+            //    }
+            //},
+            //function(error){
+            //    console.log(error);
+            //});
+        },
+        initMap: function(type, first){
+            if(type !== "modal" || (type === "modal" && first))
+                this.map.main = new google.maps.Map(document.getElementById('mapSeeStore'), {     //Define Map
+                    zoom: this.map.data.zoom,
+                    center: this.map.marker.position
+                });
+            else
+                this.map.main.setCenter(this.map.marker.position);
+            this.initPosition();
+            if(type !== "modal" || first)
+                this.initFocus();
+        },
+        initFocus: function(){
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeStore'));
+        },
+        initPosition: function(){
+            this.map.marker.main = new google.maps.Marker({
+                map: this.map.main,
+                position: this.map.marker.position
+            });
+        },
+        focusPosition: function(){
+            this.map.main.setCenter({
+                lat: this.map.marker.position.lat,
+                lng: this.map.marker.position.lng
+            });
+            this.map.main.setZoom(this.map.data.zoom);
+        },
+        changeStep: function(e){
+            this.actualStep = e;
+            this.steps[e].seen = true;
+        }
+    }
+});
+
+/***/ }),
+/* 240 */
+/***/ (function(module, exports) {
+
+module.exports = new Vue({
+    data: {
+        id: null,
+        name: {
+            value: null,
+            valid: true,
+            text: ""
+        },
+        models: {
+            ruta: null,
+            rutaPunto: null,
+            rutaPuntoServicio: null
+        },
+        map: {
+            main: null,
+            marker: {
+                main: null,
+                position: {
+                    lat: null,
+                    lng: null
+                },
+            },
+            data: {
+                address: "Chilpancingo_1_2, Hipódromo",
+                zoom: 18
+            }
+        },
+        actualStep: 0,
+        maxInterval: 5,
+        steps: [
+            {
+                text: "Lunes",
+                dayNumber: 2,
+                active: true,
+                schedule: [
+                    {
+                        begin: "",
+                        end: "",
+                        validBegin: true,
+                        validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
+                        id: null,
+                        remove: false
+                    }
+                ],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Martes",
+                dayNumber: 3,
+                active: true,
+                schedule: [
+                    {
+                        begin: "",
+                        end: "",
+                        validBegin: true,
+                        validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
+                        id: null,
+                        remove: false
+                    }
+                ],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Miércoles",
+                dayNumber: 4,
+                active: true,
+                schedule: [
+                    {
+                        begin: "",
+                        end: "",
+                        validBegin: true,
+                        validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
+                        id: null,
+                        remove: false
+                    }
+                ],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Jueves",
+                dayNumber: 5,
+                active: true,
+                schedule: [
+                    {
+                        begin: "",
+                        end: "",
+                        validBegin: true,
+                        validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
+                        id: null,
+                        remove: false
+                    }
+                ],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Viernes",
+                dayNumber: 6,
+                active: true,
+                schedule: [
+                    {
+                        begin: "",
+                        end: "",
+                        validBegin: true,
+                        validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
+                        id: null,
+                        remove: false
+                    }
+                ],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Sábado",
+                dayNumber: 7,
+                active: true,
+                schedule: [
+                    {
+                        begin: "",
+                        end: "",
+                        validBegin: true,
+                        validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
+                        id: null,
+                        remove: false
+                    }
+                ],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Domingo",
+                dayNumber: 1,
+                active: true,
+                schedule: [
+                    {
+                        begin: "",
+                        end: "",
+                        validBegin: true,
+                        validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
+                        id: null,
+                        remove: false
+                    }
+                ],
+                interval: 1,
+                seen: true
+            },
+        ]
+    },
+    methods: {
+        init: function(){
+            //var me = this;
+            //this.models.sucursal.get({
+            //    delimiters: this.id
+            //},
+            //function(success){
+            //    me.name.value = success.body.nombre;
+            //    me.map.marker.position.lat = success.body.lat;
+            //    me.map.marker.position.lng = success.body.lng;
+            //    me.initMap();
+            //},
+            //function(error){
+            //    console.log(error);
+            //});
+            //for(var i = 0; i < me.steps.length; i++)
+            //    me.steps[i].schedule = [];
+            //this.actualStep = 0;
+            //this.models.sucursalHorario.get({
+            //    delimiters: this.id,
+            //    params: {
+            //        "per-page": 100,
+            //        "sort": "hora_inicio"
+            //    }
+            //},
+            //function(success){
+            //    var interval = [0, 0, 0, 0, 0, 0, 0];
+            //    for(i = 0; i < success.body.length; i++){
+            //        interval[success.body[i].dia - 1]++;
+            //        switch(success.body[i].dia){
+            //            case 1:     //SUN
+            //                me.steps[6].schedule.push({
+            //                    begin: success.body[i].hora_inicio,
+            //                    end: success.body[i].hora_fin,
+            //                    id: success.body[i].id,
+            //                    validBegin: true,
+            //                    validEnd: true,
+            //                    textBegin: "hh:mm:ss",
+            //                    textEnd: "hh:mm:ss",
+            //                    remove: false
+            //                });
+            //                break;
+            //            default:
+            //                me.steps[success.body[i].dia - 2].schedule.push({
+            //                    begin: success.body[i].hora_inicio,
+            //                    end: success.body[i].hora_fin,
+            //                    id: success.body[i].id,
+            //                    validBegin: true,
+            //                    validEnd: true,
+            //                    textBegin: "hh:mm:ss",
+            //                    textEnd: "hh:mm:ss",
+            //                    remove: false
+            //                });
+            //                break;
+            //        }
+            //    }
+            //    for(i = 0; i < me.steps.length; i++){
+            //        me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
+            //        me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
+            //    }
+            //},
+            //function(error){
+            //    console.log(error);
+            //});
+        },
+        initMap: function(){
+            var me = this;
+            this.map.main = new google.maps.Map(document.getElementById('mapEditStore'), {     //Define Map
+                zoom: this.map.data.zoom,
+                center: this.map.marker.position
+            });
+            this.map.main.addListener("click", function(e){       //Define on click listener for map
+                me.positioner(e.latLng);
+            });
+            this.initPosition();
+            this.initSearch();
+            this.initFocus();
+        },
+        initFocus: function(){
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionEditStore'));
+        },
+        initSearch: function(){
+            var me = this;
+            var input = document.getElementById('searchEditStore');
+            var searchBox = new google.maps.places.SearchBox(input);
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    
+            // Bias the SearchBox results towards current map's viewport.
+            this.map.main.addListener('bounds_changed', function() {
+              searchBox.setBounds(me.map.main.getBounds());
+            });
+            searchBox.addListener('places_changed', function() {
+                var places = searchBox.getPlaces();
+                if(places.length == 0){
+                    return;
+                }
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                    if(!place.geometry){
+                      console.log("Returned place contains no geometry");
+                      return;
+                    }
+                    //var icon = {
+                    //  url: place.icon,
+                    //  size: new google.maps.Size(71, 71),
+                    //  origin: new google.maps.Point(0, 0),
+                    //  anchor: new google.maps.Point(17, 34),
+                    //  scaledSize: new google.maps.Size(25, 25)
+                    //};
+                    //
+                    //// Create a marker for each place.
+                    //markers.push(new google.maps.Marker({
+                    //  map: map,
+                    //  icon: icon,
+                    //  title: place.name,
+                    //  position: place.geometry.location
+                    //}));
+        
+                    if(place.geometry.viewport){
+                      // Only geocodes have viewport.
+                      bounds.union(place.geometry.viewport);
+                    }
+                    else{
+                      bounds.extend(place.geometry.location);
+                    }
+                  });
+                me.map.main.fitBounds(bounds);
+            });
+        },
+        initPosition: function(){
+            if(this.map.marker.position.lat !== null &&
+               this.map.marker.position.lng !== null)
+                this.map.marker.main = new google.maps.Marker({
+                    map: this.map.main,
+                    position: this.map.marker.position
+                });
+        },
+        focusPosition: function(){
+            if(this.map.marker.position.lat !== null &&
+               this.map.marker.position.lng !== null){
+                this.map.main.setCenter({
+                    lat: this.map.marker.position.lat,
+                    lng: this.map.marker.position.lng
+                });
+                this.map.main.setZoom(this.map.data.zoom);
+            }
+        },
+        positioner: function(pos){
+            if(this.map.marker.main)
+                this.map.marker.main.setPosition(pos);
+            else
+                this.map.marker.main = new google.maps.Marker({
+                    map: this.map.main,
+                    position: pos
+                });
+            this.map.marker.position.lat = pos.lat();
+            this.map.marker.position.lng = pos.lng();
+        },
+        changeStep: function(e){
+            this.actualStep = e;
+            this.steps[e].seen = true;
+        },
+        setInterval: function(){
+            var i,
+                interval = Math.floor(parseInt(this.steps[this.actualStep].interval)) <= this.maxInterval ? Math.floor(parseInt(this.steps[this.actualStep].interval)) : this.maxInterval,
+                length = this.steps[this.actualStep].schedule.length;
+            if(length < interval)
+                for(i = 0; i < interval - length; i++)
+                    this.steps[this.actualStep].schedule.push({
+                        begin: "",
+                        end: "",
+                        validBegin: true,
+                        validEnd: true,
+                        textBegin: "hh:mm:ss",
+                        textEnd: "hh:mm:ss",
+                        id: null,
+                        remove: false
+                    });
+            else if(length > interval)
+                for(i = 0; i < length; i++){
+                    if(i >= interval)
+                        this.steps[this.actualStep].schedule[i].remove = true;
+                    else
+                        this.steps[this.actualStep].schedule[i].remove = false;
+                }
+            else
+                for(i = 0; i < length; i++)
+                    this.steps[this.actualStep].schedule[i].remove = false;
+        },
+        validation: function(type, i){
+            switch(type){
+                case "name":
+                    this.name.valid = false;
+                    if(this.name.value === null ||
+                       this.name.value === "")
+                        this.name.text = "Nombre no puede estar vacío";
+                    else if(this.name.value.length < 6)
+                        this.name.text = "Nombre debe contener al menos 6 caracteres";
+                    else{
+                        this.name.valid = true;
+                        this.name.text = "";
+                    }
+                    break;
+                case "time-begin":
+                    this.steps[this.actualStep].schedule[i].validBegin = false;
+                    if(this.steps[this.actualStep].schedule[i].begin === "")
+                        this.steps[this.actualStep].schedule[i].textBegin = "El inicio del intervalo no puede estar vacío";
+                    else if(this.steps[this.actualStep].schedule[i].begin.length !== 8)
+                        this.steps[this.actualStep].schedule[i].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                    else{
+                        this.steps[this.actualStep].schedule[i].textBegin = "hh:mm:ss";
+                        this.steps[this.actualStep].schedule[i].validBegin = true;
+                    }
+                    break;
+                case "time-end":
+                    this.steps[this.actualStep].schedule[i].validEnd = false;
+                    if(this.steps[this.actualStep].schedule[i].end === "")
+                        this.steps[this.actualStep].schedule[i].textEnd = "El final del intervalo no puede estar vacío";
+                    else if(this.steps[this.actualStep].schedule[i].end.length !== 8)
+                        this.steps[this.actualStep].schedule[i].textEnd = "El final del intervalo no tiene un formato apropiado";
+                    else{
+                        this.steps[this.actualStep].schedule[i].textEnd = "hh:mm:ss";
+                        this.steps[this.actualStep].schedule[i].validEnd = true;
+                    }
+                    break;
+            }
+        },
+        submit: function(){
+            var me = this,
+                i, j, k = 0, limit = 4,
+                hmdB, hmdE,
+                error = "",
+                valid = true;
+            if(this.name.value === null || this.name.value === ""){     //No name
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.name.text = "Nombre no puede estar vacío";
+                this.name.valid = false;
+            }
+            else if(valid && (this.name.value.length < 6)){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "Nombre debe contener al menos 6 caracteres.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.name.valid = false;
+            }
+            else if(this.map.marker.main === null ||                  //No position
+                    this.map.marker.position.lat === null || this.map.marker.position.lng === null){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.name.text = "Nombre debe contener al menos 6 caracteres";
+                this.name.valid = false;
+            }
+            else{
+                for(i = 0; i < this.steps.length; i++)
+                    for(j = 0; j < this.steps[i].schedule.length; j++)
+                        if(this.steps[i].active){
+                            if(this.steps[i].schedule[j].remove === false){
+                                hmdB = this.steps[i].schedule[j].begin.split(":");
+                                hmdE = this.steps[i].schedule[j].end.split(":");
+                                this.steps[i].schedule[j].validBegin = true;
+                                this.steps[i].schedule[j].validEnd = true;
+                                if(this.steps[i].schedule[j].begin === ""){
+                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no puede estar vacío.<br>" : "";
+                                    this.steps[i].schedule[j].validBegin = false;
+                                    this.steps[i].schedule[j].textBegin = "El inicio del intervalo no puede estar vacío";
+                                    valid = false; k++;
+                                }
+                                if(this.steps[i].schedule[j].end === ""){
+                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no puede estar vacío.<br>" : "";
+                                    this.steps[i].schedule[j].validEnd = false;
+                                    this.steps[i].schedule[j].textEnd = "El final del intervalo no puede estar vacío";
+                                    valid = false; k++;
+                                }
+                                if(this.steps[i].schedule[j].begin !== "" &&
+                                   (this.steps[i].schedule[j].begin > "23:59:59" ||
+                                    hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
+                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                    this.steps[i].schedule[j].validBegin = false;
+                                    this.steps[i].schedule[j].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                                    valid = false; k++;
+                                }
+                                if(this.steps[i].schedule[j].end !== "" &&
+                                   (this.steps[i].schedule[j].end > "23:59:59" ||
+                                    hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
+                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                    this.steps[i].schedule[j].validEnd = false;
+                                    this.steps[i].schedule[j].textEnd = "El final del intervalo no tiene un formato apropiado";
+                                    valid = false; k++;
+                                }
+                                if(this.steps[i].schedule[j].begin !== "" &&
+                                   this.steps[i].schedule[j].end !== "" &&
+                                   this.steps[i].schedule[j].begin >= this.steps[i].schedule[j].end){
+                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " debe ser mayor al inicio del mismo.<br>" : "";
+                                    this.steps[i].schedule[j].validBegin = false;
+                                    this.steps[i].schedule[j].validEnd = false;
+                                    this.steps[i].schedule[j].textBegin = "El inicio del intervalo debe ser menor al final del mismo";
+                                    this.steps[i].schedule[j].textEnd = "El final del intervalo debe ser mayor al inicio del mismo";
+                                    valid = false; k++;
+                                }
+                                if(j > 0 &&
+                                   this.steps[i].schedule[j].begin !== "" &&
+                                   this.steps[i].schedule[j - 1].end !== "" &&
+                                   this.steps[i].schedule[j].begin <= this.steps[i].schedule[j - 1].end){
+                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.steps[i].text + ".<br>": "";
+                                    this.steps[i].schedule[j].validBegin = false;
+                                    this.steps[i].schedule[j - 1].validEnd = false;
+                                    this.steps[i].schedule[j].textBegin = "El inicio del intervalo debe ser mayor al final del intervalo anterior";
+                                    this.steps[i].schedule[j - 1].textEnd = "El final del intervalo debe ser menor al inicio del intervalo posterior";
+                                    valid = false; k++;
+                                }
+                            }
+                        }
+                        else
+                            this.steps[i].schedule[j].remove = true;
+                if(valid){
+                    this.models.sucursal.patch({
+                        delimiters: this.id,
+                        params: {
+                            nombre: this.name.value,
+                            lat: this.map.marker.position.lat,
+                            lng: this.map.marker.position.lng
+                        }
+                    },
+                    function(success){
+                        for(i = 0; i < me.steps.length; i++)
+                            for(j = 0; j < me.steps[i].schedule.length; j++)
+                                me.submitSchedule(i, j, success.body.id);
+                        BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
+                        BUTO.components.main.alert.description.title = "Edición de Tienda";
+                        BUTO.components.main.alert.description.text = "Se ha editado correctamente la tienda '" + success.body.nombre + "'";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    },
+                    function(error){
+                        BUTO.components.main.alert.description.title = "Errores en Edición de Registro";
+                        BUTO.components.main.alert.description.text = error.body[0].message;
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        
+                        me.name.valid = false;
+                        me.name.text = error.body[0].message;
+                    });
+                }
+                else{
+                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                    BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
+                    BUTO.components.main.alert.description.ok = "Aceptar";
+                    BUTO.components.main.alert.active = true;
+                }
+            }
+        },
+        submitSchedule: function(i, j, id){
+            var me = this;
+            if(this.steps[i].schedule[j].id !== null && this.steps[i].schedule[j].remove === true){ //Lets delete this schedule
+                this.models.sucursalHorario.remove({
+                    delimiters: [
+                        id,
+                        this.steps[i].schedule[j].id
+                    ],
+                    params: {
+                        
+                    }
+                },
+                function(success){
+                    me.steps[i].schedule[j].id = null;
+                },
+                function(error){
+                    console.log(error);
+                });
+            }
+            else if(this.steps[i].schedule[j].id !== null && this.steps[i].schedule[j].remove === false){ //Lets edit this schedule
+                this.models.sucursalHorario.patch({
+                    delimiters: [
+                        id,
+                        this.steps[i].schedule[j].id
+                    ],
+                    params: {
+                        dia: this.steps[i].dayNumber,
+                        hora_inicio: this.steps[i].schedule[j].begin,
+                        hora_fin: this.steps[i].schedule[j].end
+                    }
+                },
+                function(success){
+                    
+                },
+                function(error){
+                    console.log(error);
+                    me.submitSchedule(i, j, id);
+                });
+            }
+            else if(this.steps[i].schedule[j].id === null && this.steps[i].schedule[j].remove === false){ //Lets create this schedule
+                this.models.sucursalHorario.post({
+                    delimiters: id,
+                    params: {
+                        dia: this.steps[i].dayNumber,
+                        hora_inicio: this.steps[i].schedule[j].begin,
+                        hora_fin: this.steps[i].schedule[j].end
+                    }
+                },
+                function(success){
+                    me.steps[i].schedule[j].id = success.body.id;
+                },
+                function(error){
+                    console.log(error);
+                    me.submitSchedule(i, j, id);
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 241 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var verTienda = __webpack_require__(42);
+module.exports = new Vue({
+    data: {
+        models: {
+            ruta: null,
+            rutaPunto: null,
+            rutaPuntoServicio: null,
+            cliente: null,
+            sucursal: null,
+            sucursalHorario: null,
+            sucursalCliente: null
+        },
+        name: {
+            value: null,
+            valid: true,
+            text: ""
+        },
+        day: {
+            value: 2,
+            options: [
+                {
+                    text: "Lunes",
+                    value: 2
+                },
+                {
+                    text: "Martes",
+                    value: 3
+                },
+                {
+                    text: "Miércoles",
+                    value: 4
+                },
+                {
+                    text: "Jueves",
+                    value: 5
+                },
+                {
+                    text: "Viernes",
+                    value: 6
+                },
+                {
+                    text: "Sábado",
+                    value: 7
+                },
+                {
+                    text: "Domingo",
+                    value: 1
+                }
+            ]
+        },
+        begin: {
+            value: null,
+            valid: true,
+            text: "hh:mm:ss"
+        },
+        end: {
+            value: null,
+            valid: true,
+            text: "hh:mm:ss"
+        },
+        map: {
+            main: null,
+            geocoder: null,
+            marker: [
+                {
+                    main_begin: null,
+                    main_end: null,
+                    lat_begin: null,
+                    lng_begin: null,
+                    lat_end: null,
+                    lng_end: null
+                },
+                {
+                    text: "Ma"
+                },
+                {
+                    text: "Mi"
+                },
+                {
+                    text: "Ju"
+                },
+                {
+                    text: "Vi"
+                },
+                {
+                    text: "Sa"
+                },
+                {
+                    text: "Do"
+                }
+            ],
+            data: {
+                address: "Chilpancingo_1_2, Hipódromo",
+                zoom: 18
+            }
+        },
+        store: {
+            data: {
+                perPage: 20,
+                search: {
+                    store: ""
+                },
+                page: {
+                    store: {
+                        currentPage: 1,
+                        pageCount: null,
+                        totalCount: null
+                    }
+                }
+            },
+            position: [],
+            alterLinkDef: {
+                see: {
+                    first: true,
+                    store: verTienda
+                }
+            }
+        }
+        //steps: [
+        //    {
+        //        text: "Lunes",
+        //        dayNumber: 2,
+        //        active: true,
+        //        schedule: [
+        //            {
+        //                begin: "",
+        //                end: "",
+        //                validBegin: true,
+        //                validEnd: true,
+        //                textBegin: "hh:mm:ss",
+        //                textEnd: "hh:mm:ss",
+        //                
+        //                main_begin: null,
+        //                main_end: null,
+        //                lat_begin: null,
+        //                lng_begin: null,
+        //                lat_end: null,
+        //                lng_end: null,
+        //                active: true
+        //            }
+        //        ],
+        //        interval: 1,
+        //        seen: true
+        //    },
+        //    {
+        //        text: "Martes",
+        //        dayNumber: 3,
+        //        active: true,
+        //        schedule: [
+        //            {
+        //                begin: "",
+        //                end: "",
+        //                validBegin: true,
+        //                validEnd: true,
+        //                textBegin: "hh:mm:ss",
+        //                textEnd: "hh:mm:ss",
+        //                
+        //                main_begin: null,
+        //                main_end: null,
+        //                lat_begin: null,
+        //                lng_begin: null,
+        //                lat_end: null,
+        //                lng_end: null,
+        //                active: true
+        //            }
+        //        ],
+        //        interval: 1,
+        //        seen: false
+        //    },
+        //    {
+        //        text: "Miércoles",
+        //        dayNumber: 4,
+        //        active: true,
+        //        schedule: [
+        //            {
+        //                begin: "",
+        //                end: "",
+        //                validBegin: true,
+        //                validEnd: true,
+        //                textBegin: "hh:mm:ss",
+        //                textEnd: "hh:mm:ss",
+        //                
+        //                main_begin: null,
+        //                main_end: null,
+        //                lat_begin: null,
+        //                lng_begin: null,
+        //                lat_end: null,
+        //                lng_end: null,
+        //                active: true
+        //            }
+        //        ],
+        //        interval: 1,
+        //        seen: false
+        //    },
+        //    {
+        //        text: "Jueves",
+        //        dayNumber: 5,
+        //        active: true,
+        //        schedule: [
+        //            {
+        //                begin: "",
+        //                end: "",
+        //                validBegin: true,
+        //                validEnd: true,
+        //                textBegin: "hh:mm:ss",
+        //                textEnd: "hh:mm:ss",
+        //                
+        //                main_begin: null,
+        //                main_end: null,
+        //                lat_begin: null,
+        //                lng_begin: null,
+        //                lat_end: null,
+        //                lng_end: null,
+        //                active: true
+        //            }
+        //        ],
+        //        interval: 1,
+        //        seen: false
+        //    },
+        //    {
+        //        text: "Viernes",
+        //        dayNumber: 6,
+        //        active: true,
+        //        schedule: [
+        //            {
+        //                begin: "",
+        //                end: "",
+        //                validBegin: true,
+        //                validEnd: true,
+        //                textBegin: "hh:mm:ss",
+        //                textEnd: "hh:mm:ss",
+        //                
+        //                main_begin: null,
+        //                main_end: null,
+        //                lat_begin: null,
+        //                lng_begin: null,
+        //                lat_end: null,
+        //                lng_end: null,
+        //                active: true
+        //            }
+        //        ],
+        //        interval: 1,
+        //        seen: false
+        //    },
+        //    {
+        //        text: "Sábado",
+        //        dayNumber: 7,
+        //        active: true,
+        //        schedule: [
+        //            {
+        //                begin: "",
+        //                end: "",
+        //                validBegin: true,
+        //                validEnd: true,
+        //                textBegin: "hh:mm:ss",
+        //                textEnd: "hh:mm:ss",
+        //                
+        //                main_begin: null,
+        //                main_end: null,
+        //                lat_begin: null,
+        //                lng_begin: null,
+        //                lat_end: null,
+        //                lng_end: null,
+        //                active: true
+        //            }
+        //        ],
+        //        interval: 1,
+        //        seen: false
+        //    },
+        //    {
+        //        text: "Domingo",
+        //        dayNumber: 1,
+        //        active: true,
+        //        schedule: [
+        //            {
+        //                begin: "",
+        //                end: "",
+        //                validBegin: true,
+        //                validEnd: true,
+        //                textBegin: "hh:mm:ss",
+        //                textEnd: "hh:mm:ss",
+        //                
+        //                main_begin: null,
+        //                main_end: null,
+        //                lat_begin: null,
+        //                lng_begin: null,
+        //                lat_end: null,
+        //                lng_end: null,
+        //                active: true
+        //            }
+        //        ],
+        //        interval: 1,
+        //        seen: false
+        //    },
+        //]
+    },
+    methods: {
+        init: function(e){
+            var me = this;
+            if(e){
+                this.models.ruta = e.ruta;
+                this.models.rutaPunto = e.rutaPunto;
+                this.models.rutaPuntoServicio = e.rutaPuntoServicio;
+                this.models.cliente = e.cliente;
+                this.models.sucursal = e.sucursal;
+                this.models.sucursalHorario = e.sucursalHorario;
+                this.models.sucursalCliente = e.sucursalCliente;
+            }
+            else
+                Vue.nextTick(function(){
+                    me.initMap();
+                });
+        },
+        initMap: function(){
+            this.map.main = new google.maps.Map(document.getElementById('mapAddRoute'), {     //Define Map
+                zoom: this.map.data.zoom
+            });
+            this.initSearch();
+            this.initFocus();
+            this.initGeocoder();
+            this.initStore(0, 1);
+        },
+        initFocus: function(){
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddRoute'));
+        },
+        initSearch: function(){
+            var me = this;
+            var input = document.getElementById('searchAddRoute');
+            var searchBox = new google.maps.places.SearchBox(input);
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    
+            // Bias the SearchBox results towards current map's viewport.
+            this.map.main.addListener('bounds_changed', function() {
+              searchBox.setBounds(me.map.main.getBounds());
+            });
+            searchBox.addListener('places_changed', function() {
+                var places = searchBox.getPlaces();
+                if(places.length == 0){
+                    return;
+                }
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                    if(!place.geometry){
+                      console.log("Returned place contains no geometry");
+                      return;
+                    }
+                    if(place.geometry.viewport){
+                      // Only geocodes have viewport.
+                      bounds.union(place.geometry.viewport);
+                    }
+                    else{
+                      bounds.extend(place.geometry.location);
+                    }
+                  });
+                me.map.main.fitBounds(bounds);
+            });
+        },
+        initGeocoder: function(){
+            var me = this;
+            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
+            this.map.geocoder.geocode({                          //Geocoder for placing
+                address: this.map.data.address
+            },
+            function(response, status){
+                if(status === "OK")
+                    me.map.main.setCenter(response[0].geometry.location);
+                else
+                    console.log(status);
+            });
+        },
+        initStore: function(e, page){
+            var i,
+                me = this;
+            if(page)
+                this.store.data.page.store.currentPage = page;
+            if(e === 0)
+                this.store.alterLinkDef.see.first = true;
+            this.store.position = [];
+            this.models.sucursal.get({
+                params: {
+                    "per-page": this.store.data.perPage,
+                    "sort": "nombre",
+                    "page": this.store.data.page.store.currentPage,
+                    "nombre": this.store.data.search.store
+                }
+            },
+            function(success){
+                me.store.data.page.store.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
+                me.store.data.page.store.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                if(success.body.length > 0){
+                    for(i in success.body)
+                        me.store.position.push({
+                            main: new google.maps.Marker({
+                                map: me.map.main,
+                                position: {
+                                    lat: success.body[i].lat,
+                                    lng: success.body[i].lng
+                                },
+                                icon: {
+                                    url: "/image/maps/gray.png"
+                                },
+                                title: success.body[i].nombre,
+                            }),
+                            id: success.body[i].id,
+                            lat: success.body[i].lat,
+                            lng: success.body[i].lng,
+                            name: success.body[i].nombre,
+                            linked: false,
+                            selected: false
+                        });
+                    setTimeout(function(){
+                        me.focusPosition();
+                    }, 250);
+                }
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        seeStore: function(i){
+            var me = this;
+            this.store.alterLinkDef.see.store.id = this.store.store[i].id;
+            Vue.nextTick(function(){
+                me.store.alterLinkDef.see.store.init("modal", me.store.alterLinkDef.see.first);
+                if(me.store.alterLinkDef.see.first === true)
+                    me.store.alterLinkDef.see.first = false;
+            });
+        },
+        setPoint: function(type){
+            var me = this;
+            switch(type){
+                case "add":
+                    
+                    break;
+                case "remove":
+                    
+                    break;
+            }
+        },
+        //initConfiguration: function(auto){
+        //    var i = 0, j;
+        //    if(!auto){
+        //        this.sameConf = !this.sameConf;
+        //        this.steps[0].active = true;
+        //        
+        //        if(this.allPosVisible === 0)
+        //            this.allPosVisible = 1;
+        //    }
+        //    for(j = 0; j < this.steps[i].schedule.length; j++){
+        //        if(this.steps[i].schedule[j].main_begin !== null &&
+        //           this.steps[i].schedule[j].lat_begin !== null &&
+        //           this.steps[i].schedule[j].lng_begin !== null){    //Is showed in map
+        //            this.steps[i].schedule[j].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.map.marker[i][this.sameConf ? "textU_begin" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+        //            this.steps[i].schedule[j].main_begin.setMap(this.map.main);
+        //        }
+        //        if(this.steps[i].schedule[j].main_end !== null &&
+        //           this.steps[i].schedule[j].lat_end !== null &&
+        //           this.steps[i].schedule[j].lng_end !== null){    //Is showed in map
+        //            this.steps[i].schedule[j].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.map.marker[i][this.sameConf ? "textU_end" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+        //            this.steps[i].schedule[j].main_end.setMap(this.map.main);
+        //        }
+        //    }
+        //    
+        //    this.setVisibilityPosition(true); //AUTO
+        //},
+        //setVisibilityPosition: function(auto){
+        //    var i, j, k;
+        //    if(!auto)
+        //        this.allPosVisible = this.allPosVisible < 2 ? this.allPosVisible + 1 : 0;
+        //    for(i = 0; i < this.steps.length; i++){
+        //        if(this.steps[i].active){
+        //            k = this.sameConf ? 0 : this.actualStep;
+        //            for(j = 0; j < this.steps[i].schedule.length; j++){
+        //                if(this.steps[i].schedule[j].main_begin !== null &&
+        //                   this.steps[i].schedule[j].lat_begin !== null &&
+        //                   this.steps[i].schedule[j].lng_begin !== null)
+        //                    this.steps[i].schedule[j].main_begin.setMap(this.allPosVisible === 0 ? this.map.main :
+        //                                                                          this.allPosVisible === 1 ? (i === k ? this.map.main : null) :
+        //                                                                          ((i === k && this.steps[i].schedule[j].active) ? this.map.main : null));
+        //                if(this.steps[i].schedule[j].main_end !== null &&
+        //                   this.steps[i].schedule[j].lat_end !== null &&
+        //                   this.steps[i].schedule[j].lng_end !== null)    //Is showed in map
+        //                    this.steps[i].schedule[j].main_end.setMap(this.allPosVisible === 0 ? this.map.main :
+        //                                                                          this.allPosVisible === 1 ? (i === k ? this.map.main : null) :
+        //                                                                          ((i === k && this.steps[i].schedule[j].active) ? this.map.main : null));
+        //            }
+        //        }
+        //    }
+        //},
+        focusPosition: function(){
+            var i,
+                counter = 0,
+                totalLat = 0,
+                totalLng = 0,
+                bounds = new google.maps.LatLngBounds();
+            for(i = 0; i < this.store.position.length; i++)
+                if(this.store.position[i].main !== null &&
+                    this.store.position[i].lat !== null &&
+                    this.store.position[i].lng !== null){
+                    counter++;
+                    totalLat += this.store.position[i].lat;
+                    totalLng += this.store.position[i].lng;
+                    bounds.extend(this.store.position[i].main.getPosition());
+                     
+                }
+            if(counter > 0){
+                this.map.main.setCenter({
+                    lat: totalLat/counter,
+                    lng: totalLng/counter
+                });
+                if(counter > 1)
+                    this.map.main.fitBounds(bounds);
+                else
+                    this.map.main.setZoom(this.map.data.zoom);
+            }
+            else
+                this.initGeocoder();
+        },
+        positioner: function(pos){
+            for(var j = 0; j < this.steps[this.sameConf ? 0 : this.actualStep].schedule.length; j++)
+                if(this.steps[this.sameConf ? 0 : this.actualStep].active && this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].active){
+                    if(this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_begin === null){
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_begin = new google.maps.Marker({
+                                map: this.map.main,
+                                position: pos,
+                                icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.map.marker[this.sameConf ? 0 : this.actualStep][this.sameConf ? "textU_begin" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"
+                            });
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].lat_begin = pos.lat();
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].lng_begin = pos.lng();
+                        this.deleter("begin", this.sameConf ? 0 : this.actualStep, j);
+                    }
+                    else if(this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_begin &&
+                            this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].lat_begin === null &&
+                            this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].lng_begin === null){
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_begin.setMap(this.map.main);
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_begin.setPosition(pos);
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_begin.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.map.marker[this.sameConf ? 0 : this.actualStep][this.sameConf ? "textU_begin" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].lat_begin = pos.lat();
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].lng_begin = pos.lng();
+                    }
+                    else if(this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_begin &&
+                            this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_end === null){
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_end = new google.maps.Marker({
+                                map: this.map.main,
+                                position: pos,
+                                icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.map.marker[this.sameConf ? 0 : this.actualStep][this.sameConf ? "textU_end" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"
+                            });
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_end.addListener("dblclick", function(){
+                            
+                        });
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].lat_end = pos.lat();
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].lng_end = pos.lng();
+                        this.deleter("end", this.sameConf ? 0 : this.actualStep, j);
+                    }
+                    else if(this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_end &&
+                            this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].lat_end === null &&
+                            this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].lng_end === null){
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_end.setMap(this.map.main);
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_end.setPosition(pos);
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].main_end.setIcon("https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.map.marker[this.sameConf ? 0 : this.actualStep][this.sameConf ? "textU_end" : "text"] + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1");
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].lat_end = pos.lat();
+                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].lng_end = pos.lng();
+                    }
+                }
+        },
+        deleter: function(type, i, j){
+            var me = this;
+            if(type === "begin")
+                this.steps[i].schedule[j].main_begin.addListener("dblclick", function(){
+                    me.steps[i].schedule[j].main_begin.setMap(null);
+                    me.steps[i].schedule[j].lat_begin = null;
+                    me.steps[i].schedule[j].lng_begin = null;
+                });
+            else if(type === "end")
+                this.steps[i].schedule[j].main_end.addListener("dblclick", function(){
+                    me.steps[i].schedule[j].main_end.setMap(null);
+                    me.steps[i].schedule[j].lat_end = null;
+                    me.steps[i].schedule[j].lng_end = null;
+                });
+        },
+        //changeStep: function(e){
+        //    this.actualStep = e;
+        //    this.steps[e].seen = true;
+        //    
+        //    if(this.allPosVisible > 0)
+        //        this.setVisibilityPosition(true); //AUTO
+        //},
+        //setInterval: function(){
+        //    var i,
+        //        newSchedule = [],
+        //        interval = Math.floor(parseInt(this.steps[this.sameConf ? 0 : this.actualStep].interval)) <= this.maxInterval ? Math.floor(parseInt(this.steps[this.sameConf ? 0 : this.actualStep].interval)) : this.maxInterval,
+        //        length = this.steps[this.sameConf ? 0 : this.actualStep].schedule.length;
+        //    if(!isNaN(Math.floor(parseInt(this.steps[this.sameConf ? 0 : this.actualStep].interval)))){
+        //        if(this.steps[this.sameConf ? 0 : this.actualStep].schedule.length < interval){
+        //            for(i = 0; i < interval - length; i++)
+        //                this.steps[this.sameConf ? 0 : this.actualStep].schedule.push({
+        //                    begin: "",
+        //                    end: "",
+        //                    validBegin: true,
+        //                    validEnd: true,
+        //                    textBegin: "hh:mm:ss",
+        //                    textEnd: "hh:mm:ss",
+        //                    
+        //                    main_begin: null,
+        //                    main_end: null,
+        //                    lat_begin: null,
+        //                    lng_begin: null,
+        //                    lat_end: null,
+        //                    lng_end: null,
+        //                    active: false
+        //                });
+        //        }
+        //        else if(length > interval){
+        //            for(i = 0; i < length; i++)
+        //                if(i < interval)
+        //                    newSchedule.push(this.steps[this.sameConf ? 0 : this.actualStep].schedule[i]);
+        //                else{
+        //                    if(this.steps[this.sameConf ? 0 : this.actualStep].schedule[i].main_begin !== null &&
+        //                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[i].lat_begin !== null &&
+        //                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[i].lng_begin !== null)
+        //                         this.steps[this.sameConf ? 0 : this.actualStep].schedule[i].main_begin.setMap(null);
+        //                    if(this.steps[this.sameConf ? 0 : this.actualStep].schedule[i].main_end !== null &&
+        //                       this.steps[this.sameConf ? 0 : this.actualStep].schedule[i].lat_end !== null &&
+        //                       this.steps[this.sameConf ? 0 : this.actualStep].schedule[i].lng_end !== null)    //Is showed in map
+        //                        this.steps[this.sameConf ? 0 : this.actualStep].schedule[i].main_end.setMap(null);
+        //                }
+        //            this.steps[this.sameConf ? 0 : this.actualStep].schedule = newSchedule;
+        //            this.setActivity(true);
+        //        }
+        //        if(this.steps[this.sameConf ? 0 : this.actualStep].schedule.length > 0)
+        //            this.setActiveInterval(0);
+        //    }
+        //},
+        //setActivity: function(auto){
+        //    if(!auto)
+        //        this.steps[this.actualStep].active = !this.steps[this.actualStep].active;
+        //    if(!this.steps[this.actualStep].active){
+        //        for(var j = 0; j < this.steps[this.actualStep].schedule.length; j++){
+        //            if(this.steps[this.actualStep].schedule[j].main_begin !== null &&
+        //               this.steps[this.actualStep].schedule[j].lat_begin !== null &&
+        //               this.steps[this.actualStep].schedule[j].lng_begin !== null)
+        //                this.steps[this.actualStep].schedule[j].main_begin.setMap(null);
+        //            if(this.steps[this.actualStep].schedule[j].main_end !== null &&
+        //               this.steps[this.actualStep].schedule[j].lat_end !== null &&
+        //               this.steps[this.actualStep].schedule[j].lng_end !== null)    //Is showed in map
+        //                this.steps[this.actualStep].schedule[j].main_end.setMap(null);
+        //        }
+        //    }
+        //    else 
+        //        this.setVisibilityPosition(true); //AUTO
+        //},
+        validation: function(type){
+            switch(type){
+                case "name":
+                    this.name.valid = false;
+                    if(this.name.value === null ||
+                       this.name.value === "")
+                        this.name.text = "Nombre no puede estar vacío";
+                    else if(this.name.value.length < 4)
+                        this.name.text = "Nombre debe contener al menos 4 caracteres";
+                    else{
+                        this.name.text = "";
+                        this.name.valid = true;
+                    }
+                    break;
+                case "time-begin":
+                    this.begin.valid = false;
+                    if(this.begin.value === null ||
+                       this.begin.value === "")
+                        this.begin.text = "El horario de inicio no puede estar vacío";
+                    else if(this.begin.value.length !== 8)
+                        this.begin.text = "El horario de inicio no tiene un formato apropiado";
+                    else{
+                        this.begin.text = "hh:mm:ss";
+                        this.begin.valid = true;
+                    }
+                    break;
+                case "time-end":
+                    this.end.valid = false;
+                    if(this.end.value === null ||
+                       this.end.value === "")
+                        this.end.text = "El horario de término no puede estar vacío";
+                    else if(this.end.value.length !== 8)
+                        this.end.text = "El horario de término no tiene un formato apropiado";
+                    else{
+                        this.end.text = "hh:mm:ss";
+                        this.end.valid = true;
+                    }
+                    break;
+            }
+        },
+        submit: function(e){
+            var me = this;
+            switch(e){
+                case "manual":
+                    var i, j, k = 0, limit = 4,
+                        first = true,
+                        hmdB, hmdE,
+                        error = "",
+                        valid = true;
+                    if(this.name.value === null || this.name.value === ""){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.name.valid = false;
+                        this.name.text = "Nombre no puede estar vacío";
+                        valid = false;
+                    }
+                    else if(valid && this.name.value.length < 4){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Nombre debe contener al menos 4 caracteres.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.name.valid = false;
+                        this.name.text = "Nombre debe contener al menos 8 caracteres";
+                        valid = false;
+                    }
+                    if(valid && (this.email.value === null || this.email.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Correo electrónico no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.email.valid = false;
+                        this.email.text = "Correo electrónico no puede estar vacío";
+                        valid = false;
+                    }
+                    else{
+                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                        if(valid && !emailTest.test(this.email.value)){
+                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                            BUTO.components.main.alert.description.text = "Correo electrónico no tiene una forma válida.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                            this.email.valid = false;
+                            this.email.text = "Correo electrónico no tiene una forma válida";
+                            valid = false;
+                        }
+                    }
+                    if(valid && (this.pass.value === null || this.pass.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Contraseña no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.pass.valid = false;
+                        this.pass.text = "Contraseña no puede estar vacío";
+                        valid = false;
+                    }
+                    else{
+                        if(valid && this.pass.value.length < 8){
+                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                            BUTO.components.main.alert.description.text = "Contraseña debe contener al menos 8 caracteres.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                            this.pass.valid = false;
+                            this.pass.text = "Contraseña debe contener al menos 8 caracteres";
+                            valid = false;
+                        }
+                    }
+                    if(valid && (this.repass.value === null || this.repass.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Confirmar contraseña no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.repass.valid = false;
+                        this.repass.text = "Confirmar contraseña no puede estar vacío";
+                        valid = false;
+                    }
+                    else{
+                        if(valid && (this.repass.value !== this.pass.value)){
+                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                            BUTO.components.main.alert.description.text = "Las contraseñas no coinciden.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                            this.repass.valid = false;
+                            this.repass.text = "Las contraseñas no coinciden";
+                            valid = false;
+                        }
+                    }
+                    if(valid && (this.date.value === null || this.date.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Fecha de ingreso no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.date.valid = false;
+                        this.date.text = "Fecha de ingreso no puede estar vacío";
+                        valid = false;
+                    }
+                    else if(valid){
+                        for(i = 0; i < (this.sameConf ? 1 : this.steps.length); i++){
+                            if(this.steps[i].active)
+                                for(j = 0; j < this.steps[i].schedule.length; j++)
+                                    if(this.steps[i].schedule[j].main_begin === null ||                  //No position
+                                        this.steps[i].schedule[j].lat_begin === null ||
+                                        this.steps[i].schedule[j].lng_begin === null ||
+                                        this.steps[i].schedule[j].main_end === null ||                  //No position
+                                        this.steps[i].schedule[j].lat_end === null ||
+                                        this.steps[i].schedule[j].lng_end === null){
+                                        error += (k <= limit) ? "Debes escoger las ubicaciones de inicio y final del intervalo " + (j + 1) + (this.sameConf ? "" : " para el día " + this.steps[i].text) + ".<br>": "";
+                                        valid = false; k++;
+                                 }
+                        }
+                        if(valid){
+                            error = "";
+                            k = 0;
+                            for(i = 0; i < (this.sameConf ? 1 : this.steps.length); i++)
+                                if(this.steps[i].active && this.steps[i].schedule.length > 0)
+                                    for(j = 0; j < this.steps[i].schedule.length; j++){
+                                        hmdB = this.steps[i].schedule[j].begin.split(":");
+                                        hmdE = this.steps[i].schedule[j].end.split(":");
+                                        this.steps[i].schedule[j].validBegin = true;
+                                        this.steps[i].schedule[j].validEnd = true;
+                                        this.steps[i].schedule[j].textBegin = "hh:mm:ss";
+                                        this.steps[i].schedule[j].textEnd = "hh:mm:ss";
+                                        if(this.steps[i].schedule[j].begin === ""){
+                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + (this.sameConf ? "" : " en el día " + this.steps[i].text) + " no puede estar vacío.<br>" : "";
+                                            this.steps[i].schedule[j].validBegin = false;
+                                            this.steps[i].schedule[j].textBegin = "El inicio del intervalo no puede estar vacío";
+                                            valid = false; k++;
+                                        }
+                                        if(this.steps[i].schedule[j].end === ""){
+                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + (this.sameConf ? " " : " en el día " + this.steps[i].text) + " no puede estar vacío.<br>" : "";
+                                            this.steps[i].schedule[j].validEnd = false;
+                                            this.steps[i].schedule[j].textEnd = "El final del intervalo no puede estar vacío";
+                                            valid = false; k++;
+                                        }
+                                        if(this.steps[i].schedule[j].begin !== "" &&
+                                           (this.steps[i].schedule[j].begin > "23:59:59" ||
+                                            hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
+                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + (this.sameConf ? "" : " en el día " + this.steps[i].text) + " no tiene un formato apropiado.<br>" : "";
+                                            this.steps[i].schedule[j].validBegin = false;
+                                            this.steps[i].schedule[j].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                                            valid = false; k++;
+                                        }
+                                        if(this.steps[i].schedule[j].end !== "" &&
+                                           (this.steps[i].schedule[j].end > "23:59:59" ||
+                                            hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
+                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + (this.sameConf ? "" : " en el día " + this.steps[i].text) + " no tiene un formato apropiado.<br>" : "";
+                                            this.steps[i].schedule[j].validEnd = false;
+                                            this.steps[i].schedule[j].textEnd = "El final del intervalo no tiene un formato apropiado";
+                                            valid = false; k++;
+                                        }
+                                        if(this.steps[i].schedule[j].begin !== "" &&
+                                           this.steps[i].schedule[j].end !== "" &&
+                                           this.steps[i].schedule[j].begin >= this.steps[i].schedule[j].end){
+                                            error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo" + (this.sameConf ? "" : " en el día " + this.steps[i].text) + ".<br>" : "";
+                                            this.steps[i].schedule[j].validBegin = false;
+                                            this.steps[i].schedule[j].validEnd = false;
+                                            this.steps[i].schedule[j].textBegin = "El inicio del intervalo debe ser menor al final del mismo";
+                                            this.steps[i].schedule[j].textEnd = "El final del intervalo debe ser mayor al inicio del mismo";
+                                            valid = false; k++;
+                                        }
+                                        if(j > 0 &&
+                                           this.steps[i].schedule[j].begin !== "" &&
+                                           this.steps[i].schedule[j - 1].end !== "" &&
+                                           this.steps[i].schedule[j].begin <= this.steps[i].schedule[j - 1].end){
+                                            error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + (this.sameConf ? "" : " en el día " + this.steps[i].text) + ".<br>": "";
+                                            this.steps[i].schedule[j].validBegin = false;
+                                            this.steps[i].schedule[j - 1].validEnd = false;
+                                            this.steps[i].schedule[j].textBegin = "El inicio del intervalo debe ser mayor al final del intervalo anterior";
+                                            this.steps[i].schedule[j - 1].textEnd = "El final del intervalo debe ser menor al inicio del intervalo posterior";
+                                            valid = false; k++;
+                                        }
+                                    }
+                        }
+                        else{
+                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                            BUTO.components.main.alert.description.text = error;
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                        }
+                        if(valid){
+                            this.models.usuarioEmpleado.post({
+                                params: {
+                                    nombre: this.name.value,
+                                    correo: this.email.value,
+                                    pass: this.pass.value,
+                                    pass_repeat: this.repass.value,
+                                    fecha_ingreso: this.date.value
+                                }
+                            },function(success){
+                                for(i = 0; i < me.steps.length; i++)
+                                    if((me.steps[i].active && me.steps[i].schedule.length > 0) || me.sameConf){
+                                        for(j = 0; j < me.steps[me.sameConf ? 0 : i].schedule.length; j++){
+                                            me.submitSchedule(i, j, success.body.id, first);
+                                            first = false;
+                                        }
+                                    }
+                                    else
+                                        me.reset("schedule", i, null);
+                                BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
+                                BUTO.components.main.alert.description.title = "Registro de Recurso Humano";
+                                BUTO.components.main.alert.description.text = "Se ha registrado correctamente el recurso humano '" + success.body.nombre + "'";
+                                BUTO.components.main.alert.description.ok = "Aceptar";
+                                BUTO.components.main.alert.active = true;
+                            },
+                            function(error){
+                                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                                BUTO.components.main.alert.description.text = "";
+                                if(error.body.length > 0)
+                                    for(var k = 0; k < error.body.length; k++){
+                                        BUTO.components.main.alert.description.text += error.body[k].message + "<br>";
+                                        switch(error.body[k].field){
+                                            case "nombre":
+                                                me.name.valid = false;
+                                                me.name.text = error.body[k].message;
+                                                break;
+                                            case "correo":
+                                                me.email.valid = false;
+                                                me.email.text = error.body[k].message;
+                                                break;
+                                        }
+                                    }
+                                BUTO.components.main.alert.description.ok = "Aceptar";
+                                BUTO.components.main.alert.active = true;
+                            });
+                        }
+                        else{
+                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                            BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                        }
+                    }
+                    break;
+                case "import":
+                    
+                    break;
+            }
+        },
+        submitSchedule: function(i, j, id, first){
+            var me = this;
+            if(first)
+                this.reset("resource");
+            this.models.empleadoHorario.post({
+                delimiters: id,
+                params: {
+                    dia: this.steps[i].dayNumber,
+                    hora_inicio: this.steps[this.sameConf ? 0 : i].schedule[j].begin,
+                    hora_fin: this.steps[this.sameConf ? 0 : i].schedule[j].end,
+                    lat_inicio: this.steps[this.sameConf ? 0 : i].schedule[j].lat_begin,
+                    lat_fin: this.steps[this.sameConf ? 0 : i].schedule[j].lat_end,
+                    lng_inicio: this.steps[this.sameConf ? 0 : i].schedule[j].lng_begin,
+                    lng_fin: this.steps[this.sameConf ? 0 : i].schedule[j].lng_end
+                }
+            },
+            function(success){
+                me.reset("schedule", i, j);
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        reset: function(a, i, j){
+            switch(a){
+                case "resource":
+                    this.name.value = null;
+                    this.email.value = null;
+                    this.pass.value = null;
+                    this.repass.value = null;
+                    this.date.value = null;
+                    this.actualStep = 0;
+                    this.allPosVisible = 0;
+                    break;
+                case "schedule":
+                    this.steps[i].active = true;
+                    this.steps[i].interval = 1;
+                    this.steps[i].seen = (this.steps[i].dayNumber === 2) ? true : false;
+                    if(!this.sameConf){
+                        if(!this.sameConf && j !== null){
+                            if(this.steps[i].schedule[j].main_begin !== null)
+                                this.steps[i].schedule[j].main_begin.setMap(null);
+                            if(this.steps[i].schedule[j].main_end !== null)
+                                this.steps[i].schedule[j].main_end.setMap(null);
+                        }
+                        else if(!this.sameConf && j === null){
+                            for(j = 0; j < this.steps[i].length; j++){
+                                if(this.steps[i].schedule[j].main_begin !== null)
+                                this.steps[i].schedule[j].main_begin.setMap(null);
+                            if(this.steps[i].schedule[j].main_end !== null)
+                                this.steps[i].schedule[j].main_end.setMap(null);
+                            }
+                        }
+                    }
+                    if(this.steps[i].dayNumber === 1 &&
+                        j === this.steps[this.sameConf ? 0 : i].schedule.length - 1)
+                        this.reset("all");
+                    break;
+                case "all":
+                    this.name.value = null;
+                    this.name.valid = true;
+                    this.email.value = null;
+                    this.email.valid = true;
+                    this.pass.value = null;
+                    this.pass.valid = true;
+                    this.repass.value = null;
+                    this.repass.valid = true;
+                    this.date.value = null;
+                    this.date.valid = true;
+                    this.actualStep = 0;
+                    this.allPosVisible = 0;
+                    this.sameConf = false;
+                    
+                    for(i = 0; i < this.steps.length; i++){
+                        for(j = 0; j < this.steps[i].schedule.length; j++){
+                            if(this.steps[i].schedule[j].main_begin !== null)
+                                this.steps[i].schedule[j].main_begin.setMap(null);
+                            if(this.steps[i].schedule[j].main_end !== null)
+                                this.steps[i].schedule[j].main_end.setMap(null);
+                        }
+                        this.steps[i].active = true;
+                        this.steps[i].interval = 1;
+                        this.steps[i].seen = (this.steps[i].dayNumber === 2) ? true : false;
+                        this.steps[i].schedule = [];
+                        this.steps[i].schedule.push({
                             begin: "",
                             end: "",
                             validBegin: true,

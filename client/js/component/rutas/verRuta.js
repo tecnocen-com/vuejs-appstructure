@@ -3,8 +3,9 @@ module.exports = new Vue({
         id: null,
         name: null,
         models: {
-            sucursal: null,
-            sucursalHorario: null
+            ruta: null,
+            rutaPunto: null,
+            rutaPuntoServicio: null
         },
         map: {
             main: null,
@@ -81,62 +82,62 @@ module.exports = new Vue({
     },
     methods: {
         init: function(type, first){
-            var me = this;
-            this.actualStep = 0;
-            for(var i = 0; i < me.steps.length; i++)
-                this.steps[i].schedule = [];
-            this.models.sucursal.get({
-                delimiters: this.id
-            },
-            function(success){
-                me.name = success.body.nombre;
-                me.map.marker.position.lat = success.body.lat;
-                me.map.marker.position.lng = success.body.lng;
-                if(type === "modal"){
-                    setTimeout(function(){
-                        me.initMap(type, first);
-                    }, 250);
-                }
-                else
-                    me.initMap(type, first);
-            },
-            function(error){
-                console.log(error);
-            });
-            this.models.sucursalHorario.get({
-                delimiters: this.id,
-                params: {
-                    "per-page": 100,
-                    "sort": "hora_inicio"
-                }
-            },
-            function(success){
-                var interval = [0, 0, 0, 0, 0, 0, 0];
-                for(i = 0; i < success.body.length; i++){
-                    interval[success.body[i].dia - 1]++;
-                    switch(success.body[i].dia){
-                        case 1:     //SUN
-                            me.steps[6].schedule.push({
-                                begin: success.body[i].hora_inicio,
-                                end: success.body[i].hora_fin
-                            });
-                            break;
-                        default:
-                            me.steps[success.body[i].dia - 2].schedule.push({
-                                begin: success.body[i].hora_inicio,
-                                end: success.body[i].hora_fin
-                            });
-                            break;
-                    }
-                }
-                for(i = 0; i < me.steps.length; i++){
-                    me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
-                    me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
-                }
-            },
-            function(error){
-                console.log(error);
-            });
+            //var me = this;
+            //this.actualStep = 0;
+            //for(var i = 0; i < me.steps.length; i++)
+            //    this.steps[i].schedule = [];
+            //this.models.sucursal.get({
+            //    delimiters: this.id
+            //},
+            //function(success){
+            //    me.name = success.body.nombre;
+            //    me.map.marker.position.lat = success.body.lat;
+            //    me.map.marker.position.lng = success.body.lng;
+            //    if(type === "modal"){
+            //        setTimeout(function(){
+            //            me.initMap(type, first);
+            //        }, 250);
+            //    }
+            //    else
+            //        me.initMap(type, first);
+            //},
+            //function(error){
+            //    console.log(error);
+            //});
+            //this.models.sucursalHorario.get({
+            //    delimiters: this.id,
+            //    params: {
+            //        "per-page": 100,
+            //        "sort": "hora_inicio"
+            //    }
+            //},
+            //function(success){
+            //    var interval = [0, 0, 0, 0, 0, 0, 0];
+            //    for(i = 0; i < success.body.length; i++){
+            //        interval[success.body[i].dia - 1]++;
+            //        switch(success.body[i].dia){
+            //            case 1:     //SUN
+            //                me.steps[6].schedule.push({
+            //                    begin: success.body[i].hora_inicio,
+            //                    end: success.body[i].hora_fin
+            //                });
+            //                break;
+            //            default:
+            //                me.steps[success.body[i].dia - 2].schedule.push({
+            //                    begin: success.body[i].hora_inicio,
+            //                    end: success.body[i].hora_fin
+            //                });
+            //                break;
+            //        }
+            //    }
+            //    for(i = 0; i < me.steps.length; i++){
+            //        me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
+            //        me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
+            //    }
+            //},
+            //function(error){
+            //    console.log(error);
+            //});
         },
         initMap: function(type, first){
             if(type !== "modal" || (type === "modal" && first))
@@ -156,8 +157,7 @@ module.exports = new Vue({
         initPosition: function(){
             this.map.marker.main = new google.maps.Marker({
                 map: this.map.main,
-                position: this.map.marker.position,
-                icon: "/image/maps/blue.png"
+                position: this.map.marker.position
             });
         },
         focusPosition: function(){

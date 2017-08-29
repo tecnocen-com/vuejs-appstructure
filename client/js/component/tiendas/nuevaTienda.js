@@ -300,7 +300,8 @@ module.exports = new Vue({
             else
                 this.manualAdd.map.marker.main = new google.maps.Marker({
                     map: this.manualAdd.map.main,
-                    position: pos
+                    position: pos,
+                    icon: "/image/maps/blue.png"
                 });
             this.manualAdd.map.marker.position.lat = pos.lat();
             this.manualAdd.map.marker.position.lng = pos.lng();

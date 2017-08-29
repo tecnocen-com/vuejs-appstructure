@@ -18,7 +18,7 @@ module.exports = `
         <div class="col-sm-6">
             <div class="panel panel-flat">
                 <div class="panel-heading">
-                    <h4 class="panel-title text-center">Todos los recursos</h4>
+                    <h5 class="panel-title text-center">Todos los recursos</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -152,7 +152,7 @@ module.exports = `
         <div class="col-sm-6">
             <div class="panel panel-flat">
                 <div class="panel-heading">
-                    <h4 class="panel-title text-center">Recursos ligados</h4>
+                    <h5 class="panel-title text-center">Recursos ligados</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row">

@@ -1,21 +1,26 @@
 BUTO.requires = {
+    mainTemplate: require("./mainT.js"),
     modules: {
         modelAR: require("./plugins/modelAR.js"),
         mcdatatable: require("./plugins/vue-mcdatatable.js").component,
         mapsClient: require("@google/maps")
     },
-    templates: {
-        main: require("./mainT.js")
-    },
     components: {
         toolbar: require("./component/toolbar.js"),
         map: require("./component/map.js"),
+        
         menu: require("./component/common/menu.js"),
+        
         clientesRegistrados: require("./component/clientes/clientesRegistrados.js"),
+        
         tiendasRegistradas: require("./component/tiendas/tiendasRegistradas.js"),
         nuevaTienda: require("./component/tiendas/nuevaTienda.js"),
+        
         recursosRegistrados: require("./component/recursos_humanos/recursosRegistrados.js"),
-        nuevoRecurso: require("./component/recursos_humanos/nuevoRecurso.js")
+        nuevoRecurso: require("./component/recursos_humanos/nuevoRecurso.js"),
+        
+        rutasRegistradas: require("./component/rutas/rutasRegistradas.js"),
+        nuevaRuta: require("./component/rutas/nuevaRuta.js")
     }
 };
 
@@ -46,7 +51,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                 BUTO.components = {
                     main: new Vue({
                         el: "#main",
-                        template: BUTO.requires.templates.main,
+                        template: BUTO.requires.mainTemplate,
                         data: {
                             profile: {
                                 name: "Unknown",
@@ -105,11 +110,15 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 empleado: new modelCreator("empleado"),
                                 empleadoCliente: new modelCreator(["empleado", "cliente"]),
                                 empleadoHorario: new modelCreator(["empleado", "horario"]),
-                                empleadoHorarioRuta: new modelCreator(["empleado", "horario", "ruta"]),
-                                empleadoHorarioRutaPunto: new modelCreator(["empleado", "horario", "ruta", "punto"]),
                                 sucursal: new modelCreator("sucursal"),
                                 sucursalCliente: new modelCreator(["sucursal", "cliente"]),
-                                sucursalHorario: new modelCreator(["sucursal", "horario"])
+                                sucursalHorario: new modelCreator(["sucursal", "horario"]),
+                                ruta: new modelCreator("ruta"),
+                                rutaPunto: new modelCreator(["ruta", "punto"]),
+                                rutaPuntoServicio: new modelCreator(["ruta", "punto", "servicio"]),
+                                proyeccionServicio: new modelCreator("proyeccion-servicio"),
+                                proyeccionTrabajo: new modelCreator("proyeccion-trabajo"),
+                                proyeccionTrabajoServicio: new modelCreator(["proyeccion-trabajo", "servicio"])
                             },
                             children: {
                                 map: BUTO.requires.components.map,
@@ -119,7 +128,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 tiendasRegistradas: BUTO.requires.components.tiendasRegistradas,
                                 nuevaTienda: BUTO.requires.components.nuevaTienda,
                                 recursosRegistrados: BUTO.requires.components.recursosRegistrados,
-                                nuevoRecurso: BUTO.requires.components.nuevoRecurso
+                                nuevoRecurso: BUTO.requires.components.nuevoRecurso,
+                                rutasRegistradas: BUTO.requires.components.rutasRegistradas,
+                                nuevaRuta: BUTO.requires.components.nuevaRuta,
                             }
                         },
                         methods: {
@@ -142,6 +153,8 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                             me.children.tiendasRegistradas.active = 0;
                                     else if(e.first === 3 && e.second === 0 && e.third === 0)
                                             me.children.recursosRegistrados.active = 0;
+                                    else if(e.first === 4 && e.second === 0 && e.third === 0)
+                                            me.children.rutasRegistradas.active = 0;
                                     Vue.nextTick(function(){
                                         if(e.first === 0 && e.second === 0 && e.third === 0)
                                             me.children.map.init();
@@ -149,6 +162,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                             me.children.nuevaTienda.init(false);
                                         else if(e.first === 3 && e.second === 0 && e.third === 1)
                                             me.children.nuevoRecurso.init(false);
+                                        else if(e.first === 4 && e.second === 0 && e.third === 1)
+                                            me.children.nuevaRuta.init(false);
+                                        
                                     });
                                 }
                                 
@@ -159,7 +175,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 if(e.key !== "Backspace"){
                                     switch(t){
                                         case "time":
-                                            if(val.length >= 2){
+                                            if(val !== null && val.length >= 2){
                                                 value = val.split(":").join("");
                                                 val = "";
                                                 for(i = 0; i < value.length; i++)
@@ -198,10 +214,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 usuarioEmpleado: this.models.usuarioEmpleado,
                                 empleado: this.models.empleado,
                                 empleadoHorario: this.models.empleadoHorario,
-                                empleadoHorarioRuta: this.models.empleadoHorarioRuta,
-                                empleadoHorarioRutaPunto: this.models.empleadoHorarioRutaPunto,
                                 mask: this.mask
                             });
+                            
                             BUTO.requires.components.tiendasRegistradas.init({
                                 sucursal: this.models.sucursal,
                                 sucursalHorario: this.models.sucursalHorario,
@@ -211,6 +226,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 sucursal: this.models.sucursal,
                                 sucursalHorario: this.models.sucursalHorario
                             });
+                            
                             BUTO.requires.components.recursosRegistrados.init({
                                 usuarioEmpleado: this.models.usuarioEmpleado,
                                 empleado: this.models.empleado,
@@ -221,6 +237,22 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 usuarioEmpleado: this.models.usuarioEmpleado,
                                 empleado: this.models.empleado,
                                 empleadoHorario: this.models.empleadoHorario
+                            });
+                            
+                            BUTO.requires.components.rutasRegistradas.init({
+                                ruta: this.models.ruta,
+                                rutaPunto: this.models.rutaPunto,
+                                rutaPuntoServicio: this.models.rutaPuntoServicio,
+                                mask: this.mask
+                            });
+                            BUTO.requires.components.nuevaRuta.init({
+                                ruta: this.models.ruta,
+                                rutaPunto: this.models.rutaPunto,
+                                rutaPuntoServicio: this.models.rutaPuntoServicio,
+                                cliente: this.models.cliente,
+                                sucursal: this.models.sucursal,
+                                sucursalHorario: this.models.sucursalHorario,
+                                sucursalCliente: this.models.sucursalCliente
                             });
                         },
                         mounted: function(){

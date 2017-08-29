@@ -219,7 +219,12 @@ module.exports = new Vue({
         initPosition: function(i, j){
             this.steps[i].schedule[j].main_begin = new google.maps.Marker({
                 map: this.map.main,
-                icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + this.map.marker[i].text + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1",
+                icon: {
+                    url: "/image/maps/green-empty.png",
+                    labelOrigin: new google.maps.Point(11, 11)
+                },
+                label: this.map.marker[i].text + (j + 1),
+                title: "Inicio del intervalo " + (j + 1) + " para el día " + this.steps[i].text,
                 position: {
                     lat: this.steps[i].schedule[j].lat_begin,
                     lng: this.steps[i].schedule[j].lng_begin
@@ -227,7 +232,12 @@ module.exports = new Vue({
             });
             this.steps[i].schedule[j].main_end = new google.maps.Marker({
                 map: this.map.main,
-                icon: "https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=" + this.map.marker[i].text + (j + 1) + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1",
+                icon: {
+                    url: "/image/maps/red-empty.png",
+                    labelOrigin: new google.maps.Point(11, 11)
+                },
+                label: this.map.marker[i].text + (j + 1),
+                title: "Final del intervalo " + (j + 1) + " para el día " + this.steps[i].text,
                 position: {
                     lat: this.steps[i].schedule[j].lat_end,
                     lng: this.steps[i].schedule[j].lng_end
