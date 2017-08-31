@@ -28,14 +28,15 @@ module.exports = new Vue({
                 geocoder: null,
                 marker: {
                     main: null,
+                    window: null,
                     position: {
                         lat: null,
                         lng: null
                     },
                 },
                 data: {
-                    address: "Chilpancingo_1_2, Hipódromo",
-                    zoom: 18
+                    address: "Ciudad de México, México",
+                    zoom: 13
                 }
             },
             sameConf: false,
@@ -295,14 +296,32 @@ module.exports = new Vue({
             }
         },
         positioner: function(pos){
+            var me = this;
             if(this.manualAdd.map.marker.main)
                 this.manualAdd.map.marker.main.setPosition(pos);
-            else
+            else{
                 this.manualAdd.map.marker.main = new google.maps.Marker({
                     map: this.manualAdd.map.main,
                     position: pos,
                     icon: "/image/maps/blue.png"
                 });
+                this.manualAdd.map.marker.main.addListener("rightclick", function(){
+                    me.manualAdd.map.marker.window.open(me.manualAdd.map.main, me.manualAdd.map.marker.main);
+                });
+                this.manualAdd.map.marker.window = new google.maps.InfoWindow({
+                    content: "Dirección no encontrada.",
+                    maxWidth: 175
+                });
+            }
+            this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                location: pos
+            },
+            function(response, status){
+                if(status === "OK" && response[0])
+                    me.manualAdd.map.marker.window.setContent(response[0].formatted_address);
+                else
+                    console.log(status, response);
+            });
             this.manualAdd.map.marker.position.lat = pos.lat();
             this.manualAdd.map.marker.position.lng = pos.lng();
         },

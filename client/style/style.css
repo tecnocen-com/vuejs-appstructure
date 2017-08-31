@@ -410,6 +410,17 @@ nav>ul.pagination>li.active>a:hover{
 .map-container-route{
     height: 750px;
 }
+.input-info{
+    color: #4550a5;
+}
+.input-info:hover,
+.input-info:focus,
+.input-info:active{
+    color: #333333;
+}
+.popover {
+    width: 180px !important;
+}
 /********************************** Transitions ***********************************/
 button.btn-customized,
 a.grid-handlers{

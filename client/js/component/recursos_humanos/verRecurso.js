@@ -3,7 +3,7 @@ module.exports = new Vue({
         id: null,
         name: null,
         email: null,
-        date: null,
+        phone: null,
         models: {
             usuarioEmpleado: null,
             empleado: null,
@@ -36,8 +36,8 @@ module.exports = new Vue({
                 }
             ],
             data: {
-                address: "Chilpancingo_1_2, Hipódromo",
-                zoom: 18
+                address: "Ciudad de México, México",
+                zoom: 13
             }
         },
         allPosVisible: 0,
@@ -120,7 +120,7 @@ module.exports = new Vue({
             function(success){
                 me.name = success.body.nombre;
                 me.email = success.body.correo;
-                me.date = success.body.fecha_ingreso;
+                me.phone = success.body.telefono;
             },
             function(error){
                 console.log(error);
@@ -142,9 +142,11 @@ module.exports = new Vue({
                                 begin: success.body[i].hora_inicio,
                                 end: success.body[i].hora_fin,
                                 main_begin: null,
+                                window_begin: null,
                                 lat_begin: success.body[i].lat_inicio,
                                 lng_begin: success.body[i].lng_inicio,
                                 main_end: null,
+                                window_end: null,
                                 lat_end: success.body[i].lat_fin,
                                 lng_end: success.body[i].lng_fin,
                                 active: me.steps[6].schedule.length === 0 ? true : false
@@ -155,9 +157,11 @@ module.exports = new Vue({
                                 begin: success.body[i].hora_inicio,
                                 end: success.body[i].hora_fin,
                                 main_begin: null,
+                                window_begin: null,
                                 lat_begin: success.body[i].lat_inicio,
                                 lng_begin: success.body[i].lng_inicio,
                                 main_end: null,
+                                window_end: null,
                                 lat_end: success.body[i].lat_fin,
                                 lng_end: success.body[i].lng_fin,
                                 active: me.steps[success.body[i].dia - 2].schedule.length === 0 ? true : false
@@ -197,8 +201,10 @@ module.exports = new Vue({
                 this.map.main = new google.maps.Map(document.getElementById('mapSeeResource'), {     //Define Map
                     zoom: this.map.data.zoom
                 });
-            if(type !== "modal" || first)
+            if(type !== "modal" || first){
                 this.initFocus();
+                this.initGeocoder();
+            }
         },
         initFocus: function(){
             this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeResource'));
@@ -216,7 +222,48 @@ module.exports = new Vue({
                     console.log(status);
             });
         },
+        getDirection: function(i, j){
+            var me = this;
+            this.steps[i].schedule[j].main_begin.addListener("rightclick", function(){
+                if(!me.steps[i].schedule[j].window_begin.flag){
+                    me.steps[i].schedule[j].window_begin.flag = true;
+                    me.map.geocoder.geocode({                          //Geocoder for placing
+                        location: {
+                            lat: me.steps[i].schedule[j].lat_begin,
+                            lng: me.steps[i].schedule[j].lng_begin
+                        }
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.steps[i].schedule[j].window_begin.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                }
+                me.steps[i].schedule[j].window_begin.open(me.map.main, me.steps[i].schedule[j].main_begin);
+            });
+            
+            this.steps[i].schedule[j].main_end.addListener("rightclick", function(){
+                if(!me.steps[i].schedule[j].window_end.flag){
+                    me.steps[i].schedule[j].window_end.flag = true;
+                    me.map.geocoder.geocode({                          //Geocoder for placing
+                        location: {
+                            lat: me.steps[i].schedule[j].lat_end,
+                            lng: me.steps[i].schedule[j].lng_end
+                        }
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.steps[i].schedule[j].window_end.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                }
+                me.steps[i].schedule[j].window_end.open(me.map.main, me.steps[i].schedule[j].main_end);
+            });
+        },
         initPosition: function(i, j){
+            var me = this;
             this.steps[i].schedule[j].main_begin = new google.maps.Marker({
                 map: this.map.main,
                 icon: {
@@ -230,6 +277,12 @@ module.exports = new Vue({
                     lng: this.steps[i].schedule[j].lng_begin
                 }
             });
+            this.steps[i].schedule[j].window_begin = new google.maps.InfoWindow({
+                content: "Dirección no encontrada.",
+                maxWidth: 175,
+                flag: false
+            });
+            
             this.steps[i].schedule[j].main_end = new google.maps.Marker({
                 map: this.map.main,
                 icon: {
@@ -243,6 +296,13 @@ module.exports = new Vue({
                     lng: this.steps[i].schedule[j].lng_end
                 }
             });
+            this.steps[i].schedule[j].window_end = new google.maps.InfoWindow({
+                content: "Dirección no encontrada.",
+                maxWidth: 175,
+                flag: false
+            });
+            
+            this.getDirection(i, j);
         },
         setVisibilityPosition: function(auto){
             var i, j, k;

@@ -10467,15 +10467,18 @@ module.exports = new Vue({
         },
         map: {
             main: null,
+            geocoder: null,
             marker: {
                 main: null,
+                window: null,
                 position: {
                     lat: null,
                     lng: null
                 },
             },
             data: {
-                zoom: 18
+                address: "Ciudad de México, México",
+                zoom: 13
             }
         },
         actualStep: 0,
@@ -10605,18 +10608,40 @@ module.exports = new Vue({
                 });
             else
                 this.map.main.setCenter(this.map.marker.position);
-            this.initPosition();
-            if(type !== "modal" || first)
+            if(type !== "modal" || first){
+                this.initGeocoder();
                 this.initFocus();
+            }
+            this.initPosition();
+        },
+        initGeocoder: function(){
+            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
         },
         initFocus: function(){
             this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeStore'));
         },
         initPosition: function(){
+            var me = this;
             this.map.marker.main = new google.maps.Marker({
                 map: this.map.main,
                 position: this.map.marker.position,
                 icon: "/image/maps/blue.png"
+            });
+            this.map.marker.window = new google.maps.InfoWindow({
+                content: "Dirección no encontrada.",
+                maxWidth: 175
+            });
+            this.map.marker.main.addListener("rightclick", function(){
+                me.map.marker.window.open(me.map.main, me.map.marker.main);
+            });
+            this.map.geocoder.geocode({                          //Geocoder for placing
+                location: this.map.marker.position
+            },
+            function(response, status){
+                if(status === "OK" && response[0])
+                    me.map.marker.window.setContent(response[0].formatted_address);
+                else
+                    console.log(status, response);
             });
         },
         focusPosition: function(){
@@ -17186,7 +17211,7 @@ module.exports = new Vue({
         id: null,
         name: null,
         email: null,
-        date: null,
+        phone: null,
         models: {
             usuarioEmpleado: null,
             empleado: null,
@@ -17219,8 +17244,8 @@ module.exports = new Vue({
                 }
             ],
             data: {
-                address: "Chilpancingo_1_2, Hipódromo",
-                zoom: 18
+                address: "Ciudad de México, México",
+                zoom: 13
             }
         },
         allPosVisible: 0,
@@ -17303,7 +17328,7 @@ module.exports = new Vue({
             function(success){
                 me.name = success.body.nombre;
                 me.email = success.body.correo;
-                me.date = success.body.fecha_ingreso;
+                me.phone = success.body.telefono;
             },
             function(error){
                 console.log(error);
@@ -17325,9 +17350,11 @@ module.exports = new Vue({
                                 begin: success.body[i].hora_inicio,
                                 end: success.body[i].hora_fin,
                                 main_begin: null,
+                                window_begin: null,
                                 lat_begin: success.body[i].lat_inicio,
                                 lng_begin: success.body[i].lng_inicio,
                                 main_end: null,
+                                window_end: null,
                                 lat_end: success.body[i].lat_fin,
                                 lng_end: success.body[i].lng_fin,
                                 active: me.steps[6].schedule.length === 0 ? true : false
@@ -17338,9 +17365,11 @@ module.exports = new Vue({
                                 begin: success.body[i].hora_inicio,
                                 end: success.body[i].hora_fin,
                                 main_begin: null,
+                                window_begin: null,
                                 lat_begin: success.body[i].lat_inicio,
                                 lng_begin: success.body[i].lng_inicio,
                                 main_end: null,
+                                window_end: null,
                                 lat_end: success.body[i].lat_fin,
                                 lng_end: success.body[i].lng_fin,
                                 active: me.steps[success.body[i].dia - 2].schedule.length === 0 ? true : false
@@ -17380,8 +17409,10 @@ module.exports = new Vue({
                 this.map.main = new google.maps.Map(document.getElementById('mapSeeResource'), {     //Define Map
                     zoom: this.map.data.zoom
                 });
-            if(type !== "modal" || first)
+            if(type !== "modal" || first){
                 this.initFocus();
+                this.initGeocoder();
+            }
         },
         initFocus: function(){
             this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeResource'));
@@ -17399,7 +17430,48 @@ module.exports = new Vue({
                     console.log(status);
             });
         },
+        getDirection: function(i, j){
+            var me = this;
+            this.steps[i].schedule[j].main_begin.addListener("rightclick", function(){
+                if(!me.steps[i].schedule[j].window_begin.flag){
+                    me.steps[i].schedule[j].window_begin.flag = true;
+                    me.map.geocoder.geocode({                          //Geocoder for placing
+                        location: {
+                            lat: me.steps[i].schedule[j].lat_begin,
+                            lng: me.steps[i].schedule[j].lng_begin
+                        }
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.steps[i].schedule[j].window_begin.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                }
+                me.steps[i].schedule[j].window_begin.open(me.map.main, me.steps[i].schedule[j].main_begin);
+            });
+            
+            this.steps[i].schedule[j].main_end.addListener("rightclick", function(){
+                if(!me.steps[i].schedule[j].window_end.flag){
+                    me.steps[i].schedule[j].window_end.flag = true;
+                    me.map.geocoder.geocode({                          //Geocoder for placing
+                        location: {
+                            lat: me.steps[i].schedule[j].lat_end,
+                            lng: me.steps[i].schedule[j].lng_end
+                        }
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.steps[i].schedule[j].window_end.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                }
+                me.steps[i].schedule[j].window_end.open(me.map.main, me.steps[i].schedule[j].main_end);
+            });
+        },
         initPosition: function(i, j){
+            var me = this;
             this.steps[i].schedule[j].main_begin = new google.maps.Marker({
                 map: this.map.main,
                 icon: {
@@ -17413,6 +17485,12 @@ module.exports = new Vue({
                     lng: this.steps[i].schedule[j].lng_begin
                 }
             });
+            this.steps[i].schedule[j].window_begin = new google.maps.InfoWindow({
+                content: "Dirección no encontrada.",
+                maxWidth: 175,
+                flag: false
+            });
+            
             this.steps[i].schedule[j].main_end = new google.maps.Marker({
                 map: this.map.main,
                 icon: {
@@ -17426,6 +17504,13 @@ module.exports = new Vue({
                     lng: this.steps[i].schedule[j].lng_end
                 }
             });
+            this.steps[i].schedule[j].window_end = new google.maps.InfoWindow({
+                content: "Dirección no encontrada.",
+                maxWidth: 175,
+                flag: false
+            });
+            
+            this.getDirection(i, j);
         },
         setVisibilityPosition: function(auto){
             var i, j, k;
@@ -19516,7 +19601,7 @@ module.exports = `
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Intervalos de atención</label>
                                                 <div class="col-md-8">
-                                                    <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.actualStep].interval" type="number" name="Intervalos de atención">
+                                                    <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
                                                     <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
                                                 </div>
                                             </div>
@@ -19772,7 +19857,7 @@ module.exports = `
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
                                                         <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                     </div>
                                                 </div>
@@ -19895,9 +19980,9 @@ module.exports = `
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Fecha de ingreso</label>
+                        <label class="control-label col-lg-2">Teléfono</label>
                         <div class="col-lg-10">
-                            <input disabled="disabled" class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.date" type="date" name="Fecha de ingreso">
+                            <input disabled="disabled" class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.phone" type="number" name="Teléfono">
                         </div>
                     </div>
                 </div>
@@ -20203,7 +20288,7 @@ module.exports = `
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" name="Intervalos de atención">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
                                                         <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                     </div>
                                                 </div>
@@ -20370,11 +20455,11 @@ module.exports = `
                         </div>
                     </div>
                     <div class="row">
-                        <div :class="config.manualAdd.date.valid ? '' : 'has-error'" class="form-group">
-                            <label class="control-label col-lg-2">Fecha de ingreso</label>
+                        <div :class="config.manualAdd.phone.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Teléfono</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.manualAdd.date.value" type="date" name="Fecha de ingreso">
-                                <span class="help-block">{{config.manualAdd.date.text}}</span>
+                                <input class="form-control" v-on:keyup="config.validation('phone')" v-model="config.manualAdd.phone.value" type="number" name="Teléfono" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                <span class="help-block">{{config.manualAdd.phone.text}}</span>
                             </div>
                         </div>
                     </div>
@@ -20459,7 +20544,7 @@ module.exports = `
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
                                                         <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                     </div>
                                                 </div>
@@ -20996,496 +21081,499 @@ module.exports = `
     <div class="col-sm-12">
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title">Nombre</h5>
+                <h5 class="panel-title">General</h5>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
-                        <div class="col-sm-12">
+                        <label class="control-label col-lg-2">Nombre</label>
+                        <div class="col-lg-10">
                             <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre">
                             <span class="help-block">{{config.name.text}}</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Filtrar por</h5>
-            </div>
-            <div class="panel-body">
                 <div class="row">
-                    <div style="padding-top: 20px"></div>
-                    <div class="col-sm-6">
-                        <div class="form-group text-center schedule-title">
-                            <label>Inicio</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group text-center schedule-title">
-                            <label>Final</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div :class="config.begin.valid ? '' : 'has-error'" class="form-group">
+                    <div :class="config.begin.valid ? '' : 'has-error'" class="form-group">
+                        <label class="control-label col-lg-2">
+                            Horario de inicio
+                            <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="Este dato se tomará como horario inicial para obtener tiendas disponibles" data-placement="right" data-trigger="hover">
+                                <i class="icon-info22"></i>
+                            </a>
+                        </label>
+                        <div class="col-lg-10">
                             <input type="text" maxlength="8" v-model="config.begin.value" v-on:keyup="config.begin.value = mask('time', $event, config.begin.value); config.validation('time-begin')" class="form-control">
                             <span class="help-block">{{config.begin.text}}</span>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div :class="config.end.valid ? '' : 'has-error'" class="form-group">
+                </div>
+                <div class="row">
+                    <div :class="config.end.valid ? '' : 'has-error'" class="form-group">
+                        <label class="control-label col-lg-2">
+                            Horario de término
+                            <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="Este dato se tomará como horario máximo en el trazado de rutas" data-placement="right" data-trigger="hover">
+                                <i class="icon-info22"></i>
+                            </a>
+                        </label>
+                        <div class="col-lg-10">
                             <input type="text" maxlength="8" v-model="config.end.value" v-on:keyup="config.end.value = mask('time', $event, config.end.value); config.validation('time-end')" class="form-control">
                             <span class="help-block">{{config.end.text}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <div class="steps-basic wizard clearfix">
-                                    <div class="steps clearfix">
-                                        <ul role="tablist">
-                                            <li v-for="(steps, stepIndex) in config.day.options" role="tab"
-                                            :class="[stepIndex === 0 ? 'first' : '',
-                                                    config.day.value === steps.value ? 'done active' : 'active']" aria-disabled="false" aria-selected="true">
-                                                <a href="#" v-on:click.prevent="config.day.value = steps.value">
-                                                    <span class="number">X</span> {{steps.text}}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="actions clearfix">
-                                        <ul role="menu" aria-label="Pagination">
-                                            <li>
-                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent role="menuitem">Filtrar</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="panel panel-flat">
-                    <div class="panel-heading">
-                        <h5 class="panel-title">Tiendas filtradas</h5>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
-                                    <input type="text" v-model="config.store.data.search.store" v-on:keyup="config.initStore(1)" class="form-control" placeholder="Búsqueda">
-                                    <div class="form-control-feedback" style="width: 30px;">
-                                        <i class="icon-search4 text-size-base"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 grid-route">
-                                <table class="table table-bordered">
-                                    <tbody class="body-class">
-                                        <tr v-for="(store, storeIndex) in config.store.position"
-                                            :class="store.linked ? 'selected' : store.selected ? 'link-row-select' : ''"
-                                            class="grid-row-customized grid-row-highlight-customized">
-                                            <td v-on:click.self="store.linked ? '' : store.selected = !store.selected" class="col-md-1">
-                                                {{store.name}}
-                                                <div class="pull-right">
-                                                    <a href="#" v-on:click.prevent="config.seeStore(storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
-                                                        <i class="icon-eye" aria-hidden="true"></i>
-                                                    </a>
-                                                    <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Agregar">
-                                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <nav class="pull-right">
-                                <ul class="pagination">
-                                    <li>
-                                        <span><b>Mostrando {{config.store.position.length}} de {{config.store.data.page.store.totalCount}} filas en la página {{config.store.data.page.store.currentPage}} de {{config.store.data.page.store.pageCount}}.</b></span>
-                                    </li>
-                                    <li  :class="config.store.data.page.store.currentPage === 1 ? 'not-active disabled' : ''">
-                                        <a href="#" v-on:click.prevent="config.initStore(1, 1);">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <template v-if="config.store.data.page.store.pageCount <= 3">
-                                        <li v-for="page in config.store.data.page.store.pageCount" :class="page === config.store.data.page.store.currentPage ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="page === config.store.data.page.store.currentPage ? '' : config.initStore(1, page);">
-                                                {{page}}
-                                            </a>
-                                        </li>
-                                    </template>
-                                    <template v-else>
-                                        <template v-if="config.store.data.page.store.currentPage < 3">
-                                            <li :class="config.store.data.page.store.currentPage === 1 ? 'active' : ''">
-                                                <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 1 ? '' : config.initStore(1, 1);">
-                                                    1
-                                                </a>
-                                            </li>
-                                            <li :class="config.store.data.page.store.currentPage === 2 ? 'active' : ''">
-                                                <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 2 ? '' : config.initStore(1, 2);">
-                                                    2
-                                                </a>
-                                            </li>
-                                            <li :class="config.store.data.page.store.currentPage === 3 ? 'active' : ''">
-                                                <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 3 ? '' : config.initStore(1, 3);">
-                                                    3
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <span aria-hidden="true">...</span>
-                                            </li>
-                                        </template>
-                                        <template v-else-if="config.store.data.page.store.currentPage > config.store.data.page.store.pageCount - 2">
-                                            <li>
-                                                <span aria-hidden="true">...</span>
-                                            </li>
-                                            <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 2 ? 'active' : ''">
-                                                <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 2 ? '' : config.initStore(1, config.store.data.page.store.pageCount - 2);">
-                                                    {{config.store.data.page.store.pageCount - 2}}
-                                                </a>
-                                            </li>
-                                            <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 1 ? 'active' : ''">
-                                                <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 1 ? '' : config.initStore(1, config.store.data.page.store.pageCount - 1);">
-                                                    {{config.store.data.page.store.pageCount - 1}}
-                                                </a>
-                                            </li>
-                                            <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount ? 'active' : ''">
-                                                <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount ? '' : config.initStore(1, config.store.data.page.store.pageCount);">
-                                                    {{config.store.data.page.store.pageCount}}
-                                                </a>
-                                            </li>
-                                        </template>
-                                        <template v-else>
-                                            <li>
-                                                <span aria-hidden="true">...</span>
-                                            </li>
-                                            <li>
-                                                <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.currentPage - 1)">
-                                                    {{config.store.data.page.store.currentPage - 1}}
-                                                </a>
-                                            </li>
-                                            <li class="active">
-                                                <a href="#" v-on:click.prevent>
-                                                    {{config.store.data.page.store.currentPage}}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.currentPage + 1)">
-                                                    {{config.store.data.page.store.currentPage + 1}}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <span aria-hidden="true">...</span>
-                                            </li>
-                                        </template>
-                                    </template>
-                                    <li :class="config.store.data.page.store.pageCount === config.store.data.page.store.currentPage ? 'not-active disabled' : ''">
-                                        <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.pageCount);">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="panel panel-flat">
-                    <div class="panel-heading">
-                        <h5 class="panel-title">Trazado de ruta</h5>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <input id="searchAddRoute" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                                    <div id="mapFocusPositionAddRoute" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                        <i class="icon-shrink3"></i>
-                                    </div>
-                                    <div id="mapAddRoute" class="map-container-route map-basic"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--<div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Ruta</h5>
-                <div class="heading-elements">
-                    <div class="heading-form">
-                        <div v-if="config.sameConf" class="form-group">
-                            <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                <label v-on:click.prevent="config.allPosVisible = config.allPosVisible === 1 ? 2 : 1; config.setVisibilityPosition(true)">
-                                    <span class="switchery switchery-default switchery-custom info" :class="config.allPosVisible === 1 ? 'active' : 'not-active'">
-                                        <small></small>
-                                    </span>
-                                    {{config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
-                                </label>
-                                <span class="help-block">Ubicaciones</span>
-                            </div>
-                        </div>
-                        <div v-else class="form-group">
-                            <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
-                                    <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.allPosVisible === 0 ? 'one' : config.allPosVisible === 1 ? 'two' : 'three'">
-                                        <small></small>
-                                    </span>
-                                    {{config.allPosVisible === 0 ? 'Todas' : config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
-                                </label>
-                                <span class="help-block">Ubicaciones</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                <label v-on:click.prevent="config.initConfiguration()">
-                                    <span class="switchery switchery-default switchery-custom" :class="config.sameConf ? 'active' : 'not-active'">
-                                        <small></small>
-                                    </span>
-                                    {{config.sameConf ? 'Si' : 'No'}}
-                                </label>
-                                <span class="help-block">Generalizar horarios</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
+                    <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
+                        <label class="control-label col-lg-2">
+                            Día
+                            <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="Este dato se tomará en cuenta para obtener tiendas disponibles" data-placement="right" data-trigger="hover">
+                                <i class="icon-info22"></i>
+                            </a>
+                        </label>
+                        <div class="col-lg-10">
                             <div class="steps-basic wizard clearfix">
-                                <template v-if="config.sameConf">
-                                    <div style="padding-top: 20px"></div>
-                                </template>
-                                <div v-else class="steps clearfix">
+                                <div class="steps clearfix">
                                     <ul role="tablist">
-                                        <li v-for="(steps, stepIndex) in config.steps" role="tab"
+                                        <li v-for="(steps, stepIndex) in config.day.options" role="tab"
                                         :class="[stepIndex === 0 ? 'first' : '',
-                                                config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                            <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
-                                                <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                config.day.value === steps.value ? 'done active' : 'active']" aria-disabled="false" aria-selected="true">
+                                            <a href="#" v-on:click.prevent="config.day.value = steps.value">
+                                                <span class="number">X</span> {{steps.text}}
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="content clearfix">
-                                    <div class="row">
-                                        <div v-if="!config.sameConf" :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                            <div class="form-group">
-                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                    <label v-on:click.prevent="config.setActivity()">
-                                                        <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
-                                                            <small></small>
-                                                        </span>
-                                                        {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
-                                                    </label>
-                                                    <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div v-if="config.steps[config.sameConf ? 0 : config.actualStep].active" :class="config.sameConf ? 'col-sm-12' : 'col-sm-6'">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Intervalos de atención</label>
-                                                <div class="col-md-8">
-                                                    <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.sameConf ? 0 : config.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
-                                                    <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
-                                                </div>
-                                            </div>
+                                <div class="actions clearfix">
+                                    <ul role="menu" aria-label="Pagination">
+                                        <li>
+                                            <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.setStep()" role="menuitem">{{config.step === 0 ? 'Siguiente' : 'Volver a filtrar'}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <template v-if="config.step === 1">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">Tiendas filtradas</h5>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
+                                        <input type="text" v-model="config.store.data.search.store" v-on:keyup="config.initStore(1)" class="form-control" placeholder="Búsqueda">
+                                        <div class="form-control-feedback" style="width: 30px;">
+                                            <i class="icon-search4 text-size-base"></i>
                                         </div>
                                     </div>
-                                    <div v-if="config.steps[config.sameConf ? 0 : config.actualStep].active" class="row">
+                                </div>
+                                <div class="col-sm-12 grid-route">
+                                    <table class="table table-bordered">
+                                        <tbody class="body-class">
+                                            <tr v-for="(store, storeIndex) in config.store.position"
+                                                :class="store.linked ? 'selected' : store.selected ? 'link-row-select' : ''"
+                                                class="grid-row-customized grid-row-highlight-customized">
+                                                <td v-on:click.self="store.linked ? '' : store.selected = !store.selected" class="col-md-1">
+                                                    {{store.name}}
+                                                    <div class="pull-right">
+                                                        <a href="#" v-on:click.prevent="config.seeStore(storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                            <i class="icon-eye" aria-hidden="true"></i>
+                                                        </a>
+                                                        <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Agregar">
+                                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <nav class="pull-right">
+                                    <ul class="pagination">
+                                        <li>
+                                            <span><b>Mostrando {{config.store.position.length}} de {{config.store.data.page.store.totalCount}} filas en la página {{config.store.data.page.store.currentPage}} de {{config.store.data.page.store.pageCount}}.</b></span>
+                                        </li>
+                                        <li  :class="config.store.data.page.store.currentPage === 1 ? 'not-active disabled' : ''">
+                                            <a href="#" v-on:click.prevent="config.initStore(1, 1);">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <template v-if="config.store.data.page.store.pageCount <= 3">
+                                            <li v-for="page in config.store.data.page.store.pageCount" :class="page === config.store.data.page.store.currentPage ? 'active' : ''">
+                                                <a href="#" v-on:click.prevent="page === config.store.data.page.store.currentPage ? '' : config.initStore(1, page);">
+                                                    {{page}}
+                                                </a>
+                                            </li>
+                                        </template>
+                                        <template v-else>
+                                            <template v-if="config.store.data.page.store.currentPage < 3">
+                                                <li :class="config.store.data.page.store.currentPage === 1 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 1 ? '' : config.initStore(1, 1);">
+                                                        1
+                                                    </a>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === 2 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 2 ? '' : config.initStore(1, 2);">
+                                                        2
+                                                    </a>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === 3 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 3 ? '' : config.initStore(1, 3);">
+                                                        3
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <span aria-hidden="true">...</span>
+                                                </li>
+                                            </template>
+                                            <template v-else-if="config.store.data.page.store.currentPage > config.store.data.page.store.pageCount - 2">
+                                                <li>
+                                                    <span aria-hidden="true">...</span>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 2 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 2 ? '' : config.initStore(1, config.store.data.page.store.pageCount - 2);">
+                                                        {{config.store.data.page.store.pageCount - 2}}
+                                                    </a>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 1 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 1 ? '' : config.initStore(1, config.store.data.page.store.pageCount - 1);">
+                                                        {{config.store.data.page.store.pageCount - 1}}
+                                                    </a>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount ? '' : config.initStore(1, config.store.data.page.store.pageCount);">
+                                                        {{config.store.data.page.store.pageCount}}
+                                                    </a>
+                                                </li>
+                                            </template>
+                                            <template v-else>
+                                                <li>
+                                                    <span aria-hidden="true">...</span>
+                                                </li>
+                                                <li>
+                                                    <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.currentPage - 1)">
+                                                        {{config.store.data.page.store.currentPage - 1}}
+                                                    </a>
+                                                </li>
+                                                <li class="active">
+                                                    <a href="#" v-on:click.prevent>
+                                                        {{config.store.data.page.store.currentPage}}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.currentPage + 1)">
+                                                        {{config.store.data.page.store.currentPage + 1}}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <span aria-hidden="true">...</span>
+                                                </li>
+                                            </template>
+                                        </template>
+                                        <li :class="config.store.data.page.store.pageCount === config.store.data.page.store.currentPage ? 'not-active disabled' : ''">
+                                            <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.pageCount);">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">Trazado de ruta</h5>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <input id="searchAddRoute" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                        <div id="mapFocusPositionAddRoute" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                            <i class="icon-shrink3"></i>
+                                        </div>
+                                        <div id="mapAddRoute" class="map-container-route map-basic"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Ruta</h5>
+                    <div class="heading-elements">
+                        <div class="heading-form">
+                            <div v-if="config.sameConf" class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.allPosVisible = config.allPosVisible === 1 ? 2 : 1; config.setVisibilityPosition(true)">
+                                        <span class="switchery switchery-default switchery-custom info" :class="config.allPosVisible === 1 ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                    </label>
+                                    <span class="help-block">Ubicaciones</span>
+                                </div>
+                            </div>
+                            <div v-else class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
+                                        <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.allPosVisible === 0 ? 'one' : config.allPosVisible === 1 ? 'two' : 'three'">
+                                            <small></small>
+                                        </span>
+                                        {{config.allPosVisible === 0 ? 'Todas' : config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                    </label>
+                                    <span class="help-block">Ubicaciones</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                    <label v-on:click.prevent="config.initConfiguration()">
+                                        <span class="switchery switchery-default switchery-custom" :class="config.sameConf ? 'active' : 'not-active'">
+                                            <small></small>
+                                        </span>
+                                        {{config.sameConf ? 'Si' : 'No'}}
+                                    </label>
+                                    <span class="help-block">Generalizar horarios</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="steps-basic wizard clearfix">
+                                    <template v-if="config.sameConf">
                                         <div style="padding-top: 20px"></div>
-                                        <div class="col-sm-5">
-                                            <div class="form-group text-center schedule-title">
-                                                <label>Inicio</label>
+                                    </template>
+                                    <div v-else class="steps clearfix">
+                                        <ul role="tablist">
+                                            <li v-for="(steps, stepIndex) in config.steps" role="tab"
+                                            :class="[stepIndex === 0 ? 'first' : '',
+                                                    config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                    <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="content clearfix">
+                                        <div class="row">
+                                            <div v-if="!config.sameConf" :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                <div class="form-group">
+                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                        <label v-on:click.prevent="config.setActivity()">
+                                                            <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
+                                                                <small></small>
+                                                            </span>
+                                                            {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
+                                                        </label>
+                                                        <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="config.steps[config.sameConf ? 0 : config.actualStep].active" :class="config.sameConf ? 'col-sm-12' : 'col-sm-6'">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">Intervalos de atención</label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.sameConf ? 0 : config.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
+                                                        <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-5">
-                                            <div class="form-group text-center schedule-title">
-                                                <label>Final</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group text-center schedule-title">
-                                                <label>Posición</label>
-                                            </div>
-                                        </div>
-                                        <template v-for="(interval, intervalIndex) in config.steps[config.sameConf ? 0 : config.actualStep].schedule">
+                                        <div v-if="config.steps[config.sameConf ? 0 : config.actualStep].active" class="row">
+                                            <div style="padding-top: 20px"></div>
                                             <div class="col-sm-5">
-                                                <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                    <span class="help-block">{{interval.textBegin}}</span>
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Inicio</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
-                                                <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                    <span class="help-block">{{interval.textEnd}}</span>
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Final</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-2">
-                                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                    <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
-                                                        <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
-                                                            <small></small>
-                                                        </span>
-                                                    </label>
+                                                <div class="form-group text-center schedule-title">
+                                                    <label>Posición</label>
                                                 </div>
                                             </div>
-                                        </template>
+                                            <template v-for="(interval, intervalIndex) in config.steps[config.sameConf ? 0 : config.actualStep].schedule">
+                                                <div class="col-sm-5">
+                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">{{interval.textBegin}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                        <span class="help-block">{{interval.textEnd}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                        <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
+                                                            <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
+                                                                <small></small>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div class="row">
+                                            <div style="padding-top: 20px"></div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                        <i class="icon-shrink3"></i>
+                                                    </div>
+                                                    <div id="mapAddResource" class="map-container map-basic"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="actions clearfix">
                                         <div style="padding-top: 20px"></div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                                                <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                                    <i class="icon-shrink3"></i>
-                                                </div>
-                                                <div id="mapAddResource" class="map-container map-basic"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="actions clearfix">
-                                    <div style="padding-top: 20px"></div>
-                                    <ul role="menu" aria-label="Pagination">
-                                        <template v-if="config.sameConf">
-                                            <li>
-                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
-                                            </li>
-                                        </template>
-                                        <template v-else>
-                                            <li :class="config.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
-                                                <a class="btn btn-default" href="#previous" v-on:click.prevent="config.actualStep > 0 ? config.changeStep(config.actualStep - 1) : ''" role="menuitem">Anterior</a>
-                                            </li>
-                                            <li v-if="config.actualStep < config.steps.length - 1">
-                                                <a class="btn btn-info btn-customized" href="#next" v-on:click.prevent="config.changeStep(config.actualStep + 1)" role="menuitem">Siguiente</a>
-                                            </li>
-                                            <li v-else>
-                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
-                                            </li>
-                                        </template>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-        <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header modal-header-custom">
-                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{config.store.alterLinkDef.see.store.name}}</h4>
-                    </div>
-                    <div class="modal-body modal-body-custom">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div id="mapFocusPositionSeeStore" v-on:click="config.store.alterLinkDef.see.store.focusPosition()" class="map-focus-position text-center">
-                                        <i class="icon-shrink3"></i>
-                                    </div>
-                                    <div id="mapSeeStore" class="map-container-modal map-basic"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div class="steps-basic wizard clearfix">
-                                        <div class="steps clearfix">
-                                            <ul role="tablist">
-                                                <li v-for="(steps, stepIndex) in config.store.alterLinkDef.see.store.steps" role="tab"
-                                                :class="[stepIndex === 0 ? 'first' : '',
-                                                        config.store.alterLinkDef.see.store.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                                    <a href="#" v-on:click.prevent="steps.seen && config.store.alterLinkDef.see.store.actualStep !== stepIndex ? config.store.alterLinkDef.see.store.changeStep(stepIndex) : ''">
-                                                        <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
-                                                    </a>
+                                        <ul role="menu" aria-label="Pagination">
+                                            <template v-if="config.sameConf">
+                                                <li>
+                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
                                                 </li>
-                                            </ul>
+                                            </template>
+                                            <template v-else>
+                                                <li :class="config.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
+                                                    <a class="btn btn-default" href="#previous" v-on:click.prevent="config.actualStep > 0 ? config.changeStep(config.actualStep - 1) : ''" role="menuitem">Anterior</a>
+                                                </li>
+                                                <li v-if="config.actualStep < config.steps.length - 1">
+                                                    <a class="btn btn-info btn-customized" href="#next" v-on:click.prevent="config.changeStep(config.actualStep + 1)" role="menuitem">Siguiente</a>
+                                                </li>
+                                                <li v-else>
+                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-custom">
+                            <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{{config.store.alterLinkDef.see.store.name}}</h4>
+                        </div>
+                        <div class="modal-body modal-body-custom">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div id="mapFocusPositionSeeStore" v-on:click="config.store.alterLinkDef.see.store.focusPosition()" class="map-focus-position text-center">
+                                            <i class="icon-shrink3"></i>
                                         </div>
-                                        <div class="content clearfix">
-                                            <div class="row">
-                                                <div style="padding-top: 20px"></div>
-                                                <div :class="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                                    <div class="form-group">
-                                                        <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                            <label>
-                                                                <span class="switchery switchery-default switchery-custom" :class="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'active' : 'not-active'">
-                                                                    <small></small>
-                                                                </span>
-                                                                {{config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'Si' : 'No'}}
-                                                            </label>
-                                                            <span class="help-block">¿Opera en {{config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].text}}?</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div v-if="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active" class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-4">Intervalos de atención</label>
-                                                        <div class="col-md-8">
-                                                            <input disabled="disabled" class="form-control" v-model="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].interval" type="number" name="Intervalos de atención">
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        <div id="mapSeeStore" class="map-container-modal map-basic"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="steps-basic wizard clearfix">
+                                            <div class="steps clearfix">
+                                                <ul role="tablist">
+                                                    <li v-for="(steps, stepIndex) in config.store.alterLinkDef.see.store.steps" role="tab"
+                                                    :class="[stepIndex === 0 ? 'first' : '',
+                                                            config.store.alterLinkDef.see.store.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                        <a href="#" v-on:click.prevent="steps.seen && config.store.alterLinkDef.see.store.actualStep !== stepIndex ? config.store.alterLinkDef.see.store.changeStep(stepIndex) : ''">
+                                                            <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <div v-if="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active && Math.floor(parseInt(config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].interval)) > 0" class="row">
-                                                <div style="padding-top: 20px"></div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group text-center schedule-title">
-                                                        <label>Inicio</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group text-center schedule-title">
-                                                        <label>Final</label>
-                                                    </div>
-                                                </div>
-                                                <template v-for="(interval, intervalIndex) in config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].schedule">
-                                                    <div class="col-sm-6">
+                                            <div class="content clearfix">
+                                                <div class="row">
+                                                    <div style="padding-top: 20px"></div>
+                                                    <div :class="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
                                                         <div class="form-group">
-                                                            <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                            <span class="help-block">hh:mm:ss</span>
+                                                            <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                                <label>
+                                                                    <span class="switchery switchery-default switchery-custom" :class="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'active' : 'not-active'">
+                                                                        <small></small>
+                                                                    </span>
+                                                                    {{config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'Si' : 'No'}}
+                                                                </label>
+                                                                <span class="help-block">¿Opera en {{config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].text}}?</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div v-if="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active" class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4">Intervalos de atención</label>
+                                                            <div class="col-md-8">
+                                                                <input disabled="disabled" class="form-control" v-model="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].interval" type="number" name="Intervalos de atención">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div v-if="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active && Math.floor(parseInt(config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].interval)) > 0" class="row">
+                                                    <div style="padding-top: 20px"></div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group text-center schedule-title">
+                                                            <label>Inicio</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                            <span class="help-block">hh:mm:ss</span>
+                                                        <div class="form-group text-center schedule-title">
+                                                            <label>Final</label>
                                                         </div>
                                                     </div>
-                                                </template>
+                                                    <template v-for="(interval, intervalIndex) in config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].schedule">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                                <span class="help-block">hh:mm:ss</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                                <span class="help-block">hh:mm:ss</span>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div style="height: 10px;"></div>
                         </div>
-                        <div style="height: 10px;"></div>
-                    </div>
-                    <div class="modal-footer modal-footer-custom">
-                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                        <div class="modal-footer modal-footer-custom">
+                            <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
     </div>
 `;
 
@@ -37098,16 +37186,18 @@ module.exports = new Vue({
         },
         map: {
             main: null,
+            geocoder: null,
             marker: {
                 main: null,
+                window: null,
                 position: {
                     lat: null,
                     lng: null
                 },
             },
             data: {
-                address: "Chilpancingo_1_2, Hipódromo",
-                zoom: 18
+                address: "Ciudad de México, México",
+                zoom: 13
             }
         },
         actualStep: 0,
@@ -37322,9 +37412,13 @@ module.exports = new Vue({
             this.map.main.addListener("click", function(e){       //Define on click listener for map
                 me.positioner(e.latLng);
             });
+            this.initGeocoder();
             this.initPosition();
             this.initSearch();
             this.initFocus();
+        },
+        initGeocoder: function(){
+            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
         },
         initFocus: function(){
             this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionEditStore'));
@@ -37378,13 +37472,35 @@ module.exports = new Vue({
             });
         },
         initPosition: function(){
+            var me = this;
             if(this.map.marker.position.lat !== null &&
-               this.map.marker.position.lng !== null)
+               this.map.marker.position.lng !== null){
                 this.map.marker.main = new google.maps.Marker({
                     map: this.map.main,
                     position: this.map.marker.position,
                     icon: "/image/maps/blue.png"
                 });
+                this.map.marker.window = new google.maps.InfoWindow({
+                    content: "Dirección no encontrada.",
+                    maxWidth: 175
+                });
+                this.map.marker.main.addListener("rightclick", function(){
+                    me.map.marker.window.open(me.map.main, me.map.marker.main);
+                });
+                this.getDirection(this.map.marker.position);
+            }
+        },
+        getDirection: function(pos){
+            var me = this;
+            this.map.geocoder.geocode({                          //Geocoder for placing
+                location: pos
+            },
+            function(response, status){
+                if(status === "OK" && response[0])
+                    me.map.marker.window.setContent(response[0].formatted_address);
+                else
+                    console.log(status, response);
+            });
         },
         focusPosition: function(){
             if(this.map.marker.position.lat !== null &&
@@ -37407,6 +37523,7 @@ module.exports = new Vue({
                 });
             this.map.marker.position.lat = pos.lat();
             this.map.marker.position.lng = pos.lng();
+            this.getDirection(pos);
         },
         changeStep: function(e){
             this.actualStep = e;
@@ -37700,14 +37817,15 @@ module.exports = new Vue({
                 geocoder: null,
                 marker: {
                     main: null,
+                    window: null,
                     position: {
                         lat: null,
                         lng: null
                     },
                 },
                 data: {
-                    address: "Chilpancingo_1_2, Hipódromo",
-                    zoom: 18
+                    address: "Ciudad de México, México",
+                    zoom: 13
                 }
             },
             sameConf: false,
@@ -37967,14 +38085,32 @@ module.exports = new Vue({
             }
         },
         positioner: function(pos){
+            var me = this;
             if(this.manualAdd.map.marker.main)
                 this.manualAdd.map.marker.main.setPosition(pos);
-            else
+            else{
                 this.manualAdd.map.marker.main = new google.maps.Marker({
                     map: this.manualAdd.map.main,
                     position: pos,
                     icon: "/image/maps/blue.png"
                 });
+                this.manualAdd.map.marker.main.addListener("rightclick", function(){
+                    me.manualAdd.map.marker.window.open(me.manualAdd.map.main, me.manualAdd.map.marker.main);
+                });
+                this.manualAdd.map.marker.window = new google.maps.InfoWindow({
+                    content: "Dirección no encontrada.",
+                    maxWidth: 175
+                });
+            }
+            this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                location: pos
+            },
+            function(response, status){
+                if(status === "OK" && response[0])
+                    me.manualAdd.map.marker.window.setContent(response[0].formatted_address);
+                else
+                    console.log(status, response);
+            });
             this.manualAdd.map.marker.position.lat = pos.lat();
             this.manualAdd.map.marker.position.lng = pos.lng();
         },
@@ -38567,8 +38703,8 @@ module.exports = new Vue({
                     }
                 ],
                 data: {
-                    address: "Chilpancingo_1_2, Hipódromo",
-                    zoom: 18
+                    address: "Ciudad de México, México",
+                    zoom: 13
                 }
             },
             sameConf: false,
@@ -39497,7 +39633,7 @@ module.exports = new Vue({
                 valid: true,
                 text: ""
             },
-            date: {
+            phone: {
                 value: null,
                 valid: true,
                 text: ""
@@ -39531,8 +39667,8 @@ module.exports = new Vue({
                     }
                 ],
                 data: {
-                    address: "Chilpancingo_1_2, Hipódromo",
-                    zoom: 18
+                    address: "Ciudad de México, México",
+                    zoom: 13
                 }
             },
             sameConf: false,
@@ -39555,6 +39691,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -39580,6 +39718,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -39605,6 +39745,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -39630,6 +39772,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -39655,6 +39799,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -39680,6 +39826,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -39705,6 +39853,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -39761,9 +39911,8 @@ module.exports = new Vue({
             this.initConfiguration(true);
             this.initSearch();
             this.initFocus();
-            if(exists === 0)
-                this.initGeocoder();
-            else
+            this.initGeocoder(exists);
+            if(exists !== 0)
                 this.focusPosition();
         },
         initFocus: function(){
@@ -39801,18 +39950,19 @@ module.exports = new Vue({
                 me.manualAdd.map.main.fitBounds(bounds);
             });
         },
-        initGeocoder: function(){
+        initGeocoder: function(exists){
             var me = this;
             this.manualAdd.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
-            this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
-                address: this.manualAdd.map.data.address
-            },
-            function(response, status){
-                if(status === "OK")
-                    me.manualAdd.map.main.setCenter(response[0].geometry.location);
-                else
-                    console.log(status);
-            });
+            if(exists === 0)
+                this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                    address: this.manualAdd.map.data.address
+                },
+                function(response, status){
+                    if(status === "OK")
+                        me.manualAdd.map.main.setCenter(response[0].geometry.location);
+                    else
+                        console.log(status);
+                });
         },
         initConfiguration: function(auto){
             var i = 0, j;
@@ -39843,12 +39993,12 @@ module.exports = new Vue({
             this.setVisibilityPosition(true); //AUTO
         },
         setVisibilityPosition: function(auto){
-            var i, j, k;
+            var i, j, k, step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
             if(!auto)
                 this.manualAdd.allPosVisible = this.manualAdd.allPosVisible < 2 ? this.manualAdd.allPosVisible + 1 : 0;
             for(i = 0; i < this.manualAdd.steps.length; i++){
                 if(this.manualAdd.steps[i].active){
-                    k = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+                    k = step;
                     for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
                         if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
                            this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
@@ -39866,12 +40016,54 @@ module.exports = new Vue({
                 }
             }
         },
+        getDirection: function(type, pos, step, j){
+            var me = this;
+            switch(type){
+                case "begin":
+                    this.manualAdd.steps[step].schedule[j].main_begin.addListener("rightclick", function(){
+                        me.manualAdd.steps[step].schedule[j].window_begin.open(me.manualAdd.map.main, me.manualAdd.steps[step].schedule[j].main_begin);
+                    });
+                    this.manualAdd.steps[step].schedule[j].window_begin = new google.maps.InfoWindow({
+                        content: "Dirección no encontrada.",
+                        maxWidth: 175
+                    });
+                    this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                        location: pos
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.manualAdd.steps[step].schedule[j].window_begin.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                    break;
+                case "end":
+                    this.manualAdd.steps[step].schedule[j].main_end.addListener("rightclick", function(){
+                        me.manualAdd.steps[step].schedule[j].window_end.open(me.manualAdd.map.main, me.manualAdd.steps[step].schedule[j].main_end);
+                    });
+                    this.manualAdd.steps[step].schedule[j].window_end = new google.maps.InfoWindow({
+                        content: "Dirección no encontrada.",
+                        maxWidth: 175
+                    });
+                    this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                        location: pos
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.manualAdd.steps[step].schedule[j].window_end.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                    break;
+            }
+        },
         focusPosition: function(){
             var i, j, k, k2 = false,
                 counter = 0,
                 totalLat = 0,
                 totalLng = 0,
-                bounds = new google.maps.LatLngBounds();
+                bounds = new google.maps.LatLngBounds(),
+                step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
             if(this.manualAdd.allPosVisible === 0 && !this.manualAdd.sameConf){
                 for(i = 0; i < this.manualAdd.map.marker.length; i++)
                     for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
@@ -39917,7 +40109,7 @@ module.exports = new Vue({
                 }
             }
             else if(this.manualAdd.allPosVisible === 1){
-                k = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+                k = step;
                 for(j = 0; j < this.manualAdd.steps[k].schedule.length; j++){
                     if(this.manualAdd.steps[k].schedule[j].main_begin !== null &&
                        this.manualAdd.steps[k].schedule[j].lat_begin !== null &&
@@ -39939,7 +40131,7 @@ module.exports = new Vue({
                 }
             }
             else{
-                k = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+                k = step;
                 for(j = 0; j < this.manualAdd.steps[k].schedule.length; j++)
                     if(this.manualAdd.steps[k].schedule[j].active)
                         k2 = j;
@@ -39977,67 +40169,68 @@ module.exports = new Vue({
                 this.initGeocoder();
         },
         setActiveInterval: function(i){
-            for(var j = 0; j < this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length; j++)
-                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].active = j === i;
+            var step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+            for(var j = 0; j < this.manualAdd.steps[step].schedule.length; j++)
+                this.manualAdd.steps[step].schedule[j].active = j === i;
             if(this.manualAdd.allPosVisible === 2)
                 this.setVisibilityPosition(true); //AUTO
         },
         positioner: function(pos){
-            for(var j = 0; j < this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length; j++)
-                if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].active && this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].active){
-                    if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin === null){
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin = new google.maps.Marker({
-                                map: this.manualAdd.map.main,
-                                position: pos,
-                                icon: {
-                                    url: "/image/maps/green-empty.png",
-                                    labelOrigin: new google.maps.Point(11, 11)
-                                },
-                                label: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1),
-                                title: "Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text),
-                            });
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_begin = pos.lat();
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_begin = pos.lng();
-                        this.deleter("begin", this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep, j);
-                    }
-                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_begin === null &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_begin === null){
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setMap(this.manualAdd.map.main);
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setPosition(pos);
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setLabel(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1));
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setTitle("Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text));
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_begin = pos.lat();
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_begin = pos.lng();
-                    }
-                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end === null){
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end = new google.maps.Marker({
-                                map: this.manualAdd.map.main,
-                                position: pos,
-                                icon: {
-                                    url: "/image/maps/red-empty.png",
-                                    labelOrigin: new google.maps.Point(11, 11)
-                                },
-                                label: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1),
-                                title: "Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text),
-                            });
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.addListener("dblclick", function(){
-                            
+            var step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+            for(var j = 0; j < this.manualAdd.steps[step].schedule.length; j++)
+                if(this.manualAdd.steps[step].active && this.manualAdd.steps[step].schedule[j].active){
+                    if(this.manualAdd.steps[step].schedule[j].main_begin === null){
+                        this.manualAdd.steps[step].schedule[j].main_begin = new google.maps.Marker({
+                            map: this.manualAdd.map.main,
+                            position: pos,
+                            icon: {
+                                url: "/image/maps/green-empty.png",
+                                labelOrigin: new google.maps.Point(11, 11)
+                            },
+                            label: this.manualAdd.map.marker[step][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1),
+                            title: "Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text),
                         });
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_end = pos.lat();
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_end = pos.lng();
-                        this.deleter("end", this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep, j);
+                        this.manualAdd.steps[step].schedule[j].lat_begin = pos.lat();
+                        this.manualAdd.steps[step].schedule[j].lng_begin = pos.lng();
+                        this.getDirection("begin", pos, step, j);
+                        this.deleter("begin", step, j);
                     }
-                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_end === null &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_end === null){
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setMap(this.manualAdd.map.main);
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setPosition(pos);
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setLabel(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1));
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setTitle("Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text));
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_end = pos.lat();
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_end = pos.lng();
+                    else if(this.manualAdd.steps[step].schedule[j].main_begin &&
+                            this.manualAdd.steps[step].schedule[j].lat_begin === null &&
+                            this.manualAdd.steps[step].schedule[j].lng_begin === null){
+                        this.manualAdd.steps[step].schedule[j].main_begin.setMap(this.manualAdd.map.main);
+                        this.manualAdd.steps[step].schedule[j].main_begin.setPosition(pos);
+                        this.manualAdd.steps[step].schedule[j].main_begin.setLabel(this.manualAdd.map.marker[step][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1));
+                        this.manualAdd.steps[step].schedule[j].main_begin.setTitle("Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text));
+                        this.manualAdd.steps[step].schedule[j].lat_begin = pos.lat();
+                        this.manualAdd.steps[step].schedule[j].lng_begin = pos.lng();
+                    }
+                    else if(this.manualAdd.steps[step].schedule[j].main_begin &&
+                            this.manualAdd.steps[step].schedule[j].main_end === null){
+                        this.manualAdd.steps[step].schedule[j].main_end = new google.maps.Marker({
+                            map: this.manualAdd.map.main,
+                            position: pos,
+                            icon: {
+                                url: "/image/maps/red-empty.png",
+                                labelOrigin: new google.maps.Point(11, 11)
+                            },
+                            label: this.manualAdd.map.marker[step][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1),
+                            title: "Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text),
+                        });
+                        this.manualAdd.steps[step].schedule[j].lat_end = pos.lat();
+                        this.manualAdd.steps[step].schedule[j].lng_end = pos.lng();
+                        this.getDirection("end", pos, step, j);
+                        this.deleter("end", step, j);
+                    }
+                    else if(this.manualAdd.steps[step].schedule[j].main_end &&
+                            this.manualAdd.steps[step].schedule[j].lat_end === null &&
+                            this.manualAdd.steps[step].schedule[j].lng_end === null){
+                        this.manualAdd.steps[step].schedule[j].main_end.setMap(this.manualAdd.map.main);
+                        this.manualAdd.steps[step].schedule[j].main_end.setPosition(pos);
+                        this.manualAdd.steps[step].schedule[j].main_end.setLabel(this.manualAdd.map.marker[step][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1));
+                        this.manualAdd.steps[step].schedule[j].main_end.setTitle("Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text));
+                        this.manualAdd.steps[step].schedule[j].lat_end = pos.lat();
+                        this.manualAdd.steps[step].schedule[j].lng_end = pos.lng();
                     }
                 }
         },
@@ -40064,14 +40257,15 @@ module.exports = new Vue({
                 this.setVisibilityPosition(true); //AUTO
         },
         setInterval: function(){
+            var step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
             var i,
                 newSchedule = [],
-                interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
-                length = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length;
-            if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)))){
-                if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
+                interval = Math.floor(parseInt(this.manualAdd.steps[step].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[step].interval)) : this.manualAdd.maxInterval,
+                length = this.manualAdd.steps[step].schedule.length;
+            if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[step].interval)))){
+                if(this.manualAdd.steps[step].schedule.length < interval){
                     for(i = 0; i < interval - length; i++)
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
+                        this.manualAdd.steps[step].schedule.push({
                             begin: "",
                             end: "",
                             validBegin: true,
@@ -40081,6 +40275,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -40091,21 +40287,21 @@ module.exports = new Vue({
                 else if(length > interval){
                     for(i = 0; i < length; i++)
                         if(i < interval)
-                            newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
+                            newSchedule.push(this.manualAdd.steps[step].schedule[i]);
                         else{
-                            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin !== null &&
-                                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_begin !== null &&
-                                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_begin !== null)
-                                 this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin.setMap(null);
-                            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end !== null &&
-                               this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_end !== null &&
-                               this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_end !== null)    //Is showed in map
-                                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end.setMap(null);
+                            if(this.manualAdd.steps[step].schedule[i].main_begin !== null &&
+                                this.manualAdd.steps[step].schedule[i].lat_begin !== null &&
+                                this.manualAdd.steps[step].schedule[i].lng_begin !== null)
+                                 this.manualAdd.steps[step].schedule[i].main_begin.setMap(null);
+                            if(this.manualAdd.steps[step].schedule[i].main_end !== null &&
+                               this.manualAdd.steps[step].schedule[i].lat_end !== null &&
+                               this.manualAdd.steps[step].schedule[i].lng_end !== null)    //Is showed in map
+                                this.manualAdd.steps[step].schedule[i].main_end.setMap(null);
                         }
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
+                    this.manualAdd.steps[step].schedule = newSchedule;
                     this.setActivity(true);
                 }
-                if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length > 0)
+                if(this.manualAdd.steps[step].schedule.length > 0)
                     this.setActiveInterval(0);
             }
         },
@@ -40128,6 +40324,7 @@ module.exports = new Vue({
                 this.setVisibilityPosition(true); //AUTO
         },
         validation: function(type, i){
+            var step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
             switch(type){
                 case "name":
                     this.manualAdd.name.valid = false;
@@ -40178,36 +40375,40 @@ module.exports = new Vue({
                         this.manualAdd.repass.valid = true;
                     }
                     break;
-                case "date":
-                    this.manualAdd.date.valid = false;
-                    if(this.manualAdd.date.value === null ||
-                       this.manualAdd.date.value === "")
-                        this.manualAdd.date.text = "Fecha de ingreso no puede estar vacío";
+                case "phone":
+                    this.manualAdd.phone.valid = false;
+                    if(this.manualAdd.phone.value === null ||
+                       this.manualAdd.phone.value === "")
+                        this.manualAdd.phone.text = "Teléfono no puede estar vacío";
+                    else if(this.manualAdd.phone.value.length < 10)
+                        this.manualAdd.phone.text = "Teléfono debe contener al menos 10 dígitos";
+                    else if(this.manualAdd.phone.value.length > 13)
+                        this.manualAdd.phone.text = "Teléfono debe contener como máximo 13 dígitos";
                     else{
-                        this.manualAdd.date.text = "";
-                        this.manualAdd.date.valid = true;
+                        this.manualAdd.phone.text = "";
+                        this.manualAdd.phone.valid = true;
                     }
                     break;
                 case "time-begin":
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validBegin = false;
-                    if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin === "")
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textBegin = "El inicio del intervalo no puede estar vacío";
-                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin.length !== 8)
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                    this.manualAdd.steps[step].schedule[i].validBegin = false;
+                    if(this.manualAdd.steps[step].schedule[i].begin === "")
+                        this.manualAdd.steps[step].schedule[i].textBegin = "El inicio del intervalo no puede estar vacío";
+                    else if(this.manualAdd.steps[step].schedule[i].begin.length !== 8)
+                        this.manualAdd.steps[step].schedule[i].textBegin = "El inicio del intervalo no tiene un formato apropiado";
                     else{
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textBegin = "hh:mm:ss";
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validBegin = true;
+                        this.manualAdd.steps[step].schedule[i].textBegin = "hh:mm:ss";
+                        this.manualAdd.steps[step].schedule[i].validBegin = true;
                     }
                     break;
                 case "time-end":
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validEnd = false;
-                    if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end === "")
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textEnd = "El final del intervalo no puede estar vacío";
-                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end.length !== 8)
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textEnd = "El final del intervalo no tiene un formato apropiado";
+                    this.manualAdd.steps[step].schedule[i].validEnd = false;
+                    if(this.manualAdd.steps[step].schedule[i].end === "")
+                        this.manualAdd.steps[step].schedule[i].textEnd = "El final del intervalo no puede estar vacío";
+                    else if(this.manualAdd.steps[step].schedule[i].end.length !== 8)
+                        this.manualAdd.steps[step].schedule[i].textEnd = "El final del intervalo no tiene un formato apropiado";
                     else{
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textEnd = "hh:mm:ss";
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validEnd = true;
+                        this.manualAdd.steps[step].schedule[i].textEnd = "hh:mm:ss";
+                        this.manualAdd.steps[step].schedule[i].validEnd = true;
                     }
                     break;
             }
@@ -40220,7 +40421,8 @@ module.exports = new Vue({
                         first = true,
                         hmdB, hmdE,
                         error = "",
-                        valid = true;
+                        valid = true,
+                        emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                     if(this.manualAdd.name.value === null || this.manualAdd.name.value === ""){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
@@ -40239,7 +40441,7 @@ module.exports = new Vue({
                         this.manualAdd.name.text = "Nombre debe contener al menos 8 caracteres";
                         valid = false;
                     }
-                    if(valid && (this.manualAdd.email.value === null || this.manualAdd.email.value === "")){     //No name
+                    else if(valid && (this.manualAdd.email.value === null || this.manualAdd.email.value === "")){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Correo electrónico no puede estar vacío.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
@@ -40248,19 +40450,16 @@ module.exports = new Vue({
                         this.manualAdd.email.text = "Correo electrónico no puede estar vacío";
                         valid = false;
                     }
-                    else{
-                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                        if(valid && !emailTest.test(this.manualAdd.email.value)){
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Correo electrónico no tiene una forma válida.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                            this.manualAdd.email.valid = false;
-                            this.manualAdd.email.text = "Correo electrónico no tiene una forma válida";
-                            valid = false;
-                        }
+                    else if(valid && !emailTest.test(this.manualAdd.email.value)){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Correo electrónico no tiene una forma válida.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.email.valid = false;
+                        this.manualAdd.email.text = "Correo electrónico no tiene una forma válida";
+                        valid = false;
                     }
-                    if(valid && (this.manualAdd.pass.value === null || this.manualAdd.pass.value === "")){     //No name
+                    else if(valid && (this.manualAdd.pass.value === null || this.manualAdd.pass.value === "")){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Contraseña no puede estar vacío.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
@@ -40269,8 +40468,7 @@ module.exports = new Vue({
                         this.manualAdd.pass.text = "Contraseña no puede estar vacío";
                         valid = false;
                     }
-                    else{
-                        if(valid && this.manualAdd.pass.value.length < 8){
+                    else if(valid && this.manualAdd.pass.value.length < 8){
                             BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                             BUTO.components.main.alert.description.text = "Contraseña debe contener al menos 8 caracteres.";
                             BUTO.components.main.alert.description.ok = "Aceptar";
@@ -40278,9 +40476,8 @@ module.exports = new Vue({
                             this.manualAdd.pass.valid = false;
                             this.manualAdd.pass.text = "Contraseña debe contener al menos 8 caracteres";
                             valid = false;
-                        }
                     }
-                    if(valid && (this.manualAdd.repass.value === null || this.manualAdd.repass.value === "")){     //No name
+                    else if(valid && (this.manualAdd.repass.value === null || this.manualAdd.repass.value === "")){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Confirmar contraseña no puede estar vacío.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
@@ -40289,24 +40486,40 @@ module.exports = new Vue({
                         this.manualAdd.repass.text = "Confirmar contraseña no puede estar vacío";
                         valid = false;
                     }
-                    else{
-                        if(valid && (this.manualAdd.repass.value !== this.manualAdd.pass.value)){
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Las contraseñas no coinciden.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                            this.manualAdd.repass.valid = false;
-                            this.manualAdd.repass.text = "Las contraseñas no coinciden";
-                            valid = false;
-                        }
-                    }
-                    if(valid && (this.manualAdd.date.value === null || this.manualAdd.date.value === "")){     //No name
+                    else if(valid && (this.manualAdd.repass.value !== this.manualAdd.pass.value)){
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                        BUTO.components.main.alert.description.text = "Fecha de ingreso no puede estar vacío.";
+                        BUTO.components.main.alert.description.text = "Las contraseñas no coinciden.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
-                        this.manualAdd.date.valid = false;
-                        this.manualAdd.date.text = "Fecha de ingreso no puede estar vacío";
+                        this.manualAdd.repass.valid = false;
+                        this.manualAdd.repass.text = "Las contraseñas no coinciden";
+                        valid = false;
+                    }
+                    else if(valid && (this.manualAdd.phone.value === null || this.manualAdd.phone.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Teléfono no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.phone.valid = false;
+                        this.manualAdd.phone.text = "Teléfono no puede estar vacío";
+                        valid = false;
+                    }
+                    else if(valid && this.manualAdd.phone.value.length < 10){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Teléfono debe contener al menos 10 dígitos.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.phone.valid = false;
+                        this.manualAdd.phone.text = "Teléfono debe contener al menos 10 dígitos";
+                        valid = false;
+                    }
+                    else if(valid && this.manualAdd.phone.value.length > 13){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Teléfono debe contener como máximo 13 dígitos.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.phone.valid = false;
+                        this.manualAdd.phone.text = "Teléfono debe contener como máximo 13 dígitos";
                         valid = false;
                     }
                     else if(valid){
@@ -40399,7 +40612,7 @@ module.exports = new Vue({
                                     correo: this.manualAdd.email.value,
                                     pass: this.manualAdd.pass.value,
                                     pass_repeat: this.manualAdd.repass.value,
-                                    fecha_ingreso: this.manualAdd.date.value
+                                    telefono: this.manualAdd.phone.value
                                 }
                             },function(success){
                                 for(i = 0; i < me.manualAdd.steps.length; i++)
@@ -40481,7 +40694,7 @@ module.exports = new Vue({
                     this.manualAdd.email.value = null;
                     this.manualAdd.pass.value = null;
                     this.manualAdd.repass.value = null;
-                    this.manualAdd.date.value = null;
+                    this.manualAdd.phone.value = null;
                     this.manualAdd.actualStep = 0;
                     this.manualAdd.allPosVisible = 0;
                     break;
@@ -40518,8 +40731,8 @@ module.exports = new Vue({
                     this.manualAdd.pass.valid = true;
                     this.manualAdd.repass.value = null;
                     this.manualAdd.repass.valid = true;
-                    this.manualAdd.date.value = null;
-                    this.manualAdd.date.valid = true;
+                    this.manualAdd.phone.value = null;
+                    this.manualAdd.phone.valid = true;
                     this.manualAdd.actualStep = 0;
                     this.manualAdd.allPosVisible = 0;
                     this.manualAdd.sameConf = false;
@@ -40545,6 +40758,8 @@ module.exports = new Vue({
                         
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -40628,8 +40843,8 @@ module.exports = new Vue({
                             type: "status"
                             }
                         },
-                    {title: "hora_inicio", input: {type: 'email'}, editable: true, orderable: true, searchable: {active: true, type: "filter"}},
-                    {title: "hora_fin", input: {type: 'email'}, editable: true, orderable: true, searchable: {active: true, type: "filter"}}
+                    {title: "hora_inicio", input: {type: 'email'}, editable: true, orderable: true, searchable: {active: false, type: "filter"}},
+                    {title: "hora_fin", input: {type: 'email'}, editable: true, orderable: true, searchable: {active: false, type: "filter"}}
                 ],
                 style: {
                     noText: true,
@@ -40799,7 +41014,8 @@ module.exports = new Vue({
                 },
             },
             data: {
-                zoom: 18
+                address: "Ciudad de México, México",
+                zoom: 13
             }
         },
         actualStep: 0,
@@ -40983,8 +41199,8 @@ module.exports = new Vue({
                 },
             },
             data: {
-                address: "Chilpancingo_1_2, Hipódromo",
-                zoom: 18
+                address: "Ciudad de México, México",
+                zoom: 13
             }
         },
         actualStep: 0,
@@ -41562,6 +41778,17 @@ module.exports = new Vue({
             valid: true,
             text: ""
         },
+        step: 0,   //0 general data, 1 routes definition
+        begin: {
+            value: "",
+            valid: true,
+            text: "hh:mm:ss"
+        },
+        end: {
+            value: "",
+            valid: true,
+            text: "hh:mm:ss"
+        },
         day: {
             value: 2,
             options: [
@@ -41595,16 +41822,6 @@ module.exports = new Vue({
                 }
             ]
         },
-        begin: {
-            value: null,
-            valid: true,
-            text: "hh:mm:ss"
-        },
-        end: {
-            value: null,
-            valid: true,
-            text: "hh:mm:ss"
-        },
         map: {
             main: null,
             geocoder: null,
@@ -41637,21 +41854,29 @@ module.exports = new Vue({
                 }
             ],
             data: {
-                address: "Chilpancingo_1_2, Hipódromo",
-                zoom: 18
+                address: "Ciudad de México, México",
+                zoom: 13
             }
         },
         store: {
             data: {
                 perPage: 20,
-                search: {
-                    store: ""
-                },
                 page: {
                     store: {
                         currentPage: 1,
                         pageCount: null,
                         totalCount: null
+                    }
+                },
+                search: {
+                    store: "",
+                    actualTime: null,
+                    actualDay: null,
+                    bounds: {
+                        topLat: null,
+                        topLng: null,
+                        bottomLat: null,
+                        bottomLng: null
                     }
                 }
             },
@@ -41662,184 +41887,8 @@ module.exports = new Vue({
                     store: verTienda
                 }
             }
-        }
-        //steps: [
-        //    {
-        //        text: "Lunes",
-        //        dayNumber: 2,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: true
-        //    },
-        //    {
-        //        text: "Martes",
-        //        dayNumber: 3,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: false
-        //    },
-        //    {
-        //        text: "Miércoles",
-        //        dayNumber: 4,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: false
-        //    },
-        //    {
-        //        text: "Jueves",
-        //        dayNumber: 5,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: false
-        //    },
-        //    {
-        //        text: "Viernes",
-        //        dayNumber: 6,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: false
-        //    },
-        //    {
-        //        text: "Sábado",
-        //        dayNumber: 7,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: false
-        //    },
-        //    {
-        //        text: "Domingo",
-        //        dayNumber: 1,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: false
-        //    },
-        //]
+        },
+        points: []
     },
     methods: {
         init: function(e){
@@ -41853,19 +41902,34 @@ module.exports = new Vue({
                 this.models.sucursalHorario = e.sucursalHorario;
                 this.models.sucursalCliente = e.sucursalCliente;
             }
-            else
+            else{
                 Vue.nextTick(function(){
-                    me.initMap();
+                    if(me.step === 1)
+                        me.initMap();
+                    $('.input-info').popover();
                 });
+            }
         },
         initMap: function(){
+            var me = this;
             this.map.main = new google.maps.Map(document.getElementById('mapAddRoute'), {     //Define Map
                 zoom: this.map.data.zoom
+            });
+            
+            this.map.main.addListener("idle", function() {              //Bounds changed and Finish loading all map
+                me.initBounds(me.map.main.getBounds());
             });
             this.initSearch();
             this.initFocus();
             this.initGeocoder();
             this.initStore(0, 1);
+        },
+        initBounds: function(bounds){
+            this.store.data.search.bounds.topLat = bounds.f.f;
+            this.store.data.search.bounds.topLng = bounds.b.f;
+            this.store.data.search.bounds.bottomLat = bounds.f.b;
+            this.store.data.search.bounds.bottomLng = bounds.b.b;
+            this.initStore();
         },
         initFocus: function(){
             this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddRoute'));
@@ -41922,13 +41986,23 @@ module.exports = new Vue({
                 this.store.data.page.store.currentPage = page;
             if(e === 0)
                 this.store.alterLinkDef.see.first = true;
-            this.store.position = [];
+            if(this.store.position.length > 0){
+                for(i = 0; i < this.store.position.length; i++)
+                    this.store.position[i].main.setMap(null);
+                this.store.position = [];
+            }
             this.models.sucursal.get({
                 params: {
                     "per-page": this.store.data.perPage,
                     "sort": "nombre",
                     "page": this.store.data.page.store.currentPage,
-                    "nombre": this.store.data.search.store
+                    "nombre": this.store.data.search.store,
+                    "hora_abierto": this.store.data.search.actualTime,
+                    "dia_abierto": this.store.data.search.actualDay,
+                    "lat_sup": this.store.data.search.bounds.topLat,
+                    "lng_sup": this.store.data.search.bounds.topLng,
+                    "lat_inf": this.store.data.search.bounds.bottomLat,
+                    "lng_inf": this.store.data.search.bounds.bottomLng
                 }
             },
             function(success){
@@ -41936,42 +42010,188 @@ module.exports = new Vue({
                 me.store.data.page.store.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
                 if(success.body.length > 0){
                     for(i in success.body)
-                        me.store.position.push({
-                            main: new google.maps.Marker({
-                                map: me.map.main,
-                                position: {
-                                    lat: success.body[i].lat,
-                                    lng: success.body[i].lng
-                                },
-                                icon: {
-                                    url: "/image/maps/gray.png"
-                                },
-                                title: success.body[i].nombre,
-                            }),
-                            id: success.body[i].id,
-                            lat: success.body[i].lat,
-                            lng: success.body[i].lng,
-                            name: success.body[i].nombre,
-                            linked: false,
-                            selected: false
-                        });
-                    setTimeout(function(){
-                        me.focusPosition();
-                    }, 250);
+                        me.initMarker(success.body[i]);
                 }
             },
             function(error){
                 console.log(error);
             });
         },
+        initMarker: function(e){
+            var me = this,
+                length = this.store.position.length;
+            this.store.position.push({
+                main: new google.maps.Marker({
+                    map: this.map.main,
+                    position: {
+                        lat: e.lat,
+                        lng: e.lng
+                    },
+                    icon: {
+                        url: "/image/maps/gray.png"
+                    },
+                    title: e.nombre,
+                }),
+                window: new google.maps.InfoWindow({
+                    content: "Dirección no encontrada.",
+                    maxWidth: 175
+                }),
+                id: e.id,
+                lat: e.lat,
+                lng: e.lng,
+                name: e.nombre,
+                linked: false,
+                selected: false
+            });
+            this.store.position[length].main.addListener("rightclick", function(){
+                me.store.position[length].window.open(me.map.main, me.store.position[length].main);
+            });
+            this.map.geocoder.geocode({                          //Geocoder for placing
+                location: {
+                    lat: e.lat,
+                    lng: e.lng
+                }
+            },
+            function(response, status){
+                if(status === "OK" && response[0])
+                    me.store.position[length].window.setContent(response[0].formatted_address);
+                else
+                    console.log(status, response);
+            });
+        },
         seeStore: function(i){
             var me = this;
-            this.store.alterLinkDef.see.store.id = this.store.store[i].id;
+            this.store.alterLinkDef.see.store.id = this.store.position[i].id;
             Vue.nextTick(function(){
                 me.store.alterLinkDef.see.store.init("modal", me.store.alterLinkDef.see.first);
                 if(me.store.alterLinkDef.see.first === true)
                     me.store.alterLinkDef.see.first = false;
             });
+        },
+        setStep: function(){
+            var me = this,
+                valid = true,
+                hmdB = this.begin.value.split(":"),
+                hmdE = this.end.value.split(":");
+            if(this.name.value === null || this.name.value === ""){     //No name
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.name.valid = false;
+                this.name.text = "Nombre no puede estar vacío";
+                valid = false;
+            }
+            else if(valid && this.name.value.length < 4){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "Nombre debe contener al menos 4 caracteres.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.name.valid = false;
+                this.name.text = "Nombre no puede estar vacío";
+                valid = false;
+            }
+            else if(valid && (this.begin.value === null || this.begin.value === "")){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "El horario de inicio no puede estar vacío.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.begin.valid = false;
+                this.begin.text = "El horario de inicio no puede estar vacío";
+                valid = false;
+            }
+            else if(valid && (this.begin.value.length !== 8 ||
+                (this.begin.value > "23:59:59" ||
+                 hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59))){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "El horario de inicio no tiene un formato apropiado.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.begin.valid = false;
+                this.begin.text = "El horario de inicio no tiene un formato apropiado";
+                valid = false;
+            }
+            else if(valid && (this.end.value === null || this.end.value === "")){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "El horario de término no puede estar vacío.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.end.valid = false;
+                this.end.text = "El horario de término no puede estar vacío";
+                valid = false;
+            }
+            else if(valid && (this.end.value.length !== 8 ||
+                (this.end.value > "23:59:59" ||
+                 hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59))){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "El horario de término no tiene un formato apropiado.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.end.valid = false;
+                this.end.text = "El horario de término no tiene un formato apropiado";
+                valid = false;
+            }
+            else if(valid && this.begin.value >= this.end.value){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "El horario de término debe ser mayor al horario de inicio.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.end.valid = false;
+                this.end.text = "El horario de término debe ser mayor al horario de inicio";
+                valid = false;
+            }
+            else if(valid){
+                this.store.data.search.actualTime = this.begin.value;
+                this.store.data.search.actualDay = this.day.value;
+                if(this.step === 0){
+                    this.step = 1;
+                    Vue.nextTick(function(){
+                        me.initMap();
+                    });
+                }
+                else
+                    this.initStore();
+            }
+        },
+        validation: function(type){
+            switch(type){
+                case "name":
+                    this.name.valid = false;
+                    if(this.name.value === null ||
+                       this.name.value === "")
+                        this.name.text = "Nombre no puede estar vacío";
+                    else if(this.name.value.length < 4)
+                        this.name.text = "Nombre debe contener al menos 4 caracteres";
+                    else{
+                        this.name.text = "";
+                        this.name.valid = true;
+                    }
+                    break;
+                case "time-begin":
+                    this.begin.valid = false;
+                    if(this.begin.value === null ||
+                       this.begin.value === "")
+                        this.begin.text = "El horario de inicio no puede estar vacío";
+                    else if(this.begin.value.length !== 8)
+                        this.begin.text = "El horario de inicio no tiene un formato apropiado";
+                    else{
+                        this.begin.text = "hh:mm:ss";
+                        this.begin.valid = true;
+                    }
+                    break;
+                case "time-end":
+                    this.end.valid = false;
+                    if(this.end.value === null ||
+                       this.end.value === "")
+                        this.end.text = "El horario de término no puede estar vacío";
+                    else if(this.end.value.length !== 8)
+                        this.end.text = "El horario de término no tiene un formato apropiado";
+                    else{
+                        this.end.text = "hh:mm:ss";
+                        this.end.valid = true;
+                    }
+                    break;
+            }
         },
         setPoint: function(type){
             var me = this;
@@ -42196,46 +42416,6 @@ module.exports = new Vue({
         //    else 
         //        this.setVisibilityPosition(true); //AUTO
         //},
-        validation: function(type){
-            switch(type){
-                case "name":
-                    this.name.valid = false;
-                    if(this.name.value === null ||
-                       this.name.value === "")
-                        this.name.text = "Nombre no puede estar vacío";
-                    else if(this.name.value.length < 4)
-                        this.name.text = "Nombre debe contener al menos 4 caracteres";
-                    else{
-                        this.name.text = "";
-                        this.name.valid = true;
-                    }
-                    break;
-                case "time-begin":
-                    this.begin.valid = false;
-                    if(this.begin.value === null ||
-                       this.begin.value === "")
-                        this.begin.text = "El horario de inicio no puede estar vacío";
-                    else if(this.begin.value.length !== 8)
-                        this.begin.text = "El horario de inicio no tiene un formato apropiado";
-                    else{
-                        this.begin.text = "hh:mm:ss";
-                        this.begin.valid = true;
-                    }
-                    break;
-                case "time-end":
-                    this.end.valid = false;
-                    if(this.end.value === null ||
-                       this.end.value === "")
-                        this.end.text = "El horario de término no puede estar vacío";
-                    else if(this.end.value.length !== 8)
-                        this.end.text = "El horario de término no tiene un formato apropiado";
-                    else{
-                        this.end.text = "hh:mm:ss";
-                        this.end.valid = true;
-                    }
-                    break;
-            }
-        },
         submit: function(e){
             var me = this;
             switch(e){

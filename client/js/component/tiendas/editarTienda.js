@@ -12,16 +12,18 @@ module.exports = new Vue({
         },
         map: {
             main: null,
+            geocoder: null,
             marker: {
                 main: null,
+                window: null,
                 position: {
                     lat: null,
                     lng: null
                 },
             },
             data: {
-                address: "Chilpancingo_1_2, Hipódromo",
-                zoom: 18
+                address: "Ciudad de México, México",
+                zoom: 13
             }
         },
         actualStep: 0,
@@ -236,9 +238,13 @@ module.exports = new Vue({
             this.map.main.addListener("click", function(e){       //Define on click listener for map
                 me.positioner(e.latLng);
             });
+            this.initGeocoder();
             this.initPosition();
             this.initSearch();
             this.initFocus();
+        },
+        initGeocoder: function(){
+            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
         },
         initFocus: function(){
             this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionEditStore'));
@@ -292,13 +298,35 @@ module.exports = new Vue({
             });
         },
         initPosition: function(){
+            var me = this;
             if(this.map.marker.position.lat !== null &&
-               this.map.marker.position.lng !== null)
+               this.map.marker.position.lng !== null){
                 this.map.marker.main = new google.maps.Marker({
                     map: this.map.main,
                     position: this.map.marker.position,
                     icon: "/image/maps/blue.png"
                 });
+                this.map.marker.window = new google.maps.InfoWindow({
+                    content: "Dirección no encontrada.",
+                    maxWidth: 175
+                });
+                this.map.marker.main.addListener("rightclick", function(){
+                    me.map.marker.window.open(me.map.main, me.map.marker.main);
+                });
+                this.getDirection(this.map.marker.position);
+            }
+        },
+        getDirection: function(pos){
+            var me = this;
+            this.map.geocoder.geocode({                          //Geocoder for placing
+                location: pos
+            },
+            function(response, status){
+                if(status === "OK" && response[0])
+                    me.map.marker.window.setContent(response[0].formatted_address);
+                else
+                    console.log(status, response);
+            });
         },
         focusPosition: function(){
             if(this.map.marker.position.lat !== null &&
@@ -321,6 +349,7 @@ module.exports = new Vue({
                 });
             this.map.marker.position.lat = pos.lat();
             this.map.marker.position.lng = pos.lng();
+            this.getDirection(pos);
         },
         changeStep: function(e){
             this.actualStep = e;

@@ -97,11 +97,11 @@ module.exports = `
                         </div>
                     </div>
                     <div class="row">
-                        <div :class="config.manualAdd.date.valid ? '' : 'has-error'" class="form-group">
-                            <label class="control-label col-lg-2">Fecha de ingreso</label>
+                        <div :class="config.manualAdd.phone.valid ? '' : 'has-error'" class="form-group">
+                            <label class="control-label col-lg-2">Teléfono</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.manualAdd.date.value" type="date" name="Fecha de ingreso">
-                                <span class="help-block">{{config.manualAdd.date.text}}</span>
+                                <input class="form-control" v-on:keyup="config.validation('phone')" v-model="config.manualAdd.phone.value" type="number" name="Teléfono" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                <span class="help-block">{{config.manualAdd.phone.text}}</span>
                             </div>
                         </div>
                     </div>
@@ -186,7 +186,7 @@ module.exports = `
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
                                                         <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                     </div>
                                                 </div>

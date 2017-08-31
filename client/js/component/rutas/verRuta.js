@@ -17,7 +17,8 @@ module.exports = new Vue({
                 },
             },
             data: {
-                zoom: 18
+                address: "Ciudad de México, México",
+                zoom: 13
             }
         },
         actualStep: 0,

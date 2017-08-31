@@ -8,15 +8,18 @@ module.exports = new Vue({
         },
         map: {
             main: null,
+            geocoder: null,
             marker: {
                 main: null,
+                window: null,
                 position: {
                     lat: null,
                     lng: null
                 },
             },
             data: {
-                zoom: 18
+                address: "Ciudad de México, México",
+                zoom: 13
             }
         },
         actualStep: 0,
@@ -146,18 +149,40 @@ module.exports = new Vue({
                 });
             else
                 this.map.main.setCenter(this.map.marker.position);
-            this.initPosition();
-            if(type !== "modal" || first)
+            if(type !== "modal" || first){
+                this.initGeocoder();
                 this.initFocus();
+            }
+            this.initPosition();
+        },
+        initGeocoder: function(){
+            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
         },
         initFocus: function(){
             this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeStore'));
         },
         initPosition: function(){
+            var me = this;
             this.map.marker.main = new google.maps.Marker({
                 map: this.map.main,
                 position: this.map.marker.position,
                 icon: "/image/maps/blue.png"
+            });
+            this.map.marker.window = new google.maps.InfoWindow({
+                content: "Dirección no encontrada.",
+                maxWidth: 175
+            });
+            this.map.marker.main.addListener("rightclick", function(){
+                me.map.marker.window.open(me.map.main, me.map.marker.main);
+            });
+            this.map.geocoder.geocode({                          //Geocoder for placing
+                location: this.map.marker.position
+            },
+            function(response, status){
+                if(status === "OK" && response[0])
+                    me.map.marker.window.setContent(response[0].formatted_address);
+                else
+                    console.log(status, response);
             });
         },
         focusPosition: function(){

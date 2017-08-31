@@ -64,8 +64,8 @@ module.exports = new Vue({
                             type: "status"
                             }
                         },
-                    {title: "hora_inicio", input: {type: 'email'}, editable: true, orderable: true, searchable: {active: true, type: "filter"}},
-                    {title: "hora_fin", input: {type: 'email'}, editable: true, orderable: true, searchable: {active: true, type: "filter"}}
+                    {title: "hora_inicio", input: {type: 'email'}, editable: true, orderable: true, searchable: {active: false, type: "filter"}},
+                    {title: "hora_fin", input: {type: 'email'}, editable: true, orderable: true, searchable: {active: false, type: "filter"}}
                 ],
                 style: {
                     noText: true,

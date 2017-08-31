@@ -21,9 +21,9 @@ module.exports = `
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Fecha de ingreso</label>
+                        <label class="control-label col-lg-2">Teléfono</label>
                         <div class="col-lg-10">
-                            <input disabled="disabled" class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.date" type="date" name="Fecha de ingreso">
+                            <input disabled="disabled" class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.phone" type="number" name="Teléfono">
                         </div>
                     </div>
                 </div>

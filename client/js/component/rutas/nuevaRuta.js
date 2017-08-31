@@ -15,6 +15,17 @@ module.exports = new Vue({
             valid: true,
             text: ""
         },
+        step: 0,   //0 general data, 1 routes definition
+        begin: {
+            value: "",
+            valid: true,
+            text: "hh:mm:ss"
+        },
+        end: {
+            value: "",
+            valid: true,
+            text: "hh:mm:ss"
+        },
         day: {
             value: 2,
             options: [
@@ -48,16 +59,6 @@ module.exports = new Vue({
                 }
             ]
         },
-        begin: {
-            value: null,
-            valid: true,
-            text: "hh:mm:ss"
-        },
-        end: {
-            value: null,
-            valid: true,
-            text: "hh:mm:ss"
-        },
         map: {
             main: null,
             geocoder: null,
@@ -90,21 +91,29 @@ module.exports = new Vue({
                 }
             ],
             data: {
-                address: "Chilpancingo_1_2, Hipódromo",
-                zoom: 18
+                address: "Ciudad de México, México",
+                zoom: 13
             }
         },
         store: {
             data: {
                 perPage: 20,
-                search: {
-                    store: ""
-                },
                 page: {
                     store: {
                         currentPage: 1,
                         pageCount: null,
                         totalCount: null
+                    }
+                },
+                search: {
+                    store: "",
+                    actualTime: null,
+                    actualDay: null,
+                    bounds: {
+                        topLat: null,
+                        topLng: null,
+                        bottomLat: null,
+                        bottomLng: null
                     }
                 }
             },
@@ -115,184 +124,8 @@ module.exports = new Vue({
                     store: verTienda
                 }
             }
-        }
-        //steps: [
-        //    {
-        //        text: "Lunes",
-        //        dayNumber: 2,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: true
-        //    },
-        //    {
-        //        text: "Martes",
-        //        dayNumber: 3,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: false
-        //    },
-        //    {
-        //        text: "Miércoles",
-        //        dayNumber: 4,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: false
-        //    },
-        //    {
-        //        text: "Jueves",
-        //        dayNumber: 5,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: false
-        //    },
-        //    {
-        //        text: "Viernes",
-        //        dayNumber: 6,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: false
-        //    },
-        //    {
-        //        text: "Sábado",
-        //        dayNumber: 7,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: false
-        //    },
-        //    {
-        //        text: "Domingo",
-        //        dayNumber: 1,
-        //        active: true,
-        //        schedule: [
-        //            {
-        //                begin: "",
-        //                end: "",
-        //                validBegin: true,
-        //                validEnd: true,
-        //                textBegin: "hh:mm:ss",
-        //                textEnd: "hh:mm:ss",
-        //                
-        //                main_begin: null,
-        //                main_end: null,
-        //                lat_begin: null,
-        //                lng_begin: null,
-        //                lat_end: null,
-        //                lng_end: null,
-        //                active: true
-        //            }
-        //        ],
-        //        interval: 1,
-        //        seen: false
-        //    },
-        //]
+        },
+        points: []
     },
     methods: {
         init: function(e){
@@ -306,19 +139,34 @@ module.exports = new Vue({
                 this.models.sucursalHorario = e.sucursalHorario;
                 this.models.sucursalCliente = e.sucursalCliente;
             }
-            else
+            else{
                 Vue.nextTick(function(){
-                    me.initMap();
+                    if(me.step === 1)
+                        me.initMap();
+                    $('.input-info').popover();
                 });
+            }
         },
         initMap: function(){
+            var me = this;
             this.map.main = new google.maps.Map(document.getElementById('mapAddRoute'), {     //Define Map
                 zoom: this.map.data.zoom
+            });
+            
+            this.map.main.addListener("idle", function() {              //Bounds changed and Finish loading all map
+                me.initBounds(me.map.main.getBounds());
             });
             this.initSearch();
             this.initFocus();
             this.initGeocoder();
             this.initStore(0, 1);
+        },
+        initBounds: function(bounds){
+            this.store.data.search.bounds.topLat = bounds.f.f;
+            this.store.data.search.bounds.topLng = bounds.b.f;
+            this.store.data.search.bounds.bottomLat = bounds.f.b;
+            this.store.data.search.bounds.bottomLng = bounds.b.b;
+            this.initStore();
         },
         initFocus: function(){
             this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddRoute'));
@@ -375,13 +223,23 @@ module.exports = new Vue({
                 this.store.data.page.store.currentPage = page;
             if(e === 0)
                 this.store.alterLinkDef.see.first = true;
-            this.store.position = [];
+            if(this.store.position.length > 0){
+                for(i = 0; i < this.store.position.length; i++)
+                    this.store.position[i].main.setMap(null);
+                this.store.position = [];
+            }
             this.models.sucursal.get({
                 params: {
                     "per-page": this.store.data.perPage,
                     "sort": "nombre",
                     "page": this.store.data.page.store.currentPage,
-                    "nombre": this.store.data.search.store
+                    "nombre": this.store.data.search.store,
+                    "hora_abierto": this.store.data.search.actualTime,
+                    "dia_abierto": this.store.data.search.actualDay,
+                    "lat_sup": this.store.data.search.bounds.topLat,
+                    "lng_sup": this.store.data.search.bounds.topLng,
+                    "lat_inf": this.store.data.search.bounds.bottomLat,
+                    "lng_inf": this.store.data.search.bounds.bottomLng
                 }
             },
             function(success){
@@ -389,39 +247,188 @@ module.exports = new Vue({
                 me.store.data.page.store.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
                 if(success.body.length > 0){
                     for(i in success.body)
-                        me.store.position.push({
-                            main: new google.maps.Marker({
-                                map: me.map.main,
-                                position: {
-                                    lat: success.body[i].lat,
-                                    lng: success.body[i].lng
-                                },
-                                icon: {
-                                    url: "/image/maps/gray.png"
-                                },
-                                title: success.body[i].nombre,
-                            }),
-                            id: success.body[i].id,
-                            lat: success.body[i].lat,
-                            lng: success.body[i].lng,
-                            name: success.body[i].nombre,
-                            linked: false,
-                            selected: false
-                        });
+                        me.initMarker(success.body[i]);
                 }
             },
             function(error){
                 console.log(error);
             });
         },
+        initMarker: function(e){
+            var me = this,
+                length = this.store.position.length;
+            this.store.position.push({
+                main: new google.maps.Marker({
+                    map: this.map.main,
+                    position: {
+                        lat: e.lat,
+                        lng: e.lng
+                    },
+                    icon: {
+                        url: "/image/maps/gray.png"
+                    },
+                    title: e.nombre,
+                }),
+                window: new google.maps.InfoWindow({
+                    content: "Dirección no encontrada.",
+                    maxWidth: 175
+                }),
+                id: e.id,
+                lat: e.lat,
+                lng: e.lng,
+                name: e.nombre,
+                linked: false,
+                selected: false
+            });
+            this.store.position[length].main.addListener("rightclick", function(){
+                me.store.position[length].window.open(me.map.main, me.store.position[length].main);
+            });
+            this.map.geocoder.geocode({                          //Geocoder for placing
+                location: {
+                    lat: e.lat,
+                    lng: e.lng
+                }
+            },
+            function(response, status){
+                if(status === "OK" && response[0])
+                    me.store.position[length].window.setContent(response[0].formatted_address);
+                else
+                    console.log(status, response);
+            });
+        },
         seeStore: function(i){
             var me = this;
-            this.store.alterLinkDef.see.store.id = this.store.store[i].id;
+            this.store.alterLinkDef.see.store.id = this.store.position[i].id;
             Vue.nextTick(function(){
                 me.store.alterLinkDef.see.store.init("modal", me.store.alterLinkDef.see.first);
                 if(me.store.alterLinkDef.see.first === true)
                     me.store.alterLinkDef.see.first = false;
             });
+        },
+        setStep: function(){
+            var me = this,
+                valid = true,
+                hmdB = this.begin.value.split(":"),
+                hmdE = this.end.value.split(":");
+            if(this.name.value === null || this.name.value === ""){     //No name
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.name.valid = false;
+                this.name.text = "Nombre no puede estar vacío";
+                valid = false;
+            }
+            else if(valid && this.name.value.length < 4){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "Nombre debe contener al menos 4 caracteres.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.name.valid = false;
+                this.name.text = "Nombre no puede estar vacío";
+                valid = false;
+            }
+            else if(valid && (this.begin.value === null || this.begin.value === "")){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "El horario de inicio no puede estar vacío.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.begin.valid = false;
+                this.begin.text = "El horario de inicio no puede estar vacío";
+                valid = false;
+            }
+            else if(valid && (this.begin.value.length !== 8 ||
+                (this.begin.value > "23:59:59" ||
+                 hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59))){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "El horario de inicio no tiene un formato apropiado.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.begin.valid = false;
+                this.begin.text = "El horario de inicio no tiene un formato apropiado";
+                valid = false;
+            }
+            else if(valid && (this.end.value === null || this.end.value === "")){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "El horario de término no puede estar vacío.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.end.valid = false;
+                this.end.text = "El horario de término no puede estar vacío";
+                valid = false;
+            }
+            else if(valid && (this.end.value.length !== 8 ||
+                (this.end.value > "23:59:59" ||
+                 hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59))){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "El horario de término no tiene un formato apropiado.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.end.valid = false;
+                this.end.text = "El horario de término no tiene un formato apropiado";
+                valid = false;
+            }
+            else if(valid && this.begin.value >= this.end.value){
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "El horario de término debe ser mayor al horario de inicio.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+                this.end.valid = false;
+                this.end.text = "El horario de término debe ser mayor al horario de inicio";
+                valid = false;
+            }
+            else if(valid){
+                this.store.data.search.actualTime = this.begin.value;
+                this.store.data.search.actualDay = this.day.value;
+                if(this.step === 0){
+                    this.step = 1;
+                    Vue.nextTick(function(){
+                        me.initMap();
+                    });
+                }
+                else
+                    this.initStore();
+            }
+        },
+        validation: function(type){
+            switch(type){
+                case "name":
+                    this.name.valid = false;
+                    if(this.name.value === null ||
+                       this.name.value === "")
+                        this.name.text = "Nombre no puede estar vacío";
+                    else if(this.name.value.length < 4)
+                        this.name.text = "Nombre debe contener al menos 4 caracteres";
+                    else{
+                        this.name.text = "";
+                        this.name.valid = true;
+                    }
+                    break;
+                case "time-begin":
+                    this.begin.valid = false;
+                    if(this.begin.value === null ||
+                       this.begin.value === "")
+                        this.begin.text = "El horario de inicio no puede estar vacío";
+                    else if(this.begin.value.length !== 8)
+                        this.begin.text = "El horario de inicio no tiene un formato apropiado";
+                    else{
+                        this.begin.text = "hh:mm:ss";
+                        this.begin.valid = true;
+                    }
+                    break;
+                case "time-end":
+                    this.end.valid = false;
+                    if(this.end.value === null ||
+                       this.end.value === "")
+                        this.end.text = "El horario de término no puede estar vacío";
+                    else if(this.end.value.length !== 8)
+                        this.end.text = "El horario de término no tiene un formato apropiado";
+                    else{
+                        this.end.text = "hh:mm:ss";
+                        this.end.valid = true;
+                    }
+                    break;
+            }
         },
         setPoint: function(type){
             var me = this;
@@ -646,46 +653,6 @@ module.exports = new Vue({
         //    else 
         //        this.setVisibilityPosition(true); //AUTO
         //},
-        validation: function(type){
-            switch(type){
-                case "name":
-                    this.name.valid = false;
-                    if(this.name.value === null ||
-                       this.name.value === "")
-                        this.name.text = "Nombre no puede estar vacío";
-                    else if(this.name.value.length < 4)
-                        this.name.text = "Nombre debe contener al menos 4 caracteres";
-                    else{
-                        this.name.text = "";
-                        this.name.valid = true;
-                    }
-                    break;
-                case "time-begin":
-                    this.begin.valid = false;
-                    if(this.begin.value === null ||
-                       this.begin.value === "")
-                        this.begin.text = "El horario de inicio no puede estar vacío";
-                    else if(this.begin.value.length !== 8)
-                        this.begin.text = "El horario de inicio no tiene un formato apropiado";
-                    else{
-                        this.begin.text = "hh:mm:ss";
-                        this.begin.valid = true;
-                    }
-                    break;
-                case "time-end":
-                    this.end.valid = false;
-                    if(this.end.value === null ||
-                       this.end.value === "")
-                        this.end.text = "El horario de término no puede estar vacío";
-                    else if(this.end.value.length !== 8)
-                        this.end.text = "El horario de término no tiene un formato apropiado";
-                    else{
-                        this.end.text = "hh:mm:ss";
-                        this.end.valid = true;
-                    }
-                    break;
-            }
-        },
         submit: function(e){
             var me = this;
             switch(e){

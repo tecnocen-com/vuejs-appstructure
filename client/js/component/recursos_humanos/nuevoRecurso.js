@@ -39,7 +39,7 @@ module.exports = new Vue({
                 valid: true,
                 text: ""
             },
-            date: {
+            phone: {
                 value: null,
                 valid: true,
                 text: ""
@@ -73,8 +73,8 @@ module.exports = new Vue({
                     }
                 ],
                 data: {
-                    address: "Chilpancingo_1_2, Hipódromo",
-                    zoom: 18
+                    address: "Ciudad de México, México",
+                    zoom: 13
                 }
             },
             sameConf: false,
@@ -97,6 +97,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -122,6 +124,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -147,6 +151,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -172,6 +178,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -197,6 +205,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -222,6 +232,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -247,6 +259,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -303,9 +317,8 @@ module.exports = new Vue({
             this.initConfiguration(true);
             this.initSearch();
             this.initFocus();
-            if(exists === 0)
-                this.initGeocoder();
-            else
+            this.initGeocoder(exists);
+            if(exists !== 0)
                 this.focusPosition();
         },
         initFocus: function(){
@@ -343,18 +356,19 @@ module.exports = new Vue({
                 me.manualAdd.map.main.fitBounds(bounds);
             });
         },
-        initGeocoder: function(){
+        initGeocoder: function(exists){
             var me = this;
             this.manualAdd.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
-            this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
-                address: this.manualAdd.map.data.address
-            },
-            function(response, status){
-                if(status === "OK")
-                    me.manualAdd.map.main.setCenter(response[0].geometry.location);
-                else
-                    console.log(status);
-            });
+            if(exists === 0)
+                this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                    address: this.manualAdd.map.data.address
+                },
+                function(response, status){
+                    if(status === "OK")
+                        me.manualAdd.map.main.setCenter(response[0].geometry.location);
+                    else
+                        console.log(status);
+                });
         },
         initConfiguration: function(auto){
             var i = 0, j;
@@ -385,12 +399,12 @@ module.exports = new Vue({
             this.setVisibilityPosition(true); //AUTO
         },
         setVisibilityPosition: function(auto){
-            var i, j, k;
+            var i, j, k, step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
             if(!auto)
                 this.manualAdd.allPosVisible = this.manualAdd.allPosVisible < 2 ? this.manualAdd.allPosVisible + 1 : 0;
             for(i = 0; i < this.manualAdd.steps.length; i++){
                 if(this.manualAdd.steps[i].active){
-                    k = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+                    k = step;
                     for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
                         if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
                            this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
@@ -408,12 +422,54 @@ module.exports = new Vue({
                 }
             }
         },
+        getDirection: function(type, pos, step, j){
+            var me = this;
+            switch(type){
+                case "begin":
+                    this.manualAdd.steps[step].schedule[j].main_begin.addListener("rightclick", function(){
+                        me.manualAdd.steps[step].schedule[j].window_begin.open(me.manualAdd.map.main, me.manualAdd.steps[step].schedule[j].main_begin);
+                    });
+                    this.manualAdd.steps[step].schedule[j].window_begin = new google.maps.InfoWindow({
+                        content: "Dirección no encontrada.",
+                        maxWidth: 175
+                    });
+                    this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                        location: pos
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.manualAdd.steps[step].schedule[j].window_begin.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                    break;
+                case "end":
+                    this.manualAdd.steps[step].schedule[j].main_end.addListener("rightclick", function(){
+                        me.manualAdd.steps[step].schedule[j].window_end.open(me.manualAdd.map.main, me.manualAdd.steps[step].schedule[j].main_end);
+                    });
+                    this.manualAdd.steps[step].schedule[j].window_end = new google.maps.InfoWindow({
+                        content: "Dirección no encontrada.",
+                        maxWidth: 175
+                    });
+                    this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                        location: pos
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.manualAdd.steps[step].schedule[j].window_end.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                    break;
+            }
+        },
         focusPosition: function(){
             var i, j, k, k2 = false,
                 counter = 0,
                 totalLat = 0,
                 totalLng = 0,
-                bounds = new google.maps.LatLngBounds();
+                bounds = new google.maps.LatLngBounds(),
+                step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
             if(this.manualAdd.allPosVisible === 0 && !this.manualAdd.sameConf){
                 for(i = 0; i < this.manualAdd.map.marker.length; i++)
                     for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
@@ -459,7 +515,7 @@ module.exports = new Vue({
                 }
             }
             else if(this.manualAdd.allPosVisible === 1){
-                k = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+                k = step;
                 for(j = 0; j < this.manualAdd.steps[k].schedule.length; j++){
                     if(this.manualAdd.steps[k].schedule[j].main_begin !== null &&
                        this.manualAdd.steps[k].schedule[j].lat_begin !== null &&
@@ -481,7 +537,7 @@ module.exports = new Vue({
                 }
             }
             else{
-                k = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+                k = step;
                 for(j = 0; j < this.manualAdd.steps[k].schedule.length; j++)
                     if(this.manualAdd.steps[k].schedule[j].active)
                         k2 = j;
@@ -519,67 +575,68 @@ module.exports = new Vue({
                 this.initGeocoder();
         },
         setActiveInterval: function(i){
-            for(var j = 0; j < this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length; j++)
-                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].active = j === i;
+            var step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+            for(var j = 0; j < this.manualAdd.steps[step].schedule.length; j++)
+                this.manualAdd.steps[step].schedule[j].active = j === i;
             if(this.manualAdd.allPosVisible === 2)
                 this.setVisibilityPosition(true); //AUTO
         },
         positioner: function(pos){
-            for(var j = 0; j < this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length; j++)
-                if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].active && this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].active){
-                    if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin === null){
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin = new google.maps.Marker({
-                                map: this.manualAdd.map.main,
-                                position: pos,
-                                icon: {
-                                    url: "/image/maps/green-empty.png",
-                                    labelOrigin: new google.maps.Point(11, 11)
-                                },
-                                label: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1),
-                                title: "Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text),
-                            });
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_begin = pos.lat();
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_begin = pos.lng();
-                        this.deleter("begin", this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep, j);
-                    }
-                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_begin === null &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_begin === null){
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setMap(this.manualAdd.map.main);
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setPosition(pos);
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setLabel(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1));
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin.setTitle("Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text));
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_begin = pos.lat();
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_begin = pos.lng();
-                    }
-                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_begin &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end === null){
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end = new google.maps.Marker({
-                                map: this.manualAdd.map.main,
-                                position: pos,
-                                icon: {
-                                    url: "/image/maps/red-empty.png",
-                                    labelOrigin: new google.maps.Point(11, 11)
-                                },
-                                label: this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1),
-                                title: "Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text),
-                            });
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.addListener("dblclick", function(){
-                            
+            var step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+            for(var j = 0; j < this.manualAdd.steps[step].schedule.length; j++)
+                if(this.manualAdd.steps[step].active && this.manualAdd.steps[step].schedule[j].active){
+                    if(this.manualAdd.steps[step].schedule[j].main_begin === null){
+                        this.manualAdd.steps[step].schedule[j].main_begin = new google.maps.Marker({
+                            map: this.manualAdd.map.main,
+                            position: pos,
+                            icon: {
+                                url: "/image/maps/green-empty.png",
+                                labelOrigin: new google.maps.Point(11, 11)
+                            },
+                            label: this.manualAdd.map.marker[step][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1),
+                            title: "Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text),
                         });
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_end = pos.lat();
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_end = pos.lng();
-                        this.deleter("end", this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep, j);
+                        this.manualAdd.steps[step].schedule[j].lat_begin = pos.lat();
+                        this.manualAdd.steps[step].schedule[j].lng_begin = pos.lng();
+                        this.getDirection("begin", pos, step, j);
+                        this.deleter("begin", step, j);
                     }
-                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_end === null &&
-                            this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_end === null){
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setMap(this.manualAdd.map.main);
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setPosition(pos);
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setLabel(this.manualAdd.map.marker[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1));
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].main_end.setTitle("Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text));
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lat_end = pos.lat();
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[j].lng_end = pos.lng();
+                    else if(this.manualAdd.steps[step].schedule[j].main_begin &&
+                            this.manualAdd.steps[step].schedule[j].lat_begin === null &&
+                            this.manualAdd.steps[step].schedule[j].lng_begin === null){
+                        this.manualAdd.steps[step].schedule[j].main_begin.setMap(this.manualAdd.map.main);
+                        this.manualAdd.steps[step].schedule[j].main_begin.setPosition(pos);
+                        this.manualAdd.steps[step].schedule[j].main_begin.setLabel(this.manualAdd.map.marker[step][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1));
+                        this.manualAdd.steps[step].schedule[j].main_begin.setTitle("Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text));
+                        this.manualAdd.steps[step].schedule[j].lat_begin = pos.lat();
+                        this.manualAdd.steps[step].schedule[j].lng_begin = pos.lng();
+                    }
+                    else if(this.manualAdd.steps[step].schedule[j].main_begin &&
+                            this.manualAdd.steps[step].schedule[j].main_end === null){
+                        this.manualAdd.steps[step].schedule[j].main_end = new google.maps.Marker({
+                            map: this.manualAdd.map.main,
+                            position: pos,
+                            icon: {
+                                url: "/image/maps/red-empty.png",
+                                labelOrigin: new google.maps.Point(11, 11)
+                            },
+                            label: this.manualAdd.map.marker[step][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1),
+                            title: "Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text),
+                        });
+                        this.manualAdd.steps[step].schedule[j].lat_end = pos.lat();
+                        this.manualAdd.steps[step].schedule[j].lng_end = pos.lng();
+                        this.getDirection("end", pos, step, j);
+                        this.deleter("end", step, j);
+                    }
+                    else if(this.manualAdd.steps[step].schedule[j].main_end &&
+                            this.manualAdd.steps[step].schedule[j].lat_end === null &&
+                            this.manualAdd.steps[step].schedule[j].lng_end === null){
+                        this.manualAdd.steps[step].schedule[j].main_end.setMap(this.manualAdd.map.main);
+                        this.manualAdd.steps[step].schedule[j].main_end.setPosition(pos);
+                        this.manualAdd.steps[step].schedule[j].main_end.setLabel(this.manualAdd.map.marker[step][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1));
+                        this.manualAdd.steps[step].schedule[j].main_end.setTitle("Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text));
+                        this.manualAdd.steps[step].schedule[j].lat_end = pos.lat();
+                        this.manualAdd.steps[step].schedule[j].lng_end = pos.lng();
                     }
                 }
         },
@@ -606,14 +663,15 @@ module.exports = new Vue({
                 this.setVisibilityPosition(true); //AUTO
         },
         setInterval: function(){
+            var step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
             var i,
                 newSchedule = [],
-                interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
-                length = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length;
-            if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)))){
-                if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
+                interval = Math.floor(parseInt(this.manualAdd.steps[step].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[step].interval)) : this.manualAdd.maxInterval,
+                length = this.manualAdd.steps[step].schedule.length;
+            if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[step].interval)))){
+                if(this.manualAdd.steps[step].schedule.length < interval){
                     for(i = 0; i < interval - length; i++)
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
+                        this.manualAdd.steps[step].schedule.push({
                             begin: "",
                             end: "",
                             validBegin: true,
@@ -623,6 +681,8 @@ module.exports = new Vue({
                             
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,
@@ -633,21 +693,21 @@ module.exports = new Vue({
                 else if(length > interval){
                     for(i = 0; i < length; i++)
                         if(i < interval)
-                            newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
+                            newSchedule.push(this.manualAdd.steps[step].schedule[i]);
                         else{
-                            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin !== null &&
-                                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_begin !== null &&
-                                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_begin !== null)
-                                 this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_begin.setMap(null);
-                            if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end !== null &&
-                               this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lat_end !== null &&
-                               this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].lng_end !== null)    //Is showed in map
-                                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].main_end.setMap(null);
+                            if(this.manualAdd.steps[step].schedule[i].main_begin !== null &&
+                                this.manualAdd.steps[step].schedule[i].lat_begin !== null &&
+                                this.manualAdd.steps[step].schedule[i].lng_begin !== null)
+                                 this.manualAdd.steps[step].schedule[i].main_begin.setMap(null);
+                            if(this.manualAdd.steps[step].schedule[i].main_end !== null &&
+                               this.manualAdd.steps[step].schedule[i].lat_end !== null &&
+                               this.manualAdd.steps[step].schedule[i].lng_end !== null)    //Is showed in map
+                                this.manualAdd.steps[step].schedule[i].main_end.setMap(null);
                         }
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
+                    this.manualAdd.steps[step].schedule = newSchedule;
                     this.setActivity(true);
                 }
-                if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length > 0)
+                if(this.manualAdd.steps[step].schedule.length > 0)
                     this.setActiveInterval(0);
             }
         },
@@ -670,6 +730,7 @@ module.exports = new Vue({
                 this.setVisibilityPosition(true); //AUTO
         },
         validation: function(type, i){
+            var step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
             switch(type){
                 case "name":
                     this.manualAdd.name.valid = false;
@@ -720,36 +781,40 @@ module.exports = new Vue({
                         this.manualAdd.repass.valid = true;
                     }
                     break;
-                case "date":
-                    this.manualAdd.date.valid = false;
-                    if(this.manualAdd.date.value === null ||
-                       this.manualAdd.date.value === "")
-                        this.manualAdd.date.text = "Fecha de ingreso no puede estar vacío";
+                case "phone":
+                    this.manualAdd.phone.valid = false;
+                    if(this.manualAdd.phone.value === null ||
+                       this.manualAdd.phone.value === "")
+                        this.manualAdd.phone.text = "Teléfono no puede estar vacío";
+                    else if(this.manualAdd.phone.value.length < 10)
+                        this.manualAdd.phone.text = "Teléfono debe contener al menos 10 dígitos";
+                    else if(this.manualAdd.phone.value.length > 13)
+                        this.manualAdd.phone.text = "Teléfono debe contener como máximo 13 dígitos";
                     else{
-                        this.manualAdd.date.text = "";
-                        this.manualAdd.date.valid = true;
+                        this.manualAdd.phone.text = "";
+                        this.manualAdd.phone.valid = true;
                     }
                     break;
                 case "time-begin":
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validBegin = false;
-                    if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin === "")
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textBegin = "El inicio del intervalo no puede estar vacío";
-                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].begin.length !== 8)
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                    this.manualAdd.steps[step].schedule[i].validBegin = false;
+                    if(this.manualAdd.steps[step].schedule[i].begin === "")
+                        this.manualAdd.steps[step].schedule[i].textBegin = "El inicio del intervalo no puede estar vacío";
+                    else if(this.manualAdd.steps[step].schedule[i].begin.length !== 8)
+                        this.manualAdd.steps[step].schedule[i].textBegin = "El inicio del intervalo no tiene un formato apropiado";
                     else{
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textBegin = "hh:mm:ss";
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validBegin = true;
+                        this.manualAdd.steps[step].schedule[i].textBegin = "hh:mm:ss";
+                        this.manualAdd.steps[step].schedule[i].validBegin = true;
                     }
                     break;
                 case "time-end":
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validEnd = false;
-                    if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end === "")
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textEnd = "El final del intervalo no puede estar vacío";
-                    else if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].end.length !== 8)
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textEnd = "El final del intervalo no tiene un formato apropiado";
+                    this.manualAdd.steps[step].schedule[i].validEnd = false;
+                    if(this.manualAdd.steps[step].schedule[i].end === "")
+                        this.manualAdd.steps[step].schedule[i].textEnd = "El final del intervalo no puede estar vacío";
+                    else if(this.manualAdd.steps[step].schedule[i].end.length !== 8)
+                        this.manualAdd.steps[step].schedule[i].textEnd = "El final del intervalo no tiene un formato apropiado";
                     else{
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].textEnd = "hh:mm:ss";
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i].validEnd = true;
+                        this.manualAdd.steps[step].schedule[i].textEnd = "hh:mm:ss";
+                        this.manualAdd.steps[step].schedule[i].validEnd = true;
                     }
                     break;
             }
@@ -762,7 +827,8 @@ module.exports = new Vue({
                         first = true,
                         hmdB, hmdE,
                         error = "",
-                        valid = true;
+                        valid = true,
+                        emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                     if(this.manualAdd.name.value === null || this.manualAdd.name.value === ""){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
@@ -781,7 +847,7 @@ module.exports = new Vue({
                         this.manualAdd.name.text = "Nombre debe contener al menos 8 caracteres";
                         valid = false;
                     }
-                    if(valid && (this.manualAdd.email.value === null || this.manualAdd.email.value === "")){     //No name
+                    else if(valid && (this.manualAdd.email.value === null || this.manualAdd.email.value === "")){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Correo electrónico no puede estar vacío.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
@@ -790,19 +856,16 @@ module.exports = new Vue({
                         this.manualAdd.email.text = "Correo electrónico no puede estar vacío";
                         valid = false;
                     }
-                    else{
-                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                        if(valid && !emailTest.test(this.manualAdd.email.value)){
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Correo electrónico no tiene una forma válida.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                            this.manualAdd.email.valid = false;
-                            this.manualAdd.email.text = "Correo electrónico no tiene una forma válida";
-                            valid = false;
-                        }
+                    else if(valid && !emailTest.test(this.manualAdd.email.value)){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Correo electrónico no tiene una forma válida.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.email.valid = false;
+                        this.manualAdd.email.text = "Correo electrónico no tiene una forma válida";
+                        valid = false;
                     }
-                    if(valid && (this.manualAdd.pass.value === null || this.manualAdd.pass.value === "")){     //No name
+                    else if(valid && (this.manualAdd.pass.value === null || this.manualAdd.pass.value === "")){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Contraseña no puede estar vacío.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
@@ -811,8 +874,7 @@ module.exports = new Vue({
                         this.manualAdd.pass.text = "Contraseña no puede estar vacío";
                         valid = false;
                     }
-                    else{
-                        if(valid && this.manualAdd.pass.value.length < 8){
+                    else if(valid && this.manualAdd.pass.value.length < 8){
                             BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                             BUTO.components.main.alert.description.text = "Contraseña debe contener al menos 8 caracteres.";
                             BUTO.components.main.alert.description.ok = "Aceptar";
@@ -820,9 +882,8 @@ module.exports = new Vue({
                             this.manualAdd.pass.valid = false;
                             this.manualAdd.pass.text = "Contraseña debe contener al menos 8 caracteres";
                             valid = false;
-                        }
                     }
-                    if(valid && (this.manualAdd.repass.value === null || this.manualAdd.repass.value === "")){     //No name
+                    else if(valid && (this.manualAdd.repass.value === null || this.manualAdd.repass.value === "")){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Confirmar contraseña no puede estar vacío.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
@@ -831,24 +892,40 @@ module.exports = new Vue({
                         this.manualAdd.repass.text = "Confirmar contraseña no puede estar vacío";
                         valid = false;
                     }
-                    else{
-                        if(valid && (this.manualAdd.repass.value !== this.manualAdd.pass.value)){
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Las contraseñas no coinciden.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                            this.manualAdd.repass.valid = false;
-                            this.manualAdd.repass.text = "Las contraseñas no coinciden";
-                            valid = false;
-                        }
-                    }
-                    if(valid && (this.manualAdd.date.value === null || this.manualAdd.date.value === "")){     //No name
+                    else if(valid && (this.manualAdd.repass.value !== this.manualAdd.pass.value)){
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                        BUTO.components.main.alert.description.text = "Fecha de ingreso no puede estar vacío.";
+                        BUTO.components.main.alert.description.text = "Las contraseñas no coinciden.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
-                        this.manualAdd.date.valid = false;
-                        this.manualAdd.date.text = "Fecha de ingreso no puede estar vacío";
+                        this.manualAdd.repass.valid = false;
+                        this.manualAdd.repass.text = "Las contraseñas no coinciden";
+                        valid = false;
+                    }
+                    else if(valid && (this.manualAdd.phone.value === null || this.manualAdd.phone.value === "")){     //No name
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Teléfono no puede estar vacío.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.phone.valid = false;
+                        this.manualAdd.phone.text = "Teléfono no puede estar vacío";
+                        valid = false;
+                    }
+                    else if(valid && this.manualAdd.phone.value.length < 10){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Teléfono debe contener al menos 10 dígitos.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.phone.valid = false;
+                        this.manualAdd.phone.text = "Teléfono debe contener al menos 10 dígitos";
+                        valid = false;
+                    }
+                    else if(valid && this.manualAdd.phone.value.length > 13){
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Teléfono debe contener como máximo 13 dígitos.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.phone.valid = false;
+                        this.manualAdd.phone.text = "Teléfono debe contener como máximo 13 dígitos";
                         valid = false;
                     }
                     else if(valid){
@@ -941,7 +1018,7 @@ module.exports = new Vue({
                                     correo: this.manualAdd.email.value,
                                     pass: this.manualAdd.pass.value,
                                     pass_repeat: this.manualAdd.repass.value,
-                                    fecha_ingreso: this.manualAdd.date.value
+                                    telefono: this.manualAdd.phone.value
                                 }
                             },function(success){
                                 for(i = 0; i < me.manualAdd.steps.length; i++)
@@ -1023,7 +1100,7 @@ module.exports = new Vue({
                     this.manualAdd.email.value = null;
                     this.manualAdd.pass.value = null;
                     this.manualAdd.repass.value = null;
-                    this.manualAdd.date.value = null;
+                    this.manualAdd.phone.value = null;
                     this.manualAdd.actualStep = 0;
                     this.manualAdd.allPosVisible = 0;
                     break;
@@ -1060,8 +1137,8 @@ module.exports = new Vue({
                     this.manualAdd.pass.valid = true;
                     this.manualAdd.repass.value = null;
                     this.manualAdd.repass.valid = true;
-                    this.manualAdd.date.value = null;
-                    this.manualAdd.date.valid = true;
+                    this.manualAdd.phone.value = null;
+                    this.manualAdd.phone.valid = true;
                     this.manualAdd.actualStep = 0;
                     this.manualAdd.allPosVisible = 0;
                     this.manualAdd.sameConf = false;
@@ -1087,6 +1164,8 @@ module.exports = new Vue({
                         
                             main_begin: null,
                             main_end: null,
+                            window_begin: null,
+                            window_end: null,
                             lat_begin: null,
                             lng_begin: null,
                             lat_end: null,

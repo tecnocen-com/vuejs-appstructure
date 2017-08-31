@@ -110,8 +110,8 @@ module.exports = new Vue({
                     }
                 ],
                 data: {
-                    address: "Chilpancingo_1_2, Hipódromo",
-                    zoom: 18
+                    address: "Ciudad de México, México",
+                    zoom: 13
                 }
             },
             sameConf: false,
