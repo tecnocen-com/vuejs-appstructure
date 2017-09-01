@@ -10612,6 +10612,8 @@ module.exports = new Vue({
                 this.initGeocoder();
                 this.initFocus();
             }
+            if(type === "modal" && !first)
+                this.map.marker.main.setMap(null);
             this.initPosition();
         },
         initGeocoder: function(){
@@ -17320,6 +17322,14 @@ module.exports = new Vue({
                 setTimeout(function(){
                     me.initMap(type, first);
                 }, 250);
+            if(type === "modal" && !first)
+                for(i = 0; i < this.steps.length; i++)
+                    for(j = 0; j < this.steps[i].schedule.length; j++){
+                        if(this.steps[i].schedule[j].main_begin !== null)
+                            this.steps[i].schedule[j].main_begin.setMap(null);
+                        if(this.steps[i].schedule[j].main_end !== null)
+                            this.steps[i].schedule[j].main_end.setMap(null);
+                    }
             for(i = 0; i < this.steps.length; i++)
                 this.steps[i].schedule = [];
             this.models.usuarioEmpleado.get({
@@ -21135,7 +21145,8 @@ module.exports = `
                                     <ul role="tablist">
                                         <li v-for="(steps, stepIndex) in config.day.options" role="tab"
                                         :class="[stepIndex === 0 ? 'first' : '',
-                                                config.day.value === steps.value ? 'done active' : 'active']" aria-disabled="false" aria-selected="true">
+                                                steps.value === config.store.data.search.actualDay ? 'done active' :
+                                                steps.value === config.day.value  ? 'current active' : 'active']" aria-disabled="false" aria-selected="true">
                                             <a href="#" v-on:click.prevent="config.day.value = steps.value">
                                                 <span class="number">X</span> {{steps.text}}
                                             </a>
@@ -21176,17 +21187,35 @@ module.exports = `
                                     <table class="table table-bordered">
                                         <tbody class="body-class">
                                             <tr v-for="(store, storeIndex) in config.store.position"
-                                                :class="store.linked ? 'selected' : store.selected ? 'link-row-select' : ''"
+                                                :class="[config.store.data.selected === storeIndex ? 'link-row-select' : '', store.linked ? 'selected' : '']"
                                                 class="grid-row-customized grid-row-highlight-customized">
-                                                <td v-on:click.self="store.linked ? '' : store.selected = !store.selected" class="col-md-1">
+                                                <td v-on:click.self="config.selector(storeIndex)" class="col-md-1">
                                                     {{store.name}}
                                                     <div class="pull-right">
-                                                        <a href="#" v-on:click.prevent="config.seeStore(storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
-                                                            <i class="icon-eye" aria-hidden="true"></i>
-                                                        </a>
-                                                        <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Agregar">
+                                                        <a href="#" v-on:click.prevent="config.initPoint(storeIndex)" :class="store.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Agregar">
                                                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                         </a>
+                                                        <a :id="'schedule-' + storeIndex" href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Horarios" data-toggle="popover" data-placement="right" data-trigger="hover">
+                                                            <i class="icon-watch2" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div :id="'popover-' + storeIndex" class="hidden">
+                                                        <table class="table">
+                                                            <thead class="table-inverse">
+                                                                <tr>
+                                                                    <th class="text-center">Inicio</th>
+                                                                    <th class="text-center">Final</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="body-class">
+                                                                <template v-for="steps in store.steps">
+                                                                    <tr v-for="schedule in steps.schedule" v-if="steps.dayNumber === config.day.value">
+                                                                        <td>{{schedule.begin}}</td>
+                                                                        <td>{{schedule.end}}</td>
+                                                                    </tr>
+                                                                </template>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -21308,267 +21337,270 @@ module.exports = `
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--<div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Ruta</h5>
-                    <div class="heading-elements">
-                        <div class="heading-form">
-                            <div v-if="config.sameConf" class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.allPosVisible = config.allPosVisible === 1 ? 2 : 1; config.setVisibilityPosition(true)">
-                                        <span class="switchery switchery-default switchery-custom info" :class="config.allPosVisible === 1 ? 'active' : 'not-active'">
-                                            <small></small>
-                                        </span>
-                                        {{config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
-                                    </label>
-                                    <span class="help-block">Ubicaciones</span>
-                                </div>
-                            </div>
-                            <div v-else class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
-                                        <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.allPosVisible === 0 ? 'one' : config.allPosVisible === 1 ? 'two' : 'three'">
-                                            <small></small>
-                                        </span>
-                                        {{config.allPosVisible === 0 ? 'Todas' : config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
-                                    </label>
-                                    <span class="help-block">Ubicaciones</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.initConfiguration()">
-                                        <span class="switchery switchery-default switchery-custom" :class="config.sameConf ? 'active' : 'not-active'">
-                                            <small></small>
-                                        </span>
-                                        {{config.sameConf ? 'Si' : 'No'}}
-                                    </label>
-                                    <span class="help-block">Generalizar horarios</span>
-                                </div>
-                            </div>
+                <div class="col-sm-3">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">Etapas de ruta</h5>
                         </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="steps-basic wizard clearfix">
-                                    <template v-if="config.sameConf">
-                                        <div style="padding-top: 20px"></div>
-                                    </template>
-                                    <div v-else class="steps clearfix">
-                                        <ul role="tablist">
-                                            <li v-for="(steps, stepIndex) in config.steps" role="tab"
-                                            :class="[stepIndex === 0 ? 'first' : '',
-                                                    config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                                <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
-                                                    <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12 grid-route">
+                                    <table class="table table-bordered">
+                                        <tbody class="body-class">
+                                            <tr v-for="(store, storeIndex) in config.store.point" class="selected grid-row-customized grid-row-highlight-customized">
+                                                <td class="col-md-1">
+                                                    {{store.name}}
+                                                    <div class="pull-right">
+                                                        <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Quitar">
+                                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                        </a>
+                                                        <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Más información">
+                                                            <i class="icon-menu" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <nav class="pull-right">
+                                    <ul class="pagination">
+                                        <li>
+                                            <span><b>Mostrando {{config.store.position.length}} de {{config.store.data.page.store.totalCount}} filas en la página {{config.store.data.page.store.currentPage}} de {{config.store.data.page.store.pageCount}}.</b></span>
+                                        </li>
+                                        <li  :class="config.store.data.page.store.currentPage === 1 ? 'not-active disabled' : ''">
+                                            <a href="#" v-on:click.prevent="config.initStore(1, 1);">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <template v-if="config.store.data.page.store.pageCount <= 3">
+                                            <li v-for="page in config.store.data.page.store.pageCount" :class="page === config.store.data.page.store.currentPage ? 'active' : ''">
+                                                <a href="#" v-on:click.prevent="page === config.store.data.page.store.currentPage ? '' : config.initStore(1, page);">
+                                                    {{page}}
                                                 </a>
                                             </li>
-                                        </ul>
-                                    </div>
-                                    <div class="content clearfix">
-                                        <div class="row">
-                                            <div v-if="!config.sameConf" :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                                <div class="form-group">
-                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                        <label v-on:click.prevent="config.setActivity()">
-                                                            <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
-                                                                <small></small>
-                                                            </span>
-                                                            {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
-                                                        </label>
-                                                        <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-if="config.steps[config.sameConf ? 0 : config.actualStep].active" :class="config.sameConf ? 'col-sm-12' : 'col-sm-6'">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4">Intervalos de atención</label>
-                                                    <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.sameConf ? 0 : config.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
-                                                        <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div v-if="config.steps[config.sameConf ? 0 : config.actualStep].active" class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div class="col-sm-5">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Inicio</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Final</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Posición</label>
-                                                </div>
-                                            </div>
-                                            <template v-for="(interval, intervalIndex) in config.steps[config.sameConf ? 0 : config.actualStep].schedule">
-                                                <div class="col-sm-5">
-                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">{{interval.textBegin}}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-5">
-                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">{{interval.textEnd}}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                        <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
-                                                            <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
-                                                                <small></small>
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </div>
-                                        <div class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                                        <i class="icon-shrink3"></i>
-                                                    </div>
-                                                    <div id="mapAddResource" class="map-container map-basic"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="actions clearfix">
-                                        <div style="padding-top: 20px"></div>
-                                        <ul role="menu" aria-label="Pagination">
-                                            <template v-if="config.sameConf">
+                                        </template>
+                                        <template v-else>
+                                            <template v-if="config.store.data.page.store.currentPage < 3">
+                                                <li :class="config.store.data.page.store.currentPage === 1 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 1 ? '' : config.initStore(1, 1);">
+                                                        1
+                                                    </a>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === 2 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 2 ? '' : config.initStore(1, 2);">
+                                                        2
+                                                    </a>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === 3 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 3 ? '' : config.initStore(1, 3);">
+                                                        3
+                                                    </a>
+                                                </li>
                                                 <li>
-                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                    <span aria-hidden="true">...</span>
+                                                </li>
+                                            </template>
+                                            <template v-else-if="config.store.data.page.store.currentPage > config.store.data.page.store.pageCount - 2">
+                                                <li>
+                                                    <span aria-hidden="true">...</span>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 2 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 2 ? '' : config.initStore(1, config.store.data.page.store.pageCount - 2);">
+                                                        {{config.store.data.page.store.pageCount - 2}}
+                                                    </a>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 1 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 1 ? '' : config.initStore(1, config.store.data.page.store.pageCount - 1);">
+                                                        {{config.store.data.page.store.pageCount - 1}}
+                                                    </a>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount ? '' : config.initStore(1, config.store.data.page.store.pageCount);">
+                                                        {{config.store.data.page.store.pageCount}}
+                                                    </a>
                                                 </li>
                                             </template>
                                             <template v-else>
-                                                <li :class="config.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
-                                                    <a class="btn btn-default" href="#previous" v-on:click.prevent="config.actualStep > 0 ? config.changeStep(config.actualStep - 1) : ''" role="menuitem">Anterior</a>
+                                                <li>
+                                                    <span aria-hidden="true">...</span>
                                                 </li>
-                                                <li v-if="config.actualStep < config.steps.length - 1">
-                                                    <a class="btn btn-info btn-customized" href="#next" v-on:click.prevent="config.changeStep(config.actualStep + 1)" role="menuitem">Siguiente</a>
+                                                <li>
+                                                    <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.currentPage - 1)">
+                                                        {{config.store.data.page.store.currentPage - 1}}
+                                                    </a>
                                                 </li>
-                                                <li v-else>
-                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                <li class="active">
+                                                    <a href="#" v-on:click.prevent>
+                                                        {{config.store.data.page.store.currentPage}}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.currentPage + 1)">
+                                                        {{config.store.data.page.store.currentPage + 1}}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <span aria-hidden="true">...</span>
                                                 </li>
                                             </template>
-                                        </ul>
+                                        </template>
+                                        <li :class="config.store.data.page.store.pageCount === config.store.data.page.store.currentPage ? 'not-active disabled' : ''">
+                                            <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.pageCount);">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!--<div class="map-toolbar">
+                                <div class="row title-info">
+                                    <div class="col-sm-12">
+                                        <span>Distancia Total: {{config.configuration.service.totalDistance / 1000}} km.</span>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <span>Tiempo Total: {{Math.floor((config.configuration.service.totalTime + config.configuration.service.deathTime * 60) / 60) + ' min. ' + Math.floor(((config.configuration.service.totalTime / 60) % 1) * 60) + ' seg.'}}</span>
+                                    </div>
+                                    <div class="col-sm-12 text-right">
+                                        <button v-on:click="config.collapse()" class="btn btn-info btn-small">
+                                            {{config.configuration.stepsHidden ? 'Expandir' : 'Colapsar'}} <i :class="config.configuration.stepsHidden ? 'fa-sort-desc' : 'fa-sort-asc'" class="fa" aria-hidden="true"></i>
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
+                                <template v-if="config.configuration.service.travelDetails.legs.length > 0">
+                                    <template v-for="(data, dataIndex) in config.configuration.service.travelDetails.legs">
+                                        <div class="row main-info">
+                                            <div class="col-sm-2">
+                                                <img :src="data.iconStart">
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <a href="#" v-on:click.prevent="data.hidden = !data.hidden">
+                                                    <span>{{data.start}}</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <span>Tiempo Muerto (minutos):</span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input v-on:keyup="config.computeRoute(false)" class="form-control" v-model="data.deathTime" type="number" value="0">
+                                            </div>
+                                        </div>
+                                        <template v-for="steps in data.steps" v-if="!data.hidden">
+                                            <div class="row second-info">
+                                                <div class="col-sm-12">
+                                                    <span>{{steps.instructions}}</span>
+                                                </div>
+                                                <div class="col-sm-12 value-info text-center">
+                                                    <span>(Distancia aproximada: {{steps.distance.text}}. Tiempo aproximado: {{steps.duration.text}})</span>
+                                                </div>
+                                            </div>
+                                        </template>
+                                        <div v-if="config.configuration.service.travelDetails.legs.length - 1 === dataIndex" class="row main-info">
+                                            <div class="col-sm-1">
+                                                <img :src="data.iconEnd">
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <span>{{data.end}}</span>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <div class="row warning-info">
+                                        <span>Notas:</span>
+                                        <div v-for="data in config.configuration.service.travelDetails.warnings" class="col-sm-12">
+                                            <span>{{data.text}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row copyright-info text-center">
+                                        <div class="col-sm-12">
+                                            <span>{{config.configuration.service.travelDetails.copyrights}}</span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>-->
                         </div>
                     </div>
                 </div>
-            </div>-->
-            <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            </div>
+            <div class="modal fade" id="linkClient" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-custom">
                             <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">{{config.store.alterLinkDef.see.store.name}}</h4>
+                            <h4 class="modal-title" id="myModalLabel">Nueva etapa</h4>
                         </div>
                         <div class="modal-body modal-body-custom">
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <div id="mapFocusPositionSeeStore" v-on:click="config.store.alterLinkDef.see.store.focusPosition()" class="map-focus-position text-center">
-                                            <i class="icon-shrink3"></i>
-                                        </div>
-                                        <div id="mapSeeStore" class="map-container-modal map-basic"></div>
+                                <div class="form-group text-center">
+                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                        <label v-on:click.prevent>
+                                            <span class="switchery switchery-default switchery-custom active">
+                                                <small></small>
+                                            </span>
+                                            {{true ? 'Si' : 'No'}}
+                                        </label>
+                                        <span class="help-block">Generalizar tiempos solicitados</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <div class="steps-basic wizard clearfix">
-                                            <div class="steps clearfix">
-                                                <ul role="tablist">
-                                                    <li v-for="(steps, stepIndex) in config.store.alterLinkDef.see.store.steps" role="tab"
-                                                    :class="[stepIndex === 0 ? 'first' : '',
-                                                            config.store.alterLinkDef.see.store.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                                        <a href="#" v-on:click.prevent="steps.seen && config.store.alterLinkDef.see.store.actualStep !== stepIndex ? config.store.alterLinkDef.see.store.changeStep(stepIndex) : ''">
-                                                            <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="content clearfix">
-                                                <div class="row">
-                                                    <div style="padding-top: 20px"></div>
-                                                    <div :class="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                                        <div class="form-group">
-                                                            <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                                <label>
-                                                                    <span class="switchery switchery-default switchery-custom" :class="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'active' : 'not-active'">
-                                                                        <small></small>
-                                                                    </span>
-                                                                    {{config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'Si' : 'No'}}
-                                                                </label>
-                                                                <span class="help-block">¿Opera en {{config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].text}}?</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div v-if="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active" class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-4">Intervalos de atención</label>
-                                                            <div class="col-md-8">
-                                                                <input disabled="disabled" class="form-control" v-model="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].interval" type="number" name="Intervalos de atención">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div v-if="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active && Math.floor(parseInt(config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].interval)) > 0" class="row">
-                                                    <div style="padding-top: 20px"></div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group text-center schedule-title">
-                                                            <label>Inicio</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group text-center schedule-title">
-                                                            <label>Final</label>
-                                                        </div>
-                                                    </div>
-                                                    <template v-for="(interval, intervalIndex) in config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].schedule">
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                                <span class="help-block">hh:mm:ss</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                                <span class="help-block">hh:mm:ss</span>
-                                                            </div>
-                                                        </div>
-                                                    </template>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="row"><!--for-->
+                                <div class="col-sm-6">
+                                    <span><b>NOMBRE CLIENTE</b></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="has-error form-group">
+                                        <input name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
+                                        <span class="help-block">Help</span>
                                     </div>
                                 </div>
                             </div>
                             <div style="height: 10px;"></div>
                         </div>
                         <div class="modal-footer modal-footer-custom">
-                            <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                            <button type="button" class="btn btn-default btn-customized" v-on:click>Agregar</button>
+                            <button id="closeAdd" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-custom">
+                            <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Nueva etapa</h4>
+                        </div>
+                        <div class="modal-body modal-body-custom">
+                            <div class="row">
+                                <div class="form-group text-center">
+                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                        <label v-on:click.prevent>
+                                            <span class="switchery switchery-default switchery-custom active">
+                                                <small></small>
+                                            </span>
+                                            {{true ? 'Si' : 'No'}}
+                                        </label>
+                                        <span class="help-block">Generalizar tiempos solicitados</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row"><!--for-->
+                                <div class="col-sm-6">
+                                    <span><b>NOMBRE CLIENTE</b></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="has-error form-group">
+                                        <input name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
+                                        <span class="help-block">Help</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                        </div>
+                        <div class="modal-footer modal-footer-custom">
+                            <button type="button" class="btn btn-default btn-customized" v-on:click>Agregar</button>
+                            <button id="closeAdd" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
                 </div>
@@ -41860,7 +41892,8 @@ module.exports = new Vue({
         },
         store: {
             data: {
-                perPage: 20,
+                selected: null,
+                perPage: 50,
                 page: {
                     store: {
                         currentPage: 1,
@@ -41872,6 +41905,8 @@ module.exports = new Vue({
                     store: "",
                     actualTime: null,
                     actualDay: null,
+                    actualTimeN: 0,
+                    actualDistance: 0,
                     bounds: {
                         topLat: null,
                         topLng: null,
@@ -41881,14 +41916,8 @@ module.exports = new Vue({
                 }
             },
             position: [],
-            alterLinkDef: {
-                see: {
-                    first: true,
-                    store: verTienda
-                }
-            }
-        },
-        points: []
+            point: []
+        }
     },
     methods: {
         init: function(e){
@@ -41984,42 +42013,42 @@ module.exports = new Vue({
                 me = this;
             if(page)
                 this.store.data.page.store.currentPage = page;
-            if(e === 0)
-                this.store.alterLinkDef.see.first = true;
-            if(this.store.position.length > 0){
-                for(i = 0; i < this.store.position.length; i++)
-                    this.store.position[i].main.setMap(null);
-                this.store.position = [];
+            if(e !== 0){
+                this.store.data.selected = null;
+                if(this.store.position.length > 0){
+                    for(i = 0; i < this.store.position.length; i++)
+                        this.store.position[i].main.setMap(null);
+                    this.store.position = [];
+                }
+                this.models.sucursal.get({
+                    params: {
+                        "per-page": this.store.data.perPage,
+                        "sort": "nombre",
+                        "page": this.store.data.page.store.currentPage,
+                        "nombre": this.store.data.search.store,
+                        "hora_abierto": this.store.data.search.actualTime,
+                        "dia_abierto": this.store.data.search.actualDay,
+                        "lat_sup": this.store.data.search.bounds.topLat,
+                        "lng_sup": this.store.data.search.bounds.topLng,
+                        "lat_inf": this.store.data.search.bounds.bottomLat,
+                        "lng_inf": this.store.data.search.bounds.bottomLng
+                    }
+                },
+                function(success){
+                    me.store.data.page.store.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
+                    me.store.data.page.store.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                    if(success.body.length > 0){
+                        for(i in success.body)
+                            me.initMarker(success.body[i]);
+                    }
+                },
+                function(error){
+                    console.log(error);
+                });
             }
-            this.models.sucursal.get({
-                params: {
-                    "per-page": this.store.data.perPage,
-                    "sort": "nombre",
-                    "page": this.store.data.page.store.currentPage,
-                    "nombre": this.store.data.search.store,
-                    "hora_abierto": this.store.data.search.actualTime,
-                    "dia_abierto": this.store.data.search.actualDay,
-                    "lat_sup": this.store.data.search.bounds.topLat,
-                    "lng_sup": this.store.data.search.bounds.topLng,
-                    "lat_inf": this.store.data.search.bounds.bottomLat,
-                    "lng_inf": this.store.data.search.bounds.bottomLng
-                }
-            },
-            function(success){
-                me.store.data.page.store.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
-                me.store.data.page.store.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
-                if(success.body.length > 0){
-                    for(i in success.body)
-                        me.initMarker(success.body[i]);
-                }
-            },
-            function(error){
-                console.log(error);
-            });
         },
         initMarker: function(e){
-            var me = this,
-                length = this.store.position.length;
+            var length = this.store.position.length;
             this.store.position.push({
                 main: new google.maps.Marker({
                     map: this.map.main,
@@ -42034,38 +42063,110 @@ module.exports = new Vue({
                 }),
                 window: new google.maps.InfoWindow({
                     content: "Dirección no encontrada.",
-                    maxWidth: 175
+                    maxWidth: 175,
+                    disableAutoPan: true,
+                    flag: false
                 }),
                 id: e.id,
                 lat: e.lat,
                 lng: e.lng,
                 name: e.nombre,
                 linked: false,
-                selected: false
+                steps: [
+                    {
+                        dayNumber: 2,
+                        schedule: []
+                    },
+                    {
+                        dayNumber: 3,
+                        schedule: []
+                    },
+                    {
+                        dayNumber: 4,
+                        schedule: []
+                    },
+                    {
+                        dayNumber: 5,
+                        schedule: []
+                    },
+                    {
+                        dayNumber: 6,
+                        schedule: []
+                    },
+                    {
+                        dayNumber: 7,
+                        schedule: []
+                    },
+                    {
+                        dayNumber: 1,
+                        schedule: []
+                    }
+                ]
             });
-            this.store.position[length].main.addListener("rightclick", function(){
-                me.store.position[length].window.open(me.map.main, me.store.position[length].main);
+            this.initSchedule(length, e.id);
+            this.getDirection(length, e);
+        },
+        initSchedule: function(length, id){
+            var me = this;
+            Vue.nextTick(function(){
+                $('#schedule-' + length).popover({
+                    html: true,
+                    container: "body",
+                    content: function(){
+                        var a = document.getElementById('popover-' + length).cloneNode(true);
+                        a.className = "";
+                        return a;
+                    }
+                });
             });
-            this.map.geocoder.geocode({                          //Geocoder for placing
-                location: {
-                    lat: e.lat,
-                    lng: e.lng
+            this.models.sucursalHorario.get({
+                delimiters: id,
+                params: {
+                    "per-page": 100,
+                    "sort": "hora_inicio"
                 }
             },
-            function(response, status){
-                if(status === "OK" && response[0])
-                    me.store.position[length].window.setContent(response[0].formatted_address);
-                else
-                    console.log(status, response);
+            function(success){
+                for(i = 0; i < success.body.length; i++){
+                    switch(success.body[i].dia){
+                        case 1:     //SUN
+                            me.store.position[length].steps[6].schedule.push({
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin
+                            });
+                            break;
+                        default:
+                            me.store.position[length].steps[success.body[i].dia - 2].schedule.push({
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin
+                            });
+                            break;
+                    }
+                }
+            },
+            function(error){
+                console.log(error);
             });
         },
-        seeStore: function(i){
+        getDirection: function(length, e){
             var me = this;
-            this.store.alterLinkDef.see.store.id = this.store.position[i].id;
-            Vue.nextTick(function(){
-                me.store.alterLinkDef.see.store.init("modal", me.store.alterLinkDef.see.first);
-                if(me.store.alterLinkDef.see.first === true)
-                    me.store.alterLinkDef.see.first = false;
+            this.store.position[length].main.addListener("rightclick", function(){
+                if(!me.store.position[length].window.flag){
+                    me.store.position[length].window.flag = true;
+                    me.map.geocoder.geocode({                          //Geocoder for placing
+                        location: {
+                            lat: e.lat,
+                            lng: e.lng
+                        }
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.store.position[length].window.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                }
+                me.store.position[length].window.open(me.map.main, me.store.position[length].main);
             });
         },
         setStep: function(){
@@ -42073,36 +42174,79 @@ module.exports = new Vue({
                 valid = true,
                 hmdB = this.begin.value.split(":"),
                 hmdE = this.end.value.split(":");
-            if(this.name.value === null || this.name.value === ""){     //No name
-                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
-                BUTO.components.main.alert.description.ok = "Aceptar";
-                BUTO.components.main.alert.active = true;
-                this.name.valid = false;
-                this.name.text = "Nombre no puede estar vacío";
-                valid = false;
-            }
-            else if(valid && this.name.value.length < 4){
-                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                BUTO.components.main.alert.description.text = "Nombre debe contener al menos 4 caracteres.";
-                BUTO.components.main.alert.description.ok = "Aceptar";
-                BUTO.components.main.alert.active = true;
-                this.name.valid = false;
-                this.name.text = "Nombre no puede estar vacío";
-                valid = false;
-            }
-            else if(valid && (this.begin.value === null || this.begin.value === "")){
-                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                BUTO.components.main.alert.description.text = "El horario de inicio no puede estar vacío.";
-                BUTO.components.main.alert.description.ok = "Aceptar";
-                BUTO.components.main.alert.active = true;
-                this.begin.valid = false;
-                this.begin.text = "El horario de inicio no puede estar vacío";
-                valid = false;
-            }
-            else if(valid && (this.begin.value.length !== 8 ||
+            //if(this.name.value === null || this.name.value === ""){     //No name
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.name.valid = false;
+            //    this.name.text = "Nombre no puede estar vacío";
+            //    valid = false;
+            //}
+            //else if(valid && this.name.value.length < 4){
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "Nombre debe contener al menos 4 caracteres.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.name.valid = false;
+            //    this.name.text = "Nombre no puede estar vacío";
+            //    valid = false;
+            //}
+            //else if(valid && (this.begin.value === null || this.begin.value === "")){
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "El horario de inicio no puede estar vacío.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.begin.valid = false;
+            //    this.begin.text = "El horario de inicio no puede estar vacío";
+            //    valid = false;
+            //}
+            //else if(valid && (this.begin.value.length !== 8 ||
+            //    (this.begin.value > "23:59:59" ||
+            //     hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59))){
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "El horario de inicio no tiene un formato apropiado.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.begin.valid = false;
+            //    this.begin.text = "El horario de inicio no tiene un formato apropiado";
+            //    valid = false;
+            //}
+            //else if(valid && (this.end.value === null || this.end.value === "")){
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "El horario de término no puede estar vacío.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.end.valid = false;
+            //    this.end.text = "El horario de término no puede estar vacío";
+            //    valid = false;
+            //}
+            //else if(valid && (this.end.value.length !== 8 ||
+            //    (this.end.value > "23:59:59" ||
+            //     hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59))){
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "El horario de término no tiene un formato apropiado.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.end.valid = false;
+            //    this.end.text = "El horario de término no tiene un formato apropiado";
+            //    valid = false;
+            //}
+            //else if(valid && this.begin.value >= this.end.value){
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "El horario de término debe ser mayor al horario de inicio.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.end.valid = false;
+            //    this.end.text = "El horario de término debe ser mayor al horario de inicio";
+            //    valid = false;
+            //}
+            if((this.begin.value !== null && this.begin.value !== "") &&
+               (this.begin.value.length !== 8 ||
                 (this.begin.value > "23:59:59" ||
-                 hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59))){
+                hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 ||
+                !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 ||
+                !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59))){
                 BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                 BUTO.components.main.alert.description.text = "El horario de inicio no tiene un formato apropiado.";
                 BUTO.components.main.alert.description.ok = "Aceptar";
@@ -42111,18 +42255,12 @@ module.exports = new Vue({
                 this.begin.text = "El horario de inicio no tiene un formato apropiado";
                 valid = false;
             }
-            else if(valid && (this.end.value === null || this.end.value === "")){
-                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                BUTO.components.main.alert.description.text = "El horario de término no puede estar vacío.";
-                BUTO.components.main.alert.description.ok = "Aceptar";
-                BUTO.components.main.alert.active = true;
-                this.end.valid = false;
-                this.end.text = "El horario de término no puede estar vacío";
-                valid = false;
-            }
-            else if(valid && (this.end.value.length !== 8 ||
+            else if(valid && (this.end.value !== null && this.end.value !== "") &&
+                (this.end.value.length !== 8 ||
                 (this.end.value > "23:59:59" ||
-                 hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59))){
+                 hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 ||
+                 !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 ||
+                 !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59))){
                 BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                 BUTO.components.main.alert.description.text = "El horario de término no tiene un formato apropiado.";
                 BUTO.components.main.alert.description.ok = "Aceptar";
@@ -42131,7 +42269,9 @@ module.exports = new Vue({
                 this.end.text = "El horario de término no tiene un formato apropiado";
                 valid = false;
             }
-            else if(valid && this.begin.value >= this.end.value){
+            else if(valid && (this.begin.value !== null && this.begin.value !== "") &&
+                    (this.end.value !== null && this.end.value !== "") &&
+                    this.begin.value >= this.end.value){
                 BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                 BUTO.components.main.alert.description.text = "El horario de término debe ser mayor al horario de inicio.";
                 BUTO.components.main.alert.description.ok = "Aceptar";
@@ -42152,6 +42292,15 @@ module.exports = new Vue({
                 else
                     this.initStore();
             }
+        },
+        selector: function(i){
+            if(i !== null)
+                this.store.data.selected = i;
+            for(var j = 0; j < this.store.position.length; j++)
+                if(i === j)
+                    this.store.position[j].main.setIcon("/image/maps/select.png");
+                else
+                    this.store.position[j].main.setIcon("/image/maps/gray.png");
         },
         validation: function(type){
             switch(type){
@@ -42193,11 +42342,42 @@ module.exports = new Vue({
                     break;
             }
         },
-        setPoint: function(type){
-            var me = this;
+        initPoint: function(i){
+            if(!this.store.position[i].linked){         //Store not added
+                this.models.sucursalCliente.get({
+                    delimiters: this.store.position[i].id
+                },
+                function(success){
+                    console.log(success);
+                },
+                function(error){
+                    console.log(error);
+                });
+                //store.linked ? '' : config.setPoint('add', storeIndex)    
+            }
+        },
+        setPoint: function(type, i){
+            var me = this,
+                actualTime,
+                actualDay = this.store.data.search.actualDay === 1 ? 6 : this.store.data.search.actualDay - 2;
             switch(type){
                 case "add":
-                    
+                    this.store.position[i].linked = true;
+                    actualTime = (this.store.data.search.actualTime === "") ?
+                        this.store.position[i].steps[actualDay].schedule[0].begin :
+                        this.store.data.search.actualTime;
+                    this.store.data.search.actualTime = actualTime;
+                    this.begin.value = actualTime;
+                    this.store.point.push({
+                        id: this.store.position[i].id,
+                        lat: this.store.position[i].lat,
+                        lng: this.store.position[i].lng,
+                        name: this.store.position[i].name,
+                        arrival: actualTime,
+                        usedTime: "00:00:00",
+                        valid: true
+                    });
+                    console.log(this.store.data.search.actualTime, this.store.point);
                     break;
                 case "remove":
                     

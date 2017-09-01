@@ -56,7 +56,8 @@ module.exports = `
                                     <ul role="tablist">
                                         <li v-for="(steps, stepIndex) in config.day.options" role="tab"
                                         :class="[stepIndex === 0 ? 'first' : '',
-                                                config.day.value === steps.value ? 'done active' : 'active']" aria-disabled="false" aria-selected="true">
+                                                steps.value === config.store.data.search.actualDay ? 'done active' :
+                                                steps.value === config.day.value  ? 'current active' : 'active']" aria-disabled="false" aria-selected="true">
                                             <a href="#" v-on:click.prevent="config.day.value = steps.value">
                                                 <span class="number">X</span> {{steps.text}}
                                             </a>
@@ -97,17 +98,35 @@ module.exports = `
                                     <table class="table table-bordered">
                                         <tbody class="body-class">
                                             <tr v-for="(store, storeIndex) in config.store.position"
-                                                :class="store.linked ? 'selected' : store.selected ? 'link-row-select' : ''"
+                                                :class="[config.store.data.selected === storeIndex ? 'link-row-select' : '', store.linked ? 'selected' : '']"
                                                 class="grid-row-customized grid-row-highlight-customized">
-                                                <td v-on:click.self="store.linked ? '' : store.selected = !store.selected" class="col-md-1">
+                                                <td v-on:click.self="config.selector(storeIndex)" class="col-md-1">
                                                     {{store.name}}
                                                     <div class="pull-right">
-                                                        <a href="#" v-on:click.prevent="config.seeStore(storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
-                                                            <i class="icon-eye" aria-hidden="true"></i>
-                                                        </a>
-                                                        <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Agregar">
+                                                        <a href="#" v-on:click.prevent="config.initPoint(storeIndex)" :class="store.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Agregar">
                                                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                         </a>
+                                                        <a :id="'schedule-' + storeIndex" href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Horarios" data-toggle="popover" data-placement="right" data-trigger="hover">
+                                                            <i class="icon-watch2" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div :id="'popover-' + storeIndex" class="hidden">
+                                                        <table class="table">
+                                                            <thead class="table-inverse">
+                                                                <tr>
+                                                                    <th class="text-center">Inicio</th>
+                                                                    <th class="text-center">Final</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="body-class">
+                                                                <template v-for="steps in store.steps">
+                                                                    <tr v-for="schedule in steps.schedule" v-if="steps.dayNumber === config.day.value">
+                                                                        <td>{{schedule.begin}}</td>
+                                                                        <td>{{schedule.end}}</td>
+                                                                    </tr>
+                                                                </template>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -229,267 +248,270 @@ module.exports = `
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--<div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Ruta</h5>
-                    <div class="heading-elements">
-                        <div class="heading-form">
-                            <div v-if="config.sameConf" class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.allPosVisible = config.allPosVisible === 1 ? 2 : 1; config.setVisibilityPosition(true)">
-                                        <span class="switchery switchery-default switchery-custom info" :class="config.allPosVisible === 1 ? 'active' : 'not-active'">
-                                            <small></small>
-                                        </span>
-                                        {{config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
-                                    </label>
-                                    <span class="help-block">Ubicaciones</span>
-                                </div>
-                            </div>
-                            <div v-else class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
-                                        <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.allPosVisible === 0 ? 'one' : config.allPosVisible === 1 ? 'two' : 'three'">
-                                            <small></small>
-                                        </span>
-                                        {{config.allPosVisible === 0 ? 'Todas' : config.allPosVisible === 1 ? 'Día' : 'Intervalo'}}
-                                    </label>
-                                    <span class="help-block">Ubicaciones</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                    <label v-on:click.prevent="config.initConfiguration()">
-                                        <span class="switchery switchery-default switchery-custom" :class="config.sameConf ? 'active' : 'not-active'">
-                                            <small></small>
-                                        </span>
-                                        {{config.sameConf ? 'Si' : 'No'}}
-                                    </label>
-                                    <span class="help-block">Generalizar horarios</span>
-                                </div>
-                            </div>
+                <div class="col-sm-3">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">Etapas de ruta</h5>
                         </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="steps-basic wizard clearfix">
-                                    <template v-if="config.sameConf">
-                                        <div style="padding-top: 20px"></div>
-                                    </template>
-                                    <div v-else class="steps clearfix">
-                                        <ul role="tablist">
-                                            <li v-for="(steps, stepIndex) in config.steps" role="tab"
-                                            :class="[stepIndex === 0 ? 'first' : '',
-                                                    config.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                                <a href="#" v-on:click.prevent="steps.seen && config.actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
-                                                    <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12 grid-route">
+                                    <table class="table table-bordered">
+                                        <tbody class="body-class">
+                                            <tr v-for="(store, storeIndex) in config.store.point" class="selected grid-row-customized grid-row-highlight-customized">
+                                                <td class="col-md-1">
+                                                    {{store.name}}
+                                                    <div class="pull-right">
+                                                        <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Quitar">
+                                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                        </a>
+                                                        <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Más información">
+                                                            <i class="icon-menu" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <nav class="pull-right">
+                                    <ul class="pagination">
+                                        <li>
+                                            <span><b>Mostrando {{config.store.position.length}} de {{config.store.data.page.store.totalCount}} filas en la página {{config.store.data.page.store.currentPage}} de {{config.store.data.page.store.pageCount}}.</b></span>
+                                        </li>
+                                        <li  :class="config.store.data.page.store.currentPage === 1 ? 'not-active disabled' : ''">
+                                            <a href="#" v-on:click.prevent="config.initStore(1, 1);">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <template v-if="config.store.data.page.store.pageCount <= 3">
+                                            <li v-for="page in config.store.data.page.store.pageCount" :class="page === config.store.data.page.store.currentPage ? 'active' : ''">
+                                                <a href="#" v-on:click.prevent="page === config.store.data.page.store.currentPage ? '' : config.initStore(1, page);">
+                                                    {{page}}
                                                 </a>
                                             </li>
-                                        </ul>
-                                    </div>
-                                    <div class="content clearfix">
-                                        <div class="row">
-                                            <div v-if="!config.sameConf" :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                                <div class="form-group">
-                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                        <label v-on:click.prevent="config.setActivity()">
-                                                            <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
-                                                                <small></small>
-                                                            </span>
-                                                            {{config.steps[config.actualStep].active ? 'Si' : 'No'}}
-                                                        </label>
-                                                        <span class="help-block">¿Opera en {{config.steps[config.actualStep].text}}?</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-if="config.steps[config.sameConf ? 0 : config.actualStep].active" :class="config.sameConf ? 'col-sm-12' : 'col-sm-6'">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4">Intervalos de atención</label>
-                                                    <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.sameConf ? 0 : config.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
-                                                        <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div v-if="config.steps[config.sameConf ? 0 : config.actualStep].active" class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div class="col-sm-5">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Inicio</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Final</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="form-group text-center schedule-title">
-                                                    <label>Posición</label>
-                                                </div>
-                                            </div>
-                                            <template v-for="(interval, intervalIndex) in config.steps[config.sameConf ? 0 : config.actualStep].schedule">
-                                                <div class="col-sm-5">
-                                                    <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.begin" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">{{interval.textBegin}}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-5">
-                                                    <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                        <input type="text" maxlength="8" v-model="interval.end" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                        <span class="help-block">{{interval.textEnd}}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                        <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
-                                                            <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
-                                                                <small></small>
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </div>
-                                        <div class="row">
-                                            <div style="padding-top: 20px"></div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <input id="searchAddResource" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
-                                                    <div id="mapFocusPositionAddResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
-                                                        <i class="icon-shrink3"></i>
-                                                    </div>
-                                                    <div id="mapAddResource" class="map-container map-basic"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="actions clearfix">
-                                        <div style="padding-top: 20px"></div>
-                                        <ul role="menu" aria-label="Pagination">
-                                            <template v-if="config.sameConf">
+                                        </template>
+                                        <template v-else>
+                                            <template v-if="config.store.data.page.store.currentPage < 3">
+                                                <li :class="config.store.data.page.store.currentPage === 1 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 1 ? '' : config.initStore(1, 1);">
+                                                        1
+                                                    </a>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === 2 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 2 ? '' : config.initStore(1, 2);">
+                                                        2
+                                                    </a>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === 3 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === 3 ? '' : config.initStore(1, 3);">
+                                                        3
+                                                    </a>
+                                                </li>
                                                 <li>
-                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                    <span aria-hidden="true">...</span>
+                                                </li>
+                                            </template>
+                                            <template v-else-if="config.store.data.page.store.currentPage > config.store.data.page.store.pageCount - 2">
+                                                <li>
+                                                    <span aria-hidden="true">...</span>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 2 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 2 ? '' : config.initStore(1, config.store.data.page.store.pageCount - 2);">
+                                                        {{config.store.data.page.store.pageCount - 2}}
+                                                    </a>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 1 ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount - 1 ? '' : config.initStore(1, config.store.data.page.store.pageCount - 1);">
+                                                        {{config.store.data.page.store.pageCount - 1}}
+                                                    </a>
+                                                </li>
+                                                <li :class="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount ? 'active' : ''">
+                                                    <a href="#" v-on:click.prevent="config.store.data.page.store.currentPage === config.store.data.page.store.pageCount ? '' : config.initStore(1, config.store.data.page.store.pageCount);">
+                                                        {{config.store.data.page.store.pageCount}}
+                                                    </a>
                                                 </li>
                                             </template>
                                             <template v-else>
-                                                <li :class="config.actualStep === 0 ? 'disabled' : ''" aria-disabled="true">
-                                                    <a class="btn btn-default" href="#previous" v-on:click.prevent="config.actualStep > 0 ? config.changeStep(config.actualStep - 1) : ''" role="menuitem">Anterior</a>
+                                                <li>
+                                                    <span aria-hidden="true">...</span>
                                                 </li>
-                                                <li v-if="config.actualStep < config.steps.length - 1">
-                                                    <a class="btn btn-info btn-customized" href="#next" v-on:click.prevent="config.changeStep(config.actualStep + 1)" role="menuitem">Siguiente</a>
+                                                <li>
+                                                    <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.currentPage - 1)">
+                                                        {{config.store.data.page.store.currentPage - 1}}
+                                                    </a>
                                                 </li>
-                                                <li v-else>
-                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('manual')" role="menuitem">Guardar</a>
+                                                <li class="active">
+                                                    <a href="#" v-on:click.prevent>
+                                                        {{config.store.data.page.store.currentPage}}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.currentPage + 1)">
+                                                        {{config.store.data.page.store.currentPage + 1}}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <span aria-hidden="true">...</span>
                                                 </li>
                                             </template>
-                                        </ul>
+                                        </template>
+                                        <li :class="config.store.data.page.store.pageCount === config.store.data.page.store.currentPage ? 'not-active disabled' : ''">
+                                            <a href="#" v-on:click.prevent="config.initStore(1, config.store.data.page.store.pageCount);">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!--<div class="map-toolbar">
+                                <div class="row title-info">
+                                    <div class="col-sm-12">
+                                        <span>Distancia Total: {{config.configuration.service.totalDistance / 1000}} km.</span>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <span>Tiempo Total: {{Math.floor((config.configuration.service.totalTime + config.configuration.service.deathTime * 60) / 60) + ' min. ' + Math.floor(((config.configuration.service.totalTime / 60) % 1) * 60) + ' seg.'}}</span>
+                                    </div>
+                                    <div class="col-sm-12 text-right">
+                                        <button v-on:click="config.collapse()" class="btn btn-info btn-small">
+                                            {{config.configuration.stepsHidden ? 'Expandir' : 'Colapsar'}} <i :class="config.configuration.stepsHidden ? 'fa-sort-desc' : 'fa-sort-asc'" class="fa" aria-hidden="true"></i>
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
+                                <template v-if="config.configuration.service.travelDetails.legs.length > 0">
+                                    <template v-for="(data, dataIndex) in config.configuration.service.travelDetails.legs">
+                                        <div class="row main-info">
+                                            <div class="col-sm-2">
+                                                <img :src="data.iconStart">
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <a href="#" v-on:click.prevent="data.hidden = !data.hidden">
+                                                    <span>{{data.start}}</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <span>Tiempo Muerto (minutos):</span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input v-on:keyup="config.computeRoute(false)" class="form-control" v-model="data.deathTime" type="number" value="0">
+                                            </div>
+                                        </div>
+                                        <template v-for="steps in data.steps" v-if="!data.hidden">
+                                            <div class="row second-info">
+                                                <div class="col-sm-12">
+                                                    <span>{{steps.instructions}}</span>
+                                                </div>
+                                                <div class="col-sm-12 value-info text-center">
+                                                    <span>(Distancia aproximada: {{steps.distance.text}}. Tiempo aproximado: {{steps.duration.text}})</span>
+                                                </div>
+                                            </div>
+                                        </template>
+                                        <div v-if="config.configuration.service.travelDetails.legs.length - 1 === dataIndex" class="row main-info">
+                                            <div class="col-sm-1">
+                                                <img :src="data.iconEnd">
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <span>{{data.end}}</span>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <div class="row warning-info">
+                                        <span>Notas:</span>
+                                        <div v-for="data in config.configuration.service.travelDetails.warnings" class="col-sm-12">
+                                            <span>{{data.text}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row copyright-info text-center">
+                                        <div class="col-sm-12">
+                                            <span>{{config.configuration.service.travelDetails.copyrights}}</span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>-->
                         </div>
                     </div>
                 </div>
-            </div>-->
-            <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            </div>
+            <div class="modal fade" id="linkClient" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-custom">
                             <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">{{config.store.alterLinkDef.see.store.name}}</h4>
+                            <h4 class="modal-title" id="myModalLabel">Nueva etapa</h4>
                         </div>
                         <div class="modal-body modal-body-custom">
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <div id="mapFocusPositionSeeStore" v-on:click="config.store.alterLinkDef.see.store.focusPosition()" class="map-focus-position text-center">
-                                            <i class="icon-shrink3"></i>
-                                        </div>
-                                        <div id="mapSeeStore" class="map-container-modal map-basic"></div>
+                                <div class="form-group text-center">
+                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                        <label v-on:click.prevent>
+                                            <span class="switchery switchery-default switchery-custom active">
+                                                <small></small>
+                                            </span>
+                                            {{true ? 'Si' : 'No'}}
+                                        </label>
+                                        <span class="help-block">Generalizar tiempos solicitados</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <div class="steps-basic wizard clearfix">
-                                            <div class="steps clearfix">
-                                                <ul role="tablist">
-                                                    <li v-for="(steps, stepIndex) in config.store.alterLinkDef.see.store.steps" role="tab"
-                                                    :class="[stepIndex === 0 ? 'first' : '',
-                                                            config.store.alterLinkDef.see.store.actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
-                                                        <a href="#" v-on:click.prevent="steps.seen && config.store.alterLinkDef.see.store.actualStep !== stepIndex ? config.store.alterLinkDef.see.store.changeStep(stepIndex) : ''">
-                                                            <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="content clearfix">
-                                                <div class="row">
-                                                    <div style="padding-top: 20px"></div>
-                                                    <div :class="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
-                                                        <div class="form-group">
-                                                            <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                                <label>
-                                                                    <span class="switchery switchery-default switchery-custom" :class="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'active' : 'not-active'">
-                                                                        <small></small>
-                                                                    </span>
-                                                                    {{config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active ? 'Si' : 'No'}}
-                                                                </label>
-                                                                <span class="help-block">¿Opera en {{config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].text}}?</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div v-if="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active" class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-4">Intervalos de atención</label>
-                                                            <div class="col-md-8">
-                                                                <input disabled="disabled" class="form-control" v-model="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].interval" type="number" name="Intervalos de atención">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div v-if="config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].active && Math.floor(parseInt(config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].interval)) > 0" class="row">
-                                                    <div style="padding-top: 20px"></div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group text-center schedule-title">
-                                                            <label>Inicio</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group text-center schedule-title">
-                                                            <label>Final</label>
-                                                        </div>
-                                                    </div>
-                                                    <template v-for="(interval, intervalIndex) in config.store.alterLinkDef.see.store.steps[config.store.alterLinkDef.see.store.actualStep].schedule">
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
-                                                                <span class="help-block">hh:mm:ss</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
-                                                                <span class="help-block">hh:mm:ss</span>
-                                                            </div>
-                                                        </div>
-                                                    </template>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="row"><!--for-->
+                                <div class="col-sm-6">
+                                    <span><b>NOMBRE CLIENTE</b></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="has-error form-group">
+                                        <input name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
+                                        <span class="help-block">Help</span>
                                     </div>
                                 </div>
                             </div>
                             <div style="height: 10px;"></div>
                         </div>
                         <div class="modal-footer modal-footer-custom">
-                            <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                            <button type="button" class="btn btn-default btn-customized" v-on:click>Agregar</button>
+                            <button id="closeAdd" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-custom">
+                            <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Nueva etapa</h4>
+                        </div>
+                        <div class="modal-body modal-body-custom">
+                            <div class="row">
+                                <div class="form-group text-center">
+                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                        <label v-on:click.prevent>
+                                            <span class="switchery switchery-default switchery-custom active">
+                                                <small></small>
+                                            </span>
+                                            {{true ? 'Si' : 'No'}}
+                                        </label>
+                                        <span class="help-block">Generalizar tiempos solicitados</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row"><!--for-->
+                                <div class="col-sm-6">
+                                    <span><b>NOMBRE CLIENTE</b></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="has-error form-group">
+                                        <input name="Tiempo solicitado" placeholder="Tiempo solicitado" maxlength="8" class="form-control" type="text">
+                                        <span class="help-block">Help</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                        </div>
+                        <div class="modal-footer modal-footer-custom">
+                            <button type="button" class="btn btn-default btn-customized" v-on:click>Agregar</button>
+                            <button id="closeAdd" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
                 </div>

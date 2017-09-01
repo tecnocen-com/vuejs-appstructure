@@ -97,7 +97,8 @@ module.exports = new Vue({
         },
         store: {
             data: {
-                perPage: 20,
+                selected: null,
+                perPage: 50,
                 page: {
                     store: {
                         currentPage: 1,
@@ -109,6 +110,8 @@ module.exports = new Vue({
                     store: "",
                     actualTime: null,
                     actualDay: null,
+                    actualTimeN: 0,
+                    actualDistance: 0,
                     bounds: {
                         topLat: null,
                         topLng: null,
@@ -118,14 +121,8 @@ module.exports = new Vue({
                 }
             },
             position: [],
-            alterLinkDef: {
-                see: {
-                    first: true,
-                    store: verTienda
-                }
-            }
-        },
-        points: []
+            point: []
+        }
     },
     methods: {
         init: function(e){
@@ -221,42 +218,42 @@ module.exports = new Vue({
                 me = this;
             if(page)
                 this.store.data.page.store.currentPage = page;
-            if(e === 0)
-                this.store.alterLinkDef.see.first = true;
-            if(this.store.position.length > 0){
-                for(i = 0; i < this.store.position.length; i++)
-                    this.store.position[i].main.setMap(null);
-                this.store.position = [];
+            if(e !== 0){
+                this.store.data.selected = null;
+                if(this.store.position.length > 0){
+                    for(i = 0; i < this.store.position.length; i++)
+                        this.store.position[i].main.setMap(null);
+                    this.store.position = [];
+                }
+                this.models.sucursal.get({
+                    params: {
+                        "per-page": this.store.data.perPage,
+                        "sort": "nombre",
+                        "page": this.store.data.page.store.currentPage,
+                        "nombre": this.store.data.search.store,
+                        "hora_abierto": this.store.data.search.actualTime,
+                        "dia_abierto": this.store.data.search.actualDay,
+                        "lat_sup": this.store.data.search.bounds.topLat,
+                        "lng_sup": this.store.data.search.bounds.topLng,
+                        "lat_inf": this.store.data.search.bounds.bottomLat,
+                        "lng_inf": this.store.data.search.bounds.bottomLng
+                    }
+                },
+                function(success){
+                    me.store.data.page.store.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
+                    me.store.data.page.store.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                    if(success.body.length > 0){
+                        for(i in success.body)
+                            me.initMarker(success.body[i]);
+                    }
+                },
+                function(error){
+                    console.log(error);
+                });
             }
-            this.models.sucursal.get({
-                params: {
-                    "per-page": this.store.data.perPage,
-                    "sort": "nombre",
-                    "page": this.store.data.page.store.currentPage,
-                    "nombre": this.store.data.search.store,
-                    "hora_abierto": this.store.data.search.actualTime,
-                    "dia_abierto": this.store.data.search.actualDay,
-                    "lat_sup": this.store.data.search.bounds.topLat,
-                    "lng_sup": this.store.data.search.bounds.topLng,
-                    "lat_inf": this.store.data.search.bounds.bottomLat,
-                    "lng_inf": this.store.data.search.bounds.bottomLng
-                }
-            },
-            function(success){
-                me.store.data.page.store.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
-                me.store.data.page.store.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
-                if(success.body.length > 0){
-                    for(i in success.body)
-                        me.initMarker(success.body[i]);
-                }
-            },
-            function(error){
-                console.log(error);
-            });
         },
         initMarker: function(e){
-            var me = this,
-                length = this.store.position.length;
+            var length = this.store.position.length;
             this.store.position.push({
                 main: new google.maps.Marker({
                     map: this.map.main,
@@ -271,38 +268,110 @@ module.exports = new Vue({
                 }),
                 window: new google.maps.InfoWindow({
                     content: "Dirección no encontrada.",
-                    maxWidth: 175
+                    maxWidth: 175,
+                    disableAutoPan: true,
+                    flag: false
                 }),
                 id: e.id,
                 lat: e.lat,
                 lng: e.lng,
                 name: e.nombre,
                 linked: false,
-                selected: false
+                steps: [
+                    {
+                        dayNumber: 2,
+                        schedule: []
+                    },
+                    {
+                        dayNumber: 3,
+                        schedule: []
+                    },
+                    {
+                        dayNumber: 4,
+                        schedule: []
+                    },
+                    {
+                        dayNumber: 5,
+                        schedule: []
+                    },
+                    {
+                        dayNumber: 6,
+                        schedule: []
+                    },
+                    {
+                        dayNumber: 7,
+                        schedule: []
+                    },
+                    {
+                        dayNumber: 1,
+                        schedule: []
+                    }
+                ]
             });
-            this.store.position[length].main.addListener("rightclick", function(){
-                me.store.position[length].window.open(me.map.main, me.store.position[length].main);
+            this.initSchedule(length, e.id);
+            this.getDirection(length, e);
+        },
+        initSchedule: function(length, id){
+            var me = this;
+            Vue.nextTick(function(){
+                $('#schedule-' + length).popover({
+                    html: true,
+                    container: "body",
+                    content: function(){
+                        var a = document.getElementById('popover-' + length).cloneNode(true);
+                        a.className = "";
+                        return a;
+                    }
+                });
             });
-            this.map.geocoder.geocode({                          //Geocoder for placing
-                location: {
-                    lat: e.lat,
-                    lng: e.lng
+            this.models.sucursalHorario.get({
+                delimiters: id,
+                params: {
+                    "per-page": 100,
+                    "sort": "hora_inicio"
                 }
             },
-            function(response, status){
-                if(status === "OK" && response[0])
-                    me.store.position[length].window.setContent(response[0].formatted_address);
-                else
-                    console.log(status, response);
+            function(success){
+                for(i = 0; i < success.body.length; i++){
+                    switch(success.body[i].dia){
+                        case 1:     //SUN
+                            me.store.position[length].steps[6].schedule.push({
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin
+                            });
+                            break;
+                        default:
+                            me.store.position[length].steps[success.body[i].dia - 2].schedule.push({
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin
+                            });
+                            break;
+                    }
+                }
+            },
+            function(error){
+                console.log(error);
             });
         },
-        seeStore: function(i){
+        getDirection: function(length, e){
             var me = this;
-            this.store.alterLinkDef.see.store.id = this.store.position[i].id;
-            Vue.nextTick(function(){
-                me.store.alterLinkDef.see.store.init("modal", me.store.alterLinkDef.see.first);
-                if(me.store.alterLinkDef.see.first === true)
-                    me.store.alterLinkDef.see.first = false;
+            this.store.position[length].main.addListener("rightclick", function(){
+                if(!me.store.position[length].window.flag){
+                    me.store.position[length].window.flag = true;
+                    me.map.geocoder.geocode({                          //Geocoder for placing
+                        location: {
+                            lat: e.lat,
+                            lng: e.lng
+                        }
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.store.position[length].window.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                }
+                me.store.position[length].window.open(me.map.main, me.store.position[length].main);
             });
         },
         setStep: function(){
@@ -310,36 +379,79 @@ module.exports = new Vue({
                 valid = true,
                 hmdB = this.begin.value.split(":"),
                 hmdE = this.end.value.split(":");
-            if(this.name.value === null || this.name.value === ""){     //No name
-                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
-                BUTO.components.main.alert.description.ok = "Aceptar";
-                BUTO.components.main.alert.active = true;
-                this.name.valid = false;
-                this.name.text = "Nombre no puede estar vacío";
-                valid = false;
-            }
-            else if(valid && this.name.value.length < 4){
-                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                BUTO.components.main.alert.description.text = "Nombre debe contener al menos 4 caracteres.";
-                BUTO.components.main.alert.description.ok = "Aceptar";
-                BUTO.components.main.alert.active = true;
-                this.name.valid = false;
-                this.name.text = "Nombre no puede estar vacío";
-                valid = false;
-            }
-            else if(valid && (this.begin.value === null || this.begin.value === "")){
-                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                BUTO.components.main.alert.description.text = "El horario de inicio no puede estar vacío.";
-                BUTO.components.main.alert.description.ok = "Aceptar";
-                BUTO.components.main.alert.active = true;
-                this.begin.valid = false;
-                this.begin.text = "El horario de inicio no puede estar vacío";
-                valid = false;
-            }
-            else if(valid && (this.begin.value.length !== 8 ||
+            //if(this.name.value === null || this.name.value === ""){     //No name
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.name.valid = false;
+            //    this.name.text = "Nombre no puede estar vacío";
+            //    valid = false;
+            //}
+            //else if(valid && this.name.value.length < 4){
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "Nombre debe contener al menos 4 caracteres.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.name.valid = false;
+            //    this.name.text = "Nombre no puede estar vacío";
+            //    valid = false;
+            //}
+            //else if(valid && (this.begin.value === null || this.begin.value === "")){
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "El horario de inicio no puede estar vacío.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.begin.valid = false;
+            //    this.begin.text = "El horario de inicio no puede estar vacío";
+            //    valid = false;
+            //}
+            //else if(valid && (this.begin.value.length !== 8 ||
+            //    (this.begin.value > "23:59:59" ||
+            //     hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59))){
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "El horario de inicio no tiene un formato apropiado.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.begin.valid = false;
+            //    this.begin.text = "El horario de inicio no tiene un formato apropiado";
+            //    valid = false;
+            //}
+            //else if(valid && (this.end.value === null || this.end.value === "")){
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "El horario de término no puede estar vacío.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.end.valid = false;
+            //    this.end.text = "El horario de término no puede estar vacío";
+            //    valid = false;
+            //}
+            //else if(valid && (this.end.value.length !== 8 ||
+            //    (this.end.value > "23:59:59" ||
+            //     hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59))){
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "El horario de término no tiene un formato apropiado.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.end.valid = false;
+            //    this.end.text = "El horario de término no tiene un formato apropiado";
+            //    valid = false;
+            //}
+            //else if(valid && this.begin.value >= this.end.value){
+            //    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+            //    BUTO.components.main.alert.description.text = "El horario de término debe ser mayor al horario de inicio.";
+            //    BUTO.components.main.alert.description.ok = "Aceptar";
+            //    BUTO.components.main.alert.active = true;
+            //    this.end.valid = false;
+            //    this.end.text = "El horario de término debe ser mayor al horario de inicio";
+            //    valid = false;
+            //}
+            if((this.begin.value !== null && this.begin.value !== "") &&
+               (this.begin.value.length !== 8 ||
                 (this.begin.value > "23:59:59" ||
-                 hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59))){
+                hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 ||
+                !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 ||
+                !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59))){
                 BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                 BUTO.components.main.alert.description.text = "El horario de inicio no tiene un formato apropiado.";
                 BUTO.components.main.alert.description.ok = "Aceptar";
@@ -348,18 +460,12 @@ module.exports = new Vue({
                 this.begin.text = "El horario de inicio no tiene un formato apropiado";
                 valid = false;
             }
-            else if(valid && (this.end.value === null || this.end.value === "")){
-                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                BUTO.components.main.alert.description.text = "El horario de término no puede estar vacío.";
-                BUTO.components.main.alert.description.ok = "Aceptar";
-                BUTO.components.main.alert.active = true;
-                this.end.valid = false;
-                this.end.text = "El horario de término no puede estar vacío";
-                valid = false;
-            }
-            else if(valid && (this.end.value.length !== 8 ||
+            else if(valid && (this.end.value !== null && this.end.value !== "") &&
+                (this.end.value.length !== 8 ||
                 (this.end.value > "23:59:59" ||
-                 hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59))){
+                 hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 ||
+                 !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 ||
+                 !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59))){
                 BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                 BUTO.components.main.alert.description.text = "El horario de término no tiene un formato apropiado.";
                 BUTO.components.main.alert.description.ok = "Aceptar";
@@ -368,7 +474,9 @@ module.exports = new Vue({
                 this.end.text = "El horario de término no tiene un formato apropiado";
                 valid = false;
             }
-            else if(valid && this.begin.value >= this.end.value){
+            else if(valid && (this.begin.value !== null && this.begin.value !== "") &&
+                    (this.end.value !== null && this.end.value !== "") &&
+                    this.begin.value >= this.end.value){
                 BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                 BUTO.components.main.alert.description.text = "El horario de término debe ser mayor al horario de inicio.";
                 BUTO.components.main.alert.description.ok = "Aceptar";
@@ -389,6 +497,15 @@ module.exports = new Vue({
                 else
                     this.initStore();
             }
+        },
+        selector: function(i){
+            if(i !== null)
+                this.store.data.selected = i;
+            for(var j = 0; j < this.store.position.length; j++)
+                if(i === j)
+                    this.store.position[j].main.setIcon("/image/maps/select.png");
+                else
+                    this.store.position[j].main.setIcon("/image/maps/gray.png");
         },
         validation: function(type){
             switch(type){
@@ -430,11 +547,57 @@ module.exports = new Vue({
                     break;
             }
         },
-        setPoint: function(type){
-            var me = this;
+        initPoint: function(i){
+            if(!this.store.position[i].linked){         //Store not added
+                this.models.sucursalCliente.get({
+                    delimiters: this.store.position[i].id
+                },
+                function(success){
+                    if(success.body.length > 0){        //There is linked clients
+                        
+                    }
+                    else{                               //There are not clients
+                        
+                    }
+                },
+                function(error){
+                    console.log(error);
+                    BUTO.components.main.alert.description.title = "Errores en Agregado de Etapa";
+                    BUTO.components.main.alert.description.text = "";
+                    if(error.body.length > 0)
+                        for(var k = 0; k < error.body.length; k++){
+                            BUTO.components.main.alert.description.text += error.body[k].message + "<br>";
+                        }
+                    else
+                        BUTO.components.main.alert.description.text = "Inténtalo de nuevo.";
+                    BUTO.components.main.alert.description.ok = "Aceptar";
+                    BUTO.components.main.alert.active = true;
+                });
+                //store.linked ? '' : config.setPoint('add', storeIndex)    
+            }
+        },
+        setPoint: function(type, i){
+            var me = this,
+                actualTime,
+                actualDay = this.store.data.search.actualDay === 1 ? 6 : this.store.data.search.actualDay - 2;
             switch(type){
                 case "add":
-                    
+                    this.store.position[i].linked = true;
+                    actualTime = (this.store.data.search.actualTime === "") ?
+                        this.store.position[i].steps[actualDay].schedule[0].begin :
+                        this.store.data.search.actualTime;
+                    this.store.data.search.actualTime = actualTime;
+                    this.begin.value = actualTime;
+                    this.store.point.push({
+                        id: this.store.position[i].id,
+                        lat: this.store.position[i].lat,
+                        lng: this.store.position[i].lng,
+                        name: this.store.position[i].name,
+                        arrival: actualTime,
+                        usedTime: "00:00:00",
+                        valid: true
+                    });
+                    console.log(this.store.data.search.actualTime, this.store.point);
                     break;
                 case "remove":
                     

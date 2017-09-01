@@ -153,6 +153,8 @@ module.exports = new Vue({
                 this.initGeocoder();
                 this.initFocus();
             }
+            if(type === "modal" && !first)
+                this.map.marker.main.setMap(null);
             this.initPosition();
         },
         initGeocoder: function(){

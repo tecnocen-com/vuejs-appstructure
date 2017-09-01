@@ -112,6 +112,14 @@ module.exports = new Vue({
                 setTimeout(function(){
                     me.initMap(type, first);
                 }, 250);
+            if(type === "modal" && !first)
+                for(i = 0; i < this.steps.length; i++)
+                    for(j = 0; j < this.steps[i].schedule.length; j++){
+                        if(this.steps[i].schedule[j].main_begin !== null)
+                            this.steps[i].schedule[j].main_begin.setMap(null);
+                        if(this.steps[i].schedule[j].main_end !== null)
+                            this.steps[i].schedule[j].main_end.setMap(null);
+                    }
             for(i = 0; i < this.steps.length; i++)
                 this.steps[i].schedule = [];
             this.models.usuarioEmpleado.get({
