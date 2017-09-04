@@ -57,6 +57,18 @@ body{
 .map-focus-position i{
     font-size: 20px;
 }
+.custom-divider{
+    border-top: 1px solid #999999;
+    padding-bottom: 2px;
+}
+.icon-label-toolbar{
+    position: absolute;
+    color: #333333;
+    top: 8px;
+    left: 18px;
+    font-size: 15px;
+    font-family: Arial, Geneva, Helvetica, sans-serif;
+}
 /******************************** Custom grids ******************************/
     /**************FIXES*******************/
 .full-large-group .btn.dropdown-toggle{

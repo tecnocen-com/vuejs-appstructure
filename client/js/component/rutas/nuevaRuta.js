@@ -62,6 +62,8 @@ module.exports = new Vue({
         map: {
             main: null,
             geocoder: null,
+            distanceMatrix: null,
+            directionService: null,
             marker: [
                 {
                     main_begin: null,
@@ -110,7 +112,6 @@ module.exports = new Vue({
                     store: "",
                     actualTime: null,
                     actualDay: null,
-                    actualTimeN: 0,
                     actualDistance: 0,
                     bounds: {
                         topLat: null,
@@ -118,10 +119,25 @@ module.exports = new Vue({
                         bottomLat: null,
                         bottomLng: null
                     }
-                }
+                },
             },
             position: [],
-            point: []
+            point: [],
+            add: {
+                client: [],
+                schedule: [],
+                index: null,
+                stageTime: 0,
+                existsBegin: false,
+                validEnd: true,
+                calculate: {
+                    begin: null,
+                    travel: null,
+                    distance: null,
+                    death: null,
+                    end: true
+                }
+            }
         }
     },
     methods: {
@@ -155,6 +171,7 @@ module.exports = new Vue({
             });
             this.initSearch();
             this.initFocus();
+            this.initServices();
             this.initGeocoder();
             this.initStore(0, 1);
         },
@@ -200,6 +217,10 @@ module.exports = new Vue({
                 me.map.main.fitBounds(bounds);
             });
         },
+        initServices: function(){
+            this.map.distanceMatrix = new google.maps.DistanceMatrixService();
+            this.map.directionService = new google.maps.DirectionsService();
+        },
         initGeocoder: function(){
             var me = this;
             this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
@@ -222,7 +243,8 @@ module.exports = new Vue({
                 this.store.data.selected = null;
                 if(this.store.position.length > 0){
                     for(i = 0; i < this.store.position.length; i++)
-                        this.store.position[i].main.setMap(null);
+                        if(this.store.position[i].main !== null)
+                            this.store.position[i].main.setMap(null);
                     this.store.position = [];
                 }
                 this.models.sucursal.get({
@@ -231,7 +253,7 @@ module.exports = new Vue({
                         "sort": "nombre",
                         "page": this.store.data.page.store.currentPage,
                         "nombre": this.store.data.search.store,
-                        "hora_abierto": this.store.data.search.actualTime,
+                        //"hora_abierto": this.store.data.search.actualTime,
                         "dia_abierto": this.store.data.search.actualDay,
                         "lat_sup": this.store.data.search.bounds.topLat,
                         "lng_sup": this.store.data.search.bounds.topLng,
@@ -253,9 +275,15 @@ module.exports = new Vue({
             }
         },
         initMarker: function(e){
-            var length = this.store.position.length;
+            var i, linked = false,
+                length = this.store.position.length;
+            if(this.store.point.length > 0){
+                for(i = 0; i < this.store.point.length; i++)
+                    if(this.store.point[i].id === e.id)
+                        linked = true;
+            }
             this.store.position.push({
-                main: new google.maps.Marker({
+                main: linked ? null : new google.maps.Marker({
                     map: this.map.main,
                     position: {
                         lat: e.lat,
@@ -266,7 +294,7 @@ module.exports = new Vue({
                     },
                     title: e.nombre,
                 }),
-                window: new google.maps.InfoWindow({
+                window: linked ? null : new google.maps.InfoWindow({
                     content: "Dirección no encontrada.",
                     maxWidth: 175,
                     disableAutoPan: true,
@@ -276,7 +304,7 @@ module.exports = new Vue({
                 lat: e.lat,
                 lng: e.lng,
                 name: e.nombre,
-                linked: false,
+                linked: linked,
                 steps: [
                     {
                         dayNumber: 2,
@@ -309,7 +337,8 @@ module.exports = new Vue({
                 ]
             });
             this.initSchedule(length, e.id);
-            this.getDirection(length, e);
+            if(!linked)
+                this.getDirection("store", length, e);
         },
         initSchedule: function(length, id){
             var me = this;
@@ -353,26 +382,48 @@ module.exports = new Vue({
                 console.log(error);
             });
         },
-        getDirection: function(length, e){
+        getDirection: function(type, length, e){
             var me = this;
-            this.store.position[length].main.addListener("rightclick", function(){
-                if(!me.store.position[length].window.flag){
-                    me.store.position[length].window.flag = true;
-                    me.map.geocoder.geocode({                          //Geocoder for placing
-                        location: {
-                            lat: e.lat,
-                            lng: e.lng
+            switch(type){
+                case "store":
+                    this.store.position[length].main.addListener("rightclick", function(){
+                        if(!me.store.position[length].window.flag){
+                            me.store.position[length].window.flag = true;
+                            me.map.geocoder.geocode({                          //Geocoder for placing
+                                location: {
+                                    lat: e.lat,
+                                    lng: e.lng
+                                }
+                            },
+                            function(response, status){
+                                if(status === "OK" && response[0])
+                                    me.store.position[length].window.setContent(response[0].formatted_address);
+                                else
+                                    console.log(status, response);
+                            });
                         }
-                    },
-                    function(response, status){
-                        if(status === "OK" && response[0])
-                            me.store.position[length].window.setContent(response[0].formatted_address);
-                        else
-                            console.log(status, response);
+                        me.store.position[length].window.open(me.map.main, me.store.position[length].main);
                     });
-                }
-                me.store.position[length].window.open(me.map.main, me.store.position[length].main);
-            });
+                    break;
+                case "point":
+                    this.store.point[length].main.addListener("rightclick", function(){
+                        if(!me.store.point[length].window.flag){
+                            me.store.point[length].window.flag = true;
+                            me.map.geocoder.geocode({                          //Geocoder for placing
+                                location: me.store.point[length].main.position
+                            },
+                            function(response, status){
+                                if(status === "OK" && response[0])
+                                    me.store.point[length].window.setContent(response[0].formatted_address);
+                                else
+                                    console.log(status, response);
+                            });
+                        }
+                        me.store.point[length].window.open(me.map.main, me.store.point[length].main);
+                    });
+                    break;
+            }
+            
         },
         setStep: function(){
             var me = this,
@@ -486,7 +537,8 @@ module.exports = new Vue({
                 valid = false;
             }
             else if(valid){
-                this.store.data.search.actualTime = this.begin.value;
+                if(this.store.point.length === 0)               //There is no point inside route
+                    this.store.data.search.actualTime = this.begin.value;
                 this.store.data.search.actualDay = this.day.value;
                 if(this.step === 0){
                     this.step = 1;
@@ -499,13 +551,11 @@ module.exports = new Vue({
             }
         },
         selector: function(i){
-            if(i !== null)
+            if(i !== null && this.store.position[i].main !== null)
                 this.store.data.selected = i;
             for(var j = 0; j < this.store.position.length; j++)
-                if(i === j)
-                    this.store.position[j].main.setIcon("/image/maps/select.png");
-                else
-                    this.store.position[j].main.setIcon("/image/maps/gray.png");
+                if(this.store.position[j].main !== null)
+                    this.store.position[j].main.setIcon(i === j ? "/image/maps/select.png" : "/image/maps/gray.png");
         },
         validation: function(type){
             switch(type){
@@ -548,16 +598,32 @@ module.exports = new Vue({
             }
         },
         initPoint: function(i){
+            var j,
+                me = this;
             if(!this.store.position[i].linked){         //Store not added
+                this.store.add.index = i;
                 this.models.sucursalCliente.get({
-                    delimiters: this.store.position[i].id
+                    delimiters: this.store.position[i].id,
+                    params: {
+                        "expand": "cliente"
+                    }
                 },
                 function(success){
                     if(success.body.length > 0){        //There is linked clients
-                        
+                        if(me.store.add.client.length > 0)
+                            me.store.add.client = [];
+                        if(me.store.add.schedule.length > 0)
+                            me.store.add.schedule = [];
+                        for(j = 0; j < success.body.length; j++)
+                            me.initAddClient(success.body[j]);
+                        me.initRoute(i);
+                        me.initAddSchedule(i);
                     }
                     else{                               //There are not clients
-                        
+                        BUTO.components.main.alert.description.title = "Errores en Agregado de Etapa";
+                        BUTO.components.main.alert.description.text = me.store.position[i].name + " no está ligada a ningún cliente.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
                     }
                 },
                 function(error){
@@ -565,45 +631,287 @@ module.exports = new Vue({
                     BUTO.components.main.alert.description.title = "Errores en Agregado de Etapa";
                     BUTO.components.main.alert.description.text = "";
                     if(error.body.length > 0)
-                        for(var k = 0; k < error.body.length; k++){
-                            BUTO.components.main.alert.description.text += error.body[k].message + "<br>";
-                        }
+                        for(j = 0; j < error.body.length; j++)
+                            BUTO.components.main.alert.description.text += error.body[j].message + "<br>";
                     else
                         BUTO.components.main.alert.description.text = "Inténtalo de nuevo.";
                     BUTO.components.main.alert.description.ok = "Aceptar";
                     BUTO.components.main.alert.active = true;
-                });
-                //store.linked ? '' : config.setPoint('add', storeIndex)    
+                });    
             }
         },
-        setPoint: function(type, i){
+        initRoute: function(i){
             var me = this,
+                travelTime = 0,
+                distance = 0;
+            if(this.store.point.length > 0){        //There is more than 1 point
+                this.map.directionService.route({
+                    origin: this.store.point[this.store.point.length - 1].main.position,
+                    destination: this.store.position[i].main.position,
+                    travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
+                    avoidTolls: true
+                },
+                function(response, status){
+                    if(status === "OK"){
+                        me.store.point[me.store.point.length - 1].renderer = new google.maps.DirectionsRenderer({
+                            map: me.map.main,
+                            draggable: true,
+                            suppressMarkers: true,
+                            preserveViewport: true
+                        });
+                        me.store.point[me.store.point.length - 1].renderer.setDirections(response);
+                        me.store.point[me.store.point.length - 1].details.copyrights = response.routes[0].copyrights;
+                        me.store.point[me.store.point.length - 1].details.warnings = [];
+                        for(i = 0; i < response.routes[0].warnings.length; i++)
+                            me.store.point[me.store.point.length - 1].details.warnings.push({
+                                text: response.routes[0].warnings[i]
+                            });
+                        me.store.point[me.store.point.length - 1].details.legs.push({
+                            hidden: false,
+                            id: me.store.point[me.store.point.length - 1].details.legs.length,
+                            end: response.routes[0].legs[0].end_address,
+                            start: response.routes[0].legs[0].start_address,
+                            steps: []
+                        });
+                        for(i = 0; i < response.routes[0].legs[0].steps.length; i++){
+                            me.store.point[me.store.point.length - 1].details.legs[0].steps.push({
+                                distance: {
+                                    value: response.routes[0].legs[0].steps[i].distance.value,
+                                    text: response.routes[0].legs[0].steps[i].distance.text
+                                },
+                                duration: {
+                                    value: response.routes[0].legs[0].steps[i].duration.value,
+                                    text: response.routes[0].legs[0].steps[i].duration.text
+                                },
+                                instructions: response.routes[0].legs[0].steps[i].instructions,
+                                travel_mode: response.routes[0].legs[0].steps[i].travel_mode
+                            });
+                            travelTime += response.routes[0].legs[0].steps[i].duration.value;
+                            distance += response.routes[0].legs[0].steps[i].distance.value;
+                        }
+                    }
+                    else
+                        console.log(status);
+                    me.store.add.calculate.travel = me.converter("string", travelTime);
+                    me.store.add.calculate.distance = distance;
+                });
+            }
+            else{
+                this.store.add.calculate.travel = this.converter("string", travelTime);
+                this.store.add.calculate.distance = distance;
+            }
+        },
+        initAddClient: function(e){
+            if(this.store.add.client.length === 0)
+                this.store.add.stageTime = this.converter("string", this.converter("time", e.tiempo_solicitado));
+            this.store.add.client.push({
+                id: e.cliente_id,
+                name: e._embedded.cliente.nombre,
+                time: e.tiempo_solicitado,
+                active: this.store.add.client.length === 0
+            });
+        },
+        initAddSchedule: function(i){
+            var j,
                 actualTime,
+                deathTime = "00:00:00",
+                status = null,
+                index,
                 actualDay = this.store.data.search.actualDay === 1 ? 6 : this.store.data.search.actualDay - 2;
+            if(this.store.point.length === 0){         //First point
+                if(this.begin.value !== null &&
+                    this.begin.value !== "" &&
+                    this.begin.valid){               //There is a value in route start
+                    this.store.add.existsBegin = true;
+                    actualTime = this.begin.value;
+                    for(j = 0; j < this.store.position[i].steps[actualDay].schedule.length; j++){
+                        if(this.store.position[i].steps[actualDay].schedule[j].begin <= this.begin.value &&
+                           this.store.position[i].steps[actualDay].schedule[j].end > this.begin.value){
+                            status = 0;         //There is an actual schedule that cross with beginning value
+                            index = j;
+                           }
+                        else if(this.store.position[i].steps[actualDay].schedule[j].begin > this.begin.value && status === null){
+                            status = 1;         //There is not a property schedule but can wait for next opening
+                            index = j;
+                        }
+                    }
+                    if (status === 1)
+                        deathTime = this.converter("string", this.converter("time", this.store.position[i].steps[actualDay].schedule[index].begin) - this.converter("time", actualTime));
+                    this.store.add.schedule.push({
+                        begin: this.store.position[i].steps[actualDay].schedule[index].begin,
+                        end: this.store.position[i].steps[actualDay].schedule[index].end,
+                        active: true
+                    });
+                }
+                else{
+                    this.store.add.existsBegin = false;
+                    status = 0;         //There is an actual schedule that cross with beginning value
+                    actualTime = this.store.position[i].steps[actualDay].schedule[0].begin;
+                    for(j = 0; j < this.store.position[i].steps[actualDay].schedule.length; j++)
+                       this.store.add.schedule.push({
+                            begin: this.store.position[i].steps[actualDay].schedule[j].begin,
+                            end: this.store.position[i].steps[actualDay].schedule[j].end,
+                            active: j === 0
+                        }); 
+                }
+            }
+            else{           //Consequent points
+                this.store.add.existsBegin = this.begin.value !== null && this.begin.value !== "" && this.begin.valid;
+                actualTime = this.store.data.search.actualTime;
+                for(j = 0; j < this.store.position[i].steps[actualDay].schedule.length; j++){
+                    if(this.store.position[i].steps[actualDay].schedule[j].begin <= this.store.data.search.actualTime &&
+                       this.store.position[i].steps[actualDay].schedule[j].end > this.store.data.search.actualTime){
+                        status = 0;         //There is an actual schedule that cross with beginning value
+                        index = j;
+                    }
+                    else if(this.store.position[i].steps[actualDay].schedule[j].begin > this.store.data.search.actualTime && status === null){
+                        status = 1;         //There is not a property schedule but can wait for next opening
+                        index = j;
+                    }
+                }
+                if (status === 1)
+                    deathTime = this.converter("string", this.converter("time", this.store.position[i].steps[actualDay].schedule[index].begin) - this.converter("time", actualTime));
+                this.store.add.schedule.push({
+                    begin: this.store.position[i].steps[actualDay].schedule[index].begin,
+                    end: this.store.position[i].steps[actualDay].schedule[index].end,
+                    active: true
+                });
+            }
+            if(status === null){        //Not valid store because of its schedules
+                BUTO.components.main.alert.description.title = "Errores en Agregado de Etapa";
+                BUTO.components.main.alert.description.text = this.store.position[i].name + " no tiene horarios que puedan relacionarse con las especificaciones de la ruta.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+            }
+            else{
+                $('#add').modal('show');
+                this.store.add.calculate.begin = actualTime;
+                this.store.add.calculate.death = deathTime;
+                this.setValidEnd(status);
+            }
+        },
+        setAddClient: function(i){
+            var time = 0;
+            this.store.add.client[i].active = !this.store.add.client[i].active;
+            for(i = 0; i < this.store.add.client.length; i++)
+                if(this.store.add.client[i].active)
+                    time += this.converter("time", this.store.add.client[i].time);
+            this.store.add.stageTime = this.converter("string", time);
+            this.setValidEnd();
+        },
+        setAddSchedule: function(i){
+            if(!this.store.add.schedule[i].active){
+                for(var j = 0; j < this.store.add.schedule.length; j++)
+                    this.store.add.schedule[j].active = i === j;
+                if(!this.store.add.existsBegin && this.store.point.length === 0)
+                    this.store.add.calculate.begin = this.store.add.schedule[i].begin;
+                if(this.store.add.existsBegin)
+                    this.store.add.calculate.death = this.converter("string", this.converter("time", this.store.add.schedule[i].begin) - this.converter("time", this.begin.value));
+                this.setValidEnd();
+            }
+        },
+        setValidEnd: function(){
+            var i;
+            for(var j = 0; j < this.store.add.schedule.length; j++)
+                    if(this.store.add.schedule[j].active)
+                        i = j;
+            this.store.add.validEnd = this.store.add.schedule[i].end >= (this.converter('string', this.converter('time', this.store.add.stageTime) + this.converter('time', this.store.add.calculate.travel) + this.converter('time', this.store.add.calculate.begin) + this.converter('time', this.store.add.calculate.death)));
+        },
+        setPoint: function(type){
+            var active = false,
+                length;
             switch(type){
                 case "add":
-                    this.store.position[i].linked = true;
-                    actualTime = (this.store.data.search.actualTime === "") ?
-                        this.store.position[i].steps[actualDay].schedule[0].begin :
-                        this.store.data.search.actualTime;
-                    this.store.data.search.actualTime = actualTime;
-                    this.begin.value = actualTime;
-                    this.store.point.push({
-                        id: this.store.position[i].id,
-                        lat: this.store.position[i].lat,
-                        lng: this.store.position[i].lng,
-                        name: this.store.position[i].name,
-                        arrival: actualTime,
-                        usedTime: "00:00:00",
-                        valid: true
-                    });
-                    console.log(this.store.data.search.actualTime, this.store.point);
+                    for(var j = 0; j < this.store.add.client.length; j++)
+                        if(this.store.add.client[j].active)     //There is at least 1 client to add
+                            active = true;
+                    if(this.store.add.validEnd && active){      //Everything is good
+                        length = this.store.point.length;
+                        this.store.position[this.store.add.index].linked = true;
+                        this.store.data.search.actualTime = this.converter('string', this.converter('time', this.store.add.stageTime) + this.converter('time', this.store.add.calculate.travel) + this.converter('time', this.store.add.calculate.begin) + this.converter('time', this.store.add.calculate.death));
+                        this.store.data.search.actualDistance += this.store.add.calculate.distance;
+                        if(!this.store.add.existsBegin)        //There is no beginning schedule 
+                            this.begin.value = this.store.point.length === 0 ? this.store.add.calculate.begin : this.store.point[0].arrival;
+                        if(this.store.add.calculate.end)
+                            this.end.value = this.store.data.search.actualTime;
+                        this.store.point.push({
+                            id: this.store.position[this.store.add.index].id,
+                            lat: this.store.position[this.store.add.index].lat,
+                            lng: this.store.position[this.store.add.index].lng,
+                            name: this.store.position[this.store.add.index].name,
+                            travel: this.store.add.calculate.travel,
+                            distance: this.store.add.calculate.distance,
+                            arrival: this.store.add.calculate.begin,
+                            death:  this.store.add.calculate.death,
+                            usedTime: this.store.add.stageTime,
+                            hidden: true,
+                            renderer: null,
+                            details: {
+                                warnings: null,
+                                copyrights: [],
+                                legs: []
+                            },
+                            main: new google.maps.Marker({
+                                map: this.map.main,
+                                position: {
+                                    lat: this.store.position[this.store.add.index].lat,
+                                    lng: this.store.position[this.store.add.index].lng
+                                },
+                                icon: {
+                                    url: "/image/maps/green-empty.png",
+                                    labelOrigin: new google.maps.Point(11, 11)
+                                },
+                                label: "" + (this.store.point.length + 1) + "",
+                                title: this.store.position[this.store.add.index].name,
+                            }),
+                            window: new google.maps.InfoWindow({
+                                content: this.store.position[this.store.add.index].window.getContent(),
+                                maxWidth: 175,
+                                disableAutoPan: true,
+                                flag: false
+                            }),
+                            valid: true
+                        });
+                        this.getDirection("point", length);
+                        this.initStore();
+                        $('#add').modal('hide');
+                    }
+                    else{
+                        BUTO.components.main.alert.description.title = "Errores en Agregado de Etapa";
+                        BUTO.components.main.alert.description.text = !this.store.add.validEnd ? "El horario de término de la ruta excede el horario final del intervalo activo." :
+                                                                        "Debes seleccionar al menos un cliente para atender.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    }
                     break;
                 case "remove":
                     
                     break;
             }
         },
+        converter: function(type, val){
+            var value;
+            switch(type){
+                case "time":    //val is string, want return as time
+                    if(val){
+                        val = val.split(":");
+                        value = 0;
+                        value += parseInt(val[0]) * 3600;
+                        value += parseInt(val[1]) * 60;
+                        value += parseInt(val[2]);
+                    }
+                    break;
+                case "string":  //val is time, want return as string
+                    var hours = Math.floor( val / 3600 );
+                    var minutes = Math.floor( val / 60 - (hours * 60) );
+                    var seconds = val - (hours * 3600) - (minutes * 60);
+                    value = hours < 10 ? '0' + hours : hours;
+                    value += ":" + (minutes < 10 ? '0' + minutes : minutes);
+                    value += ":" + (seconds < 10 ? '0' + seconds : seconds);
+                    break;
+            }
+            return value;
+        }, 
         //initConfiguration: function(auto){
         //    var i = 0, j;
         //    if(!auto){
@@ -668,6 +976,16 @@ module.exports = new Vue({
                     totalLat += this.store.position[i].lat;
                     totalLng += this.store.position[i].lng;
                     bounds.extend(this.store.position[i].main.getPosition());
+                     
+                }
+            for(i = 0; i < this.store.point.length; i++)
+                if(this.store.point[i].main !== null &&
+                    this.store.point[i].lat !== null &&
+                    this.store.point[i].lng !== null){
+                    counter++;
+                    totalLat += this.store.point[i].lat;
+                    totalLng += this.store.point[i].lng;
+                    bounds.extend(this.store.point[i].main.getPosition());
                      
                 }
             if(counter > 0){
