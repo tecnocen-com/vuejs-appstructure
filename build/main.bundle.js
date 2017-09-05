@@ -21104,35 +21104,42 @@ module.exports = `
                     </div>
                 </div>
                 <div class="row">
-                    <div :class="config.begin.valid ? '' : 'has-error'" class="form-group">
-                        <label class="control-label col-lg-2">
-                            Horario de inicio
-                            <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="Si no se define este dato, se calculará automáticamente al trazar la ruta" data-placement="right" data-trigger="hover">
-                                <i class="icon-info22"></i>
-                            </a>
-                        </label>
-                        <div class="col-lg-10">
+                    <div style="padding-top: 20px"></div>
+                    <div class="col-sm-6">
+                        <div class="form-group text-center schedule-title">
+                            <label>
+                                Horario de inicio
+                                <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="Si no se define este dato, se calculará automáticamente al trazar la ruta" data-placement="right" data-trigger="hover">
+                                    <i class="icon-info22"></i>
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group text-center schedule-title">
+                            <label>
+                                Horario de término
+                                <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="Si no se define este dato, se calculará automáticamente al trazar la ruta" data-placement="right" data-trigger="hover">
+                                    <i class="icon-info22"></i>
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div :class="config.begin.valid ? '' : 'has-error'" class="form-group">
                             <input type="text" maxlength="8" v-model="config.begin.value" v-on:keyup="config.begin.value = mask('time', $event, config.begin.value); config.validation('time-begin')" class="form-control">
                             <span class="help-block">{{config.begin.text}}</span>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div :class="config.end.valid ? '' : 'has-error'" class="form-group">
-                        <label class="control-label col-lg-2">
-                            Horario de término
-                            <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="Si no se define este dato, se calculará automáticamente al trazar la ruta" data-placement="right" data-trigger="hover">
-                                <i class="icon-info22"></i>
-                            </a>
-                        </label>
-                        <div class="col-lg-10">
+                    <div class="col-sm-6">
+                        <div :class="config.end.valid ? '' : 'has-error'" class="form-group">
                             <input type="text" maxlength="8" v-model="config.end.value" v-on:keyup="config.end.value = mask('time', $event, config.end.value); config.validation('time-end')" class="form-control">
                             <span class="help-block">{{config.end.text}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
+                    <div class="form-group">
                         <label class="control-label col-lg-2">
                             Día
                             <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="IMPORTANTE: Este dato se tomará en cuenta para obtener tiendas disponibles" data-placement="right" data-trigger="hover">
@@ -21192,7 +21199,7 @@ module.exports = `
                                                 <td v-on:click.self="config.selector(storeIndex)" class="col-md-1">
                                                     {{store.name}}
                                                     <div class="pull-right">
-                                                        <a href="#" v-on:click.prevent="config.initPoint(storeIndex)" :class="store.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Agregar">
+                                                        <a href="#" v-on:click.prevent="config.initPoint('add', storeIndex)" :class="store.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Agregar">
                                                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                         </a>
                                                         <a :id="'schedule-' + storeIndex" href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Horarios" data-toggle="popover" data-placement="right" data-trigger="hover">
@@ -21356,8 +21363,6 @@ module.exports = `
                                     </button>
                                 </div>
                             </div>
-                            
-                            
                             <template v-if="config.store.point.length > 0">
                                 <template v-for="(store, storeIndex) in config.store.point" class="selected grid-row-customized grid-row-highlight-customized">
                                     <div class="row main-info grid-row-customized grid-row-highlight-customized selected" style="padding-top: 8px; padding-bottom: 8px;">
@@ -21368,11 +21373,17 @@ module.exports = `
                                         <div class="col-sm-10">
                                             {{store.name}}
                                             <div class="pull-right">
-                                                <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Quitar">
-                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                                </a>
                                                 <a href="#" v-on:click.prevent="store.hidden = !store.hidden" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Más información">
                                                     <i :class="store.hidden ? 'icon-menu' : 'icon-more2'" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.setPoint('see', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                    <i aria-hidden="true" class="icon-eye"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.initPoint('edit', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Editar" data-toggle="modal" data-target="#edit">
+                                                    <i aria-hidden="true" class="icon-pencil6"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.setPoint('remove', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Quitar">
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                 </a>
                                             </div>
                                         </div>
@@ -21382,7 +21393,7 @@ module.exports = `
                                             <span>Distancia: {{store.distance}} km.</span>
                                         </div>
                                         <div class="col-sm-6">
-                                            <span>Hora de partida: {{store.arrival}}</span>
+                                            <span>Hora de partida: {{store.start}}</span>
                                         </div>
                                         <div class="col-sm-12">
                                             <span>Tiempo de viaje: {{store.travel}}</span>
@@ -21427,7 +21438,7 @@ module.exports = `
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-custom">
-                            <h4 class="modal-title" id="myModalLabel">Nueva etapa</h4>
+                            <h4 class="modal-title" id="myModalLabel">Nueva etapa: {{config.store.add.name}}</h4>
                         </div>
                         <div class="modal-body modal-body-custom">
                             <h4 class="text-center">Horarios</h4>
@@ -21509,6 +21520,18 @@ module.exports = `
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-5">
+                                    <span><b>Hora de partida:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.add.calculate.begin}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
                                     <span><b>Tiempo de viaje:</b></span>
                                 </div>
                                 <div class="col-sm-4 text-center">
@@ -21518,7 +21541,7 @@ module.exports = `
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-5">
                                     <span><b>Tiempo de llegada:</b></span>
@@ -21529,7 +21552,7 @@ module.exports = `
                                         <span class="help-block"></span>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-5">
@@ -21557,7 +21580,7 @@ module.exports = `
                             <div v-if="config.store.add.stageTime !== null && config.store.add.calculate.begin !== null" class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-5">
-                                    <span><b>Tiempo de término de etapa:</b></span>
+                                    <span><b>Hora de término:</b></span>
                                 </div>
                                 <div class="col-sm-4 text-center">
                                     <div class="form-group" :class="!config.store.add.validEnd ? 'has-error' : ''">
@@ -21570,6 +21593,247 @@ module.exports = `
                         </div>
                         <div class="modal-footer modal-footer-custom">
                             <button v-on:click="config.setPoint('add')" type="button" class="btn btn-default btn-customized">Agregar</button>
+                            <button v-on:click="config.setPoint('cancel')" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-custom">
+                            <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Ver etapa: {{config.store.see.name}}</h4>
+                        </div>
+                        <div class="modal-body modal-body-custom">
+                            <h4 class="text-center">Horario de atención</h4>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group text-center">
+                                        <span>{{config.store.see.scheduleBegin}}</span>
+                                        <span class="help-block">Inicio</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group text-center">
+                                        <span>{{config.store.see.scheduleEnd}}</span>
+                                        <span class="help-block">Fin</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-divider"></div>
+                            <div class="custom-divider"></div>
+                            <h4 class="text-center">Clientes</h4>
+                            <div v-for="(client, clientIndex) in config.store.see.client" class="row">
+                                <div class="col-sm-4 text-center">
+                                    <span><b>{{client.name}}</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{client.time}}</span>
+                                        <span class="help-block">Tiempo solicitado</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                            <label v-on:click.prevent>
+                                                <span class="switchery switchery-default switchery-custom" :class="client.active ? 'active' : 'not-active'">
+                                                    <small></small>
+                                                </span>
+                                                {{client.active ? 'Si' : 'No'}}
+                                            </label>
+                                            <span class="help-block">Incluir en etapa</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-divider"></div>
+                            <div class="custom-divider"></div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Hora de partida:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.see.start}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Tiempo de viaje:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.see.travel}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Tiempo muerto:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.see.death}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Tiempo total solicitado:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.see.service}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Hora de término:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.see.finish}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                        </div>
+                        <div class="modal-footer modal-footer-custom">
+                            <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-custom">
+                            <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Ver etapa: {{config.store.edit.name}}</h4>
+                        </div>
+                        <div class="modal-body modal-body-custom">
+                            <h4 class="text-center">Horario de atención</h4>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group text-center">
+                                        <span>{{config.store.edit.scheduleBegin}}</span>
+                                        <span class="help-block">Inicio</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group text-center">
+                                        <span>{{config.store.edit.scheduleEnd}}</span>
+                                        <span class="help-block">Fin</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-divider"></div>
+                            <div class="custom-divider"></div>
+                            <h4 class="text-center">Clientes</h4>
+                            <div v-for="(client, clientIndex) in config.store.edit.client" class="row">
+                                <div class="col-sm-4 text-center">
+                                    <span><b>{{client.name}}</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{client.time}}</span>
+                                        <span class="help-block">Tiempo solicitado</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                            <label v-on:click.prevent="config.setEditClient(clientIndex)">
+                                                <span class="switchery switchery-default switchery-custom" :class="client.active ? 'active' : 'not-active'">
+                                                    <small></small>
+                                                </span>
+                                                {{client.active ? 'Si' : 'No'}}
+                                            </label>
+                                            <span class="help-block">Incluir en etapa</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-divider"></div>
+                            <div class="custom-divider"></div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Hora de partida:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.edit.start}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Tiempo de viaje:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.edit.travel}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Tiempo muerto:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.edit.death}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Tiempo total solicitado:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.edit.service}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Hora de término:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group" :class="!config.store.edit.validEnd ? 'has-error' : ''">
+                                        <label class="control-label">{{config.converter("string", config.converter("time", config.store.edit.start) + config.converter("time", config.store.edit.travel) + config.converter("time", config.store.edit.death) + config.converter("time", config.store.edit.service))}}</label>
+                                        <span class="help-block">{{!config.store.edit.validEnd ? 'el término de ruta excede el fin del intervalo activo.' : ''}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                        </div>
+                        <div class="modal-footer modal-footer-custom">
+                            <button type="button" v-on:click="config.setPoint('edit')" class="btn btn-default btn-customized">Aceptar</button>
                             <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
@@ -41892,6 +42156,7 @@ module.exports = new Vue({
                 client: [],
                 schedule: [],
                 index: null,
+                name: null,
                 stageTime: 0,
                 existsBegin: false,
                 validEnd: true,
@@ -41902,6 +42167,28 @@ module.exports = new Vue({
                     death: null,
                     end: true
                 }
+            },
+            see: {
+                scheduleBegin: null,
+                scheduleEnd: null,
+                client: [],
+                start: null,
+                travel: null,
+                death: null,
+                service: null,
+                finish: null
+                
+            },
+            edit: {
+                index: null,
+                scheduleBegin: null,
+                scheduleEnd: null,
+                client: [],
+                start: null,
+                travel: null,
+                death: null,
+                service: null,
+                validEnd: true,
             }
         }
     },
@@ -42040,7 +42327,8 @@ module.exports = new Vue({
             }
         },
         initMarker: function(e){
-            var i, linked = false,
+            var me = this,
+                i, linked = false,
                 length = this.store.position.length;
             if(this.store.point.length > 0){
                 for(i = 0; i < this.store.point.length; i++)
@@ -42101,6 +42389,10 @@ module.exports = new Vue({
                     }
                 ]
             });
+            if(this.store.position[length].main !== null)
+                this.store.position[length].main.addListener("click", function(){
+                    me.initPoint("add", length);
+                });
             this.initSchedule(length, e.id);
             if(!linked)
                 this.getDirection("store", length, e);
@@ -42362,108 +42654,71 @@ module.exports = new Vue({
                     break;
             }
         },
-        initPoint: function(i){
+        initPoint: function(type, i){
             var j,
                 me = this;
-            if(!this.store.position[i].linked){         //Store not added
-                this.store.add.index = i;
-                this.models.sucursalCliente.get({
-                    delimiters: this.store.position[i].id,
-                    params: {
-                        "expand": "cliente"
+            switch(type){
+                case "add":
+                    if(!this.store.position[i].linked){         //Store not added
+                        this.store.add.index = i;
+                        this.store.add.name = this.store.position[i].name;
+                        this.models.sucursalCliente.get({
+                            delimiters: this.store.position[i].id,
+                            params: {
+                                "expand": "cliente"
+                            }
+                        },
+                        function(success){
+                            if(success.body.length > 0){        //There is linked clients
+                                if(me.store.add.client.length > 0)
+                                    me.store.add.client = [];
+                                if(me.store.add.schedule.length > 0)
+                                    me.store.add.schedule = [];
+                                for(j = 0; j < success.body.length; j++)
+                                    me.initAddClient(success.body[j]);
+                                me.initAddSchedule(i);
+                            }
+                            else{                               //There are not clients
+                                BUTO.components.main.alert.description.title = "Errores en Agregado de Etapa";
+                                BUTO.components.main.alert.description.text = me.store.position[i].name + " no está ligada a ningún cliente.";
+                                BUTO.components.main.alert.description.ok = "Aceptar";
+                                BUTO.components.main.alert.active = true;
+                            }
+                        },
+                        function(error){
+                            console.log(error);
+                            BUTO.components.main.alert.description.title = "Errores en Agregado de Etapa";
+                            BUTO.components.main.alert.description.text = "";
+                            if(error.body.length > 0)
+                                for(j = 0; j < error.body.length; j++)
+                                    BUTO.components.main.alert.description.text += error.body[j].message + "<br>";
+                            else
+                                BUTO.components.main.alert.description.text = "Inténtalo de nuevo.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                        });    
                     }
-                },
-                function(success){
-                    if(success.body.length > 0){        //There is linked clients
-                        if(me.store.add.client.length > 0)
-                            me.store.add.client = [];
-                        if(me.store.add.schedule.length > 0)
-                            me.store.add.schedule = [];
-                        for(j = 0; j < success.body.length; j++)
-                            me.initAddClient(success.body[j]);
-                        me.initRoute(i);
-                        me.initAddSchedule(i);
-                    }
-                    else{                               //There are not clients
-                        BUTO.components.main.alert.description.title = "Errores en Agregado de Etapa";
-                        BUTO.components.main.alert.description.text = me.store.position[i].name + " no está ligada a ningún cliente.";
-                        BUTO.components.main.alert.description.ok = "Aceptar";
-                        BUTO.components.main.alert.active = true;
-                    }
-                },
-                function(error){
-                    console.log(error);
-                    BUTO.components.main.alert.description.title = "Errores en Agregado de Etapa";
-                    BUTO.components.main.alert.description.text = "";
-                    if(error.body.length > 0)
-                        for(j = 0; j < error.body.length; j++)
-                            BUTO.components.main.alert.description.text += error.body[j].message + "<br>";
-                    else
-                        BUTO.components.main.alert.description.text = "Inténtalo de nuevo.";
-                    BUTO.components.main.alert.description.ok = "Aceptar";
-                    BUTO.components.main.alert.active = true;
-                });    
-            }
-        },
-        initRoute: function(i){
-            var me = this,
-                travelTime = 0,
-                distance = 0;
-            if(this.store.point.length > 0){        //There is more than 1 point
-                this.map.directionService.route({
-                    origin: this.store.point[this.store.point.length - 1].main.position,
-                    destination: this.store.position[i].main.position,
-                    travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
-                    avoidTolls: true
-                },
-                function(response, status){
-                    if(status === "OK"){
-                        me.store.point[me.store.point.length - 1].renderer = new google.maps.DirectionsRenderer({
-                            map: me.map.main,
-                            draggable: true,
-                            suppressMarkers: true,
-                            preserveViewport: true
+                    break;
+                case "edit":
+                    j = 0;
+                    while(this.store.point[i].schedule[j].active !== true)
+                        j++;
+                    this.store.edit.scheduleBegin = this.store.point[i].schedule[j].begin;
+                    this.store.edit.scheduleEnd = this.store.point[i].schedule[j].end;
+                    this.store.edit.index = i;
+                    this.store.edit.validEnd = true;
+                    this.store.edit.client = [];
+                    for(j = 0; j < this.store.point[i].client.length; j++)
+                        this.store.edit.client.push({
+                            name: this.store.point[i].client[j].name,
+                            time: this.store.point[i].client[j].time,
+                            active: this.store.point[i].client[j].active
                         });
-                        me.store.point[me.store.point.length - 1].renderer.setDirections(response);
-                        me.store.point[me.store.point.length - 1].details.copyrights = response.routes[0].copyrights;
-                        me.store.point[me.store.point.length - 1].details.warnings = [];
-                        for(i = 0; i < response.routes[0].warnings.length; i++)
-                            me.store.point[me.store.point.length - 1].details.warnings.push({
-                                text: response.routes[0].warnings[i]
-                            });
-                        me.store.point[me.store.point.length - 1].details.legs.push({
-                            hidden: false,
-                            id: me.store.point[me.store.point.length - 1].details.legs.length,
-                            end: response.routes[0].legs[0].end_address,
-                            start: response.routes[0].legs[0].start_address,
-                            steps: []
-                        });
-                        for(i = 0; i < response.routes[0].legs[0].steps.length; i++){
-                            me.store.point[me.store.point.length - 1].details.legs[0].steps.push({
-                                distance: {
-                                    value: response.routes[0].legs[0].steps[i].distance.value,
-                                    text: response.routes[0].legs[0].steps[i].distance.text
-                                },
-                                duration: {
-                                    value: response.routes[0].legs[0].steps[i].duration.value,
-                                    text: response.routes[0].legs[0].steps[i].duration.text
-                                },
-                                instructions: response.routes[0].legs[0].steps[i].instructions,
-                                travel_mode: response.routes[0].legs[0].steps[i].travel_mode
-                            });
-                            travelTime += response.routes[0].legs[0].steps[i].duration.value;
-                            distance += response.routes[0].legs[0].steps[i].distance.value;
-                        }
-                    }
-                    else
-                        console.log(status);
-                    me.store.add.calculate.travel = me.converter("string", travelTime);
-                    me.store.add.calculate.distance = distance;
-                });
-            }
-            else{
-                this.store.add.calculate.travel = this.converter("string", travelTime);
-                this.store.add.calculate.distance = distance;
+                    this.store.edit.start = this.store.point[i].start;
+                    this.store.edit.travel = this.store.point[i].travel;
+                    this.store.edit.death = this.store.point[i].death;
+                    this.store.edit.service = this.store.point[i].usedTime;
+                    break;
             }
         },
         initAddClient: function(e){
@@ -42500,13 +42755,15 @@ module.exports = new Vue({
                             index = j;
                         }
                     }
-                    if (status === 1)
-                        deathTime = this.converter("string", this.converter("time", this.store.position[i].steps[actualDay].schedule[index].begin) - this.converter("time", actualTime) - this.converter("time", this.store.add.calculate.travel));
-                    this.store.add.schedule.push({
-                        begin: this.store.position[i].steps[actualDay].schedule[index].begin,
-                        end: this.store.position[i].steps[actualDay].schedule[index].end,
-                        active: true
-                    });
+                    if(status !== null){
+                        if(status === 1)
+                            deathTime = this.converter("string", this.converter("time", this.store.position[i].steps[actualDay].schedule[index].begin) - this.converter("time", actualTime));
+                        this.store.add.schedule.push({
+                            begin: this.store.position[i].steps[actualDay].schedule[index].begin,
+                            end: this.store.position[i].steps[actualDay].schedule[index].end,
+                            active: true
+                        });
+                    }
                 }
                 else{
                     this.store.add.existsBegin = false;
@@ -42534,13 +42791,16 @@ module.exports = new Vue({
                         index = j;
                     }
                 }
-                if (status === 1)
-                    deathTime = this.converter("string", this.converter("time", this.store.position[i].steps[actualDay].schedule[index].begin) - this.converter("time", actualTime) - this.converter("time", this.store.add.calculate.travel));
-                this.store.add.schedule.push({
-                    begin: this.store.position[i].steps[actualDay].schedule[index].begin,
-                    end: this.store.position[i].steps[actualDay].schedule[index].end,
-                    active: true
-                });
+                if(status !== null){
+                    if(status === 1)
+                        deathTime = this.converter("string", this.converter("time", this.store.position[i].steps[actualDay].schedule[index].begin) - this.converter("time", actualTime));
+                    for(j = index; j < this.store.position[i].steps[actualDay].schedule.length; j++)
+                        this.store.add.schedule.push({
+                            begin: this.store.position[i].steps[actualDay].schedule[j].begin,
+                            end: this.store.position[i].steps[actualDay].schedule[j].end,
+                            active: j === index
+                        });
+                }
             }
             if(status === null){        //Not valid store because of its schedules
                 BUTO.components.main.alert.description.title = "Errores en Agregado de Etapa";
@@ -42550,9 +42810,143 @@ module.exports = new Vue({
             }
             else{
                 $('#add').modal('show');
-                this.store.add.calculate.begin = actualTime;
-                this.store.add.calculate.death = deathTime;
-                this.setValidEnd(status);
+                this.initRoute("new", i, actualTime, deathTime);
+            }
+        },
+        initRoute: function(type, i, actualTime, deathTime, newIndex){
+            var me = this,
+                j,
+                travelTime = 0,
+                distance = 0;
+            switch(type){
+                case "new":
+                    if(this.store.point.length > 0){        //There is more than 1 point
+                        this.map.directionService.route({
+                            origin: this.store.point[this.store.point.length - 1].main.position,
+                            destination: this.store.position[i].main.position,
+                            travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
+                            avoidTolls: true
+                        },
+                        function(response, status){
+                            if(status === "OK"){
+                                me.store.point[me.store.point.length - 1].renderer = new google.maps.DirectionsRenderer({
+                                    map: me.map.main,
+                                    draggable: true,
+                                    suppressMarkers: true,
+                                    preserveViewport: true
+                                });
+                                me.store.point[me.store.point.length - 1].renderer.setDirections(response);
+                                me.store.point[me.store.point.length - 1].details.copyrights = response.routes[0].copyrights;
+                                me.store.point[me.store.point.length - 1].details.warnings = [];
+                                for(i = 0; i < response.routes[0].warnings.length; i++)
+                                    me.store.point[me.store.point.length - 1].details.warnings.push({
+                                        text: response.routes[0].warnings[i]
+                                    });
+                                me.store.point[me.store.point.length - 1].details.legs.push({
+                                    hidden: false,
+                                    id: me.store.point[me.store.point.length - 1].details.legs.length,
+                                    end: response.routes[0].legs[0].end_address,
+                                    start: response.routes[0].legs[0].start_address,
+                                    steps: []
+                                });
+                                for(i = 0; i < response.routes[0].legs[0].steps.length; i++){
+                                    me.store.point[me.store.point.length - 1].details.legs[0].steps.push({
+                                        distance: {
+                                            value: response.routes[0].legs[0].steps[i].distance.value,
+                                            text: response.routes[0].legs[0].steps[i].distance.text
+                                        },
+                                        duration: {
+                                            value: response.routes[0].legs[0].steps[i].duration.value,
+                                            text: response.routes[0].legs[0].steps[i].duration.text
+                                        },
+                                        instructions: response.routes[0].legs[0].steps[i].instructions,
+                                        travel_mode: response.routes[0].legs[0].steps[i].travel_mode
+                                    });
+                                    travelTime += response.routes[0].legs[0].steps[i].duration.value;
+                                    distance += response.routes[0].legs[0].steps[i].distance.value;
+                                }
+                            }
+                            else
+                                console.log(status);
+                            me.store.add.calculate.travel = me.converter("string", travelTime);
+                            me.store.add.calculate.distance = distance;
+                            me.store.add.calculate.begin = actualTime;
+                            me.store.add.calculate.death = (me.converter("time", deathTime) <= travelTime) ? "00:00:00" : me.converter("string", me.converter("time", deathTime) - travelTime);
+                            me.setValidEnd();
+                        });
+                    }
+                    else{
+                        this.store.add.calculate.distance = distance;
+                        this.store.add.calculate.travel = this.converter("string", travelTime);
+                        this.store.add.calculate.begin = actualTime;
+                        this.store.add.calculate.death = deathTime;
+                        this.setValidEnd();
+                    }
+                    break;
+                case "all":
+                    this.map.directionService.route({
+                        origin: this.store.point[i - 1].main.position,
+                        destination: this.store.point[i].main.position,
+                        travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
+                        avoidTolls: true
+                    },
+                    function(response, status){
+                        if(status === "OK"){
+                            me.store.point[i - 1].renderer = new google.maps.DirectionsRenderer({
+                                map: me.map.main,
+                                draggable: true,
+                                suppressMarkers: true,
+                                preserveViewport: true
+                            });
+                            me.store.point[i - 1].renderer.setDirections(response);
+                            me.store.point[i - 1].details.copyrights = response.routes[0].copyrights;
+                            me.store.point[i - 1].details.warnings = [];
+                            for(j = 0; j < response.routes[0].warnings.length; j++)
+                                me.store.point[i - 1].details.warnings.push({
+                                    text: response.routes[0].warnings[j]
+                                });
+                            me.store.point[i - 1].details.legs.push({
+                                hidden: false,
+                                id: me.store.point[i - 1].details.legs.length,
+                                end: response.routes[0].legs[0].end_address,
+                                start: response.routes[0].legs[0].start_address,
+                                steps: []
+                            });
+                            for(j = 0; j < response.routes[0].legs[0].steps.length; j++){
+                                me.store.point[i - 1].details.legs[0].steps.push({
+                                    distance: {
+                                        value: response.routes[0].legs[0].steps[j].distance.value,
+                                        text: response.routes[0].legs[0].steps[j].distance.text
+                                    },
+                                    duration: {
+                                        value: response.routes[0].legs[0].steps[j].duration.value,
+                                        text: response.routes[0].legs[0].steps[j].duration.text
+                                    },
+                                    instructions: response.routes[0].legs[0].steps[j].instructions,
+                                    travel_mode: response.routes[0].legs[0].steps[j].travel_mode
+                                });
+                                travelTime += response.routes[0].legs[0].steps[j].duration.value;
+                                distance += response.routes[0].legs[0].steps[j].distance.value;
+                            }
+                        }
+                        else
+                            console.log(status);
+                        
+                        me.store.point[i].travel = me.converter("string", travelTime);
+                        me.store.point[i].start = me.store.data.search.actualTime;
+                        me.store.point[i].death = (me.converter("time", me.store.point[i].schedule[newIndex].begin) <= (travelTime + me.converter("time", me.store.point[i].start))) ? "00:00:00" : me.converter("string", me.converter("time", me.store.point[i].schedule[newIndex].begin) - travelTime - me.converter("time", me.store.point[i].start));
+                        if(me.converter('time', me.store.point[i].start) + me.converter('time', me.store.point[i].death) + me.converter('time', me.store.point[i].travel) + me.converter('time', me.store.point[i].usedTime) > me.converter('time', me.store.point[i].schedule[newIndex].end)){
+                            newIndex++;
+                            me.store.point[i].travel = me.converter("string", travelTime);
+                            me.store.point[i].start = me.store.data.search.actualTime;
+                            me.store.point[i].death = (me.converter("time", me.store.point[i].schedule[newIndex].begin) <= (travelTime + me.converter("time", me.store.point[i].start))) ? "00:00:00" : me.converter("string", me.converter("time", me.store.point[i].schedule[newIndex].begin) - travelTime - me.converter("time", me.store.point[i].start));
+                        }
+                        me.store.data.search.actualTime = me.converter('string', me.converter('time', me.store.point[i].start) + me.converter('time', me.store.point[i].death) + me.converter('time', me.store.point[i].travel) + me.converter('time', me.store.point[i].usedTime));
+                        me.store.point[i].distance = distance;
+                        me.store.data.search.actualDistance += distance;
+                        me.end.value = me.store.data.search.actualTime;
+                    });
+                    break;
             }
         },
         setAddClient: function(i){
@@ -42570,8 +42964,10 @@ module.exports = new Vue({
                     this.store.add.schedule[j].active = i === j;
                 if(!this.store.add.existsBegin && this.store.point.length === 0)
                     this.store.add.calculate.begin = this.store.add.schedule[i].begin;
-                if(this.store.add.existsBegin)
+                if(this.store.add.existsBegin && this.store.point.length === 0)
                     this.store.add.calculate.death = this.converter("string", this.converter("time", this.store.add.schedule[i].begin) - this.converter("time", this.begin.value));
+                else if(this.store.add.existsBegin && this.store.point.length > 0)
+                    this.store.add.calculate.death = this.converter("time", this.store.add.schedule[i].begin) <= (this.converter("time", this.store.data.search.actualTime) + this.converter("time", this.store.add.calculate.travel)) ? "00:00:00" : this.converter("string", this.converter("time", this.store.add.schedule[i].begin) - (this.converter("time", this.store.data.search.actualTime) + this.converter("time", this.store.add.calculate.travel)));
                 this.setValidEnd();
             }
         },
@@ -42582,12 +42978,22 @@ module.exports = new Vue({
                         i = j;
             this.store.add.validEnd = this.store.add.schedule[i].end >= (this.converter('string', this.converter('time', this.store.add.stageTime) + this.converter('time', this.store.add.calculate.travel) + this.converter('time', this.store.add.calculate.begin) + this.converter('time', this.store.add.calculate.death)));
         },
-        setPoint: function(type){
+        setEditClient: function(i){
+            var time = 0;
+            this.store.edit.client[i].active = !this.store.edit.client[i].active;
+            for(i = 0; i < this.store.edit.client.length; i++)
+                if(this.store.edit.client[i].active)
+                    time += this.converter("time", this.store.edit.client[i].time);
+            this.store.edit.service = this.converter("string", time);
+            this.store.edit.validEnd = this.store.edit.scheduleEnd >= (this.converter('string', this.converter('time', this.store.edit.service) + this.converter('time', this.store.edit.travel) + this.converter('time', this.store.edit.start) + this.converter('time', this.store.edit.death)));
+        },
+        setPoint: function(type, iM){
             var active = false,
+                i, j = 0, newPoint, status = null, newIndex,
                 length;
             switch(type){
                 case "add":
-                    for(var j = 0; j < this.store.add.client.length; j++)
+                    for(j = 0; j < this.store.add.client.length; j++)
                         if(this.store.add.client[j].active)     //There is at least 1 client to add
                             active = true;
                     if(this.store.add.validEnd && active){      //Everything is good
@@ -42596,7 +43002,7 @@ module.exports = new Vue({
                         this.store.data.search.actualTime = this.converter('string', this.converter('time', this.store.add.stageTime) + this.converter('time', this.store.add.calculate.travel) + this.converter('time', this.store.add.calculate.begin) + this.converter('time', this.store.add.calculate.death));
                         this.store.data.search.actualDistance += this.store.add.calculate.distance;
                         if(!this.store.add.existsBegin)        //There is no beginning schedule 
-                            this.begin.value = this.store.point.length === 0 ? this.store.add.calculate.begin : this.store.point[0].arrival;
+                            this.begin.value = this.store.point.length === 0 ? this.store.add.calculate.begin : this.store.point[0].start;
                         if(this.store.add.calculate.end)
                             this.end.value = this.store.data.search.actualTime;
                         this.store.point.push({
@@ -42604,9 +43010,11 @@ module.exports = new Vue({
                             lat: this.store.position[this.store.add.index].lat,
                             lng: this.store.position[this.store.add.index].lng,
                             name: this.store.position[this.store.add.index].name,
+                            schedule: this.store.add.schedule,
+                            client: this.store.add.client,
                             travel: this.store.add.calculate.travel,
                             distance: this.store.add.calculate.distance,
-                            arrival: this.store.add.calculate.begin,
+                            start: this.store.add.calculate.begin,
                             death:  this.store.add.calculate.death,
                             usedTime: this.store.add.stageTime,
                             hidden: true,
@@ -42650,7 +43058,112 @@ module.exports = new Vue({
                     }
                     break;
                 case "remove":
-                    
+                    newPoint = [];
+                    for(i = 0; i < this.store.point.length; i++){
+                        if(i !== iM){
+                            this.store.point[i].main.setLabel("" + (++j) + "");
+                            newPoint.push(this.store.point[i]);
+                        }
+                        else{
+                            this.store.point[i].main.setMap(null);
+                            if(this.store.point[i].renderer !== null)
+                                this.store.point[i].renderer.setMap(null);
+                        }
+                    }
+                    this.store.point = newPoint;
+                    if(this.store.point.length > 0){
+                        for(i = 0; i < this.store.point.length; i++){
+                            newIndex = 0;
+                            status = null;
+                            if(this.store.point[i].renderer !== null)
+                                this.store.point[i].renderer.setMap(null);
+                            this.store.point[i].details = {
+                                warnings: null,
+                                copyrights: [],
+                                legs: []
+                            };
+                            if(i === 0 && this.begin.value !== null &&
+                                this.begin.value !== "" && this.begin.valid){       //First and suitable begin value
+                                for(j = 0; j < this.store.point[i].schedule.length; j++)
+                                    if(this.store.point[i].schedule[j].begin <= this.begin.value &&
+                                       this.store.point[i].schedule[j].end > this.begin.value){
+                                        status = 0;
+                                        newIndex = j;
+                                       }
+                                    else if(status === null && this.store.point[i].schedule[j].begin > this.begin.value){
+                                        status = 1;
+                                        newIndex = j;
+                                    }
+                                this.store.point[i].start = this.begin.value;
+                                this.store.point[i].death = (this.converter("time", this.store.point[i].schedule[newIndex].begin) <= this.converter("time", this.begin.value)) ? "00:00:00" : this.converter("string", this.converter("time", this.store.point[i].schedule[newIndex].begin) - this.converter("time", this.begin.value));
+                                this.store.point[i].travel = "00:00:00";
+                                this.store.point[i].distance = 0;
+                                this.store.data.search.actualTime = this.converter('string', this.converter('time', this.store.point[i].start) + this.converter('time', this.store.point[i].death) + this.converter('time', this.store.point[i].travel) + this.converter('time', this.store.point[i].usedTime));
+                                this.store.data.search.actualDistance = 0;
+                                this.end.value = this.store.data.search.actualTime;
+                            }
+                            else if(i === 0){                                       //First but non suitable begin value
+                                this.begin.value = this.store.point[i].schedule[newIndex].begin;
+                                this.begin.valid = true;
+                                this.store.point[i].start = this.store.point[i].schedule[newIndex].begin;
+                                this.store.point[i].death = "00:00:00";
+                                this.store.point[i].travel = "00:00:00";
+                                this.store.point[i].distance = 0;
+                                this.store.data.search.actualTime = this.converter('string', this.converter('time', this.store.point[i].start) + this.converter('time', this.store.point[i].death) + this.converter('time', this.store.point[i].travel) + this.converter('time', this.store.point[i].usedTime));
+                                this.store.data.search.actualDistance = 0;
+                                this.end.value = this.store.data.search.actualTime;
+                            }
+                            else{                           //Next points
+                                for(j = 0; j < this.store.point[i].schedule.length; j++)
+                                    if(this.store.point[i].schedule[j].begin <= this.store.data.search.actualTime &&
+                                       this.store.point[i].schedule[j].end > this.store.data.search.actualTime){
+                                        status = 0;
+                                        newIndex = j;
+                                    }
+                                    else if(status === null && this.store.point[i].schedule[j].begin > this.store.data.search.actualTime){
+                                        status = 1;
+                                        newIndex = j;
+                                    }
+                                this.initRoute("all", i, null, null, newIndex);
+                            }
+                        }
+                    }
+                    this.initStore();
+                    break;
+                case "cancel":
+                    if(this.store.point.length > 0){
+                        this.store.point[this.store.point.length - 1].renderer.setMap(null);
+                        this.store.point[this.store.point.length - 1].renderer = null;
+                        this.store.point[this.store.point.length - 1].details = {
+                            warnings: null,
+                            copyrights: [],
+                            legs: []
+                        };
+                    }
+                    break;
+                case "see":
+                    i = 0;
+                    while(this.store.point[iM].schedule[i].active !== true)
+                        i++;
+                    this.store.see.scheduleBegin = this.store.point[iM].schedule[i].begin;
+                    this.store.see.scheduleEnd = this.store.point[iM].schedule[i].end;
+                    this.store.see.client = this.store.point[iM].client;
+                    this.store.see.start = this.store.point[iM].start;
+                    this.store.see.travel = this.store.point[iM].travel;
+                    this.store.see.death = this.store.point[iM].death;
+                    this.store.see.service = this.store.point[iM].usedTime;
+                    this.store.see.finish = this.converter("string", this.converter("time", this.store.see.start) + this.converter("time", this.store.see.travel) + this.converter("time", this.store.see.death) + this.converter("time", this.store.see.service));
+                    break;
+                case "edit":
+                    if(this.store.edit.validEnd){
+                        
+                    }
+                    else{
+                        BUTO.components.main.alert.description.title = "Errores en Editado de Etapa";
+                        BUTO.components.main.alert.description.text = "El horario de término de la ruta excede el horario final del intervalo activo.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    }
                     break;
             }
         },

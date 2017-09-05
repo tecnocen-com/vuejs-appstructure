@@ -15,35 +15,42 @@ module.exports = `
                     </div>
                 </div>
                 <div class="row">
-                    <div :class="config.begin.valid ? '' : 'has-error'" class="form-group">
-                        <label class="control-label col-lg-2">
-                            Horario de inicio
-                            <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="Si no se define este dato, se calculará automáticamente al trazar la ruta" data-placement="right" data-trigger="hover">
-                                <i class="icon-info22"></i>
-                            </a>
-                        </label>
-                        <div class="col-lg-10">
+                    <div style="padding-top: 20px"></div>
+                    <div class="col-sm-6">
+                        <div class="form-group text-center schedule-title">
+                            <label>
+                                Horario de inicio
+                                <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="Si no se define este dato, se calculará automáticamente al trazar la ruta" data-placement="right" data-trigger="hover">
+                                    <i class="icon-info22"></i>
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group text-center schedule-title">
+                            <label>
+                                Horario de término
+                                <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="Si no se define este dato, se calculará automáticamente al trazar la ruta" data-placement="right" data-trigger="hover">
+                                    <i class="icon-info22"></i>
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div :class="config.begin.valid ? '' : 'has-error'" class="form-group">
                             <input type="text" maxlength="8" v-model="config.begin.value" v-on:keyup="config.begin.value = mask('time', $event, config.begin.value); config.validation('time-begin')" class="form-control">
                             <span class="help-block">{{config.begin.text}}</span>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div :class="config.end.valid ? '' : 'has-error'" class="form-group">
-                        <label class="control-label col-lg-2">
-                            Horario de término
-                            <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="Si no se define este dato, se calculará automáticamente al trazar la ruta" data-placement="right" data-trigger="hover">
-                                <i class="icon-info22"></i>
-                            </a>
-                        </label>
-                        <div class="col-lg-10">
+                    <div class="col-sm-6">
+                        <div :class="config.end.valid ? '' : 'has-error'" class="form-group">
                             <input type="text" maxlength="8" v-model="config.end.value" v-on:keyup="config.end.value = mask('time', $event, config.end.value); config.validation('time-end')" class="form-control">
                             <span class="help-block">{{config.end.text}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
+                    <div class="form-group">
                         <label class="control-label col-lg-2">
                             Día
                             <a href="#" v-on:click.prevent class="input-info" data-toggle="popover" data-content="IMPORTANTE: Este dato se tomará en cuenta para obtener tiendas disponibles" data-placement="right" data-trigger="hover">
@@ -103,7 +110,7 @@ module.exports = `
                                                 <td v-on:click.self="config.selector(storeIndex)" class="col-md-1">
                                                     {{store.name}}
                                                     <div class="pull-right">
-                                                        <a href="#" v-on:click.prevent="config.initPoint(storeIndex)" :class="store.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Agregar">
+                                                        <a href="#" v-on:click.prevent="config.initPoint('add', storeIndex)" :class="store.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Agregar">
                                                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                         </a>
                                                         <a :id="'schedule-' + storeIndex" href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Horarios" data-toggle="popover" data-placement="right" data-trigger="hover">
@@ -267,8 +274,6 @@ module.exports = `
                                     </button>
                                 </div>
                             </div>
-                            
-                            
                             <template v-if="config.store.point.length > 0">
                                 <template v-for="(store, storeIndex) in config.store.point" class="selected grid-row-customized grid-row-highlight-customized">
                                     <div class="row main-info grid-row-customized grid-row-highlight-customized selected" style="padding-top: 8px; padding-bottom: 8px;">
@@ -279,11 +284,17 @@ module.exports = `
                                         <div class="col-sm-10">
                                             {{store.name}}
                                             <div class="pull-right">
-                                                <a href="#" v-on:click.prevent class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Quitar">
-                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                                </a>
                                                 <a href="#" v-on:click.prevent="store.hidden = !store.hidden" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Más información">
                                                     <i :class="store.hidden ? 'icon-menu' : 'icon-more2'" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.setPoint('see', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                    <i aria-hidden="true" class="icon-eye"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.initPoint('edit', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Editar" data-toggle="modal" data-target="#edit">
+                                                    <i aria-hidden="true" class="icon-pencil6"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.setPoint('remove', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Quitar">
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                 </a>
                                             </div>
                                         </div>
@@ -293,7 +304,7 @@ module.exports = `
                                             <span>Distancia: {{store.distance}} km.</span>
                                         </div>
                                         <div class="col-sm-6">
-                                            <span>Hora de partida: {{store.arrival}}</span>
+                                            <span>Hora de partida: {{store.start}}</span>
                                         </div>
                                         <div class="col-sm-12">
                                             <span>Tiempo de viaje: {{store.travel}}</span>
@@ -338,7 +349,7 @@ module.exports = `
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-custom">
-                            <h4 class="modal-title" id="myModalLabel">Nueva etapa</h4>
+                            <h4 class="modal-title" id="myModalLabel">Nueva etapa: {{config.store.add.name}}</h4>
                         </div>
                         <div class="modal-body modal-body-custom">
                             <h4 class="text-center">Horarios</h4>
@@ -420,6 +431,18 @@ module.exports = `
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-5">
+                                    <span><b>Hora de partida:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.add.calculate.begin}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
                                     <span><b>Tiempo de viaje:</b></span>
                                 </div>
                                 <div class="col-sm-4 text-center">
@@ -429,7 +452,7 @@ module.exports = `
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-5">
                                     <span><b>Tiempo de llegada:</b></span>
@@ -440,7 +463,7 @@ module.exports = `
                                         <span class="help-block"></span>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-5">
@@ -468,7 +491,7 @@ module.exports = `
                             <div v-if="config.store.add.stageTime !== null && config.store.add.calculate.begin !== null" class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-5">
-                                    <span><b>Tiempo de término de etapa:</b></span>
+                                    <span><b>Hora de término:</b></span>
                                 </div>
                                 <div class="col-sm-4 text-center">
                                     <div class="form-group" :class="!config.store.add.validEnd ? 'has-error' : ''">
@@ -481,6 +504,247 @@ module.exports = `
                         </div>
                         <div class="modal-footer modal-footer-custom">
                             <button v-on:click="config.setPoint('add')" type="button" class="btn btn-default btn-customized">Agregar</button>
+                            <button v-on:click="config.setPoint('cancel')" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-custom">
+                            <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Ver etapa: {{config.store.see.name}}</h4>
+                        </div>
+                        <div class="modal-body modal-body-custom">
+                            <h4 class="text-center">Horario de atención</h4>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group text-center">
+                                        <span>{{config.store.see.scheduleBegin}}</span>
+                                        <span class="help-block">Inicio</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group text-center">
+                                        <span>{{config.store.see.scheduleEnd}}</span>
+                                        <span class="help-block">Fin</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-divider"></div>
+                            <div class="custom-divider"></div>
+                            <h4 class="text-center">Clientes</h4>
+                            <div v-for="(client, clientIndex) in config.store.see.client" class="row">
+                                <div class="col-sm-4 text-center">
+                                    <span><b>{{client.name}}</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{client.time}}</span>
+                                        <span class="help-block">Tiempo solicitado</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                            <label v-on:click.prevent>
+                                                <span class="switchery switchery-default switchery-custom" :class="client.active ? 'active' : 'not-active'">
+                                                    <small></small>
+                                                </span>
+                                                {{client.active ? 'Si' : 'No'}}
+                                            </label>
+                                            <span class="help-block">Incluir en etapa</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-divider"></div>
+                            <div class="custom-divider"></div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Hora de partida:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.see.start}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Tiempo de viaje:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.see.travel}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Tiempo muerto:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.see.death}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Tiempo total solicitado:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.see.service}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Hora de término:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.see.finish}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                        </div>
+                        <div class="modal-footer modal-footer-custom">
+                            <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-custom">
+                            <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Ver etapa: {{config.store.edit.name}}</h4>
+                        </div>
+                        <div class="modal-body modal-body-custom">
+                            <h4 class="text-center">Horario de atención</h4>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group text-center">
+                                        <span>{{config.store.edit.scheduleBegin}}</span>
+                                        <span class="help-block">Inicio</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group text-center">
+                                        <span>{{config.store.edit.scheduleEnd}}</span>
+                                        <span class="help-block">Fin</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-divider"></div>
+                            <div class="custom-divider"></div>
+                            <h4 class="text-center">Clientes</h4>
+                            <div v-for="(client, clientIndex) in config.store.edit.client" class="row">
+                                <div class="col-sm-4 text-center">
+                                    <span><b>{{client.name}}</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{client.time}}</span>
+                                        <span class="help-block">Tiempo solicitado</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                            <label v-on:click.prevent="config.setEditClient(clientIndex)">
+                                                <span class="switchery switchery-default switchery-custom" :class="client.active ? 'active' : 'not-active'">
+                                                    <small></small>
+                                                </span>
+                                                {{client.active ? 'Si' : 'No'}}
+                                            </label>
+                                            <span class="help-block">Incluir en etapa</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-divider"></div>
+                            <div class="custom-divider"></div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Hora de partida:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.edit.start}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Tiempo de viaje:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.edit.travel}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Tiempo muerto:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.edit.death}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Tiempo total solicitado:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <span>{{config.store.edit.service}}</span>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-5">
+                                    <span><b>Hora de término:</b></span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <div class="form-group" :class="!config.store.edit.validEnd ? 'has-error' : ''">
+                                        <label class="control-label">{{config.converter("string", config.converter("time", config.store.edit.start) + config.converter("time", config.store.edit.travel) + config.converter("time", config.store.edit.death) + config.converter("time", config.store.edit.service))}}</label>
+                                        <span class="help-block">{{!config.store.edit.validEnd ? 'el término de ruta excede el fin del intervalo activo.' : ''}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                        </div>
+                        <div class="modal-footer modal-footer-custom">
+                            <button type="button" v-on:click="config.setPoint('edit')" class="btn btn-default btn-customized">Aceptar</button>
                             <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
