@@ -3,6 +3,11 @@ module.exports = `
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">General</h5>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a href="#" v-on:click.prevent="config.reset('all')" title="Reinicializar"><i class="icon-reset"></i></i></a></li>
+                    </ul>
+                </div>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -38,7 +43,7 @@ module.exports = `
                     </div>
                     <div class="col-sm-6">
                         <div :class="config.begin.valid ? '' : 'has-error'" class="form-group">
-                            <input type="text" maxlength="8" v-model="config.begin.value" v-on:keyup="config.begin.value = mask('time', $event, config.begin.value); config.validation('time-begin')" class="form-control">
+                            <input :disabled="config.store.point.length > 0" type="text" maxlength="8" v-model="config.begin.value" v-on:keyup="config.begin.value = mask('time', $event, config.begin.value); config.validation('time-begin')" class="form-control">
                             <span class="help-block">{{config.begin.text}}</span>
                         </div>
                     </div>
@@ -65,16 +70,16 @@ module.exports = `
                                         :class="[stepIndex === 0 ? 'first' : '',
                                                 steps.value === config.store.data.search.actualDay ? 'done active' :
                                                 steps.value === config.day.value  ? 'current active' : 'active']" aria-disabled="false" aria-selected="true">
-                                            <a href="#" v-on:click.prevent="config.step === 1 ? '' : config.day.value = steps.value;">
+                                            <a href="#" v-on:click.prevent="config.store.point.length > 0 ? '' : config.day.value = steps.value;">
                                                 <span class="number">X</span> {{steps.text}}
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
-                                <div v-if="config.step === 0" class="actions clearfix">
+                                <div v-if="config.store.point.length === 0" class="actions clearfix">
                                     <ul role="menu" aria-label="Pagination">
                                         <li>
-                                            <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.setStep()" role="menuitem">{{config.step === 0 ? 'Siguiente' : 'Volver a filtrar'}}</a>
+                                            <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.setStep()" role="menuitem">{{config.step === 0 ? 'Siguiente' : 'Actualizar'}}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -269,8 +274,8 @@ module.exports = `
                                     <span>Tiempo Total: {{config.store.point.length > 0 ? config.converter('string', config.converter('time', config.store.data.search.actualTime) - config.converter('time', config.begin.value)) : '00:00:00'}}.</span>
                                 </div>
                                 <div class="col-sm-12 text-right">
-                                    <button v-on:click class="btn btn-info btn-small">
-                                        Expandir
+                                    <button v-on:click="config.collapse()" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized">
+                                        <i aria-hidden="true" class="icon-menu8"></i>
                                     </button>
                                 </div>
                             </div>
@@ -290,9 +295,9 @@ module.exports = `
                                                 <a href="#" v-on:click.prevent="config.setPoint('see', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
                                                     <i aria-hidden="true" class="icon-eye"></i>
                                                 </a>
-                                                <a href="#" v-on:click.prevent="config.initPoint('edit', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Editar" data-toggle="modal" data-target="#edit">
+                                                <!--<a href="#" v-on:click.prevent="config.initPoint('edit', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Editar" data-toggle="modal" data-target="#edit">
                                                     <i aria-hidden="true" class="icon-pencil6"></i>
-                                                </a>
+                                                </a>-->
                                                 <a href="#" v-on:click.prevent="config.setPoint('remove', storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Quitar">
                                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                 </a>
@@ -300,20 +305,14 @@ module.exports = `
                                         </div>
                                     </div>
                                     <div class="row title-info">
-                                        <div class="col-sm-6">
-                                            <span>Distancia: {{store.distance}} km.</span>
+                                        <div class="col-sm-12">
+                                            <span>Distancia: {{store.distance / 1000}} km.</span>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
                                             <span>Hora de partida: {{store.start}}</span>
                                         </div>
                                         <div class="col-sm-12">
-                                            <span>Tiempo de viaje: {{store.travel}}</span>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <span>Tiempo muerto: {{store.death}}</span>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <span>Tiempo solicitado: {{store.usedTime}}</span>
+                                            <span>Hora de término: {{config.converter("string", config.converter("time", store.start) + config.converter("time", store.travel) + config.converter("time", store.death) + config.converter("time", store.usedTime))}}</span>
                                         </div>
                                     </div>
                                     <template v-if="store.details.legs.length > 0 && !store.hidden">
@@ -341,6 +340,20 @@ module.exports = `
                                     </div>
                                 </template>
                             </template>
+                            <div style="padding-top: 20px"></div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="steps-basic wizard clearfix">
+                                        <div v-if="config.store.point.length > 0" class="actions clearfix">
+                                            <ul role="menu" aria-label="Pagination">
+                                                <li>
+                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.save ? config.submit() : ''" role="menuitem">Guardar</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -121,24 +121,24 @@ module.exports = new Vue({
                         type: "template"
                     },
                     remove: {
-                        active: false
+                        active: true
                     },
                 },
-                customHandlers: [
-                    {
-                        active: true,
-                        title: "Eliminar usuario",
-                        fullHandler: false,
-                        anchorCellClass: [
-                            ""
-                        ],
-                        highlight: true,
-                        glyphiconClass: "glyphicon-remove",
-                        handler: function(data){
-                            console.log(data);
-                        }
-                    }
-                ],
+                //customHandlers: [
+                //    {
+                //        active: true,
+                //        title: "Eliminar usuario",
+                //        fullHandler: false,
+                //        anchorCellClass: [
+                //            ""
+                //        ],
+                //        highlight: true,
+                //        glyphiconClass: "glyphicon-remove",
+                //        handler: function(data){
+                //            console.log(data);
+                //        }
+                //    }
+                //],
                 templateWatch: function(id, index){
                     me.watch.id = id;
                     me.edit.id = id;
