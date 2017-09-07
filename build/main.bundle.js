@@ -43399,6 +43399,7 @@ module.exports = new Vue({
         },
         setAddSchedule: function(i){
             if(!this.store.add.schedule[i].active){
+                console.log(this.store.add.schedule[i].begin, this.store.data.search.actualTime, this.store.add.calculate.travel);
                 for(var j = 0; j < this.store.add.schedule.length; j++)
                     this.store.add.schedule[j].active = i === j;
                 if(!this.store.add.existsBegin && this.store.point.length === 0)
@@ -43621,6 +43622,8 @@ module.exports = new Vue({
                     }
                 }
             }
+            else
+                this.store.data.search.actualTime = this.begin.value;
             this.initStore();
         },
         collapse: function(){
