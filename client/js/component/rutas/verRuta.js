@@ -49,7 +49,7 @@ module.exports = new Vue({
             rutaPuntoServicio: null,
             sucursal: null,
             sucursalHorario: null,
-            sucursalCliente: null,
+            sucursalCliente: null
         },
         map: {
             main: null,

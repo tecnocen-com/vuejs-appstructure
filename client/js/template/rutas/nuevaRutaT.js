@@ -347,7 +347,7 @@ module.exports = `
                                         <div v-if="config.store.point.length > 0" class="actions clearfix">
                                             <ul role="menu" aria-label="Pagination">
                                                 <li>
-                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.save ? config.submit() : ''" role="menuitem">Guardar</a>
+                                                    <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit()" role="menuitem">Guardar</a>
                                                 </li>
                                             </ul>
                                         </div>

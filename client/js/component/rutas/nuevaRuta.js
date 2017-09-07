@@ -14,7 +14,6 @@ module.exports = new Vue({
             text: ""
         },
         step: 0,   //0 general data, 1 routes definition
-        save: true,
         begin: {
             value: "",
             valid: true,
@@ -435,7 +434,6 @@ module.exports = new Vue({
                     });
                     break;
             }
-            
         },
         setStep: function(){
             var me = this,
@@ -849,7 +847,6 @@ module.exports = new Vue({
         },
         setAddSchedule: function(i){
             if(!this.store.add.schedule[i].active){
-                console.log(this.store.add.schedule[i].begin, this.store.data.search.actualTime, this.store.add.calculate.travel);
                 for(var j = 0; j < this.store.add.schedule.length; j++)
                     this.store.add.schedule[j].active = i === j;
                 if(!this.store.add.existsBegin && this.store.point.length === 0)
@@ -1212,7 +1209,6 @@ module.exports = new Vue({
                     }
                 },
                 function(success){
-                    me.save = false;
                     for(i = 0; i < me.store.point.length; i++)
                         me.submitPoint(success.body.id, i);
                     BUTO.components.main.children.rutasRegistradas.grid.updatePagination();
@@ -1329,7 +1325,6 @@ module.exports = new Vue({
                 //    
                 //    break;
                 case "all":
-                    this.save = true;
                     this.step = 0;
                     this.name.value = null;
                     this.name.valid = true;
