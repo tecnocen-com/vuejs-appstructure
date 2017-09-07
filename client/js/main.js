@@ -243,13 +243,15 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 ruta: this.models.ruta,
                                 rutaPunto: this.models.rutaPunto,
                                 rutaPuntoServicio: this.models.rutaPuntoServicio,
+                                sucursal: this.models.sucursal,
+                                sucursalHorario: this.models.sucursalHorario,
+                                sucursalCliente: this.models.sucursalCliente,
                                 mask: this.mask
                             });
                             BUTO.requires.components.nuevaRuta.init({
                                 ruta: this.models.ruta,
                                 rutaPunto: this.models.rutaPunto,
                                 rutaPuntoServicio: this.models.rutaPuntoServicio,
-                                cliente: this.models.cliente,
                                 sucursal: this.models.sucursal,
                                 sucursalHorario: this.models.sucursalHorario,
                                 sucursalCliente: this.models.sucursalCliente

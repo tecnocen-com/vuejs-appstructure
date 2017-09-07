@@ -17923,13 +17923,15 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 ruta: this.models.ruta,
                                 rutaPunto: this.models.rutaPunto,
                                 rutaPuntoServicio: this.models.rutaPuntoServicio,
+                                sucursal: this.models.sucursal,
+                                sucursalHorario: this.models.sucursalHorario,
+                                sucursalCliente: this.models.sucursalCliente,
                                 mask: this.mask
                             });
                             BUTO.requires.components.nuevaRuta.init({
                                 ruta: this.models.ruta,
                                 rutaPunto: this.models.rutaPunto,
                                 rutaPuntoServicio: this.models.rutaPuntoServicio,
-                                cliente: this.models.cliente,
                                 sucursal: this.models.sucursal,
                                 sucursalHorario: this.models.sucursalHorario,
                                 sucursalCliente: this.models.sucursalCliente
@@ -20701,25 +20703,275 @@ module.exports = `
                 </div>
             </div>
             <div class="panel-body">
+                
                 <div class="row">
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Correo electrónico</label>
-                        <div class="col-lg-10">
-                            <input disabled="disabled" class="form-control" v-model="config.email" type="text" name="Correo electrónico">
+                    <div style="padding-top: 20px"></div>
+                    <div class="col-sm-6">
+                        <div class="form-group text-center schedule-title">
+                            <label>Horario de inicio</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group text-center schedule-title">
+                            <label>Horario de término</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input disabled="disabled" type="text" maxlength="8" v-model="config.begin.value" class="form-control">
+                            <span class="help-block">{{config.begin.text}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input disabled="disabled" type="text" maxlength="8" v-model="config.end.value" class="form-control">
+                            <span class="help-block">{{config.end.text}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Fecha de ingreso</label>
+                        <label class="control-label col-lg-2">Día</label>
                         <div class="col-lg-10">
-                            <input disabled="disabled" class="form-control" v-on:keyup="config.validation('date')" v-on:change="config.validation('date')" v-model="config.date" type="date" name="Fecha de ingreso">
+                            <div class="steps-basic wizard clearfix">
+                                <div class="steps clearfix">
+                                    <ul role="tablist">
+                                        <li v-for="(steps, stepIndex) in config.day.options" role="tab"
+                                        :class="[stepIndex === 0 ? 'first' : '',
+                                                steps.value === config.day.value ? 'done active' : 'active']" aria-disabled="false" aria-selected="true">
+                                            <a href="#" v-on:click.prevent>
+                                                <span class="number">X</span> {{steps.text}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="panel panel-flat">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Trazado de ruta</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div id="mapFocusPositionSeeRoute" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                        <i class="icon-shrink3"></i>
+                                    </div>
+                                    <div id="mapSeeRoute" class="map-container-route map-basic"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Etapas de ruta</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row title-info">
+                            <div class="col-sm-12">
+                                <span>Distancia Total: {{config.store.data.totalDistance / 1000}} km.</span>
+                            </div>
+                            <div class="col-sm-12">
+                                <span>Tiempo Total: {{config.store.point.length > 0 ? config.store.data.totalTime : '00:00:00'}}.</span>
+                            </div>
+                            <div class="col-sm-12 text-right">
+                                <button v-on:click="config.collapse()" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized">
+                                    <i aria-hidden="true" class="icon-menu8"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <template v-if="config.store.point.length > 0">
+                            <template v-for="(store, storeIndex) in config.store.point" class="selected grid-row-customized grid-row-highlight-customized">
+                                <div class="row main-info grid-row-customized grid-row-highlight-customized selected" style="padding-top: 8px; padding-bottom: 8px;">
+                                    <div class="col-sm-2">
+                                        <img :src="store.main.getIcon().url">
+                                        <div class="icon-label-toolbar">{{storeIndex + 1}}</div>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        {{store.name}}
+                                        <div class="pull-right">
+                                            <a href="#" v-on:click.prevent="store.hidden = !store.hidden" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Más información">
+                                                <i :class="store.hidden ? 'icon-menu' : 'icon-more2'" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="#" v-on:click.prevent="config.setPoint(storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                <i aria-hidden="true" class="icon-eye"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row title-info">
+                                    <div class="col-sm-12">
+                                        <span>Distancia: {{store.distance / 1000}} km.</span>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <span>Hora de partida: {{store.start}}</span>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <span>Hora de término: {{config.converter("string", config.converter("time", store.start) + config.converter("time", store.travel) + config.converter("time", store.death) + config.converter("time", store.usedTime))}}</span>
+                                    </div>
+                                </div>
+                                <template v-if="store.details.legs.length > 0 && !store.hidden">
+                                    <div v-for="steps in store.details.legs[0].steps" class="row second-info">
+                                        <div class="col-sm-12">
+                                            <span>{{steps.instructions}}</span>
+                                        </div>
+                                        <div class="col-sm-12 value-info text-center">
+                                            <span>(Distancia aproximada: {{steps.distance.text}}. Tiempo aproximado: {{steps.duration.text}})</span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                            <template v-if="config.store.point[0].details.legs.length > 0">
+                                <div class="row warning-info">
+                                    <span>Notas:</span>
+                                    <div v-for="data in config.store.point[0].details.warnings" class="col-sm-12">
+                                        <span>{{data.text}}</span>
+                                    </div>
+                                </div>
+                                <div class="row copyright-info text-center">
+                                    <div class="col-sm-12">
+                                        <span>{{config.store.point[0].details.copyrights}}</span>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Ver etapa: {{config.store.see.name}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                        <h4 class="text-center">Horario de atención</h4>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group text-center">
+                                    <span>{{config.store.see.scheduleBegin}}</span>
+                                    <span class="help-block">Inicio</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group text-center">
+                                    <span>{{config.store.see.scheduleEnd}}</span>
+                                    <span class="help-block">Fin</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-divider"></div>
+                        <div class="custom-divider"></div>
+                        <h4 class="text-center">Clientes</h4>
+                        <div v-for="(client, clientIndex) in config.store.see.client" class="row">
+                            <div class="col-sm-4 text-center">
+                                <span><b>{{client.name}}</b></span>
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                <div class="form-group">
+                                    <span>{{client.time}}</span>
+                                    <span class="help-block">Tiempo solicitado</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                        <label v-on:click.prevent>
+                                            <span class="switchery switchery-default switchery-custom" :class="client.active ? 'active' : 'not-active'">
+                                                <small></small>
+                                            </span>
+                                            {{client.active ? 'Si' : 'No'}}
+                                        </label>
+                                        <span class="help-block">Incluir en etapa</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-divider"></div>
+                        <div class="custom-divider"></div>
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-5">
+                                <span><b>Hora de partida:</b></span>
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                <div class="form-group">
+                                    <span>{{config.store.see.start}}</span>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-5">
+                                <span><b>Tiempo de viaje:</b></span>
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                <div class="form-group">
+                                    <span>{{config.store.see.travel}}</span>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-5">
+                                <span><b>Tiempo muerto:</b></span>
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                <div class="form-group">
+                                    <span>{{config.store.see.death}}</span>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-5">
+                                <span><b>Tiempo total solicitado:</b></span>
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                <div class="form-group">
+                                    <span>{{config.store.see.service}}</span>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-5">
+                                <span><b>Hora de término:</b></span>
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                <div class="form-group">
+                                    <span>{{config.store.see.finish}}</span>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!--<div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Horarios y Ubicaciones</h5>
                 <div class="heading-elements">
@@ -20836,7 +21088,7 @@ module.exports = `
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 `;
 
@@ -41072,9 +41324,15 @@ module.exports = new Vue({
             this.watch.models.ruta = e.ruta;
             this.watch.models.rutaPunto = e.rutaPunto;
             this.watch.models.rutaPuntoServicio = e.rutaPuntoServicio;
+            this.watch.models.sucursal = e.sucursal;
+            this.watch.models.sucursalHorario = e.sucursalHorario;
+            this.watch.models.sucursalCliente = e.sucursalCliente;
             this.edit.models.ruta = e.ruta;
             this.edit.models.rutaPunto = e.rutaPunto;
             this.edit.models.rutaPuntoServicio = e.rutaPuntoServicio;
+            this.edit.models.sucursal = e.sucursal;
+            this.edit.models.sucursalHorario = e.sucursalHorario;
+            this.edit.models.sucursalCliente = e.sucursalCliente;
             this.grid = new BUTO.requires.modules.mcdatatable({
                 id: "rutasRegistradas",
                 head: [
@@ -41278,175 +41536,425 @@ module.exports = new Vue({
     data: {
         id: null,
         name: null,
+        day: {
+            value: 2,
+            options: [
+                {
+                    text: "Lunes",
+                    value: 2
+                },
+                {
+                    text: "Martes",
+                    value: 3
+                },
+                {
+                    text: "Miércoles",
+                    value: 4
+                },
+                {
+                    text: "Jueves",
+                    value: 5
+                },
+                {
+                    text: "Viernes",
+                    value: 6
+                },
+                {
+                    text: "Sábado",
+                    value: 7
+                },
+                {
+                    text: "Domingo",
+                    value: 1
+                }
+            ]
+        },
+        begin: {
+            value: null,
+            text: "hh:mm:ss"
+        },
+        end: {
+            value: null,
+            text: "hh:mm:ss"
+        },
         models: {
             ruta: null,
             rutaPunto: null,
-            rutaPuntoServicio: null
+            rutaPuntoServicio: null,
+            sucursal: null,
+            sucursalHorario: null,
+            sucursalCliente: null,
         },
         map: {
             main: null,
-            marker: {
-                main: null,
-                position: {
-                    lat: null,
-                    lng: null
-                },
-            },
+            geocoder: null,
+            distanceMatrix: null,
+            directionService: null,
             data: {
                 address: "Ciudad de México, México",
                 zoom: 13
             }
         },
-        actualStep: 0,
-        steps: [
-            {
-                text: "Lunes",
-                dayNumber: 2,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
+        store: {
+            data: {
+                totalDistance: null,
+                totalTime: null
             },
-            {
-                text: "Martes",
-                dayNumber: 3,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Miércoles",
-                dayNumber: 4,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Jueves",
-                dayNumber: 5,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Viernes",
-                dayNumber: 6,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Sábado",
-                dayNumber: 7,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Domingo",
-                dayNumber: 1,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-        ]
+            point: [],
+            see: {
+                scheduleBegin: null,
+                scheduleEnd: null,
+                client: [],
+                start: null,
+                travel: null,
+                death: null,
+                service: null,
+                finish: null
+                
+            }
+        }
     },
     methods: {
         init: function(type, first){
-            //var me = this;
-            //this.actualStep = 0;
-            //for(var i = 0; i < me.steps.length; i++)
-            //    this.steps[i].schedule = [];
-            //this.models.sucursal.get({
-            //    delimiters: this.id
-            //},
-            //function(success){
-            //    me.name = success.body.nombre;
-            //    me.map.marker.position.lat = success.body.lat;
-            //    me.map.marker.position.lng = success.body.lng;
-            //    if(type === "modal"){
-            //        setTimeout(function(){
-            //            me.initMap(type, first);
-            //        }, 250);
-            //    }
-            //    else
-            //        me.initMap(type, first);
-            //},
-            //function(error){
-            //    console.log(error);
-            //});
-            //this.models.sucursalHorario.get({
-            //    delimiters: this.id,
-            //    params: {
-            //        "per-page": 100,
-            //        "sort": "hora_inicio"
-            //    }
-            //},
-            //function(success){
-            //    var interval = [0, 0, 0, 0, 0, 0, 0];
-            //    for(i = 0; i < success.body.length; i++){
-            //        interval[success.body[i].dia - 1]++;
-            //        switch(success.body[i].dia){
-            //            case 1:     //SUN
-            //                me.steps[6].schedule.push({
-            //                    begin: success.body[i].hora_inicio,
-            //                    end: success.body[i].hora_fin
-            //                });
-            //                break;
-            //            default:
-            //                me.steps[success.body[i].dia - 2].schedule.push({
-            //                    begin: success.body[i].hora_inicio,
-            //                    end: success.body[i].hora_fin
-            //                });
-            //                break;
-            //        }
-            //    }
-            //    for(i = 0; i < me.steps.length; i++){
-            //        me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
-            //        me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
-            //    }
-            //},
-            //function(error){
-            //    console.log(error);
-            //});
+            var me = this;
+            this.store.point = [];
+            this.store.data.totalDistance = 0;
+            this.models.ruta.get({
+                delimiters: this.id
+            },
+            function(success){
+                me.name = success.body.nombre;
+                me.begin.value = success.body.hora_inicio;
+                me.end.value = success.body.hora_fin;
+                me.day.value = success.body.dia;
+                me.store.data.totalTime = me.converter("string", me.converter("time", success.body.hora_fin) - me.converter("time", success.body.hora_inicio));
+                if(type === "modal"){
+                    setTimeout(function(){
+                        me.initMap(type, first);
+                    }, 250);
+                }
+                else
+                    me.initMap(type, first);
+            },
+            function(error){
+                console.log(error);
+            });
         },
         initMap: function(type, first){
-            if(type !== "modal" || (type === "modal" && first))
-                this.map.main = new google.maps.Map(document.getElementById('mapSeeStore'), {     //Define Map
-                    zoom: this.map.data.zoom,
-                    center: this.map.marker.position
-                });
-            else
-                this.map.main.setCenter(this.map.marker.position);
-            this.initPosition();
-            if(type !== "modal" || first)
-                this.initFocus();
+            this.map.main = new google.maps.Map(document.getElementById('mapSeeRoute'), {     //Define Map
+                zoom: this.map.data.zoom
+            });
+            
+            this.initFocus();
+            this.initServices();
+            this.initPoint();
         },
         initFocus: function(){
-            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeStore'));
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeRoute'));
         },
-        initPosition: function(){
-            this.map.marker.main = new google.maps.Marker({
-                map: this.map.main,
-                position: this.map.marker.position
+        initServices: function(){
+            this.map.distanceMatrix = new google.maps.DistanceMatrixService();
+            this.map.directionService = new google.maps.DirectionsService();
+        },
+        initGeocoder: function(){
+            var me = this;
+            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
+            this.map.geocoder.geocode({                          //Geocoder for placing
+                address: this.map.data.address
+            },
+            function(response, status){
+                if(status === "OK")
+                    me.map.main.setCenter(response[0].geometry.location);
+                else
+                    console.log(status);
+            });
+        },
+        initPoint: function(){
+            var me = this, length;
+            this.models.rutaPunto.get({
+                delimiters: this.id,
+                params: {
+                    "per-page": 100,
+                    "sort": "hora_llegada_estimada",
+                    "expand": "sucursal"
+                }
+            },
+            function(success){
+                for(i = 0; i < success.body.length; i++){
+                    length = me.store.point.length;
+                    me.store.point.push({
+                        id: success.body[i].id,
+                        idStore: success.body[i]._embedded.sucursal.id,
+                        lat: success.body[i]._embedded.sucursal.lat,
+                        lng: success.body[i]._embedded.sucursal.lng,
+                        name: success.body[i]._embedded.sucursal.nombre,
+                        schedule: [],
+                        scheduleIndex: null,
+                        arrival: success.body[i].hora_llegada_estimada,
+                        calculate: true,       //false takes api values, true takes inherit operations
+                        travel: length === 0 ? "00:00:00" : null,
+                        distance: length === 0 ? 0 : null,
+                        start: length === 0 ? me.begin.value : null,
+                        death: length === 0 ? me.converter("string", me.converter("time", success.body[i].hora_llegada_estimada) - me.converter("time", me.begin.value)) : null,
+                        usedTime: null,
+                        client: [],
+                        hidden: true,
+                        renderer: null,
+                        details: {
+                            warnings: null,
+                            copyrights: [],
+                            legs: []
+                        },
+                        main: new google.maps.Marker({
+                            map: me.map.main,
+                            position: {
+                                lat: success.body[i]._embedded.sucursal.lat,
+                                lng: success.body[i]._embedded.sucursal.lng
+                            },
+                            icon: {
+                                url: "/image/maps/green-empty.png",
+                                labelOrigin: new google.maps.Point(11, 11)
+                            },
+                            label: "" + (length + 1) + "",
+                            title: success.body[i]._embedded.sucursal.nombre,
+                        }),
+                        window: new google.maps.InfoWindow({
+                            content: "Dirección no encontrada.",
+                            maxWidth: 175,
+                            flag: false
+                        })
+                    });
+                    me.initClient(success.body[i].id, length);
+                    me.getDirection(length);
+                }
+                me.focusPosition();
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initClient: function(pointId, i){
+            var j, k, me = this, usedTime = 0;
+            this.models.sucursalCliente.get({
+                delimiters: this.store.point[i].idStore,
+                params: {
+                    "per-page": 100,
+                    "expand": "cliente"
+                }
+            },
+            function(success){
+                for(j = 0; j < success.body.length; j++){
+                    me.store.point[i].client.push({
+                        id: success.body[j]._embedded.cliente.id,
+                        name: success.body[j]._embedded.cliente.nombre,
+                        time: success.body[j].tiempo_solicitado,
+                        active: false
+                    });
+                }
+                me.models.rutaPuntoServicio.get({
+                    delimiters: [me.id, pointId],
+                    params: {
+                        "per-page": 100
+                    }
+                },
+                function(success2){
+                    for(j = 0; j < success2.body.length; j++)
+                        for(k = 0; k < me.store.point[i].client.length; k++)
+                            if(success2.body[j].cliente_id === me.store.point[i].client[k].id){
+                                me.store.point[i].client[k].active = true;
+                                usedTime += me.converter("time", me.store.point[i].client[k].time);
+                            }
+                    me.store.point[i].usedTime = me.converter("string", usedTime);
+                    if(i < me.store.point.length - 1)
+                        me.store.point[i + 1].start = me.converter("string", usedTime + me.converter("time", me.store.point[i].arrival));
+                    me.initSchedule(i);
+                },
+                function(error2){
+                    console.log(error2);
+                });
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initSchedule: function(i){
+            var j,
+                me = this;
+            this.models.sucursalHorario.get({
+                delimiters: this.store.point[i].idStore,
+                params: {
+                    "per-page": 100,
+                    "expand": "cliente",
+                    "sort": "hora_inicio"
+                }
+            },
+            function(success){
+                for(j = 0; j < success.body.length; j++)
+                    if(success.body[j].dia === me.day.value)
+                        me.store.point[i].schedule.push({
+                            begin: success.body[j].hora_inicio,
+                            end: success.body[j].hora_fin
+                        });
+                for(j = 0; j < me.store.point[i].schedule.length; j++)
+                    if(me.store.point[i].schedule[j].begin <= me.store.point[i].arrival &&
+                       me.store.point[i].schedule[j].end > me.store.point[i].arrival)
+                        me.store.point[i].scheduleIndex = j;
+                if(me.store.point[i].schedule[me.store.point[i].scheduleIndex].begin === me.store.point[i].arrival)
+                    me.store.point[i].calculate = false;
+                if(i > 0)
+                    me.initRoute(i);
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initRoute: function(i){
+            var me = this,
+                j,
+                travelTime = 0,
+                distance = 0;
+            this.map.directionService.route({
+                origin: this.store.point[i - 1].main.position,
+                destination: this.store.point[i].main.position,
+                travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
+                avoidTolls: true
+            },
+            function(response, status){
+                if(status === "OK"){
+                    me.store.point[i - 1].renderer = new google.maps.DirectionsRenderer({
+                        map: me.map.main,
+                        draggable: true,
+                        suppressMarkers: true,
+                        preserveViewport: true
+                    });
+                    me.store.point[i - 1].renderer.setDirections(response);
+                    me.store.point[i - 1].details.copyrights = response.routes[0].copyrights;
+                    me.store.point[i - 1].details.warnings = [];
+                    for(j = 0; j < response.routes[0].warnings.length; j++)
+                        me.store.point[i - 1].details.warnings.push({
+                            text: response.routes[0].warnings[j]
+                        });
+                    me.store.point[i - 1].details.legs.push({
+                        hidden: false,
+                        id: me.store.point[i - 1].details.legs.length,
+                        end: response.routes[0].legs[0].end_address,
+                        start: response.routes[0].legs[0].start_address,
+                        steps: []
+                    });
+                    for(j = 0; j < response.routes[0].legs[0].steps.length; j++){
+                        me.store.point[i - 1].details.legs[0].steps.push({
+                            distance: {
+                                value: response.routes[0].legs[0].steps[j].distance.value,
+                                text: response.routes[0].legs[0].steps[j].distance.text
+                            },
+                            duration: {
+                                value: response.routes[0].legs[0].steps[j].duration.value,
+                                text: response.routes[0].legs[0].steps[j].duration.text
+                            },
+                            instructions: response.routes[0].legs[0].steps[j].instructions,
+                            travel_mode: response.routes[0].legs[0].steps[j].travel_mode
+                        });
+                        travelTime += response.routes[0].legs[0].steps[j].duration.value;
+                        distance += response.routes[0].legs[0].steps[j].distance.value;
+                    }
+                    
+                    me.store.point[i].travel = (me.store.point[i].calculate) ? me.converter("string", me.converter("time", me.store.point[i].arrival) - me.converter("time", me.store.point[i].start)):
+                        me.store.point[i].travel = me.converter("string", travelTime);
+                    me.store.point[i].distance = distance;
+                    me.store.data.totalDistance += distance;
+                    me.store.point[i].death = me.converter("string", me.converter("time", me.store.point[i].arrival) - me.converter("time", me.store.point[i].start) - me.converter("time", me.store.point[i].travel));
+                }
+                else
+                    console.log(status);
+            });
+        },
+        getDirection: function(length){
+            var me = this;
+            this.store.point[length].main.addListener("rightclick", function(){
+                if(!me.store.point[length].window.flag){
+                    me.store.point[length].window.flag = true;
+                    me.map.geocoder.geocode({                          //Geocoder for placing
+                        location: me.store.point[length].main.position
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.store.point[length].window.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                }
+                me.store.point[length].window.open(me.map.main, me.store.point[length].main);
             });
         },
         focusPosition: function(){
-            this.map.main.setCenter({
-                lat: this.map.marker.position.lat,
-                lng: this.map.marker.position.lng
-            });
-            this.map.main.setZoom(this.map.data.zoom);
+            var i,
+                counter = 0,
+                totalLat = 0,
+                totalLng = 0,
+                bounds = new google.maps.LatLngBounds();
+            for(i = 0; i < this.store.point.length; i++)
+                if(this.store.point[i].main !== null &&
+                    this.store.point[i].lat !== null &&
+                    this.store.point[i].lng !== null){
+                    counter++;
+                    totalLat += this.store.point[i].lat;
+                    totalLng += this.store.point[i].lng;
+                    bounds.extend(this.store.point[i].main.getPosition());
+                     
+                }
+            if(counter > 0){
+                this.map.main.setCenter({
+                    lat: totalLat/counter,
+                    lng: totalLng/counter
+                });
+                if(counter > 1)
+                    this.map.main.fitBounds(bounds);
+                else
+                    this.map.main.setZoom(this.map.data.zoom);
+            }
+            else
+                this.initGeocoder();
         },
-        changeStep: function(e){
-            this.actualStep = e;
-            this.steps[e].seen = true;
+        setPoint: function(iM){
+            this.store.see.name = this.store.point[iM].name;
+            this.store.see.scheduleBegin = this.store.point[iM].schedule[this.store.point[iM].scheduleIndex].begin;
+            this.store.see.scheduleEnd = this.store.point[iM].schedule[this.store.point[iM].scheduleIndex].end;
+            this.store.see.client = this.store.point[iM].client;
+            this.store.see.start = this.store.point[iM].start;
+            this.store.see.travel = this.store.point[iM].travel;
+            this.store.see.death = this.store.point[iM].death;
+            this.store.see.service = this.store.point[iM].usedTime;
+            this.store.see.finish = this.converter("string", this.converter("time", this.store.see.start) + this.converter("time", this.store.see.travel) + this.converter("time", this.store.see.death) + this.converter("time", this.store.see.service));
+        },
+        collapse: function(){
+            if(this.store.point.length > 0){
+                this.store.point[0].hidden = !this.store.point[0].hidden;
+                for(var i = 1; i < this.store.point.length; i++)
+                    this.store.point[i].hidden = this.store.point[0].hidden;
+            }
+        },
+        converter: function(type, val){
+            var value;
+            switch(type){
+                case "time":    //val is string, want return as time
+                    if(val){
+                        val = val.split(":");
+                        value = 0;
+                        value += parseInt(val[0]) * 3600;
+                        value += parseInt(val[1]) * 60;
+                        value += parseInt(val[2]);
+                    }
+                    break;
+                case "string":  //val is time, want return as string
+                    var hours = Math.floor( val / 3600 );
+                    var minutes = Math.floor( val / 60 - (hours * 60) );
+                    var seconds = val - (hours * 3600) - (minutes * 60);
+                    value = hours < 10 ? '0' + hours : hours;
+                    value += ":" + (minutes < 10 ? '0' + minutes : minutes);
+                    value += ":" + (seconds < 10 ? '0' + seconds : seconds);
+                    break;
+            }
+            return value;
         }
     }
 });
@@ -42046,7 +42554,6 @@ module.exports = new Vue({
             ruta: null,
             rutaPunto: null,
             rutaPuntoServicio: null,
-            cliente: null,
             sucursal: null,
             sucursalHorario: null,
             sucursalCliente: null
@@ -42106,34 +42613,6 @@ module.exports = new Vue({
             geocoder: null,
             distanceMatrix: null,
             directionService: null,
-            marker: [
-                {
-                    main_begin: null,
-                    main_end: null,
-                    lat_begin: null,
-                    lng_begin: null,
-                    lat_end: null,
-                    lng_end: null
-                },
-                {
-                    text: "Ma"
-                },
-                {
-                    text: "Mi"
-                },
-                {
-                    text: "Ju"
-                },
-                {
-                    text: "Vi"
-                },
-                {
-                    text: "Sa"
-                },
-                {
-                    text: "Do"
-                }
-            ],
             data: {
                 address: "Ciudad de México, México",
                 zoom: 13
@@ -42215,7 +42694,6 @@ module.exports = new Vue({
                 this.models.ruta = e.ruta;
                 this.models.rutaPunto = e.rutaPunto;
                 this.models.rutaPuntoServicio = e.rutaPuntoServicio;
-                this.models.cliente = e.cliente;
                 this.models.sucursal = e.sucursal;
                 this.models.sucursalHorario = e.sucursalHorario;
                 this.models.sucursalCliente = e.sucursalCliente;
@@ -42960,8 +43438,11 @@ module.exports = new Vue({
                         this.store.position[this.store.add.index].linked = true;
                         this.store.data.search.actualTime = this.converter('string', this.converter('time', this.store.add.stageTime) + this.converter('time', this.store.add.calculate.travel) + this.converter('time', this.store.add.calculate.begin) + this.converter('time', this.store.add.calculate.death));
                         this.store.data.search.actualDistance += this.store.add.calculate.distance;
-                        if(!this.store.add.existsBegin)        //There is no beginning schedule 
+                        if(!this.store.add.existsBegin){        //There is no beginning schedule 
                             this.begin.value = this.store.point.length === 0 ? this.store.add.calculate.begin : this.store.point[0].start;
+                            this.begin.valid = true;
+                            this.begin.text = "";
+                        }
                         if(this.store.add.calculate.end)
                             this.end.value = this.store.data.search.actualTime;
                         this.store.point.push({
@@ -43048,6 +43529,7 @@ module.exports = new Vue({
                     i = 0;
                     while(this.store.point[iM].schedule[i].active !== true)
                         i++;
+                    this.store.see.name = this.store.point[iM].name;
                     this.store.see.scheduleBegin = this.store.point[iM].schedule[i].begin;
                     this.store.see.scheduleEnd = this.store.point[iM].schedule[i].end;
                     this.store.see.client = this.store.point[iM].client;
@@ -43320,7 +43802,7 @@ module.exports = new Vue({
             },
             function(success){
                 for(j = 0; j < me.store.point[i].client.length; j++)
-                        me.submitService(routeId, success.body.id, i, j);
+                    me.submitService(routeId, success.body.id, i, j);
             },
             function(error){
                 console.log(error);
@@ -43328,22 +43810,25 @@ module.exports = new Vue({
         },
         submitService: function(routeId, pointId, i, j){
             var me = this;
-            this.models.rutaPuntoServicio.post({
-                delimiters: [routeId, pointId],
-                params: {
-                    cliente_id: this.store.point[i].client[j].id
-                }
-            },
-            function(success){
-                if(i === me.store.point.length - 1 &&
-                   j === me.store.point[i].client.length - 1)
-                    setTimeout(function(){
-                        me.reset("all");
-                    }, 500);
-            },
-            function(error){
-                console.log(error);
-            });
+            if(this.store.point[i].client[j].active)
+                this.models.rutaPuntoServicio.post({
+                    delimiters: [routeId, pointId],
+                    params: {
+                        cliente_id: this.store.point[i].client[j].id
+                    }
+                },
+                function(success){
+                    
+                },
+                function(error){
+                    console.log(error);
+                });
+            if(i === me.store.point.length - 1 &&
+               j === me.store.point[i].client.length - 1)
+                setTimeout(function(){
+                    me.reset("all");
+                }, 500);
+                        
         },
         reset: function(type){
             switch(type){

@@ -4,7 +4,6 @@ module.exports = new Vue({
             ruta: null,
             rutaPunto: null,
             rutaPuntoServicio: null,
-            cliente: null,
             sucursal: null,
             sucursalHorario: null,
             sucursalCliente: null
@@ -64,34 +63,6 @@ module.exports = new Vue({
             geocoder: null,
             distanceMatrix: null,
             directionService: null,
-            marker: [
-                {
-                    main_begin: null,
-                    main_end: null,
-                    lat_begin: null,
-                    lng_begin: null,
-                    lat_end: null,
-                    lng_end: null
-                },
-                {
-                    text: "Ma"
-                },
-                {
-                    text: "Mi"
-                },
-                {
-                    text: "Ju"
-                },
-                {
-                    text: "Vi"
-                },
-                {
-                    text: "Sa"
-                },
-                {
-                    text: "Do"
-                }
-            ],
             data: {
                 address: "Ciudad de México, México",
                 zoom: 13
@@ -173,7 +144,6 @@ module.exports = new Vue({
                 this.models.ruta = e.ruta;
                 this.models.rutaPunto = e.rutaPunto;
                 this.models.rutaPuntoServicio = e.rutaPuntoServicio;
-                this.models.cliente = e.cliente;
                 this.models.sucursal = e.sucursal;
                 this.models.sucursalHorario = e.sucursalHorario;
                 this.models.sucursalCliente = e.sucursalCliente;
@@ -918,8 +888,11 @@ module.exports = new Vue({
                         this.store.position[this.store.add.index].linked = true;
                         this.store.data.search.actualTime = this.converter('string', this.converter('time', this.store.add.stageTime) + this.converter('time', this.store.add.calculate.travel) + this.converter('time', this.store.add.calculate.begin) + this.converter('time', this.store.add.calculate.death));
                         this.store.data.search.actualDistance += this.store.add.calculate.distance;
-                        if(!this.store.add.existsBegin)        //There is no beginning schedule 
+                        if(!this.store.add.existsBegin){        //There is no beginning schedule 
                             this.begin.value = this.store.point.length === 0 ? this.store.add.calculate.begin : this.store.point[0].start;
+                            this.begin.valid = true;
+                            this.begin.text = "";
+                        }
                         if(this.store.add.calculate.end)
                             this.end.value = this.store.data.search.actualTime;
                         this.store.point.push({
@@ -1006,6 +979,7 @@ module.exports = new Vue({
                     i = 0;
                     while(this.store.point[iM].schedule[i].active !== true)
                         i++;
+                    this.store.see.name = this.store.point[iM].name;
                     this.store.see.scheduleBegin = this.store.point[iM].schedule[i].begin;
                     this.store.see.scheduleEnd = this.store.point[iM].schedule[i].end;
                     this.store.see.client = this.store.point[iM].client;
@@ -1278,7 +1252,7 @@ module.exports = new Vue({
             },
             function(success){
                 for(j = 0; j < me.store.point[i].client.length; j++)
-                        me.submitService(routeId, success.body.id, i, j);
+                    me.submitService(routeId, success.body.id, i, j);
             },
             function(error){
                 console.log(error);
@@ -1286,22 +1260,25 @@ module.exports = new Vue({
         },
         submitService: function(routeId, pointId, i, j){
             var me = this;
-            this.models.rutaPuntoServicio.post({
-                delimiters: [routeId, pointId],
-                params: {
-                    cliente_id: this.store.point[i].client[j].id
-                }
-            },
-            function(success){
-                if(i === me.store.point.length - 1 &&
-                   j === me.store.point[i].client.length - 1)
-                    setTimeout(function(){
-                        me.reset("all");
-                    }, 500);
-            },
-            function(error){
-                console.log(error);
-            });
+            if(this.store.point[i].client[j].active)
+                this.models.rutaPuntoServicio.post({
+                    delimiters: [routeId, pointId],
+                    params: {
+                        cliente_id: this.store.point[i].client[j].id
+                    }
+                },
+                function(success){
+                    
+                },
+                function(error){
+                    console.log(error);
+                });
+            if(i === me.store.point.length - 1 &&
+               j === me.store.point[i].client.length - 1)
+                setTimeout(function(){
+                    me.reset("all");
+                }, 500);
+                        
         },
         reset: function(type){
             switch(type){

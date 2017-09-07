@@ -14,9 +14,15 @@ module.exports = new Vue({
             this.watch.models.ruta = e.ruta;
             this.watch.models.rutaPunto = e.rutaPunto;
             this.watch.models.rutaPuntoServicio = e.rutaPuntoServicio;
+            this.watch.models.sucursal = e.sucursal;
+            this.watch.models.sucursalHorario = e.sucursalHorario;
+            this.watch.models.sucursalCliente = e.sucursalCliente;
             this.edit.models.ruta = e.ruta;
             this.edit.models.rutaPunto = e.rutaPunto;
             this.edit.models.rutaPuntoServicio = e.rutaPuntoServicio;
+            this.edit.models.sucursal = e.sucursal;
+            this.edit.models.sucursalHorario = e.sucursalHorario;
+            this.edit.models.sucursalCliente = e.sucursalCliente;
             this.grid = new BUTO.requires.modules.mcdatatable({
                 id: "rutasRegistradas",
                 head: [
