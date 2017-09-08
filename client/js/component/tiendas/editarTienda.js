@@ -524,11 +524,8 @@ module.exports = new Vue({
                     function(success){
                         for(i = 0; i < me.steps.length; i++)
                             for(j = 0; j < me.steps[i].schedule.length; j++){
-                                if(!me.steps[i].active)
-                                    me.steps[i].schedule[j].remove = true;
                                 me.submitSchedule(i, j, success.body.id);
                             }
-                                    
                         BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
                         BUTO.components.main.alert.description.title = "Edición de Tienda";
                         BUTO.components.main.alert.description.text = "Se ha editado correctamente la tienda '" + success.body.nombre + "'";

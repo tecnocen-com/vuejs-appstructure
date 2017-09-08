@@ -1012,78 +1012,84 @@ module.exports = new Vue({
                 for(i = 0; i < (this.sameConf ? 1 : this.steps.length); i++){
                     if(this.steps[i].active)
                         for(j = 0; j < this.steps[i].schedule.length; j++)
-                            if(this.steps[i].schedule[j].main_begin === null ||                  //No position
+                            if(this.steps[i].schedule[j].remove === false &&
+                                (this.steps[i].schedule[j].main_begin === null ||                  //No position
                                 this.steps[i].schedule[j].lat_begin === null ||
                                 this.steps[i].schedule[j].lng_begin === null ||
                                 this.steps[i].schedule[j].main_end === null ||                  //No position
                                 this.steps[i].schedule[j].lat_end === null ||
-                                this.steps[i].schedule[j].lng_end === null){
-                                error += (k <= limit) ? "Debes escoger las ubicaciones de inicio y final del intervalo " + (j + 1) + (this.sameConf ? "" : " para el día " + this.steps[i].text) + ".<br>": "";
+                                this.steps[i].schedule[j].lng_end === null)){
+                                error += (k <= limit) ? "Debes escoger las ubicaciones de inicio y final del intervalo para el día " + this.steps[i].text + ".<br>" : "";
                                 valid = false; k++;
                          }
                 }
                 if(valid){
                     error = "";
                     k = 0;
-                    for(i = 0; i < (this.sameConf ? 1 : this.steps.length); i++)
-                        if(this.steps[i].active && this.steps[i].schedule.length > 0)
-                            for(j = 0; j < this.steps[i].schedule.length; j++){
-                                hmdB = this.steps[i].schedule[j].begin.split(":");
-                                hmdE = this.steps[i].schedule[j].end.split(":");
-                                this.steps[i].schedule[j].validBegin = true;
-                                this.steps[i].schedule[j].validEnd = true;
-                                this.steps[i].schedule[j].textBegin = "hh:mm:ss";
-                                this.steps[i].schedule[j].textEnd = "hh:mm:ss";
-                                if(this.steps[i].schedule[j].begin === ""){
-                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + (this.sameConf ? "" : " en el día " + this.steps[i].text) + " no puede estar vacío.<br>" : "";
-                                    this.steps[i].schedule[j].validBegin = false;
-                                    this.steps[i].schedule[j].textBegin = "El inicio del intervalo no puede estar vacío";
-                                    valid = false; k++;
-                                }
-                                if(this.steps[i].schedule[j].end === ""){
-                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + (this.sameConf ? " " : " en el día " + this.steps[i].text) + " no puede estar vacío.<br>" : "";
-                                    this.steps[i].schedule[j].validEnd = false;
-                                    this.steps[i].schedule[j].textEnd = "El final del intervalo no puede estar vacío";
-                                    valid = false; k++;
-                                }
-                                if(this.steps[i].schedule[j].begin !== "" &&
-                                   (this.steps[i].schedule[j].begin > "23:59:59" ||
-                                    hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
-                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + (this.sameConf ? "" : " en el día " + this.steps[i].text) + " no tiene un formato apropiado.<br>" : "";
-                                    this.steps[i].schedule[j].validBegin = false;
-                                    this.steps[i].schedule[j].textBegin = "El inicio del intervalo no tiene un formato apropiado";
-                                    valid = false; k++;
-                                }
-                                if(this.steps[i].schedule[j].end !== "" &&
-                                   (this.steps[i].schedule[j].end > "23:59:59" ||
-                                    hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
-                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + (this.sameConf ? "" : " en el día " + this.steps[i].text) + " no tiene un formato apropiado.<br>" : "";
-                                    this.steps[i].schedule[j].validEnd = false;
-                                    this.steps[i].schedule[j].textEnd = "El final del intervalo no tiene un formato apropiado";
-                                    valid = false; k++;
-                                }
-                                if(this.steps[i].schedule[j].begin !== "" &&
-                                   this.steps[i].schedule[j].end !== "" &&
-                                   this.steps[i].schedule[j].begin >= this.steps[i].schedule[j].end){
-                                    error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo" + (this.sameConf ? "" : " en el día " + this.steps[i].text) + ".<br>" : "";
-                                    this.steps[i].schedule[j].validBegin = false;
-                                    this.steps[i].schedule[j].validEnd = false;
-                                    this.steps[i].schedule[j].textBegin = "El inicio del intervalo debe ser menor al final del mismo";
-                                    this.steps[i].schedule[j].textEnd = "El final del intervalo debe ser mayor al inicio del mismo";
-                                    valid = false; k++;
-                                }
-                                if(j > 0 &&
-                                   this.steps[i].schedule[j].begin !== "" &&
-                                   this.steps[i].schedule[j - 1].end !== "" &&
-                                   this.steps[i].schedule[j].begin <= this.steps[i].schedule[j - 1].end){
-                                    error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + (this.sameConf ? "" : " en el día " + this.steps[i].text) + ".<br>": "";
-                                    this.steps[i].schedule[j].validBegin = false;
-                                    this.steps[i].schedule[j - 1].validEnd = false;
-                                    this.steps[i].schedule[j].textBegin = "El inicio del intervalo debe ser mayor al final del intervalo anterior";
-                                    this.steps[i].schedule[j - 1].textEnd = "El final del intervalo debe ser menor al inicio del intervalo posterior";
-                                    valid = false; k++;
+                    for(i = 0; i < this.steps.length; i++)
+                        for(j = 0; j < this.steps[i].schedule.length; j++){
+                            if(this.steps[i].active && this.steps[i].schedule.length > 0){
+                                if(this.steps[i].schedule[j].remove === false){
+                                    hmdB = this.steps[i].schedule[j].begin.split(":");
+                                    hmdE = this.steps[i].schedule[j].end.split(":");
+                                    this.steps[i].schedule[j].validBegin = true;
+                                    this.steps[i].schedule[j].validEnd = true;
+                                    this.steps[i].schedule[j].textBegin = "hh:mm:ss";
+                                    this.steps[i].schedule[j].textEnd = "hh:mm:ss";
+                                    if(this.steps[i].schedule[j].begin === ""){
+                                        error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no puede estar vacío.<br>" : "";
+                                        this.steps[i].schedule[j].validBegin = false;
+                                        this.steps[i].schedule[j].textBegin = "El inicio del intervalo no puede estar vacío";
+                                        valid = false; k++;
+                                    }
+                                    if(this.steps[i].schedule[j].end === ""){
+                                        error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no puede estar vacío.<br>" : "";
+                                        this.steps[i].schedule[j].validEnd = false;
+                                        this.steps[i].schedule[j].textEnd = "El final del intervalo no puede estar vacío";
+                                        valid = false; k++;
+                                    }
+                                    if(this.steps[i].schedule[j].begin !== "" &&
+                                       (this.steps[i].schedule[j].begin > "23:59:59" ||
+                                        hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
+                                        error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                        this.steps[i].schedule[j].validBegin = false;
+                                        this.steps[i].schedule[j].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                                        valid = false; k++;
+                                    }
+                                    if(this.steps[i].schedule[j].end !== "" &&
+                                       (this.steps[i].schedule[j].end > "23:59:59" ||
+                                        hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
+                                        error += (k <= limit) ? "El final del intervalo " + (j + 1) + " en el día " + this.steps[i].text + " no tiene un formato apropiado.<br>" : "";
+                                        this.steps[i].schedule[j].validEnd = false;
+                                        this.steps[i].schedule[j].textEnd = "El final del intervalo no tiene un formato apropiado";
+                                        valid = false; k++;
+                                    }
+                                    if(this.steps[i].schedule[j].begin !== "" &&
+                                       this.steps[i].schedule[j].end !== "" &&
+                                       this.steps[i].schedule[j].begin >= this.steps[i].schedule[j].end){
+                                        error += (k <= limit) ? "El final del intervalo " + (j + 1) + " debe ser mayor al inicio del mismo en el día " + this.steps[i].text + ".<br>" : "";
+                                        this.steps[i].schedule[j].validBegin = false;
+                                        this.steps[i].schedule[j].validEnd = false;
+                                        this.steps[i].schedule[j].textBegin = "El inicio del intervalo debe ser menor al final del mismo";
+                                        this.steps[i].schedule[j].textEnd = "El final del intervalo debe ser mayor al inicio del mismo";
+                                        valid = false; k++;
+                                    }
+                                    if(j > 0 &&
+                                       this.steps[i].schedule[j].begin !== "" &&
+                                       this.steps[i].schedule[j - 1].end !== "" &&
+                                       this.steps[i].schedule[j].begin <= this.steps[i].schedule[j - 1].end){
+                                        error += (k <= limit) ? "El inicio del intervalo " + (j + 1) + " debe ser mayor al final del intervalo " + j + " en el día " + this.steps[i].text + ".<br>": "";
+                                        this.steps[i].schedule[j].validBegin = false;
+                                        this.steps[i].schedule[j - 1].validEnd = false;
+                                        this.steps[i].schedule[j].textBegin = "El inicio del intervalo debe ser mayor al final del intervalo anterior";
+                                        this.steps[i].schedule[j - 1].textEnd = "El final del intervalo debe ser menor al inicio del intervalo posterior";
+                                        valid = false; k++;
+                                    }
                                 }
                             }
+                            else
+                                this.steps[i].schedule[j].remove = true;
+                        }
                 }
                 else{
                     BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -1102,8 +1108,6 @@ module.exports = new Vue({
                     },function(success){
                         for(i = 0; i < me.steps.length; i++)
                             for(j = 0; j < me.steps[i].schedule.length; j++){
-                                if(!me.steps[i].active)
-                                    me.steps[i].schedule[j].remove = true;
                                 me.submitSchedule(i, j, success.body.id);
                             }
                         BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
