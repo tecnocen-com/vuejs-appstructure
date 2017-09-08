@@ -1,5 +1,6 @@
 module.exports = new Vue({
     data: {
+        id: null,
         models: {
             ruta: null,
             rutaPunto: null,
@@ -94,6 +95,7 @@ module.exports = new Vue({
             },
             position: [],
             point: [],
+            oldPoint: [],
             add: {
                 client: [],
                 schedule: [],
@@ -152,20 +154,22 @@ module.exports = new Vue({
                 me.begin.oldValue = success.body.hora_inicio;
                 me.end.oldValue = success.body.hora_fin;
                 me.day.value = success.body.dia;
+                me.store.data.search.actualDay = success.body.dia;
+                me.store.data.search.actualTime = success.body.hora_fin;
                 me.store.data.totalTime = me.converter("string", me.converter("time", success.body.hora_fin) - me.converter("time", success.body.hora_inicio));
                 if(type === "modal"){
                     setTimeout(function(){
-                        me.initMap(type, first);
+                        me.initMap();
                     }, 250);
                 }
                 else
-                    me.initMap(type, first);
+                    me.initMap();
             },
             function(error){
                 console.log(error);
             });
         },
-        initMap: function(type, first){
+        initMap: function(){
             var me = this;
             this.map.main = new google.maps.Map(document.getElementById('mapEditRoute'), {     //Define Map
                 zoom: this.map.data.zoom
@@ -404,6 +408,23 @@ module.exports = new Vue({
             function(success){
                 for(i = 0; i < success.body.length; i++){
                     length = me.store.point.length;
+                    me.store.oldPoint.push({
+                        id: success.body[i].id,
+                        idStore: success.body[i]._embedded.sucursal.id,
+                        lat: success.body[i]._embedded.sucursal.lat,
+                        lng: success.body[i]._embedded.sucursal.lng,
+                        name: success.body[i]._embedded.sucursal.nombre,
+                        remove: true,
+                        schedule: [],
+                        scheduleIndex: null,
+                        arrival: success.body[i].hora_llegada_estimada,
+                        travel: length === 0 ? "00:00:00" : null,
+                        distance: length === 0 ? 0 : null,
+                        start: length === 0 ? me.begin.value : null,
+                        death: length === 0 ? me.converter("string", me.converter("time", success.body[i].hora_llegada_estimada) - me.converter("time", me.begin.value)) : null,
+                        usedTime: null,
+                        client: []
+                    });
                     me.store.point.push({
                         id: success.body[i].id,
                         idStore: success.body[i]._embedded.sucursal.id,
@@ -466,6 +487,12 @@ module.exports = new Vue({
             },
             function(success){
                 for(j = 0; j < success.body.length; j++){
+                    me.store.oldPoint[i].client.push({
+                        id: success.body[j]._embedded.cliente.id,
+                        name: success.body[j]._embedded.cliente.nombre,
+                        time: success.body[j].tiempo_solicitado,
+                        active: false
+                    });
                     me.store.point[i].client.push({
                         id: success.body[j]._embedded.cliente.id,
                         name: success.body[j]._embedded.cliente.nombre,
@@ -483,12 +510,16 @@ module.exports = new Vue({
                     for(j = 0; j < success2.body.length; j++)
                         for(k = 0; k < me.store.point[i].client.length; k++)
                             if(success2.body[j].cliente_id === me.store.point[i].client[k].id){
+                                me.store.oldPoint[i].client[k].active = true;
                                 me.store.point[i].client[k].active = true;
                                 usedTime += me.converter("time", me.store.point[i].client[k].time);
                             }
+                    me.store.oldPoint[i].usedTime = me.converter("string", usedTime);
                     me.store.point[i].usedTime = me.converter("string", usedTime);
-                    if(i < me.store.point.length - 1)
+                    if(i < me.store.point.length - 1){
+                        me.store.oldPoint[i + 1].start = me.converter("string", usedTime + me.converter("time", me.store.point[i].arrival));
                         me.store.point[i + 1].start = me.converter("string", usedTime + me.converter("time", me.store.point[i].arrival));
+                    }
                     me.initSchedulePoint(i);
                 },
                 function(error2){
@@ -512,86 +543,238 @@ module.exports = new Vue({
             },
             function(success){
                 for(j = 0; j < success.body.length; j++)
-                    if(success.body[j].dia === me.day.value)
+                    if(success.body[j].dia === me.day.value){
+                        me.store.oldPoint[i].schedule.push({
+                            begin: success.body[j].hora_inicio,
+                            end: success.body[j].hora_fin,
+                            active: false
+                        });
                         me.store.point[i].schedule.push({
                             begin: success.body[j].hora_inicio,
                             end: success.body[j].hora_fin,
                             active: false
                         });
+                    }
                 for(j = 0; j < me.store.point[i].schedule.length; j++)
                     if(me.store.point[i].schedule[j].begin <= me.store.point[i].arrival &&
                        me.store.point[i].schedule[j].end > me.store.point[i].arrival){
+                        me.store.oldPoint[i].scheduleIndex = j;
+                        me.store.oldPoint[i].schedule[j].active = true;
                         me.store.point[i].scheduleIndex = j;
                         me.store.point[i].schedule[j].active = true;
                        }
                 if(me.store.point[i].schedule[me.store.point[i].scheduleIndex].begin === me.store.point[i].arrival)
                     me.store.point[i].calculate = false;
                 if(i > 0)
-                    me.initRoute(i);
+                    me.initRoute("init", i);
             },
             function(error){
                 console.log(error);
             });
         },
-        initRoute: function(i){
+        initRoute: function(type, i, actualTime, deathTime){
             var me = this,
                 j,
                 travelTime = 0,
                 distance = 0;
-            this.map.directionService.route({
-                origin: this.store.point[i - 1].main.position,
-                destination: this.store.point[i].main.position,
-                travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
-                avoidTolls: true
-            },
-            function(response, status){
-                if(status === "OK"){
-                    me.store.point[i - 1].renderer = new google.maps.DirectionsRenderer({
-                        map: me.map.main,
-                        draggable: true,
-                        suppressMarkers: true,
-                        preserveViewport: true
-                    });
-                    me.store.point[i - 1].renderer.setDirections(response);
-                    me.store.point[i - 1].details.copyrights = response.routes[0].copyrights;
-                    me.store.point[i - 1].details.warnings = [];
-                    for(j = 0; j < response.routes[0].warnings.length; j++)
-                        me.store.point[i - 1].details.warnings.push({
-                            text: response.routes[0].warnings[j]
+            switch(type){
+                case "new":
+                    if(this.store.point.length > 0){        //There is more than 1 point
+                        this.map.directionService.route({
+                            origin: this.store.point[this.store.point.length - 1].main.position,
+                            destination: this.store.position[i].main.position,
+                            travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
+                            avoidTolls: true
+                        },
+                        function(response, status){
+                            if(status === "OK"){
+                                me.store.point[me.store.point.length - 1].renderer = new google.maps.DirectionsRenderer({
+                                    map: me.map.main,
+                                    draggable: true,
+                                    suppressMarkers: true,
+                                    preserveViewport: true
+                                });
+                                me.store.point[me.store.point.length - 1].renderer.setDirections(response);
+                                me.store.point[me.store.point.length - 1].details.copyrights = response.routes[0].copyrights;
+                                me.store.point[me.store.point.length - 1].details.warnings = [];
+                                for(i = 0; i < response.routes[0].warnings.length; i++)
+                                    me.store.point[me.store.point.length - 1].details.warnings.push({
+                                        text: response.routes[0].warnings[i]
+                                    });
+                                me.store.point[me.store.point.length - 1].details.legs.push({
+                                    hidden: false,
+                                    id: me.store.point[me.store.point.length - 1].details.legs.length,
+                                    end: response.routes[0].legs[0].end_address,
+                                    start: response.routes[0].legs[0].start_address,
+                                    steps: []
+                                });
+                                for(i = 0; i < response.routes[0].legs[0].steps.length; i++){
+                                    me.store.point[me.store.point.length - 1].details.legs[0].steps.push({
+                                        distance: {
+                                            value: response.routes[0].legs[0].steps[i].distance.value,
+                                            text: response.routes[0].legs[0].steps[i].distance.text
+                                        },
+                                        duration: {
+                                            value: response.routes[0].legs[0].steps[i].duration.value,
+                                            text: response.routes[0].legs[0].steps[i].duration.text
+                                        },
+                                        instructions: response.routes[0].legs[0].steps[i].instructions,
+                                        travel_mode: response.routes[0].legs[0].steps[i].travel_mode
+                                    });
+                                    travelTime += response.routes[0].legs[0].steps[i].duration.value;
+                                    distance += response.routes[0].legs[0].steps[i].distance.value;
+                                }
+                            }
+                            else
+                                console.log(status);
+                            me.store.add.calculate.travel = me.converter("string", travelTime);
+                            me.store.add.calculate.distance = distance;
+                            me.store.add.calculate.begin = actualTime;
+                            me.store.add.calculate.death = (me.converter("time", deathTime) <= travelTime) ? "00:00:00" : me.converter("string", me.converter("time", deathTime) - travelTime);
+                            me.setValidEnd();
                         });
-                    me.store.point[i - 1].details.legs.push({
-                        hidden: false,
-                        id: me.store.point[i - 1].details.legs.length,
-                        end: response.routes[0].legs[0].end_address,
-                        start: response.routes[0].legs[0].start_address,
-                        steps: []
-                    });
-                    for(j = 0; j < response.routes[0].legs[0].steps.length; j++){
-                        me.store.point[i - 1].details.legs[0].steps.push({
-                            distance: {
-                                value: response.routes[0].legs[0].steps[j].distance.value,
-                                text: response.routes[0].legs[0].steps[j].distance.text
-                            },
-                            duration: {
-                                value: response.routes[0].legs[0].steps[j].duration.value,
-                                text: response.routes[0].legs[0].steps[j].duration.text
-                            },
-                            instructions: response.routes[0].legs[0].steps[j].instructions,
-                            travel_mode: response.routes[0].legs[0].steps[j].travel_mode
-                        });
-                        travelTime += response.routes[0].legs[0].steps[j].duration.value;
-                        distance += response.routes[0].legs[0].steps[j].distance.value;
                     }
-                    
-                    me.store.point[i].travel = (me.store.point[i].calculate) ? me.converter("string", me.converter("time", me.store.point[i].arrival) - me.converter("time", me.store.point[i].start)):
-                        me.store.point[i].travel = me.converter("string", travelTime);
-                    me.store.point[i].distance = distance;
-                    me.store.data.totalDistance += distance;
-                    me.store.point[i].death = me.converter("string", me.converter("time", me.store.point[i].arrival) - me.converter("time", me.store.point[i].start) - me.converter("time", me.store.point[i].travel));
-                }
-                else
-                    console.log(status);
-            });
+                    else{
+                        this.store.add.calculate.distance = distance;
+                        this.store.add.calculate.travel = this.converter("string", travelTime);
+                        this.store.add.calculate.begin = actualTime;
+                        this.store.add.calculate.death = deathTime;
+                        this.setValidEnd();
+                    }
+                    break;
+                case "all":
+                    this.map.directionService.route({
+                        origin: this.store.point[i - 1].main.position,
+                        destination: this.store.point[i].main.position,
+                        travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
+                        avoidTolls: true
+                    },
+                    function(response, status){
+                        if(status === "OK"){
+                            me.store.point[i - 1].renderer = new google.maps.DirectionsRenderer({
+                                map: me.map.main,
+                                draggable: true,
+                                suppressMarkers: true,
+                                preserveViewport: true
+                            });
+                            me.store.point[i - 1].renderer.setDirections(response);
+                            me.store.point[i - 1].details.copyrights = response.routes[0].copyrights;
+                            me.store.point[i - 1].details.warnings = [];
+                            for(j = 0; j < response.routes[0].warnings.length; j++)
+                                me.store.point[i - 1].details.warnings.push({
+                                    text: response.routes[0].warnings[j]
+                                });
+                            me.store.point[i - 1].details.legs.push({
+                                hidden: false,
+                                id: me.store.point[i - 1].details.legs.length,
+                                end: response.routes[0].legs[0].end_address,
+                                start: response.routes[0].legs[0].start_address,
+                                steps: []
+                            });
+                            for(j = 0; j < response.routes[0].legs[0].steps.length; j++){
+                                me.store.point[i - 1].details.legs[0].steps.push({
+                                    distance: {
+                                        value: response.routes[0].legs[0].steps[j].distance.value,
+                                        text: response.routes[0].legs[0].steps[j].distance.text
+                                    },
+                                    duration: {
+                                        value: response.routes[0].legs[0].steps[j].duration.value,
+                                        text: response.routes[0].legs[0].steps[j].duration.text
+                                    },
+                                    instructions: response.routes[0].legs[0].steps[j].instructions,
+                                    travel_mode: response.routes[0].legs[0].steps[j].travel_mode
+                                });
+                                travelTime += response.routes[0].legs[0].steps[j].duration.value;
+                                distance += response.routes[0].legs[0].steps[j].distance.value;
+                            }
+                            
+                            me.store.point[i].travel = me.converter("string", travelTime);
+                            me.store.point[i].distance = distance;
+                            me.store.data.search.actualDistance += distance;
+                            
+                            me.store.remove.total += i;
+                            if(total === me.store.remove.total){
+                                for(j = 1; j < me.store.point.length; j++){
+                                    me.store.point[j].start = me.converter('string', me.converter('time', me.store.point[j - 1].start) + me.converter('time', me.store.point[j - 1].death) + me.converter('time', me.store.point[j - 1].travel) + me.converter('time', me.store.point[j - 1].usedTime));
+                                    me.store.point[j].death = (me.converter("time", me.store.point[j].schedule[me.store.point[j].scheduleIndex].begin) <= (me.converter('time', me.store.point[j].travel) + me.converter("time", me.store.point[j].start))) ? "00:00:00" : me.converter("string", me.converter("time", me.store.point[j].schedule[me.store.point[j].scheduleIndex].begin) - me.converter('time', me.store.point[j].travel) - me.converter("time", me.store.point[j].start));
+                                    if(me.converter('time', me.store.point[j].start) + me.converter('time', me.store.point[j].death) + me.converter('time', me.store.point[j].travel) + me.converter('time', me.store.point[j].usedTime) > me.converter('time', me.store.point[j].schedule[me.store.point[j].scheduleIndex].end)){
+                                        me.store.point[j].schedule[me.store.point[j].scheduleIndex].active = false;
+                                        me.store.point[j].schedule[++me.store.point[j].scheduleIndex].active = true;
+                                        me.store.point[j].death = (me.converter("time", me.store.point[j].schedule[me.store.point[j].scheduleIndex].begin) <= (me.converter('time', me.store.point[j].travel) + me.converter("time", me.store.point[j].start))) ? "00:00:00" : me.converter("string", me.converter("time", me.store.point[j].schedule[me.store.point[j].scheduleIndex].begin) - me.converter('time', me.store.point[j].travel) - me.converter("time", me.store.point[j].start));
+                                    }
+                                }
+                                me.store.data.search.actualTime = me.converter('string', me.converter('time', me.store.point[j - 1].start) + me.converter('time', me.store.point[j - 1].death) + me.converter('time', me.store.point[j - 1].travel) + me.converter('time', me.store.point[j - 1].usedTime));
+                                me.end.value = me.store.data.search.actualTime;
+                            }
+                        }
+                        else
+                            console.log(status);
+                    });
+                    break;
+                case "init":
+                    this.map.directionService.route({
+                        origin: this.store.point[i - 1].main.position,
+                        destination: this.store.point[i].main.position,
+                        travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
+                        avoidTolls: true
+                    },
+                    function(response, status){
+                        if(status === "OK"){
+                            me.store.point[i - 1].renderer = new google.maps.DirectionsRenderer({
+                                map: me.map.main,
+                                draggable: true,
+                                suppressMarkers: true,
+                                preserveViewport: true
+                            });
+                            me.store.point[i - 1].renderer.setDirections(response);
+                            me.store.point[i - 1].details.copyrights = response.routes[0].copyrights;
+                            me.store.point[i - 1].details.warnings = [];
+                            for(j = 0; j < response.routes[0].warnings.length; j++)
+                                me.store.point[i - 1].details.warnings.push({
+                                    text: response.routes[0].warnings[j]
+                                });
+                            me.store.point[i - 1].details.legs.push({
+                                hidden: false,
+                                id: me.store.point[i - 1].details.legs.length,
+                                end: response.routes[0].legs[0].end_address,
+                                start: response.routes[0].legs[0].start_address,
+                                steps: []
+                            });
+                            for(j = 0; j < response.routes[0].legs[0].steps.length; j++){
+                                me.store.point[i - 1].details.legs[0].steps.push({
+                                    distance: {
+                                        value: response.routes[0].legs[0].steps[j].distance.value,
+                                        text: response.routes[0].legs[0].steps[j].distance.text
+                                    },
+                                    duration: {
+                                        value: response.routes[0].legs[0].steps[j].duration.value,
+                                        text: response.routes[0].legs[0].steps[j].duration.text
+                                    },
+                                    instructions: response.routes[0].legs[0].steps[j].instructions,
+                                    travel_mode: response.routes[0].legs[0].steps[j].travel_mode
+                                });
+                                travelTime += response.routes[0].legs[0].steps[j].duration.value;
+                                distance += response.routes[0].legs[0].steps[j].distance.value;
+                            }
+                            
+                            me.store.point[i].travel = (me.store.point[i].calculate) ? me.converter("string", me.converter("time", me.store.point[i].arrival) - me.converter("time", me.store.point[i].start)):
+                                me.store.point[i].travel = me.converter("string", travelTime);
+                            me.store.point[i].distance = distance;
+                            me.store.data.totalDistance += distance;
+                            me.store.point[i].death = me.converter("string", me.converter("time", me.store.point[i].arrival) - me.converter("time", me.store.point[i].start) - me.converter("time", me.store.point[i].travel));
+                            if(me.store.point.length - 1 === i)
+                                me.store.data.search.actualTime = me.converter("string", me.converter("time", me.store.point[i].start) + me.converter("time", me.store.point[i].travel) + me.converter("time", me.store.point[i].death) + me.converter("time", me.store.point[i].usedTime));
+                            
+                            me.store.oldPoint[i].travel = (me.store.point[i].calculate) ? me.converter("string", me.converter("time", me.store.point[i].arrival) - me.converter("time", me.store.point[i].start)):
+                                me.store.point[i].travel = me.converter("string", travelTime);
+                            me.store.oldPoint[i].distance = distance;
+                            me.store.oldPoint[i].death = me.converter("string", me.converter("time", me.store.point[i].arrival) - me.converter("time", me.store.point[i].start) - me.converter("time", me.store.point[i].travel));
+                        }
+                        else
+                            console.log(status);
+                    });
+                    break;
+            }
         },
         getDirection: function(type, length){
             var me = this;
@@ -1101,7 +1284,8 @@ module.exports = new Vue({
                         if(this.store.add.calculate.end)
                             this.end.value = this.store.data.search.actualTime;
                         this.store.point.push({
-                            id: this.store.position[this.store.add.index].id,
+                            id: null,
+                            idStore: this.store.position[this.store.add.index].id,
                             lat: this.store.position[this.store.add.index].lat,
                             lng: this.store.position[this.store.add.index].lng,
                             name: this.store.position[this.store.add.index].name,
@@ -1282,7 +1466,7 @@ module.exports = new Vue({
         },
         submit: function(){
             var me = this,
-                i, j, first = true,
+                i,
                 hmdB = this.begin.value.split(":"),
                 hmdE = this.end.value.split(":"),
                 valid = true;
@@ -1334,42 +1518,27 @@ module.exports = new Vue({
                 valid = false;
             }
             if(valid){
-                this.models.ruta.post({
-                    params: {
-                        nombre: this.name.value,
-                        dia: this.day.value,
-                        hora_inicio: this.begin.value,
-                        hora_fin: this.end.value,
-                        lat_inicio: this.store.point[0].lat,
-                        lng_inicio: this.store.point[0].lng,
-                        lat_fin: this.store.point[this.store.point.length - 1].lat,
-                        lng_fin: this.store.point[this.store.point.length - 1].lng
-                    }
-                },
-                function(success){
-                    for(i = 0; i < me.store.point.length; i++)
-                        me.submitPoint(success.body.id, i);
-                    BUTO.components.main.children.rutasRegistradas.grid.updatePagination();
-                    BUTO.components.main.alert.description.title = "Registro de Ruta";
-                    BUTO.components.main.alert.description.text = "Se ha registrado correctamente la ruta '" + success.body.nombre + "'";
-                    BUTO.components.main.alert.description.ok = "Aceptar";
-                    BUTO.components.main.alert.active = true;
-                },
-                function(error){
-                    console.log(error);
-                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                    BUTO.components.main.alert.description.text = "";
-                    if(error.body.length > 0)
-                        for(i = 0; i < error.body.length; i++){
-                            BUTO.components.main.alert.description.text += error.body[i].message + "<br>";
-                            if(error.body[i].field === "nombre"){
-                                me.name.valid = false;
-                                me.name.text = error.body[i].message;
-                            }
-                        }
-                    BUTO.components.main.alert.description.ok = "Aceptar";
-                    BUTO.components.main.alert.active = true;
-                });
+                if(this.begin.oldValue < this.begin.value &&
+                   this.end.oldValue > this.end.value){        //Edit first points and services, then route
+                    console.log("0, Smaller area");
+                    for(i = 0; i < this.store.point.length; i++)
+                         this.submitPoint(0, i);
+                }
+                else if(this.begin.oldValue >= this.begin.value &&
+                   this.end.oldValue <= this.end.value){        //Edit first route, then  points and services
+                    console.log("1, Higher area");
+                    this.submitRoute(1, true);
+                }
+                else if(this.begin.oldValue < this.begin.value &&
+                   this.end.oldValue <= this.end.value){        //Edit first route end, then points and services, last route begin
+                    console.log("2, Smaller on being, Higher on end");
+                    this.submitRoute(2, true);
+                }
+                else if(this.begin.oldValue >= this.begin.value &&
+                   this.end.oldValue > this.end.value){       //Edit first route begin, then points and services, last route end
+                    console.log("3, Higher on being, Smaller on end");
+                    this.submitRoute(3, true);
+                }
             }
             else{
                 BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -1377,45 +1546,173 @@ module.exports = new Vue({
                 BUTO.components.main.alert.active = true;
             }
         },
-        submitPoint: function(routeId, i){
-            var me = this, j;
-            this.models.rutaPunto.post({
-                delimiters: routeId,
-                params: {
-                    sucursal_id: this.store.point[i].id,
-                    hora_llegada_estimada: this.converter("string", this.converter("time", this.store.point[i].start) + this.converter("time", this.store.point[i].travel) + this.converter("time", this.store.point[i].death))
-                    //Takes start, travel and death
-                }
+        submitRoute: function(type, subtype){
+            var me = this, i,
+                params = {
+                    nombre: this.name.value,
+                    dia: this.day.value,
+                    lat_inicio: this.store.point[0].lat,
+                    lng_inicio: this.store.point[0].lng,
+                    lat_fin: this.store.point[this.store.point.length - 1].lat,
+                    lng_fin: this.store.point[this.store.point.length - 1].lng
+                };
+            switch(type){
+                case 0, 1:
+                    params.hora_inicio = this.begin.value;
+                    params.hora_fin = this.end.value;
+                    break;
+                case 2:
+                    params.hora_fin = this.end.value;
+                    break;
+                case 3:
+                    params.hora_inicio = this.begin.value;
+                    break;
+            }
+            this.models.ruta.patch({
+                delimiters: this.id,
+                params: params
             },
             function(success){
-                for(j = 0; j < me.store.point[i].client.length; j++)
-                    me.submitService(routeId, success.body.id, i, j);
+                console.log(success);
+                if(type !== 0 && subtype)
+                    for(i = 0; i < me.store.point.length; i++)
+                        me.submitPoint(type, i);
+                //BUTO.components.main.children.rutasRegistradas.grid.updatePagination();
+                //BUTO.components.main.alert.description.title = "Registro de Ruta";
+                //BUTO.components.main.alert.description.text = "Se ha registrado correctamente la ruta '" + success.body.nombre + "'";
+                //BUTO.components.main.alert.description.ok = "Aceptar";
+                //BUTO.components.main.alert.active = true;
             },
             function(error){
                 console.log(error);
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.text = "";
+                if(error.body.length > 0)
+                    for(i = 0; i < error.body.length; i++){
+                        BUTO.components.main.alert.description.text += error.body[i].message + "<br>";
+                        if(error.body[i].field === "nombre"){
+                            me.name.valid = false;
+                            me.name.text = error.body[i].message;
+                        }
+                    }
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
             });
         },
-        submitService: function(routeId, pointId, i, j){
-            var me = this;
-            if(this.store.point[i].client[j].active)
-                this.models.rutaPuntoServicio.post({
-                    delimiters: [routeId, pointId],
-                    params: {
-                        cliente_id: this.store.point[i].client[j].id
-                    }
-                },
-                function(success){
-                    
-                },
-                function(error){
-                    console.log(error);
-                });
-            if(i === me.store.point.length - 1 &&
-               j === me.store.point[i].client.length - 1)
-                setTimeout(function(){
-                    me.reset("all");
-                }, 500);
+        submitPoint: function(type, i){
+            var me = this, j, k, oldI,
+                updateType = 0;        //0 post, 1 patch
+            for(j = 0; j < this.store.oldPoint.length; j++)
+                if(this.store.point[i].idStore === this.store.oldPoint[j].idStore){
+                    this.store.point[i].id = this.store.oldPoint[i].id;
+                    oldI = j;
+                    updateType = 1;
+                }
+            for(j = 0; j < this.store.oldPoint.length; j++)
+                for(k = 0; k < this.store.point.length; k++)
+                    if(this.store.point[k].idStore === this.store.oldPoint[j].idStore)
+                        this.store.oldPoint[j].remove = false;
+            for(j = 0; j < this.store.oldPoint.length; j++)
+                if(this.store.oldPoint[j].remove)
+                    this.models.rutaPunto.remove({
+                        delimiters: [
+                            this.id,
+                            this.store.point[i].id
+                        ],
+                        params: {
+                            
+                        }
+                    },
+                    function(success){
                         
+                    },
+                    function(error){
+                        console.log(error);
+                    });
+            switch(updateType){
+                case 0: //POST
+                    this.models.rutaPunto.post({
+                        delimiters: this.id,
+                        params: {
+                            sucursal_id: this.store.point[i].id,
+                            hora_llegada_estimada: this.converter("string", this.converter("time", this.store.point[i].start) + this.converter("time", this.store.point[i].travel) + this.converter("time", this.store.point[i].death))
+                            //Takes start, travel and death
+                        }
+                    },
+                    function(success){
+                        for(j = 0; j < me.store.point[i].client.length; j++)
+                            me.submitService(updateType, success.body.id, i, null, j);
+                    },
+                    function(error){
+                        console.log(error);
+                    });
+                    break;
+                case 1: //PATCH
+                    this.models.rutaPunto.patch({
+                        delimiters: [
+                            this.id,
+                            this.store.point[i].id
+                        ],
+                        params: {
+                            hora_llegada_estimada: this.converter("string", this.converter("time", this.store.point[i].start) + this.converter("time", this.store.point[i].travel) + this.converter("time", this.store.point[i].death))
+                        }
+                    },
+                    function(success){
+                        for(j = 0; j < me.store.point[i].client.length; j++)
+                            me.submitService(updateType, success.body.id, i, oldI, j);
+                    },
+                    function(error){
+                        console.log(error);
+                    });
+                    break;
+            }
+            if(i === this.store.point.length - 1 && type !== 1)
+                this.submitRoute(type === 2 ? 3 : type === 3 ? 2 : type, false);
+        },
+        submitService: function(updateType, pointId, i, oldI, j){
+            var me = this, k;       //0 POST, 1 REMOVE, 2 NOTHING
+            switch(updateType){
+                case 0:         //All created
+                    if(this.store.point[i].client[j].active)
+                        this.models.rutaPuntoServicio.post({
+                            delimiters: [this.id, pointId],
+                            params: {
+                                cliente_id: this.store.point[i].client[j].id
+                            }
+                        },
+                        function(success){
+                            
+                        },
+                        function(error){
+                            console.log(error);
+                            //me.submitService(updateType, pointId, i, oldI, j);
+                        });
+                    break;
+                case 1:         //Point existent, clients let see
+                    for(k = 0; k < this.store.oldPoint[oldI].client.length; k++)
+                        if(this.store.point[i].client[j].id === this.store.oldPoint[oldI].client[k].id){
+                            if(!this.store.point[i].client[j].active && this.store.oldPoint[oldI].client[k].active)     //Remove
+                                this.models.rutaPuntoServicio.remove({
+                                    delimiters: [this.id, pointId, this.store.point[i].client[j].id],
+                                    params: {
+                                        
+                                    }
+                                },
+                                function(success){
+                                    
+                                },
+                                function(error){
+                                    console.log(error);
+                                });
+                            else if(this.store.point[i].client[j].active && !this.store.oldPoint[oldI].client[k].active)    //Create
+                                this.submitService(0, pointId, i, null, j);
+                        }
+                    break;
+            }
+            if(i === me.store.point.length - 1 &&
+               j === me.store.point[i].client.length - 1){
+                console.log("ready");
+            }
         }
     }
 });

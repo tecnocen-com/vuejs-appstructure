@@ -1144,7 +1144,7 @@ module.exports = new Vue({
         },
         submit: function(){
             var me = this,
-                i, j, first = true,
+                i,
                 hmdB = this.begin.value.split(":"),
                 hmdE = this.end.value.split(":"),
                 valid = true;
