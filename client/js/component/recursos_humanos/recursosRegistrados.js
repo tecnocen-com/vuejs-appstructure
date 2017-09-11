@@ -1,11 +1,13 @@
 var verRecurso = require("./verRecurso");
 var editarRecurso = require("./editarRecurso");
+var rutas = require("./rutas");
 module.exports = new Vue({
     data: {
         active: 0,
         grid: null,
         watch: verRecurso,
-        edit: editarRecurso
+        edit: editarRecurso,
+        ruta: rutas
     },
     methods: {
         init(e){
@@ -14,9 +16,22 @@ module.exports = new Vue({
             this.watch.models.usuarioEmpleado = e.usuarioEmpleado;
             this.watch.models.empleado = e.empleado;
             this.watch.models.empleadoHorario = e.empleadoHorario;
+            
             this.edit.models.usuarioEmpleado = e.usuarioEmpleado;
             this.edit.models.empleado = e.empleado;
             this.edit.models.empleadoHorario = e.empleadoHorario;
+            
+            this.ruta.models.empleadoHorario = e.empleadoHorario;
+            this.ruta.models.ruta = e.ruta;
+            this.ruta.models.rutaPunto = e.rutaPunto;
+            this.ruta.models.rutaPuntoServicio = e.rutaPuntoServicio;
+            this.ruta.models.sucursal = e.sucursal;
+            this.ruta.models.sucursalHorario = e.sucursalHorario;
+            this.ruta.models.sucursalCliente = e.sucursalCliente;
+            this.ruta.models.proyeccionServicio = e.proyeccionServicio;
+            this.ruta.models.proyeccionTrabajo = e.proyeccionTrabajo;
+            this.ruta.models.proyeccionTrabajoServicio = e.proyeccionTrabajoServicio;
+            
             this.grid = new BUTO.requires.modules.mcdatatable({
                 id: "recursosRegistrados",
                 head: [
@@ -82,6 +97,21 @@ module.exports = new Vue({
                     },
                 },
                 customHandlers: [
+                    {
+                        active: true,
+                        title: "Rutas",
+                        fullHandler: false,
+                        anchorCellClass: [
+                            ""
+                        ],
+                        highlight: true,
+                        glyphiconClass: "glyphicon-road",
+                        handler: function(data){
+                            me.ruta.client.id = data.id;
+                            me.ruta.client.name = data.nombre;
+                            me.setView(3);
+                        }
+                    },
                     {
                         active: true,
                         title: "Eliminar usuario",
@@ -156,6 +186,8 @@ module.exports = new Vue({
         setView: function(e){
             var me = this;
             this.active = e;
+            if(e === 3)
+                me.ruta.init(0, 1);
             Vue.nextTick(function(){
                 if(e === 1)
                     me.watch.init();

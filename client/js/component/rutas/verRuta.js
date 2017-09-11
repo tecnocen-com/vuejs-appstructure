@@ -82,7 +82,15 @@ module.exports = new Vue({
     },
     methods: {
         init: function(type, first){
-            var me = this;
+            var me = this, i;
+            if(type === "modal" && !first){
+                for(i = 0; i < this.store.point.length; i++){
+                    if(this.store.point[i].main !== null)
+                        this.store.point[i].main.setMap(null);
+                    if(this.store.point[i].renderer !== null)
+                        this.store.point[i].renderer.setMap(null);
+                }
+            }
             this.store.point = [];
             this.store.data.totalDistance = 0;
             this.models.ruta.get({
@@ -107,12 +115,14 @@ module.exports = new Vue({
             });
         },
         initMap: function(type, first){
-            this.map.main = new google.maps.Map(document.getElementById('mapSeeRoute'), {     //Define Map
-                zoom: this.map.data.zoom
-            });
-            
-            this.initFocus();
-            this.initServices();
+            if(type !== "modal" || (type === "modal" && first))
+                this.map.main = new google.maps.Map(document.getElementById('mapSeeRoute'), {     //Define Map
+                    zoom: this.map.data.zoom
+                });
+            if(type !== "modal" || first){
+                this.initFocus();
+                this.initServices();
+            }
             this.initPoint();
         },
         initFocus: function(){

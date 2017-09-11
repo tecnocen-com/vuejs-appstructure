@@ -231,6 +231,15 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 usuarioEmpleado: this.models.usuarioEmpleado,
                                 empleado: this.models.empleado,
                                 empleadoHorario: this.models.empleadoHorario,
+                                ruta: this.models.ruta,
+                                rutaPunto: this.models.rutaPunto,
+                                rutaPuntoServicio: this.models.rutaPuntoServicio,
+                                sucursal: this.models.sucursal,
+                                sucursalHorario: this.models.sucursalHorario,
+                                sucursalCliente: this.models.sucursalCliente,
+                                proyeccionServicio: this.models.proyeccionServicio,
+                                proyeccionTrabajo: this.models.proyeccionTrabajo,
+                                proyeccionTrabajoServicio: this.models.proyeccionTrabajoServicio,
                                 mask: this.mask
                             });
                             BUTO.requires.components.nuevoRecurso.init({

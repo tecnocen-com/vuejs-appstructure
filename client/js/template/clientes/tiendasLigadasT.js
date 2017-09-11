@@ -8,7 +8,6 @@ module.exports = `
                         <ul class="icons-list">
                             <li class="flat-handler-custom"><a href="#" v-on:click.prevent title="Tiendas"><span aria-hidden="true" class="glyphicon glyphicon-tags"></span></a></li>
                             <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(2)" title="Recursos humanos"><span aria-hidden="true" class="glyphicon glyphicon-briefcase"></span></a></li>
-                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(3)" title="Rutas"><span aria-hidden="true" class="glyphicon glyphicon-road"></span></a></li>
                             <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></a></li>
                         </ul>
                     </div>

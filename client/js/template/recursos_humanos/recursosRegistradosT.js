@@ -1,5 +1,6 @@
 var verRecurso = require("./verRecursoT");
 var editarRecurso = require("./editarRecursoT");
+var rutas = require("./rutasT");
 Vue.component("ver-recurso", {
     template: verRecurso,
     props: {
@@ -13,6 +14,13 @@ Vue.component("editar-recurso", {
     props: {
         config: Object,
         mask: Function,
+        setview: Function
+    }
+});
+Vue.component("rutas", {
+    template: rutas,
+    props: {
+        config: Object,
         setview: Function
     }
 });
@@ -30,5 +38,6 @@ module.exports = `
         </div>
         <ver-recurso v-else-if="config.active === 1" :config="config.watch" :mask="config.mask" :setview="config.setView"></ver-recurso>
         <editar-recurso v-else-if="config.active === 2" :config="config.edit" :mask="config.mask" :setview="config.setView"></editar-recurso>
+        <rutas v-else-if="config.active === 3" :config="config.ruta" :setview="config.setView"></rutas>
     </div>
 `;

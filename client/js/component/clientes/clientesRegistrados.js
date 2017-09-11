@@ -1,13 +1,11 @@
 var tiendasLigadas = require("./tiendasLigadas");
 var recursosLigados = require("./recursosLigados");
-var rutas = require("./rutas");
 module.exports = new Vue({
     data: {
         active: 0,
         grid: null,
         tienda: tiendasLigadas,
-        recurso: recursosLigados,
-        ruta: rutas
+        recurso: recursosLigados
     },
     methods: {
         init: function(e){
@@ -22,15 +20,6 @@ module.exports = new Vue({
             this.recurso.models.empleado = e.empleado;
             this.recurso.models.empleadoHorario = e.empleadoHorario;
             
-            this.ruta.models.clienteSucursal = e.clienteSucursal;
-            this.ruta.models.sucursal = e.sucursal;
-            this.ruta.models.sucursalHorario = e.sucursalHorario;
-            this.ruta.models.clienteEmpleado = e.clienteEmpleado;
-            this.ruta.models.usuarioEmpleado = e.usuarioEmpleado;
-            this.ruta.models.empleado = e.empleado;
-            this.ruta.models.empleadoHorario = e.empleadoHorario;
-            this.ruta.models.empleadoHorarioRuta = e.empleadoHorarioRuta;
-            this.ruta.models.empleadoHorarioRutaPunto = e.empleadoHorarioRutaPunto;
             this.grid = new BUTO.requires.modules.mcdatatable({
                 id: "clientesRegistrados",
                 head: [
@@ -128,23 +117,6 @@ module.exports = new Vue({
                             me.recurso.client.name = data.nombre;
                             me.setView(2);
                         }
-                    },
-                    {
-                        active: true,
-                        title: "Rutas",
-                        fullHandler: false,
-                        anchorCellClass: [
-                            ""
-                        ],
-                        highlight: true,
-                        glyphiconClass: "glyphicon-road",
-                        handler: function(data){
-                            me.tienda.client.id = data.id;
-                            me.tienda.client.name = data.nombre;
-                            me.recurso.client.id = data.id;
-                            me.recurso.client.name = data.nombre;
-                            me.setView(3);
-                        }
                     }
                 ],
                 templateEdit: function(id, index){
@@ -204,8 +176,6 @@ module.exports = new Vue({
                 me.tienda.init(0, 1, 1);
             else if(e === 2)
                 me.recurso.init(0, 1, 1);
-            else if(e === 3)
-                me.ruta.init();
         },
         mask: function(){}
     }

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 85);
+/******/ 	return __webpack_require__(__webpack_require__.s = 86);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -78,8 +78,8 @@
 
 
 
-var base64 = __webpack_require__(116)
-var ieee754 = __webpack_require__(117)
+var base64 = __webpack_require__(117)
+var ieee754 = __webpack_require__(118)
 var isArray = __webpack_require__(43)
 
 exports.Buffer = Buffer
@@ -5333,15 +5333,15 @@ if (typeof Object.create === 'function') {
 
 var elliptic = exports;
 
-elliptic.version = __webpack_require__(173).version;
-elliptic.utils = __webpack_require__(174);
+elliptic.version = __webpack_require__(174).version;
+elliptic.utils = __webpack_require__(175);
 elliptic.rand = __webpack_require__(68);
 elliptic.curve = __webpack_require__(29);
-elliptic.curves = __webpack_require__(179);
+elliptic.curves = __webpack_require__(180);
 
 // Protocols
-elliptic.ec = __webpack_require__(187);
-elliptic.eddsa = __webpack_require__(191);
+elliptic.ec = __webpack_require__(188);
+elliptic.eddsa = __webpack_require__(192);
 
 
 /***/ }),
@@ -6503,7 +6503,7 @@ exports.Readable = exports;
 exports.Writable = __webpack_require__(33);
 exports.Duplex = __webpack_require__(12);
 exports.Transform = __webpack_require__(49);
-exports.PassThrough = __webpack_require__(133);
+exports.PassThrough = __webpack_require__(134);
 
 
 /***/ }),
@@ -6850,11 +6850,11 @@ var asn1 = exports;
 
 asn1.bignum = __webpack_require__(2);
 
-asn1.define = __webpack_require__(195).define;
+asn1.define = __webpack_require__(196).define;
 asn1.base = __webpack_require__(21);
 asn1.constants = __webpack_require__(74);
-asn1.decoders = __webpack_require__(201);
-asn1.encoders = __webpack_require__(203);
+asn1.decoders = __webpack_require__(202);
+asn1.encoders = __webpack_require__(204);
 
 
 /***/ }),
@@ -6863,10 +6863,10 @@ asn1.encoders = __webpack_require__(203);
 
 var base = exports;
 
-base.Reporter = __webpack_require__(198).Reporter;
+base.Reporter = __webpack_require__(199).Reporter;
 base.DecoderBuffer = __webpack_require__(73).DecoderBuffer;
 base.EncoderBuffer = __webpack_require__(73).EncoderBuffer;
-base.Node = __webpack_require__(199);
+base.Node = __webpack_require__(200);
 
 
 /***/ }),
@@ -7211,7 +7211,7 @@ function nextTick(fn, arg1, arg2, arg3) {
  * See http://pajhome.org.uk/crypt/md5 for more info.
  */
 
-var makeHash = __webpack_require__(143)
+var makeHash = __webpack_require__(144)
 
 /*
  * Calculate the MD5 of an array of little-endian words, and a bit length
@@ -7837,19 +7837,19 @@ exports.encrypt = function (self, chunk) {
 
 var curve = exports;
 
-curve.base = __webpack_require__(175);
-curve.short = __webpack_require__(176);
-curve.mont = __webpack_require__(177);
-curve.edwards = __webpack_require__(178);
+curve.base = __webpack_require__(176);
+curve.short = __webpack_require__(177);
+curve.mont = __webpack_require__(178);
+curve.edwards = __webpack_require__(179);
 
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var asn1 = __webpack_require__(194)
-var aesid = __webpack_require__(206)
-var fixProc = __webpack_require__(207)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var asn1 = __webpack_require__(195)
+var aesid = __webpack_require__(207)
+var fixProc = __webpack_require__(208)
 var ciphers = __webpack_require__(38)
 var compat = __webpack_require__(54)
 module.exports = parseKeys
@@ -7984,8 +7984,8 @@ function decrypt (data, password) {
 
 
 
-var punycode = __webpack_require__(118);
-var util = __webpack_require__(119);
+var punycode = __webpack_require__(119);
+var util = __webpack_require__(120);
 
 exports.parse = urlParse;
 exports.resolve = urlResolve;
@@ -8060,7 +8060,7 @@ var protocolPattern = /^([a-z0-9.+-]+:)/i,
       'gopher:': true,
       'file:': true
     },
-    querystring = __webpack_require__(120);
+    querystring = __webpack_require__(121);
 
 function urlParse(url, parseQueryString, slashesDenoteHost) {
   if (url && util.isObject(url) && url instanceof Url) return url;
@@ -9080,7 +9080,7 @@ util.inherits = __webpack_require__(1);
 
 /*<replacement>*/
 var internalUtil = {
-  deprecate: __webpack_require__(132)
+  deprecate: __webpack_require__(133)
 };
 /*</replacement>*/
 
@@ -9672,7 +9672,7 @@ Writable.prototype._destroy = function (err, cb) {
   this.end();
   cb(err);
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(130).setImmediate, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(131).setImmediate, __webpack_require__(5)))
 
 /***/ }),
 /* 34 */
@@ -9908,7 +9908,7 @@ function base64DetectIncompleteChar(buffer) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {
 var inherits = __webpack_require__(1)
-var HashBase = __webpack_require__(144)
+var HashBase = __webpack_require__(145)
 
 function RIPEMD160 () {
   HashBase.call(this, 64)
@@ -10232,10 +10232,10 @@ var inherits = __webpack_require__(1);
 
 inherits(Stream, EE);
 Stream.Readable = __webpack_require__(14);
-Stream.Writable = __webpack_require__(145);
-Stream.Duplex = __webpack_require__(146);
-Stream.Transform = __webpack_require__(147);
-Stream.PassThrough = __webpack_require__(148);
+Stream.Writable = __webpack_require__(146);
+Stream.Duplex = __webpack_require__(147);
+Stream.Transform = __webpack_require__(148);
+Stream.PassThrough = __webpack_require__(149);
 
 // Backwards-compat with node 0.4.x
 Stream.Stream = Stream;
@@ -10346,11 +10346,11 @@ var exports = module.exports = function SHA (algorithm) {
   return new Algorithm()
 }
 
-exports.sha = __webpack_require__(149)
-exports.sha1 = __webpack_require__(150)
-exports.sha224 = __webpack_require__(151)
+exports.sha = __webpack_require__(150)
+exports.sha1 = __webpack_require__(151)
+exports.sha224 = __webpack_require__(152)
 exports.sha256 = __webpack_require__(50)
-exports.sha384 = __webpack_require__(152)
+exports.sha384 = __webpack_require__(153)
 exports.sha512 = __webpack_require__(51)
 
 
@@ -10358,10 +10358,10 @@ exports.sha512 = __webpack_require__(51)
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ciphers = __webpack_require__(157)
+var ciphers = __webpack_require__(158)
 exports.createCipher = exports.Cipher = ciphers.createCipher
 exports.createCipheriv = exports.Cipheriv = ciphers.createCipheriv
-var deciphers = __webpack_require__(159)
+var deciphers = __webpack_require__(160)
 exports.createDecipher = exports.Decipher = deciphers.createDecipher
 exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv
 var modes = __webpack_require__(27)
@@ -10378,11 +10378,11 @@ exports.listCiphers = exports.getCiphers = getCiphers
 "use strict";
 
 
-exports.utils = __webpack_require__(161);
-exports.Cipher = __webpack_require__(162);
-exports.DES = __webpack_require__(163);
-exports.CBC = __webpack_require__(164);
-exports.EDE = __webpack_require__(165);
+exports.utils = __webpack_require__(162);
+exports.Cipher = __webpack_require__(163);
+exports.DES = __webpack_require__(164);
+exports.CBC = __webpack_require__(165);
+exports.EDE = __webpack_require__(166);
 
 
 /***/ }),
@@ -10440,9 +10440,9 @@ var hash = exports;
 
 hash.utils = __webpack_require__(7);
 hash.common = __webpack_require__(19);
-hash.sha = __webpack_require__(180);
-hash.ripemd = __webpack_require__(184);
-hash.hmac = __webpack_require__(185);
+hash.sha = __webpack_require__(181);
+hash.ripemd = __webpack_require__(185);
+hash.hmac = __webpack_require__(186);
 
 // Proxy hash functions to the main object
 hash.sha1 = hash.sha.sha1;
@@ -13112,7 +13112,7 @@ util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(128);
+var debugUtil = __webpack_require__(129);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -13121,7 +13121,7 @@ if (debugUtil && debugUtil.debuglog) {
 }
 /*</replacement>*/
 
-var BufferList = __webpack_require__(129);
+var BufferList = __webpack_require__(130);
 var destroyImpl = __webpack_require__(48);
 var StringDecoder;
 
@@ -14769,7 +14769,7 @@ module.exports = Sha512
 "use strict";
 
 var inherits = __webpack_require__(1)
-var Legacy = __webpack_require__(153)
+var Legacy = __webpack_require__(154)
 var Base = __webpack_require__(10)
 var Buffer = __webpack_require__(8).Buffer
 var md5 = __webpack_require__(24)
@@ -14842,7 +14842,7 @@ module.exports = {"sha224WithRSAEncryption":{"sign":"rsa","hash":"sha224","id":"
 /***/ (function(module, exports, __webpack_require__) {
 
 
-exports.pbkdf2 = __webpack_require__(155)
+exports.pbkdf2 = __webpack_require__(156)
 
 exports.pbkdf2Sync = __webpack_require__(57)
 
@@ -15035,7 +15035,7 @@ StreamCipher.prototype._final = function () {
 /* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
 var Transform = __webpack_require__(10)
 var inherits = __webpack_require__(1)
-var GHASH = __webpack_require__(158)
+var GHASH = __webpack_require__(159)
 var xor = __webpack_require__(18)
 inherits(StreamCipher, Transform)
 module.exports = StreamCipher
@@ -15580,7 +15580,7 @@ if (typeof self === 'object') {
 } else {
   // Node.js or Web worker with no crypto support
   try {
-    var crypto = __webpack_require__(168);
+    var crypto = __webpack_require__(169);
     if (typeof crypto.randomBytes !== 'function')
       throw new Error('Not supported');
 
@@ -16306,7 +16306,7 @@ constants._reverse = function reverse(map) {
   return res;
 };
 
-constants.der = __webpack_require__(200);
+constants.der = __webpack_require__(201);
 
 
 /***/ }),
@@ -17673,33 +17673,474 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 83 */,
+/* 83 */
+/***/ (function(module, exports) {
+
+module.exports = new Vue({
+    data: {
+        id: null,
+        name: null,
+        day: {
+            value: 2,
+            options: [
+                {
+                    text: "Lunes",
+                    value: 2
+                },
+                {
+                    text: "Martes",
+                    value: 3
+                },
+                {
+                    text: "Miércoles",
+                    value: 4
+                },
+                {
+                    text: "Jueves",
+                    value: 5
+                },
+                {
+                    text: "Viernes",
+                    value: 6
+                },
+                {
+                    text: "Sábado",
+                    value: 7
+                },
+                {
+                    text: "Domingo",
+                    value: 1
+                }
+            ]
+        },
+        begin: {
+            value: null,
+            text: "hh:mm:ss"
+        },
+        end: {
+            value: null,
+            text: "hh:mm:ss"
+        },
+        models: {
+            ruta: null,
+            rutaPunto: null,
+            rutaPuntoServicio: null,
+            sucursal: null,
+            sucursalHorario: null,
+            sucursalCliente: null
+        },
+        map: {
+            main: null,
+            geocoder: null,
+            distanceMatrix: null,
+            directionService: null,
+            data: {
+                address: "Ciudad de México, México",
+                zoom: 13
+            }
+        },
+        store: {
+            data: {
+                totalDistance: null,
+                totalTime: null
+            },
+            point: [],
+            see: {
+                scheduleBegin: null,
+                scheduleEnd: null,
+                client: [],
+                start: null,
+                travel: null,
+                death: null,
+                service: null,
+                finish: null
+                
+            }
+        }
+    },
+    methods: {
+        init: function(type, first){
+            var me = this, i;
+            if(type === "modal" && !first){
+                for(i = 0; i < this.store.point.length; i++){
+                    if(this.store.point[i].main !== null)
+                        this.store.point[i].main.setMap(null);
+                    if(this.store.point[i].renderer !== null)
+                        this.store.point[i].renderer.setMap(null);
+                }
+            }
+            this.store.point = [];
+            this.store.data.totalDistance = 0;
+            this.models.ruta.get({
+                delimiters: this.id
+            },
+            function(success){
+                me.name = success.body.nombre;
+                me.begin.value = success.body.hora_inicio;
+                me.end.value = success.body.hora_fin;
+                me.day.value = success.body.dia;
+                me.store.data.totalTime = me.converter("string", me.converter("time", success.body.hora_fin) - me.converter("time", success.body.hora_inicio));
+                if(type === "modal"){
+                    setTimeout(function(){
+                        me.initMap(type, first);
+                    }, 250);
+                }
+                else
+                    me.initMap(type, first);
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initMap: function(type, first){
+            if(type !== "modal" || (type === "modal" && first))
+                this.map.main = new google.maps.Map(document.getElementById('mapSeeRoute'), {     //Define Map
+                    zoom: this.map.data.zoom
+                });
+            if(type !== "modal" || first){
+                this.initFocus();
+                this.initServices();
+            }
+            this.initPoint();
+        },
+        initFocus: function(){
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeRoute'));
+        },
+        initServices: function(){
+            this.map.distanceMatrix = new google.maps.DistanceMatrixService();
+            this.map.directionService = new google.maps.DirectionsService();
+        },
+        initGeocoder: function(){
+            var me = this;
+            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
+            this.map.geocoder.geocode({                          //Geocoder for placing
+                address: this.map.data.address
+            },
+            function(response, status){
+                if(status === "OK")
+                    me.map.main.setCenter(response[0].geometry.location);
+                else
+                    console.log(status);
+            });
+        },
+        initPoint: function(){
+            var me = this, length;
+            this.models.rutaPunto.get({
+                delimiters: this.id,
+                params: {
+                    "per-page": 100,
+                    "sort": "hora_llegada_estimada",
+                    "expand": "sucursal"
+                }
+            },
+            function(success){
+                for(i = 0; i < success.body.length; i++){
+                    length = me.store.point.length;
+                    me.store.point.push({
+                        id: success.body[i].id,
+                        idStore: success.body[i]._embedded.sucursal.id,
+                        lat: success.body[i]._embedded.sucursal.lat,
+                        lng: success.body[i]._embedded.sucursal.lng,
+                        name: success.body[i]._embedded.sucursal.nombre,
+                        schedule: [],
+                        scheduleIndex: null,
+                        arrival: success.body[i].hora_llegada_estimada,
+                        calculate: true,       //false takes api values, true takes inherit operations
+                        travel: length === 0 ? "00:00:00" : null,
+                        distance: length === 0 ? 0 : null,
+                        start: length === 0 ? me.begin.value : null,
+                        death: length === 0 ? me.converter("string", me.converter("time", success.body[i].hora_llegada_estimada) - me.converter("time", me.begin.value)) : null,
+                        usedTime: null,
+                        client: [],
+                        hidden: true,
+                        renderer: null,
+                        details: {
+                            warnings: null,
+                            copyrights: [],
+                            legs: []
+                        },
+                        main: new google.maps.Marker({
+                            map: me.map.main,
+                            position: {
+                                lat: success.body[i]._embedded.sucursal.lat,
+                                lng: success.body[i]._embedded.sucursal.lng
+                            },
+                            icon: {
+                                url: "/image/maps/green-empty.png",
+                                labelOrigin: new google.maps.Point(11, 11)
+                            },
+                            label: "" + (length + 1) + "",
+                            title: success.body[i]._embedded.sucursal.nombre,
+                        }),
+                        window: new google.maps.InfoWindow({
+                            content: "Dirección no encontrada.",
+                            maxWidth: 175,
+                            flag: false
+                        })
+                    });
+                    me.initClient(success.body[i].id, length);
+                    me.getDirection(length);
+                }
+                me.focusPosition();
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initClient: function(pointId, i){
+            var j, k, me = this, usedTime = 0;
+            this.models.sucursalCliente.get({
+                delimiters: this.store.point[i].idStore,
+                params: {
+                    "per-page": 100,
+                    "expand": "cliente"
+                }
+            },
+            function(success){
+                for(j = 0; j < success.body.length; j++){
+                    me.store.point[i].client.push({
+                        id: success.body[j]._embedded.cliente.id,
+                        name: success.body[j]._embedded.cliente.nombre,
+                        time: success.body[j].tiempo_solicitado,
+                        active: false
+                    });
+                }
+                me.models.rutaPuntoServicio.get({
+                    delimiters: [me.id, pointId],
+                    params: {
+                        "per-page": 100
+                    }
+                },
+                function(success2){
+                    for(j = 0; j < success2.body.length; j++)
+                        for(k = 0; k < me.store.point[i].client.length; k++)
+                            if(success2.body[j].cliente_id === me.store.point[i].client[k].id){
+                                me.store.point[i].client[k].active = true;
+                                usedTime += me.converter("time", me.store.point[i].client[k].time);
+                            }
+                    me.store.point[i].usedTime = me.converter("string", usedTime);
+                    if(i < me.store.point.length - 1)
+                        me.store.point[i + 1].start = me.converter("string", usedTime + me.converter("time", me.store.point[i].arrival));
+                    me.initSchedule(i);
+                },
+                function(error2){
+                    console.log(error2);
+                });
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initSchedule: function(i){
+            var j,
+                me = this;
+            this.models.sucursalHorario.get({
+                delimiters: this.store.point[i].idStore,
+                params: {
+                    "per-page": 100,
+                    "expand": "cliente",
+                    "sort": "hora_inicio"
+                }
+            },
+            function(success){
+                for(j = 0; j < success.body.length; j++)
+                    if(success.body[j].dia === me.day.value)
+                        me.store.point[i].schedule.push({
+                            begin: success.body[j].hora_inicio,
+                            end: success.body[j].hora_fin
+                        });
+                for(j = 0; j < me.store.point[i].schedule.length; j++)
+                    if(me.store.point[i].schedule[j].begin <= me.store.point[i].arrival &&
+                       me.store.point[i].schedule[j].end > me.store.point[i].arrival)
+                        me.store.point[i].scheduleIndex = j;
+                if(me.store.point[i].schedule[me.store.point[i].scheduleIndex].begin === me.store.point[i].arrival)
+                    me.store.point[i].calculate = false;
+                if(i > 0)
+                    me.initRoute(i);
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initRoute: function(i){
+            var me = this,
+                j,
+                travelTime = 0,
+                distance = 0;
+            this.map.directionService.route({
+                origin: this.store.point[i - 1].main.position,
+                destination: this.store.point[i].main.position,
+                travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
+                avoidTolls: true
+            },
+            function(response, status){
+                if(status === "OK"){
+                    me.store.point[i - 1].renderer = new google.maps.DirectionsRenderer({
+                        map: me.map.main,
+                        draggable: true,
+                        suppressMarkers: true,
+                        preserveViewport: true
+                    });
+                    me.store.point[i - 1].renderer.setDirections(response);
+                    me.store.point[i - 1].details.copyrights = response.routes[0].copyrights;
+                    me.store.point[i - 1].details.warnings = [];
+                    for(j = 0; j < response.routes[0].warnings.length; j++)
+                        me.store.point[i - 1].details.warnings.push({
+                            text: response.routes[0].warnings[j]
+                        });
+                    me.store.point[i - 1].details.legs.push({
+                        hidden: false,
+                        id: me.store.point[i - 1].details.legs.length,
+                        end: response.routes[0].legs[0].end_address,
+                        start: response.routes[0].legs[0].start_address,
+                        steps: []
+                    });
+                    for(j = 0; j < response.routes[0].legs[0].steps.length; j++){
+                        me.store.point[i - 1].details.legs[0].steps.push({
+                            distance: {
+                                value: response.routes[0].legs[0].steps[j].distance.value,
+                                text: response.routes[0].legs[0].steps[j].distance.text
+                            },
+                            duration: {
+                                value: response.routes[0].legs[0].steps[j].duration.value,
+                                text: response.routes[0].legs[0].steps[j].duration.text
+                            },
+                            instructions: response.routes[0].legs[0].steps[j].instructions,
+                            travel_mode: response.routes[0].legs[0].steps[j].travel_mode
+                        });
+                        travelTime += response.routes[0].legs[0].steps[j].duration.value;
+                        distance += response.routes[0].legs[0].steps[j].distance.value;
+                    }
+                    
+                    me.store.point[i].travel = (me.store.point[i].calculate) ? me.converter("string", me.converter("time", me.store.point[i].arrival) - me.converter("time", me.store.point[i].start)):
+                        me.store.point[i].travel = me.converter("string", travelTime);
+                    me.store.point[i].distance = distance;
+                    me.store.data.totalDistance += distance;
+                    me.store.point[i].death = me.converter("string", me.converter("time", me.store.point[i].arrival) - me.converter("time", me.store.point[i].start) - me.converter("time", me.store.point[i].travel));
+                }
+                else
+                    console.log(status);
+            });
+        },
+        getDirection: function(length){
+            var me = this;
+            this.store.point[length].main.addListener("rightclick", function(){
+                if(!me.store.point[length].window.flag){
+                    me.store.point[length].window.flag = true;
+                    me.map.geocoder.geocode({                          //Geocoder for placing
+                        location: me.store.point[length].main.position
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.store.point[length].window.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                }
+                me.store.point[length].window.open(me.map.main, me.store.point[length].main);
+            });
+        },
+        focusPosition: function(){
+            var i,
+                counter = 0,
+                totalLat = 0,
+                totalLng = 0,
+                bounds = new google.maps.LatLngBounds();
+            for(i = 0; i < this.store.point.length; i++)
+                if(this.store.point[i].main !== null &&
+                    this.store.point[i].lat !== null &&
+                    this.store.point[i].lng !== null){
+                    counter++;
+                    totalLat += this.store.point[i].lat;
+                    totalLng += this.store.point[i].lng;
+                    bounds.extend(this.store.point[i].main.getPosition());
+                     
+                }
+            if(counter > 0){
+                this.map.main.setCenter({
+                    lat: totalLat/counter,
+                    lng: totalLng/counter
+                });
+                if(counter > 1)
+                    this.map.main.fitBounds(bounds);
+                else
+                    this.map.main.setZoom(this.map.data.zoom);
+            }
+            else
+                this.initGeocoder();
+        },
+        setPoint: function(iM){
+            this.store.see.name = this.store.point[iM].name;
+            this.store.see.scheduleBegin = this.store.point[iM].schedule[this.store.point[iM].scheduleIndex].begin;
+            this.store.see.scheduleEnd = this.store.point[iM].schedule[this.store.point[iM].scheduleIndex].end;
+            this.store.see.client = this.store.point[iM].client;
+            this.store.see.start = this.store.point[iM].start;
+            this.store.see.travel = this.store.point[iM].travel;
+            this.store.see.death = this.store.point[iM].death;
+            this.store.see.service = this.store.point[iM].usedTime;
+            this.store.see.finish = this.converter("string", this.converter("time", this.store.see.start) + this.converter("time", this.store.see.travel) + this.converter("time", this.store.see.death) + this.converter("time", this.store.see.service));
+        },
+        collapse: function(){
+            if(this.store.point.length > 0){
+                this.store.point[0].hidden = !this.store.point[0].hidden;
+                for(var i = 1; i < this.store.point.length; i++)
+                    this.store.point[i].hidden = this.store.point[0].hidden;
+            }
+        },
+        converter: function(type, val){
+            var value;
+            switch(type){
+                case "time":    //val is string, want return as time
+                    if(val){
+                        val = val.split(":");
+                        value = 0;
+                        value += parseInt(val[0]) * 3600;
+                        value += parseInt(val[1]) * 60;
+                        value += parseInt(val[2]);
+                    }
+                    break;
+                case "string":  //val is time, want return as string
+                    var hours = Math.floor( val / 3600 );
+                    var minutes = Math.floor( val / 60 - (hours * 60) );
+                    var seconds = val - (hours * 3600) - (minutes * 60);
+                    value = hours < 10 ? '0' + hours : hours;
+                    value += ":" + (minutes < 10 ? '0' + minutes : minutes);
+                    value += ":" + (seconds < 10 ? '0' + seconds : seconds);
+                    break;
+            }
+            return value;
+        }
+    }
+});
+
+/***/ }),
 /* 84 */,
-/* 85 */
+/* 85 */,
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 BUTO.requires = {
-    mainTemplate: __webpack_require__(86),
+    mainTemplate: __webpack_require__(87),
     modules: {
-        modelAR: __webpack_require__(113),
+        modelAR: __webpack_require__(114),
         mcdatatable: __webpack_require__(42).component,
-        mapsClient: __webpack_require__(114)
+        mapsClient: __webpack_require__(115)
     },
     components: {
-        toolbar: __webpack_require__(225),
-        map: __webpack_require__(226),
+        toolbar: __webpack_require__(226),
+        map: __webpack_require__(227),
         
-        menu: __webpack_require__(227),
+        menu: __webpack_require__(228),
         
-        clientesRegistrados: __webpack_require__(228),
+        clientesRegistrados: __webpack_require__(229),
         
         tiendasRegistradas: __webpack_require__(232),
         nuevaTienda: __webpack_require__(234),
         
         recursosRegistrados: __webpack_require__(235),
-        nuevoRecurso: __webpack_require__(237),
+        nuevoRecurso: __webpack_require__(238),
         
-        rutasRegistradas: __webpack_require__(238),
+        rutasRegistradas: __webpack_require__(239),
         nuevaRuta: __webpack_require__(241)
     }
 };
@@ -17911,6 +18352,15 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 usuarioEmpleado: this.models.usuarioEmpleado,
                                 empleado: this.models.empleado,
                                 empleadoHorario: this.models.empleadoHorario,
+                                ruta: this.models.ruta,
+                                rutaPunto: this.models.rutaPunto,
+                                rutaPuntoServicio: this.models.rutaPuntoServicio,
+                                sucursal: this.models.sucursal,
+                                sucursalHorario: this.models.sucursalHorario,
+                                sucursalCliente: this.models.sucursalCliente,
+                                proyeccionServicio: this.models.proyeccionServicio,
+                                proyeccionTrabajo: this.models.proyeccionTrabajo,
+                                proyeccionTrabajoServicio: this.models.proyeccionTrabajoServicio,
                                 mask: this.mask
                             });
                             BUTO.requires.components.nuevoRecurso.init({
@@ -17960,36 +18410,36 @@ BUTO.init = function(response){
 };
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 BUTO.templates = {
     mcdatatable: __webpack_require__(42).template,
     
-    loader: __webpack_require__(87),
-    confirm: __webpack_require__(88),
-    alert: __webpack_require__(89),
+    loader: __webpack_require__(88),
+    confirm: __webpack_require__(89),
+    alert: __webpack_require__(90),
     
-    heading: __webpack_require__(90),
-    menu: __webpack_require__(91),
-    pageHeading: __webpack_require__(92),
-    foot: __webpack_require__(93),
+    heading: __webpack_require__(91),
+    menu: __webpack_require__(92),
+    pageHeading: __webpack_require__(93),
+    foot: __webpack_require__(94),
     
-    clientesRegistrados: __webpack_require__(94),
+    clientesRegistrados: __webpack_require__(95),
     
     tiendasRegistradas: __webpack_require__(98),
     nuevaTienda: __webpack_require__(101),
     
     recursosRegistrados: __webpack_require__(102),
-    nuevoRecurso: __webpack_require__(105),
+    nuevoRecurso: __webpack_require__(106),
     
-    rutasRegistradas: __webpack_require__(106),
-    nuevaRuta: __webpack_require__(109),
+    rutasRegistradas: __webpack_require__(107),
+    nuevaRuta: __webpack_require__(110),
     
-    reportes: __webpack_require__(110),
+    reportes: __webpack_require__(111),
     
-    map: __webpack_require__(111),
-    toolbar: __webpack_require__(112)
+    map: __webpack_require__(112),
+    toolbar: __webpack_require__(113)
 };
 
 Vue.component("mcdatatable", {
@@ -18196,7 +18646,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -18209,7 +18659,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -18228,7 +18678,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -18246,7 +18696,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -18282,7 +18732,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -18319,7 +18769,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -18356,7 +18806,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -18366,12 +18816,11 @@ module.exports = `
 `;
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var tiendasLigadas = __webpack_require__(95);
-var recursosLigados = __webpack_require__(96);
-var rutas = __webpack_require__(97);
+var tiendasLigadas = __webpack_require__(96);
+var recursosLigados = __webpack_require__(97);
 Vue.component("tiendas-ligadas", {
     template: tiendasLigadas,
     props: {
@@ -18388,13 +18837,6 @@ Vue.component("recursos-ligados", {
         mask: Function
     }
 });
-Vue.component("rutas", {
-    template: rutas,
-    props: {
-        config: Object,
-        setview: Function
-    }
-});
 module.exports = `
     <div class="col-sm-12">
         <div v-if="config.active === 0" class="col-sm-12">
@@ -18409,12 +18851,11 @@ module.exports = `
         </div>
         <tiendas-ligadas v-else-if="config.active === 1" :config="config.tienda" :setview="config.setView" :mask="config.mask"></tiendas-ligadas>
         <recursos-ligados v-else-if="config.active === 2" :config="config.recurso" :setview="config.setView" :mask="config.mask"></recursos-ligados>
-        <rutas v-else-if="config.active === 3" :config="config.ruta" :setview="config.setView"></rutas>
     </div>
 `;
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -18427,7 +18868,6 @@ module.exports = `
                         <ul class="icons-list">
                             <li class="flat-handler-custom"><a href="#" v-on:click.prevent title="Tiendas"><span aria-hidden="true" class="glyphicon glyphicon-tags"></span></a></li>
                             <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(2)" title="Recursos humanos"><span aria-hidden="true" class="glyphicon glyphicon-briefcase"></span></a></li>
-                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(3)" title="Rutas"><span aria-hidden="true" class="glyphicon glyphicon-road"></span></a></li>
                             <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></a></li>
                         </ul>
                     </div>
@@ -18927,7 +19367,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -18940,7 +19380,6 @@ module.exports = `
                         <ul class="icons-list">
                             <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(1)" title="Tiendas"><span aria-hidden="true" class="glyphicon glyphicon-tags"></span></a></li>
                             <li class="flat-handler-custom"><a href="#" v-on:click.prevent title="Recursos humanos"><span aria-hidden="true" class="glyphicon glyphicon-briefcase"></span></a></li>
-                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(3)" title="Rutas"><span aria-hidden="true" class="glyphicon glyphicon-road"></span></a></li>
                             <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></a></li>
                         </ul>
                     </div>
@@ -19352,23 +19791,6 @@ module.exports = `
                         <img src="/image/add.png">
                     </a>
                 </div>
-            </div>
-        </div>
-    </div>
-`;
-
-/***/ }),
-/* 97 */
-/***/ (function(module, exports) {
-
-module.exports = `
-    <div class="col-sm-12">
-        <div class="panel panel-flat">
-            <div class="panel-body">
-                <p class="content-group">
-                    RUTAS
-                </p>
-                
             </div>
         </div>
     </div>
@@ -19932,6 +20354,7 @@ module.exports = `
 
 var verRecurso = __webpack_require__(103);
 var editarRecurso = __webpack_require__(104);
+var rutas = __webpack_require__(105);
 Vue.component("ver-recurso", {
     template: verRecurso,
     props: {
@@ -19945,6 +20368,13 @@ Vue.component("editar-recurso", {
     props: {
         config: Object,
         mask: Function,
+        setview: Function
+    }
+});
+Vue.component("rutas", {
+    template: rutas,
+    props: {
+        config: Object,
         setview: Function
     }
 });
@@ -19962,6 +20392,7 @@ module.exports = `
         </div>
         <ver-recurso v-else-if="config.active === 1" :config="config.watch" :mask="config.mask" :setview="config.setView"></ver-recurso>
         <editar-recurso v-else-if="config.active === 2" :config="config.edit" :mask="config.mask" :setview="config.setView"></editar-recurso>
+        <rutas v-else-if="config.active === 3" :config="config.ruta" :setview="config.setView"></rutas>
     </div>
 `;
 
@@ -20301,6 +20732,479 @@ module.exports = `
 /***/ (function(module, exports) {
 
 module.exports = `
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-center">{{config.client.name}}</h4>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li class="flat-handler-custom"><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-center">Rutas ligadas</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <div class="steps-basic wizard clearfix">
+                                        <div class="steps clearfix">
+                                            <ul role="tablist">
+                                                <li v-for="(steps, stepIndex) in config.day.options" role="tab"
+                                                :class="[stepIndex === 0 ? 'first' : '',
+                                                        steps.value === config.day.value ? 'done active' : 'active']" aria-disabled="false" aria-selected="true">
+                                                    <a href="#" v-on:click.prevent="config.day.index = stepIndex; config.day.value = steps.value; config.init(1);">
+                                                        <span class="number">X</span> {{steps.text}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div style="padding-top: 20px"></div>
+                                <template v-for="(interval, intervalIndex) in config.steps[config.day.index].schedule">
+                                    <div class="col-sm-12">
+                                        <div class="form-group text-center schedule-title">
+                                            <label>Horario {{intervalIndex + 1}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                            <span class="help-block">hh:mm:ss</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                            <span class="help-block">hh:mm:ss</span>
+                                        </div>
+                                    </div>
+                                    <template v-for="(route, routeIndex) in interval.route">
+                                        <div class="col-sm-12">
+                                            <div class="main-info grid-row-customized grid-row-highlight-customized selected" style="padding: 6px; padding-bottom: 14px; margin-bottom: 20px">
+                                                {{route.name}}
+                                                <div class="pull-right">
+                                                    <a href="#" v-on:click.prevent="config.setLink('seeLinked', intervalIndex, routeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                        <i aria-hidden="true" class="icon-eye"></i>
+                                                    </a>
+                                                    <a href="#" v-on:click.prevent="config.setLink('edit', intervalIndex, routeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Editar" data-toggle="modal" data-target="#edit">
+                                                        <i aria-hidden="true" class="icon-pencil6"></i>
+                                                    </a>
+                                                    <a href="#" v-on:click.prevent="config.remove(route.id)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Eliminar">
+                                                        <i aria-hidden="true" class="icon-unlink"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title text-center">Todas las rutas</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 2px;">
+                                <input type="text" v-model="config.data.search.route" v-on:keyup="config.init(1)" class="form-control" placeholder="Búsqueda">
+                                <div class="form-control-feedback" style="width: 30px;">
+                                    <i class="icon-search4 text-size-base"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 grid-relation">
+                            <table class="table table-bordered">
+                                <tbody class="body-class">
+                                    <tr v-for="(route, routeIndex) in config.route"
+                                        :class="route.linked ? 'selected' : route.selected ? 'link-row-select' : ''"
+                                        class="grid-row-customized grid-row-highlight-customized">
+                                        <td class="col-md-1">
+                                            {{route.name}}
+                                            <div class="pull-right">
+                                                <a href="#" v-on:click.prevent="config.setLink('see', routeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                    <i class="icon-eye" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.setLink('add', routeIndex)" :class="route.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar" data-toggle="modal" data-target="#add">
+                                                    <i class="icon-link" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!--<tr v-for="(route, routeIndex) in config.route"
+                                        :draggable="route.selected"
+                                        @dragstart="config.initDrag('add')"
+                                        @dragend="config.alterLinkDef.masive.config.active = 0;"
+                                        :class="route.linked ? 'selected' : route.selected ? 'link-row-select' : ''"
+                                        class="grid-row-customized grid-row-highlight-customized">
+                                        <td v-on:click.self="route.linked ? '' : route.selected = !route.selected" class="col-md-1">
+                                            {{route.name}}
+                                            <div class="pull-right">
+                                                <a href="#" v-on:click.prevent="config.setLink('see', routeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                    <i class="icon-eye" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.setLink('add', routeIndex)" :class="route.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar" data-toggle="modal" data-target="#add">
+                                                    <i class="icon-link" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <nav class="pull-right">
+                            <ul class="pagination">
+                                <li>
+                                    <span><b>Mostrando {{config.route.length}} de {{config.data.page.route.totalCount}} filas en la página {{config.data.page.route.currentPage}} de {{config.data.page.route.pageCount}}.</b></span>
+                                </li>
+                                <li  :class="config.data.page.route.currentPage === 1 ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(1, 1);">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <template v-if="config.data.page.route.pageCount <= 3">
+                                    <li v-for="page in config.data.page.route.pageCount" :class="page === config.data.page.route.currentPage ? 'active' : ''">
+                                        <a href="#" v-on:click.prevent="page === config.data.page.route.currentPage ? '' : config.init(1, page);">
+                                            {{page}}
+                                        </a>
+                                    </li>
+                                </template>
+                                <template v-else>
+                                    <template v-if="config.data.page.route.currentPage < 3">
+                                        <li :class="config.data.page.route.currentPage === 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.route.currentPage === 1 ? '' : config.init(1, 1);">
+                                                1
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.route.currentPage === 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.route.currentPage === 2 ? '' : config.init(1, 2);">
+                                                2
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.route.currentPage === 3 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.route.currentPage === 3 ? '' : config.init(1, 3);">
+                                                3
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                    <template v-else-if="config.data.page.route.currentPage > config.data.page.route.pageCount - 2">
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li :class="config.data.page.route.currentPage === config.data.page.route.pageCount - 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.route.currentPage === config.data.page.route.pageCount - 2 ? '' : config.init(1, config.data.page.route.pageCount - 2);">
+                                                {{config.data.page.route.pageCount - 2}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.route.currentPage === config.data.page.route.pageCount - 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.route.currentPage === config.data.page.route.pageCount - 1 ? '' : config.init(1, config.data.page.route.pageCount - 1);">
+                                                {{config.data.page.route.pageCount - 1}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.route.currentPage === config.data.page.route.pageCount ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.route.currentPage === config.data.page.route.pageCount ? '' : config.init(1, config.data.page.route.pageCount);">
+                                                {{config.data.page.route.pageCount}}
+                                            </a>
+                                        </li>
+                                    </template>
+                                    <template v-else>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.route.currentPage - 1)">
+                                                {{config.data.page.route.currentPage - 1}}
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#" v-on:click.prevent>
+                                                {{config.data.page.route.currentPage}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.route.currentPage + 1)">
+                                                {{config.data.page.route.currentPage + 1}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                </template>
+                                <li :class="config.data.page.route.pageCount === config.data.page.route.currentPage ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(1, config.data.page.route.pageCount);">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Ligar ruta: {{config.alterLinkDef.add.route.name}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                        <h4 class="text-center">Horario de ruta</h4>
+                        <div class="row">
+                            <div style="padding-top: 20px"></div>
+                            <div class="col-sm-6">
+                                <div class="form-group text-center schedule-title">
+                                    <label>Inicio</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group text-center schedule-title">
+                                    <label>Final</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input disabled="disabled" type="text" maxlength="8" v-model="config.alterLinkDef.add.route.begin" class="form-control">
+                                    <span class="help-block">hh:mm:ss</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input disabled="disabled" type="text" maxlength="8" v-model="config.alterLinkDef.add.route.end" class="form-control">
+                                    <span class="help-block">hh:mm:ss</span>
+                                </div>
+                            </div>
+                            </template>
+                        </div>
+                        <div class="custom-divider"></div>
+                        <div class="custom-divider"></div>
+                        <h4 class="text-center">Horarios de empleado</h4>
+                        <div class="row">
+                            <div style="padding-top: 20px"></div>
+                            <div class="col-sm-5">
+                                <div class="form-group text-center schedule-title">
+                                    <label>Inicio</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="form-group text-center schedule-title">
+                                    <label>Final</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group text-center schedule-title">
+                                    <label>Selección</label>
+                                </div>
+                            </div>
+                            <template v-for="(interval, intervalIndex) in  config.steps[config.day.index].schedule">
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" class="form-control">
+                                        <span class="help-block">hh:mm:ss</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" class="form-control">
+                                        <span class="help-block">hh:mm:ss</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                        <label v-on:click.prevent="config.alterLinkDef.add.scheduleIndex = intervalIndex; config.alterLinkDef.add.scheduleId = interval.id">
+                                            <span class="switchery switchery-default switchery-custom" :class="config.alterLinkDef.add.scheduleIndex === intervalIndex ? 'active' : 'not-active'">
+                                                <small></small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="custom-divider"></div>
+                        <div class="custom-divider"></div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><b>Fecha</b></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <div :class="config.alterLinkDef.add.date.valid ? '' : 'has-error'" class="form-group">
+                                    <input v-model="config.alterLinkDef.add.date.value" v-on:change="config.validation('add')" name="Fecha" placeholder="Fecha" class="form-control" type="date">
+                                    <span class="help-block">{{config.alterLinkDef.add.date.text}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" v-on:click="config.add()" class="btn btn-default btn-customized">Ligar</button>
+                        <button id="closeAdd" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{config.alterLinkDef.see.route.name}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                        <div v-if="config.alterLinkDef.see.routeLinked.date !== null" class="row">
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">Fecha</label>
+                                <div class="col-lg-10">
+                                    <input disabled="disabled" class="form-control" v-model="config.alterLinkDef.see.routeLinked.date" type="date" name="Fecha">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div style="padding-top: 20px"></div>
+                            <div class="col-sm-6">
+                                <div class="form-group text-center schedule-title">
+                                    <label>Horario de inicio</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group text-center schedule-title">
+                                    <label>Horario de término</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input disabled="disabled" type="text" maxlength="8" v-model="config.alterLinkDef.see.route.begin.value" class="form-control">
+                                    <span class="help-block">{{config.alterLinkDef.see.route.begin.text}}</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input disabled="disabled" type="text" maxlength="8" v-model="config.alterLinkDef.see.route.end.value" class="form-control">
+                                    <span class="help-block">{{config.alterLinkDef.see.route.end.text}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <div class="steps-basic wizard clearfix">
+                                        <div class="steps clearfix">
+                                            <ul role="tablist">
+                                                <li v-for="(steps, stepIndex) in config.alterLinkDef.see.route.day.options" role="tab"
+                                                :class="[stepIndex === 0 ? 'first' : '',
+                                                        steps.value === config.alterLinkDef.see.route.day.value ? 'done active' : 'active']" aria-disabled="false" aria-selected="true">
+                                                    <a href="#" v-on:click.prevent>
+                                                        <span class="number">X</span> {{steps.text}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <div id="mapFocusPositionSeeRoute" v-on:click="config.alterLinkDef.see.route.focusPosition()" class="map-focus-position text-center">
+                                        <i class="icon-shrink3"></i>
+                                    </div>
+                                    <div id="mapSeeRoute" class="map-container-modal map-basic"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row title-info">
+                                    <div class="col-sm-12">
+                                        <span>Distancia Total: {{config.alterLinkDef.see.route.store.data.totalDistance / 1000}} km.</span>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <span>Tiempo Total: {{config.alterLinkDef.see.route.store.point.length > 0 ? config.alterLinkDef.see.route.store.data.totalTime : '00:00:00'}}.</span>
+                                    </div>
+                                </div>
+                                <template v-if="config.alterLinkDef.see.route.store.point.length > 0">
+                                    <template v-for="(store, storeIndex) in config.alterLinkDef.see.route.store.point" class="selected grid-row-customized grid-row-highlight-customized">
+                                        <div class="row main-info grid-row-customized grid-row-highlight-customized selected" style="padding-top: 8px; padding-bottom: 8px;">
+                                            <div class="col-sm-2">
+                                                <img :src="store.main.getIcon().url">
+                                                <div class="icon-label-toolbar">{{storeIndex + 1}}</div>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                {{store.name}}
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+                        <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Editar ruta ligada: {{config.alterLinkDef.edit.routeName}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span><b>Fecha</b></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <div :class="config.alterLinkDef.edit.date.valid ? '' : 'has-error'" class="form-group">
+                                    <input v-model="config.alterLinkDef.edit.date.value" v-on:change="config.validation('edit')" name="Fecha" placeholder="Fecha" class="form-control" type="date">
+                                    <span class="help-block">{{config.alterLinkDef.edit.date.text}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" v-on:click="config.edit()" class="btn btn-default btn-customized">Editar</button>
+                        <button id="closeEdit" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+/***/ }),
+/* 106 */
+/***/ (function(module, exports) {
+
+module.exports = `
     <div class="col-sm-12">
         <div class="panel panel-flat">
             <div class="panel-heading">
@@ -20580,11 +21484,11 @@ module.exports = `
 `;
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var verRuta = __webpack_require__(107);
-var editarRuta = __webpack_require__(108);
+var verRuta = __webpack_require__(108);
+var editarRuta = __webpack_require__(109);
 Vue.component("ver-ruta", {
     template: verRuta,
     props: {
@@ -20619,7 +21523,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -20905,7 +21809,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -21532,7 +22436,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -22305,7 +23209,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -22319,7 +23223,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -22339,7 +23243,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -22419,7 +23323,7 @@ module.exports = `
 `;
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports) {
 
 var modelAR = function(init, activity, activityError){
@@ -23120,7 +24024,7 @@ var modelAR = function(init, activity, activityError){
 module.exports = modelAR;
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -23172,8 +24076,8 @@ module.exports = modelAR;
  exports.createClient = function(options) {
 
   options = options || {};
-  var makeApiCall = __webpack_require__(115).inject(options);
-  var deprecate = __webpack_require__(213).deprecate;
+  var makeApiCall = __webpack_require__(116).inject(options);
+  var deprecate = __webpack_require__(214).deprecate;
 
   var makeApiMethod = function(apiConfig) {
     return function(query, callback, customParams) {
@@ -23195,14 +24099,14 @@ module.exports = modelAR;
     };
   };
 
-  var geocode = __webpack_require__(216);
-  var geolocation = __webpack_require__(217);
-  var timezone = __webpack_require__(218);
-  var directions = __webpack_require__(219);
-  var distanceMatrix = __webpack_require__(220);
-  var elevation = __webpack_require__(221);
-  var roads = __webpack_require__(222);
-  var places = __webpack_require__(223);
+  var geocode = __webpack_require__(217);
+  var geolocation = __webpack_require__(218);
+  var timezone = __webpack_require__(219);
+  var directions = __webpack_require__(220);
+  var distanceMatrix = __webpack_require__(221);
+  var elevation = __webpack_require__(222);
+  var roads = __webpack_require__(223);
+  var places = __webpack_require__(224);
 
   return {
     directions: makeApiMethod(directions.directions),
@@ -23228,11 +24132,11 @@ module.exports = modelAR;
 
 };
 
-exports.cli = __webpack_require__(224);
+exports.cli = __webpack_require__(225);
 
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, Buffer) {/**
@@ -23266,13 +24170,13 @@ exports.inject = function(options) {
   var rateLimit = rate.limit || 10;  // 10 requests per ratePeriod.
   var ratePeriod = rate.period || 1000;  // 1 second.
 
-  var makeUrlRequest = options.makeUrlRequest || __webpack_require__(123);
+  var makeUrlRequest = options.makeUrlRequest || __webpack_require__(124);
   var mySetTimeout = options.setTimeout || setTimeout;
   var myClearTimeout = options.clearTimeout || clearTimeout;
   var getTime = options.getTime || function() {return new Date().getTime();};
-  var wait = __webpack_require__(138).inject(mySetTimeout, myClearTimeout);
-  var attempt = __webpack_require__(139).inject(wait).attempt;
-  var ThrottledQueue = __webpack_require__(140).inject(wait, getTime);
+  var wait = __webpack_require__(139).inject(mySetTimeout, myClearTimeout);
+  var attempt = __webpack_require__(140).inject(wait).attempt;
+  var ThrottledQueue = __webpack_require__(141).inject(wait, getTime);
   var requestQueue = ThrottledQueue.create(rateLimit, ratePeriod);
 
   /**
@@ -23441,7 +24345,7 @@ exports.inject = function(options) {
   function computeSignature(secret, payload) {
     var signature =
         new Buffer(
-            __webpack_require__(142)
+            __webpack_require__(143)
             .createHmac('sha1', secret)
             .update(payload)
             .digest('base64'))
@@ -23460,7 +24364,7 @@ exports.inject = function(options) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23581,7 +24485,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -23671,7 +24575,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.4.1 by @mathias */
@@ -24210,7 +25114,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)(module), __webpack_require__(5)))
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24233,18 +25137,18 @@ module.exports = {
 
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.decode = exports.parse = __webpack_require__(121);
-exports.encode = exports.stringify = __webpack_require__(122);
+exports.decode = exports.parse = __webpack_require__(122);
+exports.encode = exports.stringify = __webpack_require__(123);
 
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24335,7 +25239,7 @@ var isArray = Array.isArray || function (xs) {
 
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24427,7 +25331,7 @@ var objectKeys = Object.keys || function (obj) {
 
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/**
@@ -24447,9 +25351,9 @@ var objectKeys = Object.keys || function (obj) {
  * limitations under the License.
  */
 
-var https = __webpack_require__(124);
+var https = __webpack_require__(125);
 var parse = __webpack_require__(31).parse;
-var version = __webpack_require__(137);
+var version = __webpack_require__(138);
 
 
 // add keep-alive header to speed up request
@@ -24543,10 +25447,10 @@ module.exports = function makeUrlRequest(url, onSuccess, onError, options) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var http = __webpack_require__(125);
+var http = __webpack_require__(126);
 
 var https = module.exports;
 
@@ -24563,12 +25467,12 @@ https.request = function (params, cb) {
 
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var ClientRequest = __webpack_require__(126)
-var extend = __webpack_require__(135)
-var statusCodes = __webpack_require__(136)
+/* WEBPACK VAR INJECTION */(function(global) {var ClientRequest = __webpack_require__(127)
+var extend = __webpack_require__(136)
+var statusCodes = __webpack_require__(137)
 var url = __webpack_require__(31)
 
 var http = exports
@@ -24648,14 +25552,14 @@ http.METHODS = [
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(45)
 var inherits = __webpack_require__(1)
-var response = __webpack_require__(127)
+var response = __webpack_require__(128)
 var stream = __webpack_require__(14)
-var toArrayBuffer = __webpack_require__(134)
+var toArrayBuffer = __webpack_require__(135)
 
 var IncomingMessage = response.IncomingMessage
 var rStates = response.readyStates
@@ -24961,7 +25865,7 @@ var unsafeHeaders = [
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(45)
@@ -25150,13 +26054,13 @@ IncomingMessage.prototype._onXHRProgress = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(0).Buffer, __webpack_require__(5)))
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25236,7 +26140,7 @@ module.exports = function () {
 }();
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -25289,13 +26193,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(131);
+__webpack_require__(132);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -25488,7 +26392,7 @@ exports.clearImmediate = clearImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -25562,7 +26466,7 @@ function config (name) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25615,7 +26519,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 };
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(0).Buffer
@@ -25648,7 +26552,7 @@ module.exports = function (buf) {
 
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports) {
 
 module.exports = extend
@@ -25673,7 +26577,7 @@ function extend() {
 
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -25743,14 +26647,14 @@ module.exports = {
 
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports) {
 
 module.exports = '0.0.1';
 
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -25790,7 +26694,7 @@ exports.inject = function(setTimeout, clearTimeout) {
 
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -25850,7 +26754,7 @@ exports.inject = function(wait) {
 
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -25870,7 +26774,7 @@ exports.inject = function(wait) {
  * limitations under the License.
  */
 
-var CircularBuffer = __webpack_require__(141);
+var CircularBuffer = __webpack_require__(142);
 var Task = __webpack_require__(22);
 
 exports.inject = function(wait, getTime) {
@@ -25930,7 +26834,7 @@ exports.inject = function(wait, getTime) {
 
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports) {
 
 /**
@@ -25976,7 +26880,7 @@ exports.create = function(size) {
 
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25986,7 +26890,7 @@ exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = _
 exports.createHash = exports.Hash = __webpack_require__(17)
 exports.createHmac = exports.Hmac = __webpack_require__(52)
 
-var algos = __webpack_require__(154)
+var algos = __webpack_require__(155)
 var algoKeys = Object.keys(algos)
 var hashes = ['sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'md5', 'rmd160'].concat(algoKeys)
 exports.getHashes = function () {
@@ -25997,7 +26901,7 @@ var p = __webpack_require__(54)
 exports.pbkdf2 = p.pbkdf2
 exports.pbkdf2Sync = p.pbkdf2Sync
 
-var aes = __webpack_require__(156)
+var aes = __webpack_require__(157)
 
 exports.Cipher = aes.Cipher
 exports.createCipher = aes.createCipher
@@ -26010,7 +26914,7 @@ exports.createDecipheriv = aes.createDecipheriv
 exports.getCiphers = aes.getCiphers
 exports.listCiphers = aes.listCiphers
 
-var dh = __webpack_require__(167)
+var dh = __webpack_require__(168)
 
 exports.DiffieHellmanGroup = dh.DiffieHellmanGroup
 exports.createDiffieHellmanGroup = dh.createDiffieHellmanGroup
@@ -26018,16 +26922,16 @@ exports.getDiffieHellman = dh.getDiffieHellman
 exports.createDiffieHellman = dh.createDiffieHellman
 exports.DiffieHellman = dh.DiffieHellman
 
-var sign = __webpack_require__(171)
+var sign = __webpack_require__(172)
 
 exports.createSign = sign.createSign
 exports.Sign = sign.Sign
 exports.createVerify = sign.createVerify
 exports.Verify = sign.Verify
 
-exports.createECDH = __webpack_require__(209)
+exports.createECDH = __webpack_require__(210)
 
-var publicEncrypt = __webpack_require__(210)
+var publicEncrypt = __webpack_require__(211)
 
 exports.publicEncrypt = publicEncrypt.publicEncrypt
 exports.privateEncrypt = publicEncrypt.privateEncrypt
@@ -26075,7 +26979,7 @@ exports.constants = {
 
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26113,7 +27017,7 @@ module.exports = function hash (buf, fn) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26204,35 +27108,35 @@ module.exports = HashBase
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(33);
 
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(12);
 
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(14).Transform
 
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(14).PassThrough
 
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*
@@ -26332,7 +27236,7 @@ module.exports = Sha
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*
@@ -26437,7 +27341,7 @@ module.exports = Sha1
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/**
@@ -26496,7 +27400,7 @@ module.exports = Sha224
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var inherits = __webpack_require__(1)
@@ -26559,7 +27463,7 @@ module.exports = Sha384
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26612,14 +27516,14 @@ module.exports = Hmac
 
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(53)
 
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {var checkParameters = __webpack_require__(55)
@@ -26724,13 +27628,13 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ebtk = __webpack_require__(25)
 var aes = __webpack_require__(38)
-var DES = __webpack_require__(160)
-var desModes = __webpack_require__(166)
+var DES = __webpack_require__(161)
+var desModes = __webpack_require__(167)
 var aesModes = __webpack_require__(27)
 function createCipher (suite, password) {
   var keyLen, ivLen
@@ -26803,7 +27707,7 @@ exports.listCiphers = exports.getCiphers = getCiphers
 
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
@@ -26932,7 +27836,7 @@ exports.createCipher = createCipher
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var zeros = new Buffer(16)
@@ -27037,7 +27941,7 @@ function xor (a, b) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
@@ -27181,7 +28085,7 @@ exports.createDecipheriv = createDecipheriv
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var CipherBase = __webpack_require__(10)
@@ -27231,7 +28135,7 @@ DES.prototype._final = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27494,7 +28398,7 @@ exports.padSplit = function padSplit(num, size, group) {
 
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27642,7 +28546,7 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
 
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27792,7 +28696,7 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
 
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27864,7 +28768,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
 
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27926,7 +28830,7 @@ EDE.prototype._unpad = DES.prototype._unpad;
 
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports) {
 
 exports['des-ecb'] = {
@@ -27956,13 +28860,13 @@ exports['des-ede'] = {
 
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var generatePrime = __webpack_require__(66)
-var primes = __webpack_require__(169)
+var primes = __webpack_require__(170)
 
-var DH = __webpack_require__(170)
+var DH = __webpack_require__(171)
 
 function getDiffieHellman (mod) {
   var prime = new Buffer(primes[mod].prime, 'hex')
@@ -28005,19 +28909,19 @@ exports.createDiffieHellman = exports.DiffieHellman = createDiffieHellman
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports) {
 
 module.exports = {"modp1":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a63a3620ffffffffffffffff"},"modp2":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece65381ffffffffffffffff"},"modp5":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca237327ffffffffffffffff"},"modp14":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aacaa68ffffffffffffffff"},"modp15":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a93ad2caffffffffffffffff"},"modp16":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c934063199ffffffffffffffff"},"modp17":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dcc4024ffffffffffffffff"},"modp18":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dbe115974a3926f12fee5e438777cb6a932df8cd8bec4d073b931ba3bc832b68d9dd300741fa7bf8afc47ed2576f6936ba424663aab639c5ae4f5683423b4742bf1c978238f16cbe39d652de3fdb8befc848ad922222e04a4037c0713eb57a81a23f0c73473fc646cea306b4bcbc8862f8385ddfa9d4b7fa2c087e879683303ed5bdd3a062b3cf5b3a278a66d2a13f83f44f82ddf310ee074ab6a364597e899a0255dc164f31cc50846851df9ab48195ded7ea1b1d510bd7ee74d73faf36bc31ecfa268359046f4eb879f924009438b481c6cd7889a002ed5ee382bc9190da6fc026e479558e4475677e9aa9e3050e2765694dfc81f56e880b96e7160c980dd98edd3dfffffffffffffffff"}}
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var BN = __webpack_require__(2);
@@ -28188,14 +29092,14 @@ function formatReturnValue(bn, enc) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(17)
 var stream = __webpack_require__(36)
 var inherits = __webpack_require__(1)
-var sign = __webpack_require__(172)
-var verify = __webpack_require__(208)
+var sign = __webpack_require__(173)
+var verify = __webpack_require__(209)
 
 var algorithms = __webpack_require__(53)
 Object.keys(algorithms).forEach(function (key) {
@@ -28286,7 +29190,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
@@ -28438,13 +29342,13 @@ module.exports.makeKey = makeKey
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports) {
 
 module.exports = {"_args":[["elliptic@6.4.0","/var/www/node/travelAppT"]],"_development":true,"_from":"elliptic@6.4.0","_id":"elliptic@6.4.0","_inBundle":false,"_integrity":"sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.4.0","name":"elliptic","escapedName":"elliptic","rawSpec":"6.4.0","saveSpec":null,"fetchSpec":"6.4.0"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz","_spec":"6.4.0","_where":"/var/www/node/travelAppT","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.0"}
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28571,7 +29475,7 @@ utils.intFromLE = intFromLE;
 
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28953,7 +29857,7 @@ BasePoint.prototype.dblp = function dblp(k) {
 
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29898,7 +30802,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
 
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30085,7 +30989,7 @@ Point.prototype.getX = function getX() {
 
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30525,7 +31429,7 @@ Point.prototype.mixedAdd = Point.prototype.add;
 
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30698,7 +31602,7 @@ defineCurve('ed25519', {
 
 var pre;
 try {
-  pre = __webpack_require__(186);
+  pre = __webpack_require__(187);
 } catch (e) {
   pre = undefined;
 }
@@ -30737,21 +31641,21 @@ defineCurve('secp256k1', {
 
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.sha1 = __webpack_require__(181);
-exports.sha224 = __webpack_require__(182);
+exports.sha1 = __webpack_require__(182);
+exports.sha224 = __webpack_require__(183);
 exports.sha256 = __webpack_require__(71);
-exports.sha384 = __webpack_require__(183);
+exports.sha384 = __webpack_require__(184);
 exports.sha512 = __webpack_require__(72);
 
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30832,7 +31736,7 @@ SHA1.prototype._digest = function digest(enc) {
 
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30869,7 +31773,7 @@ SHA224.prototype._digest = function digest(enc) {
 
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30911,7 +31815,7 @@ SHA384.prototype._digest = function digest(enc) {
 
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31064,7 +31968,7 @@ var sh = [
 
 
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31118,7 +32022,7 @@ Hmac.prototype.digest = function digest(enc) {
 
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -31904,20 +32808,20 @@ module.exports = {
 
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var BN = __webpack_require__(2);
-var HmacDRBG = __webpack_require__(188);
+var HmacDRBG = __webpack_require__(189);
 var elliptic = __webpack_require__(3);
 var utils = elliptic.utils;
 var assert = utils.assert;
 
-var KeyPair = __webpack_require__(189);
-var Signature = __webpack_require__(190);
+var KeyPair = __webpack_require__(190);
+var Signature = __webpack_require__(191);
 
 function EC(options) {
   if (!(this instanceof EC))
@@ -32151,7 +33055,7 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
 
 
 /***/ }),
-/* 188 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32271,7 +33175,7 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
 
 
 /***/ }),
-/* 189 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32397,7 +33301,7 @@ KeyPair.prototype.inspect = function inspect() {
 
 
 /***/ }),
-/* 190 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32539,7 +33443,7 @@ Signature.prototype.toDER = function toDER(enc) {
 
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32550,8 +33454,8 @@ var elliptic = __webpack_require__(3);
 var utils = elliptic.utils;
 var assert = utils.assert;
 var parseBytes = utils.parseBytes;
-var KeyPair = __webpack_require__(192);
-var Signature = __webpack_require__(193);
+var KeyPair = __webpack_require__(193);
+var Signature = __webpack_require__(194);
 
 function EDDSA(curve) {
   assert(curve === 'ed25519', 'only tested with ed25519 so far');
@@ -32664,7 +33568,7 @@ EDDSA.prototype.isPoint = function isPoint(val) {
 
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32767,7 +33671,7 @@ module.exports = KeyPair;
 
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32840,7 +33744,7 @@ module.exports = Signature;
 
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32850,7 +33754,7 @@ module.exports = Signature;
 
 var asn1 = __webpack_require__(20)
 
-exports.certificate = __webpack_require__(205)
+exports.certificate = __webpack_require__(206)
 
 var RSAPrivateKey = asn1.define('RSAPrivateKey', function () {
   this.seq().obj(
@@ -32969,7 +33873,7 @@ exports.signature = asn1.define('signature', function () {
 
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var asn1 = __webpack_require__(20);
@@ -32992,7 +33896,7 @@ function Entity(name, body) {
 Entity.prototype._createNamed = function createNamed(base) {
   var named;
   try {
-    named = __webpack_require__(196).runInThisContext(
+    named = __webpack_require__(197).runInThisContext(
       '(function ' + this.name + '(entity) {\n' +
       '  this._initNamed(entity);\n' +
       '})'
@@ -33036,10 +33940,10 @@ Entity.prototype.encode = function encode(data, enc, /* internal */ reporter) {
 
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var indexOf = __webpack_require__(197);
+var indexOf = __webpack_require__(198);
 
 var Object_keys = function (obj) {
     if (Object.keys) return Object.keys(obj)
@@ -33180,7 +34084,7 @@ exports.createContext = Script.createContext = function (context) {
 
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports) {
 
 
@@ -33195,7 +34099,7 @@ module.exports = function(arr, obj){
 };
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
@@ -33322,7 +34226,7 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
 
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Reporter = __webpack_require__(21).Reporter;
@@ -33962,7 +34866,7 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
 
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var constants = __webpack_require__(74);
@@ -34010,17 +34914,17 @@ exports.tagByName = constants._reverse(exports.tag);
 
 
 /***/ }),
-/* 201 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var decoders = exports;
 
 decoders.der = __webpack_require__(75);
-decoders.pem = __webpack_require__(202);
+decoders.pem = __webpack_require__(203);
 
 
 /***/ }),
-/* 202 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
@@ -34075,17 +34979,17 @@ PEMDecoder.prototype.decode = function decode(data, options) {
 
 
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var encoders = exports;
 
 encoders.der = __webpack_require__(76);
-encoders.pem = __webpack_require__(204);
+encoders.pem = __webpack_require__(205);
 
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(1);
@@ -34112,7 +35016,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
 
 
 /***/ }),
-/* 205 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34207,13 +35111,13 @@ module.exports = X509Certificate
 
 
 /***/ }),
-/* 206 */
+/* 207 */
 /***/ (function(module, exports) {
 
 module.exports = {"2.16.840.1.101.3.4.1.1":"aes-128-ecb","2.16.840.1.101.3.4.1.2":"aes-128-cbc","2.16.840.1.101.3.4.1.3":"aes-128-ofb","2.16.840.1.101.3.4.1.4":"aes-128-cfb","2.16.840.1.101.3.4.1.21":"aes-192-ecb","2.16.840.1.101.3.4.1.22":"aes-192-cbc","2.16.840.1.101.3.4.1.23":"aes-192-ofb","2.16.840.1.101.3.4.1.24":"aes-192-cfb","2.16.840.1.101.3.4.1.41":"aes-256-ecb","2.16.840.1.101.3.4.1.42":"aes-256-cbc","2.16.840.1.101.3.4.1.43":"aes-256-ofb","2.16.840.1.101.3.4.1.44":"aes-256-cfb"}
 
 /***/ }),
-/* 207 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// adapted from https://github.com/apatil/pemstrip
@@ -34250,7 +35154,7 @@ module.exports = function (okey, password) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
@@ -34340,7 +35244,7 @@ module.exports = verify
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 209 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var elliptic = __webpack_require__(3);
@@ -34469,11 +35373,11 @@ function formatReturnValue(bn, enc, len) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 210 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports.publicEncrypt = __webpack_require__(211);
-exports.privateDecrypt = __webpack_require__(212);
+exports.publicEncrypt = __webpack_require__(212);
+exports.privateDecrypt = __webpack_require__(213);
 
 exports.privateEncrypt = function privateEncrypt(key, buf) {
   return exports.publicEncrypt(key, buf, true);
@@ -34484,7 +35388,7 @@ exports.publicDecrypt = function publicDecrypt(key, buf) {
 };
 
 /***/ }),
-/* 211 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(30);
@@ -34585,7 +35489,7 @@ function nonZero(len, crypto) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 212 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(30);
@@ -34699,7 +35603,7 @@ function compare(a, b){
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -35227,7 +36131,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(214);
+exports.isBuffer = __webpack_require__(215);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -35271,7 +36175,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(215);
+exports.inherits = __webpack_require__(216);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -35292,7 +36196,7 @@ function hasOwnProperty(obj, prop) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(4)))
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -35303,7 +36207,7 @@ module.exports = function isBuffer(arg) {
 }
 
 /***/ }),
-/* 215 */
+/* 216 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -35332,7 +36236,7 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 216 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -35420,7 +36324,7 @@ exports.reverseGeocode = {
 
 
 /***/ }),
-/* 217 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -35502,7 +36406,7 @@ exports.geolocate = {
 
 
 /***/ }),
-/* 218 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -35550,7 +36454,7 @@ exports.timezone = {
 
 
 /***/ }),
-/* 219 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -35650,7 +36554,7 @@ exports.directions = {
 
 
 /***/ }),
-/* 220 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -35728,7 +36632,7 @@ exports.distanceMatrix = {
 
 
 /***/ }),
-/* 221 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -35799,7 +36703,7 @@ exports.elevationAlongPath = {
 
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -35910,7 +36814,7 @@ exports.snappedSpeedLimits = {
 
 
 /***/ }),
-/* 223 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -36149,7 +37053,7 @@ exports.placesQueryAutoComplete = {
 
 
 /***/ }),
-/* 224 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -36195,7 +37099,7 @@ exports.callback = function(error, response) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 225 */
+/* 226 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -36208,7 +37112,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -36579,7 +37483,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -36675,19 +37579,17 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var tiendasLigadas = __webpack_require__(229);
-var recursosLigados = __webpack_require__(230);
-var rutas = __webpack_require__(231);
+var tiendasLigadas = __webpack_require__(230);
+var recursosLigados = __webpack_require__(231);
 module.exports = new Vue({
     data: {
         active: 0,
         grid: null,
         tienda: tiendasLigadas,
-        recurso: recursosLigados,
-        ruta: rutas
+        recurso: recursosLigados
     },
     methods: {
         init: function(e){
@@ -36702,15 +37604,6 @@ module.exports = new Vue({
             this.recurso.models.empleado = e.empleado;
             this.recurso.models.empleadoHorario = e.empleadoHorario;
             
-            this.ruta.models.clienteSucursal = e.clienteSucursal;
-            this.ruta.models.sucursal = e.sucursal;
-            this.ruta.models.sucursalHorario = e.sucursalHorario;
-            this.ruta.models.clienteEmpleado = e.clienteEmpleado;
-            this.ruta.models.usuarioEmpleado = e.usuarioEmpleado;
-            this.ruta.models.empleado = e.empleado;
-            this.ruta.models.empleadoHorario = e.empleadoHorario;
-            this.ruta.models.empleadoHorarioRuta = e.empleadoHorarioRuta;
-            this.ruta.models.empleadoHorarioRutaPunto = e.empleadoHorarioRutaPunto;
             this.grid = new BUTO.requires.modules.mcdatatable({
                 id: "clientesRegistrados",
                 head: [
@@ -36808,23 +37701,6 @@ module.exports = new Vue({
                             me.recurso.client.name = data.nombre;
                             me.setView(2);
                         }
-                    },
-                    {
-                        active: true,
-                        title: "Rutas",
-                        fullHandler: false,
-                        anchorCellClass: [
-                            ""
-                        ],
-                        highlight: true,
-                        glyphiconClass: "glyphicon-road",
-                        handler: function(data){
-                            me.tienda.client.id = data.id;
-                            me.tienda.client.name = data.nombre;
-                            me.recurso.client.id = data.id;
-                            me.recurso.client.name = data.nombre;
-                            me.setView(3);
-                        }
                     }
                 ],
                 templateEdit: function(id, index){
@@ -36884,15 +37760,13 @@ module.exports = new Vue({
                 me.tienda.init(0, 1, 1);
             else if(e === 2)
                 me.recurso.init(0, 1, 1);
-            else if(e === 3)
-                me.ruta.init();
         },
         mask: function(){}
     }
 });
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var verTienda = __webpack_require__(81);
@@ -37323,7 +38197,7 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var verRecurso = __webpack_require__(82);
@@ -37693,32 +38567,6 @@ module.exports = new Vue({
                     });
                 };
             }
-        }
-    }
-});
-
-/***/ }),
-/* 231 */
-/***/ (function(module, exports) {
-
-module.exports = new Vue({
-    data: {
-        id: null,
-        models: {
-            clienteSucursal: null,
-            sucursal: null,
-            sucursalHorario: null,
-            clienteEmpleado: null,
-            usuarioEmpleado: null,
-            empleado: null,
-            empleadoHorario: null,
-            empleadoHorarioRuta: null,
-            empleadoHorarioRutaPunto: null,
-        }
-    },
-    methods: {
-        init: function(){
-            
         }
     }
 });
@@ -39146,12 +39994,14 @@ module.exports = new Vue({
 
 var verRecurso = __webpack_require__(82);
 var editarRecurso = __webpack_require__(236);
+var rutas = __webpack_require__(237);
 module.exports = new Vue({
     data: {
         active: 0,
         grid: null,
         watch: verRecurso,
-        edit: editarRecurso
+        edit: editarRecurso,
+        ruta: rutas
     },
     methods: {
         init(e){
@@ -39160,9 +40010,22 @@ module.exports = new Vue({
             this.watch.models.usuarioEmpleado = e.usuarioEmpleado;
             this.watch.models.empleado = e.empleado;
             this.watch.models.empleadoHorario = e.empleadoHorario;
+            
             this.edit.models.usuarioEmpleado = e.usuarioEmpleado;
             this.edit.models.empleado = e.empleado;
             this.edit.models.empleadoHorario = e.empleadoHorario;
+            
+            this.ruta.models.empleadoHorario = e.empleadoHorario;
+            this.ruta.models.ruta = e.ruta;
+            this.ruta.models.rutaPunto = e.rutaPunto;
+            this.ruta.models.rutaPuntoServicio = e.rutaPuntoServicio;
+            this.ruta.models.sucursal = e.sucursal;
+            this.ruta.models.sucursalHorario = e.sucursalHorario;
+            this.ruta.models.sucursalCliente = e.sucursalCliente;
+            this.ruta.models.proyeccionServicio = e.proyeccionServicio;
+            this.ruta.models.proyeccionTrabajo = e.proyeccionTrabajo;
+            this.ruta.models.proyeccionTrabajoServicio = e.proyeccionTrabajoServicio;
+            
             this.grid = new BUTO.requires.modules.mcdatatable({
                 id: "recursosRegistrados",
                 head: [
@@ -39228,6 +40091,21 @@ module.exports = new Vue({
                     },
                 },
                 customHandlers: [
+                    {
+                        active: true,
+                        title: "Rutas",
+                        fullHandler: false,
+                        anchorCellClass: [
+                            ""
+                        ],
+                        highlight: true,
+                        glyphiconClass: "glyphicon-road",
+                        handler: function(data){
+                            me.ruta.client.id = data.id;
+                            me.ruta.client.name = data.nombre;
+                            me.setView(3);
+                        }
+                    },
                     {
                         active: true,
                         title: "Eliminar usuario",
@@ -39302,6 +40180,8 @@ module.exports = new Vue({
         setView: function(e){
             var me = this;
             this.active = e;
+            if(e === 3)
+                me.ruta.init(0, 1);
             Vue.nextTick(function(){
                 if(e === 1)
                     me.watch.init();
@@ -40536,6 +41416,453 @@ module.exports = new Vue({
 
 /***/ }),
 /* 237 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var verRuta = __webpack_require__(83);
+module.exports = new Vue({
+    data: {
+        client: {
+            id: null,
+            name: null
+        },
+        steps: [
+            {
+                schedule: []
+            },
+            {
+                schedule: []
+            },
+            {
+                schedule: []
+            },
+            {
+                schedule: []
+            },
+            {
+                schedule: []
+            },
+            {
+                schedule: []
+            },
+            {
+                schedule: []
+            }
+        ],
+        day: {
+            index: 0,
+            value: 2,
+            options: [
+                {
+                    text: "Lunes",
+                    value: 2
+                },
+                {
+                    text: "Martes",
+                    value: 3
+                },
+                {
+                    text: "Miércoles",
+                    value: 4
+                },
+                {
+                    text: "Jueves",
+                    value: 5
+                },
+                {
+                    text: "Viernes",
+                    value: 6
+                },
+                {
+                    text: "Sábado",
+                    value: 7
+                },
+                {
+                    text: "Domingo",
+                    value: 1
+                }
+            ]
+        },
+        data: {
+            perPage: 30,
+            search: {
+                route: "",
+                routeLinked: ""
+            },
+            page: {
+                route: {
+                    currentPage: 1,
+                    pageCount: null,
+                    totalCount: null
+                },
+                routeLinked: {
+                    currentPage: 1,
+                    pageCount: null,
+                    totalCount: null
+                }
+            }
+        },
+        models: {
+            empleadoHorario: null,
+            ruta: null,
+            rutaPunto: null,
+            rutaPuntoServicio: null,
+            sucursal: null,
+            sucursalHorario: null,
+            sucursalCliente: null,
+            proyeccionServicio: null,
+            proyeccionTrabajo: null,
+            proyeccionTrabajoServicio: null
+        },
+        route: [],
+        routeLinked: [],
+        alterLinkDef: {
+            masive: {
+                config: {
+                    active: 0,  //0 nothing to see, 1 remove, 2 add
+                    same: false
+                }
+            },
+            add: {
+                route: {
+                    id: null,
+                    name: null,
+                    begin: null,
+                    end: null
+                },
+                scheduleId: null,
+                scheduleIndex: null,
+                date: {
+                    value: null,
+                    valid: true,
+                    text: ""
+                }
+            },
+            remove: [],
+            edit: {
+                id: null,
+                routeName: null,
+                date: {
+                    value: null,
+                    valid: true,
+                    text: ""
+                }
+            },
+            see: {
+                first: true,
+                route: verRuta,
+                routeLinked: {
+                    date: null
+                }
+            }
+        }
+    },
+    methods: {
+        init: function(e, page){
+            var i,
+                me = this;
+            if(page)
+                this.data.page.route.currentPage = page;
+            if(e === 0 && page)
+                this.alterLinkDef.see.first = true;
+            if(e === 0)
+                this.initSchedule();
+            if(e === 0 || e === 1){             //0 all, 1 route, 2 routeLinked
+                this.route = [];
+                this.models.ruta.get({
+                    params: {
+                        "per-page": this.data.perPage,
+                        "sort": "nombre",
+                        "page": this.data.page.route.currentPage,
+                        "dia": this.day.value,
+                        "nombre": this.data.search.route
+                    }
+                },
+                function(success){
+                    me.data.page.route.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
+                    me.data.page.route.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                    for(i in success.body)
+                        me.initRoute(success.body[i]);
+                },
+                function(error){
+                    console.log(error);
+                });
+            }
+        },
+        initSchedule: function(){
+            var me = this, length, i;
+            for(i = 0; i < me.steps.length; i++)
+                me.steps[i].schedule = [];
+            this.models.empleadoHorario.get({
+                delimiters: this.client.id,
+                params: {
+                    "per-page": 100,
+                    "sort": "hora_inicio"
+                }
+            },
+            function(success){
+                for(i = 0; i < success.body.length; i++){
+                    switch(success.body[i].dia){
+                        case 1:     //SUN
+                            length = me.steps[6].schedule.length;
+                            me.steps[6].schedule.push({
+                                id: success.body[i].id,
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin,
+                                route: []
+                            });
+                            break;
+                        default:
+                            length = me.steps[success.body[i].dia - 2].schedule.length;
+                            me.steps[success.body[i].dia - 2].schedule.push({
+                                id: success.body[i].id,
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin,
+                                route: []
+                            });
+                            break;
+                    }
+                    me.initRouteLinked(success.body[i].dia === 1 ? 6 : success.body[i].dia - 2, length);
+                }
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initRoute: function(e){
+            this.route.push({
+                id: e.id,
+                name: e.nombre,
+                begin: e.hora_inicio,
+                end: e.hora_fin,
+                linked: false,
+                selected: false
+            });
+        },
+        initRouteLinked: function(i, j){
+            var me = this, k;
+            this.models.proyeccionTrabajo.get({
+                params: {
+                    "empleado_horario_id": this.steps[i].schedule[j].id,
+                    "expand": "cliente, sucursal, ruta, punto, empleado"
+                }
+            },
+            function(success){
+                for(k = 0; k < success.body.length; k++){
+                    me.steps[i].schedule[j].route.push({
+                        id: success.body[k].id,
+                        idRoute: success.body[k]._embedded.ruta.id,
+                        name: success.body[k]._embedded.ruta.nombre,
+                        date: success.body[k].fecha
+                    });
+                }
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        validation: function(type){
+            var hmd;
+            switch(type){
+                case "add":
+                    this.alterLinkDef.add.date.valid = false;
+                    if(this.alterLinkDef.add.date.value === "" ||
+                       this.alterLinkDef.add.date.value === null)
+                        this.alterLinkDef.add.date.text = "Fecha no puede estar vacío";
+                    else{
+                        this.alterLinkDef.add.date.text = "";
+                        this.alterLinkDef.add.date.valid = true;
+                    }
+                    break;
+                case "edit":
+                    this.alterLinkDef.edit.date.valid = false;
+                    if(this.alterLinkDef.edit.date.value === "" ||
+                       this.alterLinkDef.edit.date.value === null)
+                        this.alterLinkDef.edit.date.text = "Fecha no puede estar vacío";
+                    else{
+                        this.alterLinkDef.edit.date.text = "";
+                        this.alterLinkDef.edit.date.valid = true;
+                    }
+                    break;
+            }
+        },
+        setLink: function(type, i, j){
+            var me = this;
+            switch(type){
+                case "add":
+                    this.alterLinkDef.add.route.id = this.route[i].id;
+                    this.alterLinkDef.add.route.name = this.route[i].name;
+                    this.alterLinkDef.add.route.begin = this.route[i].begin;
+                    this.alterLinkDef.add.route.end = this.route[i].end;
+                    this.alterLinkDef.add.scheduleId = null;
+                    this.alterLinkDef.add.scheduleIndex = null;
+                    this.alterLinkDef.add.date.value = null;
+                    break;
+                case "edit":
+                    this.alterLinkDef.edit.id = this.steps[this.day.index].schedule[i].route[j].id;
+                    this.alterLinkDef.edit.routeName = this.steps[this.day.index].schedule[i].route[j].name;
+                    this.alterLinkDef.edit.date.value = this.steps[this.day.index].schedule[i].route[j].date;
+                    break;
+                case "see":
+                    this.alterLinkDef.see.route.id = this.route[i].id;
+                    this.alterLinkDef.see.routeLinked.date = null;
+                    Vue.nextTick(function(){
+                        me.alterLinkDef.see.route.init("modal", me.alterLinkDef.see.first);
+                        if(me.alterLinkDef.see.first === true)
+                            me.alterLinkDef.see.first = false;
+                    });
+                    break;
+                case "seeLinked":
+                    this.alterLinkDef.see.route.id = this.steps[this.day.index].schedule[i].route[j].idRoute;
+                    this.alterLinkDef.see.routeLinked.date = this.steps[this.day.index].schedule[i].route[j].date;
+                    Vue.nextTick(function(){
+                        me.alterLinkDef.see.route.init("modal", me.alterLinkDef.see.first);
+                        if(me.alterLinkDef.see.first === true)
+                            me.alterLinkDef.see.first = false;
+                    });
+                    break;
+            }
+        },
+        alterLink: function(type){
+            var i,
+                valid = true;
+            switch(type){
+                case "add":
+                    for(i = 0; i < this.alterLinkDef.add.length; i++){
+                        this.validation(type, this.alterLinkDef.masive.config.same ? 0 : i);
+                        if(this.alterLinkDef.add[this.alterLinkDef.masive.config.same ? 0 : i].valid === false)
+                            valid = false;
+                    }
+                    if(valid){
+                        for(i = 0; i < this.alterLinkDef.add.length; i++)
+                            this.add(this.alterLinkDef.add[i].id, this.alterLinkDef.add[this.alterLinkDef.masive.config.same ? 0 : i].time, i);
+                    }
+                    else{
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Existen errores en los tiempos requeridos, inténtalo de nuevo.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    }
+                    break;
+                case "edit":
+                    if(this.alterLinkDef.edit.time === null){
+                        this.alterLinkDef.edit.time = "";
+                        this.validation(type);
+                    }
+                    if(this.alterLinkDef.edit.valid === false)
+                        valid = false;
+                    if(valid)
+                        this.edit();
+                    else{
+                        BUTO.components.main.alert.description.title = "Errores en Edición de Registro";
+                        BUTO.components.main.alert.description.text = "Existen errores en los tiempos requeridos, inténtalo de nuevo.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    }
+                    break;
+            }
+        },
+        add: function(){
+            var me = this,
+                valid = true;
+            this.validation("add");
+            if(this.alterLinkDef.add.scheduleId === null){
+                BUTO.components.main.alert.description.text = "Debes seleccionar un horario para ligar la ruta.";
+                valid = false;
+            }
+            else if(valid && !this.alterLinkDef.add.date.valid){
+                BUTO.components.main.alert.description.text = "Fecha no puede estar vacío.";
+                valid = false;
+            }
+            if(valid){
+                this.models.proyeccionTrabajo.post({
+                    params: {
+                        ruta_id: this.alterLinkDef.add.route.id,
+                        empleado_horario_id: this.alterLinkDef.add.scheduleId,
+                        fecha: this.alterLinkDef.add.date.value 
+                    }
+                },
+                function(success){
+                    me.initSchedule();
+                    document.getElementById("closeAdd").click();
+                },
+                function(error){
+                    console.log(error);
+                    BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                    BUTO.components.main.alert.description.text = error.body[0].message;
+                    BUTO.components.main.alert.description.ok = "Aceptar";
+                    BUTO.components.main.alert.active = true;
+                });
+            }
+            else{
+                BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+            }
+        },
+        edit: function(){
+            var me = this,
+                valid = true;
+            this.validation("add");
+            if(!this.alterLinkDef.edit.date.valid){
+                BUTO.components.main.alert.description.text = "Fecha no puede estar vacío.";
+                valid = false;
+            }
+            if(valid){
+                this.models.proyeccionTrabajo.patch({
+                    delimiters: this.alterLinkDef.edit.id,
+                    params: {
+                        fecha: this.alterLinkDef.edit.date.value 
+                    }
+                },
+                function(success){
+                    me.initSchedule();
+                    document.getElementById("closeEdit").click();
+                },
+                function(error){
+                    console.log(error);
+                    BUTO.components.main.alert.description.title = "Errores en Edición Registro";
+                    BUTO.components.main.alert.description.text = error.body[0].message;
+                    BUTO.components.main.alert.description.ok = "Aceptar";
+                    BUTO.components.main.alert.active = true;
+                });
+            }
+            else{
+                BUTO.components.main.alert.description.title = "Errores en Edición Registro";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+            }
+        },
+        remove: function(id){
+            var me = this;
+            BUTO.components.main.confirm.description.title = "Confirmación de borrado";
+            BUTO.components.main.confirm.description.text = "¿Deseas borrar el registro seleccionado?";
+            BUTO.components.main.confirm.description.accept = "Aceptar";
+            BUTO.components.main.confirm.description.cancel = "Cancelar";
+            BUTO.components.main.confirm.active = true;
+            BUTO.components.main.confirm.onAccept = function(){
+                me.models.proyeccionTrabajo.remove({
+                    delimiters: id,
+                    params: {}
+                },
+                function(success){
+                    me.initSchedule();
+                    BUTO.components.main.confirm.active = false;
+                },
+                function(error){
+                    console.log(error);
+                    BUTO.components.main.alert.description.title = "Errores en Borrado de Registro";
+                    BUTO.components.main.alert.description.text = error.body.message;
+                    BUTO.components.main.alert.description.ok = "Aceptar";
+                    BUTO.components.main.alert.active = true;
+                    BUTO.components.main.confirm.active = false;
+                });
+            };
+        }
+    }
+});
+
+/***/ }),
+/* 238 */
 /***/ (function(module, exports) {
 
 module.exports = new Vue({
@@ -41720,10 +43047,10 @@ module.exports = new Vue({
 });
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var verRuta = __webpack_require__(239);
+var verRuta = __webpack_require__(83);
 var editarRuta = __webpack_require__(240);
 module.exports = new Vue({
     data: {
@@ -41939,437 +43266,6 @@ module.exports = new Vue({
         },
         mask: function(){
             
-        }
-    }
-});
-
-/***/ }),
-/* 239 */
-/***/ (function(module, exports) {
-
-module.exports = new Vue({
-    data: {
-        id: null,
-        name: null,
-        day: {
-            value: 2,
-            options: [
-                {
-                    text: "Lunes",
-                    value: 2
-                },
-                {
-                    text: "Martes",
-                    value: 3
-                },
-                {
-                    text: "Miércoles",
-                    value: 4
-                },
-                {
-                    text: "Jueves",
-                    value: 5
-                },
-                {
-                    text: "Viernes",
-                    value: 6
-                },
-                {
-                    text: "Sábado",
-                    value: 7
-                },
-                {
-                    text: "Domingo",
-                    value: 1
-                }
-            ]
-        },
-        begin: {
-            value: null,
-            text: "hh:mm:ss"
-        },
-        end: {
-            value: null,
-            text: "hh:mm:ss"
-        },
-        models: {
-            ruta: null,
-            rutaPunto: null,
-            rutaPuntoServicio: null,
-            sucursal: null,
-            sucursalHorario: null,
-            sucursalCliente: null
-        },
-        map: {
-            main: null,
-            geocoder: null,
-            distanceMatrix: null,
-            directionService: null,
-            data: {
-                address: "Ciudad de México, México",
-                zoom: 13
-            }
-        },
-        store: {
-            data: {
-                totalDistance: null,
-                totalTime: null
-            },
-            point: [],
-            see: {
-                scheduleBegin: null,
-                scheduleEnd: null,
-                client: [],
-                start: null,
-                travel: null,
-                death: null,
-                service: null,
-                finish: null
-                
-            }
-        }
-    },
-    methods: {
-        init: function(type, first){
-            var me = this;
-            this.store.point = [];
-            this.store.data.totalDistance = 0;
-            this.models.ruta.get({
-                delimiters: this.id
-            },
-            function(success){
-                me.name = success.body.nombre;
-                me.begin.value = success.body.hora_inicio;
-                me.end.value = success.body.hora_fin;
-                me.day.value = success.body.dia;
-                me.store.data.totalTime = me.converter("string", me.converter("time", success.body.hora_fin) - me.converter("time", success.body.hora_inicio));
-                if(type === "modal"){
-                    setTimeout(function(){
-                        me.initMap(type, first);
-                    }, 250);
-                }
-                else
-                    me.initMap(type, first);
-            },
-            function(error){
-                console.log(error);
-            });
-        },
-        initMap: function(type, first){
-            this.map.main = new google.maps.Map(document.getElementById('mapSeeRoute'), {     //Define Map
-                zoom: this.map.data.zoom
-            });
-            
-            this.initFocus();
-            this.initServices();
-            this.initPoint();
-        },
-        initFocus: function(){
-            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeRoute'));
-        },
-        initServices: function(){
-            this.map.distanceMatrix = new google.maps.DistanceMatrixService();
-            this.map.directionService = new google.maps.DirectionsService();
-        },
-        initGeocoder: function(){
-            var me = this;
-            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
-            this.map.geocoder.geocode({                          //Geocoder for placing
-                address: this.map.data.address
-            },
-            function(response, status){
-                if(status === "OK")
-                    me.map.main.setCenter(response[0].geometry.location);
-                else
-                    console.log(status);
-            });
-        },
-        initPoint: function(){
-            var me = this, length;
-            this.models.rutaPunto.get({
-                delimiters: this.id,
-                params: {
-                    "per-page": 100,
-                    "sort": "hora_llegada_estimada",
-                    "expand": "sucursal"
-                }
-            },
-            function(success){
-                for(i = 0; i < success.body.length; i++){
-                    length = me.store.point.length;
-                    me.store.point.push({
-                        id: success.body[i].id,
-                        idStore: success.body[i]._embedded.sucursal.id,
-                        lat: success.body[i]._embedded.sucursal.lat,
-                        lng: success.body[i]._embedded.sucursal.lng,
-                        name: success.body[i]._embedded.sucursal.nombre,
-                        schedule: [],
-                        scheduleIndex: null,
-                        arrival: success.body[i].hora_llegada_estimada,
-                        calculate: true,       //false takes api values, true takes inherit operations
-                        travel: length === 0 ? "00:00:00" : null,
-                        distance: length === 0 ? 0 : null,
-                        start: length === 0 ? me.begin.value : null,
-                        death: length === 0 ? me.converter("string", me.converter("time", success.body[i].hora_llegada_estimada) - me.converter("time", me.begin.value)) : null,
-                        usedTime: null,
-                        client: [],
-                        hidden: true,
-                        renderer: null,
-                        details: {
-                            warnings: null,
-                            copyrights: [],
-                            legs: []
-                        },
-                        main: new google.maps.Marker({
-                            map: me.map.main,
-                            position: {
-                                lat: success.body[i]._embedded.sucursal.lat,
-                                lng: success.body[i]._embedded.sucursal.lng
-                            },
-                            icon: {
-                                url: "/image/maps/green-empty.png",
-                                labelOrigin: new google.maps.Point(11, 11)
-                            },
-                            label: "" + (length + 1) + "",
-                            title: success.body[i]._embedded.sucursal.nombre,
-                        }),
-                        window: new google.maps.InfoWindow({
-                            content: "Dirección no encontrada.",
-                            maxWidth: 175,
-                            flag: false
-                        })
-                    });
-                    me.initClient(success.body[i].id, length);
-                    me.getDirection(length);
-                }
-                me.focusPosition();
-            },
-            function(error){
-                console.log(error);
-            });
-        },
-        initClient: function(pointId, i){
-            var j, k, me = this, usedTime = 0;
-            this.models.sucursalCliente.get({
-                delimiters: this.store.point[i].idStore,
-                params: {
-                    "per-page": 100,
-                    "expand": "cliente"
-                }
-            },
-            function(success){
-                for(j = 0; j < success.body.length; j++){
-                    me.store.point[i].client.push({
-                        id: success.body[j]._embedded.cliente.id,
-                        name: success.body[j]._embedded.cliente.nombre,
-                        time: success.body[j].tiempo_solicitado,
-                        active: false
-                    });
-                }
-                me.models.rutaPuntoServicio.get({
-                    delimiters: [me.id, pointId],
-                    params: {
-                        "per-page": 100
-                    }
-                },
-                function(success2){
-                    for(j = 0; j < success2.body.length; j++)
-                        for(k = 0; k < me.store.point[i].client.length; k++)
-                            if(success2.body[j].cliente_id === me.store.point[i].client[k].id){
-                                me.store.point[i].client[k].active = true;
-                                usedTime += me.converter("time", me.store.point[i].client[k].time);
-                            }
-                    me.store.point[i].usedTime = me.converter("string", usedTime);
-                    if(i < me.store.point.length - 1)
-                        me.store.point[i + 1].start = me.converter("string", usedTime + me.converter("time", me.store.point[i].arrival));
-                    me.initSchedule(i);
-                },
-                function(error2){
-                    console.log(error2);
-                });
-            },
-            function(error){
-                console.log(error);
-            });
-        },
-        initSchedule: function(i){
-            var j,
-                me = this;
-            this.models.sucursalHorario.get({
-                delimiters: this.store.point[i].idStore,
-                params: {
-                    "per-page": 100,
-                    "expand": "cliente",
-                    "sort": "hora_inicio"
-                }
-            },
-            function(success){
-                for(j = 0; j < success.body.length; j++)
-                    if(success.body[j].dia === me.day.value)
-                        me.store.point[i].schedule.push({
-                            begin: success.body[j].hora_inicio,
-                            end: success.body[j].hora_fin
-                        });
-                for(j = 0; j < me.store.point[i].schedule.length; j++)
-                    if(me.store.point[i].schedule[j].begin <= me.store.point[i].arrival &&
-                       me.store.point[i].schedule[j].end > me.store.point[i].arrival)
-                        me.store.point[i].scheduleIndex = j;
-                if(me.store.point[i].schedule[me.store.point[i].scheduleIndex].begin === me.store.point[i].arrival)
-                    me.store.point[i].calculate = false;
-                if(i > 0)
-                    me.initRoute(i);
-            },
-            function(error){
-                console.log(error);
-            });
-        },
-        initRoute: function(i){
-            var me = this,
-                j,
-                travelTime = 0,
-                distance = 0;
-            this.map.directionService.route({
-                origin: this.store.point[i - 1].main.position,
-                destination: this.store.point[i].main.position,
-                travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
-                avoidTolls: true
-            },
-            function(response, status){
-                if(status === "OK"){
-                    me.store.point[i - 1].renderer = new google.maps.DirectionsRenderer({
-                        map: me.map.main,
-                        draggable: true,
-                        suppressMarkers: true,
-                        preserveViewport: true
-                    });
-                    me.store.point[i - 1].renderer.setDirections(response);
-                    me.store.point[i - 1].details.copyrights = response.routes[0].copyrights;
-                    me.store.point[i - 1].details.warnings = [];
-                    for(j = 0; j < response.routes[0].warnings.length; j++)
-                        me.store.point[i - 1].details.warnings.push({
-                            text: response.routes[0].warnings[j]
-                        });
-                    me.store.point[i - 1].details.legs.push({
-                        hidden: false,
-                        id: me.store.point[i - 1].details.legs.length,
-                        end: response.routes[0].legs[0].end_address,
-                        start: response.routes[0].legs[0].start_address,
-                        steps: []
-                    });
-                    for(j = 0; j < response.routes[0].legs[0].steps.length; j++){
-                        me.store.point[i - 1].details.legs[0].steps.push({
-                            distance: {
-                                value: response.routes[0].legs[0].steps[j].distance.value,
-                                text: response.routes[0].legs[0].steps[j].distance.text
-                            },
-                            duration: {
-                                value: response.routes[0].legs[0].steps[j].duration.value,
-                                text: response.routes[0].legs[0].steps[j].duration.text
-                            },
-                            instructions: response.routes[0].legs[0].steps[j].instructions,
-                            travel_mode: response.routes[0].legs[0].steps[j].travel_mode
-                        });
-                        travelTime += response.routes[0].legs[0].steps[j].duration.value;
-                        distance += response.routes[0].legs[0].steps[j].distance.value;
-                    }
-                    
-                    me.store.point[i].travel = (me.store.point[i].calculate) ? me.converter("string", me.converter("time", me.store.point[i].arrival) - me.converter("time", me.store.point[i].start)):
-                        me.store.point[i].travel = me.converter("string", travelTime);
-                    me.store.point[i].distance = distance;
-                    me.store.data.totalDistance += distance;
-                    me.store.point[i].death = me.converter("string", me.converter("time", me.store.point[i].arrival) - me.converter("time", me.store.point[i].start) - me.converter("time", me.store.point[i].travel));
-                }
-                else
-                    console.log(status);
-            });
-        },
-        getDirection: function(length){
-            var me = this;
-            this.store.point[length].main.addListener("rightclick", function(){
-                if(!me.store.point[length].window.flag){
-                    me.store.point[length].window.flag = true;
-                    me.map.geocoder.geocode({                          //Geocoder for placing
-                        location: me.store.point[length].main.position
-                    },
-                    function(response, status){
-                        if(status === "OK" && response[0])
-                            me.store.point[length].window.setContent(response[0].formatted_address);
-                        else
-                            console.log(status, response);
-                    });
-                }
-                me.store.point[length].window.open(me.map.main, me.store.point[length].main);
-            });
-        },
-        focusPosition: function(){
-            var i,
-                counter = 0,
-                totalLat = 0,
-                totalLng = 0,
-                bounds = new google.maps.LatLngBounds();
-            for(i = 0; i < this.store.point.length; i++)
-                if(this.store.point[i].main !== null &&
-                    this.store.point[i].lat !== null &&
-                    this.store.point[i].lng !== null){
-                    counter++;
-                    totalLat += this.store.point[i].lat;
-                    totalLng += this.store.point[i].lng;
-                    bounds.extend(this.store.point[i].main.getPosition());
-                     
-                }
-            if(counter > 0){
-                this.map.main.setCenter({
-                    lat: totalLat/counter,
-                    lng: totalLng/counter
-                });
-                if(counter > 1)
-                    this.map.main.fitBounds(bounds);
-                else
-                    this.map.main.setZoom(this.map.data.zoom);
-            }
-            else
-                this.initGeocoder();
-        },
-        setPoint: function(iM){
-            this.store.see.name = this.store.point[iM].name;
-            this.store.see.scheduleBegin = this.store.point[iM].schedule[this.store.point[iM].scheduleIndex].begin;
-            this.store.see.scheduleEnd = this.store.point[iM].schedule[this.store.point[iM].scheduleIndex].end;
-            this.store.see.client = this.store.point[iM].client;
-            this.store.see.start = this.store.point[iM].start;
-            this.store.see.travel = this.store.point[iM].travel;
-            this.store.see.death = this.store.point[iM].death;
-            this.store.see.service = this.store.point[iM].usedTime;
-            this.store.see.finish = this.converter("string", this.converter("time", this.store.see.start) + this.converter("time", this.store.see.travel) + this.converter("time", this.store.see.death) + this.converter("time", this.store.see.service));
-        },
-        collapse: function(){
-            if(this.store.point.length > 0){
-                this.store.point[0].hidden = !this.store.point[0].hidden;
-                for(var i = 1; i < this.store.point.length; i++)
-                    this.store.point[i].hidden = this.store.point[0].hidden;
-            }
-        },
-        converter: function(type, val){
-            var value;
-            switch(type){
-                case "time":    //val is string, want return as time
-                    if(val){
-                        val = val.split(":");
-                        value = 0;
-                        value += parseInt(val[0]) * 3600;
-                        value += parseInt(val[1]) * 60;
-                        value += parseInt(val[2]);
-                    }
-                    break;
-                case "string":  //val is time, want return as string
-                    var hours = Math.floor( val / 3600 );
-                    var minutes = Math.floor( val / 60 - (hours * 60) );
-                    var seconds = val - (hours * 3600) - (minutes * 60);
-                    value = hours < 10 ? '0' + hours : hours;
-                    value += ":" + (minutes < 10 ? '0' + minutes : minutes);
-                    value += ":" + (seconds < 10 ? '0' + seconds : seconds);
-                    break;
-            }
-            return value;
         }
     }
 });
