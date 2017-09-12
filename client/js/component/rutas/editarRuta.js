@@ -143,6 +143,7 @@ module.exports = new Vue({
         init: function(type, first){
             var me = this;
             this.store.point = [];
+            this.store.oldPoint = [];
             this.store.data.totalDistance = 0;
             this.models.ruta.get({
                 delimiters: this.id
@@ -1465,8 +1466,7 @@ module.exports = new Vue({
             this.initStore();
         },
         submit: function(){
-            var me = this,
-                i,
+            var i, j, k,
                 hmdB = this.begin.value.split(":"),
                 hmdE = this.end.value.split(":"),
                 valid = true;
@@ -1518,6 +1518,28 @@ module.exports = new Vue({
                 valid = false;
             }
             if(valid){
+                for(j = 0; j < this.store.oldPoint.length; j++)
+                    for(k = 0; k < this.store.point.length; k++)
+                        if(this.store.point[k].idStore === this.store.oldPoint[j].idStore)
+                            this.store.oldPoint[j].remove = false;
+                for(j = 0; j < this.store.oldPoint.length; j++)
+                    if(this.store.oldPoint[j].remove)
+                        this.models.rutaPunto.remove({
+                            delimiters: [
+                                this.id,
+                                this.store.oldPoint[j].id
+                            ],
+                            params: {
+                                
+                            }
+                        },
+                        function(success){
+                            
+                        },
+                        function(error){
+                            console.log(error);
+                        });
+                
                 if(this.begin.oldValue < this.begin.value &&
                    this.end.oldValue > this.end.value){        //Edit first points and services, then route
                     console.log("0, Smaller area");
@@ -1577,11 +1599,11 @@ module.exports = new Vue({
                 if(type !== 0 && subtype)
                     for(i = 0; i < me.store.point.length; i++)
                         me.submitPoint(type, i);
-                //BUTO.components.main.children.rutasRegistradas.grid.updatePagination();
-                //BUTO.components.main.alert.description.title = "Registro de Ruta";
-                //BUTO.components.main.alert.description.text = "Se ha registrado correctamente la ruta '" + success.body.nombre + "'";
-                //BUTO.components.main.alert.description.ok = "Aceptar";
-                //BUTO.components.main.alert.active = true;
+                BUTO.components.main.children.rutasRegistradas.grid.updatePagination();
+                BUTO.components.main.alert.description.title = "Edición de Ruta";
+                BUTO.components.main.alert.description.text = "Se ha editado correctamente la ruta '" + success.body.nombre + "'";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
             },
             function(error){
                 console.log(error);
@@ -1600,41 +1622,21 @@ module.exports = new Vue({
             });
         },
         submitPoint: function(type, i){
-            var me = this, j, k, oldI,
+            var me = this, j, oldI,
                 updateType = 0;        //0 post, 1 patch
             for(j = 0; j < this.store.oldPoint.length; j++)
-                if(this.store.point[i].idStore === this.store.oldPoint[j].idStore){
-                    this.store.point[i].id = this.store.oldPoint[i].id;
+                if((this.store.point[i].idStore === this.store.oldPoint[j].idStore) &&
+                   !this.store.oldPoint[j].remove){
+                    this.store.point[i].id = this.store.oldPoint[j].id;
                     oldI = j;
                     updateType = 1;
                 }
-            for(j = 0; j < this.store.oldPoint.length; j++)
-                for(k = 0; k < this.store.point.length; k++)
-                    if(this.store.point[k].idStore === this.store.oldPoint[j].idStore)
-                        this.store.oldPoint[j].remove = false;
-            for(j = 0; j < this.store.oldPoint.length; j++)
-                if(this.store.oldPoint[j].remove)
-                    this.models.rutaPunto.remove({
-                        delimiters: [
-                            this.id,
-                            this.store.point[i].id
-                        ],
-                        params: {
-                            
-                        }
-                    },
-                    function(success){
-                        
-                    },
-                    function(error){
-                        console.log(error);
-                    });
             switch(updateType){
                 case 0: //POST
                     this.models.rutaPunto.post({
                         delimiters: this.id,
                         params: {
-                            sucursal_id: this.store.point[i].id,
+                            sucursal_id: this.store.point[i].idStore,
                             hora_llegada_estimada: this.converter("string", this.converter("time", this.store.point[i].start) + this.converter("time", this.store.point[i].travel) + this.converter("time", this.store.point[i].death))
                             //Takes start, travel and death
                         }
@@ -1685,7 +1687,7 @@ module.exports = new Vue({
                         },
                         function(error){
                             console.log(error);
-                            //me.submitService(updateType, pointId, i, oldI, j);
+                            me.submitService(updateType, pointId, i, oldI, j);
                         });
                     break;
                 case 1:         //Point existent, clients let see
