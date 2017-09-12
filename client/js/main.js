@@ -228,6 +228,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                             });
                             
                             BUTO.requires.components.recursosRegistrados.init({
+                                usuario: this.models.usuario,
                                 usuarioEmpleado: this.models.usuarioEmpleado,
                                 empleado: this.models.empleado,
                                 empleadoHorario: this.models.empleadoHorario,

@@ -18349,6 +18349,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                             });
                             
                             BUTO.requires.components.recursosRegistrados.init({
+                                usuario: this.models.usuario,
                                 usuarioEmpleado: this.models.usuarioEmpleado,
                                 empleado: this.models.empleado,
                                 empleadoHorario: this.models.empleadoHorario,
@@ -20387,6 +20388,45 @@ module.exports = `
                     
                     </p>
                     <mcdatatable :title="'Recursos Humanos'" :config="config.grid"></mcdatatable>
+                </div>
+            </div>
+            <div class="modal fade" id="remove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-custom">
+                            <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Borrado de Registro: {{config.remove.name}}</h4>
+                        </div>
+                        <div class="modal-body modal-body-custom">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group text-center">
+                                        <div class="checker border-indigo-600 text-indigo-800">
+                                            <span :class="config.remove.type === false ? 'checked' : ''">
+                                                <input v-on:click="config.remove.type = false" type="checkbox" class="control-custom" checked="checked">
+                                            </span>
+                                        </div>
+                                        <span class="help-block">¿Borrar solo información de ubicación y horarios?</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group text-center">
+                                        <div class="checker border-indigo-600 text-indigo-800">
+                                            <span :class="config.remove.type === true ? 'checked' : ''">
+                                                <input v-on:click="config.remove.type = true" type="checkbox" class="control-custom" checked="checked">
+                                            </span>
+                                        </div>
+                                        <span class="help-block">¿Borrar todo el usuario?</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 10px;"></div>
+                        </div>
+                        <div class="modal-footer modal-footer-custom">
+                            <button type="button" v-on:click="config.removeEmployee()" class="btn btn-default btn-customized">Aceptar</button>
+                            <button id="closeRemoveEmployee" type="button" class="btn btn-default btn-customized" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -40001,12 +40041,24 @@ module.exports = new Vue({
         grid: null,
         watch: verRecurso,
         edit: editarRecurso,
-        ruta: rutas
+        ruta: rutas,
+        models: {
+            usuario: null,
+            empleado: null
+        },
+        remove: {
+            type: false, //FALSE remove only schedules, TRUE remove all user
+            id: null,
+            name: null
+        }
     },
     methods: {
         init(e){
             var me = this;
             this.mask = e.mask;
+            this.models.usuario = e.usuario;
+            this.models.empleado = e.empleado;
+            
             this.watch.models.usuarioEmpleado = e.usuarioEmpleado;
             this.watch.models.empleado = e.empleado;
             this.watch.models.empleadoHorario = e.empleadoHorario;
@@ -40116,7 +40168,10 @@ module.exports = new Vue({
                         highlight: true,
                         glyphiconClass: "glyphicon-remove",
                         handler: function(data){
-                            console.log(data);
+                            me.remove.id = data.id;
+                            me.remove.name = data.nombre;
+                            me.remove.type = false;
+                            $("#remove").modal("show");
                         }
                     }
                 ],
@@ -40191,6 +40246,51 @@ module.exports = new Vue({
         },
         mask: function(){
             
+        },
+        removeEmployee: function(){
+            var me = this;
+            BUTO.components.main.confirm.description.title = "Confirmación de borrado";
+            BUTO.components.main.confirm.description.text = "¿Deseas borrar el registro seleccionado?";
+            BUTO.components.main.confirm.description.accept = "Aceptar";
+            BUTO.components.main.confirm.description.cancel = "Cancelar";
+            BUTO.components.main.confirm.active = true;
+            BUTO.components.main.confirm.onAccept = function(){
+                if(me.remove.type)        //ALL
+                    me.models.usuario.remove({
+                        delimiters: me.remove.id,
+                        params: {}
+                    },
+                    function(success){
+                        document.getElementById("closeRemoveEmployee").click();
+                        BUTO.components.main.confirm.active = false;
+                        me.grid.updatePagination();
+                    },
+                    function(error){
+                        console.log(error);
+                        BUTO.components.main.alert.description.title = "Errores en Borrado de Registro";
+                        BUTO.components.main.alert.description.text = error.body.message;
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    });
+                else                        //Only field info
+                    me.models.empleado.remove({
+                        delimiters: me.remove.id,
+                        params: {}
+                    },
+                    function(success){
+                        document.getElementById("closeRemoveEmployee").click();
+                        BUTO.components.main.confirm.active = false;
+                        me.grid.updatePagination();
+                    },
+                    function(error){
+                        console.log(error);
+                        BUTO.components.main.alert.description.title = "Errores en Borrado de Registro";
+                        BUTO.components.main.alert.description.text = error.body.message;
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        BUTO.components.main.confirm.active = false;
+                    });
+            };
         }
     }
 });

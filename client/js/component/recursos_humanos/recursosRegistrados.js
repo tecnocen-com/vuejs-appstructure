@@ -7,12 +7,24 @@ module.exports = new Vue({
         grid: null,
         watch: verRecurso,
         edit: editarRecurso,
-        ruta: rutas
+        ruta: rutas,
+        models: {
+            usuario: null,
+            empleado: null
+        },
+        remove: {
+            type: false, //FALSE remove only schedules, TRUE remove all user
+            id: null,
+            name: null
+        }
     },
     methods: {
         init(e){
             var me = this;
             this.mask = e.mask;
+            this.models.usuario = e.usuario;
+            this.models.empleado = e.empleado;
+            
             this.watch.models.usuarioEmpleado = e.usuarioEmpleado;
             this.watch.models.empleado = e.empleado;
             this.watch.models.empleadoHorario = e.empleadoHorario;
@@ -122,7 +134,10 @@ module.exports = new Vue({
                         highlight: true,
                         glyphiconClass: "glyphicon-remove",
                         handler: function(data){
-                            console.log(data);
+                            me.remove.id = data.id;
+                            me.remove.name = data.nombre;
+                            me.remove.type = false;
+                            $("#remove").modal("show");
                         }
                     }
                 ],
@@ -197,6 +212,51 @@ module.exports = new Vue({
         },
         mask: function(){
             
+        },
+        removeEmployee: function(){
+            var me = this;
+            BUTO.components.main.confirm.description.title = "Confirmación de borrado";
+            BUTO.components.main.confirm.description.text = "¿Deseas borrar el registro seleccionado?";
+            BUTO.components.main.confirm.description.accept = "Aceptar";
+            BUTO.components.main.confirm.description.cancel = "Cancelar";
+            BUTO.components.main.confirm.active = true;
+            BUTO.components.main.confirm.onAccept = function(){
+                if(me.remove.type)        //ALL
+                    me.models.usuario.remove({
+                        delimiters: me.remove.id,
+                        params: {}
+                    },
+                    function(success){
+                        document.getElementById("closeRemoveEmployee").click();
+                        BUTO.components.main.confirm.active = false;
+                        me.grid.updatePagination();
+                    },
+                    function(error){
+                        console.log(error);
+                        BUTO.components.main.alert.description.title = "Errores en Borrado de Registro";
+                        BUTO.components.main.alert.description.text = error.body.message;
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    });
+                else                        //Only field info
+                    me.models.empleado.remove({
+                        delimiters: me.remove.id,
+                        params: {}
+                    },
+                    function(success){
+                        document.getElementById("closeRemoveEmployee").click();
+                        BUTO.components.main.confirm.active = false;
+                        me.grid.updatePagination();
+                    },
+                    function(error){
+                        console.log(error);
+                        BUTO.components.main.alert.description.title = "Errores en Borrado de Registro";
+                        BUTO.components.main.alert.description.text = error.body.message;
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        BUTO.components.main.confirm.active = false;
+                    });
+            };
         }
     }
 });
