@@ -10,8 +10,10 @@ BUTO.requires = {
         map: require("./component/map.js"),
         
         menu: require("./component/common/menu.js"),
+        dashboard: require("./component/common/dashboard.js"),
         
         clientesRegistrados: require("./component/clientes/clientesRegistrados.js"),
+        importadorClientes: require("./component/clientes/importadorClientes.js"),
         
         tiendasRegistradas: require("./component/tiendas/tiendasRegistradas.js"),
         nuevaTienda: require("./component/tiendas/nuevaTienda.js"),
@@ -124,7 +126,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 map: BUTO.requires.components.map,
                                 toolbar: BUTO.requires.components.toolbar,
                                 menu: BUTO.requires.components.menu,
+                                dashboard: BUTO.requires.components.dashboard,
                                 clientesRegistrados: BUTO.requires.components.clientesRegistrados,
+                                importadorClientes: BUTO.requires.components.importadorClientes,
                                 tiendasRegistradas: BUTO.requires.components.tiendasRegistradas,
                                 nuevaTienda: BUTO.requires.components.nuevaTienda,
                                 recursosRegistrados: BUTO.requires.components.recursosRegistrados,
@@ -156,9 +160,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                     else if(e.first === 4 && e.second === 0 && e.third === 0)
                                             me.children.rutasRegistradas.active = 0;
                                     Vue.nextTick(function(){
-                                        if(e.first === 0 && e.second === 0 && e.third === 0)
-                                            me.children.map.init();
-                                        else if(e.first === 2 && e.second === 0 && e.third === 1)
+                                        if(e.first === 1 && e.second === 0 && e.third === 1)
+                                            me.children.importadorClientes.init();
+                                        if(e.first === 2 && e.second === 0 && e.third === 1)
                                             me.children.nuevaTienda.init(false);
                                         else if(e.first === 3 && e.second === 0 && e.third === 1)
                                             me.children.nuevoRecurso.init(false);
@@ -205,6 +209,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 console.log(error);
                                 window.location = "/logout";
                             });
+                            BUTO.requires.components.dashboard.init();
                             BUTO.requires.components.clientesRegistrados.init({
                                 cliente: this.models.cliente,
                                 clienteSucursal: this.models.clienteSucursal,
@@ -215,6 +220,9 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 empleado: this.models.empleado,
                                 empleadoHorario: this.models.empleadoHorario,
                                 mask: this.mask
+                            });
+                            BUTO.requires.components.importadorClientes.init({
+                                cliente: this.models.cliente
                             });
                             
                             BUTO.requires.components.tiendasRegistradas.init({

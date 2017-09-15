@@ -2076,8 +2076,8 @@ var mcdatatable = function(configuration){
                         if(success.body.length > 0){
                             var b = 1;
                             me.dataPagination = [];
-                            for(var i = 0; i < parseInt(success.headers.map[me.webService.headers.pageCount]); i++)
-                                me.dataPagination.push([(parseInt(success.headers.map[me.webService.headers.pageCount]) < actualPage) ? b === actualPage -1 : b === actualPage, b++]);
+                            for(var i = 0; i < parseInt(success.headers.get(me.webService.headers.pageCount)); i++)
+                                me.dataPagination.push([(parseInt(success.headers.get(me.webService.headers.pageCount)) < actualPage) ? b === actualPage -1 : b === actualPage, b++]);
                             if(actualPage <= 4){
                                 limits[0] = actualPage;
                                 limits[1] = 8 - actualPage;
@@ -2336,9 +2336,9 @@ var mcdatatable = function(configuration){
                             }
                             ////////////////////////Redefine of pagination///////////////////////////
                             if(redefinePagination){
-                                me.style.pagination.currentPage = parseInt(success.headers.map[me.webService.headers.currentPage][0]);
-                                me.style.pagination.pageCount = parseInt(success.headers.map[me.webService.headers.pageCount][0]);
-                                me.style.pagination.totalRowCount = parseInt(success.headers.map[me.webService.headers.totalRowCount][0]);
+                                me.style.pagination.currentPage = parseInt(success.headers.get(me.webService.headers.currentPage));
+                                me.style.pagination.pageCount = parseInt(success.headers.get(me.webService.headers.pageCount));
+                                me.style.pagination.totalRowCount = parseInt(success.headers.get(me.webService.headers.totalRowCount));
                             }
                             
                             customSuccess(success);

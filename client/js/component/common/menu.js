@@ -16,6 +16,10 @@ module.exports = new Vue({
                             {
                                 title: "Clientes registrados",
                                 icon: "icon-users"
+                            },
+                            {
+                                title: "Importación de datos",
+                                icon: " icon-file-spreadsheet"
                             }
                         ]
                     }

@@ -2,7 +2,7 @@ module.exports = `
     <div class="col-sm-12">
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h4 class="panel-title text-center">{{config.name.value}}</h4>
+                <h5 class="panel-title">{{config.name.value}}</h5>
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a href="#" v-on:click.prevent="setview(0)" title="Regresar"><i class="icon-history"></i></i></a></li>

@@ -41,6 +41,16 @@ body{
     font-style: italic;
     background-color: bisque;
 }
+.input-info.input-import{
+    position: absolute;
+    top: 10px;
+    right: -30px;
+}
+.input-handler{
+    position: absolute;
+    top: 2px;
+    right: 15px;
+}
 .copyright-info{
     font-size: small;
 }
@@ -69,6 +79,41 @@ body{
     font-size: 15px;
     font-family: Arial, Geneva, Helvetica, sans-serif;
 }
+/******************************** Dashboards ******************************/
+.dashboard-menu{
+    position: relative;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #4550a5;
+}
+.dashboard-menu-inner{
+    position: absolute;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff;
+}
+.dashboard-icon{
+    position: absolute;
+    background-size: contain !important;
+}
+.dashboard-client{
+    background: url(/image/client2.png) no-repeat center;
+}
+.dashboard-store{
+    background: url(/image/store.png) no-repeat center;
+}
+.dashboard-resource{
+    background: url(/image/resource2.png) no-repeat center;
+}
+.dashboard-route{
+    background: url(/image/route2.png) no-repeat center;
+}
+.dashboard-report{
+    background: url(/image/report2.png) no-repeat center;
+}
+/****************************************************************************/
 /******************************** Custom grids ******************************/
     /**************FIXES*******************/
 .full-large-group .btn.dropdown-toggle{

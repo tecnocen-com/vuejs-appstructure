@@ -60,10 +60,10 @@ module.exports = new Vue({
                     active: true,
                     model: e.cliente,
                     headers: {
-                        currentPage: "X-Pagination-Current-Page",
-                        pageCount: "X-Pagination-Page-Count",
-                        rowPerPage: "X-Pagination-Per-Page",
-                        totalRowCount: "X-Pagination-Total-Count"
+                        currentPage: "x-pagination-current-page",
+                        pageCount: "x-pagination-page-count",
+                        rowPerPage: "x-pagination-per-page",
+                        totalRowCount: "x-pagination-total-count"
                     }
                 },
                 handlers: {

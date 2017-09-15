@@ -85,10 +85,10 @@ module.exports = new Vue({
                     active: true,
                     model: e.usuarioEmpleado,
                     headers: {
-                        currentPage: "X-Pagination-Current-Page",
-                        pageCount: "X-Pagination-Page-Count",
-                        rowPerPage: "X-Pagination-Per-Page",
-                        totalRowCount: "X-Pagination-Total-Count"
+                        currentPage: "x-pagination-current-page",
+                        pageCount: "x-pagination-page-count",
+                        rowPerPage: "x-pagination-per-page",
+                        totalRowCount: "x-pagination-total-count"
                     }
                 },
                 handlers: {
@@ -138,6 +138,7 @@ module.exports = new Vue({
                             me.remove.name = data.nombre;
                             me.remove.type = false;
                             $("#remove").modal("show");
+                            //me.removeEmployee();
                         }
                     }
                 ],

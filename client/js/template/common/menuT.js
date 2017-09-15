@@ -10,7 +10,7 @@ module.exports = `
                             menu.dropdown.length > 0 ? 'dropdown' : '']">
                     <a href="#" v-on:click.prevent="menu.dropdown.length > 0 ? function(){} : setview({first: menuIndex, second: 0, third: 0})" :class="menu.dropdown.length > 0 ? 'dropdown-toogle' : ''"
                                 :data-toggle="menu.dropdown.length > 0 ? 'dropdown' : ''">
-                        <i :class="menu.icon" class="position-left"></i> {{menu.title}}
+                        <i :class="menu.icon" class="position-left"></i> {{menu.title}} {{numbers[menuIndex] === '' ? '' : '(' + numbers[menuIndex] + ')'}}
                         <template v-if="menu.dropdown.length > 0">
                             <span class="caret"></span>
                         </template>

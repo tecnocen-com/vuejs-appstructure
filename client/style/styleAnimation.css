@@ -87,6 +87,27 @@
     -moz-animation: loading-anim 0.5s linear infinite;
     -webkit-animation: loading-anim 0.5s linear infinite;
 }
+    /***************Dashboard Component************************/
+@keyframes app-button-hover-anim {
+    0% {opacity: 1;}
+    50% {opacity: 0.6;}
+    100% {opacity: 1;}
+}
+@-moz-keyframes app-button-hover-anim {
+    0% {opacity: 1;}
+    50% {opacity: 0.6;}
+    100% {opacity: 1;}
+}
+@-webkit-keyframes app-button-hover-anim {
+    0% {opacity: 1;}
+    50% {opacity: 0.6;}
+    100% {opacity: 1;}
+}
+.dashboard-icon:hover{
+    animation: app-button-hover-anim 0.75s ease infinite;
+    -moz-animation: app-button-hover-anim 0.75s ease infinite;
+    -webkit-animation: app-button-hover-anim 0.75s ease infinite;
+}
     /******************************Vue Transition***********************************/
 .slide-fade-enter-active {
   transition: all .5s ease;
