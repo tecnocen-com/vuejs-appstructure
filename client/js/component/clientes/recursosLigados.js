@@ -79,8 +79,8 @@ module.exports = new Vue({
                     }
                 },
                 function(success){
-                    me.data.page.resource.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
-                    me.data.page.resource.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                    me.data.page.resource.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
+                    me.data.page.resource.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
                     for(i in success.body)
                         me.initResource(success.body[i]);
                     if(e === 0){
@@ -94,8 +94,8 @@ module.exports = new Vue({
                             }
                         },
                         function(success){
-                            me.data.page.resourceLinked.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
-                            me.data.page.resourceLinked.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                            me.data.page.resourceLinked.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
+                            me.data.page.resourceLinked.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
                             for(i in success.body)
                                 me.initResourceLinked(success.body[i].empleado_id);
                         },
@@ -119,8 +119,8 @@ module.exports = new Vue({
                     }
                 },
                 function(success){
-                    me.data.page.resourceLinked.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
-                    me.data.page.resourceLinked.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                    me.data.page.resourceLinked.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
+                    me.data.page.resourceLinked.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
                     for(i in success.body)
                         me.initResourceLinked(success.body[i].empleado_id);
                 },

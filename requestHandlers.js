@@ -64,56 +64,7 @@ function initUserData(request, response){
 		response.end(JSON.stringify({success: false}));  //Terminamos respuesta
 	}
 }
-//function configUserData(request, response, database){
-//	if(request.alquimiaSession && request.alquimiaSession.userData)
-//		dbConection.configUserData(request, response, database);
-//	else{
-//		response.writeHead(200, {"Content-Type": "json/application"}); //Escribimos cabecera (Typo de contenido, texto tipo html)
-//		response.end(JSON.stringify({success: false}));  //Terminamos respuesta
-//	}
-//}
-//function insertData(request, response, database, dataPost, table, idTable, shouldResponse){
-//	if(request.alquimiaSession && request.alquimiaSession.userData)
-//		dbConection.insertData(response, database, dataPost, table, idTable, shouldResponse);
-//	else{
-//		response.writeHead(200, {"Content-Type": "json/application"}); //Escribimos cabecera (Typo de contenido, texto tipo html)
-//		response.end(JSON.stringify({success: false}));  //Terminamos respuesta
-//	}
-//}
-//function updateData(request, response, database, parameterData, dataToUpdate, table, shouldResponse){
-//	if(request.alquimiaSession && request.alquimiaSession.userData)
-//		dbConection.updateData(response, database, parameterData, dataToUpdate, table, shouldResponse);
-//	else{
-//		response.writeHead(200, {"Content-Type": "json/application"}); //Escribimos cabecera (Typo de contenido, texto tipo html)
-//		response.end(JSON.stringify({success: false}));  //Terminamos respuesta
-//	}
-//}
-//function deleteData(request, response, database, parameterData, table, shouldResponse){
-//	if(request.alquimiaSession && request.alquimiaSession.userData)
-//		dbConection.deleteData(response, database, parameterData, table, shouldResponse);
-//	else{
-//		response.writeHead(200, {"Content-Type": "json/application"}); //Escribimos cabecera (Typo de contenido, texto tipo html)
-//		response.end(JSON.stringify({success: false}));  //Terminamos respuesta
-//	}
-//}
-//function insertNotification(database, dataPost){
-//	dbConection.insertNotification(database, dataPost);
-//}
-//function resetNotification(request, response, database, dataPost){
-//	if(request.alquimiaSession && request.alquimiaSession.userData)
-//		dbConection.resetNotification(request, response, database, dataPost);
-//	else{
-//		response.writeHead(200, {"Content-Type": "json/application"}); //Escribimos cabecera (Typo de contenido, texto tipo html)
-//		response.end(JSON.stringify({success: false}));  //Terminamos respuesta
-//	}
-//}
 exports.init = init;
 exports.login = login;
 exports.home = home;
 exports.initUserData = initUserData;
-//exports.configUserData = configUserData;
-//exports.insertData = insertData;
-//exports.updateData = updateData;
-//exports.deleteData = deleteData;
-//exports.insertNotification = insertNotification;
-//exports.resetNotification = resetNotification;

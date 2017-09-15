@@ -290,10 +290,12 @@ module.exports = new Vue({
         mainSelect: function(e){
             var me = this;
             this.typeSelection.type = e;
-            if(e === 1)
-                Vue.nextTick(function(){
+            Vue.nextTick(function(){
+                if(e === 0)
+                    $('.input-info').popover();
+                else if(e === 1)
                     me.initMap();
-                });
+            });
         },
         initMap: function(){
             var i, j, exists = 0,

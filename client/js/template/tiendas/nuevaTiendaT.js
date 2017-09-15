@@ -49,6 +49,14 @@ module.exports = `
                             <input type="file" class="file-styled">
                             <span class="filename">No has seleccionado ningún archivo</span>
                             <span class="action btn btn-default import-file">Selecciona un archivo</span>
+                            <a href="#" v-on:click.prevent class="input-info input-import"
+                            data-toggle="popover"
+                            data-trigger="focus"
+                            data-placement="left"
+                            data-content="¿Desconoces el formato apropiado para este importador?<br>Da click <a href='/download-import?type=store'>aquí</a> para obtenerlo."
+                            data-html="true">
+                                <i class="icon-info22"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

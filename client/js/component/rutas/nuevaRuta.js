@@ -268,8 +268,8 @@ module.exports = new Vue({
                     }
                 },
                 function(success){
-                    me.store.data.page.store.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
-                    me.store.data.page.store.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                    me.store.data.page.store.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
+                    me.store.data.page.store.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
                     if(success.body.length > 0){
                         for(i in success.body)
                             me.initMarker(success.body[i]);

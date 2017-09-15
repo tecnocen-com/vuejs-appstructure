@@ -9,8 +9,10 @@ BUTO.templates = {
     menu: require("./template/common/menuT.js"),
     pageHeading: require("./template/common/pageHeaderT.js"),
     foot: require("./template/common/footerT.js"),
+    dashboard: require("./template/common/dashboardT.js"),
     
     clientesRegistrados: require("./template/clientes/clientesRegistradosT.js"),
+    importadorClientes: require("./template/clientes/importadorClientesT.js"),
     
     tiendasRegistradas: require("./template/tiendas/tiendasRegistradasT.js"),
     nuevaTienda: require("./template/tiendas/nuevaTiendaT.js"),
@@ -66,7 +68,8 @@ Vue.component("my-menu", {
     props: {
         config: Object,
         active: Object,
-        setview: Function
+        setview: Function,
+        numbers: Array
     }
 });
 Vue.component("page-heading", {
@@ -84,9 +87,22 @@ Vue.component("foot", {
         config: Object
     }
 });
+Vue.component("dashboard", {
+    template: BUTO.templates.dashboard,
+    props: {
+        config: Object,
+        setview: Function
+    }
+});
 
 Vue.component("clientes-registrados", {
     template: BUTO.templates.clientesRegistrados,
+    props: {
+        config: Object
+    }
+});
+Vue.component("importador-clientes", {
+    template: BUTO.templates.importadorClientes,
     props: {
         config: Object
     }
@@ -167,22 +183,38 @@ module.exports = `
             <alert :config="alert"></alert>
         </transition>
         <heading :setview="setView" :profile="profile"></heading>
-        <my-menu :config="children.menu" :active="active" :setview="setView"></my-menu>
+        <my-menu :config="children.menu" :active="active" :setview="setView" :numbers="[
+        '',
+        children.clientesRegistrados.grid.style.pagination.totalRowCount,
+        children.tiendasRegistradas.grid.style.pagination.totalRowCount,
+        children.recursosRegistrados.grid.style.pagination.totalRowCount,
+        children.rutasRegistradas.grid.style.pagination.totalRowCount,
+        ''
+        ]"></my-menu>
         <page-heading :config="children.menu" :active="active" :setview="setView" :profile="profile"></page-heading>
         <div class="page-container">
             <div class="row">
                 <template v-if="active.first === 0">
                     <transition name="slide-fade">
+                        <dashboard :config="children.dashboard" :setview="setView"></dashboard>
+                    </transition>
+                    
+                    <!--<transition name="slide-fade">
                         <mapping :config="children.map"></mapping>
                     </transition>
                     <transition name="slide-fade">
                         <toolbar :config="children.map"></toolbar>
-                    </transition>
+                    </transition>-->
                 </template>
 
-                <template v-else-if="active.first === 1">
+                <template v-else-if="active.first === 1 && active.second === 0 && active.third === 0">
                     <transition name="slide-fade">
                         <clientes-registrados :config="children.clientesRegistrados"></clientes-registrados>
+                    </transition>
+                </template>
+                <template v-else-if="active.first === 1 && active.second === 0 && active.third === 1">
+                    <transition name="slide-fade">
+                        <importador-clientes :config="children.importadorClientes"></importador-clientes>
                     </transition>
                 </template>
 

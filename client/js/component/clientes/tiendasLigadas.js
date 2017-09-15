@@ -79,8 +79,8 @@ module.exports = new Vue({
                     }
                 },
                 function(success){
-                    me.data.page.store.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
-                    me.data.page.store.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                    me.data.page.store.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
+                    me.data.page.store.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
                     for(i in success.body)
                         me.initStore(success.body[i]);
                     if(e === 0){
@@ -94,8 +94,8 @@ module.exports = new Vue({
                             }
                         },
                         function(success){
-                            me.data.page.storeLinked.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
-                            me.data.page.storeLinked.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                            me.data.page.storeLinked.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
+                            me.data.page.storeLinked.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
                             for(i in success.body)
                                 me.initStoreLinked(success.body[i]);
                         },
@@ -119,8 +119,8 @@ module.exports = new Vue({
                     }
                 },
                 function(success){
-                    me.data.page.storeLinked.pageCount = parseInt(success.headers.map["X-Pagination-Page-Count"][0]);
-                    me.data.page.storeLinked.totalCount = parseInt(success.headers.map["X-Pagination-Total-Count"][0]);
+                    me.data.page.storeLinked.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
+                    me.data.page.storeLinked.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
                     for(i in success.body)
                         me.initStoreLinked(success.body[i]);
                 },
