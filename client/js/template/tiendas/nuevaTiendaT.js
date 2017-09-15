@@ -35,33 +35,86 @@ module.exports = `
                 </div>
             </div>
         </div>
-        <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Selección de archivo</h5>
-            </div>
-            <div class="panel-body">
-                <p class="content-group">
-                    
-                </p>
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <div class="uploader">
-                            <input type="file" class="file-styled">
-                            <span class="filename">No has seleccionado ningún archivo</span>
-                            <span class="action btn btn-default import-file">Selecciona un archivo</span>
-                            <a href="#" v-on:click.prevent class="input-info input-import"
-                            data-toggle="popover"
-                            data-trigger="focus"
-                            data-placement="left"
-                            data-content="¿Desconoces el formato apropiado para este importador?<br>Da click <a href='/download-import?type=store'>aquí</a> para obtenerlo."
-                            data-html="true">
-                                <i class="icon-info22"></i>
-                            </a>
+        <template v-if="config.typeSelection.type === 0">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Selección de archivo</h5>
+                </div>
+                <div class="panel-body">
+                    <p class="content-group">
+                        
+                    </p>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <div class="uploader">
+                                <input type="file" v-on:change="config.changeFile" class="file-styled">
+                                <span class="filename">{{config.importer.file.text}}</span>
+                                <span class="action btn btn-default import-file">Selecciona un archivo</span>
+                                <a href="#" v-on:click.prevent class="input-info input-import"
+                                data-toggle="popover"
+                                data-trigger="focus"
+                                data-placement="left"
+                                data-content="¿Desconoces el formato apropiado para este importador?<br>Da click <a href='/download-import?type=store'>aquí</a> para obtenerlo."
+                                data-html="true">
+                                    <i class="icon-info22"></i>
+                                </a>
+                            </div>
+                            <div v-if="config.importer.file.value !== null" class="form-group">
+                                <div class="steps-basic wizard clearfix">
+                                    <div class="actions clearfix">
+                                        <ul role="menu" aria-label="Pagination">
+                                            <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.process()" role="menuitem">Procesar</a>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <template v-if="config.importer.store.length > 0">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Datos importados</h5>
+                    </div>
+                    <div class="panel-body">
+                        <p class="content-group">
+                            
+                        </p>
+                        <div v-for="(store, storeIndex) in config.importer.store" class="row">
+                            <div :class="store.name.valid ? '' : 'has-error'" class="form-group">
+                                <label class="control-label col-lg-2">Nombre tienda {{storeIndex + 1}}</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" v-on:keyup="config.validation(storeIndex)" v-model="store.name.value" type="text" name="Nombre">
+                                    <span class="help-block">{{store.name.text}}</span>
+                                    <div class="pull-right input-handler">
+                                        <a href="#" v-on:click.prevent="config.edit(storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="'Descartar ' + store.name.value" data-toggle="modal" data-target="#edit">
+                                            <i aria-hidden="true" class="icon-pencil6"></i>
+                                        </a>
+                                        <a href="#" v-on:click.prevent="config.remove(storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="'Descartar ' + store.name.value">
+                                            <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="steps-basic wizard clearfix">
+                                        <div class="actions clearfix">
+                                            <ul role="menu" aria-label="Pagination">
+                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit()" role="menuitem">Guardar</a>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </template>
         <template v-else-if="config.typeSelection.type === 1">
             <div class="panel panel-flat">
                 <div class="panel-heading">
@@ -96,7 +149,7 @@ module.exports = `
                     </div>
                 </div>
             </div>
-            <div class="panel panel-flat">
+            <div class="panel panel-flat" style="display: block;">
                 <div class="panel-heading">
                     <h5 class="panel-title">Horarios</h5>
                     <div class="heading-elements">
@@ -262,5 +315,104 @@ module.exports = `
                 </div>
             </div>
         </template>
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div v-if="config.importer.editIndex !== null" class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{config.importer.store[config.importer.editIndex].name.value}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input id="searchAddImportStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                    <div id="mapFocusPositionAddImportStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                        <i class="icon-shrink3"></i>
+                                    </div>
+                                    <div id="mapAddImportStore" class="map-container-modal map-basic"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="config.importer.editIndex !== null" class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="steps-basic wizard clearfix">
+                                        <div class="steps clearfix">
+                                            <ul role="tablist">
+                                                <li v-for="(steps, stepIndex) in config.importer.store[config.importer.editIndex].steps" role="tab"
+                                                :class="[stepIndex === 0 ? 'first' : '',
+                                                        config.importer.store[config.importer.editIndex].actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                    <a href="#" v-on:click.prevent="steps.seen && config.importer.store[config.importer.editIndex].actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                        <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="content clearfix">
+                                            <div class="row">
+                                                <div style="padding-top: 20px"></div>
+                                                <div :class="config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                    <div class="form-group">
+                                                        <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                            <label>
+                                                                <span class="switchery switchery-default switchery-custom" :class="config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].active ? 'active' : 'not-active'">
+                                                                    <small></small>
+                                                                </span>
+                                                                {{config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].active ? 'Si' : 'No'}}
+                                                            </label>
+                                                            <span class="help-block">¿Opera en {{config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].text}}?</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div v-if="config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].active" class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">Intervalos de atención</label>
+                                                        <div class="col-md-8">
+                                                            <input disabled="disabled" class="form-control" v-model="config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].interval" type="number" name="Intervalos de atención">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].active && Math.floor(parseInt(config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].interval)) > 0" class="row">
+                                                <div style="padding-top: 20px"></div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group text-center schedule-title">
+                                                        <label>Inicio</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group text-center schedule-title">
+                                                        <label>Final</label>
+                                                    </div>
+                                                </div>
+                                                <template v-for="(interval, intervalIndex) in config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].schedule">
+                                                    <div class="col-sm-6">
+                                                        <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
+                                                            <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                            <span class="help-block">{{interval.textBegin}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
+                                                            <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                            <span class="help-block">{{interval.textEnd}}</span>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 `;

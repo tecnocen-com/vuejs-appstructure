@@ -59,7 +59,8 @@ module.exports = new Vue({
         },
         validation: function(i){
             this.client[i].valid = false;
-            if(this.client[i].value === null ||
+            if(this.client[i].value === undefined ||
+               this.client[i].value === null ||
                this.client[i].value === "")
                 this.client[i].text = "Nombre no puede estar vacío";
             else if(this.client[i].value.length < 4)
