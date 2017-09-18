@@ -179,7 +179,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 if(e.key !== "Backspace"){
                                     switch(t){
                                         case "time":
-                                            if(val !== null && val.length >= 2){
+                                            if(val !== null && val !== undefined && val.length >= 2){
                                                 value = val.split(":").join("");
                                                 val = "";
                                                 for(i = 0; i < value.length; i++)

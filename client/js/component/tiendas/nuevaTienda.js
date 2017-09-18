@@ -35,6 +35,7 @@ module.exports = new Vue({
                     window: null
                 },
                 data: {
+                    address: "Ciudad de México, México",
                     zoom: 13
                 }
             },
@@ -387,7 +388,7 @@ module.exports = new Vue({
                 this.importer.map.main.addListener("click", function(e){       //Define on click listener for map
                     me.positioner(e.latLng);
                 });
-                this.initSearch();
+                //this.initSearch();
                 this.initFocus();
 
             }
@@ -410,16 +411,16 @@ module.exports = new Vue({
                   searchBox.setBounds(me.manualAdd.map.main.getBounds());
                 });
             }
-            else{
-                input = document.getElementById('searchAddImportStore');
-                searchBox = new google.maps.places.SearchBox(input);
-                this.importer.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-        
-                // Bias the SearchBox results towards current map's viewport.
-                this.importer.map.main.addListener('bounds_changed', function() {
-                  searchBox.setBounds(me.importer.map.main.getBounds());
-                });
-            }
+            //else{
+            //    input = document.getElementById('searchAddImportStore');
+            //    searchBox = new google.maps.places.SearchBox(input);
+            //    this.importer.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            //
+            //    // Bias the SearchBox results towards current map's viewport.
+            //    this.importer.map.main.addListener('bounds_changed', function() {
+            //      searchBox.setBounds(me.importer.map.main.getBounds());
+            //    });
+            //}
             searchBox.addListener('places_changed', function() {
                 var places = searchBox.getPlaces();
                 if(places.length === 0){
@@ -457,8 +458,8 @@ module.exports = new Vue({
                   });
                 if(me.typeSelection.type === 1)
                     me.manualAdd.map.main.fitBounds(bounds);
-                else
-                    me.importer.map.main.fitBounds(bounds);
+                //else
+                //    me.importer.map.main.fitBounds(bounds);
             });
         },
         initPosition: function(){
@@ -488,13 +489,25 @@ module.exports = new Vue({
                 this.importer.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
         },
         focusPosition: function(){
-            if(this.manualAdd.map.marker.position.lat !== null &&
-               this.manualAdd.map.marker.position.lng !== null){
-                this.manualAdd.map.main.setCenter({
-                    lat: this.manualAdd.map.marker.position.lat,
-                    lng: this.manualAdd.map.marker.position.lng
-                });
-                this.manualAdd.map.main.setZoom(this.manualAdd.map.data.zoom);
+            if(this.typeSelection.type === 1){
+                if(this.manualAdd.map.marker.position.lat !== null &&
+                   this.manualAdd.map.marker.position.lng !== null){
+                    this.manualAdd.map.main.setCenter({
+                        lat: this.manualAdd.map.marker.position.lat,
+                        lng: this.manualAdd.map.marker.position.lng
+                    });
+                    this.manualAdd.map.main.setZoom(this.manualAdd.map.data.zoom);
+                }
+            }
+            else{
+                if(this.importer.store[this.importer.editIndex].marker.position.lat !== null &&
+                   this.importer.store[this.importer.editIndex].marker.position.lng !== null){
+                    this.importer.map.main.setCenter({
+                        lat: this.importer.store[this.importer.editIndex].marker.position.lat,
+                        lng: this.importer.store[this.importer.editIndex].marker.position.lng
+                    });
+                    this.importer.map.main.setZoom(this.importer.map.data.zoom);
+                }
             }
         },
         positioner: function(pos, i){
@@ -529,36 +542,54 @@ module.exports = new Vue({
                 this.manualAdd.map.marker.position.lng = pos.lng();
             }
             else{
-                if(this.importer.map.marker.main && !this.importer.first)
-                    this.importer.map.marker.main.setPosition(pos);
-                else{
-                    this.importer.map.marker.main = new google.maps.Marker({
-                        map: this.importer.map.main,
-                        position: pos,
-                        icon: "/image/maps/blue.png"
+                if(pos.lat !== null && pos.lng !== null){
+                    if(this.importer.map.marker.main && !this.importer.first){
+                        if(this.importer.map.marker.main.getMap() === null)
+                            this.importer.map.marker.main.setMap(this.importer.map.main);
+                        this.importer.map.marker.main.setPosition(pos);
+                    }
+                    else{
+                        this.importer.map.marker.main = new google.maps.Marker({
+                            map: this.importer.map.main,
+                            position: pos,
+                            icon: "/image/maps/blue.png"
+                        });
+                        this.importer.map.marker.main.addListener("rightclick", function(){
+                            me.importer.map.marker.window.open(me.manualAdd.map.main, me.manualAdd.map.marker.main);
+                        });
+                        this.importer.map.marker.window = new google.maps.InfoWindow({
+                            content: "Dirección no encontrada.",
+                            maxWidth: 175
+                        });
+                    }
+                    this.importer.map.geocoder.geocode({                          //Geocoder for placing
+                        location: pos
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.importer.map.marker.window.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
                     });
-                    this.importer.map.marker.main.addListener("rightclick", function(){
-                        me.importer.map.marker.window.open(me.manualAdd.map.main, me.manualAdd.map.marker.main);
-                    });
-                    this.importer.map.marker.window = new google.maps.InfoWindow({
-                        content: "Dirección no encontrada.",
-                        maxWidth: 175
-                    });
+                    if(i)
+                        this.importer.map.main.setCenter(pos);
+                    else{
+                        this.importer.store[this.importer.editIndex].marker.position.lat = pos.lat();
+                        this.importer.store[this.importer.editIndex].marker.position.lng = pos.lng();
+                    }
                 }
-                this.importer.map.geocoder.geocode({                          //Geocoder for placing
-                    location: pos
-                },
-                function(response, status){
-                    if(status === "OK" && response[0])
-                        me.importer.map.marker.window.setContent(response[0].formatted_address);
-                    else
-                        console.log(status, response);
-                });
-                if(i)
-                    this.importer.map.main.setCenter(pos);
                 else{
-                    this.importer.store[this.importer.editIndex].marker.position.lat = pos.lat();
-                    this.importer.store[this.importer.editIndex].marker.position.lng = pos.lng();
+                    if(this.importer.map.marker.main !== null)
+                        this.importer.map.marker.main.setMap(null);
+                    this.importer.map.geocoder.geocode({                          //Geocoder for placing
+                        address: this.importer.map.data.address
+                    },
+                    function(response, status){
+                        if(status === "OK")
+                            me.importer.map.main.setCenter(response[0].geometry.location);
+                        else
+                            console.log(status);
+                    });
                 }
             }
         },
@@ -636,7 +667,7 @@ module.exports = new Vue({
                     if(this.importer.store[i].name.value === undefined ||
                        this.importer.store[i].name.value === null ||
                        this.importer.store[i].name.value === "")
-                        this.manualAdd.name.text = "Nombre no puede estar vacío";
+                        this.importer.store[i].name.text = "Nombre no puede estar vacío";
                     else if(this.importer.store[i].name.value.length < 6)
                         this.importer.store[i].name.text = "Nombre debe contener al menos 6 caracteres";
                     else{
@@ -691,9 +722,10 @@ module.exports = new Vue({
         },
         process: function(){
             var me = this,
-                i, j = null, length, workbook, data, delimiterType,
+                i, j = null, length, workbook, data, delimiterType, value, headers,
                 reader = new FileReader();
             this.importer.store = [];
+            this.importer.editIndex = null;
             this.importer.variant.nameId = null;
             this.importer.variant.addressId = null;
             this.importer.variant.mondayId = null;
@@ -706,35 +738,38 @@ module.exports = new Vue({
             //BUTO.components.main.loader.active = true;
             reader.onload = function(e){
                 workbook = me.importer.plugins.xlsx.read(e.target.result, {type: "binary"});
+                headers = [];
+                for(i = 0; i < 9; i++)
+                    headers.push(workbook.Strings[i].h);
                 data = me.importer.plugins.xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {raw: true});
                 length = data.length;
                 if(length > 0){
                     for(i = 0; i < me.importer.variant.name.length; i++)
-                        if(data[0].hasOwnProperty(me.importer.variant.name[i].id))
+                        if(headers.indexOf(me.importer.variant.name[i].id) !== -1)
                             me.importer.variant.nameId = me.importer.variant.name[i].id;
                     for(i = 0; i < me.importer.variant.address.length; i++)
-                        if(data[0].hasOwnProperty(me.importer.variant.address[i].id))
+                        if(headers.indexOf(me.importer.variant.address[i].id) !== -1)
                             me.importer.variant.addressId = me.importer.variant.address[i].id;
                     for(i = 0; i < me.importer.variant.monday.length; i++)
-                        if(data[0].hasOwnProperty(me.importer.variant.monday[i].id))
+                        if(headers.indexOf(me.importer.variant.monday[i].id) !== -1)
                             me.importer.variant.mondayId = me.importer.variant.monday[i].id;
                     for(i = 0; i < me.importer.variant.tuesday.length; i++)
-                        if(data[0].hasOwnProperty(me.importer.variant.tuesday[i].id))
+                        if(headers.indexOf(me.importer.variant.tuesday[i].id) !== -1)
                             me.importer.variant.tuesdayId = me.importer.variant.tuesday[i].id;
                     for(i = 0; i < me.importer.variant.wednesday.length; i++)
-                        if(data[0].hasOwnProperty(me.importer.variant.wednesday[i].id))
+                        if(headers.indexOf(me.importer.variant.wednesday[i].id) !== -1)
                             me.importer.variant.wednesdayId = me.importer.variant.wednesday[i].id;
                     for(i = 0; i < me.importer.variant.thursday.length; i++)
-                        if(data[0].hasOwnProperty(me.importer.variant.thursday[i].id))
+                        if(headers.indexOf(me.importer.variant.thursday[i].id) !== -1)
                             me.importer.variant.thursdayId = me.importer.variant.thursday[i].id;
                     for(i = 0; i < me.importer.variant.friday.length; i++)
-                        if(data[0].hasOwnProperty(me.importer.variant.friday[i].id))
+                        if(headers.indexOf(me.importer.variant.friday[i].id) !== -1)
                             me.importer.variant.fridayId = me.importer.variant.friday[i].id;
                     for(i = 0; i < me.importer.variant.saturday.length; i++)
-                        if(data[0].hasOwnProperty(me.importer.variant.saturday[i].id))
+                        if(headers.indexOf(me.importer.variant.saturday[i].id) !== -1)
                             me.importer.variant.saturdayId = me.importer.variant.saturday[i].id;
                     for(i = 0; i < me.importer.variant.sunday.length; i++)
-                        if(data[0].hasOwnProperty(me.importer.variant.sunday[i].id))
+                        if(headers.indexOf(me.importer.variant.sunday[i].id) !== -1)
                             me.importer.variant.sundayId = me.importer.variant.sunday[i].id;
                     if(me.importer.variant.nameId !== null &&
                        me.importer.variant.addressId !== null){
@@ -758,6 +793,7 @@ module.exports = new Vue({
                                             zoom: 13
                                         }
                                     },
+                                    valid: true,
                                     actualStep: 0,
                                     maxInterval: 5,
                                     steps: [
@@ -824,10 +860,11 @@ module.exports = new Vue({
                             }
                             if(data[i][me.importer.variant.mondayId] !== undefined &&
                                me.importer.store[j].steps[0].schedule.length <= me.manualAdd.maxInterval){
-                                delimiterType = data[i][me.importer.variant.mondayId].indexOf(" - ") !== -1 ? " - " : " – ";
+                                value = typeof data[i][me.importer.variant.mondayId] !== "string" ? data[i][me.importer.variant.mondayId].toString() : data[i][me.importer.variant.mondayId];
+                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
                                 me.importer.store[j].steps[0].schedule.push({
-                                    begin: data[i][me.importer.variant.mondayId].split(delimiterType)[0],
-                                    end: data[i][me.importer.variant.mondayId].split(delimiterType)[1],
+                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
                                     validBegin: false,
                                     validEnd: false,
                                     textBegin: "hh:mm:ss",
@@ -842,10 +879,11 @@ module.exports = new Vue({
                             }
                             if(data[i][me.importer.variant.tuesdayId] !== undefined &&
                                me.importer.store[j].steps[1].schedule.length <= me.manualAdd.maxInterval){
-                                delimiterType = data[i][me.importer.variant.tuesdayId].indexOf(" - ") !== -1 ? " - " : " – ";
+                                value = typeof data[i][me.importer.variant.tuesdayId] !== "string" ? data[i][me.importer.variant.tuesdayId].toString() : data[i][me.importer.variant.tuesdayId];
+                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
                                 me.importer.store[j].steps[1].schedule.push({
-                                    begin: data[i][me.importer.variant.tuesdayId].split(delimiterType)[0],
-                                    end: data[i][me.importer.variant.tuesdayId].split(delimiterType)[1],
+                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
                                     validBegin: false,
                                     validEnd: false,
                                     textBegin: "hh:mm:ss",
@@ -860,10 +898,11 @@ module.exports = new Vue({
                             }
                             if(data[i][me.importer.variant.wednesdayId] !== undefined &&
                                me.importer.store[j].steps[2].schedule.length <= me.manualAdd.maxInterval){
-                                delimiterType = data[i][me.importer.variant.wednesdayId].indexOf(" - ") !== -1 ? " - " : " – ";
+                                value = typeof data[i][me.importer.variant.wednesdayId] !== "string" ? data[i][me.importer.variant.wednesdayId].toString() : data[i][me.importer.variant.wednesdayId];
+                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
                                 me.importer.store[j].steps[2].schedule.push({
-                                    begin: data[i][me.importer.variant.wednesdayId].split(delimiterType)[0],
-                                    end: data[i][me.importer.variant.wednesdayId].split(delimiterType)[1],
+                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
                                     validBegin: false,
                                     validEnd: false,
                                     textBegin: "hh:mm:ss",
@@ -878,10 +917,11 @@ module.exports = new Vue({
                             }
                             if(data[i][me.importer.variant.thursdayId] !== undefined &&
                                me.importer.store[j].steps[3].schedule.length <= me.manualAdd.maxInterval){
-                                delimiterType = data[i][me.importer.variant.thursdayId].indexOf(" - ") !== -1 ? " - " : " – ";
+                                value = typeof data[i][me.importer.variant.thursdayId] !== "string" ? data[i][me.importer.variant.thursdayId].toString() : data[i][me.importer.variant.thursdayId];
+                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
                                 me.importer.store[j].steps[3].schedule.push({
-                                    begin: data[i][me.importer.variant.thursdayId].split(delimiterType)[0],
-                                    end: data[i][me.importer.variant.thursdayId].split(delimiterType)[1],
+                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
                                     validBegin: false,
                                     validEnd: false,
                                     textBegin: "hh:mm:ss",
@@ -896,10 +936,11 @@ module.exports = new Vue({
                             }
                             if(data[i][me.importer.variant.fridayId] !== undefined &&
                                me.importer.store[j].steps[4].schedule.length <= me.manualAdd.maxInterval){
-                                delimiterType = data[i][me.importer.variant.fridayId].indexOf(" - ") !== -1 ? " - " : " – ";
+                                value = typeof data[i][me.importer.variant.fridayId] !== "string" ? data[i][me.importer.variant.fridayId].toString() : data[i][me.importer.variant.fridayId];
+                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
                                 me.importer.store[j].steps[4].schedule.push({
-                                    begin: data[i][me.importer.variant.fridayId].split(delimiterType)[0],
-                                    end: data[i][me.importer.variant.fridayId].split(delimiterType)[1],
+                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
                                     validBegin: false,
                                     validEnd: false,
                                     textBegin: "hh:mm:ss",
@@ -914,10 +955,11 @@ module.exports = new Vue({
                             }
                             if(data[i][me.importer.variant.saturdayId] !== undefined &&
                                me.importer.store[j].steps[5].schedule.length <= me.manualAdd.maxInterval){
-                                delimiterType = data[i][me.importer.variant.saturdayId].indexOf(" - ") !== -1 ? " - " : " – ";
+                                value = typeof data[i][me.importer.variant.saturdayId] !== "string" ? data[i][me.importer.variant.saturdayId].toString() : data[i][me.importer.variant.saturdayId];
+                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
                                 me.importer.store[j].steps[5].schedule.push({
-                                    begin: data[i][me.importer.variant.saturdayId].split(delimiterType)[0],
-                                    end: data[i][me.importer.variant.saturdayId].split(delimiterType)[1],
+                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
                                     validBegin: false,
                                     validEnd: false,
                                     textBegin: "hh:mm:ss",
@@ -932,10 +974,11 @@ module.exports = new Vue({
                             }
                             if(data[i][me.importer.variant.sundayId] !== undefined &&
                                me.importer.store[j].steps[6].schedule.length <= me.manualAdd.maxInterval){
-                                delimiterType = data[i][me.importer.variant.sundayId].indexOf(" - ") !== -1 ? " - " : " – ";
+                                value = typeof data[i][me.importer.variant.sundayId] !== "string" ? data[i][me.importer.variant.sundayId].toString() : data[i][me.importer.variant.sundayId];
+                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
                                 me.importer.store[j].steps[6].schedule.push({
-                                    begin: data[i][me.importer.variant.sundayId].split(delimiterType)[0],
-                                    end: data[i][me.importer.variant.sundayId].split(delimiterType)[1],
+                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
                                     validBegin: false,
                                     validEnd: false,
                                     textBegin: "hh:mm:ss",
@@ -949,7 +992,6 @@ module.exports = new Vue({
                                 me.validation("import-time-end", j, 6, me.importer.store[j].steps[6].interval - 1);
                             }
                         }
-                        console.log(me.importer.store);
                     }
                     else{
                         BUTO.components.main.alert.description.text = "No se pudo identificar una columna apropiada para obtener: ";
@@ -1009,51 +1051,15 @@ module.exports = new Vue({
             else
                 this.positioner(this.importer.store[i].marker.position, true);
         },
-        //submit: function(){
-        //    var i,
-        //        length = this.client.length,
-        //        total = 0;
-        //    BUTO.components.main.loader.active = true;
-        //    for(i = 0; i < length; i++)
-        //        total += i;
-        //    for(i = 0; i < length; i++)
-        //        this.submitClient(i, total);
-        //},
-        //submitClient: function(i, total){
-        //    var me = this;
-        //    this.models.cliente.post({
-        //        params: {
-        //            nombre: this.client[i].value
-        //        }
-        //    },
-        //    function(success){
-        //        me.total += i;
-        //        if(me.total === total)
-        //            setTimeout(function(){
-        //                me.reset("step");
-        //            }, 100);
-        //    },
-        //    function(error){
-        //        console.log(error);
-        //        me.total += i;
-        //        me.valid = false;
-        //        me.client[i].valid = false;
-        //        me.client[i].text = error.body[0].message;
-        //        if(me.total === total)
-        //            setTimeout(function(){
-        //                me.reset("step");
-        //            }, 100);
-        //    });
-        //},
         submit: function(e){
-            var me = this;
+            var me = this,
+                i, j, k = 0, limit = 4, length,
+                first = true,
+                hmdB, hmdE,
+                error = "", total = 0,
+                valid = true;
             switch(e){
                 case "manual":
-                    var i, j, k = 0, limit = 4,
-                        first = true,
-                        hmdB, hmdE,
-                        error = "",
-                        valid = true;
                     if(this.manualAdd.name.value === null || this.manualAdd.name.value === ""){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
@@ -1149,7 +1155,7 @@ module.exports = new Vue({
                                 for(i = 0; i < me.manualAdd.steps.length; i++)
                                     if(me.manualAdd.steps[i].active || me.manualAdd.sameConf){
                                         for(j = 0; j < me.manualAdd.steps[me.manualAdd.sameConf ? 0 : i].schedule.length; j++){
-                                            me.submitSchedule(i, j, success.body.id, first);
+                                            me.submitSchedule(i, j, null, success.body.id, first, null);
                                             first = false;
                                         }
                                     }
@@ -1180,72 +1186,237 @@ module.exports = new Vue({
                     }
                     break;
                 case "import":
-                    
+                    this.importer.valid = true;
+                    length = [this.importer.store.length];
+                    for(i = 0; i < length[0]; i++){
+                        this.importer.store[i].valid = true;
+                        total += i;
+                    }
+                    for(i = 0; i < length[0]; i++){
+                        valid = true;
+                        length[1] = this.importer.store[i].steps.length;
+                        if(this.importer.store[i].name.value === null || this.importer.store[i].name.value === ""){     //No name
+                            this.importer.store[i].name.valid = false;
+                            this.importer.store[i].name.text = "Nombre no puede estar vacío";
+                            valid = false;
+                        }
+                        if(this.importer.store[i].name.value.length < 6){
+                            this.importer.store[i].name.valid = false;
+                            this.importer.store[i].name.text = "Nombre debe contener al menos 6 caracteres";
+                            valid = false;
+                        }
+                        if(this.importer.store[i].marker.position.lat === null || this.importer.store[i].marker.position.lng === null){
+                            valid = false;
+                        }
+                        for(j = 0; j < length[1]; j++)
+                            if(this.importer.store[i].steps[j].active){
+                                length[2] = this.importer.store[i].steps[j].schedule.length;
+                                for(k = 0; k < length[2]; k++){
+                                    hmdB = this.importer.store[i].steps[j].schedule[k].begin.split(":");
+                                    hmdE = this.importer.store[i].steps[j].schedule[k].end.split(":");
+                                    this.importer.store[i].steps[j].schedule[k].validBegin = true;
+                                    this.importer.store[i].steps[j].schedule[k].validEnd = true;
+                                    this.importer.store[i].steps[j].schedule[k].textBegin = "hh:mm:ss";
+                                    this.importer.store[i].steps[j].schedule[k].textEnd = "hh:mm:ss";
+                                    if(this.importer.store[i].steps[j].schedule[k].begin === ""){
+                                        this.importer.store[i].steps[j].schedule[k].validBegin = false;
+                                        this.importer.store[i].steps[j].schedule[k].textBegin = "El inicio del intervalo no puede estar vacío";
+                                        valid = false;
+                                    }
+                                    if(this.importer.store[i].steps[j].schedule[k].end === ""){
+                                        this.importer.store[i].steps[j].schedule[k].validEnd = false;
+                                        this.importer.store[i].steps[j].schedule[k].textEnd = "El final del intervalo no puede estar vacío";
+                                        valid = false;
+                                    }
+                                    if(this.importer.store[i].steps[j].schedule[k].begin !== "" &&
+                                       (this.importer.store[i].steps[j].schedule[k].begin > "23:59:59" ||
+                                        hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
+                                        this.importer.store[i].steps[j].schedule[k].validBegin = false;
+                                        this.importer.store[i].steps[j].schedule[k].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                                        valid = false;
+                                    }
+                                    if(this.importer.store[i].steps[j].schedule[k].end !== "" &&
+                                       (this.importer.store[i].steps[j].schedule[k].end > "23:59:59" ||
+                                        hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
+                                        this.importer.store[i].steps[j].schedule[k].validEnd = false;
+                                        this.importer.store[i].steps[j].schedule[k].textEnd = "El final del intervalo no tiene un formato apropiado";
+                                        valid = false;
+                                    }
+                                    if(this.importer.store[i].steps[j].schedule[k].begin !== "" &&
+                                       this.importer.store[i].steps[j].schedule[k].end !== "" &&
+                                       this.importer.store[i].steps[j].schedule[k].begin >= this.importer.store[i].steps[j].schedule[k].end){
+                                        this.importer.store[i].steps[j].schedule[k].validBegin = false;
+                                        this.importer.store[i].steps[j].schedule[k].validEnd = false;
+                                        this.importer.store[i].steps[j].schedule[k].textBegin = "El inicio del intervalo debe ser menor al final del mismo";
+                                        this.importer.store[i].steps[j].schedule[k].textEnd = "El final del intervalo debe ser mayor al inicio del mismo";
+                                        valid = false;
+                                    }
+                                    if(k > 0 &&
+                                       this.importer.store[i].steps[j].schedule[k].begin !== "" &&
+                                       this.importer.store[i].steps[j].schedule[k - 1].end !== "" &&
+                                       this.importer.store[i].steps[j].schedule[k].begin <= this.importer.store[i].steps[j].schedule[k - 1].end){
+                                        this.importer.store[i].steps[j].schedule[k].validBegin = false;
+                                        this.importer.store[i].steps[j].schedule[k - 1].validEnd = false;
+                                        this.importer.store[i].steps[j].schedule[k].textBegin = "El inicio del intervalo debe ser mayor al final del intervalo anterior";
+                                        this.importer.store[i].steps[j].schedule[k - 1].textEnd = "El final del intervalo debe ser menor al inicio del intervalo posterior";
+                                        valid = false;
+                                    }
+                                }
+                            }
+                        this.importer.valid *= valid;
+                        this.importer.store[i].valid = valid;
+                        this.submitStore(i, total);
+                    }
                     break;
             }
         },
-        submitSchedule: function(i, j, id, first){
-            var me = this;
-            if(first)
-                this.reset("store");
-            if(this.manualAdd.sameConf){
-                this.models.sucursalHorario.post({
-                    delimiters: id,
+        submitStore: function(i, total){
+            var me = this,
+                j, k;
+            if(this.importer.store[i].valid){
+                this.models.sucursal.post({
                     params: {
-                        dia: this.manualAdd.steps[i].dayNumber,
-                        hora_inicio: this.manualAdd.steps[0].schedule[j].begin,
-                        hora_fin: this.manualAdd.steps[0].schedule[j].end
+                        nombre: this.importer.store[i].name.value,
+                        lat: this.importer.store[i].marker.position.lat,
+                        lng: this.importer.store[i].marker.position.lng
                     }
                 },
                 function(success){
-                    me.reset("schedule", i, j);
+                    me.importer.total += i;
+                    for(j = 0; j < me.importer.store[i].steps.length; j++){
+                        if(me.importer.store[i].steps[j].schedule.length > 0)
+                            for(k = 0; k < me.importer.store[i].steps[j].schedule.length; k++)
+                                me.submitSchedule(i, j, k, success.body.id, null, total);
+                        else
+                            me.submitSchedule(i, j, -1, success.body.id, null, total);
+                    }
+                    if(me.importer.total === total){
+                        BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
+                        if(me.importer.valid){
+                            BUTO.components.main.alert.description.title = "Importación de datos completada";
+                            BUTO.components.main.alert.description.text = "Los registros ya han sido agregados.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                        }
+                        else{
+                            BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                            BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                        }
+                    }
                 },
                 function(error){
-                    console.log(error);
-                });
+                    me.importer.total += i;
+                    me.importer.valid = false;
+                    me.importer.store[i].valid = false;
+                    if(me.importer.total === total){
+                        BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                        BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    }
+                    me.importer.store[i].name.valid = false;
+                    me.importer.store[i].name.text = error.body[0].message;
+                }); 
             }
             else{
-                this.models.sucursalHorario.post({
-                    delimiters: id,
-                    params: {
-                        dia: this.manualAdd.steps[i].dayNumber,
-                        hora_inicio: this.manualAdd.steps[i].schedule[j].begin,
-                        hora_fin: this.manualAdd.steps[i].schedule[j].end
+                this.importer.total += i;
+                for(j = 0; j < this.importer.store[i].steps.length; j++)
+                    for(k = 0; k < this.importer.store[i].steps[j].schedule.length; k++){
+                        this.submitSchedule(i, j, k, null, null, total);
                     }
-                },
-                function(success){
-                    me.reset("schedule", i, j);
-                },
-                function(error){
-                    console.log(error);
-                });
+            }
+        },
+        submitSchedule: function(i, j, k, id, first, total){
+            var me = this;
+            if(this.typeSelection.type === 1){
+                if(first)
+                    this.reset("store");
+                if(this.manualAdd.sameConf){
+                    this.models.sucursalHorario.post({
+                        delimiters: id,
+                        params: {
+                            dia: this.manualAdd.steps[i].dayNumber,
+                            hora_inicio: this.manualAdd.steps[0].schedule[j].begin,
+                            hora_fin: this.manualAdd.steps[0].schedule[j].end
+                        }
+                    },
+                    function(success){
+                        me.reset("schedule", i, j);
+                    },
+                    function(error){
+                        console.log(error);
+                    });
+                }
+                else{
+                    this.models.sucursalHorario.post({
+                        delimiters: id,
+                        params: {
+                            dia: this.manualAdd.steps[i].dayNumber,
+                            hora_inicio: this.manualAdd.steps[i].schedule[j].begin,
+                            hora_fin: this.manualAdd.steps[i].schedule[j].end
+                        }
+                    },
+                    function(success){
+                        me.reset("schedule", i, j);
+                    },
+                    function(error){
+                        console.log(error);
+                    });
+                }
+            }
+            else{
+                if(this.importer.store[i].valid &&
+                   this.importer.store[i].steps[j].active)
+                    this.models.sucursalHorario.post({
+                        delimiters: id,
+                        params: {
+                            dia: this.importer.store[i].steps[j].dayNumber,
+                            hora_inicio: this.importer.store[i].steps[j].schedule[k].begin,
+                            hora_fin: this.importer.store[i].steps[j].schedule[k].end
+                        }
+                    },
+                    function(success){
+                        //if(me.importer.total === total &&
+                        //   j === me.importer.store[i].steps.length - 1 &&
+                        //   k === me.importer.store[i].steps[j].schedule.length - 1)
+                        //    me.reset("import");
+                    },
+                    function(error){
+                        console.log(error);
+                    });
+                if(this.importer.total === total &&
+                    j === this.importer.store[i].steps.length - 1 &&
+                    k === this.importer.store[i].steps[j].schedule.length - 1)
+                    setTimeout(function(){
+                        me.reset("import");
+                    }, 250);
             }
         },
         reset: function(a, i, j){
             var length, newSteps = [];
             switch(a){
-                case "import-step":
+                case "import":
                     length = this.importer.store.length;
-                    for(j = 0; j < length; j++){
-                        if(!this.importer.store[j].valid){
-                            this.importer.valid = false;
-                            newSteps.push(this.importer.store[j]);
-                        }
-                    }
+                    this.importer.editIndex = null;
+                    for(i = 0; i < this.importer.store.length; i++)
+                        if(!this.importer.store[i].valid)
+                            newSteps.push(this.importer.store[i]);
                     this.importer.store = newSteps;
-                    this.total = 0;
-                    if(this.importer.valid){
-                        BUTO.components.main.alert.description.title = "Importación de datos completada";
-                        BUTO.components.main.alert.description.text = "Los registros ya han sido agregados.";
-                    }
-                    else{
-                        BUTO.components.main.alert.description.title = "Errores en importación de datos";
-                        BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
-                    }
-                    BUTO.components.main.alert.description.ok = "Aceptar";
-                    BUTO.components.main.alert.active = true;
+                    this.importer.total = 0;
+                    //if(this.importer.valid){
+                    //    BUTO.components.main.alert.description.title = "Importación de datos completada";
+                    //    BUTO.components.main.alert.description.text = "Los registros ya han sido agregados.";
+                    //}
+                    //else{
+                    //    BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                    //    BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
+                    //}
                     this.importer.valid = true;
-                    BUTO.components.main.children.clientesRegistrados.grid.updatePagination();
+                    //BUTO.components.main.alert.description.ok = "Aceptar";
+                    //BUTO.components.main.alert.active = true;
+                    //BUTO.components.main.children.clientesRegistrados.grid.updatePagination();
                     //BUTO.components.main.loader.active = false;
                     break;
                 case "store":

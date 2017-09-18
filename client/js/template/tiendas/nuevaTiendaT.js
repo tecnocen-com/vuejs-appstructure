@@ -82,13 +82,13 @@ module.exports = `
                             
                         </p>
                         <div v-for="(store, storeIndex) in config.importer.store" class="row">
-                            <div :class="store.name.valid ? '' : 'has-error'" class="form-group">
+                            <div :class="store.valid && store.name.valid ? '' : 'has-error'" class="form-group">
                                 <label class="control-label col-lg-2">Nombre tienda {{storeIndex + 1}}</label>
                                 <div class="col-lg-10">
-                                    <input class="form-control" v-on:keyup="config.validation(storeIndex)" v-model="store.name.value" type="text" name="Nombre">
+                                    <input class="form-control" v-on:keyup="config.validation('import-name', storeIndex)" v-model="store.name.value" type="text" name="Nombre">
                                     <span class="help-block">{{store.name.text}}</span>
                                     <div class="pull-right input-handler">
-                                        <a href="#" v-on:click.prevent="config.edit(storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="'Descartar ' + store.name.value" data-toggle="modal" data-target="#edit">
+                                        <a href="#" v-on:click.prevent="config.edit(storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="'Editar ' + store.name.value" data-toggle="modal" data-target="#edit">
                                             <i aria-hidden="true" class="icon-pencil6"></i>
                                         </a>
                                         <a href="#" v-on:click.prevent="config.remove(storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="'Descartar ' + store.name.value">
@@ -104,7 +104,7 @@ module.exports = `
                                     <div class="steps-basic wizard clearfix">
                                         <div class="actions clearfix">
                                             <ul role="menu" aria-label="Pagination">
-                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit()" role="menuitem">Guardar</a>
+                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('import')" role="menuitem">Guardar</a>
                                             </ul>
                                         </div>
                                     </div>
@@ -326,7 +326,7 @@ module.exports = `
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <input id="searchAddImportStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">
+                                    <!--<input id="searchAddImportStore" class="form-control" style="margin-top: 8px; width: 40%;" type="text" placeholder="Búsqueda">-->
                                     <div id="mapFocusPositionAddImportStore" v-on:click="config.focusPosition()" class="map-focus-position text-center">
                                         <i class="icon-shrink3"></i>
                                     </div>
@@ -389,13 +389,13 @@ module.exports = `
                                                 <template v-for="(interval, intervalIndex) in config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].schedule">
                                                     <div class="col-sm-6">
                                                         <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                            <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                            <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('import-time-begin', config.importer.editIndex, config.importer.store[config.importer.editIndex].actualStep, intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                             <span class="help-block">{{interval.textBegin}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                            <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                            <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('import-time-end', config.importer.editIndex, config.importer.store[config.importer.editIndex].actualStep, intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                             <span class="help-block">{{interval.textEnd}}</span>
                                                         </div>
                                                     </div>
