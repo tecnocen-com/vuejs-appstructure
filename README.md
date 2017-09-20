@@ -83,11 +83,10 @@ $ node index.js
 
 ## Construido con
 
-* [Node.js](https://nodejs.org/) - Backend server.
+* [NodeJS](https://nodejs.org/) - Backend server.
 * [Npm](https://www.npmjs.com/) - Package manager.
-* [Express](http://expressjs.com/es/) - The web framework used.
-* [MongoDB](https://www.mongodb.com/) - Document database.
-* [Vue.js](https://vuejs.org/) - Document database.
+* [ExpressJS](http://expressjs.com/es/) - The web framework used.
+* [VueJS](https://vuejs.org/) - Document database.
 
 ## Contribuciones
 
