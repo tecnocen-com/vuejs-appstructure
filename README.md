@@ -10,10 +10,46 @@ Ver la sección «despliege» (deployment) para notas de como correrlo en un amb
 ### Pre-requisitos
 
 - Node.js 6+ (LTS)
-- Npm 3.10+
-- MongoDB 3.0+
 
-### Instalación
+Instalación de nodeJS:
+
+```bash
+$ sudo apt-get update
+$ sudo apt-get install nodejs
+```
+
+- Npm 3.10+
+
+Instalación de npm:
+
+```bash
+$ sudo apt-get install npm
+$ npm -v
+```
+
+Si la versión de npm es menor a la recomendada, proceder con:
+
+```bash
+$ sudo npm install npm@latest -g
+```
+
+Si la versión de nodeJS es menor a la recomendada, proceder con:
+
+```bash
+$ sudo npm cache clean -f
+$ sudo npm install -g n
+$ sudo n stable
+```
+
+NOTA: Particularmente en ubuntu el binario para nodeJS es "nodejs" en vez de "node" debido a otro paquete. 
+Si se requiere llamarlo como "node" se procederá con:
+
+```bash
+$ sudo ln -sf /usr/local/n/versions/node/<VERSION>/bin/node /usr/bin/nodejs
+```
+En donde <VERSION> es la última versión instalada.
+
+### Instalación de proyecto
 
 Clonar el repositorio:
 
@@ -32,41 +68,6 @@ Inicializar el proyecto con:
 ```bash
 $ node index.js
 ```
-
-## (optional) Correr demonio/servicio mongodb
-
-Crear un archivo con el siguiente comando:
-
-```bash
-$ sudo vim /etc/systemd/system/mongodb.service
-```
-
-Pegar el siguiente texto dentro del archivo:
-
-```
-[Unit]
-Description=High-performance, schema-free document-oriented database
-After=network.target
-
-[Service]
-User=mongodb
-ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Inicializar el servicio:
-
-```bash
-$ sudo systemctl start mongodb
-```
-
-Referencias:
-
-- [¿Cómo instalar MongoDB en Ubuntu 16.04?](https://www.digitalocean.com/community/tutorials/como-instalar-mongodb-en-ubuntu-16-04-es).
-- [Understanding and Using Systemd](https://www.linux.com/learn/understanding-and-using-systemd).
-
 
 ## Corriendo las pruebas
 
