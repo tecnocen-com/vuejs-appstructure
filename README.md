@@ -47,7 +47,7 @@ Si se requiere llamarlo como "node" se procederá con:
 ```bash
 $ sudo ln -sf /usr/local/n/versions/node/<VERSION>/bin/node /usr/bin/nodejs
 ```
-En donde <VERSION> es la última versión instalada.
+En donde ```bash<VERSION>``` es la última versión instalada.
 
 ### Instalación de proyecto
 
