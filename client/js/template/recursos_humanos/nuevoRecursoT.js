@@ -108,7 +108,7 @@ module.exports = `
                         <div :class="config.manualAdd.phone.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Teléfono</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('phone')" v-model="config.manualAdd.phone.value" type="number" name="Teléfono" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                <input class="form-control" v-on:keyup="config.validation('phone')" v-model="config.manualAdd.phone.value" type="number" name="Teléfono" min="1" step="1" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || event.keyCode === 8 || event.keyCode === 37 || event.keyCode === 39 || event.keyCode === 46)">
                                 <span class="help-block">{{config.manualAdd.phone.text}}</span>
                             </div>
                         </div>
