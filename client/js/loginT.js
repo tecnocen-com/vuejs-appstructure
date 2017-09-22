@@ -12,11 +12,11 @@ module.exports = `
                 <div class="box-login">
                     <div id="username" class="form-group">
                         <label for="username">{{user.label}}:</label>
-                        <input v-on:keydown.space.prevent v-on:keydown.enter="login()" type="text" v-model="user.data" ref="username" name="username" :class="!alert.hidden && error !== 1 ? 'wrong-input' : ''" class="form-control">
+                        <input v-on:keydown.space.prevent v-on:keydown.enter="login()" type="text" v-model="user.data" ref="username" name="username" :class="!alert.hidden && error !== 1 ? 'wrong-input' : ''" class="form-control" maxlength="64">
                     </div>
                     <div id="password" class="form-group">
                         <label for="password">{{password.label}}:</label>
-                        <input v-on:keydown.space.prevent v-on:keydown.enter="login()" type="password" v-model="password.data" ref="password" name="password" :class="!alert.hidden && error !== 0 ? 'wrong-input' : ''" class="form-control">
+                        <input v-on:keydown.space.prevent v-on:keydown.enter="login()" type="password" v-model="password.data" ref="password" name="password" :class="!alert.hidden && error !== 0 ? 'wrong-input' : ''" class="form-control" maxlength="64">
                     </div>
                 </div>
                 <div id="message" v-if="!alert.hidden" :class="[alert.animate ? animationClass[0] : animationClass[1], 'message-box', 'wrong-message-box']" role="alert">
