@@ -36280,18 +36280,19 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                             },
                             mask: function(t, e, val){
                                 var value,
-                                    i;
+                                    i, length;
                                 if(e.key !== "Backspace"){
                                     switch(t){
                                         case "time":
                                             if(val !== null && val !== undefined && val.length >= 2){
                                                 value = val.split(":").join("");
+                                                length = value.length > 6 ? 6 : value.length;
                                                 val = "";
-                                                for(i = 0; i < value.length; i++)
+                                                for(i = 0; i < length; i++)
                                                     val += (!isNaN(parseInt(value[i]))) ? value[i] : "";
                                                 value = val;
                                                 val = "";
-                                                for(i = 0; i < value.length; i++)
+                                                for(i = 0; i < length; i++)
                                                     val += (i === 1 || i === 3) ? value[i] + ":" : value[i];
                                             }
                                             break;
