@@ -14,7 +14,7 @@ module.exports = `
                     <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
                         <label class="control-label col-lg-2">Nombre</label>
                         <div class="col-lg-10">
-                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre">
+                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre" maxlength="64">
                             <span class="help-block">{{config.name.text}}</span>
                         </div>
                     </div>
@@ -23,7 +23,7 @@ module.exports = `
                     <div :class="config.email.valid ? '' : 'has-error'" class="form-group">
                         <label class="control-label col-lg-2">Correo electrónico</label>
                         <div class="col-lg-10">
-                            <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.email.value" type="text" name="Correo electrónico">
+                            <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.email.value" type="text" name="Correo electrónico" maxlength="64">
                             <span class="help-block">{{config.email.text}}</span>
                         </div>
                     </div>

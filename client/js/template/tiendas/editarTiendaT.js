@@ -13,7 +13,7 @@ module.exports = `
                 <div class="row">
                     <div class="col-sm-12">
                         <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
-                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre">
+                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre" maxlength="64">
                             <span class="help-block">{{config.name.text}}</span>
                         </div>
                     </div>

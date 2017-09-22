@@ -124,7 +124,7 @@ module.exports = `
                     <div class="row">
                         <div class="col-sm-12">
                             <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
-                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
+                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre" maxlength="64">
                                 <span class="help-block">{{config.manualAdd.name.text}}</span>
                             </div>
                         </div>

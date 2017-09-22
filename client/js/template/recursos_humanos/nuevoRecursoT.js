@@ -72,7 +72,7 @@ module.exports = `
                         <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Nombre</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
+                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre" maxlength="64">
                                 <span class="help-block">{{config.manualAdd.name.text}}</span>
                             </div>
                         </div>
@@ -81,7 +81,7 @@ module.exports = `
                         <div :class="config.manualAdd.email.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Correo electrónico</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico">
+                                <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico" maxlength="64">
                                 <span class="help-block">{{config.manualAdd.email.text}}</span>
                             </div>
                         </div>
@@ -90,7 +90,7 @@ module.exports = `
                         <div :class="config.manualAdd.pass.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Contraseña</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña">
+                                <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña" maxlength="64">
                                 <span class="help-block">{{config.manualAdd.pass.text}}</span>
                             </div>
                         </div>
@@ -99,7 +99,7 @@ module.exports = `
                         <div :class="config.manualAdd.repass.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Confirmar contraseña</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña">
+                                <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña" maxlength="64">
                                 <span class="help-block">{{config.manualAdd.repass.text}}</span>
                             </div>
                         </div>
