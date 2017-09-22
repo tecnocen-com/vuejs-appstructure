@@ -10369,10 +10369,10 @@ var mcdatatableT = `
                                                     </select>
                                                     <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="number">
                                                     <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="email">
-                                                    <input v-else v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text">
+                                                    <input v-else v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text" maxlength="64">
                                                 </template>
                                                 <template v-else>
-                                                    <input v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text">
+                                                    <input v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text" maxlength="64">
                                                 </template>
                                             </div>
                                         </div>
@@ -10865,10 +10865,10 @@ var mcdatatableT = `
                                                     </select>
                                                     <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
                                                     <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
-                                                    <input v-else v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                                    <input v-else v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text" maxlength="64">
                                                 </template>
                                                 <template v-else>
-                                                    <input v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                                    <input v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text" maxlength="64">
                                                 </template>
                                             </div>
                                         </div>
