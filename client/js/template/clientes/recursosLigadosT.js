@@ -58,7 +58,7 @@ module.exports = `
                         <nav class="pull-right">
                             <ul class="pagination">
                                 <li>
-                                    <span><b>Mostrando {{config.resource.length}} de {{config.data.page.resource.totalCount}} filas en la página {{config.data.page.resource.currentPage}} de {{config.data.page.resource.pageCount}}.</b></span>
+                                    <span><b>Mostrando {{config.resource.length}} de {{config.data.page.resource.totalCount}} filas en la página {{config.data.page.resource.currentPage}} de {{config.data.page.resource.pageCount < 1 ? '1' : config.data.page.resource.pageCount}}.</b></span>
                                 </li>
                                 <li  :class="config.data.page.resource.currentPage === 1 ? 'not-active disabled' : ''">
                                     <a href="#" v-on:click.prevent="config.init(1, 1);">
@@ -191,7 +191,7 @@ module.exports = `
                         <nav class="pull-right">
                             <ul class="pagination">
                                 <li>
-                                    <span><b>Mostrando {{config.resourceLinked.length}} de {{config.data.page.resourceLinked.totalCount}} filas en la página {{config.data.page.resourceLinked.currentPage}} de {{config.data.page.resourceLinked.pageCount}}.</b></span>
+                                    <span><b>Mostrando {{config.resourceLinked.length}} de {{config.data.page.resourceLinked.totalCount}} filas en la página {{config.data.page.resourceLinked.currentPage}} de {{config.data.page.resourceLinked.pageCount < 1 ? '1' : config.data.page.resourceLinked.pageCount}}.</b></span>
                                 </li>
                                 <li  :class="config.data.page.resourceLinked.currentPage === 1 ? 'not-active disabled' : ''">
                                     <a href="#" v-on:click.prevent="config.init(2, null, 1);">
