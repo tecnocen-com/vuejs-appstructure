@@ -38249,7 +38249,7 @@ module.exports = `
                                             </div>
                                         </div>
                                     </div>
-                                    <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
+                                    <div v-if="config.steps[config.actualStep].active" class="row">
                                         <div style="padding-top: 20px"></div>
                                         <div class="col-sm-6">
                                             <div class="form-group text-center schedule-title">
@@ -39065,7 +39065,7 @@ module.exports = `
                                             </div>
                                         </div>
                                     </div>
-                                    <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
+                                    <div v-if="config.steps[config.actualStep].active" class="row">
                                         <div style="padding-top: 20px"></div>
                                         <div class="col-sm-5">
                                             <div class="form-group text-center schedule-title">
@@ -68726,28 +68726,35 @@ module.exports = new Vue({
             var i,
                 interval = Math.floor(parseInt(this.steps[this.actualStep].interval)) <= this.maxInterval ? Math.floor(parseInt(this.steps[this.actualStep].interval)) : this.maxInterval,
                 length = this.steps[this.actualStep].schedule.length;
-            if(length < interval)
-                for(i = 0; i < interval - length; i++)
-                    this.steps[this.actualStep].schedule.push({
-                        begin: "",
-                        end: "",
-                        validBegin: true,
-                        validEnd: true,
-                        textBegin: "hh:mm:ss",
-                        textEnd: "hh:mm:ss",
-                        id: null,
-                        remove: false
-                    });
-            else if(length > interval)
-                for(i = 0; i < length; i++){
-                    if(i >= interval)
-                        this.steps[this.actualStep].schedule[i].remove = true;
-                    else
+            console.log(this.steps[this.actualStep].interval,
+                        parseInt(this.steps[this.actualStep].interval),
+                        Math.floor(parseInt(this.steps[this.actualStep].interval)),
+                        isNaN(Math.floor(parseInt(this.steps[this.actualStep].interval))));
+            if(!isNaN(Math.floor(parseInt(this.steps[this.actualStep].interval)))){
+                this.steps[this.actualStep].interval = interval;
+                if(length < interval)
+                    for(i = 0; i < interval - length; i++)
+                        this.steps[this.actualStep].schedule.push({
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
+                            id: null,
+                            remove: false
+                        });
+                else if(length > interval)
+                    for(i = 0; i < length; i++){
+                        if(i >= interval)
+                            this.steps[this.actualStep].schedule[i].remove = true;
+                        else
+                            this.steps[this.actualStep].schedule[i].remove = false;
+                    }
+                else
+                    for(i = 0; i < length; i++)
                         this.steps[this.actualStep].schedule[i].remove = false;
-                }
-            else
-                for(i = 0; i < length; i++)
-                    this.steps[this.actualStep].schedule[i].remove = false;
+            }
         },
         validation: function(type, i){
             switch(type){
@@ -69590,7 +69597,8 @@ module.exports = new Vue({
                 interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
                 length = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length;
             if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)))){
-                if(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length < interval){
+                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval = interval;
+                if(length < interval){
                     for(i = 0; i < interval - length; i++)
                         this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
                             begin: "",
@@ -71549,6 +71557,7 @@ module.exports = new Vue({
                 interval = Math.floor(parseInt(this.steps[step].interval)) <= this.maxInterval ? Math.floor(parseInt(this.steps[step].interval)) : this.maxInterval,
                 length = this.steps[step].schedule.length;
             if(!isNaN(Math.floor(parseInt(this.steps[step].interval)))){
+                this.steps[step].interval = interval;
                 if(length < interval){
                     for(i = 0; i < interval - length; i++)
                         this.steps[step].schedule.push({
@@ -73095,6 +73104,7 @@ module.exports = new Vue({
                 interval = Math.floor(parseInt(this.manualAdd.steps[step].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[step].interval)) : this.manualAdd.maxInterval,
                 length = this.manualAdd.steps[step].schedule.length;
             if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[step].interval)))){
+                this.manualAdd.steps[step].interval = interval;
                 if(this.manualAdd.steps[step].schedule.length < interval){
                     for(i = 0; i < interval - length; i++)
                         this.manualAdd.steps[step].schedule.push({

@@ -84,7 +84,7 @@ module.exports = `
                                             </div>
                                         </div>
                                     </div>
-                                    <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
+                                    <div v-if="config.steps[config.actualStep].active" class="row">
                                         <div style="padding-top: 20px"></div>
                                         <div class="col-sm-6">
                                             <div class="form-group text-center schedule-title">

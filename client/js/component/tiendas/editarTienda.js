@@ -359,28 +359,35 @@ module.exports = new Vue({
             var i,
                 interval = Math.floor(parseInt(this.steps[this.actualStep].interval)) <= this.maxInterval ? Math.floor(parseInt(this.steps[this.actualStep].interval)) : this.maxInterval,
                 length = this.steps[this.actualStep].schedule.length;
-            if(length < interval)
-                for(i = 0; i < interval - length; i++)
-                    this.steps[this.actualStep].schedule.push({
-                        begin: "",
-                        end: "",
-                        validBegin: true,
-                        validEnd: true,
-                        textBegin: "hh:mm:ss",
-                        textEnd: "hh:mm:ss",
-                        id: null,
-                        remove: false
-                    });
-            else if(length > interval)
-                for(i = 0; i < length; i++){
-                    if(i >= interval)
-                        this.steps[this.actualStep].schedule[i].remove = true;
-                    else
+            console.log(this.steps[this.actualStep].interval,
+                        parseInt(this.steps[this.actualStep].interval),
+                        Math.floor(parseInt(this.steps[this.actualStep].interval)),
+                        isNaN(Math.floor(parseInt(this.steps[this.actualStep].interval))));
+            if(!isNaN(Math.floor(parseInt(this.steps[this.actualStep].interval)))){
+                this.steps[this.actualStep].interval = interval;
+                if(length < interval)
+                    for(i = 0; i < interval - length; i++)
+                        this.steps[this.actualStep].schedule.push({
+                            begin: "",
+                            end: "",
+                            validBegin: true,
+                            validEnd: true,
+                            textBegin: "hh:mm:ss",
+                            textEnd: "hh:mm:ss",
+                            id: null,
+                            remove: false
+                        });
+                else if(length > interval)
+                    for(i = 0; i < length; i++){
+                        if(i >= interval)
+                            this.steps[this.actualStep].schedule[i].remove = true;
+                        else
+                            this.steps[this.actualStep].schedule[i].remove = false;
+                    }
+                else
+                    for(i = 0; i < length; i++)
                         this.steps[this.actualStep].schedule[i].remove = false;
-                }
-            else
-                for(i = 0; i < length; i++)
-                    this.steps[this.actualStep].schedule[i].remove = false;
+            }
         },
         validation: function(type, i){
             switch(type){

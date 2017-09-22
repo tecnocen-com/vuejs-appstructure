@@ -791,6 +791,7 @@ module.exports = new Vue({
                 interval = Math.floor(parseInt(this.steps[step].interval)) <= this.maxInterval ? Math.floor(parseInt(this.steps[step].interval)) : this.maxInterval,
                 length = this.steps[step].schedule.length;
             if(!isNaN(Math.floor(parseInt(this.steps[step].interval)))){
+                this.steps[step].interval = interval;
                 if(length < interval){
                     for(i = 0; i < interval - length; i++)
                         this.steps[step].schedule.push({
