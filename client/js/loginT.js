@@ -30,9 +30,9 @@ module.exports = `
             </div>
         </form>
             <div class="form-group forgotten-container">
-                <small>
+                <!--<small>
                     <a class="login-link" href="#" v.on:click.prevent>{{button.forgotten}}</a>
-                </small>
+                </small>-->
             </div>
     </div>
 `;

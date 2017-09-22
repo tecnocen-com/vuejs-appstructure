@@ -60,17 +60,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 86);
+/******/ 	return __webpack_require__(__webpack_require__.s = 81);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 86:
+/***/ 81:
 /***/ (function(module, exports, __webpack_require__) {
 
 BUTO.requires = {
     templates: {
-        login: __webpack_require__(87)
+        login: __webpack_require__(82)
     }
 };
 BUTO.components = {
@@ -255,7 +255,7 @@ BUTO.components = {
 
 /***/ }),
 
-/***/ 87:
+/***/ 82:
 /***/ (function(module, exports) {
 
 module.exports = `
@@ -290,9 +290,9 @@ module.exports = `
             </div>
         </form>
             <div class="form-group forgotten-container">
-                <small>
+                <!--<small>
                     <a class="login-link" href="#" v.on:click.prevent>{{button.forgotten}}</a>
-                </small>
+                </small>-->
             </div>
     </div>
 `;
