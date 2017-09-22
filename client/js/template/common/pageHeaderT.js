@@ -20,9 +20,9 @@ module.exports = `
                     <small v-if="active.first === 0 && active.second === 0 && active.third === 0" class="display-block">Buen día, {{profile.name}}!</small>
                 </h4>
                 <ul v-if="active.first !== 0 || active.second !== 0 || active.third !== 0" class="breadcrumb breadcrumb-caret position-right">
-                    <li><a href="#" v-on:click.prevent="setview({first: 0, second: 0, third: 0})">{{config.menu[0].title}}</a></li>
-                    <li><a href="#" v-on:click.prevent>{{config.menu[active.first].title}}</a></li>
-                    <li v-if="config.menu[active.first].dropdown.length > 0"><a href="#" v-on:click.prevent>{{config.menu[active.first].dropdown[active.second].title}}</a></li>
+                    <li>{{config.menu[0].title}}</li>
+                    <li>{{config.menu[active.first].title}}</li>
+                    <li v-if="config.menu[active.first].dropdown.length > 0">{{config.menu[active.first].dropdown[active.second].title}}</li>
                     <li v-if="config.menu[active.first].dropdown.length > 0" class="active">{{config.menu[active.first].dropdown[active.second].subs[active.third].title}}</li>
                 </ul>
             </div>

@@ -36831,9 +36831,9 @@ module.exports = `
                     <small v-if="active.first === 0 && active.second === 0 && active.third === 0" class="display-block">Buen día, {{profile.name}}!</small>
                 </h4>
                 <ul v-if="active.first !== 0 || active.second !== 0 || active.third !== 0" class="breadcrumb breadcrumb-caret position-right">
-                    <li><a href="#" v-on:click.prevent="setview({first: 0, second: 0, third: 0})">{{config.menu[0].title}}</a></li>
-                    <li><a href="#" v-on:click.prevent>{{config.menu[active.first].title}}</a></li>
-                    <li v-if="config.menu[active.first].dropdown.length > 0"><a href="#" v-on:click.prevent>{{config.menu[active.first].dropdown[active.second].title}}</a></li>
+                    <li>{{config.menu[0].title}}</li>
+                    <li>{{config.menu[active.first].title}}</li>
+                    <li v-if="config.menu[active.first].dropdown.length > 0">{{config.menu[active.first].dropdown[active.second].title}}</li>
                     <li v-if="config.menu[active.first].dropdown.length > 0" class="active">{{config.menu[active.first].dropdown[active.second].subs[active.third].title}}</li>
                 </ul>
             </div>
@@ -68328,13 +68328,32 @@ module.exports = new Vue({
         },
         setView: function(e){
             var me = this;
-            this.active = e;
-            Vue.nextTick(function(){
-                if(e === 1)
-                    me.watch.init();
-                else if(e === 2)
-                    me.edit.init();
-            });
+            if(this.active === 2){
+                BUTO.components.main.confirm.description.title = "Edición de registro";
+                BUTO.components.main.confirm.description.text = "Salir de la pantalla de edición provocará perder todos los cambios que se hayan realizado.<br>¿Deseas continuar?";
+                BUTO.components.main.confirm.description.accept = "Aceptar";
+                BUTO.components.main.confirm.description.cancel = "Cancelar";
+                BUTO.components.main.confirm.active = true;
+                BUTO.components.main.confirm.onAccept = function(){
+                    me.active = e;
+                    Vue.nextTick(function(){
+                        if(e === 1)
+                            me.watch.init();
+                        else if(e === 2)
+                            me.edit.init();
+                    });
+                    BUTO.components.main.confirm.active = false;
+                };
+            }
+            else{
+                this.active = e;
+                Vue.nextTick(function(){
+                    if(e === 1)
+                        me.watch.init();
+                    else if(e === 2)
+                        me.edit.init();
+                });
+            }
         },
         mask: function(){
             
@@ -70649,17 +70668,38 @@ module.exports = new Vue({
                 //}
             });
         },
-        setView: function(e){
+        setView: function(e, confirm){
             var me = this;
-            this.active = e;
-            if(e === 3)
-                me.ruta.init(0, 1);
-            Vue.nextTick(function(){
-                if(e === 1)
-                    me.watch.init();
-                else if(e === 2)
-                    me.edit.init();
-            });
+            if(this.active === 2){
+                BUTO.components.main.confirm.description.title = "Edición de registro";
+                BUTO.components.main.confirm.description.text = "Salir de la pantalla de edición provocará perder todos los cambios realizados.<br>¿Deseas continuar?";
+                BUTO.components.main.confirm.description.accept = "Aceptar";
+                BUTO.components.main.confirm.description.cancel = "Cancelar";
+                BUTO.components.main.confirm.active = true;
+                BUTO.components.main.confirm.onAccept = function(){
+                    me.active = e;
+                    if(e === 3)
+                        me.ruta.init(0, 1);
+                    Vue.nextTick(function(){
+                        if(e === 1)
+                            me.watch.init();
+                        else if(e === 2)
+                            me.edit.init();
+                    });
+                    BUTO.components.main.confirm.active = false;
+                };
+            }
+            else{
+                this.active = e;
+                if(e === 3)
+                    this.ruta.init(0, 1);
+                Vue.nextTick(function(){
+                    if(e === 1)
+                        me.watch.init();
+                    else if(e === 2)
+                        me.edit.init();
+                });
+            }
         },
         mask: function(){
             
@@ -73775,13 +73815,32 @@ module.exports = new Vue({
         },
         setView: function(e){
             var me = this;
-            this.active = e;
-            Vue.nextTick(function(){
-                if(e === 1)
-                    me.watch.init();
-                else if(e === 2)
-                    me.edit.init();
-            });
+            if(this.active === 2){
+                BUTO.components.main.confirm.description.title = "Edición de registro";
+                BUTO.components.main.confirm.description.text = "Salir de la pantalla de edición provocará perder todos los cambios realizados.<br>¿Deseas continuar?";
+                BUTO.components.main.confirm.description.accept = "Aceptar";
+                BUTO.components.main.confirm.description.cancel = "Cancelar";
+                BUTO.components.main.confirm.active = true;
+                BUTO.components.main.confirm.onAccept = function(){
+                    me.active = e;
+                    Vue.nextTick(function(){
+                        if(e === 1)
+                            me.watch.init();
+                        else if(e === 2)
+                            me.edit.init();
+                    });
+                    BUTO.components.main.confirm.active = false;
+                };
+            }
+            else{
+                this.active = e;
+                Vue.nextTick(function(){
+                    if(e === 1)
+                        me.watch.init();
+                    else if(e === 2)
+                        me.edit.init();
+                });
+            }
         },
         mask: function(){
             

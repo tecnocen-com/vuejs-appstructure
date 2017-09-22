@@ -204,13 +204,32 @@ module.exports = new Vue({
         },
         setView: function(e){
             var me = this;
-            this.active = e;
-            Vue.nextTick(function(){
-                if(e === 1)
-                    me.watch.init();
-                else if(e === 2)
-                    me.edit.init();
-            });
+            if(this.active === 2){
+                BUTO.components.main.confirm.description.title = "Edición de registro";
+                BUTO.components.main.confirm.description.text = "Salir de la pantalla de edición provocará perder todos los cambios realizados.<br>¿Deseas continuar?";
+                BUTO.components.main.confirm.description.accept = "Aceptar";
+                BUTO.components.main.confirm.description.cancel = "Cancelar";
+                BUTO.components.main.confirm.active = true;
+                BUTO.components.main.confirm.onAccept = function(){
+                    me.active = e;
+                    Vue.nextTick(function(){
+                        if(e === 1)
+                            me.watch.init();
+                        else if(e === 2)
+                            me.edit.init();
+                    });
+                    BUTO.components.main.confirm.active = false;
+                };
+            }
+            else{
+                this.active = e;
+                Vue.nextTick(function(){
+                    if(e === 1)
+                        me.watch.init();
+                    else if(e === 2)
+                        me.edit.init();
+                });
+            }
         },
         mask: function(){
             
