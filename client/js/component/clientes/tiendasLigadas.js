@@ -157,24 +157,25 @@ module.exports = new Vue({
                 selected: false
             });
         },
-        initDrag: function(type){
+        initDrag: function(type, e){
             var me = this;
-            switch(type){
-                case "add":
-                    Vue.nextTick(function(){
-                        setTimeout(function(){
-                            me.alterLinkDef.masive.config.active = 2;
-                        }, 50);
-                    });
-                    break;
-                case "remove":
-                    Vue.nextTick(function(){
-                        setTimeout(function(){
-                            me.alterLinkDef.masive.config.active = 1;
-                        }, 50);
-                    });
-                    break;
-            }
+            if(e.tagName === "TR")
+                switch(type){
+                    case "add":
+                        Vue.nextTick(function(){
+                            setTimeout(function(){
+                                me.alterLinkDef.masive.config.active = 2;
+                            }, 50);
+                        });
+                        break;
+                    case "remove":
+                        Vue.nextTick(function(){
+                            setTimeout(function(){
+                                me.alterLinkDef.masive.config.active = 1;
+                            }, 50);
+                        });
+                        break;
+                }
         },
         validation: function(type, i){
             var hmd;

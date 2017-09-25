@@ -37285,7 +37285,7 @@ module.exports = `
                                 <tbody class="body-class">
                                     <tr v-for="(store, storeIndex) in config.store"
                                         :draggable="store.selected"
-                                        @dragstart="config.initDrag('add'); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
+                                        @dragstart="config.initDrag('add', $event.target); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
                                         @dragend="config.alterLinkDef.masive.config.active = 0;"
                                         :class="store.linked ? 'selected' : store.selected ? 'link-row-select' : ''"
                                         class="grid-row-customized grid-row-highlight-customized">
@@ -37421,7 +37421,7 @@ module.exports = `
                                 <tbody class="body-class">
                                     <tr v-for="(store, storeIndex) in config.storeLinked"
                                         :draggable="store.selected"
-                                        @dragstart="config.initDrag('remove'); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
+                                        @dragstart="config.initDrag('remove', $event.target); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
                                         @dragend="config.alterLinkDef.masive.config.active = 0;"
                                         :class="store.selected ? 'link-row-select' : ''"
                                         class="grid-row-customized grid-row-highlight-customized">
@@ -37797,7 +37797,7 @@ module.exports = `
                                 <tbody class="body-class">
                                     <tr v-for="(resource, resourceIndex) in config.resource"
                                         :draggable="resource.selected"
-                                        @dragstart="config.initDrag('add'); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
+                                        @dragstart="config.initDrag('add', $event.target); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
                                         @dragend="config.alterLinkDef.masive.config.active = 0;"
                                         :class="resource.linked ? 'selected' : resource.selected ? 'link-row-select' : ''"
                                         class="grid-row-customized grid-row-highlight-customized">
@@ -37933,7 +37933,7 @@ module.exports = `
                                 <tbody class="body-class">
                                     <tr v-for="(resource, resourceIndex) in config.resourceLinked"
                                         :draggable="resource.selected"
-                                        @dragstart="config.initDrag('remove'); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
+                                        @dragstart="config.initDrag('remove', $event.target); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
                                         @dragend="config.alterLinkDef.masive.config.active = 0;"
                                         :class="resource.selected ? 'link-row-select' : ''"
                                         class="grid-row-customized grid-row-highlight-customized">
@@ -56682,24 +56682,25 @@ module.exports = new Vue({
                 selected: false
             });
         },
-        initDrag: function(type){
+        initDrag: function(type, e){
             var me = this;
-            switch(type){
-                case "add":
-                    Vue.nextTick(function(){
-                        setTimeout(function(){
-                            me.alterLinkDef.masive.config.active = 2;
-                        }, 50);
-                    });
-                    break;
-                case "remove":
-                    Vue.nextTick(function(){
-                        setTimeout(function(){
-                            me.alterLinkDef.masive.config.active = 1;
-                        }, 50);
-                    });
-                    break;
-            }
+            if(e.tagName === "TR")
+                switch(type){
+                    case "add":
+                        Vue.nextTick(function(){
+                            setTimeout(function(){
+                                me.alterLinkDef.masive.config.active = 2;
+                            }, 50);
+                        });
+                        break;
+                    case "remove":
+                        Vue.nextTick(function(){
+                            setTimeout(function(){
+                                me.alterLinkDef.masive.config.active = 1;
+                            }, 50);
+                        });
+                        break;
+                }
         },
         validation: function(type, i){
             var hmd;
@@ -57122,24 +57123,25 @@ module.exports = new Vue({
                 console.log(error);
             });
         },
-        initDrag: function(type){
+        initDrag: function(type, e){
             var me = this;
-            switch(type){
-                case "add":
-                    Vue.nextTick(function(){
-                        setTimeout(function(){
-                            me.alterLinkDef.masive.config.active = 2;
-                        }, 50);
-                    });
-                    break;
-                case "remove":
-                    Vue.nextTick(function(){
-                        setTimeout(function(){
-                            me.alterLinkDef.masive.config.active = 1;
-                        }, 50);
-                    });
-                    break;
-            }
+            if(e.tagName === "TR")
+                switch(type){
+                    case "add":
+                        Vue.nextTick(function(){
+                            setTimeout(function(){
+                                me.alterLinkDef.masive.config.active = 2;
+                            }, 50);
+                        });
+                        break;
+                    case "remove":
+                        Vue.nextTick(function(){
+                            setTimeout(function(){
+                                me.alterLinkDef.masive.config.active = 1;
+                            }, 50);
+                        });
+                        break;
+                }
         },
         setMasive: function(type){
             var i,

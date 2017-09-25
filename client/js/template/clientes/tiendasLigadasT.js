@@ -34,7 +34,7 @@ module.exports = `
                                 <tbody class="body-class">
                                     <tr v-for="(store, storeIndex) in config.store"
                                         :draggable="store.selected"
-                                        @dragstart="config.initDrag('add'); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
+                                        @dragstart="config.initDrag('add', $event.target); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
                                         @dragend="config.alterLinkDef.masive.config.active = 0;"
                                         :class="store.linked ? 'selected' : store.selected ? 'link-row-select' : ''"
                                         class="grid-row-customized grid-row-highlight-customized">
@@ -170,7 +170,7 @@ module.exports = `
                                 <tbody class="body-class">
                                     <tr v-for="(store, storeIndex) in config.storeLinked"
                                         :draggable="store.selected"
-                                        @dragstart="config.initDrag('remove'); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
+                                        @dragstart="config.initDrag('remove', $event.target); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
                                         @dragend="config.alterLinkDef.masive.config.active = 0;"
                                         :class="store.selected ? 'link-row-select' : ''"
                                         class="grid-row-customized grid-row-highlight-customized">
