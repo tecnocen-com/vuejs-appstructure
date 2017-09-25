@@ -1,6 +1,7 @@
 module.exports = new Vue({
     data: {
         id: null,
+        edited: false,
         models: {
             usuarioEmpleado: null,
             empleado: null,
@@ -354,6 +355,7 @@ module.exports = new Vue({
                     zoom: this.map.data.zoom
                 });
             this.map.main.addListener("click", function(e){       //Define on click listener for map
+                me.edited = true;
                 me.positioner(e.latLng);
             });
             this.initSearch();
@@ -767,12 +769,14 @@ module.exports = new Vue({
             var me = this;
             if(type === "begin")
                 this.steps[i].schedule[j].main_begin.addListener("dblclick", function(){
+                    me.edited = true;
                     me.steps[i].schedule[j].main_begin.setMap(null);
                     me.steps[i].schedule[j].lat_begin = null;
                     me.steps[i].schedule[j].lng_begin = null;
                 });
             else if(type === "end")
                 this.steps[i].schedule[j].main_end.addListener("dblclick", function(){
+                    me.edited = true;
                     me.steps[i].schedule[j].main_end.setMap(null);
                     me.steps[i].schedule[j].lat_end = null;
                     me.steps[i].schedule[j].lng_end = null;
@@ -1111,6 +1115,7 @@ module.exports = new Vue({
                             for(j = 0; j < me.steps[i].schedule.length; j++){
                                 me.submitSchedule(i, j, success.body.id);
                             }
+                        me.edited = false;
                         BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
                         BUTO.components.main.alert.description.title = "Edición de Recurso Humano";
                         BUTO.components.main.alert.description.text = "Se ha editado correctamente el recurso humano '" + success.body.nombre + "'";

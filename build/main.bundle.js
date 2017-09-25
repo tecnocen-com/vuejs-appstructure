@@ -36518,36 +36518,84 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                         methods: {
                             setView: function(e){
                                 var me = this,
-                                    inPos = false;
+                                    inPos = false,
+                                    edited = false;
                                 if(this.active.first === e.first &&
                                    this.active.second === e.second &&
                                    this.active.third === e.third)
                                     inPos = true;
-                                else{
-                                    this.active.first = e.first;
-                                    this.active.second = e.second;
-                                    this.active.third = e.third;
-                                }
+                                else if(this.active.second === 0 &&
+                                        this.active.third === 0 &&
+                                        (this.active.first === 2 &&
+                                        this.children.tiendasRegistradas.active === 2 &&
+                                        this.children.tiendasRegistradas.edit.edited) ||
+                                        (this.active.first === 3 &&
+                                        this.children.recursosRegistrados.active === 2 &&
+                                        this.children.recursosRegistrados.edit.edited) ||
+                                        (this.active.first === 4 &&
+                                        this.children.rutasRegistradas.active === 2 &&
+                                        this.children.rutasRegistradas.edit.edited))
+                                    edited = true;
                                 if(!inPos){
-                                    if(e.first === 1 && e.second === 0 && e.third === 0)
-                                            me.children.clientesRegistrados.active = 0;
-                                    else if(e.first === 2 && e.second === 0 && e.third === 0)
-                                            me.children.tiendasRegistradas.active = 0;
-                                    else if(e.first === 3 && e.second === 0 && e.third === 0)
-                                            me.children.recursosRegistrados.active = 0;
-                                    else if(e.first === 4 && e.second === 0 && e.third === 0)
-                                            me.children.rutasRegistradas.active = 0;
-                                    Vue.nextTick(function(){
-                                        if(e.first === 1 && e.second === 0 && e.third === 1)
-                                            me.children.importadorClientes.init();
-                                        if(e.first === 2 && e.second === 0 && e.third === 1)
-                                            me.children.nuevaTienda.init(false);
-                                        else if(e.first === 3 && e.second === 0 && e.third === 1)
-                                            me.children.nuevoRecurso.init(false);
-                                        else if(e.first === 4 && e.second === 0 && e.third === 1)
-                                            me.children.nuevaRuta.init(false);
-                                        
-                                    });
+                                    if(edited){
+                                        BUTO.components.main.confirm.description.title = "Edición de registro";
+                                        BUTO.components.main.confirm.description.text = "Salir de la pantalla de edición provocará perder todos los cambios que se hayan realizado.<br>¿Deseas continuar?";
+                                        BUTO.components.main.confirm.description.accept = "Aceptar";
+                                        BUTO.components.main.confirm.description.cancel = "Cancelar";
+                                        BUTO.components.main.confirm.active = true;
+                                        BUTO.components.main.confirm.onAccept = function(){
+                                            me.children.tiendasRegistradas.edit.edited = false;
+                                            me.children.recursosRegistrados.edit.edited = false;
+                                            me.children.rutasRegistradas.edit.edited = false;
+                                            me.active.first = e.first;
+                                            me.active.second = e.second;
+                                            me.active.third = e.third;
+                                            if(e.first === 1 && e.second === 0 && e.third === 0)
+                                                    me.children.clientesRegistrados.active = 0;
+                                            else if(e.first === 2 && e.second === 0 && e.third === 0)
+                                                    me.children.tiendasRegistradas.active = 0;
+                                            else if(e.first === 3 && e.second === 0 && e.third === 0)
+                                                    me.children.recursosRegistrados.active = 0;
+                                            else if(e.first === 4 && e.second === 0 && e.third === 0)
+                                                    me.children.rutasRegistradas.active = 0;
+                                            Vue.nextTick(function(){
+                                                if(e.first === 1 && e.second === 0 && e.third === 1)
+                                                    me.children.importadorClientes.init();
+                                                if(e.first === 2 && e.second === 0 && e.third === 1)
+                                                    me.children.nuevaTienda.init(false);
+                                                else if(e.first === 3 && e.second === 0 && e.third === 1)
+                                                    me.children.nuevoRecurso.init(false);
+                                                else if(e.first === 4 && e.second === 0 && e.third === 1)
+                                                    me.children.nuevaRuta.init(false);
+                                                
+                                            });
+                                            BUTO.components.main.confirm.active = false;
+                                        }; 
+                                    }
+                                    else{
+                                        this.active.first = e.first;
+                                        this.active.second = e.second;
+                                        this.active.third = e.third;
+                                        if(e.first === 1 && e.second === 0 && e.third === 0)
+                                                me.children.clientesRegistrados.active = 0;
+                                        else if(e.first === 2 && e.second === 0 && e.third === 0)
+                                                me.children.tiendasRegistradas.active = 0;
+                                        else if(e.first === 3 && e.second === 0 && e.third === 0)
+                                                me.children.recursosRegistrados.active = 0;
+                                        else if(e.first === 4 && e.second === 0 && e.third === 0)
+                                                me.children.rutasRegistradas.active = 0;
+                                        Vue.nextTick(function(){
+                                            if(e.first === 1 && e.second === 0 && e.third === 1)
+                                                me.children.importadorClientes.init();
+                                            if(e.first === 2 && e.second === 0 && e.third === 1)
+                                                me.children.nuevaTienda.init(false);
+                                            else if(e.first === 3 && e.second === 0 && e.third === 1)
+                                                me.children.nuevoRecurso.init(false);
+                                            else if(e.first === 4 && e.second === 0 && e.third === 1)
+                                                me.children.nuevaRuta.init(false);
+                                            
+                                        });
+                                    }
                                 }
                                 
                             },
@@ -38452,7 +38500,7 @@ module.exports = `
                 <div class="row">
                     <div class="col-sm-12">
                         <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
-                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre" maxlength="64">
+                            <input class="form-control" v-on:keyup="config.edited = true; config.validation('name')" v-model="config.name.value" type="text" name="Nombre" maxlength="64">
                             <span class="help-block">{{config.name.text}}</span>
                         </div>
                     </div>
@@ -38503,7 +38551,7 @@ module.exports = `
                                         <div :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
                                             <div class="form-group">
                                                 <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                    <label v-on:click.prevent="config.steps[config.actualStep].active = !config.steps[config.actualStep].active">
+                                                    <label v-on:click.prevent="config.edited = true; config.steps[config.actualStep].active = !config.steps[config.actualStep].active">
                                                         <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
                                                             <small></small>
                                                         </span>
@@ -38517,7 +38565,7 @@ module.exports = `
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Intervalos de atención</label>
                                                 <div class="col-md-8">
-                                                    <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.actualStep].interval" type="number" min="1" :max="config.maxInterval" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
+                                                    <input class="form-control" v-on:keyup="config.edited = true; config.setInterval()" v-on:change="config.edited = true; config.setInterval()" v-model="config.steps[config.actualStep].interval" type="number" min="1" :max="config.maxInterval" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
                                                     <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
                                                 </div>
                                             </div>
@@ -38538,13 +38586,13 @@ module.exports = `
                                         <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule" v-if="!interval.remove">
                                             <div class="col-sm-6">
                                                 <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="config.edited = true; interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">{{interval.textBegin}}</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="config.edited = true; interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">{{interval.textEnd}}</span>
                                                 </div>
                                             </div>
@@ -39253,7 +39301,7 @@ module.exports = `
                     <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
                         <label class="control-label col-lg-2">Nombre</label>
                         <div class="col-lg-10">
-                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre" maxlength="64">
+                            <input class="form-control" v-on:keyup="config.edited = true; config.validation('name')" v-model="config.name.value" type="text" name="Nombre" maxlength="64">
                             <span class="help-block">{{config.name.text}}</span>
                         </div>
                     </div>
@@ -39262,7 +39310,7 @@ module.exports = `
                     <div :class="config.email.valid ? '' : 'has-error'" class="form-group">
                         <label class="control-label col-lg-2">Correo electrónico</label>
                         <div class="col-lg-10">
-                            <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.email.value" type="text" name="Correo electrónico" maxlength="64">
+                            <input class="form-control" v-on:keyup="config.edited = true; config.validation('email')" v-model="config.email.value" type="text" name="Correo electrónico" maxlength="64">
                             <span class="help-block">{{config.email.text}}</span>
                         </div>
                     </div>
@@ -39271,7 +39319,7 @@ module.exports = `
                     <div :class="config.phone.valid ? '' : 'has-error'" class="form-group">
                         <label class="control-label col-lg-2">Teléfono</label>
                         <div class="col-lg-10">
-                            <input class="form-control" v-on:keyup="config.validation('phone')" v-model="config.phone.value" type="text" name="Teléfono" min="1" step="1" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || event.keyCode === 8 || event.keyCode === 37 || event.keyCode === 39 || event.keyCode === 46)">
+                            <input class="form-control" v-on:keyup="config.edited = true; config.validation('phone')" v-model="config.phone.value" type="text" name="Teléfono" min="1" step="1" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || event.keyCode === 8 || event.keyCode === 37 || event.keyCode === 39 || event.keyCode === 46)">
                             <span class="help-block">{{config.phone.text}}</span>
                         </div>
                     </div>
@@ -39333,7 +39381,7 @@ module.exports = `
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Intervalos de atención</label>
                                                 <div class="col-md-8">
-                                                    <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.sameConf ? 0 : config.actualStep].interval" type="number" min="1" :max="config.maxInterval" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
+                                                    <input class="form-control" v-on:keyup="config.edited = true; config.setInterval()" v-on:change="config.edited = true; config.setInterval()" v-model="config.steps[config.sameConf ? 0 : config.actualStep].interval" type="number" min="1" :max="config.maxInterval" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
                                                     <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
                                                 </div>
                                             </div>
@@ -39359,13 +39407,13 @@ module.exports = `
                                         <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule" v-if="!interval.remove">
                                             <div class="col-sm-5">
                                                 <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="config.edited = true; interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">{{interval.textBegin}}</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:focus="config.setActiveInterval(intervalIndex)" v-on:keyup="config.edited = true; interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">{{interval.textEnd}}</span>
                                                 </div>
                                             </div>
@@ -40517,7 +40565,7 @@ module.exports = `
                     <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
                         <label class="control-label col-lg-2">Nombre</label>
                         <div class="col-lg-10">
-                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre" maxlength="64">
+                            <input class="form-control" v-on:keyup="config.edited = true; config.validation('name')" v-model="config.name.value" type="text" name="Nombre" maxlength="64">
                             <span class="help-block">{{config.name.text}}</span>
                         </div>
                     </div>
@@ -40536,13 +40584,13 @@ module.exports = `
                     </div>
                     <div class="col-sm-6">
                         <div :class="config.begin.valid ? '' : 'has-error'" class="form-group">
-                            <input :disabled="config.store.point.length > 0" type="text" maxlength="8" v-model="config.begin.value" v-on:keyup="config.begin.value = mask('time', $event, config.begin.value); config.validation('time-begin')" class="form-control">
+                            <input :disabled="config.store.point.length > 0" type="text" maxlength="8" v-model="config.begin.value" v-on:keyup="config.edited = true; config.begin.value = mask('time', $event, config.begin.value); config.validation('time-begin')" class="form-control">
                             <span class="help-block">{{config.begin.text}}</span>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div :class="config.end.valid ? '' : 'has-error'" class="form-group">
-                            <input type="text" maxlength="8" v-model="config.end.value" v-on:keyup="config.end.value = mask('time', $event, config.end.value); config.validation('time-end')" class="form-control">
+                            <input type="text" maxlength="8" v-model="config.end.value" v-on:keyup="config.edited = true; config.end.value = mask('time', $event, config.end.value); config.validation('time-end')" class="form-control">
                             <span class="help-block">{{config.end.text}}</span>
                         </div>
                     </div>
@@ -68203,13 +68251,15 @@ module.exports = new Vue({
         },
         setView: function(e){
             var me = this;
-            if(this.active === 2){
+            if(this.edit.edited === true &&
+               this.active === 2){
                 BUTO.components.main.confirm.description.title = "Edición de registro";
                 BUTO.components.main.confirm.description.text = "Salir de la pantalla de edición provocará perder todos los cambios que se hayan realizado.<br>¿Deseas continuar?";
                 BUTO.components.main.confirm.description.accept = "Aceptar";
                 BUTO.components.main.confirm.description.cancel = "Cancelar";
                 BUTO.components.main.confirm.active = true;
                 BUTO.components.main.confirm.onAccept = function(){
+                    me.edit.edited = false;
                     me.active = e;
                     Vue.nextTick(function(){
                         if(e === 1)
@@ -68243,6 +68293,7 @@ module.exports = new Vue({
 module.exports = new Vue({
     data: {
         id: null,
+        edited: false,
         name: {
             value: null,
             valid: true,
@@ -68479,6 +68530,7 @@ module.exports = new Vue({
             });
             this.map.main.addListener("click", function(e){       //Define on click listener for map
                 me.positioner(e.latLng);
+                me.edited = true;
             });
             this.initGeocoder();
             this.initPosition();
@@ -68771,6 +68823,7 @@ module.exports = new Vue({
                             for(j = 0; j < me.steps[i].schedule.length; j++){
                                 me.submitSchedule(i, j, success.body.id);
                             }
+                        me.edited = false;
                         BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
                         BUTO.components.main.alert.description.title = "Edición de Tienda";
                         BUTO.components.main.alert.description.text = "Se ha editado correctamente la tienda '" + success.body.nombre + "'";
@@ -70549,13 +70602,15 @@ module.exports = new Vue({
         },
         setView: function(e, confirm){
             var me = this;
-            if(this.active === 2){
+            if(this.edit.edited === true &&
+               this.active === 2){
                 BUTO.components.main.confirm.description.title = "Edición de registro";
                 BUTO.components.main.confirm.description.text = "Salir de la pantalla de edición provocará perder todos los cambios realizados.<br>¿Deseas continuar?";
                 BUTO.components.main.confirm.description.accept = "Aceptar";
                 BUTO.components.main.confirm.description.cancel = "Cancelar";
                 BUTO.components.main.confirm.active = true;
                 BUTO.components.main.confirm.onAccept = function(){
+                    me.edit.edited = false;
                     me.active = e;
                     if(e === 3)
                         me.ruta.init(0, 1);
@@ -70638,6 +70693,7 @@ module.exports = new Vue({
 module.exports = new Vue({
     data: {
         id: null,
+        edited: false,
         models: {
             usuarioEmpleado: null,
             empleado: null,
@@ -70991,6 +71047,7 @@ module.exports = new Vue({
                     zoom: this.map.data.zoom
                 });
             this.map.main.addListener("click", function(e){       //Define on click listener for map
+                me.edited = true;
                 me.positioner(e.latLng);
             });
             this.initSearch();
@@ -71404,12 +71461,14 @@ module.exports = new Vue({
             var me = this;
             if(type === "begin")
                 this.steps[i].schedule[j].main_begin.addListener("dblclick", function(){
+                    me.edited = true;
                     me.steps[i].schedule[j].main_begin.setMap(null);
                     me.steps[i].schedule[j].lat_begin = null;
                     me.steps[i].schedule[j].lng_begin = null;
                 });
             else if(type === "end")
                 this.steps[i].schedule[j].main_end.addListener("dblclick", function(){
+                    me.edited = true;
                     me.steps[i].schedule[j].main_end.setMap(null);
                     me.steps[i].schedule[j].lat_end = null;
                     me.steps[i].schedule[j].lng_end = null;
@@ -71748,6 +71807,7 @@ module.exports = new Vue({
                             for(j = 0; j < me.steps[i].schedule.length; j++){
                                 me.submitSchedule(i, j, success.body.id);
                             }
+                        me.edited = false;
                         BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
                         BUTO.components.main.alert.description.title = "Edición de Recurso Humano";
                         BUTO.components.main.alert.description.text = "Se ha editado correctamente el recurso humano '" + success.body.nombre + "'";
@@ -73715,13 +73775,15 @@ module.exports = new Vue({
         },
         setView: function(e){
             var me = this;
-            if(this.active === 2){
+            if(this.edit.edited === true &&
+               this.active === 2){
                 BUTO.components.main.confirm.description.title = "Edición de registro";
                 BUTO.components.main.confirm.description.text = "Salir de la pantalla de edición provocará perder todos los cambios realizados.<br>¿Deseas continuar?";
                 BUTO.components.main.confirm.description.accept = "Aceptar";
                 BUTO.components.main.confirm.description.cancel = "Cancelar";
                 BUTO.components.main.confirm.active = true;
                 BUTO.components.main.confirm.onAccept = function(){
+                    me.edit.edited = false;
                     me.active = e;
                     Vue.nextTick(function(){
                         if(e === 1)
@@ -73755,6 +73817,7 @@ module.exports = new Vue({
 module.exports = new Vue({
     data: {
         id: null,
+        edited: false,
         models: {
             ruta: null,
             rutaPunto: null,
@@ -75027,6 +75090,7 @@ module.exports = new Vue({
                         if(this.store.add.client[j].active)     //There is at least 1 client to add
                             active = true;
                     if(this.store.add.validEnd && active){      //Everything is good
+                        this.edited = true;
                         length = this.store.point.length;
                         this.store.position[this.store.add.index].linked = true;
                         this.store.data.search.actualTime = this.converter('string', this.converter('time', this.store.add.stageTime) + this.converter('time', this.store.add.calculate.travel) + this.converter('time', this.store.add.calculate.begin) + this.converter('time', this.store.add.calculate.death));
@@ -75094,6 +75158,7 @@ module.exports = new Vue({
                     break;
                 case "remove":
                     newPoint = [];
+                    this.edited = true;
                     for(i = 0; i < this.store.point.length; i++){
                         if(i !== iM){
                             this.store.point[i].main.setLabel("" + (++j) + "");
@@ -75134,6 +75199,7 @@ module.exports = new Vue({
                     this.store.see.finish = this.converter("string", this.converter("time", this.store.see.start) + this.converter("time", this.store.see.travel) + this.converter("time", this.store.see.death) + this.converter("time", this.store.see.service));
                     break;
                 case "edit":
+                    this.edited = true;
                     if(this.store.edit.validEnd){
                         
                     }
@@ -75272,6 +75338,7 @@ module.exports = new Vue({
                 valid = false;
             }
             if(valid){
+                this.edited = false;
                 for(j = 0; j < this.store.oldPoint.length; j++)
                     for(k = 0; k < this.store.point.length; k++)
                         if(this.store.point[k].idStore === this.store.oldPoint[j].idStore)

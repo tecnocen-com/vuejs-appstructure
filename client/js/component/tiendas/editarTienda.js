@@ -1,6 +1,7 @@
 module.exports = new Vue({
     data: {
         id: null,
+        edited: false,
         name: {
             value: null,
             valid: true,
@@ -237,6 +238,7 @@ module.exports = new Vue({
             });
             this.map.main.addListener("click", function(e){       //Define on click listener for map
                 me.positioner(e.latLng);
+                me.edited = true;
             });
             this.initGeocoder();
             this.initPosition();
@@ -529,6 +531,7 @@ module.exports = new Vue({
                             for(j = 0; j < me.steps[i].schedule.length; j++){
                                 me.submitSchedule(i, j, success.body.id);
                             }
+                        me.edited = false;
                         BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
                         BUTO.components.main.alert.description.title = "Edición de Tienda";
                         BUTO.components.main.alert.description.text = "Se ha editado correctamente la tienda '" + success.body.nombre + "'";
