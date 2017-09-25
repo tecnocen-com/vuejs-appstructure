@@ -71604,7 +71604,7 @@ module.exports = new Vue({
                         this.phone.text = "Teléfono no puede estar vacío";
                     else if(this.phone.value.length < 10)
                         this.phone.text = "Teléfono debe contener al menos 10 dígitos";
-                    else if(this.phone.value.length > 13)
+                    else if(this.phone.value.length > 10)
                         this.phone.text = "Teléfono debe contener como máximo 13 dígitos";
                     else{
                         this.phone.text = "";
@@ -73174,7 +73174,7 @@ module.exports = new Vue({
                         this.manualAdd.phone.text = "Teléfono no puede estar vacío";
                     else if(this.manualAdd.phone.value.length < 10)
                         this.manualAdd.phone.text = "Teléfono debe contener al menos 10 dígitos";
-                    else if(this.manualAdd.phone.value.length > 13)
+                    else if(this.manualAdd.phone.value.length > 10)
                         this.manualAdd.phone.text = "Teléfono debe contener como máximo 13 dígitos";
                     else{
                         this.manualAdd.phone.text = "";
