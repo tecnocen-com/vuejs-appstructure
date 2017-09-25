@@ -173,6 +173,7 @@
 .alert-message-overlay p{
 	background-color: rgba(238, 238, 238, 1);
     border-radius: 5px;
+	word-wrap: break-word;
 }
 
 .alert-message-button{

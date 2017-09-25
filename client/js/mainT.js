@@ -78,6 +78,10 @@ Vue.component("page-heading", {
         config: Object,
         active: Object,
         setview: Function,
+        clientesview: Function,
+        tiendasview: Function,
+        recursosview: Function,
+        rutasview: Function,
         profile: Object
     }
 });
@@ -191,7 +195,15 @@ module.exports = `
         children.rutasRegistradas.grid.style.pagination.totalRowCount,
         ''
         ]"></my-menu>
-        <page-heading :config="children.menu" :active="active" :setview="setView" :profile="profile"></page-heading>
+        <page-heading
+            :config="children.menu"
+            :active="active"
+            :setview="setView"
+            :clientesview="children.clientesRegistrados.setView"
+            :tiendasview="children.tiendasRegistradas.setView"
+            :recursosview="children.recursosRegistrados.setView"
+            :rutasview="children.rutasRegistradas.setView"
+            :profile="profile"></page-heading>
         <div class="page-container">
             <div class="row">
                 <template v-if="active.first === 0">

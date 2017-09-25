@@ -308,6 +308,9 @@ a.grid-row-anchor-customized{
 .navbar-brand img{
     height: 38px !important;
 }
+div.page-title .heading-elements-toggle{
+    display: none !important
+}
 .switchery-custom.active{
     background-color: rgb(100, 189, 99);
     border-color: rgb(100, 189, 99);

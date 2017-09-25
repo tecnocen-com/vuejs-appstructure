@@ -1190,9 +1190,9 @@ module.exports = new Vue({
                 valid = false;
             }
             else if(valid && this.store.data.search.actualTime > this.end.value){
-                BUTO.components.main.alert.description.text = "El horario de término debe ser igual o mayor al horario de término de la última etapa de la ruta.";
+                BUTO.components.main.alert.description.text = "El horario de término general de la ruta debe ser mayor o igual al horario de término de la última etapa.";
                 this.end.valid = false;
-                this.end.text = "El horario de término debe ser igual o mayor al horario de término de la última etapa de la ruta";
+                this.end.text = "El horario de término general de la ruta debe ser mayor o igual al horario de término de la última etapa";
                 valid = false;
             }
             if(valid){

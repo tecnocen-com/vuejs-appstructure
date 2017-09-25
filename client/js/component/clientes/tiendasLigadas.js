@@ -157,24 +157,25 @@ module.exports = new Vue({
                 selected: false
             });
         },
-        initDrag: function(type){
+        initDrag: function(type, e){
             var me = this;
-            switch(type){
-                case "add":
-                    Vue.nextTick(function(){
-                        setTimeout(function(){
-                            me.alterLinkDef.masive.config.active = 2;
-                        }, 50);
-                    });
-                    break;
-                case "remove":
-                    Vue.nextTick(function(){
-                        setTimeout(function(){
-                            me.alterLinkDef.masive.config.active = 1;
-                        }, 50);
-                    });
-                    break;
-            }
+            if(e.tagName === "TR")
+                switch(type){
+                    case "add":
+                        Vue.nextTick(function(){
+                            setTimeout(function(){
+                                me.alterLinkDef.masive.config.active = 2;
+                            }, 50);
+                        });
+                        break;
+                    case "remove":
+                        Vue.nextTick(function(){
+                            setTimeout(function(){
+                                me.alterLinkDef.masive.config.active = 1;
+                            }, 50);
+                        });
+                        break;
+                }
         },
         validation: function(type, i){
             var hmd;
@@ -183,14 +184,14 @@ module.exports = new Vue({
                     hmd = this.alterLinkDef.add[i].time.split(":");
                     this.alterLinkDef.add[i].valid = false;
                     if(this.alterLinkDef.add[i].time === "")
-                        this.alterLinkDef.add[i].text = "Tiempo requerido no puede estar vacío";
+                        this.alterLinkDef.add[i].text = "Tiempo solicitado no puede estar vacío";
                     else if(this.alterLinkDef.add[i].time.length !== 8)
-                        this.alterLinkDef.add[i].text = "Tiempo requerido no tiene un formato apropiado";
+                        this.alterLinkDef.add[i].text = "Tiempo solicitado no tiene un formato apropiado";
                     else if(this.alterLinkDef.add[i].time > "23:59:59" ||
                     hmd.length !== 3 || hmd[0].length !== 2 || parseInt(hmd[0]) > 23 ||
                     !hmd[1] || hmd[1].length !== 2 || parseInt(hmd[1]) > 59 ||
                     !hmd[2] || hmd[2].length !== 2 || parseInt(hmd[2]) > 59)
-                        this.alterLinkDef.add[i].time.text = "Tiempo requerido no tiene un formato apropiado";
+                        this.alterLinkDef.add[i].time.text = "Tiempo solicitado no tiene un formato apropiado";
                     else{
                         this.alterLinkDef.add[i].text = "hh:mm:ss";
                         this.alterLinkDef.add[i].valid = true;
@@ -200,14 +201,14 @@ module.exports = new Vue({
                     hmd = this.alterLinkDef.edit.time.split(":");
                     this.alterLinkDef.edit.valid = false;
                     if(this.alterLinkDef.edit.time === "")
-                        this.alterLinkDef.edit.text = "Tiempo requerido no puede estar vacío";
+                        this.alterLinkDef.edit.text = "Tiempo solicitado no puede estar vacío";
                     else if(this.alterLinkDef.edit.time.length !== 8)
-                        this.alterLinkDef.edit.text = "Tiempo requerido no tiene un formato apropiado";
+                        this.alterLinkDef.edit.text = "Tiempo solicitado no tiene un formato apropiado";
                     else if(this.alterLinkDef.edit.time > "23:59:59" ||
                     hmd.length !== 3 || hmd[0].length !== 2 || parseInt(hmd[0]) > 23 ||
                     !hmd[1] || hmd[1].length !== 2 || parseInt(hmd[1]) > 59 ||
                     !hmd[2] || hmd[2].length !== 2 || parseInt(hmd[2]) > 59)
-                        this.alterLinkDef.edit.time.text = "Tiempo requerido no tiene un formato apropiado";
+                        this.alterLinkDef.edit.time.text = "Tiempo solicitado no tiene un formato apropiado";
                     else{
                         this.alterLinkDef.edit.text = "hh:mm:ss";
                         this.alterLinkDef.edit.valid = true;
@@ -299,7 +300,7 @@ module.exports = new Vue({
                     }
                     else{
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                        BUTO.components.main.alert.description.text = "Existen errores en los tiempos requeridos, inténtalo de nuevo.";
+                        BUTO.components.main.alert.description.text = "Existen errores en los tiempos solicitados, inténtalo de nuevo.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
                     }
@@ -315,7 +316,7 @@ module.exports = new Vue({
                         this.edit();
                     else{
                         BUTO.components.main.alert.description.title = "Errores en Edición de Registro";
-                        BUTO.components.main.alert.description.text = "Existen errores en los tiempos requeridos, inténtalo de nuevo.";
+                        BUTO.components.main.alert.description.text = "Existen errores en los tiempos solicitados, inténtalo de nuevo.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
                     }

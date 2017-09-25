@@ -140,49 +140,123 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                         methods: {
                             setView: function(e){
                                 var me = this,
-                                    inPos = false;
+                                    inPos = false,
+                                    edited = false;
                                 if(this.active.first === e.first &&
                                    this.active.second === e.second &&
                                    this.active.third === e.third)
                                     inPos = true;
-                                else{
-                                    this.active.first = e.first;
-                                    this.active.second = e.second;
-                                    this.active.third = e.third;
-                                }
+                                if(this.active.second === 0 &&
+                                        this.active.third === 0 &&
+                                        (this.active.first === 2 &&
+                                        this.children.tiendasRegistradas.active === 2 &&
+                                        this.children.tiendasRegistradas.edit.edited) ||
+                                        (this.active.first === 3 &&
+                                        this.children.recursosRegistrados.active === 2 &&
+                                        this.children.recursosRegistrados.edit.edited) ||
+                                        (this.active.first === 4 &&
+                                        this.children.rutasRegistradas.active === 2 &&
+                                        this.children.rutasRegistradas.edit.edited))
+                                    edited = true;
                                 if(!inPos){
-                                    if(e.first === 1 && e.second === 0 && e.third === 0)
-                                            me.children.clientesRegistrados.active = 0;
-                                    else if(e.first === 2 && e.second === 0 && e.third === 0)
-                                            me.children.tiendasRegistradas.active = 0;
-                                    else if(e.first === 3 && e.second === 0 && e.third === 0)
-                                            me.children.recursosRegistrados.active = 0;
-                                    else if(e.first === 4 && e.second === 0 && e.third === 0)
-                                            me.children.rutasRegistradas.active = 0;
-                                    Vue.nextTick(function(){
-                                        if(e.first === 1 && e.second === 0 && e.third === 1)
-                                            me.children.importadorClientes.init();
-                                        if(e.first === 2 && e.second === 0 && e.third === 1)
-                                            me.children.nuevaTienda.init(false);
-                                        else if(e.first === 3 && e.second === 0 && e.third === 1)
-                                            me.children.nuevoRecurso.init(false);
-                                        else if(e.first === 4 && e.second === 0 && e.third === 1)
-                                            me.children.nuevaRuta.init(false);
-                                        
-                                    });
+                                    if(edited){
+                                        BUTO.components.main.confirm.description.title = "Edición de registro";
+                                        BUTO.components.main.confirm.description.text = "Salir de la pantalla de edición provocará perder todos los cambios que se hayan realizado.<br>¿Deseas continuar?";
+                                        BUTO.components.main.confirm.description.accept = "Aceptar";
+                                        BUTO.components.main.confirm.description.cancel = "Cancelar";
+                                        BUTO.components.main.confirm.active = true;
+                                        BUTO.components.main.confirm.onAccept = function(){
+                                            me.children.tiendasRegistradas.edit.edited = false;
+                                            me.children.recursosRegistrados.edit.edited = false;
+                                            me.children.rutasRegistradas.edit.edited = false;
+                                            me.active.first = e.first;
+                                            me.active.second = e.second;
+                                            me.active.third = e.third;
+                                            if(e.first === 1 && e.second === 0 && e.third === 0)
+                                                    me.children.clientesRegistrados.active = 0;
+                                            else if(e.first === 2 && e.second === 0 && e.third === 0)
+                                                    me.children.tiendasRegistradas.active = 0;
+                                            else if(e.first === 3 && e.second === 0 && e.third === 0)
+                                                    me.children.recursosRegistrados.active = 0;
+                                            else if(e.first === 4 && e.second === 0 && e.third === 0)
+                                                    me.children.rutasRegistradas.active = 0;
+                                            Vue.nextTick(function(){
+                                                if(e.first === 1 && e.second === 0 && e.third === 1)
+                                                    me.children.importadorClientes.init();
+                                                if(e.first === 2 && e.second === 0 && e.third === 1)
+                                                    me.children.nuevaTienda.init(false);
+                                                else if(e.first === 3 && e.second === 0 && e.third === 1)
+                                                    me.children.nuevoRecurso.init(false);
+                                                else if(e.first === 4 && e.second === 0 && e.third === 1)
+                                                    me.children.nuevaRuta.init(false);
+                                                
+                                            });
+                                            BUTO.components.main.confirm.active = false;
+                                        }; 
+                                    }
+                                    else{
+                                        this.active.first = e.first;
+                                        this.active.second = e.second;
+                                        this.active.third = e.third;
+                                        if(e.first === 1 && e.second === 0 && e.third === 0)
+                                                me.children.clientesRegistrados.active = 0;
+                                        else if(e.first === 2 && e.second === 0 && e.third === 0)
+                                                me.children.tiendasRegistradas.active = 0;
+                                        else if(e.first === 3 && e.second === 0 && e.third === 0)
+                                                me.children.recursosRegistrados.active = 0;
+                                        else if(e.first === 4 && e.second === 0 && e.third === 0)
+                                                me.children.rutasRegistradas.active = 0;
+                                        Vue.nextTick(function(){
+                                            if(e.first === 1 && e.second === 0 && e.third === 1)
+                                                me.children.importadorClientes.init();
+                                            if(e.first === 2 && e.second === 0 && e.third === 1)
+                                                me.children.nuevaTienda.init(false);
+                                            else if(e.first === 3 && e.second === 0 && e.third === 1)
+                                                me.children.nuevoRecurso.init(false);
+                                            else if(e.first === 4 && e.second === 0 && e.third === 1)
+                                                me.children.nuevaRuta.init(false);
+                                            
+                                        });
+                                    }
                                 }
-                                
+                                else{
+                                    if(edited){
+                                        BUTO.components.main.confirm.description.title = "Edición de registro";
+                                        BUTO.components.main.confirm.description.text = "Salir de la pantalla de edición provocará perder todos los cambios que se hayan realizado.<br>¿Deseas continuar?";
+                                        BUTO.components.main.confirm.description.accept = "Aceptar";
+                                        BUTO.components.main.confirm.description.cancel = "Cancelar";
+                                        BUTO.components.main.confirm.active = true;
+                                        BUTO.components.main.confirm.onAccept = function(){
+                                            if(e.first === 2 && e.second === 0 && e.third === 0)
+                                                me.children.tiendasRegistradas.active = 0;
+                                            else if(e.first === 3 && e.second === 0 && e.third === 0)
+                                                me.children.recursosRegistrados.active = 0;
+                                            else if(e.first === 4 && e.second === 0 && e.third === 0)
+                                                me.children.rutasRegistradas.active = 0;
+                                            BUTO.components.main.confirm.active = false;
+                                        };
+                                    }
+                                    else{
+                                        if(e.first === 2 && e.second === 0 && e.third === 0)
+                                            this.children.tiendasRegistradas.active = 0;
+                                        else if(e.first === 3 && e.second === 0 && e.third === 0)
+                                            this.children.recursosRegistrados.active = 0;
+                                        else if(e.first === 4 && e.second === 0 && e.third === 0)
+                                            this.children.rutasRegistradas.active = 0;
+                                    }
+                                }
                             },
                             mask: function(t, e, val){
                                 var value,
-                                    i;
+                                    i, length;
                                 if(e.key !== "Backspace"){
                                     switch(t){
                                         case "time":
                                             if(val !== null && val !== undefined && val.length >= 2){
                                                 value = val.split(":").join("");
+                                                length = value.length > 6 ? 6 : value.length;
                                                 val = "";
-                                                for(i = 0; i < value.length; i++)
+                                                for(i = 0; i < length; i++)
                                                     val += (!isNaN(parseInt(value[i]))) ? value[i] : "";
                                                 value = val;
                                                 val = "";
