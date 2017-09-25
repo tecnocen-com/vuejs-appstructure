@@ -153,7 +153,7 @@ BUTO.components = {
                                     window.location = "/home";
                                 }
                                 else{
-                                    me.alert.message = response.body.message;
+                                    me.alert.message = "Error, nombre de usuario y/o contraseña inválidos.";
                                     me.alert.hidden = false;
                                     me.error = 2;
                                     this.button.loading = false;
