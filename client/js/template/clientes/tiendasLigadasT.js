@@ -34,7 +34,7 @@ module.exports = `
                                 <tbody class="body-class">
                                     <tr v-for="(store, storeIndex) in config.store"
                                         :draggable="store.selected"
-                                        @dragstart="config.initDrag('add')"
+                                        @dragstart="config.initDrag('add', $event.target); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
                                         @dragend="config.alterLinkDef.masive.config.active = 0;"
                                         :class="store.linked ? 'selected' : store.selected ? 'link-row-select' : ''"
                                         class="grid-row-customized grid-row-highlight-customized">
@@ -58,7 +58,7 @@ module.exports = `
                         <nav class="pull-right">
                             <ul class="pagination">
                                 <li>
-                                    <span><b>Mostrando {{config.store.length}} de {{config.data.page.store.totalCount}} filas en la página {{config.data.page.store.currentPage}} de {{config.data.page.store.pageCount}}.</b></span>
+                                    <span><b>Mostrando {{config.store.length}} de {{config.data.page.store.totalCount}} filas en la página {{config.data.page.store.currentPage}} de {{config.data.page.store.pageCount < 1 ? '1' : config.data.page.store.pageCount}}.</b></span>
                                 </li>
                                 <li  :class="config.data.page.store.currentPage === 1 ? 'not-active disabled' : ''">
                                     <a href="#" v-on:click.prevent="config.init(1, 1);">
@@ -170,7 +170,7 @@ module.exports = `
                                 <tbody class="body-class">
                                     <tr v-for="(store, storeIndex) in config.storeLinked"
                                         :draggable="store.selected"
-                                        @dragstart="config.initDrag('remove')"
+                                        @dragstart="config.initDrag('remove', $event.target); $event.dataTransfer.setData('text/plain', 'This text may be dragged');"
                                         @dragend="config.alterLinkDef.masive.config.active = 0;"
                                         :class="store.selected ? 'link-row-select' : ''"
                                         class="grid-row-customized grid-row-highlight-customized">
@@ -197,7 +197,7 @@ module.exports = `
                         <nav class="pull-right">
                             <ul class="pagination">
                                 <li>
-                                    <span><b>Mostrando {{config.storeLinked.length}} de {{config.data.page.storeLinked.totalCount}} filas en la página {{config.data.page.storeLinked.currentPage}} de {{config.data.page.storeLinked.pageCount}}.</b></span>
+                                    <span><b>Mostrando {{config.storeLinked.length}} de {{config.data.page.storeLinked.totalCount}} filas en la página {{config.data.page.storeLinked.currentPage}} de {{config.data.page.storeLinked.pageCount < 1 ? '1' : config.data.page.storeLinked.pageCount}}.</b></span>
                                 </li>
                                 <li  :class="config.data.page.storeLinked.currentPage === 1 ? 'not-active disabled' : ''">
                                     <a href="#" v-on:click.prevent="config.init(2, null, 1);">

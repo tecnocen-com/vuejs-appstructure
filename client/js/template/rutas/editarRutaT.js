@@ -14,7 +14,7 @@ module.exports = `
                     <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
                         <label class="control-label col-lg-2">Nombre</label>
                         <div class="col-lg-10">
-                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre">
+                            <input class="form-control" v-on:keyup="config.edited = true; config.validation('name')" v-model="config.name.value" type="text" name="Nombre" maxlength="64">
                             <span class="help-block">{{config.name.text}}</span>
                         </div>
                     </div>
@@ -33,13 +33,13 @@ module.exports = `
                     </div>
                     <div class="col-sm-6">
                         <div :class="config.begin.valid ? '' : 'has-error'" class="form-group">
-                            <input :disabled="config.store.point.length > 0" type="text" maxlength="8" v-model="config.begin.value" v-on:keyup="config.begin.value = mask('time', $event, config.begin.value); config.validation('time-begin')" class="form-control">
+                            <input :disabled="config.store.point.length > 0" type="text" maxlength="8" v-model="config.begin.value" v-on:keyup="config.edited = true; config.begin.value = mask('time', $event, config.begin.value); config.validation('time-begin')" class="form-control">
                             <span class="help-block">{{config.begin.text}}</span>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div :class="config.end.valid ? '' : 'has-error'" class="form-group">
-                            <input type="text" maxlength="8" v-model="config.end.value" v-on:keyup="config.end.value = mask('time', $event, config.end.value); config.validation('time-end')" class="form-control">
+                            <input type="text" maxlength="8" v-model="config.end.value" v-on:keyup="config.edited = true; config.end.value = mask('time', $event, config.end.value); config.validation('time-end')" class="form-control">
                             <span class="help-block">{{config.end.text}}</span>
                         </div>
                     </div>

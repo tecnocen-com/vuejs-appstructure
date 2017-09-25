@@ -72,7 +72,7 @@ module.exports = `
                         <div :class="config.manualAdd.name.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Nombre</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre">
+                                <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.manualAdd.name.value" type="text" name="Nombre" maxlength="64">
                                 <span class="help-block">{{config.manualAdd.name.text}}</span>
                             </div>
                         </div>
@@ -81,7 +81,7 @@ module.exports = `
                         <div :class="config.manualAdd.email.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Correo electrónico</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico">
+                                <input class="form-control" v-on:keyup="config.validation('email')" v-model="config.manualAdd.email.value" type="text" name="Correo electrónico" maxlength="64">
                                 <span class="help-block">{{config.manualAdd.email.text}}</span>
                             </div>
                         </div>
@@ -90,7 +90,7 @@ module.exports = `
                         <div :class="config.manualAdd.pass.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Contraseña</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña">
+                                <input class="form-control" v-on:keyup="config.validation('pass')" v-model="config.manualAdd.pass.value" type="password" name="Contraseña" maxlength="64">
                                 <span class="help-block">{{config.manualAdd.pass.text}}</span>
                             </div>
                         </div>
@@ -99,7 +99,7 @@ module.exports = `
                         <div :class="config.manualAdd.repass.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Confirmar contraseña</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña">
+                                <input class="form-control" v-on:keyup="config.validation('repass')" v-model="config.manualAdd.repass.value" type="password" name="Confirmar contraseña" maxlength="64">
                                 <span class="help-block">{{config.manualAdd.repass.text}}</span>
                             </div>
                         </div>
@@ -108,7 +108,7 @@ module.exports = `
                         <div :class="config.manualAdd.phone.valid ? '' : 'has-error'" class="form-group">
                             <label class="control-label col-lg-2">Teléfono</label>
                             <div class="col-lg-10">
-                                <input class="form-control" v-on:keyup="config.validation('phone')" v-model="config.manualAdd.phone.value" type="number" name="Teléfono" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                <input class="form-control" v-on:keyup="config.validation('phone')" v-model="config.manualAdd.phone.value" type="text" name="Teléfono" min="1" maxlength="10" step="1" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || event.keyCode === 8 || event.keyCode === 37 || event.keyCode === 39 || event.keyCode === 46)">
                                 <span class="help-block">{{config.manualAdd.phone.text}}</span>
                             </div>
                         </div>
@@ -194,7 +194,7 @@ module.exports = `
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[config.manualAdd.sameConf ? 0 : config.manualAdd.actualStep].interval" type="number" min="1" :max="config.manualAdd.maxInterval" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
                                                         <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                     </div>
                                                 </div>

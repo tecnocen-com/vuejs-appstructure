@@ -13,7 +13,7 @@ module.exports = `
                 <div class="row">
                     <div class="col-sm-12">
                         <div :class="config.name.valid ? '' : 'has-error'" class="form-group">
-                            <input class="form-control" v-on:keyup="config.validation('name')" v-model="config.name.value" type="text" name="Nombre">
+                            <input class="form-control" v-on:keyup="config.edited = true; config.validation('name')" v-model="config.name.value" type="text" name="Nombre" maxlength="64">
                             <span class="help-block">{{config.name.text}}</span>
                         </div>
                     </div>
@@ -64,7 +64,7 @@ module.exports = `
                                         <div :class="config.steps[config.actualStep].active ? 'col-sm-6' : 'col-sm-12'">
                                             <div class="form-group">
                                                 <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                    <label v-on:click.prevent="config.steps[config.actualStep].active = !config.steps[config.actualStep].active">
+                                                    <label v-on:click.prevent="config.edited = true; config.steps[config.actualStep].active = !config.steps[config.actualStep].active">
                                                         <span class="switchery switchery-default switchery-custom" :class="config.steps[config.actualStep].active ? 'active' : 'not-active'">
                                                             <small></small>
                                                         </span>
@@ -78,13 +78,13 @@ module.exports = `
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Intervalos de atención</label>
                                                 <div class="col-md-8">
-                                                    <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.steps[config.actualStep].interval" type="number" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
+                                                    <input class="form-control" v-on:keyup="config.edited = true; config.setInterval()" v-on:change="config.edited = true; config.setInterval()" v-model="config.steps[config.actualStep].interval" type="number" min="1" :max="config.maxInterval" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
                                                     <span class="help-block">Máximo {{config.maxInterval}} intervalos</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div v-if="config.steps[config.actualStep].active && Math.floor(parseInt(config.steps[config.actualStep].interval)) > 0" class="row">
+                                    <div v-if="config.steps[config.actualStep].active" class="row">
                                         <div style="padding-top: 20px"></div>
                                         <div class="col-sm-6">
                                             <div class="form-group text-center schedule-title">
@@ -99,13 +99,13 @@ module.exports = `
                                         <template v-for="(interval, intervalIndex) in config.steps[config.actualStep].schedule" v-if="!interval.remove">
                                             <div class="col-sm-6">
                                                 <div :class="interval.validBegin ? '' : 'has-error'" class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                    <input type="text" maxlength="8" v-model="interval.begin" v-on:keyup="config.edited = true; interval.begin = mask('time', $event, interval.begin); config.validation('time-begin', intervalIndex)" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">{{interval.textBegin}}</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div :class="interval.validEnd ? '' : 'has-error'" class="form-group">
-                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                    <input type="text" maxlength="8" v-model="interval.end" v-on:keyup="config.edited = true; interval.end = mask('time', $event, interval.end); config.validation('time-end', intervalIndex)" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
                                                     <span class="help-block">{{interval.textEnd}}</span>
                                                 </div>
                                             </div>

@@ -1,6 +1,7 @@
 module.exports = new Vue({
     data: {
         id: null,
+        edited: false,
         models: {
             ruta: null,
             rutaPunto: null,
@@ -1273,6 +1274,7 @@ module.exports = new Vue({
                         if(this.store.add.client[j].active)     //There is at least 1 client to add
                             active = true;
                     if(this.store.add.validEnd && active){      //Everything is good
+                        this.edited = true;
                         length = this.store.point.length;
                         this.store.position[this.store.add.index].linked = true;
                         this.store.data.search.actualTime = this.converter('string', this.converter('time', this.store.add.stageTime) + this.converter('time', this.store.add.calculate.travel) + this.converter('time', this.store.add.calculate.begin) + this.converter('time', this.store.add.calculate.death));
@@ -1340,6 +1342,7 @@ module.exports = new Vue({
                     break;
                 case "remove":
                     newPoint = [];
+                    this.edited = true;
                     for(i = 0; i < this.store.point.length; i++){
                         if(i !== iM){
                             this.store.point[i].main.setLabel("" + (++j) + "");
@@ -1380,6 +1383,7 @@ module.exports = new Vue({
                     this.store.see.finish = this.converter("string", this.converter("time", this.store.see.start) + this.converter("time", this.store.see.travel) + this.converter("time", this.store.see.death) + this.converter("time", this.store.see.service));
                     break;
                 case "edit":
+                    this.edited = true;
                     if(this.store.edit.validEnd){
                         
                     }
@@ -1512,12 +1516,13 @@ module.exports = new Vue({
                 valid = false;
             }
             else if(valid && this.store.data.search.actualTime > this.end.value){
-                BUTO.components.main.alert.description.text = "El horario de término debe ser igual o mayor al horario de término de la última etapa de la ruta.";
+                BUTO.components.main.alert.description.text = "El horario de término general de la ruta debe ser mayor o igual al horario de término de la última etapa.";
                 this.end.valid = false;
-                this.end.text = "El horario de término debe ser igual o mayor al horario de término de la última etapa de la ruta";
+                this.end.text = "El horario de término general de la ruta debe ser mayor o igual al horario de término de la última etapa";
                 valid = false;
             }
             if(valid){
+                this.edited = false;
                 for(j = 0; j < this.store.oldPoint.length; j++)
                     for(k = 0; k < this.store.point.length; k++)
                         if(this.store.point[k].idStore === this.store.oldPoint[j].idStore)

@@ -321,7 +321,7 @@ module.exports = `
                             </div>
                             <div class="col-sm-6">
                                 <div :class="config.alterLinkDef.add.date.valid ? '' : 'has-error'" class="form-group">
-                                    <input v-model="config.alterLinkDef.add.date.value" v-on:change="config.validation('add')" name="Fecha" placeholder="Fecha" class="form-control" type="date">
+									<input id="addDate" v-model="config.alterLinkDef.add.date.value" name="Fecha" placeholder="Fecha" class="form-control" type="text" onkeypress="return false">
                                     <span class="help-block">{{config.alterLinkDef.add.date.text}}</span>
                                 </div>
                             </div>
@@ -450,7 +450,7 @@ module.exports = `
                             </div>
                             <div class="col-sm-6">
                                 <div :class="config.alterLinkDef.edit.date.valid ? '' : 'has-error'" class="form-group">
-                                    <input v-model="config.alterLinkDef.edit.date.value" v-on:change="config.validation('edit')" name="Fecha" placeholder="Fecha" class="form-control" type="date">
+									<input id="editDate" v-model="config.alterLinkDef.edit.date.value" name="Fecha" placeholder="Fecha" class="form-control" type="text" onkeypress="return false">
                                     <span class="help-block">{{config.alterLinkDef.edit.date.text}}</span>
                                 </div>
                             </div>

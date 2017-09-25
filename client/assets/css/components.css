@@ -10772,7 +10772,7 @@ body.stop-scrolling {
   padding: 16px;
   display: none;
   border-radius: 3px;
-  z-index: 999 !important;
+  z-index: 1100 !important;
   -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
