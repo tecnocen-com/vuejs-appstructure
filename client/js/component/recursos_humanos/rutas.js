@@ -144,8 +144,27 @@ module.exports = new Vue({
                 this.data.page.route.currentPage = page;
             if(e === 0 && page)
                 this.alterLinkDef.see.first = true;
-            if(e === 0)
+            if(e === 0){
                 this.initSchedule();
+                Vue.nextTick(function(){
+                    setTimeout(function(){
+                        $( "#addDate" ).datepicker({
+                            dateFormat: "yy-mm-dd",
+                            onSelect: function(e){
+                                me.alterLinkDef.add.date.value = e;
+                                me.validation("add");
+                            }
+                        });
+                        $( "#editDate" ).datepicker({
+                            dateFormat: "yy-mm-dd",
+                            onSelect: function(e){
+                                me.alterLinkDef.edit.date.value = e;
+                                me.validation("edit");
+                            }
+                        });
+                    }, 100);
+                });
+            }
             if(e === 0 || e === 1){             //0 all, 1 route, 2 routeLinked
                 this.route = [];
                 this.models.ruta.get({
@@ -241,7 +260,7 @@ module.exports = new Vue({
             });
         },
         validation: function(type){
-            var hmd;
+            var me = this;
             switch(type){
                 case "add":
                     this.alterLinkDef.add.date.valid = false;

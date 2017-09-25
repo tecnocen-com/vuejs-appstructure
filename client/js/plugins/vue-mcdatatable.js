@@ -1148,7 +1148,7 @@ var mcdatatable = function(configuration){
                 prettyTitle: function(index){
                     var prettyTitle = this.head[index].title.charAt(0).toUpperCase();
                     prettyTitle += this.head[index].title.replace("_id", "").slice(1);
-                    return prettyTitle.replace(new RegExp("_", "g"), " ");
+                    return prettyTitle === "Dia" ? "Día" : prettyTitle.replace(new RegExp("_", "g"), " ");
                 },
                 getSelectData: function(index, indexHead){
                     if(this.body.length > 0){

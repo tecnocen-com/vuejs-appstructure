@@ -60,17 +60,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 81);
+/******/ 	return __webpack_require__(__webpack_require__.s = 86);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 81:
+/***/ 86:
 /***/ (function(module, exports, __webpack_require__) {
 
 BUTO.requires = {
     templates: {
-        login: __webpack_require__(82)
+        login: __webpack_require__(87)
     }
 };
 BUTO.components = {
@@ -255,7 +255,7 @@ BUTO.components = {
 
 /***/ }),
 
-/***/ 82:
+/***/ 87:
 /***/ (function(module, exports) {
 
 module.exports = `
