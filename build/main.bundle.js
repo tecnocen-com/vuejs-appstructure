@@ -36613,7 +36613,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                                     val += (!isNaN(parseInt(value[i]))) ? value[i] : "";
                                                 value = val;
                                                 val = "";
-                                                for(i = 0; i < length; i++)
+                                                for(i = 0; i < value.length; i++)
                                                     val += (i === 1 || i === 3) ? value[i] + ":" : value[i];
                                             }
                                             break;
