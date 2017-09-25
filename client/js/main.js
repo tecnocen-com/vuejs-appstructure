@@ -146,7 +146,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                    this.active.second === e.second &&
                                    this.active.third === e.third)
                                     inPos = true;
-                                else if(this.active.second === 0 &&
+                                if(this.active.second === 0 &&
                                         this.active.third === 0 &&
                                         (this.active.first === 2 &&
                                         this.children.tiendasRegistradas.active === 2 &&
@@ -219,7 +219,32 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                         });
                                     }
                                 }
-                                
+                                else{
+                                    if(edited){
+                                        BUTO.components.main.confirm.description.title = "Edición de registro";
+                                        BUTO.components.main.confirm.description.text = "Salir de la pantalla de edición provocará perder todos los cambios que se hayan realizado.<br>¿Deseas continuar?";
+                                        BUTO.components.main.confirm.description.accept = "Aceptar";
+                                        BUTO.components.main.confirm.description.cancel = "Cancelar";
+                                        BUTO.components.main.confirm.active = true;
+                                        BUTO.components.main.confirm.onAccept = function(){
+                                            if(e.first === 2 && e.second === 0 && e.third === 0)
+                                                me.children.tiendasRegistradas.active = 0;
+                                            else if(e.first === 3 && e.second === 0 && e.third === 0)
+                                                me.children.recursosRegistrados.active = 0;
+                                            else if(e.first === 4 && e.second === 0 && e.third === 0)
+                                                me.children.rutasRegistradas.active = 0;
+                                            BUTO.components.main.confirm.active = false;
+                                        };
+                                    }
+                                    else{
+                                        if(e.first === 2 && e.second === 0 && e.third === 0)
+                                            this.children.tiendasRegistradas.active = 0;
+                                        else if(e.first === 3 && e.second === 0 && e.third === 0)
+                                            this.children.recursosRegistrados.active = 0;
+                                        else if(e.first === 4 && e.second === 0 && e.third === 0)
+                                            this.children.rutasRegistradas.active = 0;
+                                    }
+                                }
                             },
                             mask: function(t, e, val){
                                 var value,
