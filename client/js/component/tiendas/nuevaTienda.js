@@ -800,7 +800,6 @@ module.exports = new Vue({
                                     },
                                     valid: true,
                                     actualStep: 0,
-                                    maxInterval: 5,
                                     steps: [
                                         {
                                             text: "Lunes",
@@ -874,8 +873,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[0].interval = me.importer.store[j].steps[0].schedule.length;
                                     if(!me.importer.store[j].steps[0].active)
@@ -893,8 +891,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[1].interval = me.importer.store[j].steps[1].schedule.length;
                                     if(!me.importer.store[j].steps[1].active)
@@ -912,8 +909,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[2].interval = me.importer.store[j].steps[2].schedule.length;
                                     if(!me.importer.store[j].steps[2].active)
@@ -931,8 +927,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[3].interval = me.importer.store[j].steps[3].schedule.length;
                                     if(!me.importer.store[j].steps[3].active)
@@ -950,8 +945,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[4].interval = me.importer.store[j].steps[4].schedule.length;
                                     if(!me.importer.store[j].steps[4].active)
@@ -969,8 +963,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[5].interval = me.importer.store[j].steps[5].schedule.length;
                                     if(!me.importer.store[j].steps[5].active)
@@ -988,8 +981,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[6].interval = me.importer.store[j].steps[6].schedule.length;
                                     if(!me.importer.store[j].steps[6].active)

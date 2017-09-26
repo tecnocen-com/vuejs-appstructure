@@ -69792,7 +69792,6 @@ module.exports = new Vue({
                                     },
                                     valid: true,
                                     actualStep: 0,
-                                    maxInterval: 5,
                                     steps: [
                                         {
                                             text: "Lunes",
@@ -69866,8 +69865,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[0].interval = me.importer.store[j].steps[0].schedule.length;
                                     if(!me.importer.store[j].steps[0].active)
@@ -69885,8 +69883,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[1].interval = me.importer.store[j].steps[1].schedule.length;
                                     if(!me.importer.store[j].steps[1].active)
@@ -69904,8 +69901,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[2].interval = me.importer.store[j].steps[2].schedule.length;
                                     if(!me.importer.store[j].steps[2].active)
@@ -69923,8 +69919,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[3].interval = me.importer.store[j].steps[3].schedule.length;
                                     if(!me.importer.store[j].steps[3].active)
@@ -69942,8 +69937,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[4].interval = me.importer.store[j].steps[4].schedule.length;
                                     if(!me.importer.store[j].steps[4].active)
@@ -69961,8 +69955,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[5].interval = me.importer.store[j].steps[5].schedule.length;
                                     if(!me.importer.store[j].steps[5].active)
@@ -69980,8 +69973,7 @@ module.exports = new Vue({
                                         validBegin: false,
                                         validEnd: false,
                                         textBegin: "hh:mm:ss",
-                                        textEnd: "hh:mm:ss",
-                                        id: null
+                                        textEnd: "hh:mm:ss"
                                     });
                                     me.importer.store[j].steps[6].interval = me.importer.store[j].steps[6].schedule.length;
                                     if(!me.importer.store[j].steps[6].active)
@@ -72605,45 +72597,45 @@ module.exports = new Vue({
                     { id: "HORARIO" }
                 ],
                 monday: [
-                    { id: "Lunes" },
-                    { id: "lunes" },
-                    { id: "LUNES" }
+                    "Lunes",
+                    "lunes",
+                    "LUNES"
                 ],
                 tuesday: [
-                    { id: "Martes" },
-                    { id: "martes" },
-                    { id: "MARTES" }
+                    "Martes",
+                    "martes",
+                    "MARTES"
                 ],
                 wednesday: [
-                    { id: "Miércoles" },
-                    { id: "miércoles" },
-                    { id: "MIÉRCOLES" },
-                    { id: "Miércoles" },
-                    { id: "miércoles" },
-                    { id: "MIÉRCOLES" }
+                    "Miércoles",
+                    "miércoles",
+                    "MIÉRCOLES",
+                    "Miércoles",
+                    "miércoles",
+                    "MIÉRCOLES"
                 ],
                 thursday: [
-                    { id: "Jueves" },
-                    { id: "jueves" },
-                    { id: "JUEVES" }
+                    "Jueves",
+                    "jueves",
+                    "JUEVES"
                 ],
                 friday: [
-                    { id: "Viernes" },
-                    { id: "viernes" },
-                    { id: "VIERNES" }
+                    "Viernes",
+                    "viernes",
+                    "VIERNES"
                 ],
                 saturday: [
-                    { id: "Sábado" },
-                    { id: "sábado" },
-                    { id: "SÁBADO" },
-                    { id: "Sabado" },
-                    { id: "sabado" },
-                    { id: "SABADO" }
+                    "Sábado",
+                    "sábado",
+                    "SÁBADO",
+                    "Sabado",
+                    "sabado",
+                    "SABADO"
                 ],
                 sunday: [
-                    { id: "Domingo" },
-                    { id: "domingo" },
-                    { id: "DOMINGO" }
+                    "Domingo",
+                    "domingo",
+                    "DOMINGO"
                 ]
             }
         },
@@ -73382,92 +73374,188 @@ module.exports = new Vue({
             else 
                 this.setVisibilityPosition(true); //AUTO
         },
-        validation: function(type, i){
+        validation: function(type, i, j, k){
             var step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
             switch(type){
                 case "name":
-                    this.manualAdd.name.valid = false;
-                    if(this.manualAdd.name.value === null ||
-                       this.manualAdd.name.value === "")
-                        this.manualAdd.name.text = "Nombre no puede estar vacío";
-                    else if(this.manualAdd.name.value.length < 8)
-                        this.manualAdd.name.text = "Nombre debe contener al menos 8 caracteres";
+                    if(this.typeSelection.type === 1){
+                        this.manualAdd.name.valid = false;
+                        if(this.manualAdd.name.value === null ||
+                           this.manualAdd.name.value === "")
+                            this.manualAdd.name.text = "Nombre no puede estar vacío";
+                        else if(this.manualAdd.name.value.length < 8)
+                            this.manualAdd.name.text = "Nombre debe contener al menos 8 caracteres";
+                        else{
+                            this.manualAdd.name.text = "";
+                            this.manualAdd.name.valid = true;
+                        }
+                    }
                     else{
-                        this.manualAdd.name.text = "";
-                        this.manualAdd.name.valid = true;
+                        this.importer.resource[i].name.valid = false;
+                        if(this.importer.resource[i].name.value === null ||
+                           this.importer.resource[i].name.value === "")
+                            this.importer.resource[i].name.text = "Nombre no puede estar vacío";
+                        else if(this.importer.resource[i].name.value.length < 8)
+                            this.importer.resource[i].name.text = "Nombre debe contener al menos 8 caracteres";
+                        else{
+                            this.importer.resource[i].name.text = "";
+                            this.importer.resource[i].name.valid = true;
+                        }
                     }
                     break;
                 case "email":
                     var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                    this.manualAdd.email.valid = false;
-                    if(this.manualAdd.email.value === null ||
-                       this.manualAdd.email.value === "")
-                        this.manualAdd.email.text = "Correo electrónico no puede estar vacío";
-                    else if(!emailTest.test(this.manualAdd.email.value))
-                        this.manualAdd.email.text = "Correo electrónico no tiene una forma válida";
+                    if(this.typeSelection.type === 1){
+                        this.manualAdd.email.valid = false;
+                        if(this.manualAdd.email.value === null ||
+                           this.manualAdd.email.value === "")
+                            this.manualAdd.email.text = "Correo electrónico no puede estar vacío";
+                        else if(!emailTest.test(this.manualAdd.email.value))
+                            this.manualAdd.email.text = "Correo electrónico no tiene una forma válida";
+                        else{
+                            this.manualAdd.email.text = "";
+                            this.manualAdd.email.valid = true;
+                        }
+                    }
                     else{
-                        this.manualAdd.email.text = "";
-                        this.manualAdd.email.valid = true;
+                        this.importer.resource[i].email.valid = false;
+                        if(this.importer.resource[i].email.value === null ||
+                           this.importer.resource[i].email.value === "")
+                            this.importer.resource[i].email.text = "Correo electrónico no puede estar vacío";
+                        else if(!emailTest.test(this.importer.resource[i].email.value))
+                            this.importer.resource[i].email.text = "Correo electrónico no tiene una forma válida";
+                        else{
+                            this.importer.resource[i].email.text = "";
+                            this.importer.resource[i].email.valid = true;
+                        }
                     }
                     break;
                 case "pass":
-                    this.manualAdd.pass.valid = false;
-                    if(this.manualAdd.pass.value === null ||
-                       this.manualAdd.pass.value === "")
-                        this.manualAdd.pass.text = "Contraseña no puede estar vacío";
-                    else if(this.manualAdd.pass.value.length < 8)
-                        this.manualAdd.pass.text = "Contraseña debe contener al menos 8 caracteres";
+                    if(this.typeSelection.type === 1){
+                        this.manualAdd.pass.valid = false;
+                        if(this.manualAdd.pass.value === null ||
+                           this.manualAdd.pass.value === "")
+                            this.manualAdd.pass.text = "Contraseña no puede estar vacío";
+                        else if(this.manualAdd.pass.value.length < 8)
+                            this.manualAdd.pass.text = "Contraseña debe contener al menos 8 caracteres";
+                        else{
+                            this.manualAdd.pass.text = "";
+                            this.manualAdd.pass.valid = true;
+                        }
+                    }
                     else{
-                        this.manualAdd.pass.text = "";
-                        this.manualAdd.pass.valid = true;
+                        this.importer.resource[i].pass.valid = false;
+                        if(this.importer.resource[i].pass.value === null ||
+                           this.importer.resource[i].pass.value === "")
+                            this.importer.resource[i].pass.text = "Contraseña no puede estar vacío";
+                        else if(this.importer.resource[i].pass.value.length < 8)
+                            this.importer.resource[i].pass.text = "Contraseña debe contener al menos 8 caracteres";
+                        else{
+                            this.importer.resource[i].pass.text = "";
+                            this.importer.resource[i].pass.valid = true;
+                        }
                     }
                     break;
                 case "repass":
-                    this.manualAdd.repass.valid = false;
-                    if(this.manualAdd.repass.value === null ||
-                       this.manualAdd.repass.value === "")
-                        this.manualAdd.repass.text = "Confirmar contraseña no puede estar vacío";
-                    else if(this.manualAdd.repass.value !== this.manualAdd.pass.value)
-                        this.manualAdd.repass.text = "Las contraseñas no coinciden";
+                    if(this.typeSelection.type === 1){
+                        this.manualAdd.repass.valid = false;
+                        if(this.manualAdd.repass.value === null ||
+                           this.manualAdd.repass.value === "")
+                            this.manualAdd.repass.text = "Confirmar contraseña no puede estar vacío";
+                        else if(this.manualAdd.repass.value !== this.manualAdd.pass.value)
+                            this.manualAdd.repass.text = "Las contraseñas no coinciden";
+                        else{
+                            this.manualAdd.repass.text = "";
+                            this.manualAdd.repass.valid = true;
+                        }
+                    }
                     else{
-                        this.manualAdd.repass.text = "";
-                        this.manualAdd.repass.valid = true;
+                        this.importer.resource[i].repass.valid = false;
+                        if(this.importer.resource[i].repass.value === null ||
+                           this.importer.resource[i].repass.value === "")
+                            this.importer.resource[i].repass.text = "Confirmar contraseña no puede estar vacío";
+                        else if(this.importer.resource[i].repass.value !== this.importer.resource[i].pass.value)
+                            this.importer.resource[i].repass.text = "Las contraseñas no coinciden";
+                        else{
+                            this.importer.resource[i].repass.text = "";
+                            this.importer.resource[i].repass.valid = true;
+                        }
                     }
                     break;
                 case "phone":
-                    this.manualAdd.phone.valid = false;
-                    if(this.manualAdd.phone.value === null ||
-                       this.manualAdd.phone.value === "")
-                        this.manualAdd.phone.text = "Teléfono no puede estar vacío";
-                    else if(this.manualAdd.phone.value.length < 10)
-                        this.manualAdd.phone.text = "Teléfono debe contener al menos 10 dígitos";
-                    else if(this.manualAdd.phone.value.length > 10)
-                        this.manualAdd.phone.text = "Teléfono debe contener como máximo 13 dígitos";
+                    if(this.typeSelection.type === 1){
+                        this.manualAdd.phone.valid = false;
+                        if(this.manualAdd.phone.value === null ||
+                           this.manualAdd.phone.value === "")
+                            this.manualAdd.phone.text = "Teléfono no puede estar vacío";
+                        else if(this.manualAdd.phone.value.length < 10 ||
+                                this.manualAdd.phone.value.length > 10)
+                            this.manualAdd.phone.text = "Teléfono debe contener 10 dígitos";
+                        else{
+                            this.manualAdd.phone.text = "";
+                            this.manualAdd.phone.valid = true;
+                        }
+                    }
                     else{
-                        this.manualAdd.phone.text = "";
-                        this.manualAdd.phone.valid = true;
+                        this.importer.resource[i].phone.valid = false;
+                        if(this.importer.resource[i].phone.value === null ||
+                           this.importer.resource[i].phone.value === "")
+                            this.importer.resource[i].phone.text = "Teléfono no puede estar vacío";
+                        else if(this.importer.resource[i].phone.value.length < 10 ||
+                                this.importer.resource[i].phone.value.length > 10)
+                            this.importer.resource[i].phone.text = "Teléfono debe contener 10 dígitos";
+                        else{
+                            this.importer.resource[i].phone.text = "";
+                            this.importer.resource[i].phone.valid = true;
+                        }
                     }
                     break;
                 case "time-begin":
-                    this.manualAdd.steps[step].schedule[i].validBegin = false;
-                    if(this.manualAdd.steps[step].schedule[i].begin === "")
-                        this.manualAdd.steps[step].schedule[i].textBegin = "El inicio del intervalo no puede estar vacío";
-                    else if(this.manualAdd.steps[step].schedule[i].begin.length !== 8)
-                        this.manualAdd.steps[step].schedule[i].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                    if(this.typeSelection.type === 1){
+                        this.manualAdd.steps[step].schedule[i].validBegin = false;
+                        if(this.manualAdd.steps[step].schedule[i].begin === "")
+                            this.manualAdd.steps[step].schedule[i].textBegin = "El inicio del intervalo no puede estar vacío";
+                        else if(this.manualAdd.steps[step].schedule[i].begin.length !== 8)
+                            this.manualAdd.steps[step].schedule[i].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                        else{
+                            this.manualAdd.steps[step].schedule[i].textBegin = "hh:mm:ss";
+                            this.manualAdd.steps[step].schedule[i].validBegin = true;
+                        }
+                    }
                     else{
-                        this.manualAdd.steps[step].schedule[i].textBegin = "hh:mm:ss";
-                        this.manualAdd.steps[step].schedule[i].validBegin = true;
+                        this.importer.resource[i].steps[j].schedule[k].validBegin = false;
+                        if(this.importer.resource[i].steps[j].schedule[k].begin === "")
+                            this.importer.resource[i].steps[j].schedule[k].textBegin = "El inicio del intervalo no puede estar vacío";
+                        else if(this.importer.resource[i].steps[j].schedule[k].begin.length !== 8)
+                            this.importer.resource[i].steps[j].schedule[k].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                        else{
+                            this.importer.resource[i].steps[j].schedule[k].textBegin = "hh:mm:ss";
+                            this.importer.resource[i].steps[j].schedule[k].validBegin = true;
+                        }
                     }
                     break;
                 case "time-end":
-                    this.manualAdd.steps[step].schedule[i].validEnd = false;
-                    if(this.manualAdd.steps[step].schedule[i].end === "")
-                        this.manualAdd.steps[step].schedule[i].textEnd = "El final del intervalo no puede estar vacío";
-                    else if(this.manualAdd.steps[step].schedule[i].end.length !== 8)
-                        this.manualAdd.steps[step].schedule[i].textEnd = "El final del intervalo no tiene un formato apropiado";
+                    if(this.typeSelection.type === 1){
+                        this.manualAdd.steps[step].schedule[i].validEnd = false;
+                        if(this.manualAdd.steps[step].schedule[i].end === "")
+                            this.manualAdd.steps[step].schedule[i].textEnd = "El final del intervalo no puede estar vacío";
+                        else if(this.manualAdd.steps[step].schedule[i].end.length !== 8)
+                            this.manualAdd.steps[step].schedule[i].textEnd = "El final del intervalo no tiene un formato apropiado";
+                        else{
+                            this.manualAdd.steps[step].schedule[i].textEnd = "hh:mm:ss";
+                            this.manualAdd.steps[step].schedule[i].validEnd = true;
+                        }
+                    }
                     else{
-                        this.manualAdd.steps[step].schedule[i].textEnd = "hh:mm:ss";
-                        this.manualAdd.steps[step].schedule[i].validEnd = true;
+                        this.importer.resource[i].steps[j].schedule[k].validEnd = false;
+                        if(this.importer.resource[i].steps[j].schedule[k].end === "")
+                            this.importer.resource[i].steps[j].schedule[k].textEnd = "El inicio del intervalo no puede estar vacío";
+                        else if(this.importer.resource[i].steps[j].schedule[k].end.length !== 8)
+                            this.importer.resource[i].steps[j].schedule[k].textEnd = "El inicio del intervalo no tiene un formato apropiado";
+                        else{
+                            this.importer.resource[i].steps[j].schedule[k].textEnd = "hh:mm:ss";
+                            this.importer.resource[i].steps[j].schedule[k].validEnd = true;
+                        }
                     }
                     break;
             }
@@ -73493,7 +73581,7 @@ module.exports = new Vue({
         },
         process: function(){
             var me = this,
-                i, j = null, length, workbook, data, delimiterType, value, headers,
+                i, j = null, k, length, workbook, data, delimiterType, value, headers,
                 reader = new FileReader();
             this.importer.resource = [];
             this.importer.editIndex = null;
@@ -73518,267 +73606,421 @@ module.exports = new Vue({
                 }
                 else
                     length = 0;
-                console.log(workbook.Strings, headers);
                 if(length > 0){
-                    //for(i = 0; i < me.importer.variant.name.length; i++)
-                    //    if(headers.indexOf(me.importer.variant.name[i].id) !== -1)
-                    //        me.importer.variant.nameId = me.importer.variant.name[i].id;
-                    //for(i = 0; i < me.importer.variant.address.length; i++)
-                    //    if(headers.indexOf(me.importer.variant.address[i].id) !== -1)
-                    //        me.importer.variant.addressId = me.importer.variant.address[i].id;
-                    //for(i = 0; i < me.importer.variant.monday.length; i++)
-                    //    if(headers.indexOf(me.importer.variant.monday[i].id) !== -1)
-                    //        me.importer.variant.mondayId = me.importer.variant.monday[i].id;
-                    //for(i = 0; i < me.importer.variant.tuesday.length; i++)
-                    //    if(headers.indexOf(me.importer.variant.tuesday[i].id) !== -1)
-                    //        me.importer.variant.tuesdayId = me.importer.variant.tuesday[i].id;
-                    //for(i = 0; i < me.importer.variant.wednesday.length; i++)
-                    //    if(headers.indexOf(me.importer.variant.wednesday[i].id) !== -1)
-                    //        me.importer.variant.wednesdayId = me.importer.variant.wednesday[i].id;
-                    //for(i = 0; i < me.importer.variant.thursday.length; i++)
-                    //    if(headers.indexOf(me.importer.variant.thursday[i].id) !== -1)
-                    //        me.importer.variant.thursdayId = me.importer.variant.thursday[i].id;
-                    //for(i = 0; i < me.importer.variant.friday.length; i++)
-                    //    if(headers.indexOf(me.importer.variant.friday[i].id) !== -1)
-                    //        me.importer.variant.fridayId = me.importer.variant.friday[i].id;
-                    //for(i = 0; i < me.importer.variant.saturday.length; i++)
-                    //    if(headers.indexOf(me.importer.variant.saturday[i].id) !== -1)
-                    //        me.importer.variant.saturdayId = me.importer.variant.saturday[i].id;
-                    //for(i = 0; i < me.importer.variant.sunday.length; i++)
-                    //    if(headers.indexOf(me.importer.variant.sunday[i].id) !== -1)
-                    //        me.importer.variant.sundayId = me.importer.variant.sunday[i].id;
-                    //if(me.importer.variant.nameId !== null &&
-                    //   me.importer.variant.addressId !== null){
-                    //    me.initGeocoder();
-                    //    for(i = 0; i < length; i++){
-                    //        if(data[i][me.importer.variant.nameId] !== undefined){
-                    //            j = me.importer.resource.length;
-                    //            me.importer.resource.push({
-                    //                name: {
-                    //                    value: data[i][me.importer.variant.nameId],
-                    //                    valid: false,
-                    //                    text: ""
-                    //                },
-                    //                marker: {
-                    //                    position: {
-                    //                        lat: null,
-                    //                        lng: null
-                    //                    },
-                    //                    data: {
-                    //                        address: data[i][me.importer.variant.addressId],
-                    //                        zoom: 13
-                    //                    }
-                    //                },
-                    //                valid: true,
-                    //                actualStep: 0,
-                    //                maxInterval: 5,
-                    //                steps: [
-                    //                    {
-                    //                        text: "Lunes",
-                    //                        dayNumber: 2,
-                    //                        active: false,
-                    //                        schedule: [],
-                    //                        interval: 1,
-                    //                        seen: true
-                    //                    },
-                    //                    {
-                    //                        text: "Martes",
-                    //                        dayNumber: 3,
-                    //                        active: false,
-                    //                        schedule: [],
-                    //                        interval: 1,
-                    //                        seen: true
-                    //                    },
-                    //                    {
-                    //                        text: "Miércoles",
-                    //                        dayNumber: 4,
-                    //                        active: false,
-                    //                        schedule: [],
-                    //                        interval: 1,
-                    //                        seen: true
-                    //                    },
-                    //                    {
-                    //                        text: "Jueves",
-                    //                        dayNumber: 5,
-                    //                        active: false,
-                    //                        schedule: [],
-                    //                        interval: 1,
-                    //                        seen: true
-                    //                    },
-                    //                    {
-                    //                        text: "Viernes",
-                    //                        dayNumber: 6,
-                    //                        active: false,
-                    //                        schedule: [],
-                    //                        interval: 1,
-                    //                        seen: true
-                    //                    },
-                    //                    {
-                    //                        text: "Sábado",
-                    //                        dayNumber: 7,
-                    //                        active: false,
-                    //                        schedule: [],
-                    //                        interval: 1,
-                    //                        seen: true
-                    //                    },
-                    //                    {
-                    //                        text: "Domingo",
-                    //                        dayNumber: 1,
-                    //                        active: false,
-                    //                        schedule: [],
-                    //                        interval: 1,
-                    //                        seen: true
-                    //                    },
-                    //                ]
-                    //            });
-                    //            me.getLocation(j);
-                    //            me.validation("import-name", j);
-                    //        }
-                    //        if(data[i][me.importer.variant.mondayId] !== undefined &&
-                    //           me.importer.resource[j].steps[0].schedule.length <= me.manualAdd.maxInterval){
-                    //            value = typeof data[i][me.importer.variant.mondayId] !== "string" ? data[i][me.importer.variant.mondayId].toString() : data[i][me.importer.variant.mondayId];
-                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                    //            me.importer.resource[j].steps[0].schedule.push({
-                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                    //                validBegin: false,
-                    //                validEnd: false,
-                    //                textBegin: "hh:mm:ss",
-                    //                textEnd: "hh:mm:ss",
-                    //                id: null
-                    //            });
-                    //            me.importer.resource[j].steps[0].interval = me.importer.resource[j].steps[0].schedule.length;
-                    //            if(!me.importer.resource[j].steps[0].active)
-                    //                me.importer.resource[j].steps[0].active = true;
-                    //            me.validation("import-time-begin", j, 0, me.importer.resource[j].steps[0].interval - 1);
-                    //            me.validation("import-time-end", j, 0, me.importer.resource[j].steps[0].interval - 1);
-                    //        }
-                    //        if(data[i][me.importer.variant.tuesdayId] !== undefined &&
-                    //           me.importer.resource[j].steps[1].schedule.length <= me.manualAdd.maxInterval){
-                    //            value = typeof data[i][me.importer.variant.tuesdayId] !== "string" ? data[i][me.importer.variant.tuesdayId].toString() : data[i][me.importer.variant.tuesdayId];
-                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                    //            me.importer.resource[j].steps[1].schedule.push({
-                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                    //                validBegin: false,
-                    //                validEnd: false,
-                    //                textBegin: "hh:mm:ss",
-                    //                textEnd: "hh:mm:ss",
-                    //                id: null
-                    //            });
-                    //            me.importer.resource[j].steps[1].interval = me.importer.resource[j].steps[1].schedule.length;
-                    //            if(!me.importer.resource[j].steps[1].active)
-                    //                me.importer.resource[j].steps[1].active = true;
-                    //            me.validation("import-time-begin", j, 1, me.importer.resource[j].steps[1].interval - 1);
-                    //            me.validation("import-time-end", j, 1, me.importer.resource[j].steps[1].interval - 1);
-                    //        }
-                    //        if(data[i][me.importer.variant.wednesdayId] !== undefined &&
-                    //           me.importer.resource[j].steps[2].schedule.length <= me.manualAdd.maxInterval){
-                    //            value = typeof data[i][me.importer.variant.wednesdayId] !== "string" ? data[i][me.importer.variant.wednesdayId].toString() : data[i][me.importer.variant.wednesdayId];
-                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                    //            me.importer.resource[j].steps[2].schedule.push({
-                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                    //                validBegin: false,
-                    //                validEnd: false,
-                    //                textBegin: "hh:mm:ss",
-                    //                textEnd: "hh:mm:ss",
-                    //                id: null
-                    //            });
-                    //            me.importer.resource[j].steps[2].interval = me.importer.resource[j].steps[2].schedule.length;
-                    //            if(!me.importer.resource[j].steps[2].active)
-                    //                me.importer.resource[j].steps[2].active = true;
-                    //            me.validation("import-time-begin", j, 2, me.importer.resource[j].steps[2].interval - 1);
-                    //            me.validation("import-time-end", j, 2, me.importer.resource[j].steps[2].interval - 1);
-                    //        }
-                    //        if(data[i][me.importer.variant.thursdayId] !== undefined &&
-                    //           me.importer.resource[j].steps[3].schedule.length <= me.manualAdd.maxInterval){
-                    //            value = typeof data[i][me.importer.variant.thursdayId] !== "string" ? data[i][me.importer.variant.thursdayId].toString() : data[i][me.importer.variant.thursdayId];
-                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                    //            me.importer.resource[j].steps[3].schedule.push({
-                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                    //                validBegin: false,
-                    //                validEnd: false,
-                    //                textBegin: "hh:mm:ss",
-                    //                textEnd: "hh:mm:ss",
-                    //                id: null
-                    //            });
-                    //            me.importer.resource[j].steps[3].interval = me.importer.resource[j].steps[3].schedule.length;
-                    //            if(!me.importer.resource[j].steps[3].active)
-                    //                me.importer.resource[j].steps[3].active = true;
-                    //            me.validation("import-time-begin", j, 3, me.importer.resource[j].steps[3].interval - 1);
-                    //            me.validation("import-time-end", j, 3, me.importer.resource[j].steps[3].interval - 1);
-                    //        }
-                    //        if(data[i][me.importer.variant.fridayId] !== undefined &&
-                    //           me.importer.resource[j].steps[4].schedule.length <= me.manualAdd.maxInterval){
-                    //            value = typeof data[i][me.importer.variant.fridayId] !== "string" ? data[i][me.importer.variant.fridayId].toString() : data[i][me.importer.variant.fridayId];
-                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                    //            me.importer.resource[j].steps[4].schedule.push({
-                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                    //                validBegin: false,
-                    //                validEnd: false,
-                    //                textBegin: "hh:mm:ss",
-                    //                textEnd: "hh:mm:ss",
-                    //                id: null
-                    //            });
-                    //            me.importer.resource[j].steps[4].interval = me.importer.resource[j].steps[4].schedule.length;
-                    //            if(!me.importer.resource[j].steps[4].active)
-                    //                me.importer.resource[j].steps[4].active = true;
-                    //            me.validation("import-time-begin", j, 4, me.importer.resource[j].steps[4].interval - 1);
-                    //            me.validation("import-time-end", j, 4, me.importer.resource[j].steps[4].interval - 1);
-                    //        }
-                    //        if(data[i][me.importer.variant.saturdayId] !== undefined &&
-                    //           me.importer.resource[j].steps[5].schedule.length <= me.manualAdd.maxInterval){
-                    //            value = typeof data[i][me.importer.variant.saturdayId] !== "string" ? data[i][me.importer.variant.saturdayId].toString() : data[i][me.importer.variant.saturdayId];
-                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                    //            me.importer.resource[j].steps[5].schedule.push({
-                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                    //                validBegin: false,
-                    //                validEnd: false,
-                    //                textBegin: "hh:mm:ss",
-                    //                textEnd: "hh:mm:ss",
-                    //                id: null
-                    //            });
-                    //            me.importer.resource[j].steps[5].interval = me.importer.resource[j].steps[5].schedule.length;
-                    //            if(!me.importer.resource[j].steps[5].active)
-                    //                me.importer.resource[j].steps[5].active = true;
-                    //            me.validation("import-time-begin", j, 5, me.importer.resource[j].steps[5].interval - 1);
-                    //            me.validation("import-time-end", j, 5, me.importer.resource[j].steps[5].interval - 1);
-                    //        }
-                    //        if(data[i][me.importer.variant.sundayId] !== undefined &&
-                    //           me.importer.resource[j].steps[6].schedule.length <= me.manualAdd.maxInterval){
-                    //            value = typeof data[i][me.importer.variant.sundayId] !== "string" ? data[i][me.importer.variant.sundayId].toString() : data[i][me.importer.variant.sundayId];
-                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                    //            me.importer.resource[j].steps[6].schedule.push({
-                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                    //                validBegin: false,
-                    //                validEnd: false,
-                    //                textBegin: "hh:mm:ss",
-                    //                textEnd: "hh:mm:ss",
-                    //                id: null
-                    //            });
-                    //            me.importer.resource[j].steps[6].interval = me.importer.resource[j].steps[6].schedule.length;
-                    //            if(!me.importer.resource[j].steps[6].active)
-                    //                me.importer.resource[j].steps[6].active = true;
-                    //            me.validation("import-time-begin", j, 6, me.importer.resource[j].steps[6].interval - 1);
-                    //            me.validation("import-time-end", j, 6, me.importer.resource[j].steps[6].interval - 1);
-                    //        }
-                    //    }
-                    //}
-                    //else{
-                    //    BUTO.components.main.alert.description.text = "No se pudo identificar una columna apropiada para obtener: ";
-                    //    if(me.importer.variant.nameId === null)
-                    //        BUTO.components.main.alert.description.text += "<br> - Nombre";
-                    //    if(me.importer.variant.addressId === null)
-                    //        BUTO.components.main.alert.description.text += "<br> - Dirección";
-                    //    BUTO.components.main.alert.description.title = "Errores en importación de datos";
-                    //    BUTO.components.main.alert.description.ok = "Aceptar";
-                    //    BUTO.components.main.alert.active = true;
-                    //}
+                    for(i = 0; i < me.importer.variant.name.length; i++)
+                        if(headers.indexOf(me.importer.variant.name[i].id) !== -1)
+                            me.importer.variant.nameId = me.importer.variant.name[i].id;
+                    for(i = 0; i < me.importer.variant.email.length; i++)
+                        if(headers.indexOf(me.importer.variant.email[i].id) !== -1)
+                            me.importer.variant.emailId = me.importer.variant.email[i].id;
+                    for(i = 0; i < me.importer.variant.password.length; i++)
+                        if(headers.indexOf(me.importer.variant.password[i].id) !== -1)
+                            me.importer.variant.passwordId = me.importer.variant.password[i].id;
+                    for(i = 0; i < me.importer.variant.rePassword.length; i++)
+                        if(headers.indexOf(me.importer.variant.rePassword[i].id) !== -1)
+                            me.importer.variant.rePasswordId = me.importer.variant.rePassword[i].id;
+                    for(i = 0; i < me.importer.variant.phone.length; i++)
+                        if(headers.indexOf(me.importer.variant.phone[i].id) !== -1)
+                            me.importer.variant.phoneId = me.importer.variant.phone[i].id;
+                    for(i = 0; i < me.importer.variant.day.length; i++)
+                        if(headers.indexOf(me.importer.variant.day[i].id) !== -1)
+                            me.importer.variant.dayId = me.importer.variant.day[i].id;
+                    for(i = 0; i < me.importer.variant.beginAddress.length; i++)
+                        if(headers.indexOf(me.importer.variant.beginAddress[i].id) !== -1)
+                            me.importer.variant.beginAddressId = me.importer.variant.beginAddress[i].id;
+                    for(i = 0; i < me.importer.variant.endAddress.length; i++)
+                        if(headers.indexOf(me.importer.variant.endAddress[i].id) !== -1)
+                            me.importer.variant.endAddressId = me.importer.variant.endAddress[i].id;
+                    for(i = 0; i < me.importer.variant.schedule.length; i++)
+                        if(headers.indexOf(me.importer.variant.schedule[i].id) !== -1)
+                            me.importer.variant.scheduleId = me.importer.variant.schedule[i].id;
+                    if(me.importer.variant.nameId !== null &&
+                       me.importer.variant.emailId !== null &&
+                       me.importer.variant.passwordId !== null &&
+                       me.importer.variant.rePasswordId !== null &&
+                       me.importer.variant.phoneId !== null &&
+                       me.importer.variant.dayId !== null &&
+                       me.importer.variant.beginAddressId !== null &&
+                       me.importer.variant.endAddressId !== null &&
+                       me.importer.variant.scheduleId !== null){
+                        me.initGeocoder();
+                        for(i = 0; i < length; i++){
+                            if(data[i][me.importer.variant.nameId] !== undefined &&
+                               data[i][me.importer.variant.emailId] !== undefined &&
+                               (data[i][me.importer.variant.passwordId] !== undefined ||
+                               data[i][me.importer.variant.rePasswordId] !== undefined ||
+                               data[i][me.importer.variant.phoneId] !== undefined)){
+                                j = me.importer.resource.length;
+                                me.importer.resource.push({
+                                    name: {
+                                        value: data[i][me.importer.variant.nameId] === undefined ? "" : data[i][me.importer.variant.nameId],
+                                        valid: false,
+                                        text: ""
+                                    },
+                                    email: {
+                                        value: data[i][me.importer.variant.emailId] === undefined ? "" : data[i][me.importer.variant.emailId],
+                                        valid: false,
+                                        text: ""
+                                    },
+                                    pass: {
+                                        value: data[i][me.importer.variant.passwordId] === undefined ? "" : data[i][me.importer.variant.passwordId].toString(),
+                                        valid: false,
+                                        text: ""
+                                    },
+                                    repass: {
+                                        value: data[i][me.importer.variant.rePasswordId] === undefined ? "" : data[i][me.importer.variant.rePasswordId].toString(),
+                                        valid: false,
+                                        text: ""
+                                    },
+                                    phone: {
+                                        value: (data[i][me.importer.variant.phoneId] === undefined || typeof data[i][me.importer.variant.phoneId] !== "number") ? "" : data[i][me.importer.variant.phoneId].toString(),
+                                        valid: false,
+                                        text: ""
+                                    },
+                                    marker: [
+                                        { text: "Lu" },
+                                        { text: "Ma" },
+                                        { text: "Mi" },
+                                        { text: "Ju" },
+                                        { text: "Vi" },
+                                        { text: "Sa" },
+                                        { text: "Do" }
+                                    ],
+                                    valid: true,
+                                    allPosVisible: 0,
+                                    actualStep: 0,
+                                    steps: [
+                                        {
+                                            text: "Lunes",
+                                            dayNumber: 2,
+                                            active: false,
+                                            schedule: [],
+                                            interval: 1,
+                                            seen: true
+                                        },
+                                        {
+                                            text: "Martes",
+                                            dayNumber: 3,
+                                            active: false,
+                                            schedule: [],
+                                            interval: 1,
+                                            seen: true
+                                        },
+                                        {
+                                            text: "Miércoles",
+                                            dayNumber: 4,
+                                            active: false,
+                                            schedule: [],
+                                            interval: 1,
+                                            seen: true
+                                        },
+                                        {
+                                            text: "Jueves",
+                                            dayNumber: 5,
+                                            active: false,
+                                            schedule: [],
+                                            interval: 1,
+                                            seen: true
+                                        },
+                                        {
+                                            text: "Viernes",
+                                            dayNumber: 6,
+                                            active: false,
+                                            schedule: [],
+                                            interval: 1,
+                                            seen: true
+                                        },
+                                        {
+                                            text: "Sábado",
+                                            dayNumber: 7,
+                                            active: false,
+                                            schedule: [],
+                                            interval: 1,
+                                            seen: true
+                                        },
+                                        {
+                                            text: "Domingo",
+                                            dayNumber: 1,
+                                            active: false,
+                                            schedule: [],
+                                            interval: 1,
+                                            seen: true
+                                        },
+                                    ]
+                                });
+                                me.validation("name", j);
+                                me.validation("email", j);
+                                me.validation("pass", j);
+                                me.validation("repass", j);
+                                me.validation("phone", j);
+                                //me.getLocation(j);
+                            }
+                            if(j !== null){
+                                k = me.importer.variant.monday.indexOf(data[i][me.importer.variant.dayId]);
+                                if(k !== -1 &&
+                                   me.importer.resource[j].steps[0].schedule.length <= me.manualAdd.maxInterval){
+                                    value = data[i][me.importer.variant.scheduleId] !== undefined ?
+                                        typeof data[i][me.importer.variant.scheduleId] !== "string" ? data[i][me.importer.variant.scheduleId].toString() : data[i][me.importer.variant.scheduleId] :
+                                        "";
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.resource[j].steps[0].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        
+                                        address_begin: data[i][me.importer.variant.beginAddressId] !== undefined ? data[i][me.importer.variant.beginAddressId] : "",
+                                        address_end: data[i][me.importer.variant.endAddressId] !== undefined ? data[i][me.importer.variant.endAddressId] : "",
+                                        main_begin: null,
+                                        main_end: null,
+                                        window_begin: null,
+                                        window_end: null,
+                                        lat_begin: null,
+                                        lng_begin: null,
+                                        lat_end: null,
+                                        lng_end: null,
+                                        active: me.importer.resource[j].steps[0].schedule.length === 0
+                                    });
+                                    me.importer.resource[j].steps[0].interval = me.importer.resource[j].steps[0].schedule.length;
+                                    if(!me.importer.resource[j].steps[0].active)
+                                        me.importer.resource[j].steps[0].active = true;
+                                    me.validation("time-begin", j, 0, me.importer.resource[j].steps[0].interval - 1);
+                                    me.validation("time-end", j, 0, me.importer.resource[j].steps[0].interval - 1);
+                                }
+                                
+                                k = me.importer.variant.tuesday.indexOf(data[i][me.importer.variant.dayId]);
+                                if(k !== -1 &&
+                                   me.importer.resource[j].steps[1].schedule.length <= me.manualAdd.maxInterval){
+                                    value = data[i][me.importer.variant.scheduleId] !== undefined ?
+                                        typeof data[i][me.importer.variant.scheduleId] !== "string" ? data[i][me.importer.variant.scheduleId].toString() : data[i][me.importer.variant.scheduleId] :
+                                        "";
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.resource[j].steps[1].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        
+                                        address_begin: data[i][me.importer.variant.beginAddressId] !== undefined ? data[i][me.importer.variant.beginAddressId] : "",
+                                        address_end: data[i][me.importer.variant.endAddressId] !== undefined ? data[i][me.importer.variant.endAddressId] : "",
+                                        main_begin: null,
+                                        main_end: null,
+                                        window_begin: null,
+                                        window_end: null,
+                                        lat_begin: null,
+                                        lng_begin: null,
+                                        lat_end: null,
+                                        lng_end: null,
+                                        active: me.importer.resource[j].steps[1].schedule.length === 0
+                                    });
+                                    me.importer.resource[j].steps[1].interval = me.importer.resource[j].steps[1].schedule.length;
+                                    if(!me.importer.resource[j].steps[1].active)
+                                        me.importer.resource[j].steps[1].active = true;
+                                    me.validation("time-begin", j, 1, me.importer.resource[j].steps[1].interval - 1);
+                                    me.validation("time-end", j, 1, me.importer.resource[j].steps[1].interval - 1);
+                                }
+                                
+                                k = me.importer.variant.wednesday.indexOf(data[i][me.importer.variant.dayId]);
+                                if(k !== -1 &&
+                                   me.importer.resource[j].steps[2].schedule.length <= me.manualAdd.maxInterval){
+                                    value = data[i][me.importer.variant.scheduleId] !== undefined ?
+                                        typeof data[i][me.importer.variant.scheduleId] !== "string" ? data[i][me.importer.variant.scheduleId].toString() : data[i][me.importer.variant.scheduleId] :
+                                        "";
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.resource[j].steps[2].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        
+                                        address_begin: data[i][me.importer.variant.beginAddressId] !== undefined ? data[i][me.importer.variant.beginAddressId] : "",
+                                        address_end: data[i][me.importer.variant.endAddressId] !== undefined ? data[i][me.importer.variant.endAddressId] : "",
+                                        main_begin: null,
+                                        main_end: null,
+                                        window_begin: null,
+                                        window_end: null,
+                                        lat_begin: null,
+                                        lng_begin: null,
+                                        lat_end: null,
+                                        lng_end: null,
+                                        active: me.importer.resource[j].steps[2].schedule.length === 0
+                                    });
+                                    me.importer.resource[j].steps[2].interval = me.importer.resource[j].steps[2].schedule.length;
+                                    if(!me.importer.resource[j].steps[2].active)
+                                        me.importer.resource[j].steps[2].active = true;
+                                    me.validation("time-begin", j, 2, me.importer.resource[j].steps[2].interval - 1);
+                                    me.validation("time-end", j, 2, me.importer.resource[j].steps[2].interval - 1);
+                                }
+                                
+                                k = me.importer.variant.thursday.indexOf(data[i][me.importer.variant.dayId]);
+                                if(k !== -1 &&
+                                   me.importer.resource[j].steps[3].schedule.length <= me.manualAdd.maxInterval){
+                                    value = data[i][me.importer.variant.scheduleId] !== undefined ?
+                                        typeof data[i][me.importer.variant.scheduleId] !== "string" ? data[i][me.importer.variant.scheduleId].toString() : data[i][me.importer.variant.scheduleId] :
+                                        "";
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.resource[j].steps[3].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        
+                                        address_begin: data[i][me.importer.variant.beginAddressId] !== undefined ? data[i][me.importer.variant.beginAddressId] : "",
+                                        address_end: data[i][me.importer.variant.endAddressId] !== undefined ? data[i][me.importer.variant.endAddressId] : "",
+                                        main_begin: null,
+                                        main_end: null,
+                                        window_begin: null,
+                                        window_end: null,
+                                        lat_begin: null,
+                                        lng_begin: null,
+                                        lat_end: null,
+                                        lng_end: null,
+                                        active: me.importer.resource[j].steps[3].schedule.length === 0
+                                    });
+                                    me.importer.resource[j].steps[3].interval = me.importer.resource[j].steps[3].schedule.length;
+                                    if(!me.importer.resource[j].steps[3].active)
+                                        me.importer.resource[j].steps[3].active = true;
+                                    me.validation("time-begin", j, 3, me.importer.resource[j].steps[3].interval - 1);
+                                    me.validation("time-end", j, 3, me.importer.resource[j].steps[3].interval - 1);
+                                }
+                                
+                                k = me.importer.variant.friday.indexOf(data[i][me.importer.variant.dayId]);
+                                if(k !== -1 &&
+                                   me.importer.resource[j].steps[4].schedule.length <= me.manualAdd.maxInterval){
+                                    value = data[i][me.importer.variant.scheduleId] !== undefined ?
+                                        typeof data[i][me.importer.variant.scheduleId] !== "string" ? data[i][me.importer.variant.scheduleId].toString() : data[i][me.importer.variant.scheduleId] :
+                                        "";
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.resource[j].steps[4].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        
+                                        address_begin: data[i][me.importer.variant.beginAddressId] !== undefined ? data[i][me.importer.variant.beginAddressId] : "",
+                                        address_end: data[i][me.importer.variant.endAddressId] !== undefined ? data[i][me.importer.variant.endAddressId] : "",
+                                        main_begin: null,
+                                        main_end: null,
+                                        window_begin: null,
+                                        window_end: null,
+                                        lat_begin: null,
+                                        lng_begin: null,
+                                        lat_end: null,
+                                        lng_end: null,
+                                        active: me.importer.resource[j].steps[4].schedule.length === 0
+                                    });
+                                    me.importer.resource[j].steps[4].interval = me.importer.resource[j].steps[4].schedule.length;
+                                    if(!me.importer.resource[j].steps[4].active)
+                                        me.importer.resource[j].steps[4].active = true;
+                                    me.validation("time-begin", j, 4, me.importer.resource[j].steps[4].interval - 1);
+                                    me.validation("time-end", j, 4, me.importer.resource[j].steps[4].interval - 1);
+                                }
+                                
+                                k = me.importer.variant.saturday.indexOf(data[i][me.importer.variant.dayId]);
+                                if(k !== -1 &&
+                                   me.importer.resource[j].steps[5].schedule.length <= me.manualAdd.maxInterval){
+                                    value = data[i][me.importer.variant.scheduleId] !== undefined ?
+                                        typeof data[i][me.importer.variant.scheduleId] !== "string" ? data[i][me.importer.variant.scheduleId].toString() : data[i][me.importer.variant.scheduleId] :
+                                        "";
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.resource[j].steps[5].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        
+                                        address_begin: data[i][me.importer.variant.beginAddressId] !== undefined ? data[i][me.importer.variant.beginAddressId] : "",
+                                        address_end: data[i][me.importer.variant.endAddressId] !== undefined ? data[i][me.importer.variant.endAddressId] : "",
+                                        main_begin: null,
+                                        main_end: null,
+                                        window_begin: null,
+                                        window_end: null,
+                                        lat_begin: null,
+                                        lng_begin: null,
+                                        lat_end: null,
+                                        lng_end: null,
+                                        active: me.importer.resource[j].steps[5].schedule.length === 0
+                                    });
+                                    me.importer.resource[j].steps[5].interval = me.importer.resource[j].steps[5].schedule.length;
+                                    if(!me.importer.resource[j].steps[5].active)
+                                        me.importer.resource[j].steps[5].active = true;
+                                    me.validation("time-begin", j, 5, me.importer.resource[j].steps[5].interval - 1);
+                                    me.validation("time-end", j, 5, me.importer.resource[j].steps[5].interval - 1);
+                                }
+                                
+                                k = me.importer.variant.sunday.indexOf(data[i][me.importer.variant.dayId]);
+                                if(k !== -1 &&
+                                   me.importer.resource[j].steps[6].schedule.length <= me.manualAdd.maxInterval){
+                                    value = data[i][me.importer.variant.scheduleId] !== undefined ?
+                                        typeof data[i][me.importer.variant.scheduleId] !== "string" ? data[i][me.importer.variant.scheduleId].toString() : data[i][me.importer.variant.scheduleId] :
+                                        "";
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.resource[j].steps[6].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        
+                                        address_begin: data[i][me.importer.variant.beginAddressId] !== undefined ? data[i][me.importer.variant.beginAddressId] : "",
+                                        address_end: data[i][me.importer.variant.endAddressId] !== undefined ? data[i][me.importer.variant.endAddressId] : "",
+                                        main_begin: null,
+                                        main_end: null,
+                                        window_begin: null,
+                                        window_end: null,
+                                        lat_begin: null,
+                                        lng_begin: null,
+                                        lat_end: null,
+                                        lng_end: null,
+                                        active: me.importer.resource[j].steps[6].schedule.length === 0
+                                    });
+                                    me.importer.resource[j].steps[6].interval = me.importer.resource[j].steps[6].schedule.length;
+                                    if(!me.importer.resource[j].steps[6].active)
+                                        me.importer.resource[j].steps[6].active = true;
+                                    me.validation("time-begin", j, 6, me.importer.resource[j].steps[6].interval - 1);
+                                    me.validation("time-end", j, 6, me.importer.resource[j].steps[6].interval - 1);
+                                }
+                            }
+                        }
+                        console.log(me.importer.resource);
+                    }
+                    else{
+                        BUTO.components.main.alert.description.text = "No se pudo identificar una columna apropiada para obtener: ";
+                        if(me.importer.variant.nameId === null)
+                            BUTO.components.main.alert.description.text += "<br> - Nombre";
+                        if(me.importer.variant.emailId === null)
+                            BUTO.components.main.alert.description.text += "<br> - Correo";
+                        if(me.importer.variant.passwordId === null)
+                            BUTO.components.main.alert.description.text += "<br> - Contraseña";
+                        if(me.importer.variant.rePasswordId === null)
+                            BUTO.components.main.alert.description.text += "<br> - Confirmar Contraseña";
+                        if(me.importer.variant.phoneId === null)
+                            BUTO.components.main.alert.description.text += "<br> - Teléfono";
+                        if(me.importer.variant.dayId === null)
+                            BUTO.components.main.alert.description.text += "<br> - Día";
+                        if(me.importer.variant.beginAddressId === null)
+                            BUTO.components.main.alert.description.text += "<br> - Dirección Inicio";
+                        if(me.importer.variant.endAddressId === null)
+                            BUTO.components.main.alert.description.text += "<br> - Dirección Fin";
+                        if(me.importer.variant.scheduleId === null)
+                            BUTO.components.main.alert.description.text += "<br> - Horario";
+                        BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                    }
                     //BUTO.components.main.loader.active = false;
                 }
                 else{
