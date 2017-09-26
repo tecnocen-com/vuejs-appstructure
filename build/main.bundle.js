@@ -80,7 +80,7 @@
 
 var base64 = __webpack_require__(121)
 var ieee754 = __webpack_require__(122)
-var isArray = __webpack_require__(43)
+var isArray = __webpack_require__(44)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -5322,7 +5322,7 @@ if (typeof Object.create === 'function') {
   };
 })(typeof module === 'undefined' || module, this);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)(module)))
 
 /***/ }),
 /* 3 */
@@ -5552,7 +5552,7 @@ var elliptic = exports;
 
 elliptic.version = __webpack_require__(178).version;
 elliptic.utils = __webpack_require__(179);
-elliptic.rand = __webpack_require__(68);
+elliptic.rand = __webpack_require__(69);
 elliptic.curve = __webpack_require__(29);
 elliptic.curves = __webpack_require__(184);
 
@@ -6341,7 +6341,7 @@ var util = __webpack_require__(15);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
-var Readable = __webpack_require__(46);
+var Readable = __webpack_require__(47);
 var Writable = __webpack_require__(33);
 
 util.inherits(Duplex, Readable);
@@ -6497,12 +6497,12 @@ module.exports = Hash
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(46);
+exports = module.exports = __webpack_require__(47);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(33);
 exports.Duplex = __webpack_require__(12);
-exports.Transform = __webpack_require__(49);
+exports.Transform = __webpack_require__(50);
 exports.PassThrough = __webpack_require__(138);
 
 
@@ -6852,7 +6852,7 @@ asn1.bignum = __webpack_require__(2);
 
 asn1.define = __webpack_require__(200).define;
 asn1.base = __webpack_require__(21);
-asn1.constants = __webpack_require__(74);
+asn1.constants = __webpack_require__(75);
 asn1.decoders = __webpack_require__(206);
 asn1.encoders = __webpack_require__(208);
 
@@ -6864,8 +6864,8 @@ asn1.encoders = __webpack_require__(208);
 var base = exports;
 
 base.Reporter = __webpack_require__(203).Reporter;
-base.DecoderBuffer = __webpack_require__(73).DecoderBuffer;
-base.EncoderBuffer = __webpack_require__(73).EncoderBuffer;
+base.DecoderBuffer = __webpack_require__(74).DecoderBuffer;
+base.EncoderBuffer = __webpack_require__(74).EncoderBuffer;
 base.Node = __webpack_require__(204);
 
 
@@ -7851,7 +7851,7 @@ curve.edwards = __webpack_require__(183);
 var aesid = __webpack_require__(211)
 var fixProc = __webpack_require__(212)
 var ciphers = __webpack_require__(38)
-var compat = __webpack_require__(54)
+var compat = __webpack_require__(55)
 module.exports = parseKeys
 
 function parseKeys (buffer) {
@@ -9085,7 +9085,7 @@ var internalUtil = {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(47);
+var Stream = __webpack_require__(48);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -9099,7 +9099,7 @@ function _isUint8Array(obj) {
 }
 /*</replacement>*/
 
-var destroyImpl = __webpack_require__(48);
+var destroyImpl = __webpack_require__(49);
 
 util.inherits(Writable, Stream);
 
@@ -10349,9 +10349,9 @@ var exports = module.exports = function SHA (algorithm) {
 exports.sha = __webpack_require__(154)
 exports.sha1 = __webpack_require__(155)
 exports.sha224 = __webpack_require__(156)
-exports.sha256 = __webpack_require__(50)
+exports.sha256 = __webpack_require__(51)
 exports.sha384 = __webpack_require__(157)
-exports.sha512 = __webpack_require__(51)
+exports.sha512 = __webpack_require__(52)
 
 
 /***/ }),
@@ -10455,7225 +10455,6 @@ hash.ripemd160 = hash.ripemd.ripemd160;
 
 /***/ }),
 /* 42 */
-/***/ (function(module, exports) {
-
-var mcdatatableT = `
-    <div class="container grid-container">
-        <div class="row">
-            <div class="btn-group pull-right">
-                <button type="button" class="btn btn-primary dropdown-toggle btn-customized" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.column}} <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu pull-right dropdown-menu-custom">
-                    <div v-for="(head, indexHead) in config.head" v-if="head.title !== 'id'" class="row">
-                        <div class="col-sm-3">
-                            <div class="input-group">
-                                <span class="input-group-addon input-columns-hidden">
-                                    <input type="checkbox" :checked="head.hidden ? 0 : 1" v-on:change="config.setVisible(head.hidden, head.title)">
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="input-group-addon span-columns-hidden">
-                                {{config.prettyTitle(indexHead)}}
-                            </div>
-                        </div>
-                    </div>
-                    <li class="text-center"><a href="#" v-on:click.prevent="config.resetColumns()" style="padding-left: 6px"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span> {{config.style.languageItems[config.style.language].handlers.columns.reset}}</a></li>
-                </ul>
-            </div>
-            <div v-if="config.shouldGroup()" class="btn-group pull-right">
-                <button type="button" class="btn btn-warning dropdown-toggle btn-customized" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.group}} <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu pull-right dropdown-menu-custom">
-                    <div v-for="(head, indexHead) in config.head" v-if="head.groupable" class="row">
-                        <div class="col-sm-3">
-                            <div class="input-group">
-                                <span class="input-group-addon input-columns-hidden">
-                                    <input type="radio" :checked="head._groupedBy ? 1 : 0" v-on:click="config.groupBy(head.title)">
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="input-group-addon span-columns-hidden">
-                                {{config.prettyTitle(indexHead)}}
-                            </div>
-                        </div>
-                    </div>
-                </ul>
-            </div>
-            <div v-if="config.handlers.add.active" class="btn-group pull-left">
-                <template v-if="config.handlers.add.type === 'inline'">
-                    <button type="button" v-on:click="config.initAdd()" class="btn btn-success btn-customized" :class="[config.handlers.add.active ? '' : 'disabled']">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.add}}
-                    </button>
-                </template>
-                <template v-else-if="typeof config.handlers.add === 'object' && config.handlers.add.type === 'modal'">
-                    <button type="button" class="btn-circle btn btn-success btn-customized" :class="[config.handlers.add.active ? '' : 'disabled']" data-toggle="modal" :data-target="'#' + config.id + '-addModal'">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.add}}
-                    </button>
-                    <div class="modal fade" :id="config.id+ '-addModal'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header modal-header-custom">
-                                    <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
-                                </div>
-                                <div class="modal-body modal-body-custom">
-                                    <template v-for="(head, indexHead) in config.head" v-if="head.title !== 'id'">
-                                        <div class="row">
-                                            <div class="col-sm-5">
-                                                <span><b>{{config.prettyTitle(indexHead)}}:</b></span>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
-                                                    <select v-if="head.input.type === 'select'" v-model="head._dataAdd.value" class="grid-input grid-select form-control">
-                                                        <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
-                                                    </select>
-                                                    <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="number">
-                                                    <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="email">
-                                                    <input v-else v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text" maxlength="64">
-                                                </template>
-                                                <template v-else>
-                                                    <input v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text" maxlength="64">
-                                                </template>
-                                            </div>
-                                        </div>
-                                        <div style="height: 10px;"></div>
-                                    </template>
-                                </div>
-                                <div class="modal-footer modal-footer-custom">
-                                    <button :id="config.id+ '-closeAddModal'" type="button" v-on:click="config.cancelAdd()" class="btn btn-default btn-customized" data-dismiss="modal">{{config.style.languageItems[config.style.language].handlers.cancel}}</button>
-                                    <button type="button" v-on:click="config.addRow()" class="btn btn-primary btn-customized">{{config.style.languageItems[config.style.language].handlers.accept}}</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </div>
-            <div v-if="typeof config.style.pagination === 'object' && typeof config.style.pagination.rowPerPage === 'number' && config.style.pagination.rowPerPage > 0" class="btn-group pull-left">
-                <button type="button" class="btn btn-warning dropdown-toggle btn-customized" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.selectPagination}} <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="input-group">
-                                <span class="input-group-addon input-columns-hidden">
-                                    <input type="radio" :checked="config.style.pagination.rowPerPage === 25" v-on:click="config.updatePageRows(25)">
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="input-group-addon span-columns-hidden">
-                                25
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="input-group">
-                                <span class="input-group-addon input-columns-hidden">
-                                    <input type="radio" :checked="config.style.pagination.rowPerPage === 50" v-on:click="config.updatePageRows(50)">
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="input-group-addon span-columns-hidden">
-                                50
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="input-group">
-                                <span class="input-group-addon input-columns-hidden">
-                                    <input type="radio" :checked="config.style.pagination.rowPerPage === 75" v-on:click="config.updatePageRows(75)">
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="input-group-addon span-columns-hidden">
-                                75
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="input-group">
-                                <span class="input-group-addon input-columns-hidden">
-                                    <input type="radio" :checked="config.style.pagination.rowPerPage === 100" v-on:click="config.updatePageRows(100)">
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="input-group-addon span-columns-hidden">
-                                100
-                            </div>
-                        </div>
-                    </div>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div :class="[ config.style.responsive ? 'table-responsive' : '' ]" style="min-height: 300px;">
-                <table :class="[ config.style.general ? config.style.general.join(' ') : '' ]">
-                    <thead :class="[ config.style.head ? config.style.head.join(' ') : '' ]">
-                        <tr>
-                            <template v-for="(head, indexHead) in config.head">
-                                <th v-if="!head.hidden" :id="head.title" class="no-padding table-width" :draggable="config.style.draggable" @dragstart="config.initSortColumns">
-                                    <div class="btn-group full-large-group inline">
-                                        <template v-if="head.orderable">
-                                            <div class="btn" @dragover.prevent @drop="config.sortColumns" v-on:click.prevent="config.sortList(head._order === 'asc' ? 'desc' : 'asc', head.title, false)">
-                                                <span v-if="head._order === 'desc'" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                                                <span v-if="head._order === 'asc'" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-                                                <b :id="head.title">{{ config.prettyTitle(indexHead) }}</b>
-                                            </div>
-                                        </template>
-                                        <template v-else>
-                                            <div class="btn" @dragover.prevent @drop="config.sortColumns">
-                                                <span v-if="head._order === 'desc'" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                                                <span v-if="head._order === 'asc'" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-                                                <b :id="head.title">{{ config.prettyTitle(indexHead) }}</b>
-                                            </div>
-                                        </template>
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="caret"></span>
-                                        </button>
-                                        
-                                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                                            <li :class="[(head.orderable) ? '' : 'disabled not-active']"><a href="#" v-on:click.prevent="config.sortList('asc', head.title, false)" style="padding-left: 6px"><span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span> {{config.style.languageItems[config.style.language].handlers.columns.asc}}</a></li>
-                                            <li :class="[(head.orderable) ? '' : 'disabled not-active']"><a href="#" v-on:click.prevent="config.sortList('desc', head.title, false)" style="padding-left: 6px"><span class="glyphicon glyphicon-sort-by-alphabet-alt" aria-hidden="true"></span> {{config.style.languageItems[config.style.language].handlers.columns.desc}}</a></li>
-                                            <li role="separator" class="divider"></li>
-                                            <li :class="[(head.searchable.active) ? 'dropdown-submenu' : 'dropdown-submenu disabled not-active']">
-                                                <a tabindex="-1" href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> {{config.style.languageItems[config.style.language].handlers.columns.search}}</a>
-                                                <ul v-if="head.searchable.active" class="dropdown-menu">
-                                                    <li v-if="head.searchable.type === 'filter'">
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon" id="searchGrid"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-                                                            <input type="text" class="form-control" :value="head._searchData" :placeholder="config.style.languageItems[config.style.language].handlers.columns.filter" aria-describedby="searchGrid" v-on:keyup="config.search($event.target.value, head.title)">
-                                                        </div>
-                                                    </li>
-                                                    <li v-if="head.searchable.type === 'status'">
-                                                        <div v-for="status in head._searchStatusValues" class="row">
-                                                            <div class="col-sm-3">
-                                                                <div class="input-group">
-                                                                    <span class="input-group-addon input-columns-hidden">
-                                                                        <input type="radio" :checked="status === head._searchData ? 1 : 0" v-on:click="config.search(status === head._searchData ? '' : status, head.title)">
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-9">
-                                                                <div class="input-group-addon span-columns-hidden">
-                                                                    {{status}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                  <!--<li><a tabindex="-1" href="#">Second level</a></li>
-                                                    <li class="dropdown-submenu">
-                                                        <a href="#">Even More..</a>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="#">3rd level</a></li>
-                                                            <li><a href="#">3rd level</a></li>
-                                                        </ul>
-                                                    </li>-->
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </th>
-                            </template>
-                            <th :colspan="config.existsCustomHandlers ? 2 : 1" class="no-padding table-width" :class="config.existsCustomHandlers ? 'grid-handler-title-container-custom' : 'grid-handler-title-container'">
-                                <div class="btn-group full-large-group inline">
-                                    <div class="btn grid-handler-title">
-                                        <b>{{config.style.languageItems[config.style.language].handlers.title}}</b>
-                                    </div>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <template v-if="config.body.length > 0 && !config.body[0]._ofuscate">
-                        <tbody :class="[ config.style.body ? config.style.body.join(' ') : '' ]">
-                            <template v-if="typeof config.dataGrouping === 'object' && config.dataGrouping.isGrouped">
-                                <tr v-if="config.adding">
-                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
-                                        <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
-                                            <select v-if="head.input.type === 'select'" v-model="head._dataAdd.value" class="grid-input grid-select form-control">
-                                                <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
-                                            </select>
-                                            <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="number">
-                                            <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="email">
-                                            <input v-else v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text">
-                                        </template>
-                                        <template v-else>
-                                            <input v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text">
-                                        </template>
-                                    </td>
-                                    <td class="col-md-1 text-center">
-                                        <a href="#" v-on:click.prevent="config.addRow()" class="alert alert-success grid-handlers" :title="config.style.languageItems[config.style.language].handlers.accept">
-                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                        </a>
-                                        <a href="#" v-on:click.prevent="config.cancelAdd()" class="alert alert-warning grid-handlers" :title="config.style.languageItems[config.style.language].handlers.cancel">
-                                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <template v-for="(groupBy, indexHead2) in config.head" v-if="groupBy._groupedBy">
-                                    <template v-for="(dataGrouping, index) in config.dataGrouping.state">
-                                        <tr>
-                                            <td :colspan="config.groupColSpan() + 1" class="col-md-1">
-                                                <a href="#" v-on:click.prevent="config.changeGroupVisibility(index, indexHead2)" class="alert alert-info grid-handlers" :title="[dataGrouping[1] ? config.style.languageItems[config.style.language].handlers.group.show : config.style.languageItems[config.style.language].handlers.group.hide]">
-                                                    <span :class="[dataGrouping[1] ? 'glyphicon glyphicon-plus' : 'glyphicon glyphicon-minus']" aria-hidden="true"></span>
-                                                </a>
-                                                <b>{{ dataGrouping[0] }}</b>
-                                            </td>
-                                        </tr>
-                                        <tr v-for="(data, semiIndex) in config.body" v-if="!data._hidden && !data._ofuscate" :class="[ typeof config.style.row === 'object' && config.style.row.active === true && typeof config.style.row.styleClass === 'object' ? config.style.row.styleClass.join(' ') : '', config.highlightHandlers && data._highlight ? config.style.highlight.styleClass.join(' ') : '' ]">
-                                            <template v-if="typeof groupBy.input === 'object' && groupBy.input.type === 'select'">
-                                                <template v-if="config.getSelectData(semiIndex, indexHead2) === dataGrouping[0]">
-                                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
-                                                        <template v-if="config.handlers.edit.type === 'inline' && data._editing && head.editable">
-                                                            <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
-                                                                <select v-if="head.input.type === 'select'" v-model="data[head.title]" class="grid-input grid-select form-control">
-                                                                    <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
-                                                                </select>
-                                                                <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
-                                                                <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
-                                                                <input v-else v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
-                                                            </template>
-                                                            <template v-else>
-                                                                <input v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
-                                                            </template>
-                                                        </template>
-                                                        <template v-else-if="config.existsFullHandler()[0]">
-                                                            <a href="#" v-on:click.prevent="config.customHandlers[config.existsFullHandler()[1]].handler(data); config.highlightRow(semiIndex, config.existsFullHandler()[1])" :class="typeof config.customHandlers[config.existsFullHandler()[1]].anchorCellClass === 'object' ? config.customHandlers[config.existsFullHandler()[1]].anchorCellClass.join(' ') : ''">
-                                                                <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
-                                                                    {{ config.getSelectData(semiIndex, indexHead) }}
-                                                                </template>
-                                                                <template v-else>
-                                                                    {{ data[head.title] }}
-                                                                </template>
-                                                            </a>
-                                                        </template>
-                                                        <template v-else>
-                                                            <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
-                                                                {{ config.getSelectData(semiIndex, indexHead) }}
-                                                            </template>
-                                                            <template v-else>
-                                                                {{ data[head.title] }}
-                                                            </template>
-                                                        </template>
-                                                    </td>
-                                                    <td class="col-md-1 text-center">
-                                                        <template v-if="config.handlers.watch.type === 'modal'">
-                                                            <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
-                                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                            </a>
-                                                        </template>
-                                                        <template v-else-if="config.handlers.watch.type === 'template'">
-                                                            <a href="#" v-on:click.prevent="config.templateWatch(data.id, semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch">
-                                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                            </a>
-                                                        </template>
-                                                        <template v-if="config.handlers.edit.active">
-                                                            <template v-if="config.handlers.edit.type === 'inline'">
-                                                                <template v-if="!data._editing">
-                                                                    <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
-                                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </template>
-                                                                <template v-else>
-                                                                    <a href="#" v-on:click.prevent="config.finishEdit(data, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-warning grid-handlers' : 'alert alert-warning grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.accept">
-                                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </template>
-                                                            </template>
-                                                            <template v-else-if="config.handlers.edit.type === 'modal'">
-                                                                <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
-                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                                </a>
-                                                            </template>
-                                                            <template v-else-if="config.handlers.edit.type === 'template'">
-                                                                <a href="#" v-on:click.prevent="config.templateEdit(data.id, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
-                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                                </a>
-                                                            </template>
-                                                        </template>
-                                                        <a v-if="config.handlers.remove.active" href="#" v-on:click.prevent="config.confirmRemove(data, semiIndex)" :class="[config.handlers.remove.active ? 'alert alert-danger grid-handlers' : 'alert alert-danger grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.remove">
-                                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                                        </a>
-                                                    </td>
-                                                </template>
-                                            </template>
-                                            <template v-else>
-                                                <template v-if="data[groupBy.title] === dataGrouping[0]">
-                                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
-                                                        <template v-if="config.handlers.edit.type === 'inline' && data._editing && head.editable">
-                                                            <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
-                                                                <select v-if="head.input.type === 'select'" v-model="data[head.title]" class="grid-input grid-select form-control">
-                                                                    <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
-                                                                </select>
-                                                                <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
-                                                                <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
-                                                                <input v-else v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
-                                                            </template>
-                                                            <template v-else>
-                                                                <input v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
-                                                            </template>
-                                                        </template>
-                                                        <template v-else-if="config.existsFullHandler()[0]">
-                                                            <a href="#" v-on:click.prevent="config.customHandlers[config.existsFullHandler()[1]].handler(data); config.highlightRow(semiIndex, config.existsFullHandler()[1])" :class="[typeof config.customHandlers[config.existsFullHandler()[1]].anchorCellClass === 'object' ? config.customHandlers[config.existsFullHandler()[1]].anchorCellClass.join(' ') : '']">
-                                                                <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
-                                                                    {{ config.getSelectData(semiIndex, indexHead) }}
-                                                                </template>
-                                                                <template v-else>
-                                                                    {{ data[head.title] }}
-                                                                </template>
-                                                            </a>
-                                                        </template>
-                                                        <template v-else>
-                                                            <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
-                                                                {{ config.getSelectData(semiIndex, indexHead) }}
-                                                            </template>
-                                                            <template v-else>
-                                                                {{ data[head.title] }}
-                                                            </template>
-                                                        </template>
-                                                    </td>
-                                                    <td class="col-md-1 text-center">
-                                                        <template v-if="config.handlers.watch.active">
-                                                            <template v-if="config.handlers.watch.type === 'modal'">
-                                                                <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
-                                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                                </a>
-                                                            </template>
-                                                            <template v-else-if="config.handlers.watch.type === 'template'">
-                                                                <a href="#" v-on:click.prevent="config.templateWatch(data.id, semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch">
-                                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                                </a>
-                                                            </template>
-                                                        </template>
-                                                        <template v-if="config.handlers.edit.active">
-                                                            <template v-if="config.handlers.edit.type === 'inline'">
-                                                                <template v-if="!data._editing">
-                                                                    <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
-                                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </template>
-                                                                <template v-else>
-                                                                    <a href="#" v-on:click.prevent="config.finishEdit(data, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-warning grid-handlers' : 'alert alert-warning grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.accept">
-                                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </template>
-                                                            </template>
-                                                            <template v-else-if="config.handlers.edit.type === 'modal'">
-                                                                <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
-                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                                </a>
-                                                            </template>
-                                                            <template v-else-if="config.handlers.edit.type === 'template'">
-                                                                <a href="#" v-on:click.prevent="config.templateEdit(data.id, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
-                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                                </a>
-                                                            </template>
-                                                        </template>
-                                                        <a v-if="config.handlers.remove.active" href="#" v-on:click.prevent="config.confirmRemove(data, semiIndex)" :class="[config.handlers.remove.active ? 'alert alert-danger grid-handlers' : 'alert alert-danger grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.remove">
-                                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                                        </a>
-                                                    </td>
-                                                    <td v-if="config.existsCustomHandlers" class="col-md-1 text-center">
-                                                        <a v-for="(customH, customIndex) in config.customHandlers" href="#" v-on:click.prevent="customH.handler(data); config.highlightRow(semiIndex, customIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="customH.title">
-                                                            <span :class="['glyphicon', customH.glyphiconClass]" aria-hidden="true"></span>
-                                                        </a>
-                                                    </td>
-                                                </template>
-                                            </template>
-                                        </tr>
-                                    </template>
-                                </template>
-                            </template>
-                            <template v-else>
-                                <tr v-if="config.adding">
-                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
-                                        <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
-                                            <select v-if="head.input.type === 'select'" v-model="head._dataAdd.value" class="grid-input grid-select form-control">
-                                                <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
-                                            </select>
-                                            <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="{ 'grid-input-unvalidated': config.head[indexHead]._dataAdd.validation }" class="grid-input form-control" type="number">
-                                            <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="{ 'grid-input-unvalidated': config.head[indexHead]._dataAdd.validation }" class="grid-input form-control" type="email">
-                                            <input v-else v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="{ 'grid-input-unvalidated': config.head[indexHead]._dataAdd.validation }" class="grid-input form-control" type="text">
-                                        </template>
-                                        <template v-else>
-                                            <input v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="{ 'grid-input-unvalidated': config.head[indexHead]._dataAdd.validation }" class="grid-input form-control" type="text">
-                                        </template>
-                                    </td>
-                                    <td class="col-md-1 text-center">
-                                        <a href="#" v-on:click.prevent="config.addRow()" class="alert alert-success grid-handlers" :title="config.style.languageItems[config.style.language].handlers.accept">
-                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                        </a>
-                                        <a href="#" v-on:click.prevent="config.cancelAdd()" class="alert alert-warning grid-handlers" :title="config.style.languageItems[config.style.language].handlers.cancel">
-                                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr v-for="(data, index) in config.body" v-if="!data._hidden && !data._ofuscate" :class="[ typeof config.style.row === 'object' && config.style.row.active === true && typeof config.style.row.styleClass === 'object' ? config.style.row.styleClass.join(' ') : '', config.highlightHandlers && data._highlight ? config.style.highlight.styleClass.join(' ') : '' ]">
-                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
-                                        <template v-if="config.handlers.edit.type === 'inline' && data._editing && head.editable">
-                                            <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
-                                                <select v-if="head.input.type === 'select'" v-model="data[head.title]" class="grid-input grid-select form-control">
-                                                    <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
-                                                </select>
-                                                <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(index, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
-                                                <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(index, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
-                                                <input v-else v-on:keyup="config.reValidateEdit(index, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
-                                            </template>
-                                            <template v-else>
-                                                <input v-on:keyup="config.reValidateEdit(index, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
-                                            </template>
-                                        </template>
-                                        <template v-else-if="config.existsFullHandler()[0]">
-                                            <a href="#" v-on:click.prevent="config.customHandlers[config.existsFullHandler()[1]].handler(data); config.highlightRow(index, config.existsFullHandler()[1])" :class="[typeof config.customHandlers[config.existsFullHandler()[1]].anchorCellClass === 'object' ? config.customHandlers[config.existsFullHandler()[1]].anchorCellClass.join(' ') : '']">
-                                                <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
-                                                    {{ config.getSelectData(index, indexHead) }}
-                                                </template>
-                                                <template v-else>
-                                                    {{ data[head.title] }}
-                                                </template>
-                                            </a>
-                                        </template>
-                                        <template v-else>
-                                            <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
-                                                {{ config.getSelectData(index, indexHead) }}
-                                            </template>
-                                            <template v-else>
-                                                {{ data[head.title] }}
-                                            </template>
-                                        </template>
-                                    </td>
-                                    <td class="col-md-1 text-center">
-                                        <template v-if="config.handlers.watch.active">
-                                            <template v-if="config.handlers.watch.type === 'modal'">
-                                                <a href="#" v-on:click.prevent="config.watchRow(index)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
-                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                </a>
-                                            </template>
-                                            <template v-else-if="config.handlers.watch.type === 'template'">
-                                                <a href="#" v-on:click.prevent="config.templateWatch(data.id, index)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch">
-                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                </a>
-                                            </template>
-                                        </template>
-                                        <template v-if="config.handlers.edit.active">
-                                            <template v-if="config.handlers.edit.type === 'inline'">
-                                                <template v-if="!data._editing">
-                                                    <a href="#" v-on:click.prevent="config.initEdit(index)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
-                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                    </a>
-                                                </template>
-                                                <template v-else>
-                                                    <a href="#" v-on:click.prevent="config.finishEdit(data, index)" :class="[config.handlers.edit.active ? 'alert alert-warning grid-handlers' : 'alert alert-warning grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.accept">
-                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                    </a>
-                                                </template>
-                                            </template>
-                                            <template v-else-if="config.handlers.edit.type === 'modal'">
-                                                <a href="#" v-on:click.prevent="config.initEdit(index)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
-                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                </a>
-                                            </template>
-                                            <template v-else-if="config.handlers.edit.type === 'template'">
-                                                <a href="#" v-on:click.prevent="config.templateEdit(data.id, index)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
-                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                </a>
-                                            </template>
-                                        </template>
-                                        <a v-if="config.handlers.remove.active" href="#" v-on:click.prevent="config.confirmRemove(data, index)" :class="[config.handlers.remove.active ? 'alert alert-danger grid-handlers' : 'alert alert-danger grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.remove">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        </a>
-                                    </td>
-                                    <td v-if="config.existsCustomHandlers" class="col-md-1 text-center">
-                                        <a v-for="(customH, customIndex) in config.customHandlers" href="#" v-on:click.prevent="customH.handler(data); config.highlightRow(index, customIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="customH.title">
-                                            <span :class="['glyphicon', customH.glyphiconClass]" aria-hidden="true"></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </template>
-                </table>
-                <template v-if="(config.body.length === 1 && config.body[0]._ofuscate === true) || config.body.length === 0">
-                    <p class="text-center">
-                        <i>Actualmente no existen registros para mostrar.</i>
-                    </p>
-                </template>
-                <template v-if="typeof config.handlers.edit === 'object' && config.handlers.edit.type === 'modal'">
-                    <div class="modal fade" :id="config.id+ '-editModal'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header modal-header-custom">
-                                    <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
-                                </div>
-                                <div class="modal-body modal-body-custom">
-                                    <template v-for="(head, indexHead) in config.head" v-if="head.title !== 'id'">
-                                        <div class="row" v-if="head.editable">
-                                            <div class="col-sm-5">
-                                                <span><b>{{config.prettyTitle(indexHead)}}:</b></span>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
-                                                    <select v-if="head.input.type === 'select'" v-model="config.editingBody[head.title]" class="grid-input grid-select form-control">
-                                                        <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
-                                                    </select>
-                                                    <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
-                                                    <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
-                                                    <input v-else v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text" maxlength="64">
-                                                </template>
-                                                <template v-else>
-                                                    <input v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text" maxlength="64">
-                                                </template>
-                                            </div>
-                                        </div>
-                                        <div style="height: 10px;"></div>
-                                    </template>
-                                </div>
-                                <div class="modal-footer modal-footer-custom">
-                                    <button :id="config.id+ '-closeEditModal'" type="button" class="btn btn-default btn-customized" data-dismiss="modal">{{config.style.languageItems[config.style.language].handlers.cancel}}</button>
-                                    <button type="button" v-on:click="config.finishEdit(null, null)" class="btn btn-primary btn-customized">{{config.style.languageItems[config.style.language].handlers.accept}}</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-                <div class="modal fade" :id="config.id+ '-watchModal'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header modal-header-custom">
-                                <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
-                            </div>
-                            <div class="modal-body modal-body-custom">
-                                <template v-for="(head, indexHead) in config.head" v-if="head.title !== 'id'">
-                                    <div class="row" v-if="head.title !== 'id'">
-                                        <div class="col-sm-6">
-                                            <span><b>{{config.prettyTitle(indexHead)}}:</b></span>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
-                                                {{ config.getSelectData(config.watchBody.actualIndex, indexHead) }}
-                                            </template>
-                                            <template v-else>
-                                                {{ config.watchBody[head.title] }}
-                                            </template>
-                                        </div>
-                                    </div>
-                                    <div style="height: 10px;"></div>
-                                </template>
-                            </div>
-                            <div class="modal-footer modal-footer-custom">
-                                <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">{{config.style.languageItems[config.style.language].alert.ok}}</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="typeof config.style.pagination === 'object' && typeof config.style.pagination.rowPerPage === 'number' && config.style.pagination.rowPerPage > 0" class="row">
-            <nav v-if="typeof config.webService === 'object' && typeof config.webService.model === 'object' && config.webService.active" class="pull-right">
-                <ul class="pagination">
-                    <li>
-                        <span><b>{{ config.style.languageItems[config.style.language].pagination.information[0] + config.recordsPagination(0) + config.style.languageItems[config.style.language].pagination.information[1] + config.style.pagination.totalRowCount + config.style.languageItems[config.style.language].pagination.information[2] + config.recordsPagination(2) + config.style.languageItems[config.style.language].pagination.information[3] + config.recordsPagination(3) }}.</b></span>
-                    </li>
-                    <li :class="[ config.dataPagination[0][0] ? 'disabled not-active' : '' ]">
-                        <a href="#" v-on:click.prevent="config.updatePages(1, true)" :title="config.style.languageItems[config.style.language].handlers.first">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li>
-                        <span v-if="config.dataPagination.length > 7 && config.notAllPages(true)" aria-hidden="true">...</span>
-                    </li>
-                    <li v-for="data in config.dataPagination" v-if="data[0] !== null" :class="[ data[0] ? 'active' : '' ]"><a href="#" v-on:click.prevent="config.updatePages(data[1], true)">{{data[1]}}</a></li>
-                    <li>
-                        <span v-if="config.dataPagination.length > 7 && config.notAllPages(false)" aria-hidden="true">...</span>
-                    </li>
-                    <li :class="[ config.dataPagination[config.dataPagination.length - 1][0] ? 'disabled not-active' : '' ]">
-                        <a href="#" v-on:click.prevent="config.updatePages(config.dataPagination.length, true)" :title="config.style.languageItems[config.style.language].handlers.last">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <nav v-else class="pull-right">
-                <ul class="pagination">
-                    <li>
-                        <span><b>{{ config.style.languageItems[config.style.language].pagination.information[0] + config.recordsPagination(0) + config.style.languageItems[config.style.language].pagination.information[1] + config.recordsPagination(1) + config.style.languageItems[config.style.language].pagination.information[2] + config.recordsPagination(2) + config.style.languageItems[config.style.language].pagination.information[3] + config.recordsPagination(3) }}.</b></span>
-                    </li>
-                    <li :class="[ config.dataPagination[0][0] ? 'disabled not-active' : '' ]">
-                        <a href="#" v-on:click.prevent="config.updatePages(1)" :title="config.style.languageItems[config.style.language].handlers.first">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li>
-                        <span v-if="config.dataPagination.length > 7 && config.notAllPages(true)" aria-hidden="true">...</span>
-                    </li>
-                    <li v-for="data in config.dataPagination" v-if="data[0] !== null" :class="[ data[0] ? 'active' : '' ]"><a href="#" v-on:click.prevent="config.updatePages(data[1])">{{data[1]}}</a></li>
-                    <li>
-                        <span v-if="config.dataPagination.length > 7 && config.notAllPages(false)" aria-hidden="true">...</span>
-                    </li>
-                    <li :class="[ config.dataPagination[config.dataPagination.length - 1][0] ? 'disabled not-active' : '' ]">
-                        <a href="#" v-on:click.prevent="config.updatePages(config.dataPagination.length)" :title="config.style.languageItems[config.style.language].handlers.last">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-`;
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//config in head:
-//    orderable (true || false)
-//    searchable ->type (filter, status)
-//                -> active (true || false)
-//    editable (true || false)
-//    hidden (true || false)
-//    groupable (true || false)
-//    input -> type (email, text, number, select (true || false) <-> options : Object-> (value, text) <-> model : Object-> (source, value, text)))
-//          -> required (true || false)
-
-//config in style:
-//    noText (true || false) To hide or show texts of main buttons
-//    general (array of styles)
-//    head (array of styles)
-//    body (array of styles)
-//    row -> active (true || false)
-//        -> styleClass (array of styles)
-//    highlight -> active (true || false)
-//        -> styleClass (array of styles)
-//    responsive (true || false)
-//    pagination -> rowPerPage (>0)
-//    draggable (true || false)
-//    language: 'spa' || 'eng'
-
-//config in handlers:
-//    watch -> type (modal, template)
-//         -> active (true || false)
-//    add -> type (modal, inline, template)
-//        -> active (true || false)
-//    edit -> type (modal, inline, template)
-//         -> active (true || false)
-//         -> highlight (true || false) -> To highlight row selected
-//    remove -> active (true || false)
-//config in customHandlers: This must be an Array of Objects, each object has:
-//    active (true || false)
-//    title (string)
-//    glyphiconClass (string of glyphicon class, not general, just specific icon)
-//    fullHandler (true || false) -> To know what handler will be fired by all the row
-//    highlight (true || false) -> To highlight row selected
-//    anchorCellClass -> (array of styles for anchor of customHandler)
-//    handler (function) -> return data of clicked row
-// config root, callbacks:
-//    templateWatch (function) -> called on watch of template type
-//    templateEdit (function) -> called on edit of template type
-//    beforeEdit (function) -> called before edit
-//    beforeAdd (function) -> called before add
-//    beforeRemove (function) -> called before remove, return data confirm message and success function to run onAccept of confirm
-//    onEdit (function) -> return data of edited row
-//    onAdd (function) -> return data of new row
-//    onRemove (function) -> return data of removed row
-//    onDragEnd (function) -> return head columns with order updated
-//    onChangeColumns (function) -> return hidden status of columns
-//    setVisibilityColumns (function) -> Send array of booleans with equal length of grid columns (TRUE hide, FALSE show)
-//    setSortColumns (function) -> Send object of columns names equal to positions
-
-//WebService methods
-//    editDelimiters (function) -> alter delimiters table within a sended value
-//    updatePagination (function) -> update mcdatatable values
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-var mcdatatable = function(configuration){
-    if(typeof configuration === "object" &&
-       typeof configuration.head === "object" && configuration.head.length > 0 &&
-       ((typeof configuration.body === "object" && configuration.body.length > 0) ||
-        (typeof configuration.webService === "object" && typeof configuration.webService.model === "object" && configuration.webService.active)) &&
-       typeof configuration.style === "object"){
-        
-        var bodySqueleton = {};
-            bodySqueleton._editing = false;
-            bodySqueleton._hidden = false;
-            bodySqueleton._highlight = false;
-            bodySqueleton._ofuscate = true;
-        var bodyEditingSqueleton = {};
-            bodyEditingSqueleton._editing = false;
-            bodyEditingSqueleton._hidden = false;
-            bodyEditingSqueleton._highlight = false;
-            bodyEditingSqueleton._ofuscate = true;
-        var bodyWatchSqueleton = {};
-        configuration.initHeadStatus = [];
-        for(var indexHead in configuration.head){
-            if(typeof configuration.head[indexHead].input === "object" &&
-               typeof configuration.head[indexHead].input.type === "string" &&
-               configuration.head[indexHead].input.type === "number"){
-                bodySqueleton[configuration.head[indexHead].title] = 0;
-                bodyEditingSqueleton[configuration.head[indexHead].title] = 0;
-                bodyWatchSqueleton[configuration.head[indexHead].title] = 0;
-            }
-            else{
-                bodySqueleton[configuration.head[indexHead].title] = "";
-                bodyEditingSqueleton[configuration.head[indexHead].title] = "";
-                bodyWatchSqueleton[configuration.head[indexHead].title] = "";
-            }
-            if(configuration.head[indexHead].editable){
-                bodySqueleton['_unvalidated-'+indexHead] = false;
-                bodyEditingSqueleton['_unvalidated-'+indexHead] = false;
-            }
-            
-            if(typeof configuration.head[indexHead].input === "object" &&
-               typeof configuration.head[indexHead].input.type === "string" &&
-               configuration.head[indexHead].input.type === "select" &&
-               typeof configuration.head[indexHead].input.model === "object")
-                configuration.head[indexHead].input.options = [{value: null, text: null}];
-            
-            configuration.initHeadStatus[configuration.head[indexHead].title] = configuration.head[indexHead].hidden === true ? configuration.head[indexHead].hidden : false;
-        }
-        configuration.watchBody = bodyWatchSqueleton;
-        configuration.watchBody.actualIndex = 0;
-        if(typeof configuration.webService === "object" &&
-        typeof configuration.webService.model === "object" &&
-        configuration.webService.active){
-            configuration.body = [];
-            configuration.body.push(bodySqueleton);
-            
-            if(!(typeof configuration.style.pagination === 'object' &&
-            typeof configuration.style.pagination.rowPerPage === 'number' &&
-             configuration.style.pagination.rowPerPage > 0))
-                configuration.style.pagination = {
-                    currentPage: 1,
-                    pageCount: 1,
-                    rowPerPage: 10,
-                    totalRowCount: 1
-                };
-            else{
-                configuration.style.pagination.currentPage = 1;
-                configuration.style.pagination.pageCount = 1;
-                configuration.style.pagination.totalRowCount = 1;
-            }
-        }
-        
-        var groupable = false,
-            editable = false;
-        var beforeEdit = null,
-            beforeAdd = null,
-            beforeRemove = null,
-            templateEdit = null,
-            templateWatch = null,
-            onEdit = null,
-            onAdd = null,
-            onRemove = null,
-            onDragEnd = null,
-            onChangeColumns = null;
-        if(typeof configuration.style.draggable === "undefined" ||
-           configuration.style.draggable !== true)
-            configuration.style.draggable = false;
-        if(configuration.style.draggable)
-            configuration.dataDragged = null;
-        if(configuration.style.draggable && typeof configuration.onDragEnd === "function")
-            onDragEnd = configuration.onDragEnd;
-        else
-            onDragEnd = function(){};
-        if(typeof configuration.onChangeColumns === "function")
-            onChangeColumns = configuration.onChangeColumns;
-        else
-            onChangeColumns = function(){};
-        if(typeof configuration.handlers === "undefined" || typeof configuration.handlers !== "object")
-            configuration.handlers = {
-                add: {active: false, type: "inline"},
-                edit: {active: false, type: "inline"},
-                remove: {active: false, type: "inline"}
-            };
-        else if(typeof configuration.handlers === "object"){
-            if(typeof configuration.handlers.add === "undefined" || configuration.handlers.add.active !== true)
-                configuration.handlers.add = {active: false, type: "inline"};
-            if(typeof configuration.handlers.add.type === "undefined" || (configuration.handlers.add.type !== "inline" &&
-               configuration.handlers.add.type !== "template" && configuration.handlers.add.type !== "modal"))
-                configuration.handlers.add.type = "inline";
-            if(typeof configuration.handlers.edit === "undefined" || configuration.handlers.edit.active !== true)
-                configuration.handlers.edit = {active: false, type: "inline"};
-            if(typeof configuration.handlers.edit.type === "undefined" || (configuration.handlers.edit.type !== "inline" &&
-               configuration.handlers.edit.type !== "template" && configuration.handlers.edit.type !== "modal"))
-                configuration.handlers.edit.type = "inline";
-            if(typeof configuration.handlers.remove === "undefined" || configuration.handlers.remove.active !== true)
-                configuration.handlers.remove = {active: false};
-        }
-        for(var index in configuration.head){
-            if(typeof configuration.head[index].orderable === "undefined")
-                configuration.head[index].orderable = false;
-            if(typeof configuration.head[index].searchable === "undefined" ||
-               configuration.head[index].searchable.active !== true)
-                configuration.head[index].searchable = {
-                    active: false
-                };
-            else if(configuration.head[index].searchable.active === true &&
-                    (configuration.head[index].searchable.type !== "filter" && configuration.head[index].searchable.type !== "status"))
-                configuration.head[index].searchable.type = "filter";
-            if(configuration.head[index].searchable.active === true)
-                configuration.head[index]._searchData = "";
-            if(configuration.head[index].searchable.type === "status")
-                configuration.head[index]._searchStatusValues = [];
-            if(typeof configuration.head[index].groupable === "undefined")
-                configuration.head[index].groupable = false;
-            if(configuration.head[index].groupable === true){
-                configuration.head[index]._groupedBy = false;
-                groupable = true;
-            }
-            if(typeof configuration.handlers.edit === "undefined" || configuration.handlers.edit.active !== true ||
-               configuration.head[index].editable !== true)
-                configuration.head[index].editable = false;
-                
-            if(typeof configuration.head[index].hidden === "undefined")
-                configuration.head[index].hidden = false;
-            configuration.head[index]._order = null;
-            if(configuration.style.draggable)
-                configuration.head[index]._position = parseInt(index);
-        }
-        for(index in configuration.head)
-            if(configuration.head[index].editable)
-                editable = true;
-        configuration.handlers.edit.active = editable;
-        if(configuration.handlers.edit.type === "modal"){
-            configuration.editingBody = bodyEditingSqueleton;
-            configuration.editingBody.actualIndex = 0;
-        }
-        if(configuration.handlers.edit.active && typeof configuration.beforeEdit === "function")
-            beforeEdit = configuration.beforeEdit;
-        else
-            beforeEdit = function(){};
-        if(configuration.handlers.watch.active && typeof configuration.templateWatch === "function")
-            templateWatch = configuration.templateWatch;
-        else
-            templateWatch = function(){}; 
-        if(configuration.handlers.edit.active && typeof configuration.templateEdit === "function")
-            templateEdit = configuration.templateEdit;
-        else
-            templateEdit = function(){}; 
-        if(configuration.handlers.edit.active && typeof configuration.onEdit === "function")
-            onEdit = configuration.onEdit;
-        else
-            onEdit = function(){};
-        if(configuration.handlers.add.active && typeof configuration.beforeAdd === "function")
-            beforeAdd = configuration.beforeAdd;
-        else
-            beforeAdd = function(){};
-        if(configuration.handlers.add.active && typeof configuration.onAdd === "function")
-            onAdd = configuration.onAdd;
-        else
-            onAdd = function(){};
-        if(configuration.handlers.add.active){
-            configuration.adding = false;
-            for(index in configuration.head)
-                configuration.head[index]._dataAdd = {
-                    value: "",
-                    validation: false
-                };
-        }
-        if(configuration.handlers.remove.active && typeof configuration.beforeRemove === "function")
-            beforeRemove = configuration.beforeRemove;
-        else
-            beforeRemove = function(){};
-        if(configuration.handlers.remove.active && typeof configuration.onRemove === "function")
-            onRemove = configuration.onRemove;
-        else
-            onRemove = function(){};
-        delete configuration.beforeAdd;
-        delete configuration.beforeRemove;
-        delete configuration.beforeEdit;
-        delete configuration.templateWatch;
-        delete configuration.templateEdit;
-        delete configuration.onEdit;
-        delete configuration.onAdd;
-        delete configuration.onRemove;
-        delete configuration.onDragEnd;
-        delete configuration.onChangeColumns;
-        
-        configuration.existsCustomHandlers = false;
-        configuration.highlightHandlers = false;
-        if(typeof configuration.customHandlers === "object" &&
-           configuration.customHandlers.length > 0)
-            for(index in configuration.customHandlers){
-                if(configuration.customHandlers[index].active)
-                    configuration.existsCustomHandlers = true;
-                if(typeof configuration.style.highlight === "object" &&
-                   typeof configuration.style.highlight.styleClass === "object" &&
-                   configuration.style.highlight.active === true)
-                    configuration.highlightHandlers = true;
-            }
-        
-        for(index in configuration.body){
-            configuration.body[index]._hidden = false;
-            if(configuration.handlers.edit.active)
-                configuration.body[index]._editing = false;
-            if(configuration.highlightHandlers)
-                configuration.body[index]._highlight = false;
-        }
-        for(indexHead in configuration.head)
-            if(configuration.head[indexHead].editable)
-                for(index in configuration.body)
-                    configuration.body[index]['_unvalidated-'+indexHead] = false;
-        
-        if(typeof configuration.style.pagination === 'object' &&
-           typeof configuration.style.pagination.rowPerPage === 'number' &&
-            configuration.style.pagination.rowPerPage > 0){
-            if(typeof configuration.webService === "object" &&
-            typeof configuration.webService.model === "object" &&
-            configuration.webService.active){
-                var b = 1;
-                configuration.dataPagination = [];
-                for(var index in configuration.body)
-                    configuration.dataPagination.push([(b === 1), b++]);
-            }
-            else{
-                var a = 1;
-                configuration.dataPagination = [];
-                for(var index in configuration.body)
-                    if(index % configuration.style.pagination.rowPerPage === 0)
-                        configuration.dataPagination.push([(a === 1), a++]);
-                
-                if(groupable)   //We need a temp for pagination
-                    configuration.tempPagination = {
-                        style: configuration.style.pagination,
-                        data: configuration.dataPagination
-                    };
-            }
-        }
-        if(groupable)   //We need a temp for pagination
-            configuration.dataGrouping = {
-                isGrouped : false,
-                state: []
-            };
-        if(typeof configuration.style.language !== "undefined"){
-            if(configuration.style.language !== "eng")
-                configuration.style.language = "spa";
-        }
-        else
-            configuration.style.language = "spa";
-        configuration.style.languageItems = {
-            eng: {
-                handlers: {
-                    columns: {
-                        asc: "Ascendant order",
-                        desc: "Descendant order",
-                        search: "Search",
-                        filter: "Filter",
-                        reset: "Reset"
-                    },
-                    edit: "Edit",
-                    remove: "Remove",
-                    accept: "Save",
-                    watch: "See",
-                    cancel: "Cancel",
-                    title: "Handlers",
-                    group: {
-                        hide: "Hide",
-                        show: "Show"
-                    }
-                },
-                buttons: {
-                    add: "Add record",
-                    group: "Group by",
-                    column: "Columns",
-                    selectPagination: "Rows per page"
-                },
-                pagination: {
-                    information: [
-                        "Showing ",
-                        " of ",
-                        " rows from page ",
-                        " of "
-                    ],
-                    buttons: {
-                        last: "Last",
-                        first: "First"
-                    }
-                },
-                alert: {
-                    title: "Validation errors",
-                    text: "There are some errors on input data, try again.",
-                    ok: "Accept"
-                },
-                confirm: {
-                    title: "Deletion confirmation",
-                    text: "¿Are you sure you want to erase this row?",
-                    accept: "Accept",
-                    cancel: "Cancel"
-                }
-            },
-            spa: {
-                handlers: {
-                    columns: {
-                        asc: "Orden ascendente",
-                        desc: "Orden descendente",
-                        search: "Búsqueda",
-                        filter: "Filtro",
-                        reset: "Reinicializar"
-                    },
-                    edit: "Editar",
-                    remove: "Eliminar",
-                    accept: "Guardar",
-                    watch: "Ver",
-                    cancel: "Cancelar",
-                    title: "Acciones",
-                    group: {
-                        hide: "Esconder",
-                        show: "Mostrar"
-                    }
-                },
-                buttons: {
-                    add: "Nuevo registro",
-                    group: "Agrupar por",
-                    column: "Columnas",
-                    selectPagination: "Filas por página"
-                },
-                pagination: {
-                    information: [
-                        "Mostrando ",
-                        " de ",
-                        " filas en la página ",
-                        " de "
-                    ],
-                    buttons: {
-                        last: "Última",
-                        first: "Primera"
-                    }
-                },
-                alert: {
-                    title: "Errores en validación",
-                    text: "Existen algunos errores en los datos de entrada, inténtalo de nuevo.",
-                    ok: "Aceptar"
-                },
-                confirm: {
-                    title: "Confirmación de borrado",
-                    text: "¿Deseas borrar el registro seleccionado?",
-                    accept: "Aceptar",
-                    cancel: "Cancelar"
-                }
-            }
-        };
-        this.table = new Vue({
-            data: configuration,
-            methods: {
-                onChangeColumns: onChangeColumns,
-                setVisibilityColumns: function(e){
-                    for(var i in this.head)
-                        this.head[i].hidden = e[this.head[i].title];
-                },
-                setSortColumns: function(e){
-                    for(var i in e)
-                        for(var j in this.head)
-                            if(this.head[j].title === i)
-                                this.head[j]._position = e[i];
-                    this.head.sort(function(a, b){
-                        return (a._position > b._position) ? 1 :
-                                (a._position < b._position) ? -1 : 0;
-                    });
-                },
-                resetColumns: function(){
-                    var data = {};
-                    for(var i in this.head){
-                        this.head[i].hidden = this.initHeadStatus[this.head[i].title];
-                        data[this.head[i].title] = this.initHeadStatus[this.head[i].title];
-                    }
-                    this.onChangeColumns(data);
-                },
-                highlightRow: function(index, customIndex){
-                    if(this.highlightHandlers &&
-                        (typeof customIndex === "undefined" || this.customHandlers[customIndex].highlight === true))
-                        for(var i in this.body)
-                            if(parseInt(i) === parseInt(index))
-                                this.body[i]._highlight = true;
-                            else
-                                this.body[i]._highlight = false;
-                },
-                existsFullHandler: function(){
-                    var lastIndex = false;
-                    for(var i in this.customHandlers)
-                        if(this.customHandlers[i].fullHandler === true)
-                            lastIndex = i;
-                    return [
-                        lastIndex === false ? lastIndex : true,
-                        lastIndex
-                    ];
-                },
-                prettyTitle: function(index){
-                    var prettyTitle = this.head[index].title.charAt(0).toUpperCase();
-                    prettyTitle += this.head[index].title.replace("_id", "").slice(1);
-                    return prettyTitle === "Dia" ? "Día" : prettyTitle.replace(new RegExp("_", "g"), " ");
-                },
-                getSelectData: function(index, indexHead){
-                    if(this.body.length > 0){
-                        var selectData = null;
-                        for(var indexOptions in this.head[indexHead].input.options)
-                            if(this.head[indexHead].input.options[indexOptions].value === this.body[index][this.head[indexHead].title])
-                                selectData = this.head[indexHead].input.options[indexOptions].text;
-                        return selectData;
-                    }
-                },
-                getSelectValue: function(indexHead){
-                    var selectData = null;
-                    for(var indexOptions in this.head[indexHead].input.options)
-                        if(this.head[indexHead].input.options[indexOptions].text === this.head[indexHead]._searchData)
-                            selectValue = this.head[indexHead].input.options[indexOptions].value;
-                    return selectValue;
-                },
-                fieldValidation: function(element){
-                    var validator = false;
-                    if(typeof element === "string"){
-                        validator += ((element.indexOf('#') !== -1)) ? true : false;
-                        validator += ((element.indexOf('!') !== -1)) ? true : false;
-                        validator += ((element.indexOf('$') !== -1)) ? true : false;
-                        validator += ((element.indexOf('%') !== -1)) ? true : false;
-                        validator += ((element.indexOf('/') !== -1)) ? true : false;
-                        validator += ((element.indexOf('(') !== -1)) ? true : false;
-                        validator += ((element.indexOf(')') !== -1)) ? true : false;
-                        validator += ((element.indexOf('=') !== -1)) ? true : false;
-                        validator += ((element.indexOf('<') !== -1)) ? true : false;
-                        validator += ((element.indexOf('>') !== -1)) ? true : false;
-                        validator += ((element.indexOf('¡') !== -1)) ? true : false;
-                        validator += ((element.indexOf('\'') !== -1)) ? true : false;
-                        validator += ((element.indexOf('´') !== -1)) ? true : false;
-                        validator += ((element.indexOf('*') !== -1)) ? true : false;
-                        validator += ((element.indexOf('[') !== -1)) ? true : false;
-                        validator += ((element.indexOf(']') !== -1)) ? true : false;
-                        validator += ((element.indexOf('{') !== -1)) ? true : false;
-                        validator += ((element.indexOf('}') !== -1)) ? true : false;
-                        validator += ((element.indexOf('+') !== -1)) ? true : false;
-                        validator += ((element.indexOf('"') !== -1)) ? true : false;
-                        validator += ((element.indexOf('|') !== -1)) ? true : false;
-                        validator += ((element.indexOf('°') !== -1)) ? true : false;
-                        validator += ((element.indexOf('&') !== -1)) ? true : false;
-                        if(validator)
-                            validator = true;
-                        else
-                            validator = false;
-                    }
-                    return validator;
-                },
-                sortList: function(sortType, column, auto){
-                    if(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active){
-                        var me = this;
-                        if(auto){
-                            for(index in this.head)
-                                if(this.head[index]._order !== null){
-                                    sortType = this.head[index]._order;
-                                    column = this.head[index].title;
-                                }
-                            return (sortType) ? sortType === "asc" ? column : "-" + column : null;
-                        }
-                        else{
-                            for(index in this.head)
-                                if(this.head[index].title === column)
-                                    this.head[index]._order = sortType;
-                                else
-                                    this.head[index]._order = null;
-                            this.getService({"per-page": this.style.pagination.rowPerPage, "page": this.style.pagination.currentPage, "sort": sortType === "asc" ? column : "-" + column },
-                            function(success){
-                                if(typeof me.dataGrouping === 'object')
-                                    me.groupBy(null, true);
-                            },
-                            function(error){
-                                console.log(error);
-                            },
-                            true,       //Redefine body
-                            false);     //Redefine pagination
-                        }
-                    }
-                    else{
-                        /***************Used only in pagination mode*****************/
-                        var actualVisible = [],
-                            index = null;
-                        /************************************************************/
-                        var headSelect = false;
-                        if(auto){
-                            for(index in this.head)
-                                if(this.head[index]._order !== null){
-                                    sortType = this.head[index]._order;
-                                    column = this.head[index].title;
-                                    if(typeof this.head[index].input === "object" &&
-                                       this.head[index].input.type === "select")
-                                        headSelect = this.head[index].input.options;
-                                }
-                        }
-                        else{
-                            for(index in this.head)
-                                if(this.head[index].title === column){
-                                    this.head[index]._order = sortType;
-                                    if(typeof this.head[index].input === "object" &&
-                                       this.head[index].input.type === "select")
-                                        headSelect = this.head[index].input.options;
-                                }
-                                else
-                                    this.head[index]._order = null;
-                        }
-                        var data = this.body;
-                        
-                        /***************Used only in pagination mode*****************/
-                        if(typeof this.style.pagination === 'object' &&
-                        typeof this.style.pagination.rowPerPage === 'number' &&
-                        this.style.pagination.rowPerPage > 0){
-                            for(index in data)  //Obtain actual hidden
-                                actualVisible.push(data[index]._hidden);
-                            for(index in data)  //Show everything
-                                data[index]._hidden = false;
-                        }
-                        /************************************************************/
-                        
-                        switch(sortType){
-                            case "asc":
-                                if(headSelect){
-                                    data.sort(function(a, b){
-                                        var semiA = "",
-                                            semiB = "";
-                                        for(index in headSelect){
-                                            if(headSelect[index].value === a[column])
-                                                semiA = headSelect[index].text;
-                                            else if(headSelect[index].value === b[column])
-                                                semiB = headSelect[index].text;
-                                        }
-                                        return (semiA.toLowerCase() > semiB.toLowerCase()) ? 1 :
-                                         (semiA.toLowerCase() < semiB.toLowerCase()) ? -1 : 0;
-                                    });
-                                }
-                                else{
-                                    data.sort(function(a, b){
-                                        if(typeof a[column] === "string" &&
-                                            typeof b[column] === "string")
-                                               return (a[column].toLowerCase() > b[column].toLowerCase()) ? 1 :
-                                                (a[column].toLowerCase() < b[column].toLowerCase()) ? -1 : 0;
-                                        else
-                                           return (a[column] > b[column]) ? 1 :
-                                            (a[column] < b[column]) ? -1 : 0;
-                                    });
-                                }
-                                break;
-                            case "desc":
-                                if(headSelect){
-                                    data.sort(function(a, b){
-                                        var semiA = "",
-                                            semiB = "";
-                                        for(index in headSelect){
-                                            if(headSelect[index].value === a[column])
-                                                semiA = headSelect[index].text;
-                                            else if(headSelect[index].value === b[column])
-                                                semiB = headSelect[index].text;
-                                        }
-                                        return (semiA.toLowerCase() > semiB.toLowerCase()) ? -1 :
-                                         (semiA.toLowerCase() < semiB.toLowerCase()) ? 1 : 0;
-                                    });
-                                }
-                                else{
-                                    data.sort(function(a, b){
-                                        if(typeof a[column] === "string" &&
-                                            typeof b[column] === "string")
-                                               return (a[column].toLowerCase() > b[column].toLowerCase()) ? -1 :
-                                                (a[column].toLowerCase() < b[column].toLowerCase()) ? 1 : 0;
-                                        else
-                                            return (a[column] > b[column]) ? -1 :
-                                             (a[column] < b[column]) ? 1 : 0;
-                                    });
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-                        
-                        /***************Used only in pagination mode*****************/
-                        if(typeof this.style.pagination === 'object' &&
-                        typeof this.style.pagination.rowPerPage === 'number' &&
-                        this.style.pagination.rowPerPage > 0)
-                            for(index in data)  //Hide with same sequence, and new order
-                                data[index]._hidden = actualVisible[index];
-                        /************************************************************/
-                        /***************Used only in group mode*****************/
-                        if(typeof this.dataGrouping === 'object')
-                            if(this.dataGrouping.isGrouped && this.dataGrouping.column === column)
-                                switch(sortType){
-                                    case "asc":
-                                        this.dataGrouping.state.sort(function(a, b){ return a[0] > b[0]; });
-                                        break;
-                                    case "desc":
-                                        this.dataGrouping.state.sort(function(a, b){ return a[0] < b[0]; });
-                                        break;
-                                }
-                        /************************************************************/
-                    }
-                },
-                setVisible: function(hidden, column){
-                    var data = {};
-                    for(var index in this.head){
-                        if(this.head[index].title === column)
-                            this.head[index].hidden = !hidden;
-                        data[this.head[index].title] = this.head[index].hidden;
-                    }
-                    this.onChangeColumns(data);
-                },
-                search: function(value, column){
-                    var data = null,
-                        headSelect = false,
-                        index = null;
-                    /***************Used only in pagination mode*****************/
-                    if(typeof this.style.pagination === 'object' &&
-                    typeof this.style.pagination.rowPerPage === 'number' &&
-                    this.style.pagination.rowPerPage > 0 &&
-                    (!(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active))){
-                        data = [];
-                        var elementsPerPage = this.style.pagination.rowPerPage;
-                        var actualPage = 1;
-                        for(index in this.dataPagination)
-                            if(this.dataPagination[index][0])
-                                actualPage = parseInt(index) + 1;
-                        for(index in this.body){
-                            if(parseInt(index) >= (elementsPerPage*actualPage) - elementsPerPage &&
-                               parseInt(index) <  elementsPerPage*actualPage)
-                                data.push(this.body[index]);
-                            else
-                                this.body[index]._hidden = true;
-                        }
-                    }
-                    /************************************************************/
-                    else
-                        data = this.body;
-                    for(var semiIndex in this.head)
-                        if(this.head[semiIndex].title === column)
-                            this.head[semiIndex]._searchData = value;
-                    if(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active){
-                        this.updatePagination();
-                    }
-                    else{
-                        var weDontSearch = true;
-                        for(semiIndex in this.head)
-                            if(this.head[semiIndex].searchable.active)
-                                if(this.head[semiIndex]._searchData !== "")
-                                    weDontSearch *= false;
-                        for(index in data)
-                            if(weDontSearch){
-                                for(index in data)
-                                    data[index]._hidden = false;
-                            }
-                            else{
-                                var visible = true;
-                                for(semiIndex in this.head){
-                                    if(typeof this.head[semiIndex].searchable === "object" && this.head[semiIndex].searchable.active && this.head[semiIndex]._searchData !== ""){
-                                        headSelect = false;
-                                        if(typeof this.head[semiIndex].input === "object" &&
-                                            this.head[semiIndex].input.type === "select")
-                                            headSelect = this.head[semiIndex].input.options;
-                                        if(headSelect){
-                                            var actualValue = "";
-                                            for(var indexSelect in headSelect)
-                                                if(headSelect[indexSelect].value === data[index][this.head[semiIndex].title])
-                                                    actualValue = headSelect[indexSelect].text;
-                                            if(this.head[semiIndex].searchable.type === "status"){
-                                                if(actualValue != this.head[semiIndex]._searchData)
-                                                    visible = false;
-                                            }
-                                            else{
-                                                if(actualValue.toLowerCase().indexOf(this.head[semiIndex]._searchData.toLowerCase()) < 0)
-                                                    visible = false;
-                                            }
-                                        }
-                                        else{
-                                            switch(typeof data[index][this.head[semiIndex].title]){
-                                                case "number":
-                                                    if(this.head[semiIndex].searchable.type === "status"){
-                                                        if(data[index][this.head[semiIndex].title] != this.head[semiIndex]._searchData)
-                                                            visible = false;
-                                                    }
-                                                    else{
-                                                        if(data[index][this.head[semiIndex].title].toString().indexOf(this.head[semiIndex]._searchData) < 0)
-                                                            visible = false;
-                                                    }
-                                                    break;
-                                                case "string":
-                                                    if(this.head[semiIndex].searchable.type === "status"){
-                                                        if(data[index][this.head[semiIndex].title] != this.head[semiIndex]._searchData)
-                                                            visible = false;
-                                                    }
-                                                    else{
-                                                        if(data[index][this.head[semiIndex].title].toLowerCase().indexOf(this.head[semiIndex]._searchData.toLowerCase()) < 0)
-                                                            visible = false;
-                                                    }
-                                                    break;
-                                                default:
-                                                    visible = false;
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                }
-                                data[index]._hidden = !visible;
-                            }
-                    }
-                },
-                watchRow: function(index){
-                    this.watchBody.actualIndex = index;
-                    for(var indexHead in this.head)
-                        this.watchBody[this.head[indexHead].title] = this.body[index][this.head[indexHead].title];
-                    this.highlightRow(index);
-                },
-                initEdit: function(index){
-                    var indexHead = null;
-                    switch(this.handlers.edit.type){
-                        case "inline":
-                            for(indexHead in this.head)
-                                this.reValidateEdit(index, indexHead);
-                            this.body[index]._editing = true;
-                            break;
-                        case "modal":
-                            this.editingBody.actualIndex = index;
-                            for(indexHead in this.head)
-                                this.editingBody[this.head[indexHead].title] = this.body[index][this.head[indexHead].title];
-                            break;
-                    }
-                    if(this.handlers.edit.highlight)
-                        this.highlightRow(index);
-                },
-                reValidateEdit: function(index, indexHead){
-                    if(!(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active)){
-                        switch(this.handlers.edit.type){
-                            case "inline":
-                                this.body[index]['_unvalidated-'+indexHead] = true;
-                                if(this.head[indexHead].editable && typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
-                                    if(this.head[indexHead].input.required)
-                                        this.body[index]['_unvalidated-'+indexHead] *= this.body[index][this.head[indexHead].title] !== '' ? true : false;
-                                    if(this.head[indexHead].input.type === 'email'){
-                                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                                        this.body[index]['_unvalidated-'+indexHead] *= emailTest.test(this.body[index][this.head[indexHead].title]) ? true : false;
-                                    }
-                                }
-                                this.body[index]['_unvalidated-'+indexHead] *= !this.fieldValidation(this.body[index][this.head[indexHead].title]);
-                                this.body[index]['_unvalidated-'+indexHead] = !this.body[index]['_unvalidated-'+indexHead];
-                                break;
-                            case "modal":
-                                this.editingBody['_unvalidated-'+indexHead] = true;
-                                if(this.head[indexHead].editable && typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
-                                    if(this.head[indexHead].input.required)
-                                        this.editingBody['_unvalidated-'+indexHead] *= this.editingBody[this.head[indexHead].title] !== '' ? true : false;
-                                    if(this.head[indexHead].input.type === 'email'){
-                                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                                        this.editingBody['_unvalidated-'+indexHead] *= emailTest.test(this.editingBody[this.head[indexHead].title]) ? true : false;
-                                    }
-                                }
-                                this.editingBody['_unvalidated-'+indexHead] *= !this.fieldValidation(this.editingBody[this.head[indexHead].title]);
-                                this.editingBody['_unvalidated-'+indexHead] = !this.editingBody['_unvalidated-'+indexHead];
-                                break;
-                        }
-                    }
-                },
-                templateWatch: templateWatch,
-                beforeEdit: beforeEdit,
-                templateEdit: templateEdit,
-                onEdit: onEdit,
-                finishEdit: function(data, index){
-                    this.beforeEdit();
-                    var sendData = {},
-                        indexHead = null;
-                    switch(this.handlers.edit.type){
-                        case "inline":
-                            for(var indexHead in this.head)
-                                if(typeof this.head[indexHead].input !== "undefined" &&
-                                   typeof this.head[indexHead].input.type !== "undefined" &&
-                                   this.head[indexHead].input.type === "number")
-                                    if(data[indexHead] === "")
-                                        sendData[this.head[indexHead].title] = 0;
-                                    else
-                                        sendData[this.head[indexHead].title] = parseFloat(data[this.head[indexHead].title]);
-                                else
-                                    sendData[this.head[indexHead].title] = data[this.head[indexHead].title];
-                            break;
-                        case "modal":
-                            for(var indexHead in this.head)
-                                if(typeof this.head[indexHead].input !== "undefined" &&
-                                   typeof this.head[indexHead].input.type !== "undefined" &&
-                                   this.head[indexHead].input.type === "number")
-                                    if(this.editingBody[this.head[indexHead].title] === "")
-                                        sendData[this.head[indexHead].title] = 0;
-                                    else
-                                        sendData[this.head[indexHead].title] = parseFloat(this.editingBody[this.head[indexHead].title]);
-                                else
-                                    sendData[this.head[indexHead].title] = this.editingBody[this.head[indexHead].title];
-                            break;
-                    }
-                    if(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active){
-                        var me = this,
-                            params = {},
-                            body = {},
-                            delimiters = [];
-                        for(var myIndex in sendData)
-                            if(myIndex !== "id")
-                                params[myIndex] = sendData[myIndex];
-                        if(typeof this.webService.delimiters === "number")
-                           delimiters.push(this.webService.delimiters);
-                        else if(typeof this.webService.delimiters === "object")
-                            for(myIndex in this.webService.delimiters)
-                                delimiters.push(this.webService.delimiters[myIndex]);
-                        delimiters.push(sendData.id);
-                        body.params = params;
-                        body.delimiters = delimiters;
-                        this.webService.model.patch(body,
-                        function(success){
-                            if(me.handlers.edit.type === "inline")
-                                me.body[index]._editing = false;
-                            me.updatePagination();
-                            me.onEdit(sendData, true);
-                            if(typeof me.handlers.edit === "object" && me.handlers.edit.type === 'modal')
-                                document.getElementById(me.id + "-closeEditModal").click();
-                        },
-                        function(error){
-                            var errors = "";
-                            for(index in error.body){
-                                errors += error.body[index].message + "<br>";
-                            }
-                            var messageErrors = {
-                                title: "Errores en Edición de Registro",
-                                text: errors,
-                                ok: "Aceptar",
-                                active: true
-                            };
-                            me.onEdit(messageErrors, false);
-                        });
-                    }
-                    else{
-                        var validator = true;
-                        switch(this.handlers.edit.type){
-                            case "inline":
-                                for(indexHead in this.head){
-                                    this.body[index]['_unvalidated-'+indexHead] = true;
-                                    if(this.head[indexHead].editable && typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
-                                        switch(this.head[indexHead].input.required){
-                                            case true:
-                                                validator *= this.body[index][this.head[indexHead].title] !== '' ? true : false;
-                                                this.body[index]['_unvalidated-'+indexHead] *= this.body[index][this.head[indexHead].title] !== '' ? true : false;
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                        switch(this.head[indexHead].input.type){
-                                            case 'email':
-                                                var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                                                validator *= emailTest.test(this.body[index][this.head[indexHead].title]) ? true : false;
-                                                this.body[index]['_unvalidated-'+indexHead] *= emailTest.test(this.body[index][this.head[indexHead].title]) ? true : false;
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                    }
-                                    if(this.head[indexHead].editable){
-                                        validator *= !this.fieldValidation(this.body[index][this.head[indexHead].title]);
-                                        this.body[index]['_unvalidated-'+indexHead] *= !this.fieldValidation(this.body[index][this.head[indexHead].title]);
-                                    }
-                                    this.body[index]['_unvalidated-'+indexHead] = !this.body[index]['_unvalidated-'+indexHead];
-                                }
-                                if(validator){
-                                    this.body[index]._editing = false;
-                                    this.sortList(null, null, true);
-                                    this.onEdit(sendData, true);
-                                }
-                                else{
-                                    var messageErrors = {
-                                        title: this.style.languageItems[configuration.style.language].alert.title,
-                                        text: this.style.languageItems[configuration.style.language].alert.text,
-                                        ok: this.style.languageItems[configuration.style.language].alert.ok,
-                                        active: true
-                                    };
-                                    this.onEdit(messageErrors, false);
-                                }
-                                break;
-                            case "modal":
-                                for(indexHead in this.head){
-                                    this.editingBody['_unvalidated-'+indexHead] = true;
-                                    if(this.head[indexHead].editable && typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
-                                        switch(this.head[indexHead].input.required){
-                                            case true:
-                                                validator *= this.editingBody[this.head[indexHead].title] !== '' ? true : false;
-                                                this.editingBody['_unvalidated-'+indexHead] *= this.editingBody[this.head[indexHead].title] !== '' ? true : false;
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                        switch(this.head[indexHead].input.type){
-                                            case 'email':
-                                                var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                                                validator *= emailTest.test(this.editingBody[this.head[indexHead].title]) ? true : false;
-                                                this.editingBody['_unvalidated-'+indexHead] *= emailTest.test(this.editingBody[this.head[indexHead].title]) ? true : false;
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                    }
-                                    if(this.head[indexHead].editable){
-                                        validator *= !this.fieldValidation(this.editingBody[this.head[indexHead].title]);
-                                        this.editingBody['_unvalidated-'+indexHead] *= !this.fieldValidation(this.editingBody[this.head[indexHead].title]);
-                                    }
-                                    this.editingBody['_unvalidated-'+indexHead] = !this.editingBody['_unvalidated-'+indexHead];
-                                }
-                                if(validator){
-                                    for(indexHead in this.head)
-                                        this.body[this.editingBody.actualIndex][this.head[indexHead].title] = this.editingBody[this.head[indexHead].title];
-                                    this.sortList(null, null, true);
-                                    this.onEdit(sendData, true);
-                                    document.getElementById(this.id + "-closeEditModal").click();
-                                }
-                                else{
-                                    var messageErrors = {
-                                        title: this.style.languageItems[configuration.style.language].alert.title,
-                                        text: this.style.languageItems[configuration.style.language].alert.text,
-                                        ok: this.style.languageItems[configuration.style.language].alert.ok,
-                                        active: true
-                                    };
-                                    this.onEdit(messageErrors, false);
-                                }
-                                break;
-                            }
-                    }
-                },
-                beforeRemove: beforeRemove,
-                onRemove: onRemove,
-                confirmRemove(data, index){
-                    var me = this;
-                    var messageConfirm = {
-                        title: this.style.languageItems[configuration.style.language].confirm.title,
-                        text: this.style.languageItems[configuration.style.language].confirm.text,
-                        accept: this.style.languageItems[configuration.style.language].confirm.accept,
-                        cancel: this.style.languageItems[configuration.style.language].confirm.cancel,
-                        active: true
-                    };
-                    this.beforeRemove(messageConfirm,
-                        function(){
-                            me.removeRow(data, index);
-                        }
-                    );
-                },
-                removeRow: function(data, index){
-                    var sendData = {};
-                    for(var indexHead in this.head)
-                        sendData[this.head[indexHead].title] = this.body[index][this.head[indexHead].title];
-                    if(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active){
-                        var me = this,
-                            delimiters = [];
-                        if(typeof this.webService.delimiters === "number")
-                           delimiters.push(this.webService.delimiters);
-                        else if(typeof this.webService.delimiters === "object")
-                            for(var index in this.webService.delimiters)
-                                delimiters.push(this.webService.delimiters[index]);
-                        delimiters.push(sendData.id);
-                        this.webService.model.remove({
-                            delimiters: delimiters,
-                        },
-                        function(success){
-                            me.updatePagination();
-                            me.onRemove(sendData);
-                        },
-                        function(error){
-                            console.log(error);
-                        });
-                    }
-                    else{
-                        
-                        var groupable = false;
-                        var newBody = [];
-                        for(var semiIndex in this.body)
-                            if(parseInt(semiIndex) !== parseInt(index))
-                                newBody.push(this.body[semiIndex]);
-                        this.body = newBody;
-                        
-                        /***************Used only in pagination mode*****************/
-                        if(typeof this.style.pagination === 'object' &&
-                        typeof this.style.pagination.rowPerPage === 'number' &&
-                        this.style.pagination.rowPerPage > 0)
-                            this.updatePagination();
-                        /************************************************************/
-                        for(index in this.head)
-                            if(typeof this.head[index].groupable !== "undefined" &&
-                               this.head[index].groupable === true &&
-                               this.dataGrouping.isGrouped === true)
-                                groupable = true;
-                        if(groupable){
-                            this.groupBy(null, true);
-                        }
-                        this.onRemove(sendData);
-                    }
-                },
-                initAdd: function(){
-                    for(var index in this.head)
-                        this.reValidateAdd(index);
-                    this.adding = true;
-                },
-                cancelAdd: function(){
-                    for(var index in this.head)
-                        this.head[index]._dataAdd.value = "";
-                    this.adding = false;
-                },
-                beforeAdd: beforeAdd,
-                onAdd: onAdd,
-                reValidateAdd: function(indexHead){
-                    if(!(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active)){
-                        var newData = {};
-                        for(var index in this.head)
-                            newData[this.head[index].title] = this.head[index]._dataAdd.value;
-                        this.head[indexHead]._dataAdd.validation = true;
-                        if(typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
-                            if(this.head[indexHead].input.required)
-                                this.head[indexHead]._dataAdd.validation *= newData[this.head[indexHead].title] !== '' ? true : false;
-                            if(this.head[indexHead].input.type === "email"){
-                                var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                                this.head[indexHead]._dataAdd.validation *= emailTest.test(newData[this.head[indexHead].title]) ? true : false;
-                            }
-                        }
-                        this.head[indexHead]._dataAdd.validation *= !this.fieldValidation(newData[this.head[indexHead].title]);
-                        this.head[indexHead]._dataAdd.validation = !this.head[indexHead]._dataAdd.validation;
-                    }
-                },
-                addRow: function(){
-                    this.beforeAdd();
-                    var newData = {};
-                    var sendData = {};
-                    newData._editing = false;
-                    newData._hidden = false;
-                    newData._highlight = false;
-                    for(var indexHead in this.head)
-                        if(this.head[indexHead].editable)
-                            newData['_unvalidated-'+indexHead] = false;
-                    for(var index in this.head)
-                        if(typeof this.head[index].input !== "undefined" &&
-                           typeof this.head[index].input.type !== "undefined" &&
-                           this.head[index].input.type === "number"){
-                            if(this.head[index]._dataAdd.value === ""){
-                                newData[this.head[index].title] = 0;
-                                sendData[this.head[index].title] = 0;
-                            }
-                            else{
-                                newData[this.head[index].title] = parseFloat(this.head[index]._dataAdd.value);
-                                sendData[this.head[index].title] = parseFloat(this.head[index]._dataAdd.value);
-                            }
-                        }
-                        else{
-                            newData[this.head[index].title] = this.head[index]._dataAdd.value;
-                            sendData[this.head[index].title] = this.head[index]._dataAdd.value;
-                        }
-                    
-                    if(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active){
-                        var postData = {},
-                            me = this,
-                            body = {};
-                        for(index in sendData)
-                            if(index !== "id")
-                                postData[index] = sendData[index];
-                        body.params = postData;
-                        if(typeof this.webService.delimiters !== "undefined")
-                           body.delimiters = this.webService.delimiters;
-                        this.webService.model.post(body,
-                        function(success){
-                            me.adding = false;
-                            for(index in me.head)
-                                me.head[index]._dataAdd.value = "";
-                            me.updatePagination();
-                            me.onAdd(sendData, true);
-                            if(typeof me.handlers.add === "object" && me.handlers.add.type === 'modal')
-                                document.getElementById(me.id + "-closeAddModal").click();
-                        },
-                        function(error){
-                            var errors = "";
-                            for(index in error.body){
-                                errors += error.body[index].message + "<br>";
-                            }
-                            var messageErrors = {
-                                title: "Errores en Nuevo Registro",
-                                text: errors,
-                                ok: "Aceptar",
-                                active: true
-                            };
-                            me.onAdd(messageErrors, false);
-                        });
-                    }
-                    else{
-                        var validator = true;
-                        for(indexHead in this.head){
-                            this.head[indexHead]._dataAdd.validation = true;
-                            if(typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
-                                switch(this.head[indexHead].input.required){
-                                    case true:
-                                        validator *= this.head[indexHead]._dataAdd.value !== '' ? true : false;
-                                        this.head[indexHead]._dataAdd.validation = this.head[indexHead]._dataAdd.value !== '' ? true : false;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                switch(this.head[indexHead].input.type){
-                                    case 'email':
-                                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                                        validator *= emailTest.test(this.head[indexHead]._dataAdd.value) ? true : false;
-                                        this.head[indexHead]._dataAdd.validation = emailTest.test(this.head[indexHead]._dataAdd.value) ? true : false;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                            else{
-                                validator *= !this.fieldValidation(this.head[indexHead]._dataAdd.value);
-                                this.head[indexHead]._dataAdd.validation *= !this.fieldValidation(newData[this.head[indexHead].title]);
-                            }
-                            this.head[indexHead]._dataAdd.validation = !this.head[indexHead]._dataAdd.validation;
-                        }
-                        if(validator){
-                            var groupable = false;
-                            this.body.push(newData);
-                            this.adding = false;
-                            for(index in this.head)
-                                this.head[index]._dataAdd.value = "";
-                            /***************Used only in pagination mode*****************/
-                            if(typeof this.style.pagination === 'object' &&
-                            typeof this.style.pagination.rowPerPage === 'number' &&
-                            this.style.pagination.rowPerPage > 0)
-                                this.updatePagination();
-                            /************************************************************/
-                            this.sortList(null, null, true);
-                            for(var index in this.head)
-                                if(typeof this.head[index].groupable !== "undefined" &&
-                                   this.head[index].groupable === true &&
-                               this.dataGrouping.isGrouped === true)
-                                    groupable = true;
-                            if(groupable)
-                                this.groupBy(null, true);
-                            this.onAdd(sendData, true);
-                            if(typeof this.handlers.add === "object" && this.handlers.add.type === 'modal')
-                                document.getElementById(this.id + "-closeAddModal").click();
-                        }
-                        else{
-                            var messageErrors = {
-                                title: this.style.languageItems[configuration.style.language].alert.title,
-                                text: this.style.languageItems[configuration.style.language].alert.text,
-                                ok: this.style.languageItems[configuration.style.language].alert.ok,
-                                active: true
-                            };
-                            this.onAdd(messageErrors, false);
-                        }
-                    }
-                },
-                updatePagination: function(init){
-                    var a = 1,
-                        activeIndex = null;
-                    if(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active){
-                        if(this.body.length > 0){
-                            for(var index in this.dataPagination)
-                                if(this.dataPagination[index][0])
-                                    activeIndex = parseInt(index);
-                            this.updatePagesService(init ? 1 : parseInt(activeIndex) + a);
-                        }
-                    }
-                    else{
-                        if(this.body.length > 0){
-                            for(var index in this.dataPagination)
-                                if(this.dataPagination[index][0])
-                                    activeIndex = parseInt(index);
-                            this.dataPagination = [];
-                            for(index in this.body)
-                                if(index % this.style.pagination.rowPerPage === 0)
-                                    this.dataPagination.push([(parseInt(index) === parseInt(activeIndex)), a++]);
-                            a = (parseInt(activeIndex) === this.dataPagination.length) ? 0 : 1;
-                            this.updatePages(init ? 1 : parseInt(activeIndex) + a);
-                        }
-                    }
-                },
-                recordsPagination: function(val){
-                    var data = 0;
-                    switch(val){
-                        case 0:
-                            for(var index in this.body)
-                                if(!this.body[index]._hidden && !this.body[index]._ofuscate)
-                                    data++;
-                            break;
-                        case 1:
-                            data = this.body.length;
-                            break;
-                        case 2:
-                            for(var index in this.dataPagination)
-                                if(this.dataPagination[index][0])
-                                    data = parseInt(index) + 1;
-                            break;
-                        default:
-                            data = this.dataPagination.length;
-                    }
-                    return data;
-                },
-                notAllPages: function(beggining){
-                    var shouldSight = false;
-                    for(var index in this.dataPagination)
-                        if(this.dataPagination[index][0])
-                            if(beggining && parseInt(index) + 1 > 4)  //Showing from beggining
-                                    shouldSight = true;
-                            else if(!beggining && parseInt(index) + 1 < this.dataPagination.length - 3)
-                                    shouldSight = true;
-                    return shouldSight;
-                },
-                updatePages: function(active, redefine){
-                    var elementsPerPage = this.style.pagination.rowPerPage;
-                    var actualPage = 1;
-                    var limits = [4, 4];
-                    for(var index in this.dataPagination){
-                        if(this.dataPagination[index][1] === active){
-                            this.dataPagination[index][0] = true;
-                            actualPage = parseInt(index) + 1;
-                        }
-                        else
-                            this.dataPagination[index][0] = false;
-                    }
-                    if(actualPage <= 4){
-                        limits[0] = actualPage;
-                        limits[1] = 8 - actualPage;
-                    }
-                    if(actualPage >= this.dataPagination.length - 3){
-                        limits[0] = 8 - (this.dataPagination.length + 1 - actualPage);
-                        limits[1] = this.dataPagination.length + 1 - actualPage;
-                    }
-                    for(index in this.dataPagination){
-                        if((parseInt(index) <= (actualPage - 1 - limits[0]) || parseInt(index) >= (actualPage - 1 + limits[1])) && parseInt(index) !== actualPage - 1)
-                            this.dataPagination[index][0] = null;
-                    }
-                    if(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active){
-                        var me = this;
-                        var params = {
-                            "per-page": this.style.pagination.rowPerPage,
-                            "page": actualPage
-                        },
-                            sortType = null,
-                            column = null;
-                        for(index in this.head)
-                            if(this.head[index]._order !== null){
-                                sortType = this.head[index]._order;
-                                column = this.head[index].title;
-                            }
-                        var sort = this.sortList(null, null, true);
-                        if(sort)
-                            params["sort"] = sort;
-                        this.getService(params,
-                        function(success){
-                            for(var index in me.head)
-                                if(typeof me.head[index].groupable !== "undefined" &&
-                                   me.head[index].groupable === true &&
-                               me.dataGrouping.isGrouped === true)
-                                    groupable = true;
-                            if(groupable)
-                                me.groupBy(null, true);
-                        },
-                        function(error){
-                            console.log(error);
-                        },
-                        true,       //Redefine body
-                        redefine ? true : false);     //Redefine pagination
-                    }
-                    else{
-                        for(index in this.body){
-                            if(parseInt(index) >= (elementsPerPage*actualPage) - elementsPerPage &&
-                               parseInt(index) <  elementsPerPage*actualPage)
-                                this.body[index]._hidden = false;
-                            else
-                                this.body[index]._hidden = true;
-                        }
-                        this.search(null, null);
-                    }
-                },
-                updatePagesService: function(active){
-                    var me = this;
-                    var actualPage = 1;
-                    var limits = [4, 4];
-                    for(var index in this.dataPagination){
-                        if(this.dataPagination[index][1] === active){
-                            this.dataPagination[index][0] = true;
-                            actualPage = parseInt(index) + 1;
-                        }
-                        else
-                            this.dataPagination[index][0] = false;
-                    }
-                    var params = {
-                        "per-page": this.style.pagination.rowPerPage,
-                        "page": actualPage
-                    };
-                    for(index in this.head)
-                        if(this.head[index]._searchData !== null && this.head[index]._searchData !== "" &&
-                           this.head[index]._searchData !== undefined){
-                            if(typeof this.head[index].input === "object" &&
-                               this.head[index].input.type === "select")
-                                params[this.head[index].title] = this.getSelectValue(index);
-                            else
-                                params[this.head[index].title] = this.head[index]._searchData;
-                        }
-                    var sort = this.sortList(null, null, true);
-                    if(sort)
-                        params["sort"] = sort;
-                    this.getService(params,
-                    function(success){
-                        if(success.body.length > 0){
-                            var b = 1;
-                            me.dataPagination = [];
-                            for(var i = 0; i < parseInt(success.headers.get(me.webService.headers.pageCount)); i++)
-                                me.dataPagination.push([(parseInt(success.headers.get(me.webService.headers.pageCount)) < actualPage) ? b === actualPage -1 : b === actualPage, b++]);
-                            if(actualPage <= 4){
-                                limits[0] = actualPage;
-                                limits[1] = 8 - actualPage;
-                            }
-                            if(actualPage >= me.dataPagination.length - 3){
-                                limits[0] = 8 - (me.dataPagination.length + 1 - actualPage);
-                                limits[1] = me.dataPagination.length + 1 - actualPage;
-                            }
-                            for(index in me.dataPagination){
-                                if((parseInt(index) <= (actualPage - 1 - limits[0]) || parseInt(index) >= (actualPage - 1 + limits[1])) && parseInt(index) !== actualPage - 1)
-                                    me.dataPagination[index][0] = null;
-                            }
-                            for(var index in me.head)
-                                if(typeof me.head[index].groupable !== "undefined" &&
-                                   me.head[index].groupable === true &&
-                               me.dataGrouping.isGrouped === true)
-                                    groupable = true;
-                            if(groupable)
-                                me.groupBy(null, true);
-                        }
-                        else
-                            me.body[0]._ofuscate = true;
-                    },
-                    function(error){
-                        console.log(error);
-                    },
-                    true,       //Redefine body
-                    true);     //Redefine pagination
-                },
-                updatePageRows: function(rowsPerPage){
-                    this.style.pagination.rowPerPage = rowsPerPage;
-                    this.updatePagination(true);
-                },
-                shouldGroup: function(){    //Some column was defined as groupable
-                    var shouldGroup = false;
-                    for(index in this.head)
-                        if(this.head[index].groupable)
-                            shouldGroup = true;
-                    return shouldGroup;
-                },
-                groupBy: function(column, auto){  //On click of radio grouping input
-                    var semiIndex = null,
-                        index = null,
-                        lastGroupIndex = null;
-                    for(var index in this.head)
-                        if(!auto)
-                            if(this.head[index].title === column){
-                                if(this.head[index]._groupedBy)
-                                    lastGroupIndex = index;
-                                this.head[index]._groupedBy = !this.head[index]._groupedBy;
-                                this.head[index].hidden = this.head[index]._groupedBy;
-                                this.dataGrouping.isGrouped = this.head[index]._groupedBy;
-                            }
-                            else{
-                                if(this.head[index]._groupedBy)
-                                    this.head[index].hidden = false;
-                                this.head[index]._groupedBy = false;
-                            }
-                        else{
-                            if(typeof this.head[index]._groupedBy !== "undefined" &&
-                               this.head[index]._groupedBy)
-                                lastGroupIndex = index;
-                        }
-                    if(this.dataGrouping.isGrouped){    //Is grouped by some column
-                        /***************Used only in pagination mode*****************/
-                        if(typeof this.style.pagination === 'object' &&
-                        typeof this.style.pagination.rowPerPage === 'number' &&
-                        this.style.pagination.rowPerPage > 0){
-                            if(!(typeof this.webService === "object" &&
-                            typeof this.webService.model === "object" &&
-                            this.webService.active)){
-                                delete this.style.pagination;  //Delete pagination if exists
-                                delete this.dataPagination;
-                                for(index in this.body)
-                                    this.body[index]._hidden = false;
-                                this.search(null, null);
-                            }
-                        }
-                        /************************************************************/
-                        var groups = [],
-                            hidden = [],
-                            state = [];
-                        for(index in this.head)
-                            if(this.head[index]._groupedBy){
-                                for(semiIndex in this.body){
-                                    if(typeof this.head[index].input === "object" && this.head[index].input.type === "select"){
-                                        if(groups.indexOf(this.getSelectData(semiIndex, index)) === -1 && !this.body[semiIndex]._ofuscate){
-                                            groups.push(this.getSelectData(semiIndex, index));
-                                            hidden.push(false);
-                                            state.push([this.getSelectData(semiIndex, index), false]);
-                                        }
-                                    }
-                                    else{
-                                        if(groups.indexOf(this.body[semiIndex][this.head[index].title]) === -1 && !this.body[semiIndex]._ofuscate){
-                                            groups.push(this.body[semiIndex][this.head[index].title]);
-                                            hidden.push(false);
-                                            state.push([this.body[semiIndex][this.head[index].title], false]);
-                                        }
-                                    }
-                                }
-                                if(!auto)
-                                    this.dataGrouping.column = column;
-                                this.dataGrouping.state = state;
-                            }
-                    }
-                    else{      //No grouping
-                        /***************Used only in pagination mode*****************/
-                        if(typeof this.tempPagination === 'object' &&
-                           typeof this.tempPagination.style === 'object' &&
-                        typeof this.tempPagination.style.rowPerPage === 'number' &&
-                        this.tempPagination.style.rowPerPage > 0){
-                            if(!(typeof this.webService === "object" &&
-                            typeof this.webService.model === "object" &&
-                            this.webService.active)){
-                                this.style.pagination = this.tempPagination.style;  //Reasign pagination
-                                this.dataPagination = this.tempPagination.data;
-                                this.updatePages(1);
-                                this.updatePagination();
-                            }
-                        }
-                        /************************************************************/
-                        if(!(typeof this.webService === "object" &&
-                            typeof this.webService.model === "object" &&
-                            this.webService.active)){
-                            for(index in this.body)
-                                for(semiIndex in this.dataGrouping.state)
-                                    if(this.dataGrouping.state[semiIndex][0] === this.body[index][this.head[lastGroupIndex].title] && this.body[index]._hidden)
-                                        this.body[index]._hidden = !this.body[index]._hidden;
-                            this.search(null, null);
-                        }
-                    }
-                    if(typeof this.webService === "object" &&
-                            typeof this.webService.model === "object" &&
-                            this.webService.active)
-                        return this.dataGrouping.isGrouped;
-                },
-                groupColSpan: function(){
-                    var colspan = 0;
-                    for(var index in this.head)
-                        if(!this.head[index].hidden)
-                            colspan++;
-                    return colspan;
-                },
-                changeGroupVisibility: function(index, indexHead){
-                    this.dataGrouping.state[index][1] = !this.dataGrouping.state[index][1];
-                    for(var semiIndex in this.body){
-                        if(typeof this.head[indexHead].input === "object" &&
-                            this.head[indexHead].input.type === "select"){
-                            if(this.getSelectData(semiIndex, indexHead) === this.dataGrouping.state[index][0])
-                                this.body[semiIndex]._hidden = this.dataGrouping.state[index][1];
-                        }
-                        else
-                            if(this.body[semiIndex][this.dataGrouping.column] === this.dataGrouping.state[index][0])
-                                this.body[semiIndex]._hidden = this.dataGrouping.state[index][1];
-                    }
-                },
-                initSortColumns: function(dragElem){
-                    for(var index in this.head)
-                        if(this.head[index].title === dragElem.srcElement.id)
-                            this.dataDragged = this.head[index];
-                },
-                onDragEnd: onDragEnd,
-                sortColumns: function(dropElem){
-                    var idDropped = null,
-                        dataDropped = null,
-                        allOrder = [],
-                        sendData = {};
-                    if(dropElem.srcElement.tagName === "B")
-                        idDropped = dropElem.srcElement.id;
-                    else
-                        idDropped = dropElem.srcElement.getElementsByTagName('b')[0].id;
-                    for(var index in this.head)
-                        if(this.head[index].title === idDropped)
-                            dataDropped = this.head[index]._position;
-                    for(index in this.head)
-                        allOrder.push(this.head[index]._position);
-                    for(index in this.head)
-                        if(this.dataDragged._position < dataDropped){
-                            if(allOrder[index] <= dataDropped && allOrder[index] > this.dataDragged._position)
-                                this.head[index]._position -= 1;
-                        }
-                        else if(this.dataDragged._position > dataDropped){
-                            if(allOrder[index] >= dataDropped && allOrder[index] < this.dataDragged._position)
-                                this.head[index]._position += 1;
-                        }
-                    this.dataDragged._position = dataDropped;
-                    this.head.sort(function(a, b){
-                        return (a._position > b._position) ? 1 :
-                                            (a._position < b._position) ? -1 : 0;
-                    });
-                    
-                    for(index in this.head)
-                        sendData[this.head[index].title] = this.head[index]._position;
-                    this.onDragEnd(sendData);
-                },
-                getService: function(params, customSuccess, error, redefineBody, redefinePagination){
-                    if(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active){
-                        var me = this;
-                        var body = {};
-                        if(typeof this.webService.delimiters !== "undefined")
-                           body.delimiters = this.webService.delimiters;
-                        if(typeof params === "object")
-                            body.params = params;
-                        this.webService.model.get(body,
-                        function(success){
-                            //////////////////////////Redefine body///////////////////////////////
-                            if(redefineBody){
-                                me.body[0]._ofuscate = false;
-                                var newData = null;
-                                var index = null,
-                                    semiIndex = null;
-                                if(me.body.length > success.body.length){
-                                    newData = [];
-                                    newData[0] = me.body[0];
-                                    for(index in me.body)
-                                        if(success.body.length > parseInt(index))
-                                            newData[index] = me.body[index];
-                                    for(index in success.body){
-                                        for(semiIndex in success.body[index])
-                                            if(newData[index][semiIndex])
-                                            newData[index][semiIndex] = success.body[index][semiIndex];
-                                    }
-                                    me.body = newData;
-                                }
-                                else if(me.body.length < success.body.length){
-                                    for(index in success.body){
-                                        if(me.body.length > parseInt(index)){
-                                            for(semiIndex in success.body[index])
-                                                if(typeof me.body[index][semiIndex] !== "undefined")
-                                                    me.body[index][semiIndex] = success.body[index][semiIndex];
-                                        }
-                                        else{
-                                            newData = {};
-                                            newData._editing = false;
-                                            newData._hidden = false;
-                                            newData._highlight = false;
-                                            for(var indexHead in me.head)
-                                                if(me.head[indexHead].editable)
-                                                    newData['_unvalidated-'+indexHead] = false;
-                                            for(semiIndex in success.body[index])
-                                                newData[semiIndex] = success.body[index][semiIndex];
-                                            me.body.push(newData);
-                                        }
-                                    }
-                                }
-                                else{
-                                    for(index in success.body){
-                                        for(semiIndex in success.body[index]){
-                                            if(typeof me.body[index][semiIndex] !== "undefined")
-                                                me.body[index][semiIndex] = success.body[index][semiIndex];
-                                        }
-                                    }
-                                }
-                            }
-                            ////////////////////////Redefine of pagination///////////////////////////
-                            if(redefinePagination){
-                                me.style.pagination.currentPage = parseInt(success.headers.get(me.webService.headers.currentPage));
-                                me.style.pagination.pageCount = parseInt(success.headers.get(me.webService.headers.pageCount));
-                                me.style.pagination.totalRowCount = parseInt(success.headers.get(me.webService.headers.totalRowCount));
-                            }
-                            
-                            customSuccess(success);
-                        }, error);
-                    }
-                },
-                editDelimiters: function(delimiters){
-                    this.webService.delimiters = delimiters;
-                }
-            },
-            beforeCreate: function(){
-                
-            },
-            created: function(){
-                var index = null
-                    me = this;
-                /***************Used only in pagination mode*****************/
-                if(typeof this.style.pagination === 'object' &&
-                typeof this.style.pagination.rowPerPage === 'number' &&
-                this.style.pagination.rowPerPage > 0){
-                    if(!(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active))
-                        this.updatePages(1);
-                }
-                /************************************************************/
-                /***************Used only in drag and drop mode**************/
-                if(this.style.draggable)
-                    this.head.sort(function(a, b){
-                        return (a._position > b._position) ? 1 :
-                                            (a._position < b._position) ? -1 : 0;
-                    });
-                /************************************************************/
-                /***************Used only in status type search**************/
-                if(!(typeof this.webService === "object" &&
-                    typeof this.webService.model === "object" &&
-                    this.webService.active))
-                    for(index in this.head)
-                        if(this.head[index].searchable.type === "status"){
-                            for(var semiIndex in this.body)
-                                if(typeof this.head[index].input === "object" &&
-                                    this.head[index].input.type === "select" &&
-                                    typeof this.head[index].input.model === "undefined"){
-                                    if(this.head[index]._searchStatusValues.indexOf(this.getSelectData(semiIndex, index)) === -1)
-                                        this.head[index]._searchStatusValues.push(this.getSelectData(semiIndex, index));
-                                }
-                                else if(typeof this.head[index].input === "object" &&
-                                    this.head[index].input.type !== "select"){
-                                    if(this.head[index]._searchStatusValues.indexOf(this.body[semiIndex][this.head[index].title]) === -1)
-                                        this.head[index]._searchStatusValues.push(this.body[semiIndex][this.head[index].title]);
-                                }
-                        }
-                /************************************************************/
-                /************Used only in select model service type**********/
-                for(var index in this.head)
-                    if(typeof this.head[index].input === "object" &&
-                        typeof this.head[index].input.type === "string" &&
-                        this.head[index].input.type === "select" &&
-                        typeof this.head[index].input.model === "object")
-                        (function(index){
-                            var ownHead = me.head[index];
-                            me.head[index].input.model.source.get({
-                                    params: {
-                                        "per-page": 100
-                                    }
-                                },
-                                function(success){
-                                    if(success.body.length > 0){
-                                        for(var indexBody in success.body){
-                                            if(parseInt(indexBody) === 0){
-                                                ownHead.input.options[indexBody].value = success.body[indexBody][ownHead.input.model.value];
-                                                ownHead.input.options[indexBody].text = success.body[indexBody][ownHead.input.model.text];
-                                            }
-                                            else
-                                                ownHead.input.options.push(
-                                                    {
-                                                        value: success.body[indexBody][ownHead.input.model.value],
-                                                        text: success.body[indexBody][ownHead.input.model.text]
-                                                    }
-                                                );
-                                            if(typeof ownHead.searchable === "object" &&
-                                               ownHead.searchable.type === "status"){
-                                                ownHead._searchStatusValues.push(success.body[indexBody][ownHead.input.model.text]);
-                                            }
-                                        }
-                                    }
-                                },
-                                function(error){
-                                    
-                                }
-                            );
-                        })(index);
-                    else if(typeof this.head[index].input === "object" &&
-                        typeof this.head[index].input.type === "string" &&
-                        this.head[index].input.type === "select" &&
-                        typeof this.head[index].input.model !== "object"){
-                        if(typeof this.head[index].searchable === "object" &&
-                        this.head[index].searchable.type === "status")
-                            for(var indexOptions in this.head[index].input.options)
-                                this.head[index]._searchStatusValues.push(this.head[index].input.options[indexOptions].text);
-                    }
-                    this.updatePagination();
-            }
-        });
-        return this.table;
-    }
-    else{
-        if(typeof configuration.head !== "object" || configuration.head.length === 0)
-            console.log("ERROR: Something wrong in your datatable HEAD definition");
-        else if(typeof configuration.body !== "object" || configuration.body.length === 0)
-            console.log("ERROR: Something wrong in your datatable BODY definition");
-        else if(typeof configuration.style !== "object")
-            console.log("ERROR: Something wrong in your datatable STYLE definition");
-        else
-            console.log("ERROR: Something wrong in your datatable definition");
-    }
-};
-
-module.exports = {
-    component: mcdatatable,
-    template: mcdatatableT
-};
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports) {
-
-var toString = {}.toString;
-
-module.exports = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
-};
-
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if(!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
-
-exports.blobConstructor = false
-try {
-	new Blob([new ArrayBuffer(1)])
-	exports.blobConstructor = true
-} catch (e) {}
-
-// The xhr request to example.com may violate some restrictive CSP configurations,
-// so if we're running in a browser that supports `fetch`, avoid calling getXHR()
-// and assume support for certain features below.
-var xhr
-function getXHR () {
-	// Cache the xhr value
-	if (xhr !== undefined) return xhr
-
-	if (global.XMLHttpRequest) {
-		xhr = new global.XMLHttpRequest()
-		// If XDomainRequest is available (ie only, where xhr might not work
-		// cross domain), use the page location. Otherwise use example.com
-		// Note: this doesn't actually make an http request.
-		try {
-			xhr.open('GET', global.XDomainRequest ? '/' : 'https://example.com')
-		} catch(e) {
-			xhr = null
-		}
-	} else {
-		// Service workers don't have XHR
-		xhr = null
-	}
-	return xhr
-}
-
-function checkTypeSupport (type) {
-	var xhr = getXHR()
-	if (!xhr) return false
-	try {
-		xhr.responseType = type
-		return xhr.responseType === type
-	} catch (e) {}
-	return false
-}
-
-// For some strange reason, Safari 7.0 reports typeof global.ArrayBuffer === 'object'.
-// Safari 7.1 appears to have fixed this bug.
-var haveArrayBuffer = typeof global.ArrayBuffer !== 'undefined'
-var haveSlice = haveArrayBuffer && isFunction(global.ArrayBuffer.prototype.slice)
-
-// If fetch is supported, then arraybuffer will be supported too. Skip calling
-// checkTypeSupport(), since that calls getXHR().
-exports.arraybuffer = exports.fetch || (haveArrayBuffer && checkTypeSupport('arraybuffer'))
-
-// These next two tests unavoidably show warnings in Chrome. Since fetch will always
-// be used if it's available, just return false for these to avoid the warnings.
-exports.msstream = !exports.fetch && haveSlice && checkTypeSupport('ms-stream')
-exports.mozchunkedarraybuffer = !exports.fetch && haveArrayBuffer &&
-	checkTypeSupport('moz-chunked-arraybuffer')
-
-// If fetch is supported, then overrideMimeType will be supported too. Skip calling
-// getXHR().
-exports.overrideMimeType = exports.fetch || (getXHR() ? isFunction(getXHR().overrideMimeType) : false)
-
-exports.vbArray = isFunction(global.VBArray)
-
-function isFunction (value) {
-	return typeof value === 'function'
-}
-
-xhr = null // Help gc
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-
-/*<replacement>*/
-
-var processNextTick = __webpack_require__(23);
-/*</replacement>*/
-
-module.exports = Readable;
-
-/*<replacement>*/
-var isArray = __webpack_require__(43);
-/*</replacement>*/
-
-/*<replacement>*/
-var Duplex;
-/*</replacement>*/
-
-Readable.ReadableState = ReadableState;
-
-/*<replacement>*/
-var EE = __webpack_require__(32).EventEmitter;
-
-var EElistenerCount = function (emitter, type) {
-  return emitter.listeners(type).length;
-};
-/*</replacement>*/
-
-/*<replacement>*/
-var Stream = __webpack_require__(47);
-/*</replacement>*/
-
-// TODO(bmeurer): Change this back to const once hole checks are
-// properly optimized away early in Ignition+TurboFan.
-/*<replacement>*/
-var Buffer = __webpack_require__(8).Buffer;
-var OurUint8Array = global.Uint8Array || function () {};
-function _uint8ArrayToBuffer(chunk) {
-  return Buffer.from(chunk);
-}
-function _isUint8Array(obj) {
-  return Buffer.isBuffer(obj) || obj instanceof OurUint8Array;
-}
-/*</replacement>*/
-
-/*<replacement>*/
-var util = __webpack_require__(15);
-util.inherits = __webpack_require__(1);
-/*</replacement>*/
-
-/*<replacement>*/
-var debugUtil = __webpack_require__(133);
-var debug = void 0;
-if (debugUtil && debugUtil.debuglog) {
-  debug = debugUtil.debuglog('stream');
-} else {
-  debug = function () {};
-}
-/*</replacement>*/
-
-var BufferList = __webpack_require__(134);
-var destroyImpl = __webpack_require__(48);
-var StringDecoder;
-
-util.inherits(Readable, Stream);
-
-var kProxyEvents = ['error', 'close', 'destroy', 'pause', 'resume'];
-
-function prependListener(emitter, event, fn) {
-  // Sadly this is not cacheable as some libraries bundle their own
-  // event emitter implementation with them.
-  if (typeof emitter.prependListener === 'function') {
-    return emitter.prependListener(event, fn);
-  } else {
-    // This is a hack to make sure that our error handler is attached before any
-    // userland ones.  NEVER DO THIS. This is here only because this code needs
-    // to continue to work with older versions of Node.js that do not include
-    // the prependListener() method. The goal is to eventually remove this hack.
-    if (!emitter._events || !emitter._events[event]) emitter.on(event, fn);else if (isArray(emitter._events[event])) emitter._events[event].unshift(fn);else emitter._events[event] = [fn, emitter._events[event]];
-  }
-}
-
-function ReadableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(12);
-
-  options = options || {};
-
-  // object stream flag. Used to make read(n) ignore n and to
-  // make all the buffer merging and length checks go away
-  this.objectMode = !!options.objectMode;
-
-  if (stream instanceof Duplex) this.objectMode = this.objectMode || !!options.readableObjectMode;
-
-  // the point at which it stops calling _read() to fill the buffer
-  // Note: 0 is a valid value, means "don't call _read preemptively ever"
-  var hwm = options.highWaterMark;
-  var defaultHwm = this.objectMode ? 16 : 16 * 1024;
-  this.highWaterMark = hwm || hwm === 0 ? hwm : defaultHwm;
-
-  // cast to ints.
-  this.highWaterMark = Math.floor(this.highWaterMark);
-
-  // A linked list is used to store data chunks instead of an array because the
-  // linked list can remove elements from the beginning faster than
-  // array.shift()
-  this.buffer = new BufferList();
-  this.length = 0;
-  this.pipes = null;
-  this.pipesCount = 0;
-  this.flowing = null;
-  this.ended = false;
-  this.endEmitted = false;
-  this.reading = false;
-
-  // a flag to be able to tell if the event 'readable'/'data' is emitted
-  // immediately, or on a later tick.  We set this to true at first, because
-  // any actions that shouldn't happen until "later" should generally also
-  // not happen before the first read call.
-  this.sync = true;
-
-  // whenever we return null, then we set a flag to say
-  // that we're awaiting a 'readable' event emission.
-  this.needReadable = false;
-  this.emittedReadable = false;
-  this.readableListening = false;
-  this.resumeScheduled = false;
-
-  // has it been destroyed
-  this.destroyed = false;
-
-  // Crypto is kind of old and crusty.  Historically, its default string
-  // encoding is 'binary' so we have to make this configurable.
-  // Everything else in the universe uses 'utf8', though.
-  this.defaultEncoding = options.defaultEncoding || 'utf8';
-
-  // the number of writers that are awaiting a drain event in .pipe()s
-  this.awaitDrain = 0;
-
-  // if true, a maybeReadMore has been scheduled
-  this.readingMore = false;
-
-  this.decoder = null;
-  this.encoding = null;
-  if (options.encoding) {
-    if (!StringDecoder) StringDecoder = __webpack_require__(34).StringDecoder;
-    this.decoder = new StringDecoder(options.encoding);
-    this.encoding = options.encoding;
-  }
-}
-
-function Readable(options) {
-  Duplex = Duplex || __webpack_require__(12);
-
-  if (!(this instanceof Readable)) return new Readable(options);
-
-  this._readableState = new ReadableState(options, this);
-
-  // legacy
-  this.readable = true;
-
-  if (options) {
-    if (typeof options.read === 'function') this._read = options.read;
-
-    if (typeof options.destroy === 'function') this._destroy = options.destroy;
-  }
-
-  Stream.call(this);
-}
-
-Object.defineProperty(Readable.prototype, 'destroyed', {
-  get: function () {
-    if (this._readableState === undefined) {
-      return false;
-    }
-    return this._readableState.destroyed;
-  },
-  set: function (value) {
-    // we ignore the value if the stream
-    // has not been initialized yet
-    if (!this._readableState) {
-      return;
-    }
-
-    // backward compatibility, the user is explicitly
-    // managing destroyed
-    this._readableState.destroyed = value;
-  }
-});
-
-Readable.prototype.destroy = destroyImpl.destroy;
-Readable.prototype._undestroy = destroyImpl.undestroy;
-Readable.prototype._destroy = function (err, cb) {
-  this.push(null);
-  cb(err);
-};
-
-// Manually shove something into the read() buffer.
-// This returns true if the highWaterMark has not been hit yet,
-// similar to how Writable.write() returns true if you should
-// write() some more.
-Readable.prototype.push = function (chunk, encoding) {
-  var state = this._readableState;
-  var skipChunkCheck;
-
-  if (!state.objectMode) {
-    if (typeof chunk === 'string') {
-      encoding = encoding || state.defaultEncoding;
-      if (encoding !== state.encoding) {
-        chunk = Buffer.from(chunk, encoding);
-        encoding = '';
-      }
-      skipChunkCheck = true;
-    }
-  } else {
-    skipChunkCheck = true;
-  }
-
-  return readableAddChunk(this, chunk, encoding, false, skipChunkCheck);
-};
-
-// Unshift should *always* be something directly out of read()
-Readable.prototype.unshift = function (chunk) {
-  return readableAddChunk(this, chunk, null, true, false);
-};
-
-function readableAddChunk(stream, chunk, encoding, addToFront, skipChunkCheck) {
-  var state = stream._readableState;
-  if (chunk === null) {
-    state.reading = false;
-    onEofChunk(stream, state);
-  } else {
-    var er;
-    if (!skipChunkCheck) er = chunkInvalid(state, chunk);
-    if (er) {
-      stream.emit('error', er);
-    } else if (state.objectMode || chunk && chunk.length > 0) {
-      if (typeof chunk !== 'string' && !state.objectMode && Object.getPrototypeOf(chunk) !== Buffer.prototype) {
-        chunk = _uint8ArrayToBuffer(chunk);
-      }
-
-      if (addToFront) {
-        if (state.endEmitted) stream.emit('error', new Error('stream.unshift() after end event'));else addChunk(stream, state, chunk, true);
-      } else if (state.ended) {
-        stream.emit('error', new Error('stream.push() after EOF'));
-      } else {
-        state.reading = false;
-        if (state.decoder && !encoding) {
-          chunk = state.decoder.write(chunk);
-          if (state.objectMode || chunk.length !== 0) addChunk(stream, state, chunk, false);else maybeReadMore(stream, state);
-        } else {
-          addChunk(stream, state, chunk, false);
-        }
-      }
-    } else if (!addToFront) {
-      state.reading = false;
-    }
-  }
-
-  return needMoreData(state);
-}
-
-function addChunk(stream, state, chunk, addToFront) {
-  if (state.flowing && state.length === 0 && !state.sync) {
-    stream.emit('data', chunk);
-    stream.read(0);
-  } else {
-    // update the buffer info.
-    state.length += state.objectMode ? 1 : chunk.length;
-    if (addToFront) state.buffer.unshift(chunk);else state.buffer.push(chunk);
-
-    if (state.needReadable) emitReadable(stream);
-  }
-  maybeReadMore(stream, state);
-}
-
-function chunkInvalid(state, chunk) {
-  var er;
-  if (!_isUint8Array(chunk) && typeof chunk !== 'string' && chunk !== undefined && !state.objectMode) {
-    er = new TypeError('Invalid non-string/buffer chunk');
-  }
-  return er;
-}
-
-// if it's past the high water mark, we can push in some more.
-// Also, if we have no data yet, we can stand some
-// more bytes.  This is to work around cases where hwm=0,
-// such as the repl.  Also, if the push() triggered a
-// readable event, and the user called read(largeNumber) such that
-// needReadable was set, then we ought to push more, so that another
-// 'readable' event will be triggered.
-function needMoreData(state) {
-  return !state.ended && (state.needReadable || state.length < state.highWaterMark || state.length === 0);
-}
-
-Readable.prototype.isPaused = function () {
-  return this._readableState.flowing === false;
-};
-
-// backwards compatibility.
-Readable.prototype.setEncoding = function (enc) {
-  if (!StringDecoder) StringDecoder = __webpack_require__(34).StringDecoder;
-  this._readableState.decoder = new StringDecoder(enc);
-  this._readableState.encoding = enc;
-  return this;
-};
-
-// Don't raise the hwm > 8MB
-var MAX_HWM = 0x800000;
-function computeNewHighWaterMark(n) {
-  if (n >= MAX_HWM) {
-    n = MAX_HWM;
-  } else {
-    // Get the next highest power of 2 to prevent increasing hwm excessively in
-    // tiny amounts
-    n--;
-    n |= n >>> 1;
-    n |= n >>> 2;
-    n |= n >>> 4;
-    n |= n >>> 8;
-    n |= n >>> 16;
-    n++;
-  }
-  return n;
-}
-
-// This function is designed to be inlinable, so please take care when making
-// changes to the function body.
-function howMuchToRead(n, state) {
-  if (n <= 0 || state.length === 0 && state.ended) return 0;
-  if (state.objectMode) return 1;
-  if (n !== n) {
-    // Only flow one buffer at a time
-    if (state.flowing && state.length) return state.buffer.head.data.length;else return state.length;
-  }
-  // If we're asking for more than the current hwm, then raise the hwm.
-  if (n > state.highWaterMark) state.highWaterMark = computeNewHighWaterMark(n);
-  if (n <= state.length) return n;
-  // Don't have enough
-  if (!state.ended) {
-    state.needReadable = true;
-    return 0;
-  }
-  return state.length;
-}
-
-// you can override either this method, or the async _read(n) below.
-Readable.prototype.read = function (n) {
-  debug('read', n);
-  n = parseInt(n, 10);
-  var state = this._readableState;
-  var nOrig = n;
-
-  if (n !== 0) state.emittedReadable = false;
-
-  // if we're doing read(0) to trigger a readable event, but we
-  // already have a bunch of data in the buffer, then just trigger
-  // the 'readable' event and move on.
-  if (n === 0 && state.needReadable && (state.length >= state.highWaterMark || state.ended)) {
-    debug('read: emitReadable', state.length, state.ended);
-    if (state.length === 0 && state.ended) endReadable(this);else emitReadable(this);
-    return null;
-  }
-
-  n = howMuchToRead(n, state);
-
-  // if we've ended, and we're now clear, then finish it up.
-  if (n === 0 && state.ended) {
-    if (state.length === 0) endReadable(this);
-    return null;
-  }
-
-  // All the actual chunk generation logic needs to be
-  // *below* the call to _read.  The reason is that in certain
-  // synthetic stream cases, such as passthrough streams, _read
-  // may be a completely synchronous operation which may change
-  // the state of the read buffer, providing enough data when
-  // before there was *not* enough.
-  //
-  // So, the steps are:
-  // 1. Figure out what the state of things will be after we do
-  // a read from the buffer.
-  //
-  // 2. If that resulting state will trigger a _read, then call _read.
-  // Note that this may be asynchronous, or synchronous.  Yes, it is
-  // deeply ugly to write APIs this way, but that still doesn't mean
-  // that the Readable class should behave improperly, as streams are
-  // designed to be sync/async agnostic.
-  // Take note if the _read call is sync or async (ie, if the read call
-  // has returned yet), so that we know whether or not it's safe to emit
-  // 'readable' etc.
-  //
-  // 3. Actually pull the requested chunks out of the buffer and return.
-
-  // if we need a readable event, then we need to do some reading.
-  var doRead = state.needReadable;
-  debug('need readable', doRead);
-
-  // if we currently have less than the highWaterMark, then also read some
-  if (state.length === 0 || state.length - n < state.highWaterMark) {
-    doRead = true;
-    debug('length less than watermark', doRead);
-  }
-
-  // however, if we've ended, then there's no point, and if we're already
-  // reading, then it's unnecessary.
-  if (state.ended || state.reading) {
-    doRead = false;
-    debug('reading or ended', doRead);
-  } else if (doRead) {
-    debug('do read');
-    state.reading = true;
-    state.sync = true;
-    // if the length is currently zero, then we *need* a readable event.
-    if (state.length === 0) state.needReadable = true;
-    // call internal read method
-    this._read(state.highWaterMark);
-    state.sync = false;
-    // If _read pushed data synchronously, then `reading` will be false,
-    // and we need to re-evaluate how much data we can return to the user.
-    if (!state.reading) n = howMuchToRead(nOrig, state);
-  }
-
-  var ret;
-  if (n > 0) ret = fromList(n, state);else ret = null;
-
-  if (ret === null) {
-    state.needReadable = true;
-    n = 0;
-  } else {
-    state.length -= n;
-  }
-
-  if (state.length === 0) {
-    // If we have nothing in the buffer, then we want to know
-    // as soon as we *do* get something into the buffer.
-    if (!state.ended) state.needReadable = true;
-
-    // If we tried to read() past the EOF, then emit end on the next tick.
-    if (nOrig !== n && state.ended) endReadable(this);
-  }
-
-  if (ret !== null) this.emit('data', ret);
-
-  return ret;
-};
-
-function onEofChunk(stream, state) {
-  if (state.ended) return;
-  if (state.decoder) {
-    var chunk = state.decoder.end();
-    if (chunk && chunk.length) {
-      state.buffer.push(chunk);
-      state.length += state.objectMode ? 1 : chunk.length;
-    }
-  }
-  state.ended = true;
-
-  // emit 'readable' now to make sure it gets picked up.
-  emitReadable(stream);
-}
-
-// Don't emit readable right away in sync mode, because this can trigger
-// another read() call => stack overflow.  This way, it might trigger
-// a nextTick recursion warning, but that's not so bad.
-function emitReadable(stream) {
-  var state = stream._readableState;
-  state.needReadable = false;
-  if (!state.emittedReadable) {
-    debug('emitReadable', state.flowing);
-    state.emittedReadable = true;
-    if (state.sync) processNextTick(emitReadable_, stream);else emitReadable_(stream);
-  }
-}
-
-function emitReadable_(stream) {
-  debug('emit readable');
-  stream.emit('readable');
-  flow(stream);
-}
-
-// at this point, the user has presumably seen the 'readable' event,
-// and called read() to consume some data.  that may have triggered
-// in turn another _read(n) call, in which case reading = true if
-// it's in progress.
-// However, if we're not ended, or reading, and the length < hwm,
-// then go ahead and try to read some more preemptively.
-function maybeReadMore(stream, state) {
-  if (!state.readingMore) {
-    state.readingMore = true;
-    processNextTick(maybeReadMore_, stream, state);
-  }
-}
-
-function maybeReadMore_(stream, state) {
-  var len = state.length;
-  while (!state.reading && !state.flowing && !state.ended && state.length < state.highWaterMark) {
-    debug('maybeReadMore read 0');
-    stream.read(0);
-    if (len === state.length)
-      // didn't get any data, stop spinning.
-      break;else len = state.length;
-  }
-  state.readingMore = false;
-}
-
-// abstract method.  to be overridden in specific implementation classes.
-// call cb(er, data) where data is <= n in length.
-// for virtual (non-string, non-buffer) streams, "length" is somewhat
-// arbitrary, and perhaps not very meaningful.
-Readable.prototype._read = function (n) {
-  this.emit('error', new Error('_read() is not implemented'));
-};
-
-Readable.prototype.pipe = function (dest, pipeOpts) {
-  var src = this;
-  var state = this._readableState;
-
-  switch (state.pipesCount) {
-    case 0:
-      state.pipes = dest;
-      break;
-    case 1:
-      state.pipes = [state.pipes, dest];
-      break;
-    default:
-      state.pipes.push(dest);
-      break;
-  }
-  state.pipesCount += 1;
-  debug('pipe count=%d opts=%j', state.pipesCount, pipeOpts);
-
-  var doEnd = (!pipeOpts || pipeOpts.end !== false) && dest !== process.stdout && dest !== process.stderr;
-
-  var endFn = doEnd ? onend : unpipe;
-  if (state.endEmitted) processNextTick(endFn);else src.once('end', endFn);
-
-  dest.on('unpipe', onunpipe);
-  function onunpipe(readable, unpipeInfo) {
-    debug('onunpipe');
-    if (readable === src) {
-      if (unpipeInfo && unpipeInfo.hasUnpiped === false) {
-        unpipeInfo.hasUnpiped = true;
-        cleanup();
-      }
-    }
-  }
-
-  function onend() {
-    debug('onend');
-    dest.end();
-  }
-
-  // when the dest drains, it reduces the awaitDrain counter
-  // on the source.  This would be more elegant with a .once()
-  // handler in flow(), but adding and removing repeatedly is
-  // too slow.
-  var ondrain = pipeOnDrain(src);
-  dest.on('drain', ondrain);
-
-  var cleanedUp = false;
-  function cleanup() {
-    debug('cleanup');
-    // cleanup event handlers once the pipe is broken
-    dest.removeListener('close', onclose);
-    dest.removeListener('finish', onfinish);
-    dest.removeListener('drain', ondrain);
-    dest.removeListener('error', onerror);
-    dest.removeListener('unpipe', onunpipe);
-    src.removeListener('end', onend);
-    src.removeListener('end', unpipe);
-    src.removeListener('data', ondata);
-
-    cleanedUp = true;
-
-    // if the reader is waiting for a drain event from this
-    // specific writer, then it would cause it to never start
-    // flowing again.
-    // So, if this is awaiting a drain, then we just call it now.
-    // If we don't know, then assume that we are waiting for one.
-    if (state.awaitDrain && (!dest._writableState || dest._writableState.needDrain)) ondrain();
-  }
-
-  // If the user pushes more data while we're writing to dest then we'll end up
-  // in ondata again. However, we only want to increase awaitDrain once because
-  // dest will only emit one 'drain' event for the multiple writes.
-  // => Introduce a guard on increasing awaitDrain.
-  var increasedAwaitDrain = false;
-  src.on('data', ondata);
-  function ondata(chunk) {
-    debug('ondata');
-    increasedAwaitDrain = false;
-    var ret = dest.write(chunk);
-    if (false === ret && !increasedAwaitDrain) {
-      // If the user unpiped during `dest.write()`, it is possible
-      // to get stuck in a permanently paused state if that write
-      // also returned false.
-      // => Check whether `dest` is still a piping destination.
-      if ((state.pipesCount === 1 && state.pipes === dest || state.pipesCount > 1 && indexOf(state.pipes, dest) !== -1) && !cleanedUp) {
-        debug('false write response, pause', src._readableState.awaitDrain);
-        src._readableState.awaitDrain++;
-        increasedAwaitDrain = true;
-      }
-      src.pause();
-    }
-  }
-
-  // if the dest has an error, then stop piping into it.
-  // however, don't suppress the throwing behavior for this.
-  function onerror(er) {
-    debug('onerror', er);
-    unpipe();
-    dest.removeListener('error', onerror);
-    if (EElistenerCount(dest, 'error') === 0) dest.emit('error', er);
-  }
-
-  // Make sure our error handler is attached before userland ones.
-  prependListener(dest, 'error', onerror);
-
-  // Both close and finish should trigger unpipe, but only once.
-  function onclose() {
-    dest.removeListener('finish', onfinish);
-    unpipe();
-  }
-  dest.once('close', onclose);
-  function onfinish() {
-    debug('onfinish');
-    dest.removeListener('close', onclose);
-    unpipe();
-  }
-  dest.once('finish', onfinish);
-
-  function unpipe() {
-    debug('unpipe');
-    src.unpipe(dest);
-  }
-
-  // tell the dest that it's being piped to
-  dest.emit('pipe', src);
-
-  // start the flow if it hasn't been started already.
-  if (!state.flowing) {
-    debug('pipe resume');
-    src.resume();
-  }
-
-  return dest;
-};
-
-function pipeOnDrain(src) {
-  return function () {
-    var state = src._readableState;
-    debug('pipeOnDrain', state.awaitDrain);
-    if (state.awaitDrain) state.awaitDrain--;
-    if (state.awaitDrain === 0 && EElistenerCount(src, 'data')) {
-      state.flowing = true;
-      flow(src);
-    }
-  };
-}
-
-Readable.prototype.unpipe = function (dest) {
-  var state = this._readableState;
-  var unpipeInfo = { hasUnpiped: false };
-
-  // if we're not piping anywhere, then do nothing.
-  if (state.pipesCount === 0) return this;
-
-  // just one destination.  most common case.
-  if (state.pipesCount === 1) {
-    // passed in one, but it's not the right one.
-    if (dest && dest !== state.pipes) return this;
-
-    if (!dest) dest = state.pipes;
-
-    // got a match.
-    state.pipes = null;
-    state.pipesCount = 0;
-    state.flowing = false;
-    if (dest) dest.emit('unpipe', this, unpipeInfo);
-    return this;
-  }
-
-  // slow case. multiple pipe destinations.
-
-  if (!dest) {
-    // remove all.
-    var dests = state.pipes;
-    var len = state.pipesCount;
-    state.pipes = null;
-    state.pipesCount = 0;
-    state.flowing = false;
-
-    for (var i = 0; i < len; i++) {
-      dests[i].emit('unpipe', this, unpipeInfo);
-    }return this;
-  }
-
-  // try to find the right one.
-  var index = indexOf(state.pipes, dest);
-  if (index === -1) return this;
-
-  state.pipes.splice(index, 1);
-  state.pipesCount -= 1;
-  if (state.pipesCount === 1) state.pipes = state.pipes[0];
-
-  dest.emit('unpipe', this, unpipeInfo);
-
-  return this;
-};
-
-// set up data events if they are asked for
-// Ensure readable listeners eventually get something
-Readable.prototype.on = function (ev, fn) {
-  var res = Stream.prototype.on.call(this, ev, fn);
-
-  if (ev === 'data') {
-    // Start flowing on next tick if stream isn't explicitly paused
-    if (this._readableState.flowing !== false) this.resume();
-  } else if (ev === 'readable') {
-    var state = this._readableState;
-    if (!state.endEmitted && !state.readableListening) {
-      state.readableListening = state.needReadable = true;
-      state.emittedReadable = false;
-      if (!state.reading) {
-        processNextTick(nReadingNextTick, this);
-      } else if (state.length) {
-        emitReadable(this);
-      }
-    }
-  }
-
-  return res;
-};
-Readable.prototype.addListener = Readable.prototype.on;
-
-function nReadingNextTick(self) {
-  debug('readable nexttick read 0');
-  self.read(0);
-}
-
-// pause() and resume() are remnants of the legacy readable stream API
-// If the user uses them, then switch into old mode.
-Readable.prototype.resume = function () {
-  var state = this._readableState;
-  if (!state.flowing) {
-    debug('resume');
-    state.flowing = true;
-    resume(this, state);
-  }
-  return this;
-};
-
-function resume(stream, state) {
-  if (!state.resumeScheduled) {
-    state.resumeScheduled = true;
-    processNextTick(resume_, stream, state);
-  }
-}
-
-function resume_(stream, state) {
-  if (!state.reading) {
-    debug('resume read 0');
-    stream.read(0);
-  }
-
-  state.resumeScheduled = false;
-  state.awaitDrain = 0;
-  stream.emit('resume');
-  flow(stream);
-  if (state.flowing && !state.reading) stream.read(0);
-}
-
-Readable.prototype.pause = function () {
-  debug('call pause flowing=%j', this._readableState.flowing);
-  if (false !== this._readableState.flowing) {
-    debug('pause');
-    this._readableState.flowing = false;
-    this.emit('pause');
-  }
-  return this;
-};
-
-function flow(stream) {
-  var state = stream._readableState;
-  debug('flow', state.flowing);
-  while (state.flowing && stream.read() !== null) {}
-}
-
-// wrap an old-style stream as the async data source.
-// This is *not* part of the readable stream interface.
-// It is an ugly unfortunate mess of history.
-Readable.prototype.wrap = function (stream) {
-  var state = this._readableState;
-  var paused = false;
-
-  var self = this;
-  stream.on('end', function () {
-    debug('wrapped end');
-    if (state.decoder && !state.ended) {
-      var chunk = state.decoder.end();
-      if (chunk && chunk.length) self.push(chunk);
-    }
-
-    self.push(null);
-  });
-
-  stream.on('data', function (chunk) {
-    debug('wrapped data');
-    if (state.decoder) chunk = state.decoder.write(chunk);
-
-    // don't skip over falsy values in objectMode
-    if (state.objectMode && (chunk === null || chunk === undefined)) return;else if (!state.objectMode && (!chunk || !chunk.length)) return;
-
-    var ret = self.push(chunk);
-    if (!ret) {
-      paused = true;
-      stream.pause();
-    }
-  });
-
-  // proxy all the other methods.
-  // important when wrapping filters and duplexes.
-  for (var i in stream) {
-    if (this[i] === undefined && typeof stream[i] === 'function') {
-      this[i] = function (method) {
-        return function () {
-          return stream[method].apply(stream, arguments);
-        };
-      }(i);
-    }
-  }
-
-  // proxy certain important events.
-  for (var n = 0; n < kProxyEvents.length; n++) {
-    stream.on(kProxyEvents[n], self.emit.bind(self, kProxyEvents[n]));
-  }
-
-  // when we try to consume some more bytes, simply unpause the
-  // underlying stream.
-  self._read = function (n) {
-    debug('wrapped _read', n);
-    if (paused) {
-      paused = false;
-      stream.resume();
-    }
-  };
-
-  return self;
-};
-
-// exposed for testing purposes only.
-Readable._fromList = fromList;
-
-// Pluck off n bytes from an array of buffers.
-// Length is the combined lengths of all the buffers in the list.
-// This function is designed to be inlinable, so please take care when making
-// changes to the function body.
-function fromList(n, state) {
-  // nothing buffered
-  if (state.length === 0) return null;
-
-  var ret;
-  if (state.objectMode) ret = state.buffer.shift();else if (!n || n >= state.length) {
-    // read it all, truncate the list
-    if (state.decoder) ret = state.buffer.join('');else if (state.buffer.length === 1) ret = state.buffer.head.data;else ret = state.buffer.concat(state.length);
-    state.buffer.clear();
-  } else {
-    // read part of list
-    ret = fromListPartial(n, state.buffer, state.decoder);
-  }
-
-  return ret;
-}
-
-// Extracts only enough buffered data to satisfy the amount requested.
-// This function is designed to be inlinable, so please take care when making
-// changes to the function body.
-function fromListPartial(n, list, hasStrings) {
-  var ret;
-  if (n < list.head.data.length) {
-    // slice is the same for buffers and strings
-    ret = list.head.data.slice(0, n);
-    list.head.data = list.head.data.slice(n);
-  } else if (n === list.head.data.length) {
-    // first chunk is a perfect match
-    ret = list.shift();
-  } else {
-    // result spans more than one buffer
-    ret = hasStrings ? copyFromBufferString(n, list) : copyFromBuffer(n, list);
-  }
-  return ret;
-}
-
-// Copies a specified amount of characters from the list of buffered data
-// chunks.
-// This function is designed to be inlinable, so please take care when making
-// changes to the function body.
-function copyFromBufferString(n, list) {
-  var p = list.head;
-  var c = 1;
-  var ret = p.data;
-  n -= ret.length;
-  while (p = p.next) {
-    var str = p.data;
-    var nb = n > str.length ? str.length : n;
-    if (nb === str.length) ret += str;else ret += str.slice(0, n);
-    n -= nb;
-    if (n === 0) {
-      if (nb === str.length) {
-        ++c;
-        if (p.next) list.head = p.next;else list.head = list.tail = null;
-      } else {
-        list.head = p;
-        p.data = str.slice(nb);
-      }
-      break;
-    }
-    ++c;
-  }
-  list.length -= c;
-  return ret;
-}
-
-// Copies a specified amount of bytes from the list of buffered data chunks.
-// This function is designed to be inlinable, so please take care when making
-// changes to the function body.
-function copyFromBuffer(n, list) {
-  var ret = Buffer.allocUnsafe(n);
-  var p = list.head;
-  var c = 1;
-  p.data.copy(ret);
-  n -= p.data.length;
-  while (p = p.next) {
-    var buf = p.data;
-    var nb = n > buf.length ? buf.length : n;
-    buf.copy(ret, ret.length - n, 0, nb);
-    n -= nb;
-    if (n === 0) {
-      if (nb === buf.length) {
-        ++c;
-        if (p.next) list.head = p.next;else list.head = list.tail = null;
-      } else {
-        list.head = p;
-        p.data = buf.slice(nb);
-      }
-      break;
-    }
-    ++c;
-  }
-  list.length -= c;
-  return ret;
-}
-
-function endReadable(stream) {
-  var state = stream._readableState;
-
-  // If we get here before consuming all the bytes, then that is a
-  // bug in node.  Should never happen.
-  if (state.length > 0) throw new Error('"endReadable()" called on non-empty stream');
-
-  if (!state.endEmitted) {
-    state.ended = true;
-    processNextTick(endReadableNT, state, stream);
-  }
-}
-
-function endReadableNT(state, stream) {
-  // Check that we didn't get one last unshift.
-  if (!state.endEmitted && state.length === 0) {
-    state.endEmitted = true;
-    stream.readable = false;
-    stream.emit('end');
-  }
-}
-
-function forEach(xs, f) {
-  for (var i = 0, l = xs.length; i < l; i++) {
-    f(xs[i], i);
-  }
-}
-
-function indexOf(xs, x) {
-  for (var i = 0, l = xs.length; i < l; i++) {
-    if (xs[i] === x) return i;
-  }
-  return -1;
-}
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(3)))
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(32).EventEmitter;
-
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*<replacement>*/
-
-var processNextTick = __webpack_require__(23);
-/*</replacement>*/
-
-// undocumented cb() API, needed for core, not for public API
-function destroy(err, cb) {
-  var _this = this;
-
-  var readableDestroyed = this._readableState && this._readableState.destroyed;
-  var writableDestroyed = this._writableState && this._writableState.destroyed;
-
-  if (readableDestroyed || writableDestroyed) {
-    if (cb) {
-      cb(err);
-    } else if (err && (!this._writableState || !this._writableState.errorEmitted)) {
-      processNextTick(emitErrorNT, this, err);
-    }
-    return;
-  }
-
-  // we set destroyed to true before firing error callbacks in order
-  // to make it re-entrance safe in case destroy() is called within callbacks
-
-  if (this._readableState) {
-    this._readableState.destroyed = true;
-  }
-
-  // if this is a duplex stream mark the writable part as destroyed as well
-  if (this._writableState) {
-    this._writableState.destroyed = true;
-  }
-
-  this._destroy(err || null, function (err) {
-    if (!cb && err) {
-      processNextTick(emitErrorNT, _this, err);
-      if (_this._writableState) {
-        _this._writableState.errorEmitted = true;
-      }
-    } else if (cb) {
-      cb(err);
-    }
-  });
-}
-
-function undestroy() {
-  if (this._readableState) {
-    this._readableState.destroyed = false;
-    this._readableState.reading = false;
-    this._readableState.ended = false;
-    this._readableState.endEmitted = false;
-  }
-
-  if (this._writableState) {
-    this._writableState.destroyed = false;
-    this._writableState.ended = false;
-    this._writableState.ending = false;
-    this._writableState.finished = false;
-    this._writableState.errorEmitted = false;
-  }
-}
-
-function emitErrorNT(self, err) {
-  self.emit('error', err);
-}
-
-module.exports = {
-  destroy: destroy,
-  undestroy: undestroy
-};
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// a transform stream is a readable/writable stream where you do
-// something with the data.  Sometimes it's called a "filter",
-// but that's not a great name for it, since that implies a thing where
-// some bits pass through, and others are simply ignored.  (That would
-// be a valid example of a transform, of course.)
-//
-// While the output is causally related to the input, it's not a
-// necessarily symmetric or synchronous transformation.  For example,
-// a zlib stream might take multiple plain-text writes(), and then
-// emit a single compressed chunk some time in the future.
-//
-// Here's how this works:
-//
-// The Transform stream has all the aspects of the readable and writable
-// stream classes.  When you write(chunk), that calls _write(chunk,cb)
-// internally, and returns false if there's a lot of pending writes
-// buffered up.  When you call read(), that calls _read(n) until
-// there's enough pending readable data buffered up.
-//
-// In a transform stream, the written data is placed in a buffer.  When
-// _read(n) is called, it transforms the queued up data, calling the
-// buffered _write cb's as it consumes chunks.  If consuming a single
-// written chunk would result in multiple output chunks, then the first
-// outputted bit calls the readcb, and subsequent chunks just go into
-// the read buffer, and will cause it to emit 'readable' if necessary.
-//
-// This way, back-pressure is actually determined by the reading side,
-// since _read has to be called to start processing a new chunk.  However,
-// a pathological inflate type of transform can cause excessive buffering
-// here.  For example, imagine a stream where every byte of input is
-// interpreted as an integer from 0-255, and then results in that many
-// bytes of output.  Writing the 4 bytes {ff,ff,ff,ff} would result in
-// 1kb of data being output.  In this case, you could write a very small
-// amount of input, and end up with a very large amount of output.  In
-// such a pathological inflating mechanism, there'd be no way to tell
-// the system to stop doing the transform.  A single 4MB write could
-// cause the system to run out of memory.
-//
-// However, even in such a pathological case, only a single written chunk
-// would be consumed, and then the rest would wait (un-transformed) until
-// the results of the previous transformed chunk were consumed.
-
-
-
-module.exports = Transform;
-
-var Duplex = __webpack_require__(12);
-
-/*<replacement>*/
-var util = __webpack_require__(15);
-util.inherits = __webpack_require__(1);
-/*</replacement>*/
-
-util.inherits(Transform, Duplex);
-
-function TransformState(stream) {
-  this.afterTransform = function (er, data) {
-    return afterTransform(stream, er, data);
-  };
-
-  this.needTransform = false;
-  this.transforming = false;
-  this.writecb = null;
-  this.writechunk = null;
-  this.writeencoding = null;
-}
-
-function afterTransform(stream, er, data) {
-  var ts = stream._transformState;
-  ts.transforming = false;
-
-  var cb = ts.writecb;
-
-  if (!cb) {
-    return stream.emit('error', new Error('write callback called multiple times'));
-  }
-
-  ts.writechunk = null;
-  ts.writecb = null;
-
-  if (data !== null && data !== undefined) stream.push(data);
-
-  cb(er);
-
-  var rs = stream._readableState;
-  rs.reading = false;
-  if (rs.needReadable || rs.length < rs.highWaterMark) {
-    stream._read(rs.highWaterMark);
-  }
-}
-
-function Transform(options) {
-  if (!(this instanceof Transform)) return new Transform(options);
-
-  Duplex.call(this, options);
-
-  this._transformState = new TransformState(this);
-
-  var stream = this;
-
-  // start out asking for a readable event once data is transformed.
-  this._readableState.needReadable = true;
-
-  // we have implemented the _read method, and done the other things
-  // that Readable wants before the first _read call, so unset the
-  // sync guard flag.
-  this._readableState.sync = false;
-
-  if (options) {
-    if (typeof options.transform === 'function') this._transform = options.transform;
-
-    if (typeof options.flush === 'function') this._flush = options.flush;
-  }
-
-  // When the writable side finishes, then flush out anything remaining.
-  this.once('prefinish', function () {
-    if (typeof this._flush === 'function') this._flush(function (er, data) {
-      done(stream, er, data);
-    });else done(stream);
-  });
-}
-
-Transform.prototype.push = function (chunk, encoding) {
-  this._transformState.needTransform = false;
-  return Duplex.prototype.push.call(this, chunk, encoding);
-};
-
-// This is the part where you do stuff!
-// override this function in implementation classes.
-// 'chunk' is an input chunk.
-//
-// Call `push(newChunk)` to pass along transformed output
-// to the readable side.  You may call 'push' zero or more times.
-//
-// Call `cb(err)` when you are done with this chunk.  If you pass
-// an error, then that'll put the hurt on the whole operation.  If you
-// never call cb(), then you'll never get another chunk.
-Transform.prototype._transform = function (chunk, encoding, cb) {
-  throw new Error('_transform() is not implemented');
-};
-
-Transform.prototype._write = function (chunk, encoding, cb) {
-  var ts = this._transformState;
-  ts.writecb = cb;
-  ts.writechunk = chunk;
-  ts.writeencoding = encoding;
-  if (!ts.transforming) {
-    var rs = this._readableState;
-    if (ts.needTransform || rs.needReadable || rs.length < rs.highWaterMark) this._read(rs.highWaterMark);
-  }
-};
-
-// Doesn't matter what the args are here.
-// _transform does all the work.
-// That we got here means that the readable side wants more data.
-Transform.prototype._read = function (n) {
-  var ts = this._transformState;
-
-  if (ts.writechunk !== null && ts.writecb && !ts.transforming) {
-    ts.transforming = true;
-    this._transform(ts.writechunk, ts.writeencoding, ts.afterTransform);
-  } else {
-    // mark that we need a transform, so that any data that comes in
-    // will get processed, now that we've asked for it.
-    ts.needTransform = true;
-  }
-};
-
-Transform.prototype._destroy = function (err, cb) {
-  var _this = this;
-
-  Duplex.prototype._destroy.call(this, err, function (err2) {
-    cb(err2);
-    _this.emit('close');
-  });
-};
-
-function done(stream, er, data) {
-  if (er) return stream.emit('error', er);
-
-  if (data !== null && data !== undefined) stream.push(data);
-
-  // if there's nothing in the write buffer, then that means
-  // that nothing more will ever be provided
-  var ws = stream._writableState;
-  var ts = stream._transformState;
-
-  if (ws.length) throw new Error('Calling transform done when ws.length != 0');
-
-  if (ts.transforming) throw new Error('Calling transform done when still transforming');
-
-  return stream.push(null);
-}
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {/**
- * A JavaScript implementation of the Secure Hash Algorithm, SHA-256, as defined
- * in FIPS 180-2
- * Version 2.2-beta Copyright Angel Marin, Paul Johnston 2000 - 2009.
- * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
- *
- */
-
-var inherits = __webpack_require__(1)
-var Hash = __webpack_require__(13)
-
-var K = [
-  0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5,
-  0x3956C25B, 0x59F111F1, 0x923F82A4, 0xAB1C5ED5,
-  0xD807AA98, 0x12835B01, 0x243185BE, 0x550C7DC3,
-  0x72BE5D74, 0x80DEB1FE, 0x9BDC06A7, 0xC19BF174,
-  0xE49B69C1, 0xEFBE4786, 0x0FC19DC6, 0x240CA1CC,
-  0x2DE92C6F, 0x4A7484AA, 0x5CB0A9DC, 0x76F988DA,
-  0x983E5152, 0xA831C66D, 0xB00327C8, 0xBF597FC7,
-  0xC6E00BF3, 0xD5A79147, 0x06CA6351, 0x14292967,
-  0x27B70A85, 0x2E1B2138, 0x4D2C6DFC, 0x53380D13,
-  0x650A7354, 0x766A0ABB, 0x81C2C92E, 0x92722C85,
-  0xA2BFE8A1, 0xA81A664B, 0xC24B8B70, 0xC76C51A3,
-  0xD192E819, 0xD6990624, 0xF40E3585, 0x106AA070,
-  0x19A4C116, 0x1E376C08, 0x2748774C, 0x34B0BCB5,
-  0x391C0CB3, 0x4ED8AA4A, 0x5B9CCA4F, 0x682E6FF3,
-  0x748F82EE, 0x78A5636F, 0x84C87814, 0x8CC70208,
-  0x90BEFFFA, 0xA4506CEB, 0xBEF9A3F7, 0xC67178F2
-]
-
-var W = new Array(64)
-
-function Sha256 () {
-  this.init()
-
-  this._w = W // new Array(64)
-
-  Hash.call(this, 64, 56)
-}
-
-inherits(Sha256, Hash)
-
-Sha256.prototype.init = function () {
-  this._a = 0x6a09e667
-  this._b = 0xbb67ae85
-  this._c = 0x3c6ef372
-  this._d = 0xa54ff53a
-  this._e = 0x510e527f
-  this._f = 0x9b05688c
-  this._g = 0x1f83d9ab
-  this._h = 0x5be0cd19
-
-  return this
-}
-
-function ch (x, y, z) {
-  return z ^ (x & (y ^ z))
-}
-
-function maj (x, y, z) {
-  return (x & y) | (z & (x | y))
-}
-
-function sigma0 (x) {
-  return (x >>> 2 | x << 30) ^ (x >>> 13 | x << 19) ^ (x >>> 22 | x << 10)
-}
-
-function sigma1 (x) {
-  return (x >>> 6 | x << 26) ^ (x >>> 11 | x << 21) ^ (x >>> 25 | x << 7)
-}
-
-function gamma0 (x) {
-  return (x >>> 7 | x << 25) ^ (x >>> 18 | x << 14) ^ (x >>> 3)
-}
-
-function gamma1 (x) {
-  return (x >>> 17 | x << 15) ^ (x >>> 19 | x << 13) ^ (x >>> 10)
-}
-
-Sha256.prototype._update = function (M) {
-  var W = this._w
-
-  var a = this._a | 0
-  var b = this._b | 0
-  var c = this._c | 0
-  var d = this._d | 0
-  var e = this._e | 0
-  var f = this._f | 0
-  var g = this._g | 0
-  var h = this._h | 0
-
-  for (var i = 0; i < 16; ++i) W[i] = M.readInt32BE(i * 4)
-  for (; i < 64; ++i) W[i] = (gamma1(W[i - 2]) + W[i - 7] + gamma0(W[i - 15]) + W[i - 16]) | 0
-
-  for (var j = 0; j < 64; ++j) {
-    var T1 = (h + sigma1(e) + ch(e, f, g) + K[j] + W[j]) | 0
-    var T2 = (sigma0(a) + maj(a, b, c)) | 0
-
-    h = g
-    g = f
-    f = e
-    e = (d + T1) | 0
-    d = c
-    c = b
-    b = a
-    a = (T1 + T2) | 0
-  }
-
-  this._a = (a + this._a) | 0
-  this._b = (b + this._b) | 0
-  this._c = (c + this._c) | 0
-  this._d = (d + this._d) | 0
-  this._e = (e + this._e) | 0
-  this._f = (f + this._f) | 0
-  this._g = (g + this._g) | 0
-  this._h = (h + this._h) | 0
-}
-
-Sha256.prototype._hash = function () {
-  var H = new Buffer(32)
-
-  H.writeInt32BE(this._a, 0)
-  H.writeInt32BE(this._b, 4)
-  H.writeInt32BE(this._c, 8)
-  H.writeInt32BE(this._d, 12)
-  H.writeInt32BE(this._e, 16)
-  H.writeInt32BE(this._f, 20)
-  H.writeInt32BE(this._g, 24)
-  H.writeInt32BE(this._h, 28)
-
-  return H
-}
-
-module.exports = Sha256
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {var inherits = __webpack_require__(1)
-var Hash = __webpack_require__(13)
-
-var K = [
-  0x428a2f98, 0xd728ae22, 0x71374491, 0x23ef65cd,
-  0xb5c0fbcf, 0xec4d3b2f, 0xe9b5dba5, 0x8189dbbc,
-  0x3956c25b, 0xf348b538, 0x59f111f1, 0xb605d019,
-  0x923f82a4, 0xaf194f9b, 0xab1c5ed5, 0xda6d8118,
-  0xd807aa98, 0xa3030242, 0x12835b01, 0x45706fbe,
-  0x243185be, 0x4ee4b28c, 0x550c7dc3, 0xd5ffb4e2,
-  0x72be5d74, 0xf27b896f, 0x80deb1fe, 0x3b1696b1,
-  0x9bdc06a7, 0x25c71235, 0xc19bf174, 0xcf692694,
-  0xe49b69c1, 0x9ef14ad2, 0xefbe4786, 0x384f25e3,
-  0x0fc19dc6, 0x8b8cd5b5, 0x240ca1cc, 0x77ac9c65,
-  0x2de92c6f, 0x592b0275, 0x4a7484aa, 0x6ea6e483,
-  0x5cb0a9dc, 0xbd41fbd4, 0x76f988da, 0x831153b5,
-  0x983e5152, 0xee66dfab, 0xa831c66d, 0x2db43210,
-  0xb00327c8, 0x98fb213f, 0xbf597fc7, 0xbeef0ee4,
-  0xc6e00bf3, 0x3da88fc2, 0xd5a79147, 0x930aa725,
-  0x06ca6351, 0xe003826f, 0x14292967, 0x0a0e6e70,
-  0x27b70a85, 0x46d22ffc, 0x2e1b2138, 0x5c26c926,
-  0x4d2c6dfc, 0x5ac42aed, 0x53380d13, 0x9d95b3df,
-  0x650a7354, 0x8baf63de, 0x766a0abb, 0x3c77b2a8,
-  0x81c2c92e, 0x47edaee6, 0x92722c85, 0x1482353b,
-  0xa2bfe8a1, 0x4cf10364, 0xa81a664b, 0xbc423001,
-  0xc24b8b70, 0xd0f89791, 0xc76c51a3, 0x0654be30,
-  0xd192e819, 0xd6ef5218, 0xd6990624, 0x5565a910,
-  0xf40e3585, 0x5771202a, 0x106aa070, 0x32bbd1b8,
-  0x19a4c116, 0xb8d2d0c8, 0x1e376c08, 0x5141ab53,
-  0x2748774c, 0xdf8eeb99, 0x34b0bcb5, 0xe19b48a8,
-  0x391c0cb3, 0xc5c95a63, 0x4ed8aa4a, 0xe3418acb,
-  0x5b9cca4f, 0x7763e373, 0x682e6ff3, 0xd6b2b8a3,
-  0x748f82ee, 0x5defb2fc, 0x78a5636f, 0x43172f60,
-  0x84c87814, 0xa1f0ab72, 0x8cc70208, 0x1a6439ec,
-  0x90befffa, 0x23631e28, 0xa4506ceb, 0xde82bde9,
-  0xbef9a3f7, 0xb2c67915, 0xc67178f2, 0xe372532b,
-  0xca273ece, 0xea26619c, 0xd186b8c7, 0x21c0c207,
-  0xeada7dd6, 0xcde0eb1e, 0xf57d4f7f, 0xee6ed178,
-  0x06f067aa, 0x72176fba, 0x0a637dc5, 0xa2c898a6,
-  0x113f9804, 0xbef90dae, 0x1b710b35, 0x131c471b,
-  0x28db77f5, 0x23047d84, 0x32caab7b, 0x40c72493,
-  0x3c9ebe0a, 0x15c9bebc, 0x431d67c4, 0x9c100d4c,
-  0x4cc5d4be, 0xcb3e42b6, 0x597f299c, 0xfc657e2a,
-  0x5fcb6fab, 0x3ad6faec, 0x6c44198c, 0x4a475817
-]
-
-var W = new Array(160)
-
-function Sha512 () {
-  this.init()
-  this._w = W
-
-  Hash.call(this, 128, 112)
-}
-
-inherits(Sha512, Hash)
-
-Sha512.prototype.init = function () {
-  this._ah = 0x6a09e667
-  this._bh = 0xbb67ae85
-  this._ch = 0x3c6ef372
-  this._dh = 0xa54ff53a
-  this._eh = 0x510e527f
-  this._fh = 0x9b05688c
-  this._gh = 0x1f83d9ab
-  this._hh = 0x5be0cd19
-
-  this._al = 0xf3bcc908
-  this._bl = 0x84caa73b
-  this._cl = 0xfe94f82b
-  this._dl = 0x5f1d36f1
-  this._el = 0xade682d1
-  this._fl = 0x2b3e6c1f
-  this._gl = 0xfb41bd6b
-  this._hl = 0x137e2179
-
-  return this
-}
-
-function Ch (x, y, z) {
-  return z ^ (x & (y ^ z))
-}
-
-function maj (x, y, z) {
-  return (x & y) | (z & (x | y))
-}
-
-function sigma0 (x, xl) {
-  return (x >>> 28 | xl << 4) ^ (xl >>> 2 | x << 30) ^ (xl >>> 7 | x << 25)
-}
-
-function sigma1 (x, xl) {
-  return (x >>> 14 | xl << 18) ^ (x >>> 18 | xl << 14) ^ (xl >>> 9 | x << 23)
-}
-
-function Gamma0 (x, xl) {
-  return (x >>> 1 | xl << 31) ^ (x >>> 8 | xl << 24) ^ (x >>> 7)
-}
-
-function Gamma0l (x, xl) {
-  return (x >>> 1 | xl << 31) ^ (x >>> 8 | xl << 24) ^ (x >>> 7 | xl << 25)
-}
-
-function Gamma1 (x, xl) {
-  return (x >>> 19 | xl << 13) ^ (xl >>> 29 | x << 3) ^ (x >>> 6)
-}
-
-function Gamma1l (x, xl) {
-  return (x >>> 19 | xl << 13) ^ (xl >>> 29 | x << 3) ^ (x >>> 6 | xl << 26)
-}
-
-function getCarry (a, b) {
-  return (a >>> 0) < (b >>> 0) ? 1 : 0
-}
-
-Sha512.prototype._update = function (M) {
-  var W = this._w
-
-  var ah = this._ah | 0
-  var bh = this._bh | 0
-  var ch = this._ch | 0
-  var dh = this._dh | 0
-  var eh = this._eh | 0
-  var fh = this._fh | 0
-  var gh = this._gh | 0
-  var hh = this._hh | 0
-
-  var al = this._al | 0
-  var bl = this._bl | 0
-  var cl = this._cl | 0
-  var dl = this._dl | 0
-  var el = this._el | 0
-  var fl = this._fl | 0
-  var gl = this._gl | 0
-  var hl = this._hl | 0
-
-  for (var i = 0; i < 32; i += 2) {
-    W[i] = M.readInt32BE(i * 4)
-    W[i + 1] = M.readInt32BE(i * 4 + 4)
-  }
-  for (; i < 160; i += 2) {
-    var xh = W[i - 15 * 2]
-    var xl = W[i - 15 * 2 + 1]
-    var gamma0 = Gamma0(xh, xl)
-    var gamma0l = Gamma0l(xl, xh)
-
-    xh = W[i - 2 * 2]
-    xl = W[i - 2 * 2 + 1]
-    var gamma1 = Gamma1(xh, xl)
-    var gamma1l = Gamma1l(xl, xh)
-
-    // W[i] = gamma0 + W[i - 7] + gamma1 + W[i - 16]
-    var Wi7h = W[i - 7 * 2]
-    var Wi7l = W[i - 7 * 2 + 1]
-
-    var Wi16h = W[i - 16 * 2]
-    var Wi16l = W[i - 16 * 2 + 1]
-
-    var Wil = (gamma0l + Wi7l) | 0
-    var Wih = (gamma0 + Wi7h + getCarry(Wil, gamma0l)) | 0
-    Wil = (Wil + gamma1l) | 0
-    Wih = (Wih + gamma1 + getCarry(Wil, gamma1l)) | 0
-    Wil = (Wil + Wi16l) | 0
-    Wih = (Wih + Wi16h + getCarry(Wil, Wi16l)) | 0
-
-    W[i] = Wih
-    W[i + 1] = Wil
-  }
-
-  for (var j = 0; j < 160; j += 2) {
-    Wih = W[j]
-    Wil = W[j + 1]
-
-    var majh = maj(ah, bh, ch)
-    var majl = maj(al, bl, cl)
-
-    var sigma0h = sigma0(ah, al)
-    var sigma0l = sigma0(al, ah)
-    var sigma1h = sigma1(eh, el)
-    var sigma1l = sigma1(el, eh)
-
-    // t1 = h + sigma1 + ch + K[j] + W[j]
-    var Kih = K[j]
-    var Kil = K[j + 1]
-
-    var chh = Ch(eh, fh, gh)
-    var chl = Ch(el, fl, gl)
-
-    var t1l = (hl + sigma1l) | 0
-    var t1h = (hh + sigma1h + getCarry(t1l, hl)) | 0
-    t1l = (t1l + chl) | 0
-    t1h = (t1h + chh + getCarry(t1l, chl)) | 0
-    t1l = (t1l + Kil) | 0
-    t1h = (t1h + Kih + getCarry(t1l, Kil)) | 0
-    t1l = (t1l + Wil) | 0
-    t1h = (t1h + Wih + getCarry(t1l, Wil)) | 0
-
-    // t2 = sigma0 + maj
-    var t2l = (sigma0l + majl) | 0
-    var t2h = (sigma0h + majh + getCarry(t2l, sigma0l)) | 0
-
-    hh = gh
-    hl = gl
-    gh = fh
-    gl = fl
-    fh = eh
-    fl = el
-    el = (dl + t1l) | 0
-    eh = (dh + t1h + getCarry(el, dl)) | 0
-    dh = ch
-    dl = cl
-    ch = bh
-    cl = bl
-    bh = ah
-    bl = al
-    al = (t1l + t2l) | 0
-    ah = (t1h + t2h + getCarry(al, t1l)) | 0
-  }
-
-  this._al = (this._al + al) | 0
-  this._bl = (this._bl + bl) | 0
-  this._cl = (this._cl + cl) | 0
-  this._dl = (this._dl + dl) | 0
-  this._el = (this._el + el) | 0
-  this._fl = (this._fl + fl) | 0
-  this._gl = (this._gl + gl) | 0
-  this._hl = (this._hl + hl) | 0
-
-  this._ah = (this._ah + ah + getCarry(this._al, al)) | 0
-  this._bh = (this._bh + bh + getCarry(this._bl, bl)) | 0
-  this._ch = (this._ch + ch + getCarry(this._cl, cl)) | 0
-  this._dh = (this._dh + dh + getCarry(this._dl, dl)) | 0
-  this._eh = (this._eh + eh + getCarry(this._el, el)) | 0
-  this._fh = (this._fh + fh + getCarry(this._fl, fl)) | 0
-  this._gh = (this._gh + gh + getCarry(this._gl, gl)) | 0
-  this._hh = (this._hh + hh + getCarry(this._hl, hl)) | 0
-}
-
-Sha512.prototype._hash = function () {
-  var H = new Buffer(64)
-
-  function writeInt64BE (h, l, offset) {
-    H.writeInt32BE(h, offset)
-    H.writeInt32BE(l, offset + 4)
-  }
-
-  writeInt64BE(this._ah, this._al, 0)
-  writeInt64BE(this._bh, this._bl, 8)
-  writeInt64BE(this._ch, this._cl, 16)
-  writeInt64BE(this._dh, this._dl, 24)
-  writeInt64BE(this._eh, this._el, 32)
-  writeInt64BE(this._fh, this._fl, 40)
-  writeInt64BE(this._gh, this._gl, 48)
-  writeInt64BE(this._hh, this._hl, 56)
-
-  return H
-}
-
-module.exports = Sha512
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var inherits = __webpack_require__(1)
-var Legacy = __webpack_require__(158)
-var Base = __webpack_require__(10)
-var Buffer = __webpack_require__(8).Buffer
-var md5 = __webpack_require__(24)
-var RIPEMD160 = __webpack_require__(35)
-
-var sha = __webpack_require__(37)
-
-var ZEROS = Buffer.alloc(128)
-
-function Hmac (alg, key) {
-  Base.call(this, 'digest')
-  if (typeof key === 'string') {
-    key = Buffer.from(key)
-  }
-
-  var blocksize = (alg === 'sha512' || alg === 'sha384') ? 128 : 64
-
-  this._alg = alg
-  this._key = key
-  if (key.length > blocksize) {
-    var hash = alg === 'rmd160' ? new RIPEMD160() : sha(alg)
-    key = hash.update(key).digest()
-  } else if (key.length < blocksize) {
-    key = Buffer.concat([key, ZEROS], blocksize)
-  }
-
-  var ipad = this._ipad = Buffer.allocUnsafe(blocksize)
-  var opad = this._opad = Buffer.allocUnsafe(blocksize)
-
-  for (var i = 0; i < blocksize; i++) {
-    ipad[i] = key[i] ^ 0x36
-    opad[i] = key[i] ^ 0x5C
-  }
-  this._hash = alg === 'rmd160' ? new RIPEMD160() : sha(alg)
-  this._hash.update(ipad)
-}
-
-inherits(Hmac, Base)
-
-Hmac.prototype._update = function (data) {
-  this._hash.update(data)
-}
-
-Hmac.prototype._final = function () {
-  var h = this._hash.digest()
-  var hash = this._alg === 'rmd160' ? new RIPEMD160() : sha(this._alg)
-  return hash.update(this._opad).update(h).digest()
-}
-
-module.exports = function createHmac (alg, key) {
-  alg = alg.toLowerCase()
-  if (alg === 'rmd160' || alg === 'ripemd160') {
-    return new Hmac('rmd160', key)
-  }
-  if (alg === 'md5') {
-    return new Legacy(md5, key)
-  }
-  return new Hmac(alg, key)
-}
-
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports) {
-
-module.exports = {"sha224WithRSAEncryption":{"sign":"rsa","hash":"sha224","id":"302d300d06096086480165030402040500041c"},"RSA-SHA224":{"sign":"ecdsa/rsa","hash":"sha224","id":"302d300d06096086480165030402040500041c"},"sha256WithRSAEncryption":{"sign":"rsa","hash":"sha256","id":"3031300d060960864801650304020105000420"},"RSA-SHA256":{"sign":"ecdsa/rsa","hash":"sha256","id":"3031300d060960864801650304020105000420"},"sha384WithRSAEncryption":{"sign":"rsa","hash":"sha384","id":"3041300d060960864801650304020205000430"},"RSA-SHA384":{"sign":"ecdsa/rsa","hash":"sha384","id":"3041300d060960864801650304020205000430"},"sha512WithRSAEncryption":{"sign":"rsa","hash":"sha512","id":"3051300d060960864801650304020305000440"},"RSA-SHA512":{"sign":"ecdsa/rsa","hash":"sha512","id":"3051300d060960864801650304020305000440"},"RSA-SHA1":{"sign":"rsa","hash":"sha1","id":"3021300906052b0e03021a05000414"},"ecdsa-with-SHA1":{"sign":"ecdsa","hash":"sha1","id":""},"sha256":{"sign":"ecdsa","hash":"sha256","id":""},"sha224":{"sign":"ecdsa","hash":"sha224","id":""},"sha384":{"sign":"ecdsa","hash":"sha384","id":""},"sha512":{"sign":"ecdsa","hash":"sha512","id":""},"DSA-SHA":{"sign":"dsa","hash":"sha1","id":""},"DSA-SHA1":{"sign":"dsa","hash":"sha1","id":""},"DSA":{"sign":"dsa","hash":"sha1","id":""},"DSA-WITH-SHA224":{"sign":"dsa","hash":"sha224","id":""},"DSA-SHA224":{"sign":"dsa","hash":"sha224","id":""},"DSA-WITH-SHA256":{"sign":"dsa","hash":"sha256","id":""},"DSA-SHA256":{"sign":"dsa","hash":"sha256","id":""},"DSA-WITH-SHA384":{"sign":"dsa","hash":"sha384","id":""},"DSA-SHA384":{"sign":"dsa","hash":"sha384","id":""},"DSA-WITH-SHA512":{"sign":"dsa","hash":"sha512","id":""},"DSA-SHA512":{"sign":"dsa","hash":"sha512","id":""},"DSA-RIPEMD160":{"sign":"dsa","hash":"rmd160","id":""},"ripemd160WithRSA":{"sign":"rsa","hash":"rmd160","id":"3021300906052b2403020105000414"},"RSA-RIPEMD160":{"sign":"rsa","hash":"rmd160","id":"3021300906052b2403020105000414"},"md5WithRSAEncryption":{"sign":"rsa","hash":"md5","id":"3020300c06082a864886f70d020505000410"},"RSA-MD5":{"sign":"rsa","hash":"md5","id":"3020300c06082a864886f70d020505000410"}}
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-exports.pbkdf2 = __webpack_require__(160)
-
-exports.pbkdf2Sync = __webpack_require__(57)
-
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports) {
-
-var MAX_ALLOC = Math.pow(2, 30) - 1 // default in iojs
-module.exports = function (iterations, keylen) {
-  if (typeof iterations !== 'number') {
-    throw new TypeError('Iterations not a number')
-  }
-
-  if (iterations < 0) {
-    throw new TypeError('Bad iterations')
-  }
-
-  if (typeof keylen !== 'number') {
-    throw new TypeError('Key length not a number')
-  }
-
-  if (keylen < 0 || keylen > MAX_ALLOC || keylen !== keylen) { /* eslint no-self-compare: 0 */
-    throw new TypeError('Bad key length')
-  }
-}
-
-
-/***/ }),
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {var defaultEncoding
-/* istanbul ignore next */
-if (process.browser) {
-  defaultEncoding = 'utf-8'
-} else {
-  var pVersionMajor = parseInt(process.version.split('.')[0].slice(1), 10)
-
-  defaultEncoding = pVersionMajor >= 6 ? 'utf-8' : 'binary'
-}
-module.exports = defaultEncoding
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var md5 = __webpack_require__(24)
-var rmd160 = __webpack_require__(35)
-var sha = __webpack_require__(37)
-
-var checkParameters = __webpack_require__(55)
-var defaultEncoding = __webpack_require__(56)
-var Buffer = __webpack_require__(8).Buffer
-var ZEROS = Buffer.alloc(128)
-var sizes = {
-  md5: 16,
-  sha1: 20,
-  sha224: 28,
-  sha256: 32,
-  sha384: 48,
-  sha512: 64,
-  rmd160: 20,
-  ripemd160: 20
-}
-function Hmac (alg, key, saltLen) {
-  var hash = getDigest(alg)
-  var blocksize = (alg === 'sha512' || alg === 'sha384') ? 128 : 64
-
-  if (key.length > blocksize) {
-    key = hash(key)
-  } else if (key.length < blocksize) {
-    key = Buffer.concat([key, ZEROS], blocksize)
-  }
-
-  var ipad = Buffer.allocUnsafe(blocksize + sizes[alg])
-  var opad = Buffer.allocUnsafe(blocksize + sizes[alg])
-  for (var i = 0; i < blocksize; i++) {
-    ipad[i] = key[i] ^ 0x36
-    opad[i] = key[i] ^ 0x5C
-  }
-
-  var ipad1 = Buffer.allocUnsafe(blocksize + saltLen + 4)
-  ipad.copy(ipad1, 0, 0, blocksize)
-  this.ipad1 = ipad1
-  this.ipad2 = ipad
-  this.opad = opad
-  this.alg = alg
-  this.blocksize = blocksize
-  this.hash = hash
-  this.size = sizes[alg]
-}
-
-Hmac.prototype.run = function (data, ipad) {
-  data.copy(ipad, this.blocksize)
-  var h = this.hash(ipad)
-  h.copy(this.opad, this.blocksize)
-  return this.hash(this.opad)
-}
-
-function getDigest (alg) {
-  if (alg === 'rmd160' || alg === 'ripemd160') return rmd160
-  if (alg === 'md5') return md5
-  return shaFunc
-
-  function shaFunc (data) {
-    return sha(alg).update(data).digest()
-  }
-}
-
-module.exports = function (password, salt, iterations, keylen, digest) {
-  if (!Buffer.isBuffer(password)) password = Buffer.from(password, defaultEncoding)
-  if (!Buffer.isBuffer(salt)) salt = Buffer.from(salt, defaultEncoding)
-
-  checkParameters(iterations, keylen)
-
-  digest = digest || 'sha1'
-
-  var hmac = new Hmac(digest, password, salt.length)
-
-  var DK = Buffer.allocUnsafe(keylen)
-  var block1 = Buffer.allocUnsafe(salt.length + 4)
-  salt.copy(block1, 0, 0, salt.length)
-
-  var U, j, destPos, len
-
-  var hLen = hmac.size
-  var T = Buffer.allocUnsafe(hLen)
-  var l = Math.ceil(keylen / hLen)
-  var r = keylen - (l - 1) * hLen
-
-  for (var i = 1; i <= l; i++) {
-    block1.writeUInt32BE(i, salt.length)
-    U = hmac.run(block1, hmac.ipad1)
-
-    U.copy(T, 0, 0, hLen)
-
-    for (j = 1; j < iterations; j++) {
-      U = hmac.run(U, hmac.ipad2)
-      for (var k = 0; k < hLen; k++) T[k] ^= U[k]
-    }
-
-    destPos = (i - 1) * hLen
-    len = (i === l ? r : hLen)
-    T.copy(DK, destPos, 0, len)
-  }
-
-  return DK
-}
-
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
-var Transform = __webpack_require__(10)
-var inherits = __webpack_require__(1)
-
-inherits(StreamCipher, Transform)
-module.exports = StreamCipher
-function StreamCipher (mode, key, iv, decrypt) {
-  if (!(this instanceof StreamCipher)) {
-    return new StreamCipher(mode, key, iv)
-  }
-  Transform.call(this)
-  this._cipher = new aes.AES(key)
-  this._prev = new Buffer(iv.length)
-  this._cache = new Buffer('')
-  this._secCache = new Buffer('')
-  this._decrypt = decrypt
-  iv.copy(this._prev)
-  this._mode = mode
-}
-StreamCipher.prototype._update = function (chunk) {
-  return this._mode.encrypt(this, chunk, this._decrypt)
-}
-StreamCipher.prototype._final = function () {
-  this._cipher.scrub()
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
-var Transform = __webpack_require__(10)
-var inherits = __webpack_require__(1)
-var GHASH = __webpack_require__(163)
-var xor = __webpack_require__(18)
-inherits(StreamCipher, Transform)
-module.exports = StreamCipher
-
-function StreamCipher (mode, key, iv, decrypt) {
-  if (!(this instanceof StreamCipher)) {
-    return new StreamCipher(mode, key, iv)
-  }
-  Transform.call(this)
-  this._finID = Buffer.concat([iv, new Buffer([0, 0, 0, 1])])
-  iv = Buffer.concat([iv, new Buffer([0, 0, 0, 2])])
-  this._cipher = new aes.AES(key)
-  this._prev = new Buffer(iv.length)
-  this._cache = new Buffer('')
-  this._secCache = new Buffer('')
-  this._decrypt = decrypt
-  this._alen = 0
-  this._len = 0
-  iv.copy(this._prev)
-  this._mode = mode
-  var h = new Buffer(4)
-  h.fill(0)
-  this._ghash = new GHASH(this._cipher.encryptBlock(h))
-  this._authTag = null
-  this._called = false
-}
-StreamCipher.prototype._update = function (chunk) {
-  if (!this._called && this._alen) {
-    var rump = 16 - (this._alen % 16)
-    if (rump < 16) {
-      rump = new Buffer(rump)
-      rump.fill(0)
-      this._ghash.update(rump)
-    }
-  }
-  this._called = true
-  var out = this._mode.encrypt(this, chunk)
-  if (this._decrypt) {
-    this._ghash.update(chunk)
-  } else {
-    this._ghash.update(out)
-  }
-  this._len += chunk.length
-  return out
-}
-StreamCipher.prototype._final = function () {
-  if (this._decrypt && !this._authTag) {
-    throw new Error('Unsupported state or unable to authenticate data')
-  }
-  var tag = xor(this._ghash.final(this._alen * 8, this._len * 8), this._cipher.encryptBlock(this._finID))
-  if (this._decrypt) {
-    if (xorTest(tag, this._authTag)) {
-      throw new Error('Unsupported state or unable to authenticate data')
-    }
-  } else {
-    this._authTag = tag
-  }
-  this._cipher.scrub()
-}
-StreamCipher.prototype.getAuthTag = function getAuthTag () {
-  if (!this._decrypt && Buffer.isBuffer(this._authTag)) {
-    return this._authTag
-  } else {
-    throw new Error('Attempting to get auth tag in unsupported state')
-  }
-}
-StreamCipher.prototype.setAuthTag = function setAuthTag (tag) {
-  if (this._decrypt) {
-    this._authTag = tag
-  } else {
-    throw new Error('Attempting to set auth tag in unsupported state')
-  }
-}
-StreamCipher.prototype.setAAD = function setAAD (buf) {
-  if (!this._called) {
-    this._ghash.update(buf)
-    this._alen += buf.length
-  } else {
-    throw new Error('Attempting to set AAD in unsupported state')
-  }
-}
-function xorTest (a, b) {
-  var out = 0
-  if (a.length !== b.length) {
-    out++
-  }
-  var len = Math.min(a.length, b.length)
-  var i = -1
-  while (++i < len) {
-    out += (a[i] ^ b[i])
-  }
-  return out
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports) {
-
-exports.encrypt = function (self, block) {
-  return self._cipher.encryptBlock(block)
-}
-exports.decrypt = function (self, block) {
-  return self._cipher.decryptBlock(block)
-}
-
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var xor = __webpack_require__(18)
-
-exports.encrypt = function (self, block) {
-  var data = xor(block, self._prev)
-
-  self._prev = self._cipher.encryptBlock(data)
-  return self._prev
-}
-
-exports.decrypt = function (self, block) {
-  var pad = self._prev
-
-  self._prev = block
-  var out = self._cipher.decryptBlock(block)
-
-  return xor(out, pad)
-}
-
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(18)
-
-exports.encrypt = function (self, data, decrypt) {
-  var out = new Buffer('')
-  var len
-
-  while (data.length) {
-    if (self._cache.length === 0) {
-      self._cache = self._cipher.encryptBlock(self._prev)
-      self._prev = new Buffer('')
-    }
-
-    if (self._cache.length <= data.length) {
-      len = self._cache.length
-      out = Buffer.concat([out, encryptStart(self, data.slice(0, len), decrypt)])
-      data = data.slice(len)
-    } else {
-      out = Buffer.concat([out, encryptStart(self, data, decrypt)])
-      break
-    }
-  }
-
-  return out
-}
-function encryptStart (self, data, decrypt) {
-  var len = data.length
-  var out = xor(data, self._cache)
-  self._cache = self._cache.slice(len)
-  self._prev = Buffer.concat([self._prev, decrypt ? data : out])
-  return out
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {function encryptByte (self, byteParam, decrypt) {
-  var pad = self._cipher.encryptBlock(self._prev)
-  var out = pad[0] ^ byteParam
-  self._prev = Buffer.concat([self._prev.slice(1), new Buffer([decrypt ? byteParam : out])])
-  return out
-}
-exports.encrypt = function (self, chunk, decrypt) {
-  var len = chunk.length
-  var out = new Buffer(len)
-  var i = -1
-  while (++i < len) {
-    out[i] = encryptByte(self, chunk[i], decrypt)
-  }
-  return out
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {function encryptByte (self, byteParam, decrypt) {
-  var pad
-  var i = -1
-  var len = 8
-  var out = 0
-  var bit, value
-  while (++i < len) {
-    pad = self._cipher.encryptBlock(self._prev)
-    bit = (byteParam & (1 << (7 - i))) ? 0x80 : 0
-    value = pad[0] ^ bit
-    out += ((value & 0x80) >> (i % 8))
-    self._prev = shiftIn(self._prev, decrypt ? bit : value)
-  }
-  return out
-}
-exports.encrypt = function (self, chunk, decrypt) {
-  var len = chunk.length
-  var out = new Buffer(len)
-  var i = -1
-  while (++i < len) {
-    out[i] = encryptByte(self, chunk[i], decrypt)
-  }
-  return out
-}
-function shiftIn (buffer, value) {
-  var len = buffer.length
-  var i = -1
-  var out = new Buffer(buffer.length)
-  buffer = Buffer.concat([buffer, new Buffer([value])])
-  while (++i < len) {
-    out[i] = buffer[i] << 1 | buffer[i + 1] >> (7)
-  }
-  return out
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(18)
-
-function getBlock (self) {
-  self._prev = self._cipher.encryptBlock(self._prev)
-  return self._prev
-}
-
-exports.encrypt = function (self, chunk) {
-  while (self._cache.length < chunk.length) {
-    self._cache = Buffer.concat([self._cache, getBlock(self)])
-  }
-
-  var pad = self._cache.slice(0, chunk.length)
-  self._cache = self._cache.slice(chunk.length)
-  return xor(chunk, pad)
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var randomBytes = __webpack_require__(16);
-module.exports = findPrime;
-findPrime.simpleSieve = simpleSieve;
-findPrime.fermatTest = fermatTest;
-var BN = __webpack_require__(2);
-var TWENTYFOUR = new BN(24);
-var MillerRabin = __webpack_require__(67);
-var millerRabin = new MillerRabin();
-var ONE = new BN(1);
-var TWO = new BN(2);
-var FIVE = new BN(5);
-var SIXTEEN = new BN(16);
-var EIGHT = new BN(8);
-var TEN = new BN(10);
-var THREE = new BN(3);
-var SEVEN = new BN(7);
-var ELEVEN = new BN(11);
-var FOUR = new BN(4);
-var TWELVE = new BN(12);
-var primes = null;
-
-function _getPrimes() {
-  if (primes !== null)
-    return primes;
-
-  var limit = 0x100000;
-  var res = [];
-  res[0] = 2;
-  for (var i = 1, k = 3; k < limit; k += 2) {
-    var sqrt = Math.ceil(Math.sqrt(k));
-    for (var j = 0; j < i && res[j] <= sqrt; j++)
-      if (k % res[j] === 0)
-        break;
-
-    if (i !== j && res[j] <= sqrt)
-      continue;
-
-    res[i++] = k;
-  }
-  primes = res;
-  return res;
-}
-
-function simpleSieve(p) {
-  var primes = _getPrimes();
-
-  for (var i = 0; i < primes.length; i++)
-    if (p.modn(primes[i]) === 0) {
-      if (p.cmpn(primes[i]) === 0) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-  return true;
-}
-
-function fermatTest(p) {
-  var red = BN.mont(p);
-  return TWO.toRed(red).redPow(p.subn(1)).fromRed().cmpn(1) === 0;
-}
-
-function findPrime(bits, gen) {
-  if (bits < 16) {
-    // this is what openssl does
-    if (gen === 2 || gen === 5) {
-      return new BN([0x8c, 0x7b]);
-    } else {
-      return new BN([0x8c, 0x27]);
-    }
-  }
-  gen = new BN(gen);
-
-  var num, n2;
-
-  while (true) {
-    num = new BN(randomBytes(Math.ceil(bits / 8)));
-    while (num.bitLength() > bits) {
-      num.ishrn(1);
-    }
-    if (num.isEven()) {
-      num.iadd(ONE);
-    }
-    if (!num.testn(1)) {
-      num.iadd(TWO);
-    }
-    if (!gen.cmp(TWO)) {
-      while (num.mod(TWENTYFOUR).cmp(ELEVEN)) {
-        num.iadd(FOUR);
-      }
-    } else if (!gen.cmp(FIVE)) {
-      while (num.mod(TEN).cmp(THREE)) {
-        num.iadd(FOUR);
-      }
-    }
-    n2 = num.shrn(1);
-    if (simpleSieve(n2) && simpleSieve(num) &&
-      fermatTest(n2) && fermatTest(num) &&
-      millerRabin.test(n2) && millerRabin.test(num)) {
-      return num;
-    }
-  }
-
-}
-
-
-/***/ }),
-/* 67 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var bn = __webpack_require__(2);
-var brorand = __webpack_require__(68);
-
-function MillerRabin(rand) {
-  this.rand = rand || new brorand.Rand();
-}
-module.exports = MillerRabin;
-
-MillerRabin.create = function create(rand) {
-  return new MillerRabin(rand);
-};
-
-MillerRabin.prototype._rand = function _rand(n) {
-  var len = n.bitLength();
-  var buf = this.rand.generate(Math.ceil(len / 8));
-
-  // Set low bits
-  buf[0] |= 3;
-
-  // Mask high bits
-  var mask = len & 0x7;
-  if (mask !== 0)
-    buf[buf.length - 1] >>= 7 - mask;
-
-  return new bn(buf);
-}
-
-MillerRabin.prototype.test = function test(n, k, cb) {
-  var len = n.bitLength();
-  var red = bn.mont(n);
-  var rone = new bn(1).toRed(red);
-
-  if (!k)
-    k = Math.max(1, (len / 48) | 0);
-
-  // Find d and s, (n - 1) = (2 ^ s) * d;
-  var n1 = n.subn(1);
-  var n2 = n1.subn(1);
-  for (var s = 0; !n1.testn(s); s++) {}
-  var d = n.shrn(s);
-
-  var rn1 = n1.toRed(red);
-
-  var prime = true;
-  for (; k > 0; k--) {
-    var a = this._rand(n2);
-    if (cb)
-      cb(a);
-
-    var x = a.toRed(red).redPow(d);
-    if (x.cmp(rone) === 0 || x.cmp(rn1) === 0)
-      continue;
-
-    for (var i = 1; i < s; i++) {
-      x = x.redSqr();
-
-      if (x.cmp(rone) === 0)
-        return false;
-      if (x.cmp(rn1) === 0)
-        break;
-    }
-
-    if (i === s)
-      return false;
-  }
-
-  return prime;
-};
-
-MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
-  var len = n.bitLength();
-  var red = bn.mont(n);
-  var rone = new bn(1).toRed(red);
-
-  if (!k)
-    k = Math.max(1, (len / 48) | 0);
-
-  // Find d and s, (n - 1) = (2 ^ s) * d;
-  var n1 = n.subn(1);
-  var n2 = n1.subn(1);
-  for (var s = 0; !n1.testn(s); s++) {}
-  var d = n.shrn(s);
-
-  var rn1 = n1.toRed(red);
-
-  for (; k > 0; k--) {
-    var a = this._rand(n2);
-
-    var g = n.gcd(a);
-    if (g.cmpn(1) !== 0)
-      return g;
-
-    var x = a.toRed(red).redPow(d);
-    if (x.cmp(rone) === 0 || x.cmp(rn1) === 0)
-      continue;
-
-    for (var i = 1; i < s; i++) {
-      x = x.redSqr();
-
-      if (x.cmp(rone) === 0)
-        return x.fromRed().subn(1).gcd(n);
-      if (x.cmp(rn1) === 0)
-        break;
-    }
-
-    if (i === s) {
-      x = x.redSqr();
-      return x.fromRed().subn(1).gcd(n);
-    }
-  }
-
-  return false;
-};
-
-
-/***/ }),
-/* 68 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var r;
-
-module.exports = function rand(len) {
-  if (!r)
-    r = new Rand(null);
-
-  return r.generate(len);
-};
-
-function Rand(rand) {
-  this.rand = rand;
-}
-module.exports.Rand = Rand;
-
-Rand.prototype.generate = function generate(len) {
-  return this._rand(len);
-};
-
-// Emulate crypto API using randy
-Rand.prototype._rand = function _rand(n) {
-  if (this.rand.getBytes)
-    return this.rand.getBytes(n);
-
-  var res = new Uint8Array(n);
-  for (var i = 0; i < res.length; i++)
-    res[i] = this.rand.getByte();
-  return res;
-};
-
-if (typeof self === 'object') {
-  if (self.crypto && self.crypto.getRandomValues) {
-    // Modern browsers
-    Rand.prototype._rand = function _rand(n) {
-      var arr = new Uint8Array(n);
-      self.crypto.getRandomValues(arr);
-      return arr;
-    };
-  } else if (self.msCrypto && self.msCrypto.getRandomValues) {
-    // IE
-    Rand.prototype._rand = function _rand(n) {
-      var arr = new Uint8Array(n);
-      self.msCrypto.getRandomValues(arr);
-      return arr;
-    };
-
-  // Safari's WebWorkers do not have `crypto`
-  } else if (typeof window === 'object') {
-    // Old junk
-    Rand.prototype._rand = function() {
-      throw new Error('Not implemented yet');
-    };
-  }
-} else {
-  // Node.js or Web worker with no crypto support
-  try {
-    var crypto = __webpack_require__(173);
-    if (typeof crypto.randomBytes !== 'function')
-      throw new Error('Not supported');
-
-    Rand.prototype._rand = function _rand(n) {
-      return crypto.randomBytes(n);
-    };
-  } catch (e) {
-  }
-}
-
-
-/***/ }),
-/* 69 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = exports;
-
-function toArray(msg, enc) {
-  if (Array.isArray(msg))
-    return msg.slice();
-  if (!msg)
-    return [];
-  var res = [];
-  if (typeof msg !== 'string') {
-    for (var i = 0; i < msg.length; i++)
-      res[i] = msg[i] | 0;
-    return res;
-  }
-  if (enc === 'hex') {
-    msg = msg.replace(/[^a-z0-9]+/ig, '');
-    if (msg.length % 2 !== 0)
-      msg = '0' + msg;
-    for (var i = 0; i < msg.length; i += 2)
-      res.push(parseInt(msg[i] + msg[i + 1], 16));
-  } else {
-    for (var i = 0; i < msg.length; i++) {
-      var c = msg.charCodeAt(i);
-      var hi = c >> 8;
-      var lo = c & 0xff;
-      if (hi)
-        res.push(hi, lo);
-      else
-        res.push(lo);
-    }
-  }
-  return res;
-}
-utils.toArray = toArray;
-
-function zero2(word) {
-  if (word.length === 1)
-    return '0' + word;
-  else
-    return word;
-}
-utils.zero2 = zero2;
-
-function toHex(msg) {
-  var res = '';
-  for (var i = 0; i < msg.length; i++)
-    res += zero2(msg[i].toString(16));
-  return res;
-}
-utils.toHex = toHex;
-
-utils.encode = function encode(arr, enc) {
-  if (enc === 'hex')
-    return toHex(arr);
-  else
-    return arr;
-};
-
-
-/***/ }),
-/* 70 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(7);
-var rotr32 = utils.rotr32;
-
-function ft_1(s, x, y, z) {
-  if (s === 0)
-    return ch32(x, y, z);
-  if (s === 1 || s === 3)
-    return p32(x, y, z);
-  if (s === 2)
-    return maj32(x, y, z);
-}
-exports.ft_1 = ft_1;
-
-function ch32(x, y, z) {
-  return (x & y) ^ ((~x) & z);
-}
-exports.ch32 = ch32;
-
-function maj32(x, y, z) {
-  return (x & y) ^ (x & z) ^ (y & z);
-}
-exports.maj32 = maj32;
-
-function p32(x, y, z) {
-  return x ^ y ^ z;
-}
-exports.p32 = p32;
-
-function s0_256(x) {
-  return rotr32(x, 2) ^ rotr32(x, 13) ^ rotr32(x, 22);
-}
-exports.s0_256 = s0_256;
-
-function s1_256(x) {
-  return rotr32(x, 6) ^ rotr32(x, 11) ^ rotr32(x, 25);
-}
-exports.s1_256 = s1_256;
-
-function g0_256(x) {
-  return rotr32(x, 7) ^ rotr32(x, 18) ^ (x >>> 3);
-}
-exports.g0_256 = g0_256;
-
-function g1_256(x) {
-  return rotr32(x, 17) ^ rotr32(x, 19) ^ (x >>> 10);
-}
-exports.g1_256 = g1_256;
-
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(7);
-var common = __webpack_require__(19);
-var shaCommon = __webpack_require__(70);
-var assert = __webpack_require__(6);
-
-var sum32 = utils.sum32;
-var sum32_4 = utils.sum32_4;
-var sum32_5 = utils.sum32_5;
-var ch32 = shaCommon.ch32;
-var maj32 = shaCommon.maj32;
-var s0_256 = shaCommon.s0_256;
-var s1_256 = shaCommon.s1_256;
-var g0_256 = shaCommon.g0_256;
-var g1_256 = shaCommon.g1_256;
-
-var BlockHash = common.BlockHash;
-
-var sha256_K = [
-  0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
-  0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
-  0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
-  0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
-  0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
-  0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
-  0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
-  0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
-  0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
-  0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
-  0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
-  0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
-  0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
-  0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
-  0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
-  0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
-];
-
-function SHA256() {
-  if (!(this instanceof SHA256))
-    return new SHA256();
-
-  BlockHash.call(this);
-  this.h = [
-    0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
-    0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
-  ];
-  this.k = sha256_K;
-  this.W = new Array(64);
-}
-utils.inherits(SHA256, BlockHash);
-module.exports = SHA256;
-
-SHA256.blockSize = 512;
-SHA256.outSize = 256;
-SHA256.hmacStrength = 192;
-SHA256.padLength = 64;
-
-SHA256.prototype._update = function _update(msg, start) {
-  var W = this.W;
-
-  for (var i = 0; i < 16; i++)
-    W[i] = msg[start + i];
-  for (; i < W.length; i++)
-    W[i] = sum32_4(g1_256(W[i - 2]), W[i - 7], g0_256(W[i - 15]), W[i - 16]);
-
-  var a = this.h[0];
-  var b = this.h[1];
-  var c = this.h[2];
-  var d = this.h[3];
-  var e = this.h[4];
-  var f = this.h[5];
-  var g = this.h[6];
-  var h = this.h[7];
-
-  assert(this.k.length === W.length);
-  for (i = 0; i < W.length; i++) {
-    var T1 = sum32_5(h, s1_256(e), ch32(e, f, g), this.k[i], W[i]);
-    var T2 = sum32(s0_256(a), maj32(a, b, c));
-    h = g;
-    g = f;
-    f = e;
-    e = sum32(d, T1);
-    d = c;
-    c = b;
-    b = a;
-    a = sum32(T1, T2);
-  }
-
-  this.h[0] = sum32(this.h[0], a);
-  this.h[1] = sum32(this.h[1], b);
-  this.h[2] = sum32(this.h[2], c);
-  this.h[3] = sum32(this.h[3], d);
-  this.h[4] = sum32(this.h[4], e);
-  this.h[5] = sum32(this.h[5], f);
-  this.h[6] = sum32(this.h[6], g);
-  this.h[7] = sum32(this.h[7], h);
-};
-
-SHA256.prototype._digest = function digest(enc) {
-  if (enc === 'hex')
-    return utils.toHex32(this.h, 'big');
-  else
-    return utils.split32(this.h, 'big');
-};
-
-
-/***/ }),
-/* 72 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(7);
-var common = __webpack_require__(19);
-var assert = __webpack_require__(6);
-
-var rotr64_hi = utils.rotr64_hi;
-var rotr64_lo = utils.rotr64_lo;
-var shr64_hi = utils.shr64_hi;
-var shr64_lo = utils.shr64_lo;
-var sum64 = utils.sum64;
-var sum64_hi = utils.sum64_hi;
-var sum64_lo = utils.sum64_lo;
-var sum64_4_hi = utils.sum64_4_hi;
-var sum64_4_lo = utils.sum64_4_lo;
-var sum64_5_hi = utils.sum64_5_hi;
-var sum64_5_lo = utils.sum64_5_lo;
-
-var BlockHash = common.BlockHash;
-
-var sha512_K = [
-  0x428a2f98, 0xd728ae22, 0x71374491, 0x23ef65cd,
-  0xb5c0fbcf, 0xec4d3b2f, 0xe9b5dba5, 0x8189dbbc,
-  0x3956c25b, 0xf348b538, 0x59f111f1, 0xb605d019,
-  0x923f82a4, 0xaf194f9b, 0xab1c5ed5, 0xda6d8118,
-  0xd807aa98, 0xa3030242, 0x12835b01, 0x45706fbe,
-  0x243185be, 0x4ee4b28c, 0x550c7dc3, 0xd5ffb4e2,
-  0x72be5d74, 0xf27b896f, 0x80deb1fe, 0x3b1696b1,
-  0x9bdc06a7, 0x25c71235, 0xc19bf174, 0xcf692694,
-  0xe49b69c1, 0x9ef14ad2, 0xefbe4786, 0x384f25e3,
-  0x0fc19dc6, 0x8b8cd5b5, 0x240ca1cc, 0x77ac9c65,
-  0x2de92c6f, 0x592b0275, 0x4a7484aa, 0x6ea6e483,
-  0x5cb0a9dc, 0xbd41fbd4, 0x76f988da, 0x831153b5,
-  0x983e5152, 0xee66dfab, 0xa831c66d, 0x2db43210,
-  0xb00327c8, 0x98fb213f, 0xbf597fc7, 0xbeef0ee4,
-  0xc6e00bf3, 0x3da88fc2, 0xd5a79147, 0x930aa725,
-  0x06ca6351, 0xe003826f, 0x14292967, 0x0a0e6e70,
-  0x27b70a85, 0x46d22ffc, 0x2e1b2138, 0x5c26c926,
-  0x4d2c6dfc, 0x5ac42aed, 0x53380d13, 0x9d95b3df,
-  0x650a7354, 0x8baf63de, 0x766a0abb, 0x3c77b2a8,
-  0x81c2c92e, 0x47edaee6, 0x92722c85, 0x1482353b,
-  0xa2bfe8a1, 0x4cf10364, 0xa81a664b, 0xbc423001,
-  0xc24b8b70, 0xd0f89791, 0xc76c51a3, 0x0654be30,
-  0xd192e819, 0xd6ef5218, 0xd6990624, 0x5565a910,
-  0xf40e3585, 0x5771202a, 0x106aa070, 0x32bbd1b8,
-  0x19a4c116, 0xb8d2d0c8, 0x1e376c08, 0x5141ab53,
-  0x2748774c, 0xdf8eeb99, 0x34b0bcb5, 0xe19b48a8,
-  0x391c0cb3, 0xc5c95a63, 0x4ed8aa4a, 0xe3418acb,
-  0x5b9cca4f, 0x7763e373, 0x682e6ff3, 0xd6b2b8a3,
-  0x748f82ee, 0x5defb2fc, 0x78a5636f, 0x43172f60,
-  0x84c87814, 0xa1f0ab72, 0x8cc70208, 0x1a6439ec,
-  0x90befffa, 0x23631e28, 0xa4506ceb, 0xde82bde9,
-  0xbef9a3f7, 0xb2c67915, 0xc67178f2, 0xe372532b,
-  0xca273ece, 0xea26619c, 0xd186b8c7, 0x21c0c207,
-  0xeada7dd6, 0xcde0eb1e, 0xf57d4f7f, 0xee6ed178,
-  0x06f067aa, 0x72176fba, 0x0a637dc5, 0xa2c898a6,
-  0x113f9804, 0xbef90dae, 0x1b710b35, 0x131c471b,
-  0x28db77f5, 0x23047d84, 0x32caab7b, 0x40c72493,
-  0x3c9ebe0a, 0x15c9bebc, 0x431d67c4, 0x9c100d4c,
-  0x4cc5d4be, 0xcb3e42b6, 0x597f299c, 0xfc657e2a,
-  0x5fcb6fab, 0x3ad6faec, 0x6c44198c, 0x4a475817
-];
-
-function SHA512() {
-  if (!(this instanceof SHA512))
-    return new SHA512();
-
-  BlockHash.call(this);
-  this.h = [
-    0x6a09e667, 0xf3bcc908,
-    0xbb67ae85, 0x84caa73b,
-    0x3c6ef372, 0xfe94f82b,
-    0xa54ff53a, 0x5f1d36f1,
-    0x510e527f, 0xade682d1,
-    0x9b05688c, 0x2b3e6c1f,
-    0x1f83d9ab, 0xfb41bd6b,
-    0x5be0cd19, 0x137e2179 ];
-  this.k = sha512_K;
-  this.W = new Array(160);
-}
-utils.inherits(SHA512, BlockHash);
-module.exports = SHA512;
-
-SHA512.blockSize = 1024;
-SHA512.outSize = 512;
-SHA512.hmacStrength = 192;
-SHA512.padLength = 128;
-
-SHA512.prototype._prepareBlock = function _prepareBlock(msg, start) {
-  var W = this.W;
-
-  // 32 x 32bit words
-  for (var i = 0; i < 32; i++)
-    W[i] = msg[start + i];
-  for (; i < W.length; i += 2) {
-    var c0_hi = g1_512_hi(W[i - 4], W[i - 3]);  // i - 2
-    var c0_lo = g1_512_lo(W[i - 4], W[i - 3]);
-    var c1_hi = W[i - 14];  // i - 7
-    var c1_lo = W[i - 13];
-    var c2_hi = g0_512_hi(W[i - 30], W[i - 29]);  // i - 15
-    var c2_lo = g0_512_lo(W[i - 30], W[i - 29]);
-    var c3_hi = W[i - 32];  // i - 16
-    var c3_lo = W[i - 31];
-
-    W[i] = sum64_4_hi(
-      c0_hi, c0_lo,
-      c1_hi, c1_lo,
-      c2_hi, c2_lo,
-      c3_hi, c3_lo);
-    W[i + 1] = sum64_4_lo(
-      c0_hi, c0_lo,
-      c1_hi, c1_lo,
-      c2_hi, c2_lo,
-      c3_hi, c3_lo);
-  }
-};
-
-SHA512.prototype._update = function _update(msg, start) {
-  this._prepareBlock(msg, start);
-
-  var W = this.W;
-
-  var ah = this.h[0];
-  var al = this.h[1];
-  var bh = this.h[2];
-  var bl = this.h[3];
-  var ch = this.h[4];
-  var cl = this.h[5];
-  var dh = this.h[6];
-  var dl = this.h[7];
-  var eh = this.h[8];
-  var el = this.h[9];
-  var fh = this.h[10];
-  var fl = this.h[11];
-  var gh = this.h[12];
-  var gl = this.h[13];
-  var hh = this.h[14];
-  var hl = this.h[15];
-
-  assert(this.k.length === W.length);
-  for (var i = 0; i < W.length; i += 2) {
-    var c0_hi = hh;
-    var c0_lo = hl;
-    var c1_hi = s1_512_hi(eh, el);
-    var c1_lo = s1_512_lo(eh, el);
-    var c2_hi = ch64_hi(eh, el, fh, fl, gh, gl);
-    var c2_lo = ch64_lo(eh, el, fh, fl, gh, gl);
-    var c3_hi = this.k[i];
-    var c3_lo = this.k[i + 1];
-    var c4_hi = W[i];
-    var c4_lo = W[i + 1];
-
-    var T1_hi = sum64_5_hi(
-      c0_hi, c0_lo,
-      c1_hi, c1_lo,
-      c2_hi, c2_lo,
-      c3_hi, c3_lo,
-      c4_hi, c4_lo);
-    var T1_lo = sum64_5_lo(
-      c0_hi, c0_lo,
-      c1_hi, c1_lo,
-      c2_hi, c2_lo,
-      c3_hi, c3_lo,
-      c4_hi, c4_lo);
-
-    c0_hi = s0_512_hi(ah, al);
-    c0_lo = s0_512_lo(ah, al);
-    c1_hi = maj64_hi(ah, al, bh, bl, ch, cl);
-    c1_lo = maj64_lo(ah, al, bh, bl, ch, cl);
-
-    var T2_hi = sum64_hi(c0_hi, c0_lo, c1_hi, c1_lo);
-    var T2_lo = sum64_lo(c0_hi, c0_lo, c1_hi, c1_lo);
-
-    hh = gh;
-    hl = gl;
-
-    gh = fh;
-    gl = fl;
-
-    fh = eh;
-    fl = el;
-
-    eh = sum64_hi(dh, dl, T1_hi, T1_lo);
-    el = sum64_lo(dl, dl, T1_hi, T1_lo);
-
-    dh = ch;
-    dl = cl;
-
-    ch = bh;
-    cl = bl;
-
-    bh = ah;
-    bl = al;
-
-    ah = sum64_hi(T1_hi, T1_lo, T2_hi, T2_lo);
-    al = sum64_lo(T1_hi, T1_lo, T2_hi, T2_lo);
-  }
-
-  sum64(this.h, 0, ah, al);
-  sum64(this.h, 2, bh, bl);
-  sum64(this.h, 4, ch, cl);
-  sum64(this.h, 6, dh, dl);
-  sum64(this.h, 8, eh, el);
-  sum64(this.h, 10, fh, fl);
-  sum64(this.h, 12, gh, gl);
-  sum64(this.h, 14, hh, hl);
-};
-
-SHA512.prototype._digest = function digest(enc) {
-  if (enc === 'hex')
-    return utils.toHex32(this.h, 'big');
-  else
-    return utils.split32(this.h, 'big');
-};
-
-function ch64_hi(xh, xl, yh, yl, zh) {
-  var r = (xh & yh) ^ ((~xh) & zh);
-  if (r < 0)
-    r += 0x100000000;
-  return r;
-}
-
-function ch64_lo(xh, xl, yh, yl, zh, zl) {
-  var r = (xl & yl) ^ ((~xl) & zl);
-  if (r < 0)
-    r += 0x100000000;
-  return r;
-}
-
-function maj64_hi(xh, xl, yh, yl, zh) {
-  var r = (xh & yh) ^ (xh & zh) ^ (yh & zh);
-  if (r < 0)
-    r += 0x100000000;
-  return r;
-}
-
-function maj64_lo(xh, xl, yh, yl, zh, zl) {
-  var r = (xl & yl) ^ (xl & zl) ^ (yl & zl);
-  if (r < 0)
-    r += 0x100000000;
-  return r;
-}
-
-function s0_512_hi(xh, xl) {
-  var c0_hi = rotr64_hi(xh, xl, 28);
-  var c1_hi = rotr64_hi(xl, xh, 2);  // 34
-  var c2_hi = rotr64_hi(xl, xh, 7);  // 39
-
-  var r = c0_hi ^ c1_hi ^ c2_hi;
-  if (r < 0)
-    r += 0x100000000;
-  return r;
-}
-
-function s0_512_lo(xh, xl) {
-  var c0_lo = rotr64_lo(xh, xl, 28);
-  var c1_lo = rotr64_lo(xl, xh, 2);  // 34
-  var c2_lo = rotr64_lo(xl, xh, 7);  // 39
-
-  var r = c0_lo ^ c1_lo ^ c2_lo;
-  if (r < 0)
-    r += 0x100000000;
-  return r;
-}
-
-function s1_512_hi(xh, xl) {
-  var c0_hi = rotr64_hi(xh, xl, 14);
-  var c1_hi = rotr64_hi(xh, xl, 18);
-  var c2_hi = rotr64_hi(xl, xh, 9);  // 41
-
-  var r = c0_hi ^ c1_hi ^ c2_hi;
-  if (r < 0)
-    r += 0x100000000;
-  return r;
-}
-
-function s1_512_lo(xh, xl) {
-  var c0_lo = rotr64_lo(xh, xl, 14);
-  var c1_lo = rotr64_lo(xh, xl, 18);
-  var c2_lo = rotr64_lo(xl, xh, 9);  // 41
-
-  var r = c0_lo ^ c1_lo ^ c2_lo;
-  if (r < 0)
-    r += 0x100000000;
-  return r;
-}
-
-function g0_512_hi(xh, xl) {
-  var c0_hi = rotr64_hi(xh, xl, 1);
-  var c1_hi = rotr64_hi(xh, xl, 8);
-  var c2_hi = shr64_hi(xh, xl, 7);
-
-  var r = c0_hi ^ c1_hi ^ c2_hi;
-  if (r < 0)
-    r += 0x100000000;
-  return r;
-}
-
-function g0_512_lo(xh, xl) {
-  var c0_lo = rotr64_lo(xh, xl, 1);
-  var c1_lo = rotr64_lo(xh, xl, 8);
-  var c2_lo = shr64_lo(xh, xl, 7);
-
-  var r = c0_lo ^ c1_lo ^ c2_lo;
-  if (r < 0)
-    r += 0x100000000;
-  return r;
-}
-
-function g1_512_hi(xh, xl) {
-  var c0_hi = rotr64_hi(xh, xl, 19);
-  var c1_hi = rotr64_hi(xl, xh, 29);  // 61
-  var c2_hi = shr64_hi(xh, xl, 6);
-
-  var r = c0_hi ^ c1_hi ^ c2_hi;
-  if (r < 0)
-    r += 0x100000000;
-  return r;
-}
-
-function g1_512_lo(xh, xl) {
-  var c0_lo = rotr64_lo(xh, xl, 19);
-  var c1_lo = rotr64_lo(xl, xh, 29);  // 61
-  var c2_lo = shr64_lo(xh, xl, 6);
-
-  var r = c0_lo ^ c1_lo ^ c2_lo;
-  if (r < 0)
-    r += 0x100000000;
-  return r;
-}
-
-
-/***/ }),
-/* 73 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var inherits = __webpack_require__(1);
-var Reporter = __webpack_require__(21).Reporter;
-var Buffer = __webpack_require__(0).Buffer;
-
-function DecoderBuffer(base, options) {
-  Reporter.call(this, options);
-  if (!Buffer.isBuffer(base)) {
-    this.error('Input not Buffer');
-    return;
-  }
-
-  this.base = base;
-  this.offset = 0;
-  this.length = base.length;
-}
-inherits(DecoderBuffer, Reporter);
-exports.DecoderBuffer = DecoderBuffer;
-
-DecoderBuffer.prototype.save = function save() {
-  return { offset: this.offset, reporter: Reporter.prototype.save.call(this) };
-};
-
-DecoderBuffer.prototype.restore = function restore(save) {
-  // Return skipped data
-  var res = new DecoderBuffer(this.base);
-  res.offset = save.offset;
-  res.length = this.offset;
-
-  this.offset = save.offset;
-  Reporter.prototype.restore.call(this, save.reporter);
-
-  return res;
-};
-
-DecoderBuffer.prototype.isEmpty = function isEmpty() {
-  return this.offset === this.length;
-};
-
-DecoderBuffer.prototype.readUInt8 = function readUInt8(fail) {
-  if (this.offset + 1 <= this.length)
-    return this.base.readUInt8(this.offset++, true);
-  else
-    return this.error(fail || 'DecoderBuffer overrun');
-}
-
-DecoderBuffer.prototype.skip = function skip(bytes, fail) {
-  if (!(this.offset + bytes <= this.length))
-    return this.error(fail || 'DecoderBuffer overrun');
-
-  var res = new DecoderBuffer(this.base);
-
-  // Share reporter state
-  res._reporterState = this._reporterState;
-
-  res.offset = this.offset;
-  res.length = this.offset + bytes;
-  this.offset += bytes;
-  return res;
-}
-
-DecoderBuffer.prototype.raw = function raw(save) {
-  return this.base.slice(save ? save.offset : this.offset, this.length);
-}
-
-function EncoderBuffer(value, reporter) {
-  if (Array.isArray(value)) {
-    this.length = 0;
-    this.value = value.map(function(item) {
-      if (!(item instanceof EncoderBuffer))
-        item = new EncoderBuffer(item, reporter);
-      this.length += item.length;
-      return item;
-    }, this);
-  } else if (typeof value === 'number') {
-    if (!(0 <= value && value <= 0xff))
-      return reporter.error('non-byte EncoderBuffer value');
-    this.value = value;
-    this.length = 1;
-  } else if (typeof value === 'string') {
-    this.value = value;
-    this.length = Buffer.byteLength(value);
-  } else if (Buffer.isBuffer(value)) {
-    this.value = value;
-    this.length = value.length;
-  } else {
-    return reporter.error('Unsupported type: ' + typeof value);
-  }
-}
-exports.EncoderBuffer = EncoderBuffer;
-
-EncoderBuffer.prototype.join = function join(out, offset) {
-  if (!out)
-    out = new Buffer(this.length);
-  if (!offset)
-    offset = 0;
-
-  if (this.length === 0)
-    return out;
-
-  if (Array.isArray(this.value)) {
-    this.value.forEach(function(item) {
-      item.join(out, offset);
-      offset += item.length;
-    });
-  } else {
-    if (typeof this.value === 'number')
-      out[offset] = this.value;
-    else if (typeof this.value === 'string')
-      out.write(this.value, offset);
-    else if (Buffer.isBuffer(this.value))
-      this.value.copy(out, offset);
-    offset += this.length;
-  }
-
-  return out;
-};
-
-
-/***/ }),
-/* 74 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var constants = exports;
-
-// Helper
-constants._reverse = function reverse(map) {
-  var res = {};
-
-  Object.keys(map).forEach(function(key) {
-    // Convert key to integer if it is stringified
-    if ((key | 0) == key)
-      key = key | 0;
-
-    var value = map[key];
-    res[value] = key;
-  });
-
-  return res;
-};
-
-constants.der = __webpack_require__(205);
-
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var inherits = __webpack_require__(1);
-
-var asn1 = __webpack_require__(20);
-var base = asn1.base;
-var bignum = asn1.bignum;
-
-// Import DER constants
-var der = asn1.constants.der;
-
-function DERDecoder(entity) {
-  this.enc = 'der';
-  this.name = entity.name;
-  this.entity = entity;
-
-  // Construct base tree
-  this.tree = new DERNode();
-  this.tree._init(entity.body);
-};
-module.exports = DERDecoder;
-
-DERDecoder.prototype.decode = function decode(data, options) {
-  if (!(data instanceof base.DecoderBuffer))
-    data = new base.DecoderBuffer(data, options);
-
-  return this.tree._decode(data, options);
-};
-
-// Tree methods
-
-function DERNode(parent) {
-  base.Node.call(this, 'der', parent);
-}
-inherits(DERNode, base.Node);
-
-DERNode.prototype._peekTag = function peekTag(buffer, tag, any) {
-  if (buffer.isEmpty())
-    return false;
-
-  var state = buffer.save();
-  var decodedTag = derDecodeTag(buffer, 'Failed to peek tag: "' + tag + '"');
-  if (buffer.isError(decodedTag))
-    return decodedTag;
-
-  buffer.restore(state);
-
-  return decodedTag.tag === tag || decodedTag.tagStr === tag ||
-    (decodedTag.tagStr + 'of') === tag || any;
-};
-
-DERNode.prototype._decodeTag = function decodeTag(buffer, tag, any) {
-  var decodedTag = derDecodeTag(buffer,
-                                'Failed to decode tag of "' + tag + '"');
-  if (buffer.isError(decodedTag))
-    return decodedTag;
-
-  var len = derDecodeLen(buffer,
-                         decodedTag.primitive,
-                         'Failed to get length of "' + tag + '"');
-
-  // Failure
-  if (buffer.isError(len))
-    return len;
-
-  if (!any &&
-      decodedTag.tag !== tag &&
-      decodedTag.tagStr !== tag &&
-      decodedTag.tagStr + 'of' !== tag) {
-    return buffer.error('Failed to match tag: "' + tag + '"');
-  }
-
-  if (decodedTag.primitive || len !== null)
-    return buffer.skip(len, 'Failed to match body of: "' + tag + '"');
-
-  // Indefinite length... find END tag
-  var state = buffer.save();
-  var res = this._skipUntilEnd(
-      buffer,
-      'Failed to skip indefinite length body: "' + this.tag + '"');
-  if (buffer.isError(res))
-    return res;
-
-  len = buffer.offset - state.offset;
-  buffer.restore(state);
-  return buffer.skip(len, 'Failed to match body of: "' + tag + '"');
-};
-
-DERNode.prototype._skipUntilEnd = function skipUntilEnd(buffer, fail) {
-  while (true) {
-    var tag = derDecodeTag(buffer, fail);
-    if (buffer.isError(tag))
-      return tag;
-    var len = derDecodeLen(buffer, tag.primitive, fail);
-    if (buffer.isError(len))
-      return len;
-
-    var res;
-    if (tag.primitive || len !== null)
-      res = buffer.skip(len)
-    else
-      res = this._skipUntilEnd(buffer, fail);
-
-    // Failure
-    if (buffer.isError(res))
-      return res;
-
-    if (tag.tagStr === 'end')
-      break;
-  }
-};
-
-DERNode.prototype._decodeList = function decodeList(buffer, tag, decoder,
-                                                    options) {
-  var result = [];
-  while (!buffer.isEmpty()) {
-    var possibleEnd = this._peekTag(buffer, 'end');
-    if (buffer.isError(possibleEnd))
-      return possibleEnd;
-
-    var res = decoder.decode(buffer, 'der', options);
-    if (buffer.isError(res) && possibleEnd)
-      break;
-    result.push(res);
-  }
-  return result;
-};
-
-DERNode.prototype._decodeStr = function decodeStr(buffer, tag) {
-  if (tag === 'bitstr') {
-    var unused = buffer.readUInt8();
-    if (buffer.isError(unused))
-      return unused;
-    return { unused: unused, data: buffer.raw() };
-  } else if (tag === 'bmpstr') {
-    var raw = buffer.raw();
-    if (raw.length % 2 === 1)
-      return buffer.error('Decoding of string type: bmpstr length mismatch');
-
-    var str = '';
-    for (var i = 0; i < raw.length / 2; i++) {
-      str += String.fromCharCode(raw.readUInt16BE(i * 2));
-    }
-    return str;
-  } else if (tag === 'numstr') {
-    var numstr = buffer.raw().toString('ascii');
-    if (!this._isNumstr(numstr)) {
-      return buffer.error('Decoding of string type: ' +
-                          'numstr unsupported characters');
-    }
-    return numstr;
-  } else if (tag === 'octstr') {
-    return buffer.raw();
-  } else if (tag === 'objDesc') {
-    return buffer.raw();
-  } else if (tag === 'printstr') {
-    var printstr = buffer.raw().toString('ascii');
-    if (!this._isPrintstr(printstr)) {
-      return buffer.error('Decoding of string type: ' +
-                          'printstr unsupported characters');
-    }
-    return printstr;
-  } else if (/str$/.test(tag)) {
-    return buffer.raw().toString();
-  } else {
-    return buffer.error('Decoding of string type: ' + tag + ' unsupported');
-  }
-};
-
-DERNode.prototype._decodeObjid = function decodeObjid(buffer, values, relative) {
-  var result;
-  var identifiers = [];
-  var ident = 0;
-  while (!buffer.isEmpty()) {
-    var subident = buffer.readUInt8();
-    ident <<= 7;
-    ident |= subident & 0x7f;
-    if ((subident & 0x80) === 0) {
-      identifiers.push(ident);
-      ident = 0;
-    }
-  }
-  if (subident & 0x80)
-    identifiers.push(ident);
-
-  var first = (identifiers[0] / 40) | 0;
-  var second = identifiers[0] % 40;
-
-  if (relative)
-    result = identifiers;
-  else
-    result = [first, second].concat(identifiers.slice(1));
-
-  if (values) {
-    var tmp = values[result.join(' ')];
-    if (tmp === undefined)
-      tmp = values[result.join('.')];
-    if (tmp !== undefined)
-      result = tmp;
-  }
-
-  return result;
-};
-
-DERNode.prototype._decodeTime = function decodeTime(buffer, tag) {
-  var str = buffer.raw().toString();
-  if (tag === 'gentime') {
-    var year = str.slice(0, 4) | 0;
-    var mon = str.slice(4, 6) | 0;
-    var day = str.slice(6, 8) | 0;
-    var hour = str.slice(8, 10) | 0;
-    var min = str.slice(10, 12) | 0;
-    var sec = str.slice(12, 14) | 0;
-  } else if (tag === 'utctime') {
-    var year = str.slice(0, 2) | 0;
-    var mon = str.slice(2, 4) | 0;
-    var day = str.slice(4, 6) | 0;
-    var hour = str.slice(6, 8) | 0;
-    var min = str.slice(8, 10) | 0;
-    var sec = str.slice(10, 12) | 0;
-    if (year < 70)
-      year = 2000 + year;
-    else
-      year = 1900 + year;
-  } else {
-    return buffer.error('Decoding ' + tag + ' time is not supported yet');
-  }
-
-  return Date.UTC(year, mon - 1, day, hour, min, sec, 0);
-};
-
-DERNode.prototype._decodeNull = function decodeNull(buffer) {
-  return null;
-};
-
-DERNode.prototype._decodeBool = function decodeBool(buffer) {
-  var res = buffer.readUInt8();
-  if (buffer.isError(res))
-    return res;
-  else
-    return res !== 0;
-};
-
-DERNode.prototype._decodeInt = function decodeInt(buffer, values) {
-  // Bigint, return as it is (assume big endian)
-  var raw = buffer.raw();
-  var res = new bignum(raw);
-
-  if (values)
-    res = values[res.toString(10)] || res;
-
-  return res;
-};
-
-DERNode.prototype._use = function use(entity, obj) {
-  if (typeof entity === 'function')
-    entity = entity(obj);
-  return entity._getDecoder('der').tree;
-};
-
-// Utility methods
-
-function derDecodeTag(buf, fail) {
-  var tag = buf.readUInt8(fail);
-  if (buf.isError(tag))
-    return tag;
-
-  var cls = der.tagClass[tag >> 6];
-  var primitive = (tag & 0x20) === 0;
-
-  // Multi-octet tag - load
-  if ((tag & 0x1f) === 0x1f) {
-    var oct = tag;
-    tag = 0;
-    while ((oct & 0x80) === 0x80) {
-      oct = buf.readUInt8(fail);
-      if (buf.isError(oct))
-        return oct;
-
-      tag <<= 7;
-      tag |= oct & 0x7f;
-    }
-  } else {
-    tag &= 0x1f;
-  }
-  var tagStr = der.tag[tag];
-
-  return {
-    cls: cls,
-    primitive: primitive,
-    tag: tag,
-    tagStr: tagStr
-  };
-}
-
-function derDecodeLen(buf, primitive, fail) {
-  var len = buf.readUInt8(fail);
-  if (buf.isError(len))
-    return len;
-
-  // Indefinite form
-  if (!primitive && len === 0x80)
-    return null;
-
-  // Definite form
-  if ((len & 0x80) === 0) {
-    // Short form
-    return len;
-  }
-
-  // Long form
-  var num = len & 0x7f;
-  if (num > 4)
-    return buf.error('length octect is too long');
-
-  len = 0;
-  for (var i = 0; i < num; i++) {
-    len <<= 8;
-    var j = buf.readUInt8(fail);
-    if (buf.isError(j))
-      return j;
-    len |= j;
-  }
-
-  return len;
-}
-
-
-/***/ }),
-/* 76 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var inherits = __webpack_require__(1);
-var Buffer = __webpack_require__(0).Buffer;
-
-var asn1 = __webpack_require__(20);
-var base = asn1.base;
-
-// Import DER constants
-var der = asn1.constants.der;
-
-function DEREncoder(entity) {
-  this.enc = 'der';
-  this.name = entity.name;
-  this.entity = entity;
-
-  // Construct base tree
-  this.tree = new DERNode();
-  this.tree._init(entity.body);
-};
-module.exports = DEREncoder;
-
-DEREncoder.prototype.encode = function encode(data, reporter) {
-  return this.tree._encode(data, reporter).join();
-};
-
-// Tree methods
-
-function DERNode(parent) {
-  base.Node.call(this, 'der', parent);
-}
-inherits(DERNode, base.Node);
-
-DERNode.prototype._encodeComposite = function encodeComposite(tag,
-                                                              primitive,
-                                                              cls,
-                                                              content) {
-  var encodedTag = encodeTag(tag, primitive, cls, this.reporter);
-
-  // Short form
-  if (content.length < 0x80) {
-    var header = new Buffer(2);
-    header[0] = encodedTag;
-    header[1] = content.length;
-    return this._createEncoderBuffer([ header, content ]);
-  }
-
-  // Long form
-  // Count octets required to store length
-  var lenOctets = 1;
-  for (var i = content.length; i >= 0x100; i >>= 8)
-    lenOctets++;
-
-  var header = new Buffer(1 + 1 + lenOctets);
-  header[0] = encodedTag;
-  header[1] = 0x80 | lenOctets;
-
-  for (var i = 1 + lenOctets, j = content.length; j > 0; i--, j >>= 8)
-    header[i] = j & 0xff;
-
-  return this._createEncoderBuffer([ header, content ]);
-};
-
-DERNode.prototype._encodeStr = function encodeStr(str, tag) {
-  if (tag === 'bitstr') {
-    return this._createEncoderBuffer([ str.unused | 0, str.data ]);
-  } else if (tag === 'bmpstr') {
-    var buf = new Buffer(str.length * 2);
-    for (var i = 0; i < str.length; i++) {
-      buf.writeUInt16BE(str.charCodeAt(i), i * 2);
-    }
-    return this._createEncoderBuffer(buf);
-  } else if (tag === 'numstr') {
-    if (!this._isNumstr(str)) {
-      return this.reporter.error('Encoding of string type: numstr supports ' +
-                                 'only digits and space');
-    }
-    return this._createEncoderBuffer(str);
-  } else if (tag === 'printstr') {
-    if (!this._isPrintstr(str)) {
-      return this.reporter.error('Encoding of string type: printstr supports ' +
-                                 'only latin upper and lower case letters, ' +
-                                 'digits, space, apostrophe, left and rigth ' +
-                                 'parenthesis, plus sign, comma, hyphen, ' +
-                                 'dot, slash, colon, equal sign, ' +
-                                 'question mark');
-    }
-    return this._createEncoderBuffer(str);
-  } else if (/str$/.test(tag)) {
-    return this._createEncoderBuffer(str);
-  } else if (tag === 'objDesc') {
-    return this._createEncoderBuffer(str);
-  } else {
-    return this.reporter.error('Encoding of string type: ' + tag +
-                               ' unsupported');
-  }
-};
-
-DERNode.prototype._encodeObjid = function encodeObjid(id, values, relative) {
-  if (typeof id === 'string') {
-    if (!values)
-      return this.reporter.error('string objid given, but no values map found');
-    if (!values.hasOwnProperty(id))
-      return this.reporter.error('objid not found in values map');
-    id = values[id].split(/[\s\.]+/g);
-    for (var i = 0; i < id.length; i++)
-      id[i] |= 0;
-  } else if (Array.isArray(id)) {
-    id = id.slice();
-    for (var i = 0; i < id.length; i++)
-      id[i] |= 0;
-  }
-
-  if (!Array.isArray(id)) {
-    return this.reporter.error('objid() should be either array or string, ' +
-                               'got: ' + JSON.stringify(id));
-  }
-
-  if (!relative) {
-    if (id[1] >= 40)
-      return this.reporter.error('Second objid identifier OOB');
-    id.splice(0, 2, id[0] * 40 + id[1]);
-  }
-
-  // Count number of octets
-  var size = 0;
-  for (var i = 0; i < id.length; i++) {
-    var ident = id[i];
-    for (size++; ident >= 0x80; ident >>= 7)
-      size++;
-  }
-
-  var objid = new Buffer(size);
-  var offset = objid.length - 1;
-  for (var i = id.length - 1; i >= 0; i--) {
-    var ident = id[i];
-    objid[offset--] = ident & 0x7f;
-    while ((ident >>= 7) > 0)
-      objid[offset--] = 0x80 | (ident & 0x7f);
-  }
-
-  return this._createEncoderBuffer(objid);
-};
-
-function two(num) {
-  if (num < 10)
-    return '0' + num;
-  else
-    return num;
-}
-
-DERNode.prototype._encodeTime = function encodeTime(time, tag) {
-  var str;
-  var date = new Date(time);
-
-  if (tag === 'gentime') {
-    str = [
-      two(date.getFullYear()),
-      two(date.getUTCMonth() + 1),
-      two(date.getUTCDate()),
-      two(date.getUTCHours()),
-      two(date.getUTCMinutes()),
-      two(date.getUTCSeconds()),
-      'Z'
-    ].join('');
-  } else if (tag === 'utctime') {
-    str = [
-      two(date.getFullYear() % 100),
-      two(date.getUTCMonth() + 1),
-      two(date.getUTCDate()),
-      two(date.getUTCHours()),
-      two(date.getUTCMinutes()),
-      two(date.getUTCSeconds()),
-      'Z'
-    ].join('');
-  } else {
-    this.reporter.error('Encoding ' + tag + ' time is not supported yet');
-  }
-
-  return this._encodeStr(str, 'octstr');
-};
-
-DERNode.prototype._encodeNull = function encodeNull() {
-  return this._createEncoderBuffer('');
-};
-
-DERNode.prototype._encodeInt = function encodeInt(num, values) {
-  if (typeof num === 'string') {
-    if (!values)
-      return this.reporter.error('String int or enum given, but no values map');
-    if (!values.hasOwnProperty(num)) {
-      return this.reporter.error('Values map doesn\'t contain: ' +
-                                 JSON.stringify(num));
-    }
-    num = values[num];
-  }
-
-  // Bignum, assume big endian
-  if (typeof num !== 'number' && !Buffer.isBuffer(num)) {
-    var numArray = num.toArray();
-    if (!num.sign && numArray[0] & 0x80) {
-      numArray.unshift(0);
-    }
-    num = new Buffer(numArray);
-  }
-
-  if (Buffer.isBuffer(num)) {
-    var size = num.length;
-    if (num.length === 0)
-      size++;
-
-    var out = new Buffer(size);
-    num.copy(out);
-    if (num.length === 0)
-      out[0] = 0
-    return this._createEncoderBuffer(out);
-  }
-
-  if (num < 0x80)
-    return this._createEncoderBuffer(num);
-
-  if (num < 0x100)
-    return this._createEncoderBuffer([0, num]);
-
-  var size = 1;
-  for (var i = num; i >= 0x100; i >>= 8)
-    size++;
-
-  var out = new Array(size);
-  for (var i = out.length - 1; i >= 0; i--) {
-    out[i] = num & 0xff;
-    num >>= 8;
-  }
-  if(out[0] & 0x80) {
-    out.unshift(0);
-  }
-
-  return this._createEncoderBuffer(new Buffer(out));
-};
-
-DERNode.prototype._encodeBool = function encodeBool(value) {
-  return this._createEncoderBuffer(value ? 0xff : 0);
-};
-
-DERNode.prototype._use = function use(entity, obj) {
-  if (typeof entity === 'function')
-    entity = entity(obj);
-  return entity._getEncoder('der').tree;
-};
-
-DERNode.prototype._skipDefault = function skipDefault(dataBuffer, reporter, parent) {
-  var state = this._baseState;
-  var i;
-  if (state['default'] === null)
-    return false;
-
-  var data = dataBuffer.join();
-  if (state.defaultBuffer === undefined)
-    state.defaultBuffer = this._encodeValue(state['default'], reporter, parent).join();
-
-  if (data.length !== state.defaultBuffer.length)
-    return false;
-
-  for (i=0; i < data.length; i++)
-    if (data[i] !== state.defaultBuffer[i])
-      return false;
-
-  return true;
-};
-
-// Utility methods
-
-function encodeTag(tag, primitive, cls, reporter) {
-  var res;
-
-  if (tag === 'seqof')
-    tag = 'seq';
-  else if (tag === 'setof')
-    tag = 'set';
-
-  if (der.tagByName.hasOwnProperty(tag))
-    res = der.tagByName[tag];
-  else if (typeof tag === 'number' && (tag | 0) === tag)
-    res = tag;
-  else
-    return reporter.error('Unknown tag: ' + tag);
-
-  if (res >= 0x1f)
-    return reporter.error('Multi-octet tag encoding unsupported');
-
-  if (!primitive)
-    res |= 0x20;
-
-  res |= (der.tagClassByName[cls || 'universal'] << 6);
-
-  return res;
-}
-
-
-/***/ }),
-/* 77 */
-/***/ (function(module, exports) {
-
-module.exports = {"1.3.132.0.10":"secp256k1","1.3.132.0.33":"p224","1.2.840.10045.3.1.1":"p192","1.2.840.10045.3.1.7":"p256","1.3.132.0.34":"p384","1.3.132.0.35":"p521"}
-
-/***/ }),
-/* 78 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(17);
-module.exports = function (seed, len) {
-  var t = new Buffer('');
-  var  i = 0, c;
-  while (t.length < len) {
-    c = i2ops(i++);
-    t = Buffer.concat([t, createHash('sha1').update(seed).update(c).digest()]);
-  }
-  return t.slice(0, len);
-};
-
-function i2ops(c) {
-  var out = new Buffer(4);
-  out.writeUInt32BE(c,0);
-  return out;
-}
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 79 */
-/***/ (function(module, exports) {
-
-module.exports = function xor(a, b) {
-  var len = a.length;
-  var i = -1;
-  while (++i < len) {
-    a[i] ^= b[i];
-  }
-  return a
-};
-
-/***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {var bn = __webpack_require__(2);
-function withPublic(paddedMsg, key) {
-  return new Buffer(paddedMsg
-    .toRed(bn.mont(key.modulus))
-    .redPow(new bn(key.publicExponent))
-    .fromRed()
-    .toArray());
-}
-
-module.exports = withPublic;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 81 */
-/***/ (function(module, exports) {
-
-module.exports = new Vue({
-    data: {
-        id: null,
-        name: null,
-        models: {
-            sucursal: null,
-            sucursalHorario: null
-        },
-        map: {
-            main: null,
-            geocoder: null,
-            marker: {
-                main: null,
-                window: null,
-                position: {
-                    lat: null,
-                    lng: null
-                },
-            },
-            data: {
-                address: "Ciudad de México, México",
-                zoom: 13
-            }
-        },
-        actualStep: 0,
-        steps: [
-            {
-                text: "Lunes",
-                dayNumber: 2,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Martes",
-                dayNumber: 3,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Miércoles",
-                dayNumber: 4,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Jueves",
-                dayNumber: 5,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Viernes",
-                dayNumber: 6,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Sábado",
-                dayNumber: 7,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Domingo",
-                dayNumber: 1,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-        ]
-    },
-    methods: {
-        init: function(type, first){
-            var me = this;
-            this.actualStep = 0;
-            for(var i = 0; i < me.steps.length; i++)
-                this.steps[i].schedule = [];
-            this.models.sucursal.get({
-                delimiters: this.id
-            },
-            function(success){
-                me.name = success.body.nombre;
-                me.map.marker.position.lat = success.body.lat;
-                me.map.marker.position.lng = success.body.lng;
-                if(type === "modal"){
-                    setTimeout(function(){
-                        me.initMap(type, first);
-                    }, 250);
-                }
-                else
-                    me.initMap(type, first);
-            },
-            function(error){
-                console.log(error);
-            });
-            this.models.sucursalHorario.get({
-                delimiters: this.id,
-                params: {
-                    "per-page": 100,
-                    "sort": "hora_inicio"
-                }
-            },
-            function(success){
-                var interval = [0, 0, 0, 0, 0, 0, 0];
-                for(i = 0; i < success.body.length; i++){
-                    interval[success.body[i].dia - 1]++;
-                    switch(success.body[i].dia){
-                        case 1:     //SUN
-                            me.steps[6].schedule.push({
-                                begin: success.body[i].hora_inicio,
-                                end: success.body[i].hora_fin
-                            });
-                            break;
-                        default:
-                            me.steps[success.body[i].dia - 2].schedule.push({
-                                begin: success.body[i].hora_inicio,
-                                end: success.body[i].hora_fin
-                            });
-                            break;
-                    }
-                }
-                for(i = 0; i < me.steps.length; i++){
-                    me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
-                    me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
-                }
-            },
-            function(error){
-                console.log(error);
-            });
-        },
-        initMap: function(type, first){
-            if(type !== "modal" || (type === "modal" && first))
-                this.map.main = new google.maps.Map(document.getElementById('mapSeeStore'), {     //Define Map
-                    zoom: this.map.data.zoom,
-                    center: this.map.marker.position
-                });
-            else
-                this.map.main.setCenter(this.map.marker.position);
-            if(type !== "modal" || first){
-                this.initGeocoder();
-                this.initFocus();
-            }
-            if(type === "modal" && !first)
-                this.map.marker.main.setMap(null);
-            this.initPosition();
-        },
-        initGeocoder: function(){
-            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
-        },
-        initFocus: function(){
-            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeStore'));
-        },
-        initPosition: function(){
-            var me = this;
-            this.map.marker.main = new google.maps.Marker({
-                map: this.map.main,
-                position: this.map.marker.position,
-                icon: "/image/maps/blue.png"
-            });
-            this.map.marker.window = new google.maps.InfoWindow({
-                content: "Dirección no encontrada.",
-                maxWidth: 175
-            });
-            this.map.marker.main.addListener("rightclick", function(){
-                me.map.marker.window.open(me.map.main, me.map.marker.main);
-            });
-            this.map.geocoder.geocode({                          //Geocoder for placing
-                location: this.map.marker.position
-            },
-            function(response, status){
-                if(status === "OK" && response[0])
-                    me.map.marker.window.setContent(response[0].formatted_address);
-                else
-                    console.log(status, response);
-            });
-        },
-        focusPosition: function(){
-            this.map.main.setCenter({
-                lat: this.map.marker.position.lat,
-                lng: this.map.marker.position.lng
-            });
-            this.map.main.setZoom(this.map.data.zoom);
-        },
-        changeStep: function(e){
-            this.actualStep = e;
-            this.steps[e].seen = true;
-        }
-    }
-});
-
-/***/ }),
-/* 82 */
-/***/ (function(module, exports) {
-
-module.exports = new Vue({
-    data: {
-        id: null,
-        name: null,
-        email: null,
-        phone: null,
-        models: {
-            usuarioEmpleado: null,
-            empleado: null,
-            empleadoHorario: null
-        },
-        map: {
-            main: null,
-            geocoder: null,
-            marker: [
-                {
-                    text: "Lu"
-                },
-                {
-                    text: "Ma"
-                },
-                {
-                    text: "Mi"
-                },
-                {
-                    text: "Ju"
-                },
-                {
-                    text: "Vi"
-                },
-                {
-                    text: "Sa"
-                },
-                {
-                    text: "Do"
-                }
-            ],
-            data: {
-                address: "Ciudad de México, México",
-                zoom: 13
-            }
-        },
-        allPosVisible: 0,
-        actualStep: 0,
-        steps: [
-            {
-                text: "Lunes",
-                dayNumber: 2,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Martes",
-                dayNumber: 3,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Miércoles",
-                dayNumber: 4,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Jueves",
-                dayNumber: 5,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Viernes",
-                dayNumber: 6,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Sábado",
-                dayNumber: 7,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-            {
-                text: "Domingo",
-                dayNumber: 1,
-                active: true,
-                schedule: [],
-                interval: 1,
-                seen: true
-            },
-        ]
-    },
-    methods: {
-        init: function(type, first){
-            var i, j, me = this;
-            this.actualStep = 0;
-            this.allPosVisible = 0;
-            if(type !== "modal")
-                this.initMap(type, first);
-            else
-                setTimeout(function(){
-                    me.initMap(type, first);
-                }, 250);
-            if(type === "modal" && !first)
-                for(i = 0; i < this.steps.length; i++)
-                    for(j = 0; j < this.steps[i].schedule.length; j++){
-                        if(this.steps[i].schedule[j].main_begin !== null)
-                            this.steps[i].schedule[j].main_begin.setMap(null);
-                        if(this.steps[i].schedule[j].main_end !== null)
-                            this.steps[i].schedule[j].main_end.setMap(null);
-                    }
-            for(i = 0; i < this.steps.length; i++)
-                this.steps[i].schedule = [];
-            this.models.usuarioEmpleado.get({
-                delimiters: this.id
-            },
-            function(success){
-                me.name = success.body.nombre;
-                me.email = success.body.correo;
-                me.phone = success.body.telefono;
-            },
-            function(error){
-                console.log(error);
-            });
-            this.models.empleadoHorario.get({
-                delimiters: this.id,
-                params: {
-                    "per-page": 100,
-                    "sort": "hora_inicio"
-                }
-            },
-            function(success){
-                var interval = [0, 0, 0, 0, 0, 0, 0];
-                for(i = 0; i < success.body.length; i++){
-                    interval[success.body[i].dia - 1]++;
-                    switch(success.body[i].dia){
-                        case 1:     //SUN
-                            me.steps[6].schedule.push({
-                                begin: success.body[i].hora_inicio,
-                                end: success.body[i].hora_fin,
-                                main_begin: null,
-                                window_begin: null,
-                                lat_begin: success.body[i].lat_inicio,
-                                lng_begin: success.body[i].lng_inicio,
-                                main_end: null,
-                                window_end: null,
-                                lat_end: success.body[i].lat_fin,
-                                lng_end: success.body[i].lng_fin,
-                                active: me.steps[6].schedule.length === 0 ? true : false
-                            });
-                            break;
-                        default:
-                            me.steps[success.body[i].dia - 2].schedule.push({
-                                begin: success.body[i].hora_inicio,
-                                end: success.body[i].hora_fin,
-                                main_begin: null,
-                                window_begin: null,
-                                lat_begin: success.body[i].lat_inicio,
-                                lng_begin: success.body[i].lng_inicio,
-                                main_end: null,
-                                window_end: null,
-                                lat_end: success.body[i].lat_fin,
-                                lng_end: success.body[i].lng_fin,
-                                active: me.steps[success.body[i].dia - 2].schedule.length === 0 ? true : false
-                            });
-                            break;
-                    }
-                }
-                if(type === "modal"){
-                    setTimeout(function(){
-                        for(i = 0; i < me.steps.length; i++){
-                            me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
-                            me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
-                            if(me.steps[i].active)
-                                for(j = 0; j < me.steps[i].schedule.length; j++)
-                                    me.initPosition(i, j);
-                        }
-                        me.focusPosition(true);     //JUST ON INIT
-                    }, 250);
-                }
-                else{
-                    for(i = 0; i < me.steps.length; i++){
-                        me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
-                        me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
-                        if(me.steps[i].active)
-                            for(j = 0; j < me.steps[i].schedule.length; j++)
-                                me.initPosition(i, j);
-                    }
-                    me.focusPosition(true);     //JUST ON INIT
-                }
-            },
-            function(error){
-                console.log(error);
-            });
-        },
-        initMap: function(type, first){
-            if(type !== "modal" || (type === "modal" && first))
-                this.map.main = new google.maps.Map(document.getElementById('mapSeeResource'), {     //Define Map
-                    zoom: this.map.data.zoom
-                });
-            if(type !== "modal" || first){
-                this.initFocus();
-                this.initGeocoder();
-            }
-        },
-        initFocus: function(){
-            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeResource'));
-        },
-        initGeocoder: function(){
-            var me = this;
-            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
-            this.map.geocoder.geocode({                          //Geocoder for placing
-                address: this.map.data.address
-            },
-            function(response, status){
-                if(status === "OK")
-                    me.map.main.setCenter(response[0].geometry.location);
-                else
-                    console.log(status);
-            });
-        },
-        getDirection: function(i, j){
-            var me = this;
-            this.steps[i].schedule[j].main_begin.addListener("rightclick", function(){
-                if(!me.steps[i].schedule[j].window_begin.flag){
-                    me.steps[i].schedule[j].window_begin.flag = true;
-                    me.map.geocoder.geocode({                          //Geocoder for placing
-                        location: {
-                            lat: me.steps[i].schedule[j].lat_begin,
-                            lng: me.steps[i].schedule[j].lng_begin
-                        }
-                    },
-                    function(response, status){
-                        if(status === "OK" && response[0])
-                            me.steps[i].schedule[j].window_begin.setContent(response[0].formatted_address);
-                        else
-                            console.log(status, response);
-                    });
-                }
-                me.steps[i].schedule[j].window_begin.open(me.map.main, me.steps[i].schedule[j].main_begin);
-            });
-            
-            this.steps[i].schedule[j].main_end.addListener("rightclick", function(){
-                if(!me.steps[i].schedule[j].window_end.flag){
-                    me.steps[i].schedule[j].window_end.flag = true;
-                    me.map.geocoder.geocode({                          //Geocoder for placing
-                        location: {
-                            lat: me.steps[i].schedule[j].lat_end,
-                            lng: me.steps[i].schedule[j].lng_end
-                        }
-                    },
-                    function(response, status){
-                        if(status === "OK" && response[0])
-                            me.steps[i].schedule[j].window_end.setContent(response[0].formatted_address);
-                        else
-                            console.log(status, response);
-                    });
-                }
-                me.steps[i].schedule[j].window_end.open(me.map.main, me.steps[i].schedule[j].main_end);
-            });
-        },
-        initPosition: function(i, j){
-            var me = this;
-            this.steps[i].schedule[j].main_begin = new google.maps.Marker({
-                map: this.map.main,
-                icon: {
-                    url: "/image/maps/green-empty.png",
-                    labelOrigin: new google.maps.Point(11, 11)
-                },
-                label: this.map.marker[i].text + (j + 1),
-                title: "Inicio del intervalo " + (j + 1) + " para el día " + this.steps[i].text,
-                position: {
-                    lat: this.steps[i].schedule[j].lat_begin,
-                    lng: this.steps[i].schedule[j].lng_begin
-                }
-            });
-            this.steps[i].schedule[j].window_begin = new google.maps.InfoWindow({
-                content: "Dirección no encontrada.",
-                maxWidth: 175,
-                flag: false
-            });
-            
-            this.steps[i].schedule[j].main_end = new google.maps.Marker({
-                map: this.map.main,
-                icon: {
-                    url: "/image/maps/red-empty.png",
-                    labelOrigin: new google.maps.Point(11, 11)
-                },
-                label: this.map.marker[i].text + (j + 1),
-                title: "Final del intervalo " + (j + 1) + " para el día " + this.steps[i].text,
-                position: {
-                    lat: this.steps[i].schedule[j].lat_end,
-                    lng: this.steps[i].schedule[j].lng_end
-                }
-            });
-            this.steps[i].schedule[j].window_end = new google.maps.InfoWindow({
-                content: "Dirección no encontrada.",
-                maxWidth: 175,
-                flag: false
-            });
-            
-            this.getDirection(i, j);
-        },
-        setVisibilityPosition: function(auto){
-            var i, j, k;
-            if(!auto)
-                this.allPosVisible = this.allPosVisible < 2 ? this.allPosVisible + 1 : 0;
-            for(i = 0; i < this.steps.length; i++){
-                if(this.steps[i].active){
-                    k = this.sameConf ? 0 : this.actualStep;
-                    for(j = 0; j < this.steps[i].schedule.length; j++){
-                        if(this.steps[i].schedule[j].main_begin !== null &&
-                           this.steps[i].schedule[j].lat_begin !== null &&
-                           this.steps[i].schedule[j].lng_begin !== null)
-                            this.steps[i].schedule[j].main_begin.setMap(this.allPosVisible === 0 ? this.map.main :
-                                                                                  this.allPosVisible === 1 ? (i === k ? this.map.main : null) :
-                                                                                  ((i === k && this.steps[i].schedule[j].active) ? this.map.main : null));
-                        if(this.steps[i].schedule[j].main_end !== null &&
-                           this.steps[i].schedule[j].lat_end !== null &&
-                           this.steps[i].schedule[j].lng_end !== null)    //Is showed in map
-                            this.steps[i].schedule[j].main_end.setMap(this.allPosVisible === 0 ? this.map.main :
-                                                                                  this.allPosVisible === 1 ? (i === k ? this.map.main : null) :
-                                                                                  ((i === k && this.steps[i].schedule[j].active) ? this.map.main : null));
-                    }
-                }
-            }
-        },
-        focusPosition: function(a){
-            var i, j, k, k2 = false,
-                counter = 0,
-                totalLat = 0,
-                totalLng = 0,
-                bounds = new google.maps.LatLngBounds();
-            if(this.allPosVisible === 0 && !this.sameConf){
-                for(i = 0; i < this.map.marker.length; i++)
-                    for(j = 0; j < this.steps[i].schedule.length; j++){
-                        if(this.steps[i].schedule[j].main_begin !== null &&
-                            this.steps[i].schedule[j].lat_begin !== null &&
-                            this.steps[i].schedule[j].lng_begin !== null){
-                             counter++;
-                             totalLat += this.steps[i].schedule[j].lat_begin;
-                             totalLng += this.steps[i].schedule[j].lng_begin;
-                             bounds.extend(this.steps[i].schedule[j].main_begin.getPosition());
-                             
-                            }
-                         if(this.steps[i].schedule[j].main_end !== null &&
-                            this.steps[i].schedule[j].lat_end !== null &&
-                            this.steps[i].schedule[j].lng_end !== null){    //Is showed in map
-                             counter++;
-                             totalLat += this.steps[i].schedule[j].lat_end;
-                             totalLng += this.steps[i].schedule[j].lng_end;
-                             bounds.extend(this.steps[i].schedule[j].main_end.getPosition());
-                         }
-                    }
-            }
-            else if(this.allPosVisible === 0 && this.sameConf){
-                k = 0;
-                for(j = 0; j < this.steps[k].schedule.length; j++){
-                    if(this.steps[k].schedule[j].main_begin !== null &&
-                       this.steps[k].schedule[j].lat_begin !== null &&
-                       this.steps[k].schedule[j].lng_begin !== null){
-                        counter++;
-                        totalLat += this.steps[k].schedule[j].lat_begin;
-                        totalLng += this.steps[k].schedule[j].lng_begin;
-                        bounds.extend(this.steps[k].schedule[j].main_begin.getPosition());
-                        
-                       }
-                    if(this.steps[k].schedule[j].main_end !== null &&
-                       this.steps[k].schedule[j].lat_end !== null &&
-                       this.steps[k].schedule[j].lng_end !== null){    //Is showed in map
-                        counter++;
-                        totalLat += this.steps[k].schedule[j].lat_end;
-                        totalLng += this.steps[k].schedule[j].lng_end;
-                        bounds.extend(this.steps[k].schedule[j].main_end.getPosition());
-                    }
-                }
-            }
-            else if(this.allPosVisible === 1){
-                k = this.sameConf ? 0 : this.actualStep;
-                for(j = 0; j < this.steps[k].schedule.length; j++){
-                    if(this.steps[k].schedule[j].main_begin !== null &&
-                       this.steps[k].schedule[j].lat_begin !== null &&
-                       this.steps[k].schedule[j].lng_begin !== null){
-                        counter++;
-                        totalLat += this.steps[k].schedule[j].lat_begin;
-                        totalLng += this.steps[k].schedule[j].lng_begin;
-                        bounds.extend(this.steps[k].schedule[j].main_begin.getPosition());
-                        
-                       }
-                    if(this.steps[k].schedule[j].main_end !== null &&
-                       this.steps[k].schedule[j].lat_end !== null &&
-                       this.steps[k].schedule[j].lng_end !== null){    //Is showed in map
-                        counter++;
-                        totalLat += this.steps[k].schedule[j].lat_end;
-                        totalLng += this.steps[k].schedule[j].lng_end;
-                        bounds.extend(this.steps[k].schedule[j].main_end.getPosition());
-                    }
-                }
-            }
-            else{
-                k = this.sameConf ? 0 : this.actualStep;
-                for(j = 0; j < this.steps[k].schedule.length; j++)
-                    if(this.steps[k].schedule[j].active)
-                        k2 = j;
-                if(k2 !== false &&
-                   this.steps[k].schedule[k2].main_begin !== null &&
-                   this.steps[k].schedule[k2].lat_begin !== null &&
-                   this.steps[k].schedule[k2].lng_begin !== null){
-                    counter++;
-                    totalLat += this.steps[k].schedule[k2].lat_begin;
-                    totalLng += this.steps[k].schedule[k2].lng_begin;
-                    bounds.extend(this.steps[k].schedule[k2].main_begin.getPosition());
-                    
-                   }
-                if(k2 !== false &&
-                   this.steps[k].schedule[k2].main_end !== null &&
-                   this.steps[k].schedule[k2].lat_end !== null &&
-                   this.steps[k].schedule[k2].lng_end !== null){    //Is showed in map
-                    counter++;
-                    totalLat += this.steps[k].schedule[k2].lat_end;
-                    totalLng += this.steps[k].schedule[k2].lng_end;
-                    bounds.extend(this.steps[k].schedule[k2].main_end.getPosition());
-                }
-            }
-            if(counter > 0){
-                this.map.main.setCenter({
-                    lat: totalLat/counter,
-                    lng: totalLng/counter
-                });
-                if(counter > 1)
-                    this.map.main.fitBounds(bounds);
-                else
-                    this.map.main.setZoom(this.map.data.zoom);
-            }
-            else if(a)
-                this.initGeocoder();
-        },
-        setActiveInterval: function(i){
-            for(var j = 0; j < this.steps[this.sameConf ? 0 : this.actualStep].schedule.length; j++)
-                this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].active = j === i;
-            if(this.allPosVisible === 2)
-                this.setVisibilityPosition(true); //AUTO
-        },
-        changeStep: function(e){
-            this.actualStep = e;
-            this.steps[e].seen = true;
-            
-            if(this.allPosVisible > 0)
-                this.setVisibilityPosition(true); //AUTO
-        }
-    }
-});
-
-/***/ }),
-/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, Buffer, process) {/* xlsx.js (C) 2013-present SheetJS -- http://sheetjs.com */
@@ -35924,6 +28705,7225 @@ var ODS = XLSX;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(0).Buffer, __webpack_require__(3)))
 
 /***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+var mcdatatableT = `
+    <div class="container grid-container">
+        <div class="row">
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-primary dropdown-toggle btn-customized" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.column}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right dropdown-menu-custom">
+                    <div v-for="(head, indexHead) in config.head" v-if="head.title !== 'id'" class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon input-columns-hidden">
+                                    <input type="checkbox" :checked="head.hidden ? 0 : 1" v-on:change="config.setVisible(head.hidden, head.title)">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group-addon span-columns-hidden">
+                                {{config.prettyTitle(indexHead)}}
+                            </div>
+                        </div>
+                    </div>
+                    <li class="text-center"><a href="#" v-on:click.prevent="config.resetColumns()" style="padding-left: 6px"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span> {{config.style.languageItems[config.style.language].handlers.columns.reset}}</a></li>
+                </ul>
+            </div>
+            <div v-if="config.shouldGroup()" class="btn-group pull-right">
+                <button type="button" class="btn btn-warning dropdown-toggle btn-customized" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.group}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right dropdown-menu-custom">
+                    <div v-for="(head, indexHead) in config.head" v-if="head.groupable" class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon input-columns-hidden">
+                                    <input type="radio" :checked="head._groupedBy ? 1 : 0" v-on:click="config.groupBy(head.title)">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group-addon span-columns-hidden">
+                                {{config.prettyTitle(indexHead)}}
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div v-if="config.handlers.add.active" class="btn-group pull-left">
+                <template v-if="config.handlers.add.type === 'inline'">
+                    <button type="button" v-on:click="config.initAdd()" class="btn btn-success btn-customized" :class="[config.handlers.add.active ? '' : 'disabled']">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.add}}
+                    </button>
+                </template>
+                <template v-else-if="typeof config.handlers.add === 'object' && config.handlers.add.type === 'modal'">
+                    <button type="button" class="btn-circle btn btn-success btn-customized" :class="[config.handlers.add.active ? '' : 'disabled']" data-toggle="modal" :data-target="'#' + config.id + '-addModal'">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.add}}
+                    </button>
+                    <div class="modal fade" :id="config.id+ '-addModal'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header modal-header-custom">
+                                    <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                                </div>
+                                <div class="modal-body modal-body-custom">
+                                    <template v-for="(head, indexHead) in config.head" v-if="head.title !== 'id'">
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <span><b>{{config.prettyTitle(indexHead)}}:</b></span>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                                    <select v-if="head.input.type === 'select'" v-model="head._dataAdd.value" class="grid-input grid-select form-control">
+                                                        <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                                    </select>
+                                                    <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="number">
+                                                    <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="email">
+                                                    <input v-else v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text" maxlength="64">
+                                                </template>
+                                                <template v-else>
+                                                    <input v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text" maxlength="64">
+                                                </template>
+                                            </div>
+                                        </div>
+                                        <div style="height: 10px;"></div>
+                                    </template>
+                                </div>
+                                <div class="modal-footer modal-footer-custom">
+                                    <button :id="config.id+ '-closeAddModal'" type="button" v-on:click="config.cancelAdd()" class="btn btn-default btn-customized" data-dismiss="modal">{{config.style.languageItems[config.style.language].handlers.cancel}}</button>
+                                    <button type="button" v-on:click="config.addRow()" class="btn btn-primary btn-customized">{{config.style.languageItems[config.style.language].handlers.accept}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <div v-if="typeof config.style.pagination === 'object' && typeof config.style.pagination.rowPerPage === 'number' && config.style.pagination.rowPerPage > 0" class="btn-group pull-left">
+                <button type="button" class="btn btn-warning dropdown-toggle btn-customized" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> {{config.style.noText ? '' : config.style.languageItems[config.style.language].buttons.selectPagination}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon input-columns-hidden">
+                                    <input type="radio" :checked="config.style.pagination.rowPerPage === 25" v-on:click="config.updatePageRows(25)">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group-addon span-columns-hidden">
+                                25
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon input-columns-hidden">
+                                    <input type="radio" :checked="config.style.pagination.rowPerPage === 50" v-on:click="config.updatePageRows(50)">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group-addon span-columns-hidden">
+                                50
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon input-columns-hidden">
+                                    <input type="radio" :checked="config.style.pagination.rowPerPage === 75" v-on:click="config.updatePageRows(75)">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group-addon span-columns-hidden">
+                                75
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon input-columns-hidden">
+                                    <input type="radio" :checked="config.style.pagination.rowPerPage === 100" v-on:click="config.updatePageRows(100)">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group-addon span-columns-hidden">
+                                100
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div :class="[ config.style.responsive ? 'table-responsive' : '' ]" style="min-height: 300px;">
+                <table :class="[ config.style.general ? config.style.general.join(' ') : '' ]">
+                    <thead :class="[ config.style.head ? config.style.head.join(' ') : '' ]">
+                        <tr>
+                            <template v-for="(head, indexHead) in config.head">
+                                <th v-if="!head.hidden" :id="head.title" class="no-padding table-width" :draggable="config.style.draggable" @dragstart="config.initSortColumns">
+                                    <div class="btn-group full-large-group inline">
+                                        <template v-if="head.orderable">
+                                            <div class="btn" @dragover.prevent @drop="config.sortColumns" v-on:click.prevent="config.sortList(head._order === 'asc' ? 'desc' : 'asc', head.title, false)">
+                                                <span v-if="head._order === 'desc'" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                                <span v-if="head._order === 'asc'" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                                <b :id="head.title">{{ config.prettyTitle(indexHead) }}</b>
+                                            </div>
+                                        </template>
+                                        <template v-else>
+                                            <div class="btn" @dragover.prevent @drop="config.sortColumns">
+                                                <span v-if="head._order === 'desc'" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                                <span v-if="head._order === 'asc'" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                                <b :id="head.title">{{ config.prettyTitle(indexHead) }}</b>
+                                            </div>
+                                        </template>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="caret"></span>
+                                        </button>
+                                        
+                                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                            <li :class="[(head.orderable) ? '' : 'disabled not-active']"><a href="#" v-on:click.prevent="config.sortList('asc', head.title, false)" style="padding-left: 6px"><span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span> {{config.style.languageItems[config.style.language].handlers.columns.asc}}</a></li>
+                                            <li :class="[(head.orderable) ? '' : 'disabled not-active']"><a href="#" v-on:click.prevent="config.sortList('desc', head.title, false)" style="padding-left: 6px"><span class="glyphicon glyphicon-sort-by-alphabet-alt" aria-hidden="true"></span> {{config.style.languageItems[config.style.language].handlers.columns.desc}}</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li :class="[(head.searchable.active) ? 'dropdown-submenu' : 'dropdown-submenu disabled not-active']">
+                                                <a tabindex="-1" href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> {{config.style.languageItems[config.style.language].handlers.columns.search}}</a>
+                                                <ul v-if="head.searchable.active" class="dropdown-menu">
+                                                    <li v-if="head.searchable.type === 'filter'">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon" id="searchGrid"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                                                            <input type="text" class="form-control" :value="head._searchData" :placeholder="config.style.languageItems[config.style.language].handlers.columns.filter" aria-describedby="searchGrid" v-on:keyup="config.search($event.target.value, head.title)">
+                                                        </div>
+                                                    </li>
+                                                    <li v-if="head.searchable.type === 'status'">
+                                                        <div v-for="status in head._searchStatusValues" class="row">
+                                                            <div class="col-sm-3">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon input-columns-hidden">
+                                                                        <input type="radio" :checked="status === head._searchData ? 1 : 0" v-on:click="config.search(status === head._searchData ? '' : status, head.title)">
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-9">
+                                                                <div class="input-group-addon span-columns-hidden">
+                                                                    {{status}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                  <!--<li><a tabindex="-1" href="#">Second level</a></li>
+                                                    <li class="dropdown-submenu">
+                                                        <a href="#">Even More..</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="#">3rd level</a></li>
+                                                            <li><a href="#">3rd level</a></li>
+                                                        </ul>
+                                                    </li>-->
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </th>
+                            </template>
+                            <th :colspan="config.existsCustomHandlers ? 2 : 1" class="no-padding table-width" :class="config.existsCustomHandlers ? 'grid-handler-title-container-custom' : 'grid-handler-title-container'">
+                                <div class="btn-group full-large-group inline">
+                                    <div class="btn grid-handler-title">
+                                        <b>{{config.style.languageItems[config.style.language].handlers.title}}</b>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <template v-if="config.body.length > 0 && !config.body[0]._ofuscate">
+                        <tbody :class="[ config.style.body ? config.style.body.join(' ') : '' ]">
+                            <template v-if="typeof config.dataGrouping === 'object' && config.dataGrouping.isGrouped">
+                                <tr v-if="config.adding">
+                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
+                                        <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                            <select v-if="head.input.type === 'select'" v-model="head._dataAdd.value" class="grid-input grid-select form-control">
+                                                <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                            </select>
+                                            <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="number">
+                                            <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="email">
+                                            <input v-else v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text">
+                                        </template>
+                                        <template v-else>
+                                            <input v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="[config.head[indexHead]._dataAdd.validation === true ? 'grid-input-unvalidated' : '', 'grid-input', 'form-control']" type="text">
+                                        </template>
+                                    </td>
+                                    <td class="col-md-1 text-center">
+                                        <a href="#" v-on:click.prevent="config.addRow()" class="alert alert-success grid-handlers" :title="config.style.languageItems[config.style.language].handlers.accept">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                        </a>
+                                        <a href="#" v-on:click.prevent="config.cancelAdd()" class="alert alert-warning grid-handlers" :title="config.style.languageItems[config.style.language].handlers.cancel">
+                                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <template v-for="(groupBy, indexHead2) in config.head" v-if="groupBy._groupedBy">
+                                    <template v-for="(dataGrouping, index) in config.dataGrouping.state">
+                                        <tr>
+                                            <td :colspan="config.groupColSpan() + 1" class="col-md-1">
+                                                <a href="#" v-on:click.prevent="config.changeGroupVisibility(index, indexHead2)" class="alert alert-info grid-handlers" :title="[dataGrouping[1] ? config.style.languageItems[config.style.language].handlers.group.show : config.style.languageItems[config.style.language].handlers.group.hide]">
+                                                    <span :class="[dataGrouping[1] ? 'glyphicon glyphicon-plus' : 'glyphicon glyphicon-minus']" aria-hidden="true"></span>
+                                                </a>
+                                                <b>{{ dataGrouping[0] }}</b>
+                                            </td>
+                                        </tr>
+                                        <tr v-for="(data, semiIndex) in config.body" v-if="!data._hidden && !data._ofuscate" :class="[ typeof config.style.row === 'object' && config.style.row.active === true && typeof config.style.row.styleClass === 'object' ? config.style.row.styleClass.join(' ') : '', config.highlightHandlers && data._highlight ? config.style.highlight.styleClass.join(' ') : '' ]">
+                                            <template v-if="typeof groupBy.input === 'object' && groupBy.input.type === 'select'">
+                                                <template v-if="config.getSelectData(semiIndex, indexHead2) === dataGrouping[0]">
+                                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
+                                                        <template v-if="config.handlers.edit.type === 'inline' && data._editing && head.editable">
+                                                            <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                                                <select v-if="head.input.type === 'select'" v-model="data[head.title]" class="grid-input grid-select form-control">
+                                                                    <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                                                </select>
+                                                                <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
+                                                                <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
+                                                                <input v-else v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                                            </template>
+                                                            <template v-else>
+                                                                <input v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                                            </template>
+                                                        </template>
+                                                        <template v-else-if="config.existsFullHandler()[0]">
+                                                            <a href="#" v-on:click.prevent="config.customHandlers[config.existsFullHandler()[1]].handler(data); config.highlightRow(semiIndex, config.existsFullHandler()[1])" :class="typeof config.customHandlers[config.existsFullHandler()[1]].anchorCellClass === 'object' ? config.customHandlers[config.existsFullHandler()[1]].anchorCellClass.join(' ') : ''">
+                                                                <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                                    {{ config.getSelectData(semiIndex, indexHead) }}
+                                                                </template>
+                                                                <template v-else>
+                                                                    {{ data[head.title] }}
+                                                                </template>
+                                                            </a>
+                                                        </template>
+                                                        <template v-else>
+                                                            <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                                {{ config.getSelectData(semiIndex, indexHead) }}
+                                                            </template>
+                                                            <template v-else>
+                                                                {{ data[head.title] }}
+                                                            </template>
+                                                        </template>
+                                                    </td>
+                                                    <td class="col-md-1 text-center">
+                                                        <template v-if="config.handlers.watch.type === 'modal'">
+                                                            <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
+                                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                            </a>
+                                                        </template>
+                                                        <template v-else-if="config.handlers.watch.type === 'template'">
+                                                            <a href="#" v-on:click.prevent="config.templateWatch(data.id, semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch">
+                                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                            </a>
+                                                        </template>
+                                                        <template v-if="config.handlers.edit.active">
+                                                            <template v-if="config.handlers.edit.type === 'inline'">
+                                                                <template v-if="!data._editing">
+                                                                    <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
+                                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </template>
+                                                                <template v-else>
+                                                                    <a href="#" v-on:click.prevent="config.finishEdit(data, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-warning grid-handlers' : 'alert alert-warning grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.accept">
+                                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </template>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.edit.type === 'modal'">
+                                                                <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
+                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.edit.type === 'template'">
+                                                                <a href="#" v-on:click.prevent="config.templateEdit(data.id, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
+                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                        </template>
+                                                        <a v-if="config.handlers.remove.active" href="#" v-on:click.prevent="config.confirmRemove(data, semiIndex)" :class="[config.handlers.remove.active ? 'alert alert-danger grid-handlers' : 'alert alert-danger grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.remove">
+                                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                        </a>
+                                                    </td>
+                                                </template>
+                                            </template>
+                                            <template v-else>
+                                                <template v-if="data[groupBy.title] === dataGrouping[0]">
+                                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
+                                                        <template v-if="config.handlers.edit.type === 'inline' && data._editing && head.editable">
+                                                            <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                                                <select v-if="head.input.type === 'select'" v-model="data[head.title]" class="grid-input grid-select form-control">
+                                                                    <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                                                </select>
+                                                                <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
+                                                                <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
+                                                                <input v-else v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                                            </template>
+                                                            <template v-else>
+                                                                <input v-on:keyup="config.reValidateEdit(semiIndex, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                                            </template>
+                                                        </template>
+                                                        <template v-else-if="config.existsFullHandler()[0]">
+                                                            <a href="#" v-on:click.prevent="config.customHandlers[config.existsFullHandler()[1]].handler(data); config.highlightRow(semiIndex, config.existsFullHandler()[1])" :class="[typeof config.customHandlers[config.existsFullHandler()[1]].anchorCellClass === 'object' ? config.customHandlers[config.existsFullHandler()[1]].anchorCellClass.join(' ') : '']">
+                                                                <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                                    {{ config.getSelectData(semiIndex, indexHead) }}
+                                                                </template>
+                                                                <template v-else>
+                                                                    {{ data[head.title] }}
+                                                                </template>
+                                                            </a>
+                                                        </template>
+                                                        <template v-else>
+                                                            <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                                {{ config.getSelectData(semiIndex, indexHead) }}
+                                                            </template>
+                                                            <template v-else>
+                                                                {{ data[head.title] }}
+                                                            </template>
+                                                        </template>
+                                                    </td>
+                                                    <td class="col-md-1 text-center">
+                                                        <template v-if="config.handlers.watch.active">
+                                                            <template v-if="config.handlers.watch.type === 'modal'">
+                                                                <a href="#" v-on:click.prevent="config.watchRow(semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
+                                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.watch.type === 'template'">
+                                                                <a href="#" v-on:click.prevent="config.templateWatch(data.id, semiIndex)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch">
+                                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                        </template>
+                                                        <template v-if="config.handlers.edit.active">
+                                                            <template v-if="config.handlers.edit.type === 'inline'">
+                                                                <template v-if="!data._editing">
+                                                                    <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
+                                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </template>
+                                                                <template v-else>
+                                                                    <a href="#" v-on:click.prevent="config.finishEdit(data, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-warning grid-handlers' : 'alert alert-warning grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.accept">
+                                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </template>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.edit.type === 'modal'">
+                                                                <a href="#" v-on:click.prevent="config.initEdit(semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
+                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                            <template v-else-if="config.handlers.edit.type === 'template'">
+                                                                <a href="#" v-on:click.prevent="config.templateEdit(data.id, semiIndex)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
+                                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                                </a>
+                                                            </template>
+                                                        </template>
+                                                        <a v-if="config.handlers.remove.active" href="#" v-on:click.prevent="config.confirmRemove(data, semiIndex)" :class="[config.handlers.remove.active ? 'alert alert-danger grid-handlers' : 'alert alert-danger grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.remove">
+                                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                        </a>
+                                                    </td>
+                                                    <td v-if="config.existsCustomHandlers" class="col-md-1 text-center">
+                                                        <a v-for="(customH, customIndex) in config.customHandlers" href="#" v-on:click.prevent="customH.handler(data); config.highlightRow(semiIndex, customIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="customH.title">
+                                                            <span :class="['glyphicon', customH.glyphiconClass]" aria-hidden="true"></span>
+                                                        </a>
+                                                    </td>
+                                                </template>
+                                            </template>
+                                        </tr>
+                                    </template>
+                                </template>
+                            </template>
+                            <template v-else>
+                                <tr v-if="config.adding">
+                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
+                                        <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                            <select v-if="head.input.type === 'select'" v-model="head._dataAdd.value" class="grid-input grid-select form-control">
+                                                <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                            </select>
+                                            <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="{ 'grid-input-unvalidated': config.head[indexHead]._dataAdd.validation }" class="grid-input form-control" type="number">
+                                            <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="{ 'grid-input-unvalidated': config.head[indexHead]._dataAdd.validation }" class="grid-input form-control" type="email">
+                                            <input v-else v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="{ 'grid-input-unvalidated': config.head[indexHead]._dataAdd.validation }" class="grid-input form-control" type="text">
+                                        </template>
+                                        <template v-else>
+                                            <input v-on:keyup="config.reValidateAdd(indexHead)" v-model="head._dataAdd.value" :class="{ 'grid-input-unvalidated': config.head[indexHead]._dataAdd.validation }" class="grid-input form-control" type="text">
+                                        </template>
+                                    </td>
+                                    <td class="col-md-1 text-center">
+                                        <a href="#" v-on:click.prevent="config.addRow()" class="alert alert-success grid-handlers" :title="config.style.languageItems[config.style.language].handlers.accept">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                        </a>
+                                        <a href="#" v-on:click.prevent="config.cancelAdd()" class="alert alert-warning grid-handlers" :title="config.style.languageItems[config.style.language].handlers.cancel">
+                                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr v-for="(data, index) in config.body" v-if="!data._hidden && !data._ofuscate" :class="[ typeof config.style.row === 'object' && config.style.row.active === true && typeof config.style.row.styleClass === 'object' ? config.style.row.styleClass.join(' ') : '', config.highlightHandlers && data._highlight ? config.style.highlight.styleClass.join(' ') : '' ]">
+                                    <td v-if="!head.hidden" v-for="(head, indexHead) in config.head" class="col-md-1">
+                                        <template v-if="config.handlers.edit.type === 'inline' && data._editing && head.editable">
+                                            <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                                <select v-if="head.input.type === 'select'" v-model="data[head.title]" class="grid-input grid-select form-control">
+                                                    <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                                </select>
+                                                <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(index, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
+                                                <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(index, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
+                                                <input v-else v-on:keyup="config.reValidateEdit(index, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                            </template>
+                                            <template v-else>
+                                                <input v-on:keyup="config.reValidateEdit(index, indexHead)" v-model="data[head.title]" :placeholder="data[head.title]" :class="[data['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text">
+                                            </template>
+                                        </template>
+                                        <template v-else-if="config.existsFullHandler()[0]">
+                                            <a href="#" v-on:click.prevent="config.customHandlers[config.existsFullHandler()[1]].handler(data); config.highlightRow(index, config.existsFullHandler()[1])" :class="[typeof config.customHandlers[config.existsFullHandler()[1]].anchorCellClass === 'object' ? config.customHandlers[config.existsFullHandler()[1]].anchorCellClass.join(' ') : '']">
+                                                <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                    {{ config.getSelectData(index, indexHead) }}
+                                                </template>
+                                                <template v-else>
+                                                    {{ data[head.title] }}
+                                                </template>
+                                            </a>
+                                        </template>
+                                        <template v-else>
+                                            <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                {{ config.getSelectData(index, indexHead) }}
+                                            </template>
+                                            <template v-else>
+                                                {{ data[head.title] }}
+                                            </template>
+                                        </template>
+                                    </td>
+                                    <td class="col-md-1 text-center">
+                                        <template v-if="config.handlers.watch.active">
+                                            <template v-if="config.handlers.watch.type === 'modal'">
+                                                <a href="#" v-on:click.prevent="config.watchRow(index)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch" data-toggle="modal" :data-target="'#' + config.id + '-watchModal'">
+                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                </a>
+                                            </template>
+                                            <template v-else-if="config.handlers.watch.type === 'template'">
+                                                <a href="#" v-on:click.prevent="config.templateWatch(data.id, index)" class="alert alert-info grid-handlers" :title="config.style.languageItems[config.style.language].handlers.watch">
+                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                </a>
+                                            </template>
+                                        </template>
+                                        <template v-if="config.handlers.edit.active">
+                                            <template v-if="config.handlers.edit.type === 'inline'">
+                                                <template v-if="!data._editing">
+                                                    <a href="#" v-on:click.prevent="config.initEdit(index)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
+                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                    </a>
+                                                </template>
+                                                <template v-else>
+                                                    <a href="#" v-on:click.prevent="config.finishEdit(data, index)" :class="[config.handlers.edit.active ? 'alert alert-warning grid-handlers' : 'alert alert-warning grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.accept">
+                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                    </a>
+                                                </template>
+                                            </template>
+                                            <template v-else-if="config.handlers.edit.type === 'modal'">
+                                                <a href="#" v-on:click.prevent="config.initEdit(index)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit" data-toggle="modal" :data-target="'#' + config.id + '-editModal'">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                </a>
+                                            </template>
+                                            <template v-else-if="config.handlers.edit.type === 'template'">
+                                                <a href="#" v-on:click.prevent="config.templateEdit(data.id, index)" :class="[config.handlers.edit.active ? 'alert alert-success grid-handlers' : 'alert alert-success grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.edit">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                </a>
+                                            </template>
+                                        </template>
+                                        <a v-if="config.handlers.remove.active" href="#" v-on:click.prevent="config.confirmRemove(data, index)" :class="[config.handlers.remove.active ? 'alert alert-danger grid-handlers' : 'alert alert-danger grid-handlers not-active']" :title="config.style.languageItems[config.style.language].handlers.remove">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                    <td v-if="config.existsCustomHandlers" class="col-md-1 text-center">
+                                        <a v-for="(customH, customIndex) in config.customHandlers" href="#" v-on:click.prevent="customH.handler(data); config.highlightRow(index, customIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="customH.title">
+                                            <span :class="['glyphicon', customH.glyphiconClass]" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </template>
+                </table>
+                <template v-if="(config.body.length === 1 && config.body[0]._ofuscate === true) || config.body.length === 0">
+                    <p class="text-center">
+                        <i>Actualmente no existen registros para mostrar.</i>
+                    </p>
+                </template>
+                <template v-if="typeof config.handlers.edit === 'object' && config.handlers.edit.type === 'modal'">
+                    <div class="modal fade" :id="config.id+ '-editModal'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header modal-header-custom">
+                                    <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                                </div>
+                                <div class="modal-body modal-body-custom">
+                                    <template v-for="(head, indexHead) in config.head" v-if="head.title !== 'id'">
+                                        <div class="row" v-if="head.editable">
+                                            <div class="col-sm-5">
+                                                <span><b>{{config.prettyTitle(indexHead)}}:</b></span>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <template v-if="typeof head.input === 'object' && typeof head.input.type === 'string'">
+                                                    <select v-if="head.input.type === 'select'" v-model="config.editingBody[head.title]" class="grid-input grid-select form-control">
+                                                        <option v-for="options in head.input.options" :value="options.value">{{options.text}}</option>
+                                                    </select>
+                                                    <input v-else-if="head.input.type === 'number'" v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="number">
+                                                    <input v-else-if="head.input.type === 'email'" v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="email">
+                                                    <input v-else v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text" maxlength="64">
+                                                </template>
+                                                <template v-else>
+                                                    <input v-on:keyup="config.reValidateEdit(null, indexHead)" v-model="config.editingBody[head.title]" :placeholder="config.editingBody[head.title]" :class="[config.editingBody['_unvalidated-'+indexHead] === true ? 'grid-input form-control grid-input-unvalidated' : 'grid-input form-control']" type="text" maxlength="64">
+                                                </template>
+                                            </div>
+                                        </div>
+                                        <div style="height: 10px;"></div>
+                                    </template>
+                                </div>
+                                <div class="modal-footer modal-footer-custom">
+                                    <button :id="config.id+ '-closeEditModal'" type="button" class="btn btn-default btn-customized" data-dismiss="modal">{{config.style.languageItems[config.style.language].handlers.cancel}}</button>
+                                    <button type="button" v-on:click="config.finishEdit(null, null)" class="btn btn-primary btn-customized">{{config.style.languageItems[config.style.language].handlers.accept}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <div class="modal fade" :id="config.id+ '-watchModal'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header modal-header-custom">
+                                <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                            </div>
+                            <div class="modal-body modal-body-custom">
+                                <template v-for="(head, indexHead) in config.head" v-if="head.title !== 'id'">
+                                    <div class="row" v-if="head.title !== 'id'">
+                                        <div class="col-sm-6">
+                                            <span><b>{{config.prettyTitle(indexHead)}}:</b></span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <template v-if="typeof head.input === 'object' && head.input.type === 'select'">
+                                                {{ config.getSelectData(config.watchBody.actualIndex, indexHead) }}
+                                            </template>
+                                            <template v-else>
+                                                {{ config.watchBody[head.title] }}
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div style="height: 10px;"></div>
+                                </template>
+                            </div>
+                            <div class="modal-footer modal-footer-custom">
+                                <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">{{config.style.languageItems[config.style.language].alert.ok}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="typeof config.style.pagination === 'object' && typeof config.style.pagination.rowPerPage === 'number' && config.style.pagination.rowPerPage > 0" class="row">
+            <nav v-if="typeof config.webService === 'object' && typeof config.webService.model === 'object' && config.webService.active" class="pull-right">
+                <ul class="pagination">
+                    <li>
+                        <span><b>{{ config.style.languageItems[config.style.language].pagination.information[0] + config.recordsPagination(0) + config.style.languageItems[config.style.language].pagination.information[1] + config.style.pagination.totalRowCount + config.style.languageItems[config.style.language].pagination.information[2] + config.recordsPagination(2) + config.style.languageItems[config.style.language].pagination.information[3] + config.recordsPagination(3) }}.</b></span>
+                    </li>
+                    <li :class="[ config.dataPagination[0][0] ? 'disabled not-active' : '' ]">
+                        <a href="#" v-on:click.prevent="config.updatePages(1, true)" :title="config.style.languageItems[config.style.language].handlers.first">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <span v-if="config.dataPagination.length > 7 && config.notAllPages(true)" aria-hidden="true">...</span>
+                    </li>
+                    <li v-for="data in config.dataPagination" v-if="data[0] !== null" :class="[ data[0] ? 'active' : '' ]"><a href="#" v-on:click.prevent="config.updatePages(data[1], true)">{{data[1]}}</a></li>
+                    <li>
+                        <span v-if="config.dataPagination.length > 7 && config.notAllPages(false)" aria-hidden="true">...</span>
+                    </li>
+                    <li :class="[ config.dataPagination[config.dataPagination.length - 1][0] ? 'disabled not-active' : '' ]">
+                        <a href="#" v-on:click.prevent="config.updatePages(config.dataPagination.length, true)" :title="config.style.languageItems[config.style.language].handlers.last">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <nav v-else class="pull-right">
+                <ul class="pagination">
+                    <li>
+                        <span><b>{{ config.style.languageItems[config.style.language].pagination.information[0] + config.recordsPagination(0) + config.style.languageItems[config.style.language].pagination.information[1] + config.recordsPagination(1) + config.style.languageItems[config.style.language].pagination.information[2] + config.recordsPagination(2) + config.style.languageItems[config.style.language].pagination.information[3] + config.recordsPagination(3) }}.</b></span>
+                    </li>
+                    <li :class="[ config.dataPagination[0][0] ? 'disabled not-active' : '' ]">
+                        <a href="#" v-on:click.prevent="config.updatePages(1)" :title="config.style.languageItems[config.style.language].handlers.first">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <span v-if="config.dataPagination.length > 7 && config.notAllPages(true)" aria-hidden="true">...</span>
+                    </li>
+                    <li v-for="data in config.dataPagination" v-if="data[0] !== null" :class="[ data[0] ? 'active' : '' ]"><a href="#" v-on:click.prevent="config.updatePages(data[1])">{{data[1]}}</a></li>
+                    <li>
+                        <span v-if="config.dataPagination.length > 7 && config.notAllPages(false)" aria-hidden="true">...</span>
+                    </li>
+                    <li :class="[ config.dataPagination[config.dataPagination.length - 1][0] ? 'disabled not-active' : '' ]">
+                        <a href="#" v-on:click.prevent="config.updatePages(config.dataPagination.length)" :title="config.style.languageItems[config.style.language].handlers.last">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+`;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//config in head:
+//    orderable (true || false)
+//    searchable ->type (filter, status)
+//                -> active (true || false)
+//    editable (true || false)
+//    hidden (true || false)
+//    groupable (true || false)
+//    input -> type (email, text, number, select (true || false) <-> options : Object-> (value, text) <-> model : Object-> (source, value, text)))
+//          -> required (true || false)
+
+//config in style:
+//    noText (true || false) To hide or show texts of main buttons
+//    general (array of styles)
+//    head (array of styles)
+//    body (array of styles)
+//    row -> active (true || false)
+//        -> styleClass (array of styles)
+//    highlight -> active (true || false)
+//        -> styleClass (array of styles)
+//    responsive (true || false)
+//    pagination -> rowPerPage (>0)
+//    draggable (true || false)
+//    language: 'spa' || 'eng'
+
+//config in handlers:
+//    watch -> type (modal, template)
+//         -> active (true || false)
+//    add -> type (modal, inline, template)
+//        -> active (true || false)
+//    edit -> type (modal, inline, template)
+//         -> active (true || false)
+//         -> highlight (true || false) -> To highlight row selected
+//    remove -> active (true || false)
+//config in customHandlers: This must be an Array of Objects, each object has:
+//    active (true || false)
+//    title (string)
+//    glyphiconClass (string of glyphicon class, not general, just specific icon)
+//    fullHandler (true || false) -> To know what handler will be fired by all the row
+//    highlight (true || false) -> To highlight row selected
+//    anchorCellClass -> (array of styles for anchor of customHandler)
+//    handler (function) -> return data of clicked row
+// config root, callbacks:
+//    templateWatch (function) -> called on watch of template type
+//    templateEdit (function) -> called on edit of template type
+//    beforeEdit (function) -> called before edit
+//    beforeAdd (function) -> called before add
+//    beforeRemove (function) -> called before remove, return data confirm message and success function to run onAccept of confirm
+//    onEdit (function) -> return data of edited row
+//    onAdd (function) -> return data of new row
+//    onRemove (function) -> return data of removed row
+//    onDragEnd (function) -> return head columns with order updated
+//    onChangeColumns (function) -> return hidden status of columns
+//    setVisibilityColumns (function) -> Send array of booleans with equal length of grid columns (TRUE hide, FALSE show)
+//    setSortColumns (function) -> Send object of columns names equal to positions
+
+//WebService methods
+//    editDelimiters (function) -> alter delimiters table within a sended value
+//    updatePagination (function) -> update mcdatatable values
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+var mcdatatable = function(configuration){
+    if(typeof configuration === "object" &&
+       typeof configuration.head === "object" && configuration.head.length > 0 &&
+       ((typeof configuration.body === "object" && configuration.body.length > 0) ||
+        (typeof configuration.webService === "object" && typeof configuration.webService.model === "object" && configuration.webService.active)) &&
+       typeof configuration.style === "object"){
+        
+        var bodySqueleton = {};
+            bodySqueleton._editing = false;
+            bodySqueleton._hidden = false;
+            bodySqueleton._highlight = false;
+            bodySqueleton._ofuscate = true;
+        var bodyEditingSqueleton = {};
+            bodyEditingSqueleton._editing = false;
+            bodyEditingSqueleton._hidden = false;
+            bodyEditingSqueleton._highlight = false;
+            bodyEditingSqueleton._ofuscate = true;
+        var bodyWatchSqueleton = {};
+        configuration.initHeadStatus = [];
+        for(var indexHead in configuration.head){
+            if(typeof configuration.head[indexHead].input === "object" &&
+               typeof configuration.head[indexHead].input.type === "string" &&
+               configuration.head[indexHead].input.type === "number"){
+                bodySqueleton[configuration.head[indexHead].title] = 0;
+                bodyEditingSqueleton[configuration.head[indexHead].title] = 0;
+                bodyWatchSqueleton[configuration.head[indexHead].title] = 0;
+            }
+            else{
+                bodySqueleton[configuration.head[indexHead].title] = "";
+                bodyEditingSqueleton[configuration.head[indexHead].title] = "";
+                bodyWatchSqueleton[configuration.head[indexHead].title] = "";
+            }
+            if(configuration.head[indexHead].editable){
+                bodySqueleton['_unvalidated-'+indexHead] = false;
+                bodyEditingSqueleton['_unvalidated-'+indexHead] = false;
+            }
+            
+            if(typeof configuration.head[indexHead].input === "object" &&
+               typeof configuration.head[indexHead].input.type === "string" &&
+               configuration.head[indexHead].input.type === "select" &&
+               typeof configuration.head[indexHead].input.model === "object")
+                configuration.head[indexHead].input.options = [{value: null, text: null}];
+            
+            configuration.initHeadStatus[configuration.head[indexHead].title] = configuration.head[indexHead].hidden === true ? configuration.head[indexHead].hidden : false;
+        }
+        configuration.watchBody = bodyWatchSqueleton;
+        configuration.watchBody.actualIndex = 0;
+        if(typeof configuration.webService === "object" &&
+        typeof configuration.webService.model === "object" &&
+        configuration.webService.active){
+            configuration.body = [];
+            configuration.body.push(bodySqueleton);
+            
+            if(!(typeof configuration.style.pagination === 'object' &&
+            typeof configuration.style.pagination.rowPerPage === 'number' &&
+             configuration.style.pagination.rowPerPage > 0))
+                configuration.style.pagination = {
+                    currentPage: 1,
+                    pageCount: 1,
+                    rowPerPage: 10,
+                    totalRowCount: 1
+                };
+            else{
+                configuration.style.pagination.currentPage = 1;
+                configuration.style.pagination.pageCount = 1;
+                configuration.style.pagination.totalRowCount = 1;
+            }
+        }
+        
+        var groupable = false,
+            editable = false;
+        var beforeEdit = null,
+            beforeAdd = null,
+            beforeRemove = null,
+            templateEdit = null,
+            templateWatch = null,
+            onEdit = null,
+            onAdd = null,
+            onRemove = null,
+            onDragEnd = null,
+            onChangeColumns = null;
+        if(typeof configuration.style.draggable === "undefined" ||
+           configuration.style.draggable !== true)
+            configuration.style.draggable = false;
+        if(configuration.style.draggable)
+            configuration.dataDragged = null;
+        if(configuration.style.draggable && typeof configuration.onDragEnd === "function")
+            onDragEnd = configuration.onDragEnd;
+        else
+            onDragEnd = function(){};
+        if(typeof configuration.onChangeColumns === "function")
+            onChangeColumns = configuration.onChangeColumns;
+        else
+            onChangeColumns = function(){};
+        if(typeof configuration.handlers === "undefined" || typeof configuration.handlers !== "object")
+            configuration.handlers = {
+                add: {active: false, type: "inline"},
+                edit: {active: false, type: "inline"},
+                remove: {active: false, type: "inline"}
+            };
+        else if(typeof configuration.handlers === "object"){
+            if(typeof configuration.handlers.add === "undefined" || configuration.handlers.add.active !== true)
+                configuration.handlers.add = {active: false, type: "inline"};
+            if(typeof configuration.handlers.add.type === "undefined" || (configuration.handlers.add.type !== "inline" &&
+               configuration.handlers.add.type !== "template" && configuration.handlers.add.type !== "modal"))
+                configuration.handlers.add.type = "inline";
+            if(typeof configuration.handlers.edit === "undefined" || configuration.handlers.edit.active !== true)
+                configuration.handlers.edit = {active: false, type: "inline"};
+            if(typeof configuration.handlers.edit.type === "undefined" || (configuration.handlers.edit.type !== "inline" &&
+               configuration.handlers.edit.type !== "template" && configuration.handlers.edit.type !== "modal"))
+                configuration.handlers.edit.type = "inline";
+            if(typeof configuration.handlers.remove === "undefined" || configuration.handlers.remove.active !== true)
+                configuration.handlers.remove = {active: false};
+        }
+        for(var index in configuration.head){
+            if(typeof configuration.head[index].orderable === "undefined")
+                configuration.head[index].orderable = false;
+            if(typeof configuration.head[index].searchable === "undefined" ||
+               configuration.head[index].searchable.active !== true)
+                configuration.head[index].searchable = {
+                    active: false
+                };
+            else if(configuration.head[index].searchable.active === true &&
+                    (configuration.head[index].searchable.type !== "filter" && configuration.head[index].searchable.type !== "status"))
+                configuration.head[index].searchable.type = "filter";
+            if(configuration.head[index].searchable.active === true)
+                configuration.head[index]._searchData = "";
+            if(configuration.head[index].searchable.type === "status")
+                configuration.head[index]._searchStatusValues = [];
+            if(typeof configuration.head[index].groupable === "undefined")
+                configuration.head[index].groupable = false;
+            if(configuration.head[index].groupable === true){
+                configuration.head[index]._groupedBy = false;
+                groupable = true;
+            }
+            if(typeof configuration.handlers.edit === "undefined" || configuration.handlers.edit.active !== true ||
+               configuration.head[index].editable !== true)
+                configuration.head[index].editable = false;
+                
+            if(typeof configuration.head[index].hidden === "undefined")
+                configuration.head[index].hidden = false;
+            configuration.head[index]._order = null;
+            if(configuration.style.draggable)
+                configuration.head[index]._position = parseInt(index);
+        }
+        for(index in configuration.head)
+            if(configuration.head[index].editable)
+                editable = true;
+        configuration.handlers.edit.active = editable;
+        if(configuration.handlers.edit.type === "modal"){
+            configuration.editingBody = bodyEditingSqueleton;
+            configuration.editingBody.actualIndex = 0;
+        }
+        if(configuration.handlers.edit.active && typeof configuration.beforeEdit === "function")
+            beforeEdit = configuration.beforeEdit;
+        else
+            beforeEdit = function(){};
+        if(configuration.handlers.watch.active && typeof configuration.templateWatch === "function")
+            templateWatch = configuration.templateWatch;
+        else
+            templateWatch = function(){}; 
+        if(configuration.handlers.edit.active && typeof configuration.templateEdit === "function")
+            templateEdit = configuration.templateEdit;
+        else
+            templateEdit = function(){}; 
+        if(configuration.handlers.edit.active && typeof configuration.onEdit === "function")
+            onEdit = configuration.onEdit;
+        else
+            onEdit = function(){};
+        if(configuration.handlers.add.active && typeof configuration.beforeAdd === "function")
+            beforeAdd = configuration.beforeAdd;
+        else
+            beforeAdd = function(){};
+        if(configuration.handlers.add.active && typeof configuration.onAdd === "function")
+            onAdd = configuration.onAdd;
+        else
+            onAdd = function(){};
+        if(configuration.handlers.add.active){
+            configuration.adding = false;
+            for(index in configuration.head)
+                configuration.head[index]._dataAdd = {
+                    value: "",
+                    validation: false
+                };
+        }
+        if(configuration.handlers.remove.active && typeof configuration.beforeRemove === "function")
+            beforeRemove = configuration.beforeRemove;
+        else
+            beforeRemove = function(){};
+        if(configuration.handlers.remove.active && typeof configuration.onRemove === "function")
+            onRemove = configuration.onRemove;
+        else
+            onRemove = function(){};
+        delete configuration.beforeAdd;
+        delete configuration.beforeRemove;
+        delete configuration.beforeEdit;
+        delete configuration.templateWatch;
+        delete configuration.templateEdit;
+        delete configuration.onEdit;
+        delete configuration.onAdd;
+        delete configuration.onRemove;
+        delete configuration.onDragEnd;
+        delete configuration.onChangeColumns;
+        
+        configuration.existsCustomHandlers = false;
+        configuration.highlightHandlers = false;
+        if(typeof configuration.customHandlers === "object" &&
+           configuration.customHandlers.length > 0)
+            for(index in configuration.customHandlers){
+                if(configuration.customHandlers[index].active)
+                    configuration.existsCustomHandlers = true;
+                if(typeof configuration.style.highlight === "object" &&
+                   typeof configuration.style.highlight.styleClass === "object" &&
+                   configuration.style.highlight.active === true)
+                    configuration.highlightHandlers = true;
+            }
+        
+        for(index in configuration.body){
+            configuration.body[index]._hidden = false;
+            if(configuration.handlers.edit.active)
+                configuration.body[index]._editing = false;
+            if(configuration.highlightHandlers)
+                configuration.body[index]._highlight = false;
+        }
+        for(indexHead in configuration.head)
+            if(configuration.head[indexHead].editable)
+                for(index in configuration.body)
+                    configuration.body[index]['_unvalidated-'+indexHead] = false;
+        
+        if(typeof configuration.style.pagination === 'object' &&
+           typeof configuration.style.pagination.rowPerPage === 'number' &&
+            configuration.style.pagination.rowPerPage > 0){
+            if(typeof configuration.webService === "object" &&
+            typeof configuration.webService.model === "object" &&
+            configuration.webService.active){
+                var b = 1;
+                configuration.dataPagination = [];
+                for(var index in configuration.body)
+                    configuration.dataPagination.push([(b === 1), b++]);
+            }
+            else{
+                var a = 1;
+                configuration.dataPagination = [];
+                for(var index in configuration.body)
+                    if(index % configuration.style.pagination.rowPerPage === 0)
+                        configuration.dataPagination.push([(a === 1), a++]);
+                
+                if(groupable)   //We need a temp for pagination
+                    configuration.tempPagination = {
+                        style: configuration.style.pagination,
+                        data: configuration.dataPagination
+                    };
+            }
+        }
+        if(groupable)   //We need a temp for pagination
+            configuration.dataGrouping = {
+                isGrouped : false,
+                state: []
+            };
+        if(typeof configuration.style.language !== "undefined"){
+            if(configuration.style.language !== "eng")
+                configuration.style.language = "spa";
+        }
+        else
+            configuration.style.language = "spa";
+        configuration.style.languageItems = {
+            eng: {
+                handlers: {
+                    columns: {
+                        asc: "Ascendant order",
+                        desc: "Descendant order",
+                        search: "Search",
+                        filter: "Filter",
+                        reset: "Reset"
+                    },
+                    edit: "Edit",
+                    remove: "Remove",
+                    accept: "Save",
+                    watch: "See",
+                    cancel: "Cancel",
+                    title: "Handlers",
+                    group: {
+                        hide: "Hide",
+                        show: "Show"
+                    }
+                },
+                buttons: {
+                    add: "Add record",
+                    group: "Group by",
+                    column: "Columns",
+                    selectPagination: "Rows per page"
+                },
+                pagination: {
+                    information: [
+                        "Showing ",
+                        " of ",
+                        " rows from page ",
+                        " of "
+                    ],
+                    buttons: {
+                        last: "Last",
+                        first: "First"
+                    }
+                },
+                alert: {
+                    title: "Validation errors",
+                    text: "There are some errors on input data, try again.",
+                    ok: "Accept"
+                },
+                confirm: {
+                    title: "Deletion confirmation",
+                    text: "¿Are you sure you want to erase this row?",
+                    accept: "Accept",
+                    cancel: "Cancel"
+                }
+            },
+            spa: {
+                handlers: {
+                    columns: {
+                        asc: "Orden ascendente",
+                        desc: "Orden descendente",
+                        search: "Búsqueda",
+                        filter: "Filtro",
+                        reset: "Reinicializar"
+                    },
+                    edit: "Editar",
+                    remove: "Eliminar",
+                    accept: "Guardar",
+                    watch: "Ver",
+                    cancel: "Cancelar",
+                    title: "Acciones",
+                    group: {
+                        hide: "Esconder",
+                        show: "Mostrar"
+                    }
+                },
+                buttons: {
+                    add: "Nuevo registro",
+                    group: "Agrupar por",
+                    column: "Columnas",
+                    selectPagination: "Filas por página"
+                },
+                pagination: {
+                    information: [
+                        "Mostrando ",
+                        " de ",
+                        " filas en la página ",
+                        " de "
+                    ],
+                    buttons: {
+                        last: "Última",
+                        first: "Primera"
+                    }
+                },
+                alert: {
+                    title: "Errores en validación",
+                    text: "Existen algunos errores en los datos de entrada, inténtalo de nuevo.",
+                    ok: "Aceptar"
+                },
+                confirm: {
+                    title: "Confirmación de borrado",
+                    text: "¿Deseas borrar el registro seleccionado?",
+                    accept: "Aceptar",
+                    cancel: "Cancelar"
+                }
+            }
+        };
+        this.table = new Vue({
+            data: configuration,
+            methods: {
+                onChangeColumns: onChangeColumns,
+                setVisibilityColumns: function(e){
+                    for(var i in this.head)
+                        this.head[i].hidden = e[this.head[i].title];
+                },
+                setSortColumns: function(e){
+                    for(var i in e)
+                        for(var j in this.head)
+                            if(this.head[j].title === i)
+                                this.head[j]._position = e[i];
+                    this.head.sort(function(a, b){
+                        return (a._position > b._position) ? 1 :
+                                (a._position < b._position) ? -1 : 0;
+                    });
+                },
+                resetColumns: function(){
+                    var data = {};
+                    for(var i in this.head){
+                        this.head[i].hidden = this.initHeadStatus[this.head[i].title];
+                        data[this.head[i].title] = this.initHeadStatus[this.head[i].title];
+                    }
+                    this.onChangeColumns(data);
+                },
+                highlightRow: function(index, customIndex){
+                    if(this.highlightHandlers &&
+                        (typeof customIndex === "undefined" || this.customHandlers[customIndex].highlight === true))
+                        for(var i in this.body)
+                            if(parseInt(i) === parseInt(index))
+                                this.body[i]._highlight = true;
+                            else
+                                this.body[i]._highlight = false;
+                },
+                existsFullHandler: function(){
+                    var lastIndex = false;
+                    for(var i in this.customHandlers)
+                        if(this.customHandlers[i].fullHandler === true)
+                            lastIndex = i;
+                    return [
+                        lastIndex === false ? lastIndex : true,
+                        lastIndex
+                    ];
+                },
+                prettyTitle: function(index){
+                    var prettyTitle = this.head[index].title.charAt(0).toUpperCase();
+                    prettyTitle += this.head[index].title.replace("_id", "").slice(1);
+                    return prettyTitle === "Dia" ? "Día" : prettyTitle.replace(new RegExp("_", "g"), " ");
+                },
+                getSelectData: function(index, indexHead){
+                    if(this.body.length > 0){
+                        var selectData = null;
+                        for(var indexOptions in this.head[indexHead].input.options)
+                            if(this.head[indexHead].input.options[indexOptions].value === this.body[index][this.head[indexHead].title])
+                                selectData = this.head[indexHead].input.options[indexOptions].text;
+                        return selectData;
+                    }
+                },
+                getSelectValue: function(indexHead){
+                    var selectData = null;
+                    for(var indexOptions in this.head[indexHead].input.options)
+                        if(this.head[indexHead].input.options[indexOptions].text === this.head[indexHead]._searchData)
+                            selectValue = this.head[indexHead].input.options[indexOptions].value;
+                    return selectValue;
+                },
+                fieldValidation: function(element){
+                    var validator = false;
+                    if(typeof element === "string"){
+                        validator += ((element.indexOf('#') !== -1)) ? true : false;
+                        validator += ((element.indexOf('!') !== -1)) ? true : false;
+                        validator += ((element.indexOf('$') !== -1)) ? true : false;
+                        validator += ((element.indexOf('%') !== -1)) ? true : false;
+                        validator += ((element.indexOf('/') !== -1)) ? true : false;
+                        validator += ((element.indexOf('(') !== -1)) ? true : false;
+                        validator += ((element.indexOf(')') !== -1)) ? true : false;
+                        validator += ((element.indexOf('=') !== -1)) ? true : false;
+                        validator += ((element.indexOf('<') !== -1)) ? true : false;
+                        validator += ((element.indexOf('>') !== -1)) ? true : false;
+                        validator += ((element.indexOf('¡') !== -1)) ? true : false;
+                        validator += ((element.indexOf('\'') !== -1)) ? true : false;
+                        validator += ((element.indexOf('´') !== -1)) ? true : false;
+                        validator += ((element.indexOf('*') !== -1)) ? true : false;
+                        validator += ((element.indexOf('[') !== -1)) ? true : false;
+                        validator += ((element.indexOf(']') !== -1)) ? true : false;
+                        validator += ((element.indexOf('{') !== -1)) ? true : false;
+                        validator += ((element.indexOf('}') !== -1)) ? true : false;
+                        validator += ((element.indexOf('+') !== -1)) ? true : false;
+                        validator += ((element.indexOf('"') !== -1)) ? true : false;
+                        validator += ((element.indexOf('|') !== -1)) ? true : false;
+                        validator += ((element.indexOf('°') !== -1)) ? true : false;
+                        validator += ((element.indexOf('&') !== -1)) ? true : false;
+                        if(validator)
+                            validator = true;
+                        else
+                            validator = false;
+                    }
+                    return validator;
+                },
+                sortList: function(sortType, column, auto){
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        var me = this;
+                        if(auto){
+                            for(index in this.head)
+                                if(this.head[index]._order !== null){
+                                    sortType = this.head[index]._order;
+                                    column = this.head[index].title;
+                                }
+                            return (sortType) ? sortType === "asc" ? column : "-" + column : null;
+                        }
+                        else{
+                            for(index in this.head)
+                                if(this.head[index].title === column)
+                                    this.head[index]._order = sortType;
+                                else
+                                    this.head[index]._order = null;
+                            this.getService({"per-page": this.style.pagination.rowPerPage, "page": this.style.pagination.currentPage, "sort": sortType === "asc" ? column : "-" + column },
+                            function(success){
+                                if(typeof me.dataGrouping === 'object')
+                                    me.groupBy(null, true);
+                            },
+                            function(error){
+                                console.log(error);
+                            },
+                            true,       //Redefine body
+                            false);     //Redefine pagination
+                        }
+                    }
+                    else{
+                        /***************Used only in pagination mode*****************/
+                        var actualVisible = [],
+                            index = null;
+                        /************************************************************/
+                        var headSelect = false;
+                        if(auto){
+                            for(index in this.head)
+                                if(this.head[index]._order !== null){
+                                    sortType = this.head[index]._order;
+                                    column = this.head[index].title;
+                                    if(typeof this.head[index].input === "object" &&
+                                       this.head[index].input.type === "select")
+                                        headSelect = this.head[index].input.options;
+                                }
+                        }
+                        else{
+                            for(index in this.head)
+                                if(this.head[index].title === column){
+                                    this.head[index]._order = sortType;
+                                    if(typeof this.head[index].input === "object" &&
+                                       this.head[index].input.type === "select")
+                                        headSelect = this.head[index].input.options;
+                                }
+                                else
+                                    this.head[index]._order = null;
+                        }
+                        var data = this.body;
+                        
+                        /***************Used only in pagination mode*****************/
+                        if(typeof this.style.pagination === 'object' &&
+                        typeof this.style.pagination.rowPerPage === 'number' &&
+                        this.style.pagination.rowPerPage > 0){
+                            for(index in data)  //Obtain actual hidden
+                                actualVisible.push(data[index]._hidden);
+                            for(index in data)  //Show everything
+                                data[index]._hidden = false;
+                        }
+                        /************************************************************/
+                        
+                        switch(sortType){
+                            case "asc":
+                                if(headSelect){
+                                    data.sort(function(a, b){
+                                        var semiA = "",
+                                            semiB = "";
+                                        for(index in headSelect){
+                                            if(headSelect[index].value === a[column])
+                                                semiA = headSelect[index].text;
+                                            else if(headSelect[index].value === b[column])
+                                                semiB = headSelect[index].text;
+                                        }
+                                        return (semiA.toLowerCase() > semiB.toLowerCase()) ? 1 :
+                                         (semiA.toLowerCase() < semiB.toLowerCase()) ? -1 : 0;
+                                    });
+                                }
+                                else{
+                                    data.sort(function(a, b){
+                                        if(typeof a[column] === "string" &&
+                                            typeof b[column] === "string")
+                                               return (a[column].toLowerCase() > b[column].toLowerCase()) ? 1 :
+                                                (a[column].toLowerCase() < b[column].toLowerCase()) ? -1 : 0;
+                                        else
+                                           return (a[column] > b[column]) ? 1 :
+                                            (a[column] < b[column]) ? -1 : 0;
+                                    });
+                                }
+                                break;
+                            case "desc":
+                                if(headSelect){
+                                    data.sort(function(a, b){
+                                        var semiA = "",
+                                            semiB = "";
+                                        for(index in headSelect){
+                                            if(headSelect[index].value === a[column])
+                                                semiA = headSelect[index].text;
+                                            else if(headSelect[index].value === b[column])
+                                                semiB = headSelect[index].text;
+                                        }
+                                        return (semiA.toLowerCase() > semiB.toLowerCase()) ? -1 :
+                                         (semiA.toLowerCase() < semiB.toLowerCase()) ? 1 : 0;
+                                    });
+                                }
+                                else{
+                                    data.sort(function(a, b){
+                                        if(typeof a[column] === "string" &&
+                                            typeof b[column] === "string")
+                                               return (a[column].toLowerCase() > b[column].toLowerCase()) ? -1 :
+                                                (a[column].toLowerCase() < b[column].toLowerCase()) ? 1 : 0;
+                                        else
+                                            return (a[column] > b[column]) ? -1 :
+                                             (a[column] < b[column]) ? 1 : 0;
+                                    });
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                        /***************Used only in pagination mode*****************/
+                        if(typeof this.style.pagination === 'object' &&
+                        typeof this.style.pagination.rowPerPage === 'number' &&
+                        this.style.pagination.rowPerPage > 0)
+                            for(index in data)  //Hide with same sequence, and new order
+                                data[index]._hidden = actualVisible[index];
+                        /************************************************************/
+                        /***************Used only in group mode*****************/
+                        if(typeof this.dataGrouping === 'object')
+                            if(this.dataGrouping.isGrouped && this.dataGrouping.column === column)
+                                switch(sortType){
+                                    case "asc":
+                                        this.dataGrouping.state.sort(function(a, b){ return a[0] > b[0]; });
+                                        break;
+                                    case "desc":
+                                        this.dataGrouping.state.sort(function(a, b){ return a[0] < b[0]; });
+                                        break;
+                                }
+                        /************************************************************/
+                    }
+                },
+                setVisible: function(hidden, column){
+                    var data = {};
+                    for(var index in this.head){
+                        if(this.head[index].title === column)
+                            this.head[index].hidden = !hidden;
+                        data[this.head[index].title] = this.head[index].hidden;
+                    }
+                    this.onChangeColumns(data);
+                },
+                search: function(value, column){
+                    var data = null,
+                        headSelect = false,
+                        index = null;
+                    /***************Used only in pagination mode*****************/
+                    if(typeof this.style.pagination === 'object' &&
+                    typeof this.style.pagination.rowPerPage === 'number' &&
+                    this.style.pagination.rowPerPage > 0 &&
+                    (!(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active))){
+                        data = [];
+                        var elementsPerPage = this.style.pagination.rowPerPage;
+                        var actualPage = 1;
+                        for(index in this.dataPagination)
+                            if(this.dataPagination[index][0])
+                                actualPage = parseInt(index) + 1;
+                        for(index in this.body){
+                            if(parseInt(index) >= (elementsPerPage*actualPage) - elementsPerPage &&
+                               parseInt(index) <  elementsPerPage*actualPage)
+                                data.push(this.body[index]);
+                            else
+                                this.body[index]._hidden = true;
+                        }
+                    }
+                    /************************************************************/
+                    else
+                        data = this.body;
+                    for(var semiIndex in this.head)
+                        if(this.head[semiIndex].title === column)
+                            this.head[semiIndex]._searchData = value;
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        this.updatePagination();
+                    }
+                    else{
+                        var weDontSearch = true;
+                        for(semiIndex in this.head)
+                            if(this.head[semiIndex].searchable.active)
+                                if(this.head[semiIndex]._searchData !== "")
+                                    weDontSearch *= false;
+                        for(index in data)
+                            if(weDontSearch){
+                                for(index in data)
+                                    data[index]._hidden = false;
+                            }
+                            else{
+                                var visible = true;
+                                for(semiIndex in this.head){
+                                    if(typeof this.head[semiIndex].searchable === "object" && this.head[semiIndex].searchable.active && this.head[semiIndex]._searchData !== ""){
+                                        headSelect = false;
+                                        if(typeof this.head[semiIndex].input === "object" &&
+                                            this.head[semiIndex].input.type === "select")
+                                            headSelect = this.head[semiIndex].input.options;
+                                        if(headSelect){
+                                            var actualValue = "";
+                                            for(var indexSelect in headSelect)
+                                                if(headSelect[indexSelect].value === data[index][this.head[semiIndex].title])
+                                                    actualValue = headSelect[indexSelect].text;
+                                            if(this.head[semiIndex].searchable.type === "status"){
+                                                if(actualValue != this.head[semiIndex]._searchData)
+                                                    visible = false;
+                                            }
+                                            else{
+                                                if(actualValue.toLowerCase().indexOf(this.head[semiIndex]._searchData.toLowerCase()) < 0)
+                                                    visible = false;
+                                            }
+                                        }
+                                        else{
+                                            switch(typeof data[index][this.head[semiIndex].title]){
+                                                case "number":
+                                                    if(this.head[semiIndex].searchable.type === "status"){
+                                                        if(data[index][this.head[semiIndex].title] != this.head[semiIndex]._searchData)
+                                                            visible = false;
+                                                    }
+                                                    else{
+                                                        if(data[index][this.head[semiIndex].title].toString().indexOf(this.head[semiIndex]._searchData) < 0)
+                                                            visible = false;
+                                                    }
+                                                    break;
+                                                case "string":
+                                                    if(this.head[semiIndex].searchable.type === "status"){
+                                                        if(data[index][this.head[semiIndex].title] != this.head[semiIndex]._searchData)
+                                                            visible = false;
+                                                    }
+                                                    else{
+                                                        if(data[index][this.head[semiIndex].title].toLowerCase().indexOf(this.head[semiIndex]._searchData.toLowerCase()) < 0)
+                                                            visible = false;
+                                                    }
+                                                    break;
+                                                default:
+                                                    visible = false;
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                }
+                                data[index]._hidden = !visible;
+                            }
+                    }
+                },
+                watchRow: function(index){
+                    this.watchBody.actualIndex = index;
+                    for(var indexHead in this.head)
+                        this.watchBody[this.head[indexHead].title] = this.body[index][this.head[indexHead].title];
+                    this.highlightRow(index);
+                },
+                initEdit: function(index){
+                    var indexHead = null;
+                    switch(this.handlers.edit.type){
+                        case "inline":
+                            for(indexHead in this.head)
+                                this.reValidateEdit(index, indexHead);
+                            this.body[index]._editing = true;
+                            break;
+                        case "modal":
+                            this.editingBody.actualIndex = index;
+                            for(indexHead in this.head)
+                                this.editingBody[this.head[indexHead].title] = this.body[index][this.head[indexHead].title];
+                            break;
+                    }
+                    if(this.handlers.edit.highlight)
+                        this.highlightRow(index);
+                },
+                reValidateEdit: function(index, indexHead){
+                    if(!(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active)){
+                        switch(this.handlers.edit.type){
+                            case "inline":
+                                this.body[index]['_unvalidated-'+indexHead] = true;
+                                if(this.head[indexHead].editable && typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
+                                    if(this.head[indexHead].input.required)
+                                        this.body[index]['_unvalidated-'+indexHead] *= this.body[index][this.head[indexHead].title] !== '' ? true : false;
+                                    if(this.head[indexHead].input.type === 'email'){
+                                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                        this.body[index]['_unvalidated-'+indexHead] *= emailTest.test(this.body[index][this.head[indexHead].title]) ? true : false;
+                                    }
+                                }
+                                this.body[index]['_unvalidated-'+indexHead] *= !this.fieldValidation(this.body[index][this.head[indexHead].title]);
+                                this.body[index]['_unvalidated-'+indexHead] = !this.body[index]['_unvalidated-'+indexHead];
+                                break;
+                            case "modal":
+                                this.editingBody['_unvalidated-'+indexHead] = true;
+                                if(this.head[indexHead].editable && typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
+                                    if(this.head[indexHead].input.required)
+                                        this.editingBody['_unvalidated-'+indexHead] *= this.editingBody[this.head[indexHead].title] !== '' ? true : false;
+                                    if(this.head[indexHead].input.type === 'email'){
+                                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                        this.editingBody['_unvalidated-'+indexHead] *= emailTest.test(this.editingBody[this.head[indexHead].title]) ? true : false;
+                                    }
+                                }
+                                this.editingBody['_unvalidated-'+indexHead] *= !this.fieldValidation(this.editingBody[this.head[indexHead].title]);
+                                this.editingBody['_unvalidated-'+indexHead] = !this.editingBody['_unvalidated-'+indexHead];
+                                break;
+                        }
+                    }
+                },
+                templateWatch: templateWatch,
+                beforeEdit: beforeEdit,
+                templateEdit: templateEdit,
+                onEdit: onEdit,
+                finishEdit: function(data, index){
+                    this.beforeEdit();
+                    var sendData = {},
+                        indexHead = null;
+                    switch(this.handlers.edit.type){
+                        case "inline":
+                            for(var indexHead in this.head)
+                                if(typeof this.head[indexHead].input !== "undefined" &&
+                                   typeof this.head[indexHead].input.type !== "undefined" &&
+                                   this.head[indexHead].input.type === "number")
+                                    if(data[indexHead] === "")
+                                        sendData[this.head[indexHead].title] = 0;
+                                    else
+                                        sendData[this.head[indexHead].title] = parseFloat(data[this.head[indexHead].title]);
+                                else
+                                    sendData[this.head[indexHead].title] = data[this.head[indexHead].title];
+                            break;
+                        case "modal":
+                            for(var indexHead in this.head)
+                                if(typeof this.head[indexHead].input !== "undefined" &&
+                                   typeof this.head[indexHead].input.type !== "undefined" &&
+                                   this.head[indexHead].input.type === "number")
+                                    if(this.editingBody[this.head[indexHead].title] === "")
+                                        sendData[this.head[indexHead].title] = 0;
+                                    else
+                                        sendData[this.head[indexHead].title] = parseFloat(this.editingBody[this.head[indexHead].title]);
+                                else
+                                    sendData[this.head[indexHead].title] = this.editingBody[this.head[indexHead].title];
+                            break;
+                    }
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        var me = this,
+                            params = {},
+                            body = {},
+                            delimiters = [];
+                        for(var myIndex in sendData)
+                            if(myIndex !== "id")
+                                params[myIndex] = sendData[myIndex];
+                        if(typeof this.webService.delimiters === "number")
+                           delimiters.push(this.webService.delimiters);
+                        else if(typeof this.webService.delimiters === "object")
+                            for(myIndex in this.webService.delimiters)
+                                delimiters.push(this.webService.delimiters[myIndex]);
+                        delimiters.push(sendData.id);
+                        body.params = params;
+                        body.delimiters = delimiters;
+                        this.webService.model.patch(body,
+                        function(success){
+                            if(me.handlers.edit.type === "inline")
+                                me.body[index]._editing = false;
+                            me.updatePagination();
+                            me.onEdit(sendData, true);
+                            if(typeof me.handlers.edit === "object" && me.handlers.edit.type === 'modal')
+                                document.getElementById(me.id + "-closeEditModal").click();
+                        },
+                        function(error){
+                            var errors = "";
+                            for(index in error.body){
+                                errors += error.body[index].message + "<br>";
+                            }
+                            var messageErrors = {
+                                title: "Errores en Edición de Registro",
+                                text: errors,
+                                ok: "Aceptar",
+                                active: true
+                            };
+                            me.onEdit(messageErrors, false);
+                        });
+                    }
+                    else{
+                        var validator = true;
+                        switch(this.handlers.edit.type){
+                            case "inline":
+                                for(indexHead in this.head){
+                                    this.body[index]['_unvalidated-'+indexHead] = true;
+                                    if(this.head[indexHead].editable && typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
+                                        switch(this.head[indexHead].input.required){
+                                            case true:
+                                                validator *= this.body[index][this.head[indexHead].title] !== '' ? true : false;
+                                                this.body[index]['_unvalidated-'+indexHead] *= this.body[index][this.head[indexHead].title] !== '' ? true : false;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        switch(this.head[indexHead].input.type){
+                                            case 'email':
+                                                var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                                validator *= emailTest.test(this.body[index][this.head[indexHead].title]) ? true : false;
+                                                this.body[index]['_unvalidated-'+indexHead] *= emailTest.test(this.body[index][this.head[indexHead].title]) ? true : false;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                    if(this.head[indexHead].editable){
+                                        validator *= !this.fieldValidation(this.body[index][this.head[indexHead].title]);
+                                        this.body[index]['_unvalidated-'+indexHead] *= !this.fieldValidation(this.body[index][this.head[indexHead].title]);
+                                    }
+                                    this.body[index]['_unvalidated-'+indexHead] = !this.body[index]['_unvalidated-'+indexHead];
+                                }
+                                if(validator){
+                                    this.body[index]._editing = false;
+                                    this.sortList(null, null, true);
+                                    this.onEdit(sendData, true);
+                                }
+                                else{
+                                    var messageErrors = {
+                                        title: this.style.languageItems[configuration.style.language].alert.title,
+                                        text: this.style.languageItems[configuration.style.language].alert.text,
+                                        ok: this.style.languageItems[configuration.style.language].alert.ok,
+                                        active: true
+                                    };
+                                    this.onEdit(messageErrors, false);
+                                }
+                                break;
+                            case "modal":
+                                for(indexHead in this.head){
+                                    this.editingBody['_unvalidated-'+indexHead] = true;
+                                    if(this.head[indexHead].editable && typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
+                                        switch(this.head[indexHead].input.required){
+                                            case true:
+                                                validator *= this.editingBody[this.head[indexHead].title] !== '' ? true : false;
+                                                this.editingBody['_unvalidated-'+indexHead] *= this.editingBody[this.head[indexHead].title] !== '' ? true : false;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        switch(this.head[indexHead].input.type){
+                                            case 'email':
+                                                var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                                validator *= emailTest.test(this.editingBody[this.head[indexHead].title]) ? true : false;
+                                                this.editingBody['_unvalidated-'+indexHead] *= emailTest.test(this.editingBody[this.head[indexHead].title]) ? true : false;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                    if(this.head[indexHead].editable){
+                                        validator *= !this.fieldValidation(this.editingBody[this.head[indexHead].title]);
+                                        this.editingBody['_unvalidated-'+indexHead] *= !this.fieldValidation(this.editingBody[this.head[indexHead].title]);
+                                    }
+                                    this.editingBody['_unvalidated-'+indexHead] = !this.editingBody['_unvalidated-'+indexHead];
+                                }
+                                if(validator){
+                                    for(indexHead in this.head)
+                                        this.body[this.editingBody.actualIndex][this.head[indexHead].title] = this.editingBody[this.head[indexHead].title];
+                                    this.sortList(null, null, true);
+                                    this.onEdit(sendData, true);
+                                    document.getElementById(this.id + "-closeEditModal").click();
+                                }
+                                else{
+                                    var messageErrors = {
+                                        title: this.style.languageItems[configuration.style.language].alert.title,
+                                        text: this.style.languageItems[configuration.style.language].alert.text,
+                                        ok: this.style.languageItems[configuration.style.language].alert.ok,
+                                        active: true
+                                    };
+                                    this.onEdit(messageErrors, false);
+                                }
+                                break;
+                            }
+                    }
+                },
+                beforeRemove: beforeRemove,
+                onRemove: onRemove,
+                confirmRemove(data, index){
+                    var me = this;
+                    var messageConfirm = {
+                        title: this.style.languageItems[configuration.style.language].confirm.title,
+                        text: this.style.languageItems[configuration.style.language].confirm.text,
+                        accept: this.style.languageItems[configuration.style.language].confirm.accept,
+                        cancel: this.style.languageItems[configuration.style.language].confirm.cancel,
+                        active: true
+                    };
+                    this.beforeRemove(messageConfirm,
+                        function(){
+                            me.removeRow(data, index);
+                        }
+                    );
+                },
+                removeRow: function(data, index){
+                    var sendData = {};
+                    for(var indexHead in this.head)
+                        sendData[this.head[indexHead].title] = this.body[index][this.head[indexHead].title];
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        var me = this,
+                            delimiters = [];
+                        if(typeof this.webService.delimiters === "number")
+                           delimiters.push(this.webService.delimiters);
+                        else if(typeof this.webService.delimiters === "object")
+                            for(var index in this.webService.delimiters)
+                                delimiters.push(this.webService.delimiters[index]);
+                        delimiters.push(sendData.id);
+                        this.webService.model.remove({
+                            delimiters: delimiters,
+                        },
+                        function(success){
+                            me.updatePagination();
+                            me.onRemove(sendData);
+                        },
+                        function(error){
+                            console.log(error);
+                        });
+                    }
+                    else{
+                        
+                        var groupable = false;
+                        var newBody = [];
+                        for(var semiIndex in this.body)
+                            if(parseInt(semiIndex) !== parseInt(index))
+                                newBody.push(this.body[semiIndex]);
+                        this.body = newBody;
+                        
+                        /***************Used only in pagination mode*****************/
+                        if(typeof this.style.pagination === 'object' &&
+                        typeof this.style.pagination.rowPerPage === 'number' &&
+                        this.style.pagination.rowPerPage > 0)
+                            this.updatePagination();
+                        /************************************************************/
+                        for(index in this.head)
+                            if(typeof this.head[index].groupable !== "undefined" &&
+                               this.head[index].groupable === true &&
+                               this.dataGrouping.isGrouped === true)
+                                groupable = true;
+                        if(groupable){
+                            this.groupBy(null, true);
+                        }
+                        this.onRemove(sendData);
+                    }
+                },
+                initAdd: function(){
+                    for(var index in this.head)
+                        this.reValidateAdd(index);
+                    this.adding = true;
+                },
+                cancelAdd: function(){
+                    for(var index in this.head)
+                        this.head[index]._dataAdd.value = "";
+                    this.adding = false;
+                },
+                beforeAdd: beforeAdd,
+                onAdd: onAdd,
+                reValidateAdd: function(indexHead){
+                    if(!(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active)){
+                        var newData = {};
+                        for(var index in this.head)
+                            newData[this.head[index].title] = this.head[index]._dataAdd.value;
+                        this.head[indexHead]._dataAdd.validation = true;
+                        if(typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
+                            if(this.head[indexHead].input.required)
+                                this.head[indexHead]._dataAdd.validation *= newData[this.head[indexHead].title] !== '' ? true : false;
+                            if(this.head[indexHead].input.type === "email"){
+                                var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                this.head[indexHead]._dataAdd.validation *= emailTest.test(newData[this.head[indexHead].title]) ? true : false;
+                            }
+                        }
+                        this.head[indexHead]._dataAdd.validation *= !this.fieldValidation(newData[this.head[indexHead].title]);
+                        this.head[indexHead]._dataAdd.validation = !this.head[indexHead]._dataAdd.validation;
+                    }
+                },
+                addRow: function(){
+                    this.beforeAdd();
+                    var newData = {};
+                    var sendData = {};
+                    newData._editing = false;
+                    newData._hidden = false;
+                    newData._highlight = false;
+                    for(var indexHead in this.head)
+                        if(this.head[indexHead].editable)
+                            newData['_unvalidated-'+indexHead] = false;
+                    for(var index in this.head)
+                        if(typeof this.head[index].input !== "undefined" &&
+                           typeof this.head[index].input.type !== "undefined" &&
+                           this.head[index].input.type === "number"){
+                            if(this.head[index]._dataAdd.value === ""){
+                                newData[this.head[index].title] = 0;
+                                sendData[this.head[index].title] = 0;
+                            }
+                            else{
+                                newData[this.head[index].title] = parseFloat(this.head[index]._dataAdd.value);
+                                sendData[this.head[index].title] = parseFloat(this.head[index]._dataAdd.value);
+                            }
+                        }
+                        else{
+                            newData[this.head[index].title] = this.head[index]._dataAdd.value;
+                            sendData[this.head[index].title] = this.head[index]._dataAdd.value;
+                        }
+                    
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        var postData = {},
+                            me = this,
+                            body = {};
+                        for(index in sendData)
+                            if(index !== "id")
+                                postData[index] = sendData[index];
+                        body.params = postData;
+                        if(typeof this.webService.delimiters !== "undefined")
+                           body.delimiters = this.webService.delimiters;
+                        this.webService.model.post(body,
+                        function(success){
+                            me.adding = false;
+                            for(index in me.head)
+                                me.head[index]._dataAdd.value = "";
+                            me.updatePagination();
+                            me.onAdd(sendData, true);
+                            if(typeof me.handlers.add === "object" && me.handlers.add.type === 'modal')
+                                document.getElementById(me.id + "-closeAddModal").click();
+                        },
+                        function(error){
+                            var errors = "";
+                            for(index in error.body){
+                                errors += error.body[index].message + "<br>";
+                            }
+                            var messageErrors = {
+                                title: "Errores en Nuevo Registro",
+                                text: errors,
+                                ok: "Aceptar",
+                                active: true
+                            };
+                            me.onAdd(messageErrors, false);
+                        });
+                    }
+                    else{
+                        var validator = true;
+                        for(indexHead in this.head){
+                            this.head[indexHead]._dataAdd.validation = true;
+                            if(typeof this.head[indexHead].input !== "undefined"){  //editable column and text with validations
+                                switch(this.head[indexHead].input.required){
+                                    case true:
+                                        validator *= this.head[indexHead]._dataAdd.value !== '' ? true : false;
+                                        this.head[indexHead]._dataAdd.validation = this.head[indexHead]._dataAdd.value !== '' ? true : false;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                switch(this.head[indexHead].input.type){
+                                    case 'email':
+                                        var emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                        validator *= emailTest.test(this.head[indexHead]._dataAdd.value) ? true : false;
+                                        this.head[indexHead]._dataAdd.validation = emailTest.test(this.head[indexHead]._dataAdd.value) ? true : false;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            else{
+                                validator *= !this.fieldValidation(this.head[indexHead]._dataAdd.value);
+                                this.head[indexHead]._dataAdd.validation *= !this.fieldValidation(newData[this.head[indexHead].title]);
+                            }
+                            this.head[indexHead]._dataAdd.validation = !this.head[indexHead]._dataAdd.validation;
+                        }
+                        if(validator){
+                            var groupable = false;
+                            this.body.push(newData);
+                            this.adding = false;
+                            for(index in this.head)
+                                this.head[index]._dataAdd.value = "";
+                            /***************Used only in pagination mode*****************/
+                            if(typeof this.style.pagination === 'object' &&
+                            typeof this.style.pagination.rowPerPage === 'number' &&
+                            this.style.pagination.rowPerPage > 0)
+                                this.updatePagination();
+                            /************************************************************/
+                            this.sortList(null, null, true);
+                            for(var index in this.head)
+                                if(typeof this.head[index].groupable !== "undefined" &&
+                                   this.head[index].groupable === true &&
+                               this.dataGrouping.isGrouped === true)
+                                    groupable = true;
+                            if(groupable)
+                                this.groupBy(null, true);
+                            this.onAdd(sendData, true);
+                            if(typeof this.handlers.add === "object" && this.handlers.add.type === 'modal')
+                                document.getElementById(this.id + "-closeAddModal").click();
+                        }
+                        else{
+                            var messageErrors = {
+                                title: this.style.languageItems[configuration.style.language].alert.title,
+                                text: this.style.languageItems[configuration.style.language].alert.text,
+                                ok: this.style.languageItems[configuration.style.language].alert.ok,
+                                active: true
+                            };
+                            this.onAdd(messageErrors, false);
+                        }
+                    }
+                },
+                updatePagination: function(init){
+                    var a = 1,
+                        activeIndex = null;
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        if(this.body.length > 0){
+                            for(var index in this.dataPagination)
+                                if(this.dataPagination[index][0])
+                                    activeIndex = parseInt(index);
+                            this.updatePagesService(init ? 1 : parseInt(activeIndex) + a);
+                        }
+                    }
+                    else{
+                        if(this.body.length > 0){
+                            for(var index in this.dataPagination)
+                                if(this.dataPagination[index][0])
+                                    activeIndex = parseInt(index);
+                            this.dataPagination = [];
+                            for(index in this.body)
+                                if(index % this.style.pagination.rowPerPage === 0)
+                                    this.dataPagination.push([(parseInt(index) === parseInt(activeIndex)), a++]);
+                            a = (parseInt(activeIndex) === this.dataPagination.length) ? 0 : 1;
+                            this.updatePages(init ? 1 : parseInt(activeIndex) + a);
+                        }
+                    }
+                },
+                recordsPagination: function(val){
+                    var data = 0;
+                    switch(val){
+                        case 0:
+                            for(var index in this.body)
+                                if(!this.body[index]._hidden && !this.body[index]._ofuscate)
+                                    data++;
+                            break;
+                        case 1:
+                            data = this.body.length;
+                            break;
+                        case 2:
+                            for(var index in this.dataPagination)
+                                if(this.dataPagination[index][0])
+                                    data = parseInt(index) + 1;
+                            break;
+                        default:
+                            data = this.dataPagination.length;
+                    }
+                    return data;
+                },
+                notAllPages: function(beggining){
+                    var shouldSight = false;
+                    for(var index in this.dataPagination)
+                        if(this.dataPagination[index][0])
+                            if(beggining && parseInt(index) + 1 > 4)  //Showing from beggining
+                                    shouldSight = true;
+                            else if(!beggining && parseInt(index) + 1 < this.dataPagination.length - 3)
+                                    shouldSight = true;
+                    return shouldSight;
+                },
+                updatePages: function(active, redefine){
+                    var elementsPerPage = this.style.pagination.rowPerPage;
+                    var actualPage = 1;
+                    var limits = [4, 4];
+                    for(var index in this.dataPagination){
+                        if(this.dataPagination[index][1] === active){
+                            this.dataPagination[index][0] = true;
+                            actualPage = parseInt(index) + 1;
+                        }
+                        else
+                            this.dataPagination[index][0] = false;
+                    }
+                    if(actualPage <= 4){
+                        limits[0] = actualPage;
+                        limits[1] = 8 - actualPage;
+                    }
+                    if(actualPage >= this.dataPagination.length - 3){
+                        limits[0] = 8 - (this.dataPagination.length + 1 - actualPage);
+                        limits[1] = this.dataPagination.length + 1 - actualPage;
+                    }
+                    for(index in this.dataPagination){
+                        if((parseInt(index) <= (actualPage - 1 - limits[0]) || parseInt(index) >= (actualPage - 1 + limits[1])) && parseInt(index) !== actualPage - 1)
+                            this.dataPagination[index][0] = null;
+                    }
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        var me = this;
+                        var params = {
+                            "per-page": this.style.pagination.rowPerPage,
+                            "page": actualPage
+                        },
+                            sortType = null,
+                            column = null;
+                        for(index in this.head)
+                            if(this.head[index]._order !== null){
+                                sortType = this.head[index]._order;
+                                column = this.head[index].title;
+                            }
+                        var sort = this.sortList(null, null, true);
+                        if(sort)
+                            params["sort"] = sort;
+                        this.getService(params,
+                        function(success){
+                            for(var index in me.head)
+                                if(typeof me.head[index].groupable !== "undefined" &&
+                                   me.head[index].groupable === true &&
+                               me.dataGrouping.isGrouped === true)
+                                    groupable = true;
+                            if(groupable)
+                                me.groupBy(null, true);
+                        },
+                        function(error){
+                            console.log(error);
+                        },
+                        true,       //Redefine body
+                        redefine ? true : false);     //Redefine pagination
+                    }
+                    else{
+                        for(index in this.body){
+                            if(parseInt(index) >= (elementsPerPage*actualPage) - elementsPerPage &&
+                               parseInt(index) <  elementsPerPage*actualPage)
+                                this.body[index]._hidden = false;
+                            else
+                                this.body[index]._hidden = true;
+                        }
+                        this.search(null, null);
+                    }
+                },
+                updatePagesService: function(active){
+                    var me = this;
+                    var actualPage = 1;
+                    var limits = [4, 4];
+                    for(var index in this.dataPagination){
+                        if(this.dataPagination[index][1] === active){
+                            this.dataPagination[index][0] = true;
+                            actualPage = parseInt(index) + 1;
+                        }
+                        else
+                            this.dataPagination[index][0] = false;
+                    }
+                    var params = {
+                        "per-page": this.style.pagination.rowPerPage,
+                        "page": actualPage
+                    };
+                    for(index in this.head)
+                        if(this.head[index]._searchData !== null && this.head[index]._searchData !== "" &&
+                           this.head[index]._searchData !== undefined){
+                            if(typeof this.head[index].input === "object" &&
+                               this.head[index].input.type === "select")
+                                params[this.head[index].title] = this.getSelectValue(index);
+                            else
+                                params[this.head[index].title] = this.head[index]._searchData;
+                        }
+                    var sort = this.sortList(null, null, true);
+                    if(sort)
+                        params["sort"] = sort;
+                    this.getService(params,
+                    function(success){
+                        if(success.body.length > 0){
+                            var b = 1;
+                            me.dataPagination = [];
+                            for(var i = 0; i < parseInt(success.headers.get(me.webService.headers.pageCount)); i++)
+                                me.dataPagination.push([(parseInt(success.headers.get(me.webService.headers.pageCount)) < actualPage) ? b === actualPage -1 : b === actualPage, b++]);
+                            if(actualPage <= 4){
+                                limits[0] = actualPage;
+                                limits[1] = 8 - actualPage;
+                            }
+                            if(actualPage >= me.dataPagination.length - 3){
+                                limits[0] = 8 - (me.dataPagination.length + 1 - actualPage);
+                                limits[1] = me.dataPagination.length + 1 - actualPage;
+                            }
+                            for(index in me.dataPagination){
+                                if((parseInt(index) <= (actualPage - 1 - limits[0]) || parseInt(index) >= (actualPage - 1 + limits[1])) && parseInt(index) !== actualPage - 1)
+                                    me.dataPagination[index][0] = null;
+                            }
+                            for(var index in me.head)
+                                if(typeof me.head[index].groupable !== "undefined" &&
+                                   me.head[index].groupable === true &&
+                               me.dataGrouping.isGrouped === true)
+                                    groupable = true;
+                            if(groupable)
+                                me.groupBy(null, true);
+                        }
+                        else
+                            me.body[0]._ofuscate = true;
+                    },
+                    function(error){
+                        console.log(error);
+                    },
+                    true,       //Redefine body
+                    true);     //Redefine pagination
+                },
+                updatePageRows: function(rowsPerPage){
+                    this.style.pagination.rowPerPage = rowsPerPage;
+                    this.updatePagination(true);
+                },
+                shouldGroup: function(){    //Some column was defined as groupable
+                    var shouldGroup = false;
+                    for(index in this.head)
+                        if(this.head[index].groupable)
+                            shouldGroup = true;
+                    return shouldGroup;
+                },
+                groupBy: function(column, auto){  //On click of radio grouping input
+                    var semiIndex = null,
+                        index = null,
+                        lastGroupIndex = null;
+                    for(var index in this.head)
+                        if(!auto)
+                            if(this.head[index].title === column){
+                                if(this.head[index]._groupedBy)
+                                    lastGroupIndex = index;
+                                this.head[index]._groupedBy = !this.head[index]._groupedBy;
+                                this.head[index].hidden = this.head[index]._groupedBy;
+                                this.dataGrouping.isGrouped = this.head[index]._groupedBy;
+                            }
+                            else{
+                                if(this.head[index]._groupedBy)
+                                    this.head[index].hidden = false;
+                                this.head[index]._groupedBy = false;
+                            }
+                        else{
+                            if(typeof this.head[index]._groupedBy !== "undefined" &&
+                               this.head[index]._groupedBy)
+                                lastGroupIndex = index;
+                        }
+                    if(this.dataGrouping.isGrouped){    //Is grouped by some column
+                        /***************Used only in pagination mode*****************/
+                        if(typeof this.style.pagination === 'object' &&
+                        typeof this.style.pagination.rowPerPage === 'number' &&
+                        this.style.pagination.rowPerPage > 0){
+                            if(!(typeof this.webService === "object" &&
+                            typeof this.webService.model === "object" &&
+                            this.webService.active)){
+                                delete this.style.pagination;  //Delete pagination if exists
+                                delete this.dataPagination;
+                                for(index in this.body)
+                                    this.body[index]._hidden = false;
+                                this.search(null, null);
+                            }
+                        }
+                        /************************************************************/
+                        var groups = [],
+                            hidden = [],
+                            state = [];
+                        for(index in this.head)
+                            if(this.head[index]._groupedBy){
+                                for(semiIndex in this.body){
+                                    if(typeof this.head[index].input === "object" && this.head[index].input.type === "select"){
+                                        if(groups.indexOf(this.getSelectData(semiIndex, index)) === -1 && !this.body[semiIndex]._ofuscate){
+                                            groups.push(this.getSelectData(semiIndex, index));
+                                            hidden.push(false);
+                                            state.push([this.getSelectData(semiIndex, index), false]);
+                                        }
+                                    }
+                                    else{
+                                        if(groups.indexOf(this.body[semiIndex][this.head[index].title]) === -1 && !this.body[semiIndex]._ofuscate){
+                                            groups.push(this.body[semiIndex][this.head[index].title]);
+                                            hidden.push(false);
+                                            state.push([this.body[semiIndex][this.head[index].title], false]);
+                                        }
+                                    }
+                                }
+                                if(!auto)
+                                    this.dataGrouping.column = column;
+                                this.dataGrouping.state = state;
+                            }
+                    }
+                    else{      //No grouping
+                        /***************Used only in pagination mode*****************/
+                        if(typeof this.tempPagination === 'object' &&
+                           typeof this.tempPagination.style === 'object' &&
+                        typeof this.tempPagination.style.rowPerPage === 'number' &&
+                        this.tempPagination.style.rowPerPage > 0){
+                            if(!(typeof this.webService === "object" &&
+                            typeof this.webService.model === "object" &&
+                            this.webService.active)){
+                                this.style.pagination = this.tempPagination.style;  //Reasign pagination
+                                this.dataPagination = this.tempPagination.data;
+                                this.updatePages(1);
+                                this.updatePagination();
+                            }
+                        }
+                        /************************************************************/
+                        if(!(typeof this.webService === "object" &&
+                            typeof this.webService.model === "object" &&
+                            this.webService.active)){
+                            for(index in this.body)
+                                for(semiIndex in this.dataGrouping.state)
+                                    if(this.dataGrouping.state[semiIndex][0] === this.body[index][this.head[lastGroupIndex].title] && this.body[index]._hidden)
+                                        this.body[index]._hidden = !this.body[index]._hidden;
+                            this.search(null, null);
+                        }
+                    }
+                    if(typeof this.webService === "object" &&
+                            typeof this.webService.model === "object" &&
+                            this.webService.active)
+                        return this.dataGrouping.isGrouped;
+                },
+                groupColSpan: function(){
+                    var colspan = 0;
+                    for(var index in this.head)
+                        if(!this.head[index].hidden)
+                            colspan++;
+                    return colspan;
+                },
+                changeGroupVisibility: function(index, indexHead){
+                    this.dataGrouping.state[index][1] = !this.dataGrouping.state[index][1];
+                    for(var semiIndex in this.body){
+                        if(typeof this.head[indexHead].input === "object" &&
+                            this.head[indexHead].input.type === "select"){
+                            if(this.getSelectData(semiIndex, indexHead) === this.dataGrouping.state[index][0])
+                                this.body[semiIndex]._hidden = this.dataGrouping.state[index][1];
+                        }
+                        else
+                            if(this.body[semiIndex][this.dataGrouping.column] === this.dataGrouping.state[index][0])
+                                this.body[semiIndex]._hidden = this.dataGrouping.state[index][1];
+                    }
+                },
+                initSortColumns: function(dragElem){
+                    for(var index in this.head)
+                        if(this.head[index].title === dragElem.srcElement.id)
+                            this.dataDragged = this.head[index];
+                },
+                onDragEnd: onDragEnd,
+                sortColumns: function(dropElem){
+                    var idDropped = null,
+                        dataDropped = null,
+                        allOrder = [],
+                        sendData = {};
+                    if(dropElem.srcElement.tagName === "B")
+                        idDropped = dropElem.srcElement.id;
+                    else
+                        idDropped = dropElem.srcElement.getElementsByTagName('b')[0].id;
+                    for(var index in this.head)
+                        if(this.head[index].title === idDropped)
+                            dataDropped = this.head[index]._position;
+                    for(index in this.head)
+                        allOrder.push(this.head[index]._position);
+                    for(index in this.head)
+                        if(this.dataDragged._position < dataDropped){
+                            if(allOrder[index] <= dataDropped && allOrder[index] > this.dataDragged._position)
+                                this.head[index]._position -= 1;
+                        }
+                        else if(this.dataDragged._position > dataDropped){
+                            if(allOrder[index] >= dataDropped && allOrder[index] < this.dataDragged._position)
+                                this.head[index]._position += 1;
+                        }
+                    this.dataDragged._position = dataDropped;
+                    this.head.sort(function(a, b){
+                        return (a._position > b._position) ? 1 :
+                                            (a._position < b._position) ? -1 : 0;
+                    });
+                    
+                    for(index in this.head)
+                        sendData[this.head[index].title] = this.head[index]._position;
+                    this.onDragEnd(sendData);
+                },
+                getService: function(params, customSuccess, error, redefineBody, redefinePagination){
+                    if(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active){
+                        var me = this;
+                        var body = {};
+                        if(typeof this.webService.delimiters !== "undefined")
+                           body.delimiters = this.webService.delimiters;
+                        if(typeof params === "object")
+                            body.params = params;
+                        this.webService.model.get(body,
+                        function(success){
+                            //////////////////////////Redefine body///////////////////////////////
+                            if(redefineBody){
+                                me.body[0]._ofuscate = false;
+                                var newData = null;
+                                var index = null,
+                                    semiIndex = null;
+                                if(me.body.length > success.body.length){
+                                    newData = [];
+                                    newData[0] = me.body[0];
+                                    for(index in me.body)
+                                        if(success.body.length > parseInt(index))
+                                            newData[index] = me.body[index];
+                                    for(index in success.body){
+                                        for(semiIndex in success.body[index])
+                                            if(newData[index][semiIndex])
+                                            newData[index][semiIndex] = success.body[index][semiIndex];
+                                    }
+                                    me.body = newData;
+                                }
+                                else if(me.body.length < success.body.length){
+                                    for(index in success.body){
+                                        if(me.body.length > parseInt(index)){
+                                            for(semiIndex in success.body[index])
+                                                if(typeof me.body[index][semiIndex] !== "undefined")
+                                                    me.body[index][semiIndex] = success.body[index][semiIndex];
+                                        }
+                                        else{
+                                            newData = {};
+                                            newData._editing = false;
+                                            newData._hidden = false;
+                                            newData._highlight = false;
+                                            for(var indexHead in me.head)
+                                                if(me.head[indexHead].editable)
+                                                    newData['_unvalidated-'+indexHead] = false;
+                                            for(semiIndex in success.body[index])
+                                                newData[semiIndex] = success.body[index][semiIndex];
+                                            me.body.push(newData);
+                                        }
+                                    }
+                                }
+                                else{
+                                    for(index in success.body){
+                                        for(semiIndex in success.body[index]){
+                                            if(typeof me.body[index][semiIndex] !== "undefined")
+                                                me.body[index][semiIndex] = success.body[index][semiIndex];
+                                        }
+                                    }
+                                }
+                            }
+                            ////////////////////////Redefine of pagination///////////////////////////
+                            if(redefinePagination){
+                                me.style.pagination.currentPage = parseInt(success.headers.get(me.webService.headers.currentPage));
+                                me.style.pagination.pageCount = parseInt(success.headers.get(me.webService.headers.pageCount));
+                                me.style.pagination.totalRowCount = parseInt(success.headers.get(me.webService.headers.totalRowCount));
+                            }
+                            
+                            customSuccess(success);
+                        }, error);
+                    }
+                },
+                editDelimiters: function(delimiters){
+                    this.webService.delimiters = delimiters;
+                }
+            },
+            beforeCreate: function(){
+                
+            },
+            created: function(){
+                var index = null
+                    me = this;
+                /***************Used only in pagination mode*****************/
+                if(typeof this.style.pagination === 'object' &&
+                typeof this.style.pagination.rowPerPage === 'number' &&
+                this.style.pagination.rowPerPage > 0){
+                    if(!(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active))
+                        this.updatePages(1);
+                }
+                /************************************************************/
+                /***************Used only in drag and drop mode**************/
+                if(this.style.draggable)
+                    this.head.sort(function(a, b){
+                        return (a._position > b._position) ? 1 :
+                                            (a._position < b._position) ? -1 : 0;
+                    });
+                /************************************************************/
+                /***************Used only in status type search**************/
+                if(!(typeof this.webService === "object" &&
+                    typeof this.webService.model === "object" &&
+                    this.webService.active))
+                    for(index in this.head)
+                        if(this.head[index].searchable.type === "status"){
+                            for(var semiIndex in this.body)
+                                if(typeof this.head[index].input === "object" &&
+                                    this.head[index].input.type === "select" &&
+                                    typeof this.head[index].input.model === "undefined"){
+                                    if(this.head[index]._searchStatusValues.indexOf(this.getSelectData(semiIndex, index)) === -1)
+                                        this.head[index]._searchStatusValues.push(this.getSelectData(semiIndex, index));
+                                }
+                                else if(typeof this.head[index].input === "object" &&
+                                    this.head[index].input.type !== "select"){
+                                    if(this.head[index]._searchStatusValues.indexOf(this.body[semiIndex][this.head[index].title]) === -1)
+                                        this.head[index]._searchStatusValues.push(this.body[semiIndex][this.head[index].title]);
+                                }
+                        }
+                /************************************************************/
+                /************Used only in select model service type**********/
+                for(var index in this.head)
+                    if(typeof this.head[index].input === "object" &&
+                        typeof this.head[index].input.type === "string" &&
+                        this.head[index].input.type === "select" &&
+                        typeof this.head[index].input.model === "object")
+                        (function(index){
+                            var ownHead = me.head[index];
+                            me.head[index].input.model.source.get({
+                                    params: {
+                                        "per-page": 100
+                                    }
+                                },
+                                function(success){
+                                    if(success.body.length > 0){
+                                        for(var indexBody in success.body){
+                                            if(parseInt(indexBody) === 0){
+                                                ownHead.input.options[indexBody].value = success.body[indexBody][ownHead.input.model.value];
+                                                ownHead.input.options[indexBody].text = success.body[indexBody][ownHead.input.model.text];
+                                            }
+                                            else
+                                                ownHead.input.options.push(
+                                                    {
+                                                        value: success.body[indexBody][ownHead.input.model.value],
+                                                        text: success.body[indexBody][ownHead.input.model.text]
+                                                    }
+                                                );
+                                            if(typeof ownHead.searchable === "object" &&
+                                               ownHead.searchable.type === "status"){
+                                                ownHead._searchStatusValues.push(success.body[indexBody][ownHead.input.model.text]);
+                                            }
+                                        }
+                                    }
+                                },
+                                function(error){
+                                    
+                                }
+                            );
+                        })(index);
+                    else if(typeof this.head[index].input === "object" &&
+                        typeof this.head[index].input.type === "string" &&
+                        this.head[index].input.type === "select" &&
+                        typeof this.head[index].input.model !== "object"){
+                        if(typeof this.head[index].searchable === "object" &&
+                        this.head[index].searchable.type === "status")
+                            for(var indexOptions in this.head[index].input.options)
+                                this.head[index]._searchStatusValues.push(this.head[index].input.options[indexOptions].text);
+                    }
+                    this.updatePagination();
+            }
+        });
+        return this.table;
+    }
+    else{
+        if(typeof configuration.head !== "object" || configuration.head.length === 0)
+            console.log("ERROR: Something wrong in your datatable HEAD definition");
+        else if(typeof configuration.body !== "object" || configuration.body.length === 0)
+            console.log("ERROR: Something wrong in your datatable BODY definition");
+        else if(typeof configuration.style !== "object")
+            console.log("ERROR: Something wrong in your datatable STYLE definition");
+        else
+            console.log("ERROR: Something wrong in your datatable definition");
+    }
+};
+
+module.exports = {
+    component: mcdatatable,
+    template: mcdatatableT
+};
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
+
+exports.blobConstructor = false
+try {
+	new Blob([new ArrayBuffer(1)])
+	exports.blobConstructor = true
+} catch (e) {}
+
+// The xhr request to example.com may violate some restrictive CSP configurations,
+// so if we're running in a browser that supports `fetch`, avoid calling getXHR()
+// and assume support for certain features below.
+var xhr
+function getXHR () {
+	// Cache the xhr value
+	if (xhr !== undefined) return xhr
+
+	if (global.XMLHttpRequest) {
+		xhr = new global.XMLHttpRequest()
+		// If XDomainRequest is available (ie only, where xhr might not work
+		// cross domain), use the page location. Otherwise use example.com
+		// Note: this doesn't actually make an http request.
+		try {
+			xhr.open('GET', global.XDomainRequest ? '/' : 'https://example.com')
+		} catch(e) {
+			xhr = null
+		}
+	} else {
+		// Service workers don't have XHR
+		xhr = null
+	}
+	return xhr
+}
+
+function checkTypeSupport (type) {
+	var xhr = getXHR()
+	if (!xhr) return false
+	try {
+		xhr.responseType = type
+		return xhr.responseType === type
+	} catch (e) {}
+	return false
+}
+
+// For some strange reason, Safari 7.0 reports typeof global.ArrayBuffer === 'object'.
+// Safari 7.1 appears to have fixed this bug.
+var haveArrayBuffer = typeof global.ArrayBuffer !== 'undefined'
+var haveSlice = haveArrayBuffer && isFunction(global.ArrayBuffer.prototype.slice)
+
+// If fetch is supported, then arraybuffer will be supported too. Skip calling
+// checkTypeSupport(), since that calls getXHR().
+exports.arraybuffer = exports.fetch || (haveArrayBuffer && checkTypeSupport('arraybuffer'))
+
+// These next two tests unavoidably show warnings in Chrome. Since fetch will always
+// be used if it's available, just return false for these to avoid the warnings.
+exports.msstream = !exports.fetch && haveSlice && checkTypeSupport('ms-stream')
+exports.mozchunkedarraybuffer = !exports.fetch && haveArrayBuffer &&
+	checkTypeSupport('moz-chunked-arraybuffer')
+
+// If fetch is supported, then overrideMimeType will be supported too. Skip calling
+// getXHR().
+exports.overrideMimeType = exports.fetch || (getXHR() ? isFunction(getXHR().overrideMimeType) : false)
+
+exports.vbArray = isFunction(global.VBArray)
+
+function isFunction (value) {
+	return typeof value === 'function'
+}
+
+xhr = null // Help gc
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+/*<replacement>*/
+
+var processNextTick = __webpack_require__(23);
+/*</replacement>*/
+
+module.exports = Readable;
+
+/*<replacement>*/
+var isArray = __webpack_require__(44);
+/*</replacement>*/
+
+/*<replacement>*/
+var Duplex;
+/*</replacement>*/
+
+Readable.ReadableState = ReadableState;
+
+/*<replacement>*/
+var EE = __webpack_require__(32).EventEmitter;
+
+var EElistenerCount = function (emitter, type) {
+  return emitter.listeners(type).length;
+};
+/*</replacement>*/
+
+/*<replacement>*/
+var Stream = __webpack_require__(48);
+/*</replacement>*/
+
+// TODO(bmeurer): Change this back to const once hole checks are
+// properly optimized away early in Ignition+TurboFan.
+/*<replacement>*/
+var Buffer = __webpack_require__(8).Buffer;
+var OurUint8Array = global.Uint8Array || function () {};
+function _uint8ArrayToBuffer(chunk) {
+  return Buffer.from(chunk);
+}
+function _isUint8Array(obj) {
+  return Buffer.isBuffer(obj) || obj instanceof OurUint8Array;
+}
+/*</replacement>*/
+
+/*<replacement>*/
+var util = __webpack_require__(15);
+util.inherits = __webpack_require__(1);
+/*</replacement>*/
+
+/*<replacement>*/
+var debugUtil = __webpack_require__(133);
+var debug = void 0;
+if (debugUtil && debugUtil.debuglog) {
+  debug = debugUtil.debuglog('stream');
+} else {
+  debug = function () {};
+}
+/*</replacement>*/
+
+var BufferList = __webpack_require__(134);
+var destroyImpl = __webpack_require__(49);
+var StringDecoder;
+
+util.inherits(Readable, Stream);
+
+var kProxyEvents = ['error', 'close', 'destroy', 'pause', 'resume'];
+
+function prependListener(emitter, event, fn) {
+  // Sadly this is not cacheable as some libraries bundle their own
+  // event emitter implementation with them.
+  if (typeof emitter.prependListener === 'function') {
+    return emitter.prependListener(event, fn);
+  } else {
+    // This is a hack to make sure that our error handler is attached before any
+    // userland ones.  NEVER DO THIS. This is here only because this code needs
+    // to continue to work with older versions of Node.js that do not include
+    // the prependListener() method. The goal is to eventually remove this hack.
+    if (!emitter._events || !emitter._events[event]) emitter.on(event, fn);else if (isArray(emitter._events[event])) emitter._events[event].unshift(fn);else emitter._events[event] = [fn, emitter._events[event]];
+  }
+}
+
+function ReadableState(options, stream) {
+  Duplex = Duplex || __webpack_require__(12);
+
+  options = options || {};
+
+  // object stream flag. Used to make read(n) ignore n and to
+  // make all the buffer merging and length checks go away
+  this.objectMode = !!options.objectMode;
+
+  if (stream instanceof Duplex) this.objectMode = this.objectMode || !!options.readableObjectMode;
+
+  // the point at which it stops calling _read() to fill the buffer
+  // Note: 0 is a valid value, means "don't call _read preemptively ever"
+  var hwm = options.highWaterMark;
+  var defaultHwm = this.objectMode ? 16 : 16 * 1024;
+  this.highWaterMark = hwm || hwm === 0 ? hwm : defaultHwm;
+
+  // cast to ints.
+  this.highWaterMark = Math.floor(this.highWaterMark);
+
+  // A linked list is used to store data chunks instead of an array because the
+  // linked list can remove elements from the beginning faster than
+  // array.shift()
+  this.buffer = new BufferList();
+  this.length = 0;
+  this.pipes = null;
+  this.pipesCount = 0;
+  this.flowing = null;
+  this.ended = false;
+  this.endEmitted = false;
+  this.reading = false;
+
+  // a flag to be able to tell if the event 'readable'/'data' is emitted
+  // immediately, or on a later tick.  We set this to true at first, because
+  // any actions that shouldn't happen until "later" should generally also
+  // not happen before the first read call.
+  this.sync = true;
+
+  // whenever we return null, then we set a flag to say
+  // that we're awaiting a 'readable' event emission.
+  this.needReadable = false;
+  this.emittedReadable = false;
+  this.readableListening = false;
+  this.resumeScheduled = false;
+
+  // has it been destroyed
+  this.destroyed = false;
+
+  // Crypto is kind of old and crusty.  Historically, its default string
+  // encoding is 'binary' so we have to make this configurable.
+  // Everything else in the universe uses 'utf8', though.
+  this.defaultEncoding = options.defaultEncoding || 'utf8';
+
+  // the number of writers that are awaiting a drain event in .pipe()s
+  this.awaitDrain = 0;
+
+  // if true, a maybeReadMore has been scheduled
+  this.readingMore = false;
+
+  this.decoder = null;
+  this.encoding = null;
+  if (options.encoding) {
+    if (!StringDecoder) StringDecoder = __webpack_require__(34).StringDecoder;
+    this.decoder = new StringDecoder(options.encoding);
+    this.encoding = options.encoding;
+  }
+}
+
+function Readable(options) {
+  Duplex = Duplex || __webpack_require__(12);
+
+  if (!(this instanceof Readable)) return new Readable(options);
+
+  this._readableState = new ReadableState(options, this);
+
+  // legacy
+  this.readable = true;
+
+  if (options) {
+    if (typeof options.read === 'function') this._read = options.read;
+
+    if (typeof options.destroy === 'function') this._destroy = options.destroy;
+  }
+
+  Stream.call(this);
+}
+
+Object.defineProperty(Readable.prototype, 'destroyed', {
+  get: function () {
+    if (this._readableState === undefined) {
+      return false;
+    }
+    return this._readableState.destroyed;
+  },
+  set: function (value) {
+    // we ignore the value if the stream
+    // has not been initialized yet
+    if (!this._readableState) {
+      return;
+    }
+
+    // backward compatibility, the user is explicitly
+    // managing destroyed
+    this._readableState.destroyed = value;
+  }
+});
+
+Readable.prototype.destroy = destroyImpl.destroy;
+Readable.prototype._undestroy = destroyImpl.undestroy;
+Readable.prototype._destroy = function (err, cb) {
+  this.push(null);
+  cb(err);
+};
+
+// Manually shove something into the read() buffer.
+// This returns true if the highWaterMark has not been hit yet,
+// similar to how Writable.write() returns true if you should
+// write() some more.
+Readable.prototype.push = function (chunk, encoding) {
+  var state = this._readableState;
+  var skipChunkCheck;
+
+  if (!state.objectMode) {
+    if (typeof chunk === 'string') {
+      encoding = encoding || state.defaultEncoding;
+      if (encoding !== state.encoding) {
+        chunk = Buffer.from(chunk, encoding);
+        encoding = '';
+      }
+      skipChunkCheck = true;
+    }
+  } else {
+    skipChunkCheck = true;
+  }
+
+  return readableAddChunk(this, chunk, encoding, false, skipChunkCheck);
+};
+
+// Unshift should *always* be something directly out of read()
+Readable.prototype.unshift = function (chunk) {
+  return readableAddChunk(this, chunk, null, true, false);
+};
+
+function readableAddChunk(stream, chunk, encoding, addToFront, skipChunkCheck) {
+  var state = stream._readableState;
+  if (chunk === null) {
+    state.reading = false;
+    onEofChunk(stream, state);
+  } else {
+    var er;
+    if (!skipChunkCheck) er = chunkInvalid(state, chunk);
+    if (er) {
+      stream.emit('error', er);
+    } else if (state.objectMode || chunk && chunk.length > 0) {
+      if (typeof chunk !== 'string' && !state.objectMode && Object.getPrototypeOf(chunk) !== Buffer.prototype) {
+        chunk = _uint8ArrayToBuffer(chunk);
+      }
+
+      if (addToFront) {
+        if (state.endEmitted) stream.emit('error', new Error('stream.unshift() after end event'));else addChunk(stream, state, chunk, true);
+      } else if (state.ended) {
+        stream.emit('error', new Error('stream.push() after EOF'));
+      } else {
+        state.reading = false;
+        if (state.decoder && !encoding) {
+          chunk = state.decoder.write(chunk);
+          if (state.objectMode || chunk.length !== 0) addChunk(stream, state, chunk, false);else maybeReadMore(stream, state);
+        } else {
+          addChunk(stream, state, chunk, false);
+        }
+      }
+    } else if (!addToFront) {
+      state.reading = false;
+    }
+  }
+
+  return needMoreData(state);
+}
+
+function addChunk(stream, state, chunk, addToFront) {
+  if (state.flowing && state.length === 0 && !state.sync) {
+    stream.emit('data', chunk);
+    stream.read(0);
+  } else {
+    // update the buffer info.
+    state.length += state.objectMode ? 1 : chunk.length;
+    if (addToFront) state.buffer.unshift(chunk);else state.buffer.push(chunk);
+
+    if (state.needReadable) emitReadable(stream);
+  }
+  maybeReadMore(stream, state);
+}
+
+function chunkInvalid(state, chunk) {
+  var er;
+  if (!_isUint8Array(chunk) && typeof chunk !== 'string' && chunk !== undefined && !state.objectMode) {
+    er = new TypeError('Invalid non-string/buffer chunk');
+  }
+  return er;
+}
+
+// if it's past the high water mark, we can push in some more.
+// Also, if we have no data yet, we can stand some
+// more bytes.  This is to work around cases where hwm=0,
+// such as the repl.  Also, if the push() triggered a
+// readable event, and the user called read(largeNumber) such that
+// needReadable was set, then we ought to push more, so that another
+// 'readable' event will be triggered.
+function needMoreData(state) {
+  return !state.ended && (state.needReadable || state.length < state.highWaterMark || state.length === 0);
+}
+
+Readable.prototype.isPaused = function () {
+  return this._readableState.flowing === false;
+};
+
+// backwards compatibility.
+Readable.prototype.setEncoding = function (enc) {
+  if (!StringDecoder) StringDecoder = __webpack_require__(34).StringDecoder;
+  this._readableState.decoder = new StringDecoder(enc);
+  this._readableState.encoding = enc;
+  return this;
+};
+
+// Don't raise the hwm > 8MB
+var MAX_HWM = 0x800000;
+function computeNewHighWaterMark(n) {
+  if (n >= MAX_HWM) {
+    n = MAX_HWM;
+  } else {
+    // Get the next highest power of 2 to prevent increasing hwm excessively in
+    // tiny amounts
+    n--;
+    n |= n >>> 1;
+    n |= n >>> 2;
+    n |= n >>> 4;
+    n |= n >>> 8;
+    n |= n >>> 16;
+    n++;
+  }
+  return n;
+}
+
+// This function is designed to be inlinable, so please take care when making
+// changes to the function body.
+function howMuchToRead(n, state) {
+  if (n <= 0 || state.length === 0 && state.ended) return 0;
+  if (state.objectMode) return 1;
+  if (n !== n) {
+    // Only flow one buffer at a time
+    if (state.flowing && state.length) return state.buffer.head.data.length;else return state.length;
+  }
+  // If we're asking for more than the current hwm, then raise the hwm.
+  if (n > state.highWaterMark) state.highWaterMark = computeNewHighWaterMark(n);
+  if (n <= state.length) return n;
+  // Don't have enough
+  if (!state.ended) {
+    state.needReadable = true;
+    return 0;
+  }
+  return state.length;
+}
+
+// you can override either this method, or the async _read(n) below.
+Readable.prototype.read = function (n) {
+  debug('read', n);
+  n = parseInt(n, 10);
+  var state = this._readableState;
+  var nOrig = n;
+
+  if (n !== 0) state.emittedReadable = false;
+
+  // if we're doing read(0) to trigger a readable event, but we
+  // already have a bunch of data in the buffer, then just trigger
+  // the 'readable' event and move on.
+  if (n === 0 && state.needReadable && (state.length >= state.highWaterMark || state.ended)) {
+    debug('read: emitReadable', state.length, state.ended);
+    if (state.length === 0 && state.ended) endReadable(this);else emitReadable(this);
+    return null;
+  }
+
+  n = howMuchToRead(n, state);
+
+  // if we've ended, and we're now clear, then finish it up.
+  if (n === 0 && state.ended) {
+    if (state.length === 0) endReadable(this);
+    return null;
+  }
+
+  // All the actual chunk generation logic needs to be
+  // *below* the call to _read.  The reason is that in certain
+  // synthetic stream cases, such as passthrough streams, _read
+  // may be a completely synchronous operation which may change
+  // the state of the read buffer, providing enough data when
+  // before there was *not* enough.
+  //
+  // So, the steps are:
+  // 1. Figure out what the state of things will be after we do
+  // a read from the buffer.
+  //
+  // 2. If that resulting state will trigger a _read, then call _read.
+  // Note that this may be asynchronous, or synchronous.  Yes, it is
+  // deeply ugly to write APIs this way, but that still doesn't mean
+  // that the Readable class should behave improperly, as streams are
+  // designed to be sync/async agnostic.
+  // Take note if the _read call is sync or async (ie, if the read call
+  // has returned yet), so that we know whether or not it's safe to emit
+  // 'readable' etc.
+  //
+  // 3. Actually pull the requested chunks out of the buffer and return.
+
+  // if we need a readable event, then we need to do some reading.
+  var doRead = state.needReadable;
+  debug('need readable', doRead);
+
+  // if we currently have less than the highWaterMark, then also read some
+  if (state.length === 0 || state.length - n < state.highWaterMark) {
+    doRead = true;
+    debug('length less than watermark', doRead);
+  }
+
+  // however, if we've ended, then there's no point, and if we're already
+  // reading, then it's unnecessary.
+  if (state.ended || state.reading) {
+    doRead = false;
+    debug('reading or ended', doRead);
+  } else if (doRead) {
+    debug('do read');
+    state.reading = true;
+    state.sync = true;
+    // if the length is currently zero, then we *need* a readable event.
+    if (state.length === 0) state.needReadable = true;
+    // call internal read method
+    this._read(state.highWaterMark);
+    state.sync = false;
+    // If _read pushed data synchronously, then `reading` will be false,
+    // and we need to re-evaluate how much data we can return to the user.
+    if (!state.reading) n = howMuchToRead(nOrig, state);
+  }
+
+  var ret;
+  if (n > 0) ret = fromList(n, state);else ret = null;
+
+  if (ret === null) {
+    state.needReadable = true;
+    n = 0;
+  } else {
+    state.length -= n;
+  }
+
+  if (state.length === 0) {
+    // If we have nothing in the buffer, then we want to know
+    // as soon as we *do* get something into the buffer.
+    if (!state.ended) state.needReadable = true;
+
+    // If we tried to read() past the EOF, then emit end on the next tick.
+    if (nOrig !== n && state.ended) endReadable(this);
+  }
+
+  if (ret !== null) this.emit('data', ret);
+
+  return ret;
+};
+
+function onEofChunk(stream, state) {
+  if (state.ended) return;
+  if (state.decoder) {
+    var chunk = state.decoder.end();
+    if (chunk && chunk.length) {
+      state.buffer.push(chunk);
+      state.length += state.objectMode ? 1 : chunk.length;
+    }
+  }
+  state.ended = true;
+
+  // emit 'readable' now to make sure it gets picked up.
+  emitReadable(stream);
+}
+
+// Don't emit readable right away in sync mode, because this can trigger
+// another read() call => stack overflow.  This way, it might trigger
+// a nextTick recursion warning, but that's not so bad.
+function emitReadable(stream) {
+  var state = stream._readableState;
+  state.needReadable = false;
+  if (!state.emittedReadable) {
+    debug('emitReadable', state.flowing);
+    state.emittedReadable = true;
+    if (state.sync) processNextTick(emitReadable_, stream);else emitReadable_(stream);
+  }
+}
+
+function emitReadable_(stream) {
+  debug('emit readable');
+  stream.emit('readable');
+  flow(stream);
+}
+
+// at this point, the user has presumably seen the 'readable' event,
+// and called read() to consume some data.  that may have triggered
+// in turn another _read(n) call, in which case reading = true if
+// it's in progress.
+// However, if we're not ended, or reading, and the length < hwm,
+// then go ahead and try to read some more preemptively.
+function maybeReadMore(stream, state) {
+  if (!state.readingMore) {
+    state.readingMore = true;
+    processNextTick(maybeReadMore_, stream, state);
+  }
+}
+
+function maybeReadMore_(stream, state) {
+  var len = state.length;
+  while (!state.reading && !state.flowing && !state.ended && state.length < state.highWaterMark) {
+    debug('maybeReadMore read 0');
+    stream.read(0);
+    if (len === state.length)
+      // didn't get any data, stop spinning.
+      break;else len = state.length;
+  }
+  state.readingMore = false;
+}
+
+// abstract method.  to be overridden in specific implementation classes.
+// call cb(er, data) where data is <= n in length.
+// for virtual (non-string, non-buffer) streams, "length" is somewhat
+// arbitrary, and perhaps not very meaningful.
+Readable.prototype._read = function (n) {
+  this.emit('error', new Error('_read() is not implemented'));
+};
+
+Readable.prototype.pipe = function (dest, pipeOpts) {
+  var src = this;
+  var state = this._readableState;
+
+  switch (state.pipesCount) {
+    case 0:
+      state.pipes = dest;
+      break;
+    case 1:
+      state.pipes = [state.pipes, dest];
+      break;
+    default:
+      state.pipes.push(dest);
+      break;
+  }
+  state.pipesCount += 1;
+  debug('pipe count=%d opts=%j', state.pipesCount, pipeOpts);
+
+  var doEnd = (!pipeOpts || pipeOpts.end !== false) && dest !== process.stdout && dest !== process.stderr;
+
+  var endFn = doEnd ? onend : unpipe;
+  if (state.endEmitted) processNextTick(endFn);else src.once('end', endFn);
+
+  dest.on('unpipe', onunpipe);
+  function onunpipe(readable, unpipeInfo) {
+    debug('onunpipe');
+    if (readable === src) {
+      if (unpipeInfo && unpipeInfo.hasUnpiped === false) {
+        unpipeInfo.hasUnpiped = true;
+        cleanup();
+      }
+    }
+  }
+
+  function onend() {
+    debug('onend');
+    dest.end();
+  }
+
+  // when the dest drains, it reduces the awaitDrain counter
+  // on the source.  This would be more elegant with a .once()
+  // handler in flow(), but adding and removing repeatedly is
+  // too slow.
+  var ondrain = pipeOnDrain(src);
+  dest.on('drain', ondrain);
+
+  var cleanedUp = false;
+  function cleanup() {
+    debug('cleanup');
+    // cleanup event handlers once the pipe is broken
+    dest.removeListener('close', onclose);
+    dest.removeListener('finish', onfinish);
+    dest.removeListener('drain', ondrain);
+    dest.removeListener('error', onerror);
+    dest.removeListener('unpipe', onunpipe);
+    src.removeListener('end', onend);
+    src.removeListener('end', unpipe);
+    src.removeListener('data', ondata);
+
+    cleanedUp = true;
+
+    // if the reader is waiting for a drain event from this
+    // specific writer, then it would cause it to never start
+    // flowing again.
+    // So, if this is awaiting a drain, then we just call it now.
+    // If we don't know, then assume that we are waiting for one.
+    if (state.awaitDrain && (!dest._writableState || dest._writableState.needDrain)) ondrain();
+  }
+
+  // If the user pushes more data while we're writing to dest then we'll end up
+  // in ondata again. However, we only want to increase awaitDrain once because
+  // dest will only emit one 'drain' event for the multiple writes.
+  // => Introduce a guard on increasing awaitDrain.
+  var increasedAwaitDrain = false;
+  src.on('data', ondata);
+  function ondata(chunk) {
+    debug('ondata');
+    increasedAwaitDrain = false;
+    var ret = dest.write(chunk);
+    if (false === ret && !increasedAwaitDrain) {
+      // If the user unpiped during `dest.write()`, it is possible
+      // to get stuck in a permanently paused state if that write
+      // also returned false.
+      // => Check whether `dest` is still a piping destination.
+      if ((state.pipesCount === 1 && state.pipes === dest || state.pipesCount > 1 && indexOf(state.pipes, dest) !== -1) && !cleanedUp) {
+        debug('false write response, pause', src._readableState.awaitDrain);
+        src._readableState.awaitDrain++;
+        increasedAwaitDrain = true;
+      }
+      src.pause();
+    }
+  }
+
+  // if the dest has an error, then stop piping into it.
+  // however, don't suppress the throwing behavior for this.
+  function onerror(er) {
+    debug('onerror', er);
+    unpipe();
+    dest.removeListener('error', onerror);
+    if (EElistenerCount(dest, 'error') === 0) dest.emit('error', er);
+  }
+
+  // Make sure our error handler is attached before userland ones.
+  prependListener(dest, 'error', onerror);
+
+  // Both close and finish should trigger unpipe, but only once.
+  function onclose() {
+    dest.removeListener('finish', onfinish);
+    unpipe();
+  }
+  dest.once('close', onclose);
+  function onfinish() {
+    debug('onfinish');
+    dest.removeListener('close', onclose);
+    unpipe();
+  }
+  dest.once('finish', onfinish);
+
+  function unpipe() {
+    debug('unpipe');
+    src.unpipe(dest);
+  }
+
+  // tell the dest that it's being piped to
+  dest.emit('pipe', src);
+
+  // start the flow if it hasn't been started already.
+  if (!state.flowing) {
+    debug('pipe resume');
+    src.resume();
+  }
+
+  return dest;
+};
+
+function pipeOnDrain(src) {
+  return function () {
+    var state = src._readableState;
+    debug('pipeOnDrain', state.awaitDrain);
+    if (state.awaitDrain) state.awaitDrain--;
+    if (state.awaitDrain === 0 && EElistenerCount(src, 'data')) {
+      state.flowing = true;
+      flow(src);
+    }
+  };
+}
+
+Readable.prototype.unpipe = function (dest) {
+  var state = this._readableState;
+  var unpipeInfo = { hasUnpiped: false };
+
+  // if we're not piping anywhere, then do nothing.
+  if (state.pipesCount === 0) return this;
+
+  // just one destination.  most common case.
+  if (state.pipesCount === 1) {
+    // passed in one, but it's not the right one.
+    if (dest && dest !== state.pipes) return this;
+
+    if (!dest) dest = state.pipes;
+
+    // got a match.
+    state.pipes = null;
+    state.pipesCount = 0;
+    state.flowing = false;
+    if (dest) dest.emit('unpipe', this, unpipeInfo);
+    return this;
+  }
+
+  // slow case. multiple pipe destinations.
+
+  if (!dest) {
+    // remove all.
+    var dests = state.pipes;
+    var len = state.pipesCount;
+    state.pipes = null;
+    state.pipesCount = 0;
+    state.flowing = false;
+
+    for (var i = 0; i < len; i++) {
+      dests[i].emit('unpipe', this, unpipeInfo);
+    }return this;
+  }
+
+  // try to find the right one.
+  var index = indexOf(state.pipes, dest);
+  if (index === -1) return this;
+
+  state.pipes.splice(index, 1);
+  state.pipesCount -= 1;
+  if (state.pipesCount === 1) state.pipes = state.pipes[0];
+
+  dest.emit('unpipe', this, unpipeInfo);
+
+  return this;
+};
+
+// set up data events if they are asked for
+// Ensure readable listeners eventually get something
+Readable.prototype.on = function (ev, fn) {
+  var res = Stream.prototype.on.call(this, ev, fn);
+
+  if (ev === 'data') {
+    // Start flowing on next tick if stream isn't explicitly paused
+    if (this._readableState.flowing !== false) this.resume();
+  } else if (ev === 'readable') {
+    var state = this._readableState;
+    if (!state.endEmitted && !state.readableListening) {
+      state.readableListening = state.needReadable = true;
+      state.emittedReadable = false;
+      if (!state.reading) {
+        processNextTick(nReadingNextTick, this);
+      } else if (state.length) {
+        emitReadable(this);
+      }
+    }
+  }
+
+  return res;
+};
+Readable.prototype.addListener = Readable.prototype.on;
+
+function nReadingNextTick(self) {
+  debug('readable nexttick read 0');
+  self.read(0);
+}
+
+// pause() and resume() are remnants of the legacy readable stream API
+// If the user uses them, then switch into old mode.
+Readable.prototype.resume = function () {
+  var state = this._readableState;
+  if (!state.flowing) {
+    debug('resume');
+    state.flowing = true;
+    resume(this, state);
+  }
+  return this;
+};
+
+function resume(stream, state) {
+  if (!state.resumeScheduled) {
+    state.resumeScheduled = true;
+    processNextTick(resume_, stream, state);
+  }
+}
+
+function resume_(stream, state) {
+  if (!state.reading) {
+    debug('resume read 0');
+    stream.read(0);
+  }
+
+  state.resumeScheduled = false;
+  state.awaitDrain = 0;
+  stream.emit('resume');
+  flow(stream);
+  if (state.flowing && !state.reading) stream.read(0);
+}
+
+Readable.prototype.pause = function () {
+  debug('call pause flowing=%j', this._readableState.flowing);
+  if (false !== this._readableState.flowing) {
+    debug('pause');
+    this._readableState.flowing = false;
+    this.emit('pause');
+  }
+  return this;
+};
+
+function flow(stream) {
+  var state = stream._readableState;
+  debug('flow', state.flowing);
+  while (state.flowing && stream.read() !== null) {}
+}
+
+// wrap an old-style stream as the async data source.
+// This is *not* part of the readable stream interface.
+// It is an ugly unfortunate mess of history.
+Readable.prototype.wrap = function (stream) {
+  var state = this._readableState;
+  var paused = false;
+
+  var self = this;
+  stream.on('end', function () {
+    debug('wrapped end');
+    if (state.decoder && !state.ended) {
+      var chunk = state.decoder.end();
+      if (chunk && chunk.length) self.push(chunk);
+    }
+
+    self.push(null);
+  });
+
+  stream.on('data', function (chunk) {
+    debug('wrapped data');
+    if (state.decoder) chunk = state.decoder.write(chunk);
+
+    // don't skip over falsy values in objectMode
+    if (state.objectMode && (chunk === null || chunk === undefined)) return;else if (!state.objectMode && (!chunk || !chunk.length)) return;
+
+    var ret = self.push(chunk);
+    if (!ret) {
+      paused = true;
+      stream.pause();
+    }
+  });
+
+  // proxy all the other methods.
+  // important when wrapping filters and duplexes.
+  for (var i in stream) {
+    if (this[i] === undefined && typeof stream[i] === 'function') {
+      this[i] = function (method) {
+        return function () {
+          return stream[method].apply(stream, arguments);
+        };
+      }(i);
+    }
+  }
+
+  // proxy certain important events.
+  for (var n = 0; n < kProxyEvents.length; n++) {
+    stream.on(kProxyEvents[n], self.emit.bind(self, kProxyEvents[n]));
+  }
+
+  // when we try to consume some more bytes, simply unpause the
+  // underlying stream.
+  self._read = function (n) {
+    debug('wrapped _read', n);
+    if (paused) {
+      paused = false;
+      stream.resume();
+    }
+  };
+
+  return self;
+};
+
+// exposed for testing purposes only.
+Readable._fromList = fromList;
+
+// Pluck off n bytes from an array of buffers.
+// Length is the combined lengths of all the buffers in the list.
+// This function is designed to be inlinable, so please take care when making
+// changes to the function body.
+function fromList(n, state) {
+  // nothing buffered
+  if (state.length === 0) return null;
+
+  var ret;
+  if (state.objectMode) ret = state.buffer.shift();else if (!n || n >= state.length) {
+    // read it all, truncate the list
+    if (state.decoder) ret = state.buffer.join('');else if (state.buffer.length === 1) ret = state.buffer.head.data;else ret = state.buffer.concat(state.length);
+    state.buffer.clear();
+  } else {
+    // read part of list
+    ret = fromListPartial(n, state.buffer, state.decoder);
+  }
+
+  return ret;
+}
+
+// Extracts only enough buffered data to satisfy the amount requested.
+// This function is designed to be inlinable, so please take care when making
+// changes to the function body.
+function fromListPartial(n, list, hasStrings) {
+  var ret;
+  if (n < list.head.data.length) {
+    // slice is the same for buffers and strings
+    ret = list.head.data.slice(0, n);
+    list.head.data = list.head.data.slice(n);
+  } else if (n === list.head.data.length) {
+    // first chunk is a perfect match
+    ret = list.shift();
+  } else {
+    // result spans more than one buffer
+    ret = hasStrings ? copyFromBufferString(n, list) : copyFromBuffer(n, list);
+  }
+  return ret;
+}
+
+// Copies a specified amount of characters from the list of buffered data
+// chunks.
+// This function is designed to be inlinable, so please take care when making
+// changes to the function body.
+function copyFromBufferString(n, list) {
+  var p = list.head;
+  var c = 1;
+  var ret = p.data;
+  n -= ret.length;
+  while (p = p.next) {
+    var str = p.data;
+    var nb = n > str.length ? str.length : n;
+    if (nb === str.length) ret += str;else ret += str.slice(0, n);
+    n -= nb;
+    if (n === 0) {
+      if (nb === str.length) {
+        ++c;
+        if (p.next) list.head = p.next;else list.head = list.tail = null;
+      } else {
+        list.head = p;
+        p.data = str.slice(nb);
+      }
+      break;
+    }
+    ++c;
+  }
+  list.length -= c;
+  return ret;
+}
+
+// Copies a specified amount of bytes from the list of buffered data chunks.
+// This function is designed to be inlinable, so please take care when making
+// changes to the function body.
+function copyFromBuffer(n, list) {
+  var ret = Buffer.allocUnsafe(n);
+  var p = list.head;
+  var c = 1;
+  p.data.copy(ret);
+  n -= p.data.length;
+  while (p = p.next) {
+    var buf = p.data;
+    var nb = n > buf.length ? buf.length : n;
+    buf.copy(ret, ret.length - n, 0, nb);
+    n -= nb;
+    if (n === 0) {
+      if (nb === buf.length) {
+        ++c;
+        if (p.next) list.head = p.next;else list.head = list.tail = null;
+      } else {
+        list.head = p;
+        p.data = buf.slice(nb);
+      }
+      break;
+    }
+    ++c;
+  }
+  list.length -= c;
+  return ret;
+}
+
+function endReadable(stream) {
+  var state = stream._readableState;
+
+  // If we get here before consuming all the bytes, then that is a
+  // bug in node.  Should never happen.
+  if (state.length > 0) throw new Error('"endReadable()" called on non-empty stream');
+
+  if (!state.endEmitted) {
+    state.ended = true;
+    processNextTick(endReadableNT, state, stream);
+  }
+}
+
+function endReadableNT(state, stream) {
+  // Check that we didn't get one last unshift.
+  if (!state.endEmitted && state.length === 0) {
+    state.endEmitted = true;
+    stream.readable = false;
+    stream.emit('end');
+  }
+}
+
+function forEach(xs, f) {
+  for (var i = 0, l = xs.length; i < l; i++) {
+    f(xs[i], i);
+  }
+}
+
+function indexOf(xs, x) {
+  for (var i = 0, l = xs.length; i < l; i++) {
+    if (xs[i] === x) return i;
+  }
+  return -1;
+}
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(3)))
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(32).EventEmitter;
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*<replacement>*/
+
+var processNextTick = __webpack_require__(23);
+/*</replacement>*/
+
+// undocumented cb() API, needed for core, not for public API
+function destroy(err, cb) {
+  var _this = this;
+
+  var readableDestroyed = this._readableState && this._readableState.destroyed;
+  var writableDestroyed = this._writableState && this._writableState.destroyed;
+
+  if (readableDestroyed || writableDestroyed) {
+    if (cb) {
+      cb(err);
+    } else if (err && (!this._writableState || !this._writableState.errorEmitted)) {
+      processNextTick(emitErrorNT, this, err);
+    }
+    return;
+  }
+
+  // we set destroyed to true before firing error callbacks in order
+  // to make it re-entrance safe in case destroy() is called within callbacks
+
+  if (this._readableState) {
+    this._readableState.destroyed = true;
+  }
+
+  // if this is a duplex stream mark the writable part as destroyed as well
+  if (this._writableState) {
+    this._writableState.destroyed = true;
+  }
+
+  this._destroy(err || null, function (err) {
+    if (!cb && err) {
+      processNextTick(emitErrorNT, _this, err);
+      if (_this._writableState) {
+        _this._writableState.errorEmitted = true;
+      }
+    } else if (cb) {
+      cb(err);
+    }
+  });
+}
+
+function undestroy() {
+  if (this._readableState) {
+    this._readableState.destroyed = false;
+    this._readableState.reading = false;
+    this._readableState.ended = false;
+    this._readableState.endEmitted = false;
+  }
+
+  if (this._writableState) {
+    this._writableState.destroyed = false;
+    this._writableState.ended = false;
+    this._writableState.ending = false;
+    this._writableState.finished = false;
+    this._writableState.errorEmitted = false;
+  }
+}
+
+function emitErrorNT(self, err) {
+  self.emit('error', err);
+}
+
+module.exports = {
+  destroy: destroy,
+  undestroy: undestroy
+};
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// a transform stream is a readable/writable stream where you do
+// something with the data.  Sometimes it's called a "filter",
+// but that's not a great name for it, since that implies a thing where
+// some bits pass through, and others are simply ignored.  (That would
+// be a valid example of a transform, of course.)
+//
+// While the output is causally related to the input, it's not a
+// necessarily symmetric or synchronous transformation.  For example,
+// a zlib stream might take multiple plain-text writes(), and then
+// emit a single compressed chunk some time in the future.
+//
+// Here's how this works:
+//
+// The Transform stream has all the aspects of the readable and writable
+// stream classes.  When you write(chunk), that calls _write(chunk,cb)
+// internally, and returns false if there's a lot of pending writes
+// buffered up.  When you call read(), that calls _read(n) until
+// there's enough pending readable data buffered up.
+//
+// In a transform stream, the written data is placed in a buffer.  When
+// _read(n) is called, it transforms the queued up data, calling the
+// buffered _write cb's as it consumes chunks.  If consuming a single
+// written chunk would result in multiple output chunks, then the first
+// outputted bit calls the readcb, and subsequent chunks just go into
+// the read buffer, and will cause it to emit 'readable' if necessary.
+//
+// This way, back-pressure is actually determined by the reading side,
+// since _read has to be called to start processing a new chunk.  However,
+// a pathological inflate type of transform can cause excessive buffering
+// here.  For example, imagine a stream where every byte of input is
+// interpreted as an integer from 0-255, and then results in that many
+// bytes of output.  Writing the 4 bytes {ff,ff,ff,ff} would result in
+// 1kb of data being output.  In this case, you could write a very small
+// amount of input, and end up with a very large amount of output.  In
+// such a pathological inflating mechanism, there'd be no way to tell
+// the system to stop doing the transform.  A single 4MB write could
+// cause the system to run out of memory.
+//
+// However, even in such a pathological case, only a single written chunk
+// would be consumed, and then the rest would wait (un-transformed) until
+// the results of the previous transformed chunk were consumed.
+
+
+
+module.exports = Transform;
+
+var Duplex = __webpack_require__(12);
+
+/*<replacement>*/
+var util = __webpack_require__(15);
+util.inherits = __webpack_require__(1);
+/*</replacement>*/
+
+util.inherits(Transform, Duplex);
+
+function TransformState(stream) {
+  this.afterTransform = function (er, data) {
+    return afterTransform(stream, er, data);
+  };
+
+  this.needTransform = false;
+  this.transforming = false;
+  this.writecb = null;
+  this.writechunk = null;
+  this.writeencoding = null;
+}
+
+function afterTransform(stream, er, data) {
+  var ts = stream._transformState;
+  ts.transforming = false;
+
+  var cb = ts.writecb;
+
+  if (!cb) {
+    return stream.emit('error', new Error('write callback called multiple times'));
+  }
+
+  ts.writechunk = null;
+  ts.writecb = null;
+
+  if (data !== null && data !== undefined) stream.push(data);
+
+  cb(er);
+
+  var rs = stream._readableState;
+  rs.reading = false;
+  if (rs.needReadable || rs.length < rs.highWaterMark) {
+    stream._read(rs.highWaterMark);
+  }
+}
+
+function Transform(options) {
+  if (!(this instanceof Transform)) return new Transform(options);
+
+  Duplex.call(this, options);
+
+  this._transformState = new TransformState(this);
+
+  var stream = this;
+
+  // start out asking for a readable event once data is transformed.
+  this._readableState.needReadable = true;
+
+  // we have implemented the _read method, and done the other things
+  // that Readable wants before the first _read call, so unset the
+  // sync guard flag.
+  this._readableState.sync = false;
+
+  if (options) {
+    if (typeof options.transform === 'function') this._transform = options.transform;
+
+    if (typeof options.flush === 'function') this._flush = options.flush;
+  }
+
+  // When the writable side finishes, then flush out anything remaining.
+  this.once('prefinish', function () {
+    if (typeof this._flush === 'function') this._flush(function (er, data) {
+      done(stream, er, data);
+    });else done(stream);
+  });
+}
+
+Transform.prototype.push = function (chunk, encoding) {
+  this._transformState.needTransform = false;
+  return Duplex.prototype.push.call(this, chunk, encoding);
+};
+
+// This is the part where you do stuff!
+// override this function in implementation classes.
+// 'chunk' is an input chunk.
+//
+// Call `push(newChunk)` to pass along transformed output
+// to the readable side.  You may call 'push' zero or more times.
+//
+// Call `cb(err)` when you are done with this chunk.  If you pass
+// an error, then that'll put the hurt on the whole operation.  If you
+// never call cb(), then you'll never get another chunk.
+Transform.prototype._transform = function (chunk, encoding, cb) {
+  throw new Error('_transform() is not implemented');
+};
+
+Transform.prototype._write = function (chunk, encoding, cb) {
+  var ts = this._transformState;
+  ts.writecb = cb;
+  ts.writechunk = chunk;
+  ts.writeencoding = encoding;
+  if (!ts.transforming) {
+    var rs = this._readableState;
+    if (ts.needTransform || rs.needReadable || rs.length < rs.highWaterMark) this._read(rs.highWaterMark);
+  }
+};
+
+// Doesn't matter what the args are here.
+// _transform does all the work.
+// That we got here means that the readable side wants more data.
+Transform.prototype._read = function (n) {
+  var ts = this._transformState;
+
+  if (ts.writechunk !== null && ts.writecb && !ts.transforming) {
+    ts.transforming = true;
+    this._transform(ts.writechunk, ts.writeencoding, ts.afterTransform);
+  } else {
+    // mark that we need a transform, so that any data that comes in
+    // will get processed, now that we've asked for it.
+    ts.needTransform = true;
+  }
+};
+
+Transform.prototype._destroy = function (err, cb) {
+  var _this = this;
+
+  Duplex.prototype._destroy.call(this, err, function (err2) {
+    cb(err2);
+    _this.emit('close');
+  });
+};
+
+function done(stream, er, data) {
+  if (er) return stream.emit('error', er);
+
+  if (data !== null && data !== undefined) stream.push(data);
+
+  // if there's nothing in the write buffer, then that means
+  // that nothing more will ever be provided
+  var ws = stream._writableState;
+  var ts = stream._transformState;
+
+  if (ws.length) throw new Error('Calling transform done when ws.length != 0');
+
+  if (ts.transforming) throw new Error('Calling transform done when still transforming');
+
+  return stream.push(null);
+}
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {/**
+ * A JavaScript implementation of the Secure Hash Algorithm, SHA-256, as defined
+ * in FIPS 180-2
+ * Version 2.2-beta Copyright Angel Marin, Paul Johnston 2000 - 2009.
+ * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
+ *
+ */
+
+var inherits = __webpack_require__(1)
+var Hash = __webpack_require__(13)
+
+var K = [
+  0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5,
+  0x3956C25B, 0x59F111F1, 0x923F82A4, 0xAB1C5ED5,
+  0xD807AA98, 0x12835B01, 0x243185BE, 0x550C7DC3,
+  0x72BE5D74, 0x80DEB1FE, 0x9BDC06A7, 0xC19BF174,
+  0xE49B69C1, 0xEFBE4786, 0x0FC19DC6, 0x240CA1CC,
+  0x2DE92C6F, 0x4A7484AA, 0x5CB0A9DC, 0x76F988DA,
+  0x983E5152, 0xA831C66D, 0xB00327C8, 0xBF597FC7,
+  0xC6E00BF3, 0xD5A79147, 0x06CA6351, 0x14292967,
+  0x27B70A85, 0x2E1B2138, 0x4D2C6DFC, 0x53380D13,
+  0x650A7354, 0x766A0ABB, 0x81C2C92E, 0x92722C85,
+  0xA2BFE8A1, 0xA81A664B, 0xC24B8B70, 0xC76C51A3,
+  0xD192E819, 0xD6990624, 0xF40E3585, 0x106AA070,
+  0x19A4C116, 0x1E376C08, 0x2748774C, 0x34B0BCB5,
+  0x391C0CB3, 0x4ED8AA4A, 0x5B9CCA4F, 0x682E6FF3,
+  0x748F82EE, 0x78A5636F, 0x84C87814, 0x8CC70208,
+  0x90BEFFFA, 0xA4506CEB, 0xBEF9A3F7, 0xC67178F2
+]
+
+var W = new Array(64)
+
+function Sha256 () {
+  this.init()
+
+  this._w = W // new Array(64)
+
+  Hash.call(this, 64, 56)
+}
+
+inherits(Sha256, Hash)
+
+Sha256.prototype.init = function () {
+  this._a = 0x6a09e667
+  this._b = 0xbb67ae85
+  this._c = 0x3c6ef372
+  this._d = 0xa54ff53a
+  this._e = 0x510e527f
+  this._f = 0x9b05688c
+  this._g = 0x1f83d9ab
+  this._h = 0x5be0cd19
+
+  return this
+}
+
+function ch (x, y, z) {
+  return z ^ (x & (y ^ z))
+}
+
+function maj (x, y, z) {
+  return (x & y) | (z & (x | y))
+}
+
+function sigma0 (x) {
+  return (x >>> 2 | x << 30) ^ (x >>> 13 | x << 19) ^ (x >>> 22 | x << 10)
+}
+
+function sigma1 (x) {
+  return (x >>> 6 | x << 26) ^ (x >>> 11 | x << 21) ^ (x >>> 25 | x << 7)
+}
+
+function gamma0 (x) {
+  return (x >>> 7 | x << 25) ^ (x >>> 18 | x << 14) ^ (x >>> 3)
+}
+
+function gamma1 (x) {
+  return (x >>> 17 | x << 15) ^ (x >>> 19 | x << 13) ^ (x >>> 10)
+}
+
+Sha256.prototype._update = function (M) {
+  var W = this._w
+
+  var a = this._a | 0
+  var b = this._b | 0
+  var c = this._c | 0
+  var d = this._d | 0
+  var e = this._e | 0
+  var f = this._f | 0
+  var g = this._g | 0
+  var h = this._h | 0
+
+  for (var i = 0; i < 16; ++i) W[i] = M.readInt32BE(i * 4)
+  for (; i < 64; ++i) W[i] = (gamma1(W[i - 2]) + W[i - 7] + gamma0(W[i - 15]) + W[i - 16]) | 0
+
+  for (var j = 0; j < 64; ++j) {
+    var T1 = (h + sigma1(e) + ch(e, f, g) + K[j] + W[j]) | 0
+    var T2 = (sigma0(a) + maj(a, b, c)) | 0
+
+    h = g
+    g = f
+    f = e
+    e = (d + T1) | 0
+    d = c
+    c = b
+    b = a
+    a = (T1 + T2) | 0
+  }
+
+  this._a = (a + this._a) | 0
+  this._b = (b + this._b) | 0
+  this._c = (c + this._c) | 0
+  this._d = (d + this._d) | 0
+  this._e = (e + this._e) | 0
+  this._f = (f + this._f) | 0
+  this._g = (g + this._g) | 0
+  this._h = (h + this._h) | 0
+}
+
+Sha256.prototype._hash = function () {
+  var H = new Buffer(32)
+
+  H.writeInt32BE(this._a, 0)
+  H.writeInt32BE(this._b, 4)
+  H.writeInt32BE(this._c, 8)
+  H.writeInt32BE(this._d, 12)
+  H.writeInt32BE(this._e, 16)
+  H.writeInt32BE(this._f, 20)
+  H.writeInt32BE(this._g, 24)
+  H.writeInt32BE(this._h, 28)
+
+  return H
+}
+
+module.exports = Sha256
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {var inherits = __webpack_require__(1)
+var Hash = __webpack_require__(13)
+
+var K = [
+  0x428a2f98, 0xd728ae22, 0x71374491, 0x23ef65cd,
+  0xb5c0fbcf, 0xec4d3b2f, 0xe9b5dba5, 0x8189dbbc,
+  0x3956c25b, 0xf348b538, 0x59f111f1, 0xb605d019,
+  0x923f82a4, 0xaf194f9b, 0xab1c5ed5, 0xda6d8118,
+  0xd807aa98, 0xa3030242, 0x12835b01, 0x45706fbe,
+  0x243185be, 0x4ee4b28c, 0x550c7dc3, 0xd5ffb4e2,
+  0x72be5d74, 0xf27b896f, 0x80deb1fe, 0x3b1696b1,
+  0x9bdc06a7, 0x25c71235, 0xc19bf174, 0xcf692694,
+  0xe49b69c1, 0x9ef14ad2, 0xefbe4786, 0x384f25e3,
+  0x0fc19dc6, 0x8b8cd5b5, 0x240ca1cc, 0x77ac9c65,
+  0x2de92c6f, 0x592b0275, 0x4a7484aa, 0x6ea6e483,
+  0x5cb0a9dc, 0xbd41fbd4, 0x76f988da, 0x831153b5,
+  0x983e5152, 0xee66dfab, 0xa831c66d, 0x2db43210,
+  0xb00327c8, 0x98fb213f, 0xbf597fc7, 0xbeef0ee4,
+  0xc6e00bf3, 0x3da88fc2, 0xd5a79147, 0x930aa725,
+  0x06ca6351, 0xe003826f, 0x14292967, 0x0a0e6e70,
+  0x27b70a85, 0x46d22ffc, 0x2e1b2138, 0x5c26c926,
+  0x4d2c6dfc, 0x5ac42aed, 0x53380d13, 0x9d95b3df,
+  0x650a7354, 0x8baf63de, 0x766a0abb, 0x3c77b2a8,
+  0x81c2c92e, 0x47edaee6, 0x92722c85, 0x1482353b,
+  0xa2bfe8a1, 0x4cf10364, 0xa81a664b, 0xbc423001,
+  0xc24b8b70, 0xd0f89791, 0xc76c51a3, 0x0654be30,
+  0xd192e819, 0xd6ef5218, 0xd6990624, 0x5565a910,
+  0xf40e3585, 0x5771202a, 0x106aa070, 0x32bbd1b8,
+  0x19a4c116, 0xb8d2d0c8, 0x1e376c08, 0x5141ab53,
+  0x2748774c, 0xdf8eeb99, 0x34b0bcb5, 0xe19b48a8,
+  0x391c0cb3, 0xc5c95a63, 0x4ed8aa4a, 0xe3418acb,
+  0x5b9cca4f, 0x7763e373, 0x682e6ff3, 0xd6b2b8a3,
+  0x748f82ee, 0x5defb2fc, 0x78a5636f, 0x43172f60,
+  0x84c87814, 0xa1f0ab72, 0x8cc70208, 0x1a6439ec,
+  0x90befffa, 0x23631e28, 0xa4506ceb, 0xde82bde9,
+  0xbef9a3f7, 0xb2c67915, 0xc67178f2, 0xe372532b,
+  0xca273ece, 0xea26619c, 0xd186b8c7, 0x21c0c207,
+  0xeada7dd6, 0xcde0eb1e, 0xf57d4f7f, 0xee6ed178,
+  0x06f067aa, 0x72176fba, 0x0a637dc5, 0xa2c898a6,
+  0x113f9804, 0xbef90dae, 0x1b710b35, 0x131c471b,
+  0x28db77f5, 0x23047d84, 0x32caab7b, 0x40c72493,
+  0x3c9ebe0a, 0x15c9bebc, 0x431d67c4, 0x9c100d4c,
+  0x4cc5d4be, 0xcb3e42b6, 0x597f299c, 0xfc657e2a,
+  0x5fcb6fab, 0x3ad6faec, 0x6c44198c, 0x4a475817
+]
+
+var W = new Array(160)
+
+function Sha512 () {
+  this.init()
+  this._w = W
+
+  Hash.call(this, 128, 112)
+}
+
+inherits(Sha512, Hash)
+
+Sha512.prototype.init = function () {
+  this._ah = 0x6a09e667
+  this._bh = 0xbb67ae85
+  this._ch = 0x3c6ef372
+  this._dh = 0xa54ff53a
+  this._eh = 0x510e527f
+  this._fh = 0x9b05688c
+  this._gh = 0x1f83d9ab
+  this._hh = 0x5be0cd19
+
+  this._al = 0xf3bcc908
+  this._bl = 0x84caa73b
+  this._cl = 0xfe94f82b
+  this._dl = 0x5f1d36f1
+  this._el = 0xade682d1
+  this._fl = 0x2b3e6c1f
+  this._gl = 0xfb41bd6b
+  this._hl = 0x137e2179
+
+  return this
+}
+
+function Ch (x, y, z) {
+  return z ^ (x & (y ^ z))
+}
+
+function maj (x, y, z) {
+  return (x & y) | (z & (x | y))
+}
+
+function sigma0 (x, xl) {
+  return (x >>> 28 | xl << 4) ^ (xl >>> 2 | x << 30) ^ (xl >>> 7 | x << 25)
+}
+
+function sigma1 (x, xl) {
+  return (x >>> 14 | xl << 18) ^ (x >>> 18 | xl << 14) ^ (xl >>> 9 | x << 23)
+}
+
+function Gamma0 (x, xl) {
+  return (x >>> 1 | xl << 31) ^ (x >>> 8 | xl << 24) ^ (x >>> 7)
+}
+
+function Gamma0l (x, xl) {
+  return (x >>> 1 | xl << 31) ^ (x >>> 8 | xl << 24) ^ (x >>> 7 | xl << 25)
+}
+
+function Gamma1 (x, xl) {
+  return (x >>> 19 | xl << 13) ^ (xl >>> 29 | x << 3) ^ (x >>> 6)
+}
+
+function Gamma1l (x, xl) {
+  return (x >>> 19 | xl << 13) ^ (xl >>> 29 | x << 3) ^ (x >>> 6 | xl << 26)
+}
+
+function getCarry (a, b) {
+  return (a >>> 0) < (b >>> 0) ? 1 : 0
+}
+
+Sha512.prototype._update = function (M) {
+  var W = this._w
+
+  var ah = this._ah | 0
+  var bh = this._bh | 0
+  var ch = this._ch | 0
+  var dh = this._dh | 0
+  var eh = this._eh | 0
+  var fh = this._fh | 0
+  var gh = this._gh | 0
+  var hh = this._hh | 0
+
+  var al = this._al | 0
+  var bl = this._bl | 0
+  var cl = this._cl | 0
+  var dl = this._dl | 0
+  var el = this._el | 0
+  var fl = this._fl | 0
+  var gl = this._gl | 0
+  var hl = this._hl | 0
+
+  for (var i = 0; i < 32; i += 2) {
+    W[i] = M.readInt32BE(i * 4)
+    W[i + 1] = M.readInt32BE(i * 4 + 4)
+  }
+  for (; i < 160; i += 2) {
+    var xh = W[i - 15 * 2]
+    var xl = W[i - 15 * 2 + 1]
+    var gamma0 = Gamma0(xh, xl)
+    var gamma0l = Gamma0l(xl, xh)
+
+    xh = W[i - 2 * 2]
+    xl = W[i - 2 * 2 + 1]
+    var gamma1 = Gamma1(xh, xl)
+    var gamma1l = Gamma1l(xl, xh)
+
+    // W[i] = gamma0 + W[i - 7] + gamma1 + W[i - 16]
+    var Wi7h = W[i - 7 * 2]
+    var Wi7l = W[i - 7 * 2 + 1]
+
+    var Wi16h = W[i - 16 * 2]
+    var Wi16l = W[i - 16 * 2 + 1]
+
+    var Wil = (gamma0l + Wi7l) | 0
+    var Wih = (gamma0 + Wi7h + getCarry(Wil, gamma0l)) | 0
+    Wil = (Wil + gamma1l) | 0
+    Wih = (Wih + gamma1 + getCarry(Wil, gamma1l)) | 0
+    Wil = (Wil + Wi16l) | 0
+    Wih = (Wih + Wi16h + getCarry(Wil, Wi16l)) | 0
+
+    W[i] = Wih
+    W[i + 1] = Wil
+  }
+
+  for (var j = 0; j < 160; j += 2) {
+    Wih = W[j]
+    Wil = W[j + 1]
+
+    var majh = maj(ah, bh, ch)
+    var majl = maj(al, bl, cl)
+
+    var sigma0h = sigma0(ah, al)
+    var sigma0l = sigma0(al, ah)
+    var sigma1h = sigma1(eh, el)
+    var sigma1l = sigma1(el, eh)
+
+    // t1 = h + sigma1 + ch + K[j] + W[j]
+    var Kih = K[j]
+    var Kil = K[j + 1]
+
+    var chh = Ch(eh, fh, gh)
+    var chl = Ch(el, fl, gl)
+
+    var t1l = (hl + sigma1l) | 0
+    var t1h = (hh + sigma1h + getCarry(t1l, hl)) | 0
+    t1l = (t1l + chl) | 0
+    t1h = (t1h + chh + getCarry(t1l, chl)) | 0
+    t1l = (t1l + Kil) | 0
+    t1h = (t1h + Kih + getCarry(t1l, Kil)) | 0
+    t1l = (t1l + Wil) | 0
+    t1h = (t1h + Wih + getCarry(t1l, Wil)) | 0
+
+    // t2 = sigma0 + maj
+    var t2l = (sigma0l + majl) | 0
+    var t2h = (sigma0h + majh + getCarry(t2l, sigma0l)) | 0
+
+    hh = gh
+    hl = gl
+    gh = fh
+    gl = fl
+    fh = eh
+    fl = el
+    el = (dl + t1l) | 0
+    eh = (dh + t1h + getCarry(el, dl)) | 0
+    dh = ch
+    dl = cl
+    ch = bh
+    cl = bl
+    bh = ah
+    bl = al
+    al = (t1l + t2l) | 0
+    ah = (t1h + t2h + getCarry(al, t1l)) | 0
+  }
+
+  this._al = (this._al + al) | 0
+  this._bl = (this._bl + bl) | 0
+  this._cl = (this._cl + cl) | 0
+  this._dl = (this._dl + dl) | 0
+  this._el = (this._el + el) | 0
+  this._fl = (this._fl + fl) | 0
+  this._gl = (this._gl + gl) | 0
+  this._hl = (this._hl + hl) | 0
+
+  this._ah = (this._ah + ah + getCarry(this._al, al)) | 0
+  this._bh = (this._bh + bh + getCarry(this._bl, bl)) | 0
+  this._ch = (this._ch + ch + getCarry(this._cl, cl)) | 0
+  this._dh = (this._dh + dh + getCarry(this._dl, dl)) | 0
+  this._eh = (this._eh + eh + getCarry(this._el, el)) | 0
+  this._fh = (this._fh + fh + getCarry(this._fl, fl)) | 0
+  this._gh = (this._gh + gh + getCarry(this._gl, gl)) | 0
+  this._hh = (this._hh + hh + getCarry(this._hl, hl)) | 0
+}
+
+Sha512.prototype._hash = function () {
+  var H = new Buffer(64)
+
+  function writeInt64BE (h, l, offset) {
+    H.writeInt32BE(h, offset)
+    H.writeInt32BE(l, offset + 4)
+  }
+
+  writeInt64BE(this._ah, this._al, 0)
+  writeInt64BE(this._bh, this._bl, 8)
+  writeInt64BE(this._ch, this._cl, 16)
+  writeInt64BE(this._dh, this._dl, 24)
+  writeInt64BE(this._eh, this._el, 32)
+  writeInt64BE(this._fh, this._fl, 40)
+  writeInt64BE(this._gh, this._gl, 48)
+  writeInt64BE(this._hh, this._hl, 56)
+
+  return H
+}
+
+module.exports = Sha512
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var inherits = __webpack_require__(1)
+var Legacy = __webpack_require__(158)
+var Base = __webpack_require__(10)
+var Buffer = __webpack_require__(8).Buffer
+var md5 = __webpack_require__(24)
+var RIPEMD160 = __webpack_require__(35)
+
+var sha = __webpack_require__(37)
+
+var ZEROS = Buffer.alloc(128)
+
+function Hmac (alg, key) {
+  Base.call(this, 'digest')
+  if (typeof key === 'string') {
+    key = Buffer.from(key)
+  }
+
+  var blocksize = (alg === 'sha512' || alg === 'sha384') ? 128 : 64
+
+  this._alg = alg
+  this._key = key
+  if (key.length > blocksize) {
+    var hash = alg === 'rmd160' ? new RIPEMD160() : sha(alg)
+    key = hash.update(key).digest()
+  } else if (key.length < blocksize) {
+    key = Buffer.concat([key, ZEROS], blocksize)
+  }
+
+  var ipad = this._ipad = Buffer.allocUnsafe(blocksize)
+  var opad = this._opad = Buffer.allocUnsafe(blocksize)
+
+  for (var i = 0; i < blocksize; i++) {
+    ipad[i] = key[i] ^ 0x36
+    opad[i] = key[i] ^ 0x5C
+  }
+  this._hash = alg === 'rmd160' ? new RIPEMD160() : sha(alg)
+  this._hash.update(ipad)
+}
+
+inherits(Hmac, Base)
+
+Hmac.prototype._update = function (data) {
+  this._hash.update(data)
+}
+
+Hmac.prototype._final = function () {
+  var h = this._hash.digest()
+  var hash = this._alg === 'rmd160' ? new RIPEMD160() : sha(this._alg)
+  return hash.update(this._opad).update(h).digest()
+}
+
+module.exports = function createHmac (alg, key) {
+  alg = alg.toLowerCase()
+  if (alg === 'rmd160' || alg === 'ripemd160') {
+    return new Hmac('rmd160', key)
+  }
+  if (alg === 'md5') {
+    return new Legacy(md5, key)
+  }
+  return new Hmac(alg, key)
+}
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports) {
+
+module.exports = {"sha224WithRSAEncryption":{"sign":"rsa","hash":"sha224","id":"302d300d06096086480165030402040500041c"},"RSA-SHA224":{"sign":"ecdsa/rsa","hash":"sha224","id":"302d300d06096086480165030402040500041c"},"sha256WithRSAEncryption":{"sign":"rsa","hash":"sha256","id":"3031300d060960864801650304020105000420"},"RSA-SHA256":{"sign":"ecdsa/rsa","hash":"sha256","id":"3031300d060960864801650304020105000420"},"sha384WithRSAEncryption":{"sign":"rsa","hash":"sha384","id":"3041300d060960864801650304020205000430"},"RSA-SHA384":{"sign":"ecdsa/rsa","hash":"sha384","id":"3041300d060960864801650304020205000430"},"sha512WithRSAEncryption":{"sign":"rsa","hash":"sha512","id":"3051300d060960864801650304020305000440"},"RSA-SHA512":{"sign":"ecdsa/rsa","hash":"sha512","id":"3051300d060960864801650304020305000440"},"RSA-SHA1":{"sign":"rsa","hash":"sha1","id":"3021300906052b0e03021a05000414"},"ecdsa-with-SHA1":{"sign":"ecdsa","hash":"sha1","id":""},"sha256":{"sign":"ecdsa","hash":"sha256","id":""},"sha224":{"sign":"ecdsa","hash":"sha224","id":""},"sha384":{"sign":"ecdsa","hash":"sha384","id":""},"sha512":{"sign":"ecdsa","hash":"sha512","id":""},"DSA-SHA":{"sign":"dsa","hash":"sha1","id":""},"DSA-SHA1":{"sign":"dsa","hash":"sha1","id":""},"DSA":{"sign":"dsa","hash":"sha1","id":""},"DSA-WITH-SHA224":{"sign":"dsa","hash":"sha224","id":""},"DSA-SHA224":{"sign":"dsa","hash":"sha224","id":""},"DSA-WITH-SHA256":{"sign":"dsa","hash":"sha256","id":""},"DSA-SHA256":{"sign":"dsa","hash":"sha256","id":""},"DSA-WITH-SHA384":{"sign":"dsa","hash":"sha384","id":""},"DSA-SHA384":{"sign":"dsa","hash":"sha384","id":""},"DSA-WITH-SHA512":{"sign":"dsa","hash":"sha512","id":""},"DSA-SHA512":{"sign":"dsa","hash":"sha512","id":""},"DSA-RIPEMD160":{"sign":"dsa","hash":"rmd160","id":""},"ripemd160WithRSA":{"sign":"rsa","hash":"rmd160","id":"3021300906052b2403020105000414"},"RSA-RIPEMD160":{"sign":"rsa","hash":"rmd160","id":"3021300906052b2403020105000414"},"md5WithRSAEncryption":{"sign":"rsa","hash":"md5","id":"3020300c06082a864886f70d020505000410"},"RSA-MD5":{"sign":"rsa","hash":"md5","id":"3020300c06082a864886f70d020505000410"}}
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+exports.pbkdf2 = __webpack_require__(160)
+
+exports.pbkdf2Sync = __webpack_require__(58)
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports) {
+
+var MAX_ALLOC = Math.pow(2, 30) - 1 // default in iojs
+module.exports = function (iterations, keylen) {
+  if (typeof iterations !== 'number') {
+    throw new TypeError('Iterations not a number')
+  }
+
+  if (iterations < 0) {
+    throw new TypeError('Bad iterations')
+  }
+
+  if (typeof keylen !== 'number') {
+    throw new TypeError('Key length not a number')
+  }
+
+  if (keylen < 0 || keylen > MAX_ALLOC || keylen !== keylen) { /* eslint no-self-compare: 0 */
+    throw new TypeError('Bad key length')
+  }
+}
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {var defaultEncoding
+/* istanbul ignore next */
+if (process.browser) {
+  defaultEncoding = 'utf-8'
+} else {
+  var pVersionMajor = parseInt(process.version.split('.')[0].slice(1), 10)
+
+  defaultEncoding = pVersionMajor >= 6 ? 'utf-8' : 'binary'
+}
+module.exports = defaultEncoding
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var md5 = __webpack_require__(24)
+var rmd160 = __webpack_require__(35)
+var sha = __webpack_require__(37)
+
+var checkParameters = __webpack_require__(56)
+var defaultEncoding = __webpack_require__(57)
+var Buffer = __webpack_require__(8).Buffer
+var ZEROS = Buffer.alloc(128)
+var sizes = {
+  md5: 16,
+  sha1: 20,
+  sha224: 28,
+  sha256: 32,
+  sha384: 48,
+  sha512: 64,
+  rmd160: 20,
+  ripemd160: 20
+}
+function Hmac (alg, key, saltLen) {
+  var hash = getDigest(alg)
+  var blocksize = (alg === 'sha512' || alg === 'sha384') ? 128 : 64
+
+  if (key.length > blocksize) {
+    key = hash(key)
+  } else if (key.length < blocksize) {
+    key = Buffer.concat([key, ZEROS], blocksize)
+  }
+
+  var ipad = Buffer.allocUnsafe(blocksize + sizes[alg])
+  var opad = Buffer.allocUnsafe(blocksize + sizes[alg])
+  for (var i = 0; i < blocksize; i++) {
+    ipad[i] = key[i] ^ 0x36
+    opad[i] = key[i] ^ 0x5C
+  }
+
+  var ipad1 = Buffer.allocUnsafe(blocksize + saltLen + 4)
+  ipad.copy(ipad1, 0, 0, blocksize)
+  this.ipad1 = ipad1
+  this.ipad2 = ipad
+  this.opad = opad
+  this.alg = alg
+  this.blocksize = blocksize
+  this.hash = hash
+  this.size = sizes[alg]
+}
+
+Hmac.prototype.run = function (data, ipad) {
+  data.copy(ipad, this.blocksize)
+  var h = this.hash(ipad)
+  h.copy(this.opad, this.blocksize)
+  return this.hash(this.opad)
+}
+
+function getDigest (alg) {
+  if (alg === 'rmd160' || alg === 'ripemd160') return rmd160
+  if (alg === 'md5') return md5
+  return shaFunc
+
+  function shaFunc (data) {
+    return sha(alg).update(data).digest()
+  }
+}
+
+module.exports = function (password, salt, iterations, keylen, digest) {
+  if (!Buffer.isBuffer(password)) password = Buffer.from(password, defaultEncoding)
+  if (!Buffer.isBuffer(salt)) salt = Buffer.from(salt, defaultEncoding)
+
+  checkParameters(iterations, keylen)
+
+  digest = digest || 'sha1'
+
+  var hmac = new Hmac(digest, password, salt.length)
+
+  var DK = Buffer.allocUnsafe(keylen)
+  var block1 = Buffer.allocUnsafe(salt.length + 4)
+  salt.copy(block1, 0, 0, salt.length)
+
+  var U, j, destPos, len
+
+  var hLen = hmac.size
+  var T = Buffer.allocUnsafe(hLen)
+  var l = Math.ceil(keylen / hLen)
+  var r = keylen - (l - 1) * hLen
+
+  for (var i = 1; i <= l; i++) {
+    block1.writeUInt32BE(i, salt.length)
+    U = hmac.run(block1, hmac.ipad1)
+
+    U.copy(T, 0, 0, hLen)
+
+    for (j = 1; j < iterations; j++) {
+      U = hmac.run(U, hmac.ipad2)
+      for (var k = 0; k < hLen; k++) T[k] ^= U[k]
+    }
+
+    destPos = (i - 1) * hLen
+    len = (i === l ? r : hLen)
+    T.copy(DK, destPos, 0, len)
+  }
+
+  return DK
+}
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
+var Transform = __webpack_require__(10)
+var inherits = __webpack_require__(1)
+
+inherits(StreamCipher, Transform)
+module.exports = StreamCipher
+function StreamCipher (mode, key, iv, decrypt) {
+  if (!(this instanceof StreamCipher)) {
+    return new StreamCipher(mode, key, iv)
+  }
+  Transform.call(this)
+  this._cipher = new aes.AES(key)
+  this._prev = new Buffer(iv.length)
+  this._cache = new Buffer('')
+  this._secCache = new Buffer('')
+  this._decrypt = decrypt
+  iv.copy(this._prev)
+  this._mode = mode
+}
+StreamCipher.prototype._update = function (chunk) {
+  return this._mode.encrypt(this, chunk, this._decrypt)
+}
+StreamCipher.prototype._final = function () {
+  this._cipher.scrub()
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(26)
+var Transform = __webpack_require__(10)
+var inherits = __webpack_require__(1)
+var GHASH = __webpack_require__(163)
+var xor = __webpack_require__(18)
+inherits(StreamCipher, Transform)
+module.exports = StreamCipher
+
+function StreamCipher (mode, key, iv, decrypt) {
+  if (!(this instanceof StreamCipher)) {
+    return new StreamCipher(mode, key, iv)
+  }
+  Transform.call(this)
+  this._finID = Buffer.concat([iv, new Buffer([0, 0, 0, 1])])
+  iv = Buffer.concat([iv, new Buffer([0, 0, 0, 2])])
+  this._cipher = new aes.AES(key)
+  this._prev = new Buffer(iv.length)
+  this._cache = new Buffer('')
+  this._secCache = new Buffer('')
+  this._decrypt = decrypt
+  this._alen = 0
+  this._len = 0
+  iv.copy(this._prev)
+  this._mode = mode
+  var h = new Buffer(4)
+  h.fill(0)
+  this._ghash = new GHASH(this._cipher.encryptBlock(h))
+  this._authTag = null
+  this._called = false
+}
+StreamCipher.prototype._update = function (chunk) {
+  if (!this._called && this._alen) {
+    var rump = 16 - (this._alen % 16)
+    if (rump < 16) {
+      rump = new Buffer(rump)
+      rump.fill(0)
+      this._ghash.update(rump)
+    }
+  }
+  this._called = true
+  var out = this._mode.encrypt(this, chunk)
+  if (this._decrypt) {
+    this._ghash.update(chunk)
+  } else {
+    this._ghash.update(out)
+  }
+  this._len += chunk.length
+  return out
+}
+StreamCipher.prototype._final = function () {
+  if (this._decrypt && !this._authTag) {
+    throw new Error('Unsupported state or unable to authenticate data')
+  }
+  var tag = xor(this._ghash.final(this._alen * 8, this._len * 8), this._cipher.encryptBlock(this._finID))
+  if (this._decrypt) {
+    if (xorTest(tag, this._authTag)) {
+      throw new Error('Unsupported state or unable to authenticate data')
+    }
+  } else {
+    this._authTag = tag
+  }
+  this._cipher.scrub()
+}
+StreamCipher.prototype.getAuthTag = function getAuthTag () {
+  if (!this._decrypt && Buffer.isBuffer(this._authTag)) {
+    return this._authTag
+  } else {
+    throw new Error('Attempting to get auth tag in unsupported state')
+  }
+}
+StreamCipher.prototype.setAuthTag = function setAuthTag (tag) {
+  if (this._decrypt) {
+    this._authTag = tag
+  } else {
+    throw new Error('Attempting to set auth tag in unsupported state')
+  }
+}
+StreamCipher.prototype.setAAD = function setAAD (buf) {
+  if (!this._called) {
+    this._ghash.update(buf)
+    this._alen += buf.length
+  } else {
+    throw new Error('Attempting to set AAD in unsupported state')
+  }
+}
+function xorTest (a, b) {
+  var out = 0
+  if (a.length !== b.length) {
+    out++
+  }
+  var len = Math.min(a.length, b.length)
+  var i = -1
+  while (++i < len) {
+    out += (a[i] ^ b[i])
+  }
+  return out
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports) {
+
+exports.encrypt = function (self, block) {
+  return self._cipher.encryptBlock(block)
+}
+exports.decrypt = function (self, block) {
+  return self._cipher.decryptBlock(block)
+}
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var xor = __webpack_require__(18)
+
+exports.encrypt = function (self, block) {
+  var data = xor(block, self._prev)
+
+  self._prev = self._cipher.encryptBlock(data)
+  return self._prev
+}
+
+exports.decrypt = function (self, block) {
+  var pad = self._prev
+
+  self._prev = block
+  var out = self._cipher.decryptBlock(block)
+
+  return xor(out, pad)
+}
+
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(18)
+
+exports.encrypt = function (self, data, decrypt) {
+  var out = new Buffer('')
+  var len
+
+  while (data.length) {
+    if (self._cache.length === 0) {
+      self._cache = self._cipher.encryptBlock(self._prev)
+      self._prev = new Buffer('')
+    }
+
+    if (self._cache.length <= data.length) {
+      len = self._cache.length
+      out = Buffer.concat([out, encryptStart(self, data.slice(0, len), decrypt)])
+      data = data.slice(len)
+    } else {
+      out = Buffer.concat([out, encryptStart(self, data, decrypt)])
+      break
+    }
+  }
+
+  return out
+}
+function encryptStart (self, data, decrypt) {
+  var len = data.length
+  var out = xor(data, self._cache)
+  self._cache = self._cache.slice(len)
+  self._prev = Buffer.concat([self._prev, decrypt ? data : out])
+  return out
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {function encryptByte (self, byteParam, decrypt) {
+  var pad = self._cipher.encryptBlock(self._prev)
+  var out = pad[0] ^ byteParam
+  self._prev = Buffer.concat([self._prev.slice(1), new Buffer([decrypt ? byteParam : out])])
+  return out
+}
+exports.encrypt = function (self, chunk, decrypt) {
+  var len = chunk.length
+  var out = new Buffer(len)
+  var i = -1
+  while (++i < len) {
+    out[i] = encryptByte(self, chunk[i], decrypt)
+  }
+  return out
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {function encryptByte (self, byteParam, decrypt) {
+  var pad
+  var i = -1
+  var len = 8
+  var out = 0
+  var bit, value
+  while (++i < len) {
+    pad = self._cipher.encryptBlock(self._prev)
+    bit = (byteParam & (1 << (7 - i))) ? 0x80 : 0
+    value = pad[0] ^ bit
+    out += ((value & 0x80) >> (i % 8))
+    self._prev = shiftIn(self._prev, decrypt ? bit : value)
+  }
+  return out
+}
+exports.encrypt = function (self, chunk, decrypt) {
+  var len = chunk.length
+  var out = new Buffer(len)
+  var i = -1
+  while (++i < len) {
+    out[i] = encryptByte(self, chunk[i], decrypt)
+  }
+  return out
+}
+function shiftIn (buffer, value) {
+  var len = buffer.length
+  var i = -1
+  var out = new Buffer(buffer.length)
+  buffer = Buffer.concat([buffer, new Buffer([value])])
+  while (++i < len) {
+    out[i] = buffer[i] << 1 | buffer[i + 1] >> (7)
+  }
+  return out
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(18)
+
+function getBlock (self) {
+  self._prev = self._cipher.encryptBlock(self._prev)
+  return self._prev
+}
+
+exports.encrypt = function (self, chunk) {
+  while (self._cache.length < chunk.length) {
+    self._cache = Buffer.concat([self._cache, getBlock(self)])
+  }
+
+  var pad = self._cache.slice(0, chunk.length)
+  self._cache = self._cache.slice(chunk.length)
+  return xor(chunk, pad)
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var randomBytes = __webpack_require__(16);
+module.exports = findPrime;
+findPrime.simpleSieve = simpleSieve;
+findPrime.fermatTest = fermatTest;
+var BN = __webpack_require__(2);
+var TWENTYFOUR = new BN(24);
+var MillerRabin = __webpack_require__(68);
+var millerRabin = new MillerRabin();
+var ONE = new BN(1);
+var TWO = new BN(2);
+var FIVE = new BN(5);
+var SIXTEEN = new BN(16);
+var EIGHT = new BN(8);
+var TEN = new BN(10);
+var THREE = new BN(3);
+var SEVEN = new BN(7);
+var ELEVEN = new BN(11);
+var FOUR = new BN(4);
+var TWELVE = new BN(12);
+var primes = null;
+
+function _getPrimes() {
+  if (primes !== null)
+    return primes;
+
+  var limit = 0x100000;
+  var res = [];
+  res[0] = 2;
+  for (var i = 1, k = 3; k < limit; k += 2) {
+    var sqrt = Math.ceil(Math.sqrt(k));
+    for (var j = 0; j < i && res[j] <= sqrt; j++)
+      if (k % res[j] === 0)
+        break;
+
+    if (i !== j && res[j] <= sqrt)
+      continue;
+
+    res[i++] = k;
+  }
+  primes = res;
+  return res;
+}
+
+function simpleSieve(p) {
+  var primes = _getPrimes();
+
+  for (var i = 0; i < primes.length; i++)
+    if (p.modn(primes[i]) === 0) {
+      if (p.cmpn(primes[i]) === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+  return true;
+}
+
+function fermatTest(p) {
+  var red = BN.mont(p);
+  return TWO.toRed(red).redPow(p.subn(1)).fromRed().cmpn(1) === 0;
+}
+
+function findPrime(bits, gen) {
+  if (bits < 16) {
+    // this is what openssl does
+    if (gen === 2 || gen === 5) {
+      return new BN([0x8c, 0x7b]);
+    } else {
+      return new BN([0x8c, 0x27]);
+    }
+  }
+  gen = new BN(gen);
+
+  var num, n2;
+
+  while (true) {
+    num = new BN(randomBytes(Math.ceil(bits / 8)));
+    while (num.bitLength() > bits) {
+      num.ishrn(1);
+    }
+    if (num.isEven()) {
+      num.iadd(ONE);
+    }
+    if (!num.testn(1)) {
+      num.iadd(TWO);
+    }
+    if (!gen.cmp(TWO)) {
+      while (num.mod(TWENTYFOUR).cmp(ELEVEN)) {
+        num.iadd(FOUR);
+      }
+    } else if (!gen.cmp(FIVE)) {
+      while (num.mod(TEN).cmp(THREE)) {
+        num.iadd(FOUR);
+      }
+    }
+    n2 = num.shrn(1);
+    if (simpleSieve(n2) && simpleSieve(num) &&
+      fermatTest(n2) && fermatTest(num) &&
+      millerRabin.test(n2) && millerRabin.test(num)) {
+      return num;
+    }
+  }
+
+}
+
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var bn = __webpack_require__(2);
+var brorand = __webpack_require__(69);
+
+function MillerRabin(rand) {
+  this.rand = rand || new brorand.Rand();
+}
+module.exports = MillerRabin;
+
+MillerRabin.create = function create(rand) {
+  return new MillerRabin(rand);
+};
+
+MillerRabin.prototype._rand = function _rand(n) {
+  var len = n.bitLength();
+  var buf = this.rand.generate(Math.ceil(len / 8));
+
+  // Set low bits
+  buf[0] |= 3;
+
+  // Mask high bits
+  var mask = len & 0x7;
+  if (mask !== 0)
+    buf[buf.length - 1] >>= 7 - mask;
+
+  return new bn(buf);
+}
+
+MillerRabin.prototype.test = function test(n, k, cb) {
+  var len = n.bitLength();
+  var red = bn.mont(n);
+  var rone = new bn(1).toRed(red);
+
+  if (!k)
+    k = Math.max(1, (len / 48) | 0);
+
+  // Find d and s, (n - 1) = (2 ^ s) * d;
+  var n1 = n.subn(1);
+  var n2 = n1.subn(1);
+  for (var s = 0; !n1.testn(s); s++) {}
+  var d = n.shrn(s);
+
+  var rn1 = n1.toRed(red);
+
+  var prime = true;
+  for (; k > 0; k--) {
+    var a = this._rand(n2);
+    if (cb)
+      cb(a);
+
+    var x = a.toRed(red).redPow(d);
+    if (x.cmp(rone) === 0 || x.cmp(rn1) === 0)
+      continue;
+
+    for (var i = 1; i < s; i++) {
+      x = x.redSqr();
+
+      if (x.cmp(rone) === 0)
+        return false;
+      if (x.cmp(rn1) === 0)
+        break;
+    }
+
+    if (i === s)
+      return false;
+  }
+
+  return prime;
+};
+
+MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
+  var len = n.bitLength();
+  var red = bn.mont(n);
+  var rone = new bn(1).toRed(red);
+
+  if (!k)
+    k = Math.max(1, (len / 48) | 0);
+
+  // Find d and s, (n - 1) = (2 ^ s) * d;
+  var n1 = n.subn(1);
+  var n2 = n1.subn(1);
+  for (var s = 0; !n1.testn(s); s++) {}
+  var d = n.shrn(s);
+
+  var rn1 = n1.toRed(red);
+
+  for (; k > 0; k--) {
+    var a = this._rand(n2);
+
+    var g = n.gcd(a);
+    if (g.cmpn(1) !== 0)
+      return g;
+
+    var x = a.toRed(red).redPow(d);
+    if (x.cmp(rone) === 0 || x.cmp(rn1) === 0)
+      continue;
+
+    for (var i = 1; i < s; i++) {
+      x = x.redSqr();
+
+      if (x.cmp(rone) === 0)
+        return x.fromRed().subn(1).gcd(n);
+      if (x.cmp(rn1) === 0)
+        break;
+    }
+
+    if (i === s) {
+      x = x.redSqr();
+      return x.fromRed().subn(1).gcd(n);
+    }
+  }
+
+  return false;
+};
+
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var r;
+
+module.exports = function rand(len) {
+  if (!r)
+    r = new Rand(null);
+
+  return r.generate(len);
+};
+
+function Rand(rand) {
+  this.rand = rand;
+}
+module.exports.Rand = Rand;
+
+Rand.prototype.generate = function generate(len) {
+  return this._rand(len);
+};
+
+// Emulate crypto API using randy
+Rand.prototype._rand = function _rand(n) {
+  if (this.rand.getBytes)
+    return this.rand.getBytes(n);
+
+  var res = new Uint8Array(n);
+  for (var i = 0; i < res.length; i++)
+    res[i] = this.rand.getByte();
+  return res;
+};
+
+if (typeof self === 'object') {
+  if (self.crypto && self.crypto.getRandomValues) {
+    // Modern browsers
+    Rand.prototype._rand = function _rand(n) {
+      var arr = new Uint8Array(n);
+      self.crypto.getRandomValues(arr);
+      return arr;
+    };
+  } else if (self.msCrypto && self.msCrypto.getRandomValues) {
+    // IE
+    Rand.prototype._rand = function _rand(n) {
+      var arr = new Uint8Array(n);
+      self.msCrypto.getRandomValues(arr);
+      return arr;
+    };
+
+  // Safari's WebWorkers do not have `crypto`
+  } else if (typeof window === 'object') {
+    // Old junk
+    Rand.prototype._rand = function() {
+      throw new Error('Not implemented yet');
+    };
+  }
+} else {
+  // Node.js or Web worker with no crypto support
+  try {
+    var crypto = __webpack_require__(173);
+    if (typeof crypto.randomBytes !== 'function')
+      throw new Error('Not supported');
+
+    Rand.prototype._rand = function _rand(n) {
+      return crypto.randomBytes(n);
+    };
+  } catch (e) {
+  }
+}
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = exports;
+
+function toArray(msg, enc) {
+  if (Array.isArray(msg))
+    return msg.slice();
+  if (!msg)
+    return [];
+  var res = [];
+  if (typeof msg !== 'string') {
+    for (var i = 0; i < msg.length; i++)
+      res[i] = msg[i] | 0;
+    return res;
+  }
+  if (enc === 'hex') {
+    msg = msg.replace(/[^a-z0-9]+/ig, '');
+    if (msg.length % 2 !== 0)
+      msg = '0' + msg;
+    for (var i = 0; i < msg.length; i += 2)
+      res.push(parseInt(msg[i] + msg[i + 1], 16));
+  } else {
+    for (var i = 0; i < msg.length; i++) {
+      var c = msg.charCodeAt(i);
+      var hi = c >> 8;
+      var lo = c & 0xff;
+      if (hi)
+        res.push(hi, lo);
+      else
+        res.push(lo);
+    }
+  }
+  return res;
+}
+utils.toArray = toArray;
+
+function zero2(word) {
+  if (word.length === 1)
+    return '0' + word;
+  else
+    return word;
+}
+utils.zero2 = zero2;
+
+function toHex(msg) {
+  var res = '';
+  for (var i = 0; i < msg.length; i++)
+    res += zero2(msg[i].toString(16));
+  return res;
+}
+utils.toHex = toHex;
+
+utils.encode = function encode(arr, enc) {
+  if (enc === 'hex')
+    return toHex(arr);
+  else
+    return arr;
+};
+
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(7);
+var rotr32 = utils.rotr32;
+
+function ft_1(s, x, y, z) {
+  if (s === 0)
+    return ch32(x, y, z);
+  if (s === 1 || s === 3)
+    return p32(x, y, z);
+  if (s === 2)
+    return maj32(x, y, z);
+}
+exports.ft_1 = ft_1;
+
+function ch32(x, y, z) {
+  return (x & y) ^ ((~x) & z);
+}
+exports.ch32 = ch32;
+
+function maj32(x, y, z) {
+  return (x & y) ^ (x & z) ^ (y & z);
+}
+exports.maj32 = maj32;
+
+function p32(x, y, z) {
+  return x ^ y ^ z;
+}
+exports.p32 = p32;
+
+function s0_256(x) {
+  return rotr32(x, 2) ^ rotr32(x, 13) ^ rotr32(x, 22);
+}
+exports.s0_256 = s0_256;
+
+function s1_256(x) {
+  return rotr32(x, 6) ^ rotr32(x, 11) ^ rotr32(x, 25);
+}
+exports.s1_256 = s1_256;
+
+function g0_256(x) {
+  return rotr32(x, 7) ^ rotr32(x, 18) ^ (x >>> 3);
+}
+exports.g0_256 = g0_256;
+
+function g1_256(x) {
+  return rotr32(x, 17) ^ rotr32(x, 19) ^ (x >>> 10);
+}
+exports.g1_256 = g1_256;
+
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(7);
+var common = __webpack_require__(19);
+var shaCommon = __webpack_require__(71);
+var assert = __webpack_require__(6);
+
+var sum32 = utils.sum32;
+var sum32_4 = utils.sum32_4;
+var sum32_5 = utils.sum32_5;
+var ch32 = shaCommon.ch32;
+var maj32 = shaCommon.maj32;
+var s0_256 = shaCommon.s0_256;
+var s1_256 = shaCommon.s1_256;
+var g0_256 = shaCommon.g0_256;
+var g1_256 = shaCommon.g1_256;
+
+var BlockHash = common.BlockHash;
+
+var sha256_K = [
+  0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
+  0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+  0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
+  0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+  0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
+  0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+  0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
+  0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+  0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
+  0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+  0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
+  0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+  0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
+  0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+  0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
+  0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+];
+
+function SHA256() {
+  if (!(this instanceof SHA256))
+    return new SHA256();
+
+  BlockHash.call(this);
+  this.h = [
+    0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+    0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
+  ];
+  this.k = sha256_K;
+  this.W = new Array(64);
+}
+utils.inherits(SHA256, BlockHash);
+module.exports = SHA256;
+
+SHA256.blockSize = 512;
+SHA256.outSize = 256;
+SHA256.hmacStrength = 192;
+SHA256.padLength = 64;
+
+SHA256.prototype._update = function _update(msg, start) {
+  var W = this.W;
+
+  for (var i = 0; i < 16; i++)
+    W[i] = msg[start + i];
+  for (; i < W.length; i++)
+    W[i] = sum32_4(g1_256(W[i - 2]), W[i - 7], g0_256(W[i - 15]), W[i - 16]);
+
+  var a = this.h[0];
+  var b = this.h[1];
+  var c = this.h[2];
+  var d = this.h[3];
+  var e = this.h[4];
+  var f = this.h[5];
+  var g = this.h[6];
+  var h = this.h[7];
+
+  assert(this.k.length === W.length);
+  for (i = 0; i < W.length; i++) {
+    var T1 = sum32_5(h, s1_256(e), ch32(e, f, g), this.k[i], W[i]);
+    var T2 = sum32(s0_256(a), maj32(a, b, c));
+    h = g;
+    g = f;
+    f = e;
+    e = sum32(d, T1);
+    d = c;
+    c = b;
+    b = a;
+    a = sum32(T1, T2);
+  }
+
+  this.h[0] = sum32(this.h[0], a);
+  this.h[1] = sum32(this.h[1], b);
+  this.h[2] = sum32(this.h[2], c);
+  this.h[3] = sum32(this.h[3], d);
+  this.h[4] = sum32(this.h[4], e);
+  this.h[5] = sum32(this.h[5], f);
+  this.h[6] = sum32(this.h[6], g);
+  this.h[7] = sum32(this.h[7], h);
+};
+
+SHA256.prototype._digest = function digest(enc) {
+  if (enc === 'hex')
+    return utils.toHex32(this.h, 'big');
+  else
+    return utils.split32(this.h, 'big');
+};
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(7);
+var common = __webpack_require__(19);
+var assert = __webpack_require__(6);
+
+var rotr64_hi = utils.rotr64_hi;
+var rotr64_lo = utils.rotr64_lo;
+var shr64_hi = utils.shr64_hi;
+var shr64_lo = utils.shr64_lo;
+var sum64 = utils.sum64;
+var sum64_hi = utils.sum64_hi;
+var sum64_lo = utils.sum64_lo;
+var sum64_4_hi = utils.sum64_4_hi;
+var sum64_4_lo = utils.sum64_4_lo;
+var sum64_5_hi = utils.sum64_5_hi;
+var sum64_5_lo = utils.sum64_5_lo;
+
+var BlockHash = common.BlockHash;
+
+var sha512_K = [
+  0x428a2f98, 0xd728ae22, 0x71374491, 0x23ef65cd,
+  0xb5c0fbcf, 0xec4d3b2f, 0xe9b5dba5, 0x8189dbbc,
+  0x3956c25b, 0xf348b538, 0x59f111f1, 0xb605d019,
+  0x923f82a4, 0xaf194f9b, 0xab1c5ed5, 0xda6d8118,
+  0xd807aa98, 0xa3030242, 0x12835b01, 0x45706fbe,
+  0x243185be, 0x4ee4b28c, 0x550c7dc3, 0xd5ffb4e2,
+  0x72be5d74, 0xf27b896f, 0x80deb1fe, 0x3b1696b1,
+  0x9bdc06a7, 0x25c71235, 0xc19bf174, 0xcf692694,
+  0xe49b69c1, 0x9ef14ad2, 0xefbe4786, 0x384f25e3,
+  0x0fc19dc6, 0x8b8cd5b5, 0x240ca1cc, 0x77ac9c65,
+  0x2de92c6f, 0x592b0275, 0x4a7484aa, 0x6ea6e483,
+  0x5cb0a9dc, 0xbd41fbd4, 0x76f988da, 0x831153b5,
+  0x983e5152, 0xee66dfab, 0xa831c66d, 0x2db43210,
+  0xb00327c8, 0x98fb213f, 0xbf597fc7, 0xbeef0ee4,
+  0xc6e00bf3, 0x3da88fc2, 0xd5a79147, 0x930aa725,
+  0x06ca6351, 0xe003826f, 0x14292967, 0x0a0e6e70,
+  0x27b70a85, 0x46d22ffc, 0x2e1b2138, 0x5c26c926,
+  0x4d2c6dfc, 0x5ac42aed, 0x53380d13, 0x9d95b3df,
+  0x650a7354, 0x8baf63de, 0x766a0abb, 0x3c77b2a8,
+  0x81c2c92e, 0x47edaee6, 0x92722c85, 0x1482353b,
+  0xa2bfe8a1, 0x4cf10364, 0xa81a664b, 0xbc423001,
+  0xc24b8b70, 0xd0f89791, 0xc76c51a3, 0x0654be30,
+  0xd192e819, 0xd6ef5218, 0xd6990624, 0x5565a910,
+  0xf40e3585, 0x5771202a, 0x106aa070, 0x32bbd1b8,
+  0x19a4c116, 0xb8d2d0c8, 0x1e376c08, 0x5141ab53,
+  0x2748774c, 0xdf8eeb99, 0x34b0bcb5, 0xe19b48a8,
+  0x391c0cb3, 0xc5c95a63, 0x4ed8aa4a, 0xe3418acb,
+  0x5b9cca4f, 0x7763e373, 0x682e6ff3, 0xd6b2b8a3,
+  0x748f82ee, 0x5defb2fc, 0x78a5636f, 0x43172f60,
+  0x84c87814, 0xa1f0ab72, 0x8cc70208, 0x1a6439ec,
+  0x90befffa, 0x23631e28, 0xa4506ceb, 0xde82bde9,
+  0xbef9a3f7, 0xb2c67915, 0xc67178f2, 0xe372532b,
+  0xca273ece, 0xea26619c, 0xd186b8c7, 0x21c0c207,
+  0xeada7dd6, 0xcde0eb1e, 0xf57d4f7f, 0xee6ed178,
+  0x06f067aa, 0x72176fba, 0x0a637dc5, 0xa2c898a6,
+  0x113f9804, 0xbef90dae, 0x1b710b35, 0x131c471b,
+  0x28db77f5, 0x23047d84, 0x32caab7b, 0x40c72493,
+  0x3c9ebe0a, 0x15c9bebc, 0x431d67c4, 0x9c100d4c,
+  0x4cc5d4be, 0xcb3e42b6, 0x597f299c, 0xfc657e2a,
+  0x5fcb6fab, 0x3ad6faec, 0x6c44198c, 0x4a475817
+];
+
+function SHA512() {
+  if (!(this instanceof SHA512))
+    return new SHA512();
+
+  BlockHash.call(this);
+  this.h = [
+    0x6a09e667, 0xf3bcc908,
+    0xbb67ae85, 0x84caa73b,
+    0x3c6ef372, 0xfe94f82b,
+    0xa54ff53a, 0x5f1d36f1,
+    0x510e527f, 0xade682d1,
+    0x9b05688c, 0x2b3e6c1f,
+    0x1f83d9ab, 0xfb41bd6b,
+    0x5be0cd19, 0x137e2179 ];
+  this.k = sha512_K;
+  this.W = new Array(160);
+}
+utils.inherits(SHA512, BlockHash);
+module.exports = SHA512;
+
+SHA512.blockSize = 1024;
+SHA512.outSize = 512;
+SHA512.hmacStrength = 192;
+SHA512.padLength = 128;
+
+SHA512.prototype._prepareBlock = function _prepareBlock(msg, start) {
+  var W = this.W;
+
+  // 32 x 32bit words
+  for (var i = 0; i < 32; i++)
+    W[i] = msg[start + i];
+  for (; i < W.length; i += 2) {
+    var c0_hi = g1_512_hi(W[i - 4], W[i - 3]);  // i - 2
+    var c0_lo = g1_512_lo(W[i - 4], W[i - 3]);
+    var c1_hi = W[i - 14];  // i - 7
+    var c1_lo = W[i - 13];
+    var c2_hi = g0_512_hi(W[i - 30], W[i - 29]);  // i - 15
+    var c2_lo = g0_512_lo(W[i - 30], W[i - 29]);
+    var c3_hi = W[i - 32];  // i - 16
+    var c3_lo = W[i - 31];
+
+    W[i] = sum64_4_hi(
+      c0_hi, c0_lo,
+      c1_hi, c1_lo,
+      c2_hi, c2_lo,
+      c3_hi, c3_lo);
+    W[i + 1] = sum64_4_lo(
+      c0_hi, c0_lo,
+      c1_hi, c1_lo,
+      c2_hi, c2_lo,
+      c3_hi, c3_lo);
+  }
+};
+
+SHA512.prototype._update = function _update(msg, start) {
+  this._prepareBlock(msg, start);
+
+  var W = this.W;
+
+  var ah = this.h[0];
+  var al = this.h[1];
+  var bh = this.h[2];
+  var bl = this.h[3];
+  var ch = this.h[4];
+  var cl = this.h[5];
+  var dh = this.h[6];
+  var dl = this.h[7];
+  var eh = this.h[8];
+  var el = this.h[9];
+  var fh = this.h[10];
+  var fl = this.h[11];
+  var gh = this.h[12];
+  var gl = this.h[13];
+  var hh = this.h[14];
+  var hl = this.h[15];
+
+  assert(this.k.length === W.length);
+  for (var i = 0; i < W.length; i += 2) {
+    var c0_hi = hh;
+    var c0_lo = hl;
+    var c1_hi = s1_512_hi(eh, el);
+    var c1_lo = s1_512_lo(eh, el);
+    var c2_hi = ch64_hi(eh, el, fh, fl, gh, gl);
+    var c2_lo = ch64_lo(eh, el, fh, fl, gh, gl);
+    var c3_hi = this.k[i];
+    var c3_lo = this.k[i + 1];
+    var c4_hi = W[i];
+    var c4_lo = W[i + 1];
+
+    var T1_hi = sum64_5_hi(
+      c0_hi, c0_lo,
+      c1_hi, c1_lo,
+      c2_hi, c2_lo,
+      c3_hi, c3_lo,
+      c4_hi, c4_lo);
+    var T1_lo = sum64_5_lo(
+      c0_hi, c0_lo,
+      c1_hi, c1_lo,
+      c2_hi, c2_lo,
+      c3_hi, c3_lo,
+      c4_hi, c4_lo);
+
+    c0_hi = s0_512_hi(ah, al);
+    c0_lo = s0_512_lo(ah, al);
+    c1_hi = maj64_hi(ah, al, bh, bl, ch, cl);
+    c1_lo = maj64_lo(ah, al, bh, bl, ch, cl);
+
+    var T2_hi = sum64_hi(c0_hi, c0_lo, c1_hi, c1_lo);
+    var T2_lo = sum64_lo(c0_hi, c0_lo, c1_hi, c1_lo);
+
+    hh = gh;
+    hl = gl;
+
+    gh = fh;
+    gl = fl;
+
+    fh = eh;
+    fl = el;
+
+    eh = sum64_hi(dh, dl, T1_hi, T1_lo);
+    el = sum64_lo(dl, dl, T1_hi, T1_lo);
+
+    dh = ch;
+    dl = cl;
+
+    ch = bh;
+    cl = bl;
+
+    bh = ah;
+    bl = al;
+
+    ah = sum64_hi(T1_hi, T1_lo, T2_hi, T2_lo);
+    al = sum64_lo(T1_hi, T1_lo, T2_hi, T2_lo);
+  }
+
+  sum64(this.h, 0, ah, al);
+  sum64(this.h, 2, bh, bl);
+  sum64(this.h, 4, ch, cl);
+  sum64(this.h, 6, dh, dl);
+  sum64(this.h, 8, eh, el);
+  sum64(this.h, 10, fh, fl);
+  sum64(this.h, 12, gh, gl);
+  sum64(this.h, 14, hh, hl);
+};
+
+SHA512.prototype._digest = function digest(enc) {
+  if (enc === 'hex')
+    return utils.toHex32(this.h, 'big');
+  else
+    return utils.split32(this.h, 'big');
+};
+
+function ch64_hi(xh, xl, yh, yl, zh) {
+  var r = (xh & yh) ^ ((~xh) & zh);
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function ch64_lo(xh, xl, yh, yl, zh, zl) {
+  var r = (xl & yl) ^ ((~xl) & zl);
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function maj64_hi(xh, xl, yh, yl, zh) {
+  var r = (xh & yh) ^ (xh & zh) ^ (yh & zh);
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function maj64_lo(xh, xl, yh, yl, zh, zl) {
+  var r = (xl & yl) ^ (xl & zl) ^ (yl & zl);
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function s0_512_hi(xh, xl) {
+  var c0_hi = rotr64_hi(xh, xl, 28);
+  var c1_hi = rotr64_hi(xl, xh, 2);  // 34
+  var c2_hi = rotr64_hi(xl, xh, 7);  // 39
+
+  var r = c0_hi ^ c1_hi ^ c2_hi;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function s0_512_lo(xh, xl) {
+  var c0_lo = rotr64_lo(xh, xl, 28);
+  var c1_lo = rotr64_lo(xl, xh, 2);  // 34
+  var c2_lo = rotr64_lo(xl, xh, 7);  // 39
+
+  var r = c0_lo ^ c1_lo ^ c2_lo;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function s1_512_hi(xh, xl) {
+  var c0_hi = rotr64_hi(xh, xl, 14);
+  var c1_hi = rotr64_hi(xh, xl, 18);
+  var c2_hi = rotr64_hi(xl, xh, 9);  // 41
+
+  var r = c0_hi ^ c1_hi ^ c2_hi;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function s1_512_lo(xh, xl) {
+  var c0_lo = rotr64_lo(xh, xl, 14);
+  var c1_lo = rotr64_lo(xh, xl, 18);
+  var c2_lo = rotr64_lo(xl, xh, 9);  // 41
+
+  var r = c0_lo ^ c1_lo ^ c2_lo;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function g0_512_hi(xh, xl) {
+  var c0_hi = rotr64_hi(xh, xl, 1);
+  var c1_hi = rotr64_hi(xh, xl, 8);
+  var c2_hi = shr64_hi(xh, xl, 7);
+
+  var r = c0_hi ^ c1_hi ^ c2_hi;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function g0_512_lo(xh, xl) {
+  var c0_lo = rotr64_lo(xh, xl, 1);
+  var c1_lo = rotr64_lo(xh, xl, 8);
+  var c2_lo = shr64_lo(xh, xl, 7);
+
+  var r = c0_lo ^ c1_lo ^ c2_lo;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function g1_512_hi(xh, xl) {
+  var c0_hi = rotr64_hi(xh, xl, 19);
+  var c1_hi = rotr64_hi(xl, xh, 29);  // 61
+  var c2_hi = shr64_hi(xh, xl, 6);
+
+  var r = c0_hi ^ c1_hi ^ c2_hi;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function g1_512_lo(xh, xl) {
+  var c0_lo = rotr64_lo(xh, xl, 19);
+  var c1_lo = rotr64_lo(xl, xh, 29);  // 61
+  var c2_lo = shr64_lo(xh, xl, 6);
+
+  var r = c0_lo ^ c1_lo ^ c2_lo;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var inherits = __webpack_require__(1);
+var Reporter = __webpack_require__(21).Reporter;
+var Buffer = __webpack_require__(0).Buffer;
+
+function DecoderBuffer(base, options) {
+  Reporter.call(this, options);
+  if (!Buffer.isBuffer(base)) {
+    this.error('Input not Buffer');
+    return;
+  }
+
+  this.base = base;
+  this.offset = 0;
+  this.length = base.length;
+}
+inherits(DecoderBuffer, Reporter);
+exports.DecoderBuffer = DecoderBuffer;
+
+DecoderBuffer.prototype.save = function save() {
+  return { offset: this.offset, reporter: Reporter.prototype.save.call(this) };
+};
+
+DecoderBuffer.prototype.restore = function restore(save) {
+  // Return skipped data
+  var res = new DecoderBuffer(this.base);
+  res.offset = save.offset;
+  res.length = this.offset;
+
+  this.offset = save.offset;
+  Reporter.prototype.restore.call(this, save.reporter);
+
+  return res;
+};
+
+DecoderBuffer.prototype.isEmpty = function isEmpty() {
+  return this.offset === this.length;
+};
+
+DecoderBuffer.prototype.readUInt8 = function readUInt8(fail) {
+  if (this.offset + 1 <= this.length)
+    return this.base.readUInt8(this.offset++, true);
+  else
+    return this.error(fail || 'DecoderBuffer overrun');
+}
+
+DecoderBuffer.prototype.skip = function skip(bytes, fail) {
+  if (!(this.offset + bytes <= this.length))
+    return this.error(fail || 'DecoderBuffer overrun');
+
+  var res = new DecoderBuffer(this.base);
+
+  // Share reporter state
+  res._reporterState = this._reporterState;
+
+  res.offset = this.offset;
+  res.length = this.offset + bytes;
+  this.offset += bytes;
+  return res;
+}
+
+DecoderBuffer.prototype.raw = function raw(save) {
+  return this.base.slice(save ? save.offset : this.offset, this.length);
+}
+
+function EncoderBuffer(value, reporter) {
+  if (Array.isArray(value)) {
+    this.length = 0;
+    this.value = value.map(function(item) {
+      if (!(item instanceof EncoderBuffer))
+        item = new EncoderBuffer(item, reporter);
+      this.length += item.length;
+      return item;
+    }, this);
+  } else if (typeof value === 'number') {
+    if (!(0 <= value && value <= 0xff))
+      return reporter.error('non-byte EncoderBuffer value');
+    this.value = value;
+    this.length = 1;
+  } else if (typeof value === 'string') {
+    this.value = value;
+    this.length = Buffer.byteLength(value);
+  } else if (Buffer.isBuffer(value)) {
+    this.value = value;
+    this.length = value.length;
+  } else {
+    return reporter.error('Unsupported type: ' + typeof value);
+  }
+}
+exports.EncoderBuffer = EncoderBuffer;
+
+EncoderBuffer.prototype.join = function join(out, offset) {
+  if (!out)
+    out = new Buffer(this.length);
+  if (!offset)
+    offset = 0;
+
+  if (this.length === 0)
+    return out;
+
+  if (Array.isArray(this.value)) {
+    this.value.forEach(function(item) {
+      item.join(out, offset);
+      offset += item.length;
+    });
+  } else {
+    if (typeof this.value === 'number')
+      out[offset] = this.value;
+    else if (typeof this.value === 'string')
+      out.write(this.value, offset);
+    else if (Buffer.isBuffer(this.value))
+      this.value.copy(out, offset);
+    offset += this.length;
+  }
+
+  return out;
+};
+
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var constants = exports;
+
+// Helper
+constants._reverse = function reverse(map) {
+  var res = {};
+
+  Object.keys(map).forEach(function(key) {
+    // Convert key to integer if it is stringified
+    if ((key | 0) == key)
+      key = key | 0;
+
+    var value = map[key];
+    res[value] = key;
+  });
+
+  return res;
+};
+
+constants.der = __webpack_require__(205);
+
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var inherits = __webpack_require__(1);
+
+var asn1 = __webpack_require__(20);
+var base = asn1.base;
+var bignum = asn1.bignum;
+
+// Import DER constants
+var der = asn1.constants.der;
+
+function DERDecoder(entity) {
+  this.enc = 'der';
+  this.name = entity.name;
+  this.entity = entity;
+
+  // Construct base tree
+  this.tree = new DERNode();
+  this.tree._init(entity.body);
+};
+module.exports = DERDecoder;
+
+DERDecoder.prototype.decode = function decode(data, options) {
+  if (!(data instanceof base.DecoderBuffer))
+    data = new base.DecoderBuffer(data, options);
+
+  return this.tree._decode(data, options);
+};
+
+// Tree methods
+
+function DERNode(parent) {
+  base.Node.call(this, 'der', parent);
+}
+inherits(DERNode, base.Node);
+
+DERNode.prototype._peekTag = function peekTag(buffer, tag, any) {
+  if (buffer.isEmpty())
+    return false;
+
+  var state = buffer.save();
+  var decodedTag = derDecodeTag(buffer, 'Failed to peek tag: "' + tag + '"');
+  if (buffer.isError(decodedTag))
+    return decodedTag;
+
+  buffer.restore(state);
+
+  return decodedTag.tag === tag || decodedTag.tagStr === tag ||
+    (decodedTag.tagStr + 'of') === tag || any;
+};
+
+DERNode.prototype._decodeTag = function decodeTag(buffer, tag, any) {
+  var decodedTag = derDecodeTag(buffer,
+                                'Failed to decode tag of "' + tag + '"');
+  if (buffer.isError(decodedTag))
+    return decodedTag;
+
+  var len = derDecodeLen(buffer,
+                         decodedTag.primitive,
+                         'Failed to get length of "' + tag + '"');
+
+  // Failure
+  if (buffer.isError(len))
+    return len;
+
+  if (!any &&
+      decodedTag.tag !== tag &&
+      decodedTag.tagStr !== tag &&
+      decodedTag.tagStr + 'of' !== tag) {
+    return buffer.error('Failed to match tag: "' + tag + '"');
+  }
+
+  if (decodedTag.primitive || len !== null)
+    return buffer.skip(len, 'Failed to match body of: "' + tag + '"');
+
+  // Indefinite length... find END tag
+  var state = buffer.save();
+  var res = this._skipUntilEnd(
+      buffer,
+      'Failed to skip indefinite length body: "' + this.tag + '"');
+  if (buffer.isError(res))
+    return res;
+
+  len = buffer.offset - state.offset;
+  buffer.restore(state);
+  return buffer.skip(len, 'Failed to match body of: "' + tag + '"');
+};
+
+DERNode.prototype._skipUntilEnd = function skipUntilEnd(buffer, fail) {
+  while (true) {
+    var tag = derDecodeTag(buffer, fail);
+    if (buffer.isError(tag))
+      return tag;
+    var len = derDecodeLen(buffer, tag.primitive, fail);
+    if (buffer.isError(len))
+      return len;
+
+    var res;
+    if (tag.primitive || len !== null)
+      res = buffer.skip(len)
+    else
+      res = this._skipUntilEnd(buffer, fail);
+
+    // Failure
+    if (buffer.isError(res))
+      return res;
+
+    if (tag.tagStr === 'end')
+      break;
+  }
+};
+
+DERNode.prototype._decodeList = function decodeList(buffer, tag, decoder,
+                                                    options) {
+  var result = [];
+  while (!buffer.isEmpty()) {
+    var possibleEnd = this._peekTag(buffer, 'end');
+    if (buffer.isError(possibleEnd))
+      return possibleEnd;
+
+    var res = decoder.decode(buffer, 'der', options);
+    if (buffer.isError(res) && possibleEnd)
+      break;
+    result.push(res);
+  }
+  return result;
+};
+
+DERNode.prototype._decodeStr = function decodeStr(buffer, tag) {
+  if (tag === 'bitstr') {
+    var unused = buffer.readUInt8();
+    if (buffer.isError(unused))
+      return unused;
+    return { unused: unused, data: buffer.raw() };
+  } else if (tag === 'bmpstr') {
+    var raw = buffer.raw();
+    if (raw.length % 2 === 1)
+      return buffer.error('Decoding of string type: bmpstr length mismatch');
+
+    var str = '';
+    for (var i = 0; i < raw.length / 2; i++) {
+      str += String.fromCharCode(raw.readUInt16BE(i * 2));
+    }
+    return str;
+  } else if (tag === 'numstr') {
+    var numstr = buffer.raw().toString('ascii');
+    if (!this._isNumstr(numstr)) {
+      return buffer.error('Decoding of string type: ' +
+                          'numstr unsupported characters');
+    }
+    return numstr;
+  } else if (tag === 'octstr') {
+    return buffer.raw();
+  } else if (tag === 'objDesc') {
+    return buffer.raw();
+  } else if (tag === 'printstr') {
+    var printstr = buffer.raw().toString('ascii');
+    if (!this._isPrintstr(printstr)) {
+      return buffer.error('Decoding of string type: ' +
+                          'printstr unsupported characters');
+    }
+    return printstr;
+  } else if (/str$/.test(tag)) {
+    return buffer.raw().toString();
+  } else {
+    return buffer.error('Decoding of string type: ' + tag + ' unsupported');
+  }
+};
+
+DERNode.prototype._decodeObjid = function decodeObjid(buffer, values, relative) {
+  var result;
+  var identifiers = [];
+  var ident = 0;
+  while (!buffer.isEmpty()) {
+    var subident = buffer.readUInt8();
+    ident <<= 7;
+    ident |= subident & 0x7f;
+    if ((subident & 0x80) === 0) {
+      identifiers.push(ident);
+      ident = 0;
+    }
+  }
+  if (subident & 0x80)
+    identifiers.push(ident);
+
+  var first = (identifiers[0] / 40) | 0;
+  var second = identifiers[0] % 40;
+
+  if (relative)
+    result = identifiers;
+  else
+    result = [first, second].concat(identifiers.slice(1));
+
+  if (values) {
+    var tmp = values[result.join(' ')];
+    if (tmp === undefined)
+      tmp = values[result.join('.')];
+    if (tmp !== undefined)
+      result = tmp;
+  }
+
+  return result;
+};
+
+DERNode.prototype._decodeTime = function decodeTime(buffer, tag) {
+  var str = buffer.raw().toString();
+  if (tag === 'gentime') {
+    var year = str.slice(0, 4) | 0;
+    var mon = str.slice(4, 6) | 0;
+    var day = str.slice(6, 8) | 0;
+    var hour = str.slice(8, 10) | 0;
+    var min = str.slice(10, 12) | 0;
+    var sec = str.slice(12, 14) | 0;
+  } else if (tag === 'utctime') {
+    var year = str.slice(0, 2) | 0;
+    var mon = str.slice(2, 4) | 0;
+    var day = str.slice(4, 6) | 0;
+    var hour = str.slice(6, 8) | 0;
+    var min = str.slice(8, 10) | 0;
+    var sec = str.slice(10, 12) | 0;
+    if (year < 70)
+      year = 2000 + year;
+    else
+      year = 1900 + year;
+  } else {
+    return buffer.error('Decoding ' + tag + ' time is not supported yet');
+  }
+
+  return Date.UTC(year, mon - 1, day, hour, min, sec, 0);
+};
+
+DERNode.prototype._decodeNull = function decodeNull(buffer) {
+  return null;
+};
+
+DERNode.prototype._decodeBool = function decodeBool(buffer) {
+  var res = buffer.readUInt8();
+  if (buffer.isError(res))
+    return res;
+  else
+    return res !== 0;
+};
+
+DERNode.prototype._decodeInt = function decodeInt(buffer, values) {
+  // Bigint, return as it is (assume big endian)
+  var raw = buffer.raw();
+  var res = new bignum(raw);
+
+  if (values)
+    res = values[res.toString(10)] || res;
+
+  return res;
+};
+
+DERNode.prototype._use = function use(entity, obj) {
+  if (typeof entity === 'function')
+    entity = entity(obj);
+  return entity._getDecoder('der').tree;
+};
+
+// Utility methods
+
+function derDecodeTag(buf, fail) {
+  var tag = buf.readUInt8(fail);
+  if (buf.isError(tag))
+    return tag;
+
+  var cls = der.tagClass[tag >> 6];
+  var primitive = (tag & 0x20) === 0;
+
+  // Multi-octet tag - load
+  if ((tag & 0x1f) === 0x1f) {
+    var oct = tag;
+    tag = 0;
+    while ((oct & 0x80) === 0x80) {
+      oct = buf.readUInt8(fail);
+      if (buf.isError(oct))
+        return oct;
+
+      tag <<= 7;
+      tag |= oct & 0x7f;
+    }
+  } else {
+    tag &= 0x1f;
+  }
+  var tagStr = der.tag[tag];
+
+  return {
+    cls: cls,
+    primitive: primitive,
+    tag: tag,
+    tagStr: tagStr
+  };
+}
+
+function derDecodeLen(buf, primitive, fail) {
+  var len = buf.readUInt8(fail);
+  if (buf.isError(len))
+    return len;
+
+  // Indefinite form
+  if (!primitive && len === 0x80)
+    return null;
+
+  // Definite form
+  if ((len & 0x80) === 0) {
+    // Short form
+    return len;
+  }
+
+  // Long form
+  var num = len & 0x7f;
+  if (num > 4)
+    return buf.error('length octect is too long');
+
+  len = 0;
+  for (var i = 0; i < num; i++) {
+    len <<= 8;
+    var j = buf.readUInt8(fail);
+    if (buf.isError(j))
+      return j;
+    len |= j;
+  }
+
+  return len;
+}
+
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var inherits = __webpack_require__(1);
+var Buffer = __webpack_require__(0).Buffer;
+
+var asn1 = __webpack_require__(20);
+var base = asn1.base;
+
+// Import DER constants
+var der = asn1.constants.der;
+
+function DEREncoder(entity) {
+  this.enc = 'der';
+  this.name = entity.name;
+  this.entity = entity;
+
+  // Construct base tree
+  this.tree = new DERNode();
+  this.tree._init(entity.body);
+};
+module.exports = DEREncoder;
+
+DEREncoder.prototype.encode = function encode(data, reporter) {
+  return this.tree._encode(data, reporter).join();
+};
+
+// Tree methods
+
+function DERNode(parent) {
+  base.Node.call(this, 'der', parent);
+}
+inherits(DERNode, base.Node);
+
+DERNode.prototype._encodeComposite = function encodeComposite(tag,
+                                                              primitive,
+                                                              cls,
+                                                              content) {
+  var encodedTag = encodeTag(tag, primitive, cls, this.reporter);
+
+  // Short form
+  if (content.length < 0x80) {
+    var header = new Buffer(2);
+    header[0] = encodedTag;
+    header[1] = content.length;
+    return this._createEncoderBuffer([ header, content ]);
+  }
+
+  // Long form
+  // Count octets required to store length
+  var lenOctets = 1;
+  for (var i = content.length; i >= 0x100; i >>= 8)
+    lenOctets++;
+
+  var header = new Buffer(1 + 1 + lenOctets);
+  header[0] = encodedTag;
+  header[1] = 0x80 | lenOctets;
+
+  for (var i = 1 + lenOctets, j = content.length; j > 0; i--, j >>= 8)
+    header[i] = j & 0xff;
+
+  return this._createEncoderBuffer([ header, content ]);
+};
+
+DERNode.prototype._encodeStr = function encodeStr(str, tag) {
+  if (tag === 'bitstr') {
+    return this._createEncoderBuffer([ str.unused | 0, str.data ]);
+  } else if (tag === 'bmpstr') {
+    var buf = new Buffer(str.length * 2);
+    for (var i = 0; i < str.length; i++) {
+      buf.writeUInt16BE(str.charCodeAt(i), i * 2);
+    }
+    return this._createEncoderBuffer(buf);
+  } else if (tag === 'numstr') {
+    if (!this._isNumstr(str)) {
+      return this.reporter.error('Encoding of string type: numstr supports ' +
+                                 'only digits and space');
+    }
+    return this._createEncoderBuffer(str);
+  } else if (tag === 'printstr') {
+    if (!this._isPrintstr(str)) {
+      return this.reporter.error('Encoding of string type: printstr supports ' +
+                                 'only latin upper and lower case letters, ' +
+                                 'digits, space, apostrophe, left and rigth ' +
+                                 'parenthesis, plus sign, comma, hyphen, ' +
+                                 'dot, slash, colon, equal sign, ' +
+                                 'question mark');
+    }
+    return this._createEncoderBuffer(str);
+  } else if (/str$/.test(tag)) {
+    return this._createEncoderBuffer(str);
+  } else if (tag === 'objDesc') {
+    return this._createEncoderBuffer(str);
+  } else {
+    return this.reporter.error('Encoding of string type: ' + tag +
+                               ' unsupported');
+  }
+};
+
+DERNode.prototype._encodeObjid = function encodeObjid(id, values, relative) {
+  if (typeof id === 'string') {
+    if (!values)
+      return this.reporter.error('string objid given, but no values map found');
+    if (!values.hasOwnProperty(id))
+      return this.reporter.error('objid not found in values map');
+    id = values[id].split(/[\s\.]+/g);
+    for (var i = 0; i < id.length; i++)
+      id[i] |= 0;
+  } else if (Array.isArray(id)) {
+    id = id.slice();
+    for (var i = 0; i < id.length; i++)
+      id[i] |= 0;
+  }
+
+  if (!Array.isArray(id)) {
+    return this.reporter.error('objid() should be either array or string, ' +
+                               'got: ' + JSON.stringify(id));
+  }
+
+  if (!relative) {
+    if (id[1] >= 40)
+      return this.reporter.error('Second objid identifier OOB');
+    id.splice(0, 2, id[0] * 40 + id[1]);
+  }
+
+  // Count number of octets
+  var size = 0;
+  for (var i = 0; i < id.length; i++) {
+    var ident = id[i];
+    for (size++; ident >= 0x80; ident >>= 7)
+      size++;
+  }
+
+  var objid = new Buffer(size);
+  var offset = objid.length - 1;
+  for (var i = id.length - 1; i >= 0; i--) {
+    var ident = id[i];
+    objid[offset--] = ident & 0x7f;
+    while ((ident >>= 7) > 0)
+      objid[offset--] = 0x80 | (ident & 0x7f);
+  }
+
+  return this._createEncoderBuffer(objid);
+};
+
+function two(num) {
+  if (num < 10)
+    return '0' + num;
+  else
+    return num;
+}
+
+DERNode.prototype._encodeTime = function encodeTime(time, tag) {
+  var str;
+  var date = new Date(time);
+
+  if (tag === 'gentime') {
+    str = [
+      two(date.getFullYear()),
+      two(date.getUTCMonth() + 1),
+      two(date.getUTCDate()),
+      two(date.getUTCHours()),
+      two(date.getUTCMinutes()),
+      two(date.getUTCSeconds()),
+      'Z'
+    ].join('');
+  } else if (tag === 'utctime') {
+    str = [
+      two(date.getFullYear() % 100),
+      two(date.getUTCMonth() + 1),
+      two(date.getUTCDate()),
+      two(date.getUTCHours()),
+      two(date.getUTCMinutes()),
+      two(date.getUTCSeconds()),
+      'Z'
+    ].join('');
+  } else {
+    this.reporter.error('Encoding ' + tag + ' time is not supported yet');
+  }
+
+  return this._encodeStr(str, 'octstr');
+};
+
+DERNode.prototype._encodeNull = function encodeNull() {
+  return this._createEncoderBuffer('');
+};
+
+DERNode.prototype._encodeInt = function encodeInt(num, values) {
+  if (typeof num === 'string') {
+    if (!values)
+      return this.reporter.error('String int or enum given, but no values map');
+    if (!values.hasOwnProperty(num)) {
+      return this.reporter.error('Values map doesn\'t contain: ' +
+                                 JSON.stringify(num));
+    }
+    num = values[num];
+  }
+
+  // Bignum, assume big endian
+  if (typeof num !== 'number' && !Buffer.isBuffer(num)) {
+    var numArray = num.toArray();
+    if (!num.sign && numArray[0] & 0x80) {
+      numArray.unshift(0);
+    }
+    num = new Buffer(numArray);
+  }
+
+  if (Buffer.isBuffer(num)) {
+    var size = num.length;
+    if (num.length === 0)
+      size++;
+
+    var out = new Buffer(size);
+    num.copy(out);
+    if (num.length === 0)
+      out[0] = 0
+    return this._createEncoderBuffer(out);
+  }
+
+  if (num < 0x80)
+    return this._createEncoderBuffer(num);
+
+  if (num < 0x100)
+    return this._createEncoderBuffer([0, num]);
+
+  var size = 1;
+  for (var i = num; i >= 0x100; i >>= 8)
+    size++;
+
+  var out = new Array(size);
+  for (var i = out.length - 1; i >= 0; i--) {
+    out[i] = num & 0xff;
+    num >>= 8;
+  }
+  if(out[0] & 0x80) {
+    out.unshift(0);
+  }
+
+  return this._createEncoderBuffer(new Buffer(out));
+};
+
+DERNode.prototype._encodeBool = function encodeBool(value) {
+  return this._createEncoderBuffer(value ? 0xff : 0);
+};
+
+DERNode.prototype._use = function use(entity, obj) {
+  if (typeof entity === 'function')
+    entity = entity(obj);
+  return entity._getEncoder('der').tree;
+};
+
+DERNode.prototype._skipDefault = function skipDefault(dataBuffer, reporter, parent) {
+  var state = this._baseState;
+  var i;
+  if (state['default'] === null)
+    return false;
+
+  var data = dataBuffer.join();
+  if (state.defaultBuffer === undefined)
+    state.defaultBuffer = this._encodeValue(state['default'], reporter, parent).join();
+
+  if (data.length !== state.defaultBuffer.length)
+    return false;
+
+  for (i=0; i < data.length; i++)
+    if (data[i] !== state.defaultBuffer[i])
+      return false;
+
+  return true;
+};
+
+// Utility methods
+
+function encodeTag(tag, primitive, cls, reporter) {
+  var res;
+
+  if (tag === 'seqof')
+    tag = 'seq';
+  else if (tag === 'setof')
+    tag = 'set';
+
+  if (der.tagByName.hasOwnProperty(tag))
+    res = der.tagByName[tag];
+  else if (typeof tag === 'number' && (tag | 0) === tag)
+    res = tag;
+  else
+    return reporter.error('Unknown tag: ' + tag);
+
+  if (res >= 0x1f)
+    return reporter.error('Multi-octet tag encoding unsupported');
+
+  if (!primitive)
+    res |= 0x20;
+
+  res |= (der.tagClassByName[cls || 'universal'] << 6);
+
+  return res;
+}
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports) {
+
+module.exports = {"1.3.132.0.10":"secp256k1","1.3.132.0.33":"p224","1.2.840.10045.3.1.1":"p192","1.2.840.10045.3.1.7":"p256","1.3.132.0.34":"p384","1.3.132.0.35":"p521"}
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(17);
+module.exports = function (seed, len) {
+  var t = new Buffer('');
+  var  i = 0, c;
+  while (t.length < len) {
+    c = i2ops(i++);
+    t = Buffer.concat([t, createHash('sha1').update(seed).update(c).digest()]);
+  }
+  return t.slice(0, len);
+};
+
+function i2ops(c) {
+  var out = new Buffer(4);
+  out.writeUInt32BE(c,0);
+  return out;
+}
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports) {
+
+module.exports = function xor(a, b) {
+  var len = a.length;
+  var i = -1;
+  while (++i < len) {
+    a[i] ^= b[i];
+  }
+  return a
+};
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {var bn = __webpack_require__(2);
+function withPublic(paddedMsg, key) {
+  return new Buffer(paddedMsg
+    .toRed(bn.mont(key.modulus))
+    .redPow(new bn(key.publicExponent))
+    .fromRed()
+    .toArray());
+}
+
+module.exports = withPublic;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports) {
+
+module.exports = new Vue({
+    data: {
+        id: null,
+        name: null,
+        models: {
+            sucursal: null,
+            sucursalHorario: null
+        },
+        map: {
+            main: null,
+            geocoder: null,
+            marker: {
+                main: null,
+                window: null,
+                position: {
+                    lat: null,
+                    lng: null
+                },
+            },
+            data: {
+                address: "Ciudad de México, México",
+                zoom: 13
+            }
+        },
+        actualStep: 0,
+        steps: [
+            {
+                text: "Lunes",
+                dayNumber: 2,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Martes",
+                dayNumber: 3,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Miércoles",
+                dayNumber: 4,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Jueves",
+                dayNumber: 5,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Viernes",
+                dayNumber: 6,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Sábado",
+                dayNumber: 7,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Domingo",
+                dayNumber: 1,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+        ]
+    },
+    methods: {
+        init: function(type, first){
+            var me = this;
+            this.actualStep = 0;
+            for(var i = 0; i < me.steps.length; i++)
+                this.steps[i].schedule = [];
+            this.models.sucursal.get({
+                delimiters: this.id
+            },
+            function(success){
+                me.name = success.body.nombre;
+                me.map.marker.position.lat = success.body.lat;
+                me.map.marker.position.lng = success.body.lng;
+                if(type === "modal"){
+                    setTimeout(function(){
+                        me.initMap(type, first);
+                    }, 250);
+                }
+                else
+                    me.initMap(type, first);
+            },
+            function(error){
+                console.log(error);
+            });
+            this.models.sucursalHorario.get({
+                delimiters: this.id,
+                params: {
+                    "per-page": 100,
+                    "sort": "hora_inicio"
+                }
+            },
+            function(success){
+                var interval = [0, 0, 0, 0, 0, 0, 0];
+                for(i = 0; i < success.body.length; i++){
+                    interval[success.body[i].dia - 1]++;
+                    switch(success.body[i].dia){
+                        case 1:     //SUN
+                            me.steps[6].schedule.push({
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin
+                            });
+                            break;
+                        default:
+                            me.steps[success.body[i].dia - 2].schedule.push({
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin
+                            });
+                            break;
+                    }
+                }
+                for(i = 0; i < me.steps.length; i++){
+                    me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
+                    me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
+                }
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initMap: function(type, first){
+            if(type !== "modal" || (type === "modal" && first))
+                this.map.main = new google.maps.Map(document.getElementById('mapSeeStore'), {     //Define Map
+                    zoom: this.map.data.zoom,
+                    center: this.map.marker.position
+                });
+            else
+                this.map.main.setCenter(this.map.marker.position);
+            if(type !== "modal" || first){
+                this.initGeocoder();
+                this.initFocus();
+            }
+            if(type === "modal" && !first)
+                this.map.marker.main.setMap(null);
+            this.initPosition();
+        },
+        initGeocoder: function(){
+            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
+        },
+        initFocus: function(){
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeStore'));
+        },
+        initPosition: function(){
+            var me = this;
+            this.map.marker.main = new google.maps.Marker({
+                map: this.map.main,
+                position: this.map.marker.position,
+                icon: "/image/maps/blue.png"
+            });
+            this.map.marker.window = new google.maps.InfoWindow({
+                content: "Dirección no encontrada.",
+                maxWidth: 175
+            });
+            this.map.marker.main.addListener("rightclick", function(){
+                me.map.marker.window.open(me.map.main, me.map.marker.main);
+            });
+            this.map.geocoder.geocode({                          //Geocoder for placing
+                location: this.map.marker.position
+            },
+            function(response, status){
+                if(status === "OK" && response[0])
+                    me.map.marker.window.setContent(response[0].formatted_address);
+                else
+                    console.log(status, response);
+            });
+        },
+        focusPosition: function(){
+            this.map.main.setCenter({
+                lat: this.map.marker.position.lat,
+                lng: this.map.marker.position.lng
+            });
+            this.map.main.setZoom(this.map.data.zoom);
+        },
+        changeStep: function(e){
+            this.actualStep = e;
+            this.steps[e].seen = true;
+        }
+    }
+});
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports) {
+
+module.exports = new Vue({
+    data: {
+        id: null,
+        name: null,
+        email: null,
+        phone: null,
+        models: {
+            usuarioEmpleado: null,
+            empleado: null,
+            empleadoHorario: null
+        },
+        map: {
+            main: null,
+            geocoder: null,
+            marker: [
+                {
+                    text: "Lu"
+                },
+                {
+                    text: "Ma"
+                },
+                {
+                    text: "Mi"
+                },
+                {
+                    text: "Ju"
+                },
+                {
+                    text: "Vi"
+                },
+                {
+                    text: "Sa"
+                },
+                {
+                    text: "Do"
+                }
+            ],
+            data: {
+                address: "Ciudad de México, México",
+                zoom: 13
+            }
+        },
+        allPosVisible: 0,
+        actualStep: 0,
+        steps: [
+            {
+                text: "Lunes",
+                dayNumber: 2,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Martes",
+                dayNumber: 3,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Miércoles",
+                dayNumber: 4,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Jueves",
+                dayNumber: 5,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Viernes",
+                dayNumber: 6,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Sábado",
+                dayNumber: 7,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+            {
+                text: "Domingo",
+                dayNumber: 1,
+                active: true,
+                schedule: [],
+                interval: 1,
+                seen: true
+            },
+        ]
+    },
+    methods: {
+        init: function(type, first){
+            var i, j, me = this;
+            this.actualStep = 0;
+            this.allPosVisible = 0;
+            if(type !== "modal")
+                this.initMap(type, first);
+            else
+                setTimeout(function(){
+                    me.initMap(type, first);
+                }, 250);
+            if(type === "modal" && !first)
+                for(i = 0; i < this.steps.length; i++)
+                    for(j = 0; j < this.steps[i].schedule.length; j++){
+                        if(this.steps[i].schedule[j].main_begin !== null)
+                            this.steps[i].schedule[j].main_begin.setMap(null);
+                        if(this.steps[i].schedule[j].main_end !== null)
+                            this.steps[i].schedule[j].main_end.setMap(null);
+                    }
+            for(i = 0; i < this.steps.length; i++)
+                this.steps[i].schedule = [];
+            this.models.usuarioEmpleado.get({
+                delimiters: this.id
+            },
+            function(success){
+                me.name = success.body.nombre;
+                me.email = success.body.correo;
+                me.phone = success.body.telefono;
+            },
+            function(error){
+                console.log(error);
+            });
+            this.models.empleadoHorario.get({
+                delimiters: this.id,
+                params: {
+                    "per-page": 100,
+                    "sort": "hora_inicio"
+                }
+            },
+            function(success){
+                var interval = [0, 0, 0, 0, 0, 0, 0];
+                for(i = 0; i < success.body.length; i++){
+                    interval[success.body[i].dia - 1]++;
+                    switch(success.body[i].dia){
+                        case 1:     //SUN
+                            me.steps[6].schedule.push({
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin,
+                                main_begin: null,
+                                window_begin: null,
+                                lat_begin: success.body[i].lat_inicio,
+                                lng_begin: success.body[i].lng_inicio,
+                                main_end: null,
+                                window_end: null,
+                                lat_end: success.body[i].lat_fin,
+                                lng_end: success.body[i].lng_fin,
+                                active: me.steps[6].schedule.length === 0 ? true : false
+                            });
+                            break;
+                        default:
+                            me.steps[success.body[i].dia - 2].schedule.push({
+                                begin: success.body[i].hora_inicio,
+                                end: success.body[i].hora_fin,
+                                main_begin: null,
+                                window_begin: null,
+                                lat_begin: success.body[i].lat_inicio,
+                                lng_begin: success.body[i].lng_inicio,
+                                main_end: null,
+                                window_end: null,
+                                lat_end: success.body[i].lat_fin,
+                                lng_end: success.body[i].lng_fin,
+                                active: me.steps[success.body[i].dia - 2].schedule.length === 0 ? true : false
+                            });
+                            break;
+                    }
+                }
+                if(type === "modal"){
+                    setTimeout(function(){
+                        for(i = 0; i < me.steps.length; i++){
+                            me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
+                            me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
+                            if(me.steps[i].active)
+                                for(j = 0; j < me.steps[i].schedule.length; j++)
+                                    me.initPosition(i, j);
+                        }
+                        me.focusPosition(true);     //JUST ON INIT
+                    }, 250);
+                }
+                else{
+                    for(i = 0; i < me.steps.length; i++){
+                        me.steps[i].active = (i === me.steps.length - 1) ? interval[0] === 0 ? false : true : interval[i + 1] === 0 ? false : true;
+                        me.steps[i].interval = (i === me.steps.length - 1) ? interval[0] : interval[i + 1];
+                        if(me.steps[i].active)
+                            for(j = 0; j < me.steps[i].schedule.length; j++)
+                                me.initPosition(i, j);
+                    }
+                    me.focusPosition(true);     //JUST ON INIT
+                }
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initMap: function(type, first){
+            if(type !== "modal" || (type === "modal" && first))
+                this.map.main = new google.maps.Map(document.getElementById('mapSeeResource'), {     //Define Map
+                    zoom: this.map.data.zoom
+                });
+            if(type !== "modal" || first){
+                this.initFocus();
+                this.initGeocoder();
+            }
+        },
+        initFocus: function(){
+            this.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionSeeResource'));
+        },
+        initGeocoder: function(){
+            var me = this;
+            this.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
+            this.map.geocoder.geocode({                          //Geocoder for placing
+                address: this.map.data.address
+            },
+            function(response, status){
+                if(status === "OK")
+                    me.map.main.setCenter(response[0].geometry.location);
+                else
+                    console.log(status);
+            });
+        },
+        getDirection: function(i, j){
+            var me = this;
+            this.steps[i].schedule[j].main_begin.addListener("rightclick", function(){
+                if(!me.steps[i].schedule[j].window_begin.flag){
+                    me.steps[i].schedule[j].window_begin.flag = true;
+                    me.map.geocoder.geocode({                          //Geocoder for placing
+                        location: {
+                            lat: me.steps[i].schedule[j].lat_begin,
+                            lng: me.steps[i].schedule[j].lng_begin
+                        }
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.steps[i].schedule[j].window_begin.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                }
+                me.steps[i].schedule[j].window_begin.open(me.map.main, me.steps[i].schedule[j].main_begin);
+            });
+            
+            this.steps[i].schedule[j].main_end.addListener("rightclick", function(){
+                if(!me.steps[i].schedule[j].window_end.flag){
+                    me.steps[i].schedule[j].window_end.flag = true;
+                    me.map.geocoder.geocode({                          //Geocoder for placing
+                        location: {
+                            lat: me.steps[i].schedule[j].lat_end,
+                            lng: me.steps[i].schedule[j].lng_end
+                        }
+                    },
+                    function(response, status){
+                        if(status === "OK" && response[0])
+                            me.steps[i].schedule[j].window_end.setContent(response[0].formatted_address);
+                        else
+                            console.log(status, response);
+                    });
+                }
+                me.steps[i].schedule[j].window_end.open(me.map.main, me.steps[i].schedule[j].main_end);
+            });
+        },
+        initPosition: function(i, j){
+            var me = this;
+            this.steps[i].schedule[j].main_begin = new google.maps.Marker({
+                map: this.map.main,
+                icon: {
+                    url: "/image/maps/green-empty.png",
+                    labelOrigin: new google.maps.Point(11, 11)
+                },
+                label: this.map.marker[i].text + (j + 1),
+                title: "Inicio del intervalo " + (j + 1) + " para el día " + this.steps[i].text,
+                position: {
+                    lat: this.steps[i].schedule[j].lat_begin,
+                    lng: this.steps[i].schedule[j].lng_begin
+                }
+            });
+            this.steps[i].schedule[j].window_begin = new google.maps.InfoWindow({
+                content: "Dirección no encontrada.",
+                maxWidth: 175,
+                flag: false
+            });
+            
+            this.steps[i].schedule[j].main_end = new google.maps.Marker({
+                map: this.map.main,
+                icon: {
+                    url: "/image/maps/red-empty.png",
+                    labelOrigin: new google.maps.Point(11, 11)
+                },
+                label: this.map.marker[i].text + (j + 1),
+                title: "Final del intervalo " + (j + 1) + " para el día " + this.steps[i].text,
+                position: {
+                    lat: this.steps[i].schedule[j].lat_end,
+                    lng: this.steps[i].schedule[j].lng_end
+                }
+            });
+            this.steps[i].schedule[j].window_end = new google.maps.InfoWindow({
+                content: "Dirección no encontrada.",
+                maxWidth: 175,
+                flag: false
+            });
+            
+            this.getDirection(i, j);
+        },
+        setVisibilityPosition: function(auto){
+            var i, j, k;
+            if(!auto)
+                this.allPosVisible = this.allPosVisible < 2 ? this.allPosVisible + 1 : 0;
+            for(i = 0; i < this.steps.length; i++){
+                if(this.steps[i].active){
+                    k = this.sameConf ? 0 : this.actualStep;
+                    for(j = 0; j < this.steps[i].schedule.length; j++){
+                        if(this.steps[i].schedule[j].main_begin !== null &&
+                           this.steps[i].schedule[j].lat_begin !== null &&
+                           this.steps[i].schedule[j].lng_begin !== null)
+                            this.steps[i].schedule[j].main_begin.setMap(this.allPosVisible === 0 ? this.map.main :
+                                                                                  this.allPosVisible === 1 ? (i === k ? this.map.main : null) :
+                                                                                  ((i === k && this.steps[i].schedule[j].active) ? this.map.main : null));
+                        if(this.steps[i].schedule[j].main_end !== null &&
+                           this.steps[i].schedule[j].lat_end !== null &&
+                           this.steps[i].schedule[j].lng_end !== null)    //Is showed in map
+                            this.steps[i].schedule[j].main_end.setMap(this.allPosVisible === 0 ? this.map.main :
+                                                                                  this.allPosVisible === 1 ? (i === k ? this.map.main : null) :
+                                                                                  ((i === k && this.steps[i].schedule[j].active) ? this.map.main : null));
+                    }
+                }
+            }
+        },
+        focusPosition: function(a){
+            var i, j, k, k2 = false,
+                counter = 0,
+                totalLat = 0,
+                totalLng = 0,
+                bounds = new google.maps.LatLngBounds();
+            if(this.allPosVisible === 0 && !this.sameConf){
+                for(i = 0; i < this.map.marker.length; i++)
+                    for(j = 0; j < this.steps[i].schedule.length; j++){
+                        if(this.steps[i].schedule[j].main_begin !== null &&
+                            this.steps[i].schedule[j].lat_begin !== null &&
+                            this.steps[i].schedule[j].lng_begin !== null){
+                             counter++;
+                             totalLat += this.steps[i].schedule[j].lat_begin;
+                             totalLng += this.steps[i].schedule[j].lng_begin;
+                             bounds.extend(this.steps[i].schedule[j].main_begin.getPosition());
+                             
+                            }
+                         if(this.steps[i].schedule[j].main_end !== null &&
+                            this.steps[i].schedule[j].lat_end !== null &&
+                            this.steps[i].schedule[j].lng_end !== null){    //Is showed in map
+                             counter++;
+                             totalLat += this.steps[i].schedule[j].lat_end;
+                             totalLng += this.steps[i].schedule[j].lng_end;
+                             bounds.extend(this.steps[i].schedule[j].main_end.getPosition());
+                         }
+                    }
+            }
+            else if(this.allPosVisible === 0 && this.sameConf){
+                k = 0;
+                for(j = 0; j < this.steps[k].schedule.length; j++){
+                    if(this.steps[k].schedule[j].main_begin !== null &&
+                       this.steps[k].schedule[j].lat_begin !== null &&
+                       this.steps[k].schedule[j].lng_begin !== null){
+                        counter++;
+                        totalLat += this.steps[k].schedule[j].lat_begin;
+                        totalLng += this.steps[k].schedule[j].lng_begin;
+                        bounds.extend(this.steps[k].schedule[j].main_begin.getPosition());
+                        
+                       }
+                    if(this.steps[k].schedule[j].main_end !== null &&
+                       this.steps[k].schedule[j].lat_end !== null &&
+                       this.steps[k].schedule[j].lng_end !== null){    //Is showed in map
+                        counter++;
+                        totalLat += this.steps[k].schedule[j].lat_end;
+                        totalLng += this.steps[k].schedule[j].lng_end;
+                        bounds.extend(this.steps[k].schedule[j].main_end.getPosition());
+                    }
+                }
+            }
+            else if(this.allPosVisible === 1){
+                k = this.sameConf ? 0 : this.actualStep;
+                for(j = 0; j < this.steps[k].schedule.length; j++){
+                    if(this.steps[k].schedule[j].main_begin !== null &&
+                       this.steps[k].schedule[j].lat_begin !== null &&
+                       this.steps[k].schedule[j].lng_begin !== null){
+                        counter++;
+                        totalLat += this.steps[k].schedule[j].lat_begin;
+                        totalLng += this.steps[k].schedule[j].lng_begin;
+                        bounds.extend(this.steps[k].schedule[j].main_begin.getPosition());
+                        
+                       }
+                    if(this.steps[k].schedule[j].main_end !== null &&
+                       this.steps[k].schedule[j].lat_end !== null &&
+                       this.steps[k].schedule[j].lng_end !== null){    //Is showed in map
+                        counter++;
+                        totalLat += this.steps[k].schedule[j].lat_end;
+                        totalLng += this.steps[k].schedule[j].lng_end;
+                        bounds.extend(this.steps[k].schedule[j].main_end.getPosition());
+                    }
+                }
+            }
+            else{
+                k = this.sameConf ? 0 : this.actualStep;
+                for(j = 0; j < this.steps[k].schedule.length; j++)
+                    if(this.steps[k].schedule[j].active)
+                        k2 = j;
+                if(k2 !== false &&
+                   this.steps[k].schedule[k2].main_begin !== null &&
+                   this.steps[k].schedule[k2].lat_begin !== null &&
+                   this.steps[k].schedule[k2].lng_begin !== null){
+                    counter++;
+                    totalLat += this.steps[k].schedule[k2].lat_begin;
+                    totalLng += this.steps[k].schedule[k2].lng_begin;
+                    bounds.extend(this.steps[k].schedule[k2].main_begin.getPosition());
+                    
+                   }
+                if(k2 !== false &&
+                   this.steps[k].schedule[k2].main_end !== null &&
+                   this.steps[k].schedule[k2].lat_end !== null &&
+                   this.steps[k].schedule[k2].lng_end !== null){    //Is showed in map
+                    counter++;
+                    totalLat += this.steps[k].schedule[k2].lat_end;
+                    totalLng += this.steps[k].schedule[k2].lng_end;
+                    bounds.extend(this.steps[k].schedule[k2].main_end.getPosition());
+                }
+            }
+            if(counter > 0){
+                this.map.main.setCenter({
+                    lat: totalLat/counter,
+                    lng: totalLng/counter
+                });
+                if(counter > 1)
+                    this.map.main.fitBounds(bounds);
+                else
+                    this.map.main.setZoom(this.map.data.zoom);
+            }
+            else if(a)
+                this.initGeocoder();
+        },
+        setActiveInterval: function(i){
+            for(var j = 0; j < this.steps[this.sameConf ? 0 : this.actualStep].schedule.length; j++)
+                this.steps[this.sameConf ? 0 : this.actualStep].schedule[j].active = j === i;
+            if(this.allPosVisible === 2)
+                this.setVisibilityPosition(true); //AUTO
+        },
+        changeStep: function(e){
+            this.actualStep = e;
+            this.steps[e].seen = true;
+            
+            if(this.allPosVisible > 0)
+                this.setVisibilityPosition(true); //AUTO
+        }
+    }
+});
+
+/***/ }),
 /* 84 */
 /***/ (function(module, exports) {
 
@@ -36380,7 +36380,7 @@ BUTO.requires = {
     mainTemplate: __webpack_require__(89),
     modules: {
         modelAR: __webpack_require__(118),
-        mcdatatable: __webpack_require__(42).component,
+        mcdatatable: __webpack_require__(43).component,
         mapsClient: __webpack_require__(119)
     },
     components: {
@@ -36754,7 +36754,7 @@ BUTO.init = function(response){
 /***/ (function(module, exports, __webpack_require__) {
 
 BUTO.templates = {
-    mcdatatable: __webpack_require__(42).template,
+    mcdatatable: __webpack_require__(43).template,
     
     loader: __webpack_require__(90),
     confirm: __webpack_require__(91),
@@ -39995,33 +39995,86 @@ module.exports = `
                 </div>
             </div>
         </div>
-        <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Selección de archivo</h5>
-            </div>
-            <div class="panel-body">
-                <p class="content-group">
-                    
-                </p>
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <div class="uploader">
-                            <input type="file" class="file-styled">
-                            <span class="filename">No has seleccionado ningún archivo</span>
-                            <span class="action btn btn-default import-file">Selecciona un archivo</span>
-                            <a href="#" v-on:click.prevent class="input-info input-import"
-                            data-toggle="popover"
-                            data-trigger="focus"
-                            data-placement="left"
-                            data-content="¿Desconoces el formato apropiado para este importador?<br>Da click <a href='/download-import?type=resource'>aquí</a> para obtenerlo."
-                            data-html="true">
-                                <i class="icon-info22"></i>
-                            </a>
+		<template v-if="config.typeSelection.type === 0">
+			<div class="panel panel-flat">
+				<div class="panel-heading">
+					<h5 class="panel-title">Selección de archivo</h5>
+				</div>
+				<div class="panel-body">
+					<p class="content-group">
+						
+					</p>
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<div class="uploader">
+								<input type="file" v-on:change="config.changeFile" class="file-styled">
+								<span class="filename">{{config.importer.file.text}}</span>
+								<span class="action btn btn-default import-file">Selecciona un archivo</span>
+								<a href="#" v-on:click.prevent class="input-info input-import"
+								data-toggle="popover"
+								data-trigger="focus"
+								data-placement="left"
+								data-content="¿Desconoces el formato apropiado para este importador?<br>Da click <a href='/download-import?type=resource'>aquí</a> para obtenerlo."
+								data-html="true">
+									<i class="icon-info22"></i>
+								</a>
+							</div>
+							<div v-if="config.importer.file.value !== null" class="form-group">
+                                <div class="steps-basic wizard clearfix">
+                                    <div class="actions clearfix">
+                                        <ul role="menu" aria-label="Pagination">
+                                            <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.process()" role="menuitem">Procesar</a>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<template v-if="config.importer.resource.length > 0">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Datos importados</h5>
+                    </div>
+                    <div class="panel-body">
+                        <p class="content-group">
+                            
+                        </p>
+                        <div v-for="(resource, resourceIndex) in config.importer.resource" class="row">
+                            <div :class="resource.valid && resource.name.valid ? '' : 'has-error'" class="form-group">
+                                <label class="control-label col-lg-2">Nombre tienda {{resourceIndex + 1}}</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" v-on:keyup="config.validation('import-name', resourceIndex)" v-model="resource.name.value" type="text" name="Nombre">
+                                    <span class="help-block">{{resource.name.text}}</span>
+                                    <div class="pull-right input-handler">
+                                        <a href="#" v-on:click.prevent="config.edit(resourceIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="'Editar ' + resource.name.value" data-toggle="modal" data-target="#edit">
+                                            <i aria-hidden="true" class="icon-pencil6"></i>
+                                        </a>
+                                        <a href="#" v-on:click.prevent="config.remove(resourceIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="'Descartar ' + resource.name.value">
+                                            <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="steps-basic wizard clearfix">
+                                        <div class="actions clearfix">
+                                            <ul role="menu" aria-label="Pagination">
+                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('import')" role="menuitem">Guardar</a>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </template>
+		</template>
         <template v-else-if="config.typeSelection.type === 1">
             <div class="panel panel-flat">
                 <div class="panel-heading">
@@ -43873,7 +43926,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)(module), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)(module), __webpack_require__(4)))
 
 /***/ }),
 /* 124 */
@@ -44317,7 +44370,7 @@ http.METHODS = [
 /* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(45)
+/* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(46)
 var inherits = __webpack_require__(1)
 var response = __webpack_require__(132)
 var stream = __webpack_require__(14)
@@ -44630,7 +44683,7 @@ var unsafeHeaders = [
 /* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(45)
+/* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(46)
 var inherits = __webpack_require__(1)
 var stream = __webpack_require__(14)
 
@@ -45261,7 +45314,7 @@ function config (name) {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(49);
+var Transform = __webpack_require__(50);
 
 /*<replacement>*/
 var util = __webpack_require__(15);
@@ -45650,7 +45703,7 @@ exports.create = function(size) {
 
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = __webpack_require__(16)
 exports.createHash = exports.Hash = __webpack_require__(17)
-exports.createHmac = exports.Hmac = __webpack_require__(52)
+exports.createHmac = exports.Hmac = __webpack_require__(53)
 
 var algos = __webpack_require__(159)
 var algoKeys = Object.keys(algos)
@@ -45659,7 +45712,7 @@ exports.getHashes = function () {
   return hashes
 }
 
-var p = __webpack_require__(54)
+var p = __webpack_require__(55)
 exports.pbkdf2 = p.pbkdf2
 exports.pbkdf2Sync = p.pbkdf2Sync
 
@@ -46115,7 +46168,7 @@ module.exports = Sha1
  */
 
 var inherits = __webpack_require__(1)
-var Sha256 = __webpack_require__(50)
+var Sha256 = __webpack_require__(51)
 var Hash = __webpack_require__(13)
 
 var W = new Array(64)
@@ -46166,7 +46219,7 @@ module.exports = Sha224
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var inherits = __webpack_require__(1)
-var SHA512 = __webpack_require__(51)
+var SHA512 = __webpack_require__(52)
 var Hash = __webpack_require__(13)
 
 var W = new Array(160)
@@ -46281,16 +46334,16 @@ module.exports = Hmac
 /* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(53)
+module.exports = __webpack_require__(54)
 
 
 /***/ }),
 /* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global, process) {var checkParameters = __webpack_require__(55)
-var defaultEncoding = __webpack_require__(56)
-var sync = __webpack_require__(57)
+/* WEBPACK VAR INJECTION */(function(global, process) {var checkParameters = __webpack_require__(56)
+var defaultEncoding = __webpack_require__(57)
+var sync = __webpack_require__(58)
 var Buffer = __webpack_require__(8).Buffer
 
 var ZERO_BUF
@@ -46477,8 +46530,8 @@ var Transform = __webpack_require__(10)
 var inherits = __webpack_require__(1)
 var modes = __webpack_require__(27)
 var ebtk = __webpack_require__(25)
-var StreamCipher = __webpack_require__(58)
-var AuthCipher = __webpack_require__(59)
+var StreamCipher = __webpack_require__(59)
+var AuthCipher = __webpack_require__(60)
 inherits(Cipher, Transform)
 function Cipher (mode, key, iv) {
   if (!(this instanceof Cipher)) {
@@ -46549,12 +46602,12 @@ Splitter.prototype.flush = function () {
   return out
 }
 var modelist = {
-  ECB: __webpack_require__(60),
-  CBC: __webpack_require__(61),
-  CFB: __webpack_require__(62),
-  CFB8: __webpack_require__(63),
-  CFB1: __webpack_require__(64),
-  OFB: __webpack_require__(65),
+  ECB: __webpack_require__(61),
+  CBC: __webpack_require__(62),
+  CFB: __webpack_require__(63),
+  CFB8: __webpack_require__(64),
+  CFB1: __webpack_require__(65),
+  OFB: __webpack_require__(66),
   CTR: __webpack_require__(28),
   GCM: __webpack_require__(28)
 }
@@ -46710,8 +46763,8 @@ function xor (a, b) {
 var Transform = __webpack_require__(10)
 var inherits = __webpack_require__(1)
 var modes = __webpack_require__(27)
-var StreamCipher = __webpack_require__(58)
-var AuthCipher = __webpack_require__(59)
+var StreamCipher = __webpack_require__(59)
+var AuthCipher = __webpack_require__(60)
 var ebtk = __webpack_require__(25)
 
 inherits(Decipher, Transform)
@@ -46798,12 +46851,12 @@ function unpad (last) {
 }
 
 var modelist = {
-  ECB: __webpack_require__(60),
-  CBC: __webpack_require__(61),
-  CFB: __webpack_require__(62),
-  CFB8: __webpack_require__(63),
-  CFB1: __webpack_require__(64),
-  OFB: __webpack_require__(65),
+  ECB: __webpack_require__(61),
+  CBC: __webpack_require__(62),
+  CFB: __webpack_require__(63),
+  CFB8: __webpack_require__(64),
+  CFB1: __webpack_require__(65),
+  OFB: __webpack_require__(66),
   CTR: __webpack_require__(28),
   GCM: __webpack_require__(28)
 }
@@ -47625,7 +47678,7 @@ exports['des-ede'] = {
 /* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var generatePrime = __webpack_require__(66)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var generatePrime = __webpack_require__(67)
 var primes = __webpack_require__(174)
 
 var DH = __webpack_require__(175)
@@ -47687,14 +47740,14 @@ module.exports = {"modp1":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var BN = __webpack_require__(2);
-var MillerRabin = __webpack_require__(67);
+var MillerRabin = __webpack_require__(68);
 var millerRabin = new MillerRabin();
 var TWENTYFOUR = new BN(24);
 var ELEVEN = new BN(11);
 var TEN = new BN(10);
 var THREE = new BN(3);
 var SEVEN = new BN(7);
-var primes = __webpack_require__(66);
+var primes = __webpack_require__(67);
 var randomBytes = __webpack_require__(16);
 module.exports = DH;
 
@@ -47863,7 +47916,7 @@ var inherits = __webpack_require__(1)
 var sign = __webpack_require__(177)
 var verify = __webpack_require__(213)
 
-var algorithms = __webpack_require__(53)
+var algorithms = __webpack_require__(54)
 Object.keys(algorithms).forEach(function (key) {
   algorithms[key].id = new Buffer(algorithms[key].id, 'hex')
   algorithms[key.toLowerCase()] = algorithms[key]
@@ -47956,12 +48009,12 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
-var createHmac = __webpack_require__(52)
+var createHmac = __webpack_require__(53)
 var crt = __webpack_require__(40)
 var EC = __webpack_require__(5).ec
 var BN = __webpack_require__(2)
 var parseKeys = __webpack_require__(30)
-var curves = __webpack_require__(77)
+var curves = __webpack_require__(78)
 
 function sign (hash, key, hashType, signType, tag) {
   var priv = parseKeys(key)
@@ -48119,7 +48172,7 @@ module.exports = {"_args":[[{"raw":"elliptic@^6.0.0","scope":null,"escapedName":
 var utils = exports;
 var BN = __webpack_require__(2);
 var minAssert = __webpack_require__(6);
-var minUtils = __webpack_require__(69);
+var minUtils = __webpack_require__(70);
 
 utils.assert = minAssert;
 utils.toArray = minUtils.toArray;
@@ -50411,9 +50464,9 @@ defineCurve('secp256k1', {
 
 exports.sha1 = __webpack_require__(186);
 exports.sha224 = __webpack_require__(187);
-exports.sha256 = __webpack_require__(71);
+exports.sha256 = __webpack_require__(72);
 exports.sha384 = __webpack_require__(188);
-exports.sha512 = __webpack_require__(72);
+exports.sha512 = __webpack_require__(73);
 
 
 /***/ }),
@@ -50425,7 +50478,7 @@ exports.sha512 = __webpack_require__(72);
 
 var utils = __webpack_require__(7);
 var common = __webpack_require__(19);
-var shaCommon = __webpack_require__(70);
+var shaCommon = __webpack_require__(71);
 
 var rotl32 = utils.rotl32;
 var sum32 = utils.sum32;
@@ -50505,7 +50558,7 @@ SHA1.prototype._digest = function digest(enc) {
 
 
 var utils = __webpack_require__(7);
-var SHA256 = __webpack_require__(71);
+var SHA256 = __webpack_require__(72);
 
 function SHA224() {
   if (!(this instanceof SHA224))
@@ -50543,7 +50596,7 @@ SHA224.prototype._digest = function digest(enc) {
 
 var utils = __webpack_require__(7);
 
-var SHA512 = __webpack_require__(72);
+var SHA512 = __webpack_require__(73);
 
 function SHA384() {
   if (!(this instanceof SHA384))
@@ -51824,7 +51877,7 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
 
 
 var hash = __webpack_require__(41);
-var utils = __webpack_require__(69);
+var utils = __webpack_require__(70);
 var assert = __webpack_require__(6);
 
 function HmacDRBG(options) {
@@ -53631,7 +53684,7 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var constants = __webpack_require__(74);
+var constants = __webpack_require__(75);
 
 exports.tagClass = {
   0: 'universal',
@@ -53681,7 +53734,7 @@ exports.tagByName = constants._reverse(exports.tag);
 
 var decoders = exports;
 
-decoders.der = __webpack_require__(75);
+decoders.der = __webpack_require__(76);
 decoders.pem = __webpack_require__(207);
 
 
@@ -53692,7 +53745,7 @@ decoders.pem = __webpack_require__(207);
 var inherits = __webpack_require__(1);
 var Buffer = __webpack_require__(0).Buffer;
 
-var DERDecoder = __webpack_require__(75);
+var DERDecoder = __webpack_require__(76);
 
 function PEMDecoder(entity) {
   DERDecoder.call(this, entity);
@@ -53746,7 +53799,7 @@ PEMDecoder.prototype.decode = function decode(data, options) {
 
 var encoders = exports;
 
-encoders.der = __webpack_require__(76);
+encoders.der = __webpack_require__(77);
 encoders.pem = __webpack_require__(209);
 
 
@@ -53756,7 +53809,7 @@ encoders.pem = __webpack_require__(209);
 
 var inherits = __webpack_require__(1);
 
-var DEREncoder = __webpack_require__(76);
+var DEREncoder = __webpack_require__(77);
 
 function PEMEncoder(entity) {
   DEREncoder.call(this, entity);
@@ -53923,7 +53976,7 @@ module.exports = function (okey, password) {
 var BN = __webpack_require__(2)
 var EC = __webpack_require__(5).ec
 var parseKeys = __webpack_require__(30)
-var curves = __webpack_require__(77)
+var curves = __webpack_require__(78)
 
 function verify (sig, hash, key, signType, tag) {
   var pub = parseKeys(key)
@@ -54156,10 +54209,10 @@ exports.publicDecrypt = function publicDecrypt(key, buf) {
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(30);
 var randomBytes = __webpack_require__(16);
 var createHash = __webpack_require__(17);
-var mgf = __webpack_require__(78);
-var xor = __webpack_require__(79);
+var mgf = __webpack_require__(79);
+var xor = __webpack_require__(80);
 var bn = __webpack_require__(2);
-var withPublic = __webpack_require__(80);
+var withPublic = __webpack_require__(81);
 var crt = __webpack_require__(40);
 
 var constants = {
@@ -54255,12 +54308,12 @@ function nonZero(len, crypto) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(30);
-var mgf = __webpack_require__(78);
-var xor = __webpack_require__(79);
+var mgf = __webpack_require__(79);
+var xor = __webpack_require__(80);
 var bn = __webpack_require__(2);
 var crt = __webpack_require__(40);
 var createHash = __webpack_require__(17);
-var withPublic = __webpack_require__(80);
+var withPublic = __webpack_require__(81);
 module.exports = function privateDecrypt(private_key, enc, reverse) {
   var padding;
   if (private_key.padding) {
@@ -56596,7 +56649,7 @@ module.exports = new Vue({
 /* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var verTienda = __webpack_require__(81);
+var verTienda = __webpack_require__(82);
 module.exports = new Vue({
     data: {
         client: {
@@ -57028,7 +57081,7 @@ module.exports = new Vue({
 /* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var verRecurso = __webpack_require__(82);
+var verRecurso = __webpack_require__(83);
 module.exports = new Vue({
     data: {
         client: {
@@ -57410,7 +57463,7 @@ module.exports = new Vue({
             cliente: null
         },
         plugins: {
-            xlsx: __webpack_require__(83)
+            xlsx: __webpack_require__(42)
         },
         file: {
             value: null,
@@ -68122,7 +68175,7 @@ module.exports = ZStream;
 /* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var verTienda = __webpack_require__(81);
+var verTienda = __webpack_require__(82);
 var editarTienda = __webpack_require__(243);
 module.exports = new Vue({
     data: {
@@ -68960,7 +69013,7 @@ module.exports = new Vue({
             first: true,
             editIndex: null,
             plugins: {
-                xlsx: __webpack_require__(83)
+                xlsx: __webpack_require__(42)
             },
             file: {
                 value: null,
@@ -69679,10 +69732,14 @@ module.exports = new Vue({
             reader.onload = function(e){
                 workbook = me.importer.plugins.xlsx.read(e.target.result, {type: "binary"});
                 headers = [];
-                for(i = 0; i < 9; i++)
-                    headers.push(workbook.Strings[i].h);
-                data = me.importer.plugins.xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {raw: true});
-                length = data.length;
+                if(workbook.Strings.length >= 9){
+                    for(i = 0; i < 9; i++)
+                        headers.push(workbook.Strings[i].h);
+                    data = me.importer.plugins.xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {raw: true});
+                    length = data.length;
+                }
+                else
+                    length = 0;
                 if(length > 0){
                     for(i = 0; i < me.importer.variant.name.length; i++)
                         if(headers.indexOf(me.importer.variant.name[i].id) !== -1)
@@ -69798,138 +69855,140 @@ module.exports = new Vue({
                                 me.getLocation(j);
                                 me.validation("import-name", j);
                             }
-                            if(data[i][me.importer.variant.mondayId] !== undefined &&
-                               me.importer.store[j].steps[0].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.mondayId] !== "string" ? data[i][me.importer.variant.mondayId].toString() : data[i][me.importer.variant.mondayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[0].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[0].interval = me.importer.store[j].steps[0].schedule.length;
-                                if(!me.importer.store[j].steps[0].active)
-                                    me.importer.store[j].steps[0].active = true;
-                                me.validation("import-time-begin", j, 0, me.importer.store[j].steps[0].interval - 1);
-                                me.validation("import-time-end", j, 0, me.importer.store[j].steps[0].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.tuesdayId] !== undefined &&
-                               me.importer.store[j].steps[1].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.tuesdayId] !== "string" ? data[i][me.importer.variant.tuesdayId].toString() : data[i][me.importer.variant.tuesdayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[1].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[1].interval = me.importer.store[j].steps[1].schedule.length;
-                                if(!me.importer.store[j].steps[1].active)
-                                    me.importer.store[j].steps[1].active = true;
-                                me.validation("import-time-begin", j, 1, me.importer.store[j].steps[1].interval - 1);
-                                me.validation("import-time-end", j, 1, me.importer.store[j].steps[1].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.wednesdayId] !== undefined &&
-                               me.importer.store[j].steps[2].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.wednesdayId] !== "string" ? data[i][me.importer.variant.wednesdayId].toString() : data[i][me.importer.variant.wednesdayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[2].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[2].interval = me.importer.store[j].steps[2].schedule.length;
-                                if(!me.importer.store[j].steps[2].active)
-                                    me.importer.store[j].steps[2].active = true;
-                                me.validation("import-time-begin", j, 2, me.importer.store[j].steps[2].interval - 1);
-                                me.validation("import-time-end", j, 2, me.importer.store[j].steps[2].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.thursdayId] !== undefined &&
-                               me.importer.store[j].steps[3].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.thursdayId] !== "string" ? data[i][me.importer.variant.thursdayId].toString() : data[i][me.importer.variant.thursdayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[3].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[3].interval = me.importer.store[j].steps[3].schedule.length;
-                                if(!me.importer.store[j].steps[3].active)
-                                    me.importer.store[j].steps[3].active = true;
-                                me.validation("import-time-begin", j, 3, me.importer.store[j].steps[3].interval - 1);
-                                me.validation("import-time-end", j, 3, me.importer.store[j].steps[3].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.fridayId] !== undefined &&
-                               me.importer.store[j].steps[4].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.fridayId] !== "string" ? data[i][me.importer.variant.fridayId].toString() : data[i][me.importer.variant.fridayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[4].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[4].interval = me.importer.store[j].steps[4].schedule.length;
-                                if(!me.importer.store[j].steps[4].active)
-                                    me.importer.store[j].steps[4].active = true;
-                                me.validation("import-time-begin", j, 4, me.importer.store[j].steps[4].interval - 1);
-                                me.validation("import-time-end", j, 4, me.importer.store[j].steps[4].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.saturdayId] !== undefined &&
-                               me.importer.store[j].steps[5].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.saturdayId] !== "string" ? data[i][me.importer.variant.saturdayId].toString() : data[i][me.importer.variant.saturdayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[5].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[5].interval = me.importer.store[j].steps[5].schedule.length;
-                                if(!me.importer.store[j].steps[5].active)
-                                    me.importer.store[j].steps[5].active = true;
-                                me.validation("import-time-begin", j, 5, me.importer.store[j].steps[5].interval - 1);
-                                me.validation("import-time-end", j, 5, me.importer.store[j].steps[5].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.sundayId] !== undefined &&
-                               me.importer.store[j].steps[6].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.sundayId] !== "string" ? data[i][me.importer.variant.sundayId].toString() : data[i][me.importer.variant.sundayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[6].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[6].interval = me.importer.store[j].steps[6].schedule.length;
-                                if(!me.importer.store[j].steps[6].active)
-                                    me.importer.store[j].steps[6].active = true;
-                                me.validation("import-time-begin", j, 6, me.importer.store[j].steps[6].interval - 1);
-                                me.validation("import-time-end", j, 6, me.importer.store[j].steps[6].interval - 1);
+                            if(j !== null){
+                                if(data[i][me.importer.variant.mondayId] !== undefined &&
+                                   me.importer.store[j].steps[0].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.mondayId] !== "string" ? data[i][me.importer.variant.mondayId].toString() : data[i][me.importer.variant.mondayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[0].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[0].interval = me.importer.store[j].steps[0].schedule.length;
+                                    if(!me.importer.store[j].steps[0].active)
+                                        me.importer.store[j].steps[0].active = true;
+                                    me.validation("import-time-begin", j, 0, me.importer.store[j].steps[0].interval - 1);
+                                    me.validation("import-time-end", j, 0, me.importer.store[j].steps[0].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.tuesdayId] !== undefined &&
+                                   me.importer.store[j].steps[1].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.tuesdayId] !== "string" ? data[i][me.importer.variant.tuesdayId].toString() : data[i][me.importer.variant.tuesdayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[1].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[1].interval = me.importer.store[j].steps[1].schedule.length;
+                                    if(!me.importer.store[j].steps[1].active)
+                                        me.importer.store[j].steps[1].active = true;
+                                    me.validation("import-time-begin", j, 1, me.importer.store[j].steps[1].interval - 1);
+                                    me.validation("import-time-end", j, 1, me.importer.store[j].steps[1].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.wednesdayId] !== undefined &&
+                                   me.importer.store[j].steps[2].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.wednesdayId] !== "string" ? data[i][me.importer.variant.wednesdayId].toString() : data[i][me.importer.variant.wednesdayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[2].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[2].interval = me.importer.store[j].steps[2].schedule.length;
+                                    if(!me.importer.store[j].steps[2].active)
+                                        me.importer.store[j].steps[2].active = true;
+                                    me.validation("import-time-begin", j, 2, me.importer.store[j].steps[2].interval - 1);
+                                    me.validation("import-time-end", j, 2, me.importer.store[j].steps[2].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.thursdayId] !== undefined &&
+                                   me.importer.store[j].steps[3].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.thursdayId] !== "string" ? data[i][me.importer.variant.thursdayId].toString() : data[i][me.importer.variant.thursdayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[3].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[3].interval = me.importer.store[j].steps[3].schedule.length;
+                                    if(!me.importer.store[j].steps[3].active)
+                                        me.importer.store[j].steps[3].active = true;
+                                    me.validation("import-time-begin", j, 3, me.importer.store[j].steps[3].interval - 1);
+                                    me.validation("import-time-end", j, 3, me.importer.store[j].steps[3].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.fridayId] !== undefined &&
+                                   me.importer.store[j].steps[4].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.fridayId] !== "string" ? data[i][me.importer.variant.fridayId].toString() : data[i][me.importer.variant.fridayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[4].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[4].interval = me.importer.store[j].steps[4].schedule.length;
+                                    if(!me.importer.store[j].steps[4].active)
+                                        me.importer.store[j].steps[4].active = true;
+                                    me.validation("import-time-begin", j, 4, me.importer.store[j].steps[4].interval - 1);
+                                    me.validation("import-time-end", j, 4, me.importer.store[j].steps[4].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.saturdayId] !== undefined &&
+                                   me.importer.store[j].steps[5].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.saturdayId] !== "string" ? data[i][me.importer.variant.saturdayId].toString() : data[i][me.importer.variant.saturdayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[5].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[5].interval = me.importer.store[j].steps[5].schedule.length;
+                                    if(!me.importer.store[j].steps[5].active)
+                                        me.importer.store[j].steps[5].active = true;
+                                    me.validation("import-time-begin", j, 5, me.importer.store[j].steps[5].interval - 1);
+                                    me.validation("import-time-end", j, 5, me.importer.store[j].steps[5].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.sundayId] !== undefined &&
+                                   me.importer.store[j].steps[6].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.sundayId] !== "string" ? data[i][me.importer.variant.sundayId].toString() : data[i][me.importer.variant.sundayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[6].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[6].interval = me.importer.store[j].steps[6].schedule.length;
+                                    if(!me.importer.store[j].steps[6].active)
+                                        me.importer.store[j].steps[6].active = true;
+                                    me.validation("import-time-begin", j, 6, me.importer.store[j].steps[6].interval - 1);
+                                    me.validation("import-time-end", j, 6, me.importer.store[j].steps[6].interval - 1);
+                                }
                             }
                         }
                     }
@@ -70409,6 +70468,7 @@ module.exports = new Vue({
                         }
                     }
                     else{
+                        this.importer.editIndex = null;
                         this.importer.first = true;
                         this.importer.store = newSteps;
                         this.importer.total = 0;
@@ -70424,7 +70484,7 @@ module.exports = new Vue({
 /* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var verRecurso = __webpack_require__(82);
+var verRecurso = __webpack_require__(83);
 var editarRecurso = __webpack_require__(246);
 var rutas = __webpack_require__(247);
 module.exports = new Vue({
@@ -72404,7 +72464,7 @@ module.exports = new Vue({
 
 /***/ }),
 /* 248 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 module.exports = new Vue({
     data: {
@@ -72425,6 +72485,142 @@ module.exports = new Vue({
                     text: "Agregado manual"
                 }
             ]
+        },
+        importer: {
+            first: true,
+            editIndex: null,
+            plugins: {
+                xlsx: __webpack_require__(42)
+            },
+            file: {
+                value: null,
+                text: "No has seleccionado ningún archivo"
+            },
+            map: {
+                main: null,
+                geocoder: null,
+                data: {
+                    address: "Ciudad de México, México",
+                    zoom: 13
+                }
+            },
+            resource: [],
+            total: 0,
+            valid: true,
+            variant: {
+                nameId: null,
+                emailId: null,
+                passwordId: null,
+                rePasswordId: null,
+                phoneId: null,
+                dayId: null,
+                beginAddressId: null,
+                endAddressId: null,
+                scheduleId: null,
+                name: [
+                    { id: "Nombre" },
+                    { id: "nombre" },
+                    { id: "NOMBRE" }
+                ],
+                email: [
+                    { id: "Correo" },
+                    { id: "correo" },
+                    { id: "CORREO" }
+                ],
+                password: [
+                    { id: "Contraseña" },
+                    { id: "contraseña" },
+                    { id: "CONTRASEÑA" }
+                ],
+                rePassword: [
+                    { id: "Confirmar Contraseña" },
+                    { id: "confirmar contraseña" },
+                    { id: "CONFIRMAR CONTRASEÑA" },
+                    { id: "Confirmar contraseña" }
+                ],
+                phone: [
+                    { id: "Teléfono" },
+                    { id: "teléfono" },
+                    { id: "TELÉFONO" },
+                    { id: "Telefono" },
+                    { id: "telefono" },
+                    { id: "TELEFONO" }
+                ],
+                day: [
+                    { id: "Día" },
+                    { id: "día" },
+                    { id: "DÍA" },
+                    { id: "Dia" },
+                    { id: "dia" },
+                    { id: "DIA" }
+                ],
+                beginAddress: [
+                    { id: "Dirección Inicio" },
+                    { id: "dirección inicio" },
+                    { id: "Dirección inicio" },
+                    { id: "DIRECCIÓN INICIO" },
+                    { id: "Direccion Inicio" },
+                    { id: "direccion inicio" },
+                    { id: "Direccion inicio" },
+                    { id: "DIRECCION INICIO" }
+                ],
+                endAddress: [
+                    { id: "Dirección Fin" },
+                    { id: "dirección fin" },
+                    { id: "Dirección fin" },
+                    { id: "DIRECCIÓN FIN" },
+                    { id: "Direccion Fin" },
+                    { id: "direccion fin" },
+                    { id: "Direccion fin" },
+                    { id: "DIRECCION FIN" }
+                ],
+                schedule: [
+                    { id: "Horario" },
+                    { id: "horario" },
+                    { id: "HORARIO" }
+                ],
+                monday: [
+                    { id: "Lunes" },
+                    { id: "lunes" },
+                    { id: "LUNES" }
+                ],
+                tuesday: [
+                    { id: "Martes" },
+                    { id: "martes" },
+                    { id: "MARTES" }
+                ],
+                wednesday: [
+                    { id: "Miércoles" },
+                    { id: "miércoles" },
+                    { id: "MIÉRCOLES" },
+                    { id: "Miércoles" },
+                    { id: "miércoles" },
+                    { id: "MIÉRCOLES" }
+                ],
+                thursday: [
+                    { id: "Jueves" },
+                    { id: "jueves" },
+                    { id: "JUEVES" }
+                ],
+                friday: [
+                    { id: "Viernes" },
+                    { id: "viernes" },
+                    { id: "VIERNES" }
+                ],
+                saturday: [
+                    { id: "Sábado" },
+                    { id: "sábado" },
+                    { id: "SÁBADO" },
+                    { id: "Sabado" },
+                    { id: "sabado" },
+                    { id: "SABADO" }
+                ],
+                sunday: [
+                    { id: "Domingo" },
+                    { id: "domingo" },
+                    { id: "DOMINGO" }
+                ]
+            }
         },
         manualAdd: {
             name: {
@@ -72694,6 +72890,8 @@ module.exports = new Vue({
                 Vue.nextTick(function(){
                     me.initMap();
                 });
+            else
+                this.importer.first = true;
         },
         mainSelect: function(e){
             var me = this;
@@ -72708,31 +72906,46 @@ module.exports = new Vue({
         initMap: function(){
             var i, j, exists = 0,
                 me = this;
-            this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddResource'), {     //Define Map
-                zoom: this.manualAdd.map.data.zoom
-            });
-            this.manualAdd.map.main.addListener("click", function(e){       //Define on click listener for map
-                me.positioner(e.latLng);
-            });
-            for(i = 0; i < this.manualAdd.steps.length; i++)
-                if(this.manualAdd.steps[i].active)
-                    for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++)
-                        if((this.manualAdd.steps[i].schedule[j].main_begin !== null &&
-                            this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
-                            this.manualAdd.steps[i].schedule[j].lng_begin !== null) ||
-                            (this.manualAdd.steps[i].schedule[j].main_end !== null &&
-                            this.manualAdd.steps[i].schedule[j].lat_end !== null &&
-                            this.manualAdd.steps[i].schedule[j].lng_end !== null))
-                            exists++;
-            this.initConfiguration(true);
-            this.initSearch();
-            this.initFocus();
-            this.initGeocoder(exists);
-            if(exists !== 0)
-                this.focusPosition();
+            if(this.typeSelection.type === 1){
+                this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddResource'), {     //Define Map
+                    zoom: this.manualAdd.map.data.zoom
+                });
+                this.manualAdd.map.main.addListener("click", function(e){       //Define on click listener for map
+                    me.positioner(e.latLng);
+                });
+                for(i = 0; i < this.manualAdd.steps.length; i++)
+                    if(this.manualAdd.steps[i].active)
+                        for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++)
+                            if((this.manualAdd.steps[i].schedule[j].main_begin !== null &&
+                                this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
+                                this.manualAdd.steps[i].schedule[j].lng_begin !== null) ||
+                                (this.manualAdd.steps[i].schedule[j].main_end !== null &&
+                                this.manualAdd.steps[i].schedule[j].lat_end !== null &&
+                                this.manualAdd.steps[i].schedule[j].lng_end !== null))
+                                exists++;
+                this.initConfiguration(true);
+                this.initSearch();
+                this.initFocus();
+                this.initGeocoder(exists);
+                if(exists !== 0)
+                    this.focusPosition();
+            }
+            else{
+                this.importer.map.main = new google.maps.Map(document.getElementById('mapAddImportResource'), {     //Define Map
+                    zoom: this.importer.map.data.zoom
+                });
+                this.importer.map.main.addListener("click", function(e){       //Define on click listener for map
+                    me.positioner(e.latLng);
+                });
+                //this.initSearch();
+                this.initFocus();
+            }
         },
         initFocus: function(){
-            this.manualAdd.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddResource'));
+            if(this.typeSelection.type === 1)
+                this.manualAdd.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddResource'));
+            else
+                this.importer.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddImportResource'));
         },
         initSearch: function(){
             var me = this;
@@ -72768,17 +72981,21 @@ module.exports = new Vue({
         },
         initGeocoder: function(exists){
             var me = this;
-            this.manualAdd.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
-            if(exists === 0)
-                this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
-                    address: this.manualAdd.map.data.address
-                },
-                function(response, status){
-                    if(status === "OK")
-                        me.manualAdd.map.main.setCenter(response[0].geometry.location);
-                    else
-                        console.log(status);
-                });
+            if(this.typeSelection.type === 1){
+                this.manualAdd.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
+                if(exists === 0)
+                    this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                        address: this.manualAdd.map.data.address
+                    },
+                    function(response, status){
+                        if(status === "OK")
+                            me.manualAdd.map.main.setCenter(response[0].geometry.location);
+                        else
+                            console.log(status);
+                    });
+            }
+            else
+                this.importer.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
         },
         initConfiguration: function(auto){
             var i = 0, j;
@@ -73229,6 +73446,361 @@ module.exports = new Vue({
                     }
                     break;
             }
+        },
+        changeFile: function(e){
+            this.importer.file.text = "No has seleccionado ningún archivo";
+            this.importer.file.value = null;
+            if(e.target.files.length > 0 &&
+            (e.target.files[0].type === "application/vnd.oasis.opendocument.spreadsheet" ||
+            e.target.files[0].type === "application/vnd.oasis.opendocument.spreadsheet-template" ||
+            e.target.files[0].type === "application/vnd.ms-excel" ||
+            e.target.files[0].type === "application/vnd.ms-excel.sheet.macroEnabled.12" ||
+            e.target.files[0].type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")){
+                this.importer.file.text = e.target.files[0].name;
+                this.importer.file.value = e.target.files[0];
+            }
+            else if(e.target.files.length > 0){
+                BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                BUTO.components.main.alert.description.text = "Tipo de archivo inválido.<br>Las extensiones válidas para importar clientes son .xls, .xlsx, .xlsm, .ods y .ots.<br>Inténtalo de nuevo.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+            }
+        },
+        process: function(){
+            var me = this,
+                i, j = null, length, workbook, data, delimiterType, value, headers,
+                reader = new FileReader();
+            this.importer.resource = [];
+            this.importer.editIndex = null;
+            this.importer.variant.nameId = null;
+            this.importer.variant.emailId = null;
+            this.importer.variant.passwordId = null;
+            this.importer.variant.rePasswordId = null;
+            this.importer.variant.phoneId = null;
+            this.importer.variant.dayId = null;
+            this.importer.variant.beginAddressId = null;
+            this.importer.variant.endAddressId = null;
+            this.importer.variant.scheduleId = null;
+            //BUTO.components.main.loader.active = true;
+            reader.onload = function(e){
+                workbook = me.importer.plugins.xlsx.read(e.target.result, {type: "binary"});
+                headers = [];
+                if(workbook.Strings.length >= 9){
+                    for(i = 0; i < 9; i++)
+                        headers.push(workbook.Strings[i].h);
+                    data = me.importer.plugins.xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {raw: true});
+                    length = data.length;
+                }
+                else
+                    length = 0;
+                console.log(workbook.Strings, headers);
+                if(length > 0){
+                    //for(i = 0; i < me.importer.variant.name.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.name[i].id) !== -1)
+                    //        me.importer.variant.nameId = me.importer.variant.name[i].id;
+                    //for(i = 0; i < me.importer.variant.address.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.address[i].id) !== -1)
+                    //        me.importer.variant.addressId = me.importer.variant.address[i].id;
+                    //for(i = 0; i < me.importer.variant.monday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.monday[i].id) !== -1)
+                    //        me.importer.variant.mondayId = me.importer.variant.monday[i].id;
+                    //for(i = 0; i < me.importer.variant.tuesday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.tuesday[i].id) !== -1)
+                    //        me.importer.variant.tuesdayId = me.importer.variant.tuesday[i].id;
+                    //for(i = 0; i < me.importer.variant.wednesday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.wednesday[i].id) !== -1)
+                    //        me.importer.variant.wednesdayId = me.importer.variant.wednesday[i].id;
+                    //for(i = 0; i < me.importer.variant.thursday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.thursday[i].id) !== -1)
+                    //        me.importer.variant.thursdayId = me.importer.variant.thursday[i].id;
+                    //for(i = 0; i < me.importer.variant.friday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.friday[i].id) !== -1)
+                    //        me.importer.variant.fridayId = me.importer.variant.friday[i].id;
+                    //for(i = 0; i < me.importer.variant.saturday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.saturday[i].id) !== -1)
+                    //        me.importer.variant.saturdayId = me.importer.variant.saturday[i].id;
+                    //for(i = 0; i < me.importer.variant.sunday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.sunday[i].id) !== -1)
+                    //        me.importer.variant.sundayId = me.importer.variant.sunday[i].id;
+                    //if(me.importer.variant.nameId !== null &&
+                    //   me.importer.variant.addressId !== null){
+                    //    me.initGeocoder();
+                    //    for(i = 0; i < length; i++){
+                    //        if(data[i][me.importer.variant.nameId] !== undefined){
+                    //            j = me.importer.resource.length;
+                    //            me.importer.resource.push({
+                    //                name: {
+                    //                    value: data[i][me.importer.variant.nameId],
+                    //                    valid: false,
+                    //                    text: ""
+                    //                },
+                    //                marker: {
+                    //                    position: {
+                    //                        lat: null,
+                    //                        lng: null
+                    //                    },
+                    //                    data: {
+                    //                        address: data[i][me.importer.variant.addressId],
+                    //                        zoom: 13
+                    //                    }
+                    //                },
+                    //                valid: true,
+                    //                actualStep: 0,
+                    //                maxInterval: 5,
+                    //                steps: [
+                    //                    {
+                    //                        text: "Lunes",
+                    //                        dayNumber: 2,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                    {
+                    //                        text: "Martes",
+                    //                        dayNumber: 3,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                    {
+                    //                        text: "Miércoles",
+                    //                        dayNumber: 4,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                    {
+                    //                        text: "Jueves",
+                    //                        dayNumber: 5,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                    {
+                    //                        text: "Viernes",
+                    //                        dayNumber: 6,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                    {
+                    //                        text: "Sábado",
+                    //                        dayNumber: 7,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                    {
+                    //                        text: "Domingo",
+                    //                        dayNumber: 1,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                ]
+                    //            });
+                    //            me.getLocation(j);
+                    //            me.validation("import-name", j);
+                    //        }
+                    //        if(data[i][me.importer.variant.mondayId] !== undefined &&
+                    //           me.importer.resource[j].steps[0].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.mondayId] !== "string" ? data[i][me.importer.variant.mondayId].toString() : data[i][me.importer.variant.mondayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[0].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[0].interval = me.importer.resource[j].steps[0].schedule.length;
+                    //            if(!me.importer.resource[j].steps[0].active)
+                    //                me.importer.resource[j].steps[0].active = true;
+                    //            me.validation("import-time-begin", j, 0, me.importer.resource[j].steps[0].interval - 1);
+                    //            me.validation("import-time-end", j, 0, me.importer.resource[j].steps[0].interval - 1);
+                    //        }
+                    //        if(data[i][me.importer.variant.tuesdayId] !== undefined &&
+                    //           me.importer.resource[j].steps[1].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.tuesdayId] !== "string" ? data[i][me.importer.variant.tuesdayId].toString() : data[i][me.importer.variant.tuesdayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[1].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[1].interval = me.importer.resource[j].steps[1].schedule.length;
+                    //            if(!me.importer.resource[j].steps[1].active)
+                    //                me.importer.resource[j].steps[1].active = true;
+                    //            me.validation("import-time-begin", j, 1, me.importer.resource[j].steps[1].interval - 1);
+                    //            me.validation("import-time-end", j, 1, me.importer.resource[j].steps[1].interval - 1);
+                    //        }
+                    //        if(data[i][me.importer.variant.wednesdayId] !== undefined &&
+                    //           me.importer.resource[j].steps[2].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.wednesdayId] !== "string" ? data[i][me.importer.variant.wednesdayId].toString() : data[i][me.importer.variant.wednesdayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[2].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[2].interval = me.importer.resource[j].steps[2].schedule.length;
+                    //            if(!me.importer.resource[j].steps[2].active)
+                    //                me.importer.resource[j].steps[2].active = true;
+                    //            me.validation("import-time-begin", j, 2, me.importer.resource[j].steps[2].interval - 1);
+                    //            me.validation("import-time-end", j, 2, me.importer.resource[j].steps[2].interval - 1);
+                    //        }
+                    //        if(data[i][me.importer.variant.thursdayId] !== undefined &&
+                    //           me.importer.resource[j].steps[3].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.thursdayId] !== "string" ? data[i][me.importer.variant.thursdayId].toString() : data[i][me.importer.variant.thursdayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[3].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[3].interval = me.importer.resource[j].steps[3].schedule.length;
+                    //            if(!me.importer.resource[j].steps[3].active)
+                    //                me.importer.resource[j].steps[3].active = true;
+                    //            me.validation("import-time-begin", j, 3, me.importer.resource[j].steps[3].interval - 1);
+                    //            me.validation("import-time-end", j, 3, me.importer.resource[j].steps[3].interval - 1);
+                    //        }
+                    //        if(data[i][me.importer.variant.fridayId] !== undefined &&
+                    //           me.importer.resource[j].steps[4].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.fridayId] !== "string" ? data[i][me.importer.variant.fridayId].toString() : data[i][me.importer.variant.fridayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[4].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[4].interval = me.importer.resource[j].steps[4].schedule.length;
+                    //            if(!me.importer.resource[j].steps[4].active)
+                    //                me.importer.resource[j].steps[4].active = true;
+                    //            me.validation("import-time-begin", j, 4, me.importer.resource[j].steps[4].interval - 1);
+                    //            me.validation("import-time-end", j, 4, me.importer.resource[j].steps[4].interval - 1);
+                    //        }
+                    //        if(data[i][me.importer.variant.saturdayId] !== undefined &&
+                    //           me.importer.resource[j].steps[5].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.saturdayId] !== "string" ? data[i][me.importer.variant.saturdayId].toString() : data[i][me.importer.variant.saturdayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[5].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[5].interval = me.importer.resource[j].steps[5].schedule.length;
+                    //            if(!me.importer.resource[j].steps[5].active)
+                    //                me.importer.resource[j].steps[5].active = true;
+                    //            me.validation("import-time-begin", j, 5, me.importer.resource[j].steps[5].interval - 1);
+                    //            me.validation("import-time-end", j, 5, me.importer.resource[j].steps[5].interval - 1);
+                    //        }
+                    //        if(data[i][me.importer.variant.sundayId] !== undefined &&
+                    //           me.importer.resource[j].steps[6].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.sundayId] !== "string" ? data[i][me.importer.variant.sundayId].toString() : data[i][me.importer.variant.sundayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[6].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[6].interval = me.importer.resource[j].steps[6].schedule.length;
+                    //            if(!me.importer.resource[j].steps[6].active)
+                    //                me.importer.resource[j].steps[6].active = true;
+                    //            me.validation("import-time-begin", j, 6, me.importer.resource[j].steps[6].interval - 1);
+                    //            me.validation("import-time-end", j, 6, me.importer.resource[j].steps[6].interval - 1);
+                    //        }
+                    //    }
+                    //}
+                    //else{
+                    //    BUTO.components.main.alert.description.text = "No se pudo identificar una columna apropiada para obtener: ";
+                    //    if(me.importer.variant.nameId === null)
+                    //        BUTO.components.main.alert.description.text += "<br> - Nombre";
+                    //    if(me.importer.variant.addressId === null)
+                    //        BUTO.components.main.alert.description.text += "<br> - Dirección";
+                    //    BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                    //    BUTO.components.main.alert.description.ok = "Aceptar";
+                    //    BUTO.components.main.alert.active = true;
+                    //}
+                    //BUTO.components.main.loader.active = false;
+                }
+                else{
+                    BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                    BUTO.components.main.alert.description.text = "No se pudieron identificar datos en este archivo.";
+                    BUTO.components.main.alert.description.ok = "Aceptar";
+                    BUTO.components.main.alert.active = true;
+                    BUTO.components.main.loader.active = false;
+                }
+            };
+            reader.readAsBinaryString(this.importer.file.value);
+        },
+        getLocation: function(i){
+            //var me = this;
+            //this.importer.map.geocoder.geocode({                          //Geocoder for placing
+            //    address: this.importer.store[i].marker.data.address
+            //},
+            //function(response, status){
+            //    if(status === "OK"){
+            //        me.importer.store[i].marker.position.lat = response[0].geometry.location.lat();
+            //        me.importer.store[i].marker.position.lng = response[0].geometry.location.lng();
+            //    }
+            //    else
+            //        console.log(status);
+            //});
+        },
+        remove: function(i){
+            //var j, newStore = [], length = this.importer.store.length;
+            //for(j = 0; j < length; j++)
+            //    if(j !== i)
+            //        newStore.push(this.importer.store[j]);
+            //this.importer.store = newStore;
+        },
+        edit: function(i){
+            //var me = this;
+            //this.importer.editIndex = i;
+            //if(this.importer.first){
+            //    Vue.nextTick(function(){
+            //        setTimeout(function(){
+            //            me.initMap();
+            //            me.positioner(me.importer.store[i].marker.position, true);
+            //            me.importer.first = false;
+            //        }, 250);
+            //    });
+            //}
+            //else
+            //    this.positioner(this.importer.store[i].marker.position, true);
         },
         submit: function(e){
             var me = this;

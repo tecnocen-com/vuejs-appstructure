@@ -35,33 +35,86 @@ module.exports = `
                 </div>
             </div>
         </div>
-        <div v-if="config.typeSelection.type === 0" class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Selección de archivo</h5>
-            </div>
-            <div class="panel-body">
-                <p class="content-group">
-                    
-                </p>
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <div class="uploader">
-                            <input type="file" class="file-styled">
-                            <span class="filename">No has seleccionado ningún archivo</span>
-                            <span class="action btn btn-default import-file">Selecciona un archivo</span>
-                            <a href="#" v-on:click.prevent class="input-info input-import"
-                            data-toggle="popover"
-                            data-trigger="focus"
-                            data-placement="left"
-                            data-content="¿Desconoces el formato apropiado para este importador?<br>Da click <a href='/download-import?type=resource'>aquí</a> para obtenerlo."
-                            data-html="true">
-                                <i class="icon-info22"></i>
-                            </a>
+		<template v-if="config.typeSelection.type === 0">
+			<div class="panel panel-flat">
+				<div class="panel-heading">
+					<h5 class="panel-title">Selección de archivo</h5>
+				</div>
+				<div class="panel-body">
+					<p class="content-group">
+						
+					</p>
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<div class="uploader">
+								<input type="file" v-on:change="config.changeFile" class="file-styled">
+								<span class="filename">{{config.importer.file.text}}</span>
+								<span class="action btn btn-default import-file">Selecciona un archivo</span>
+								<a href="#" v-on:click.prevent class="input-info input-import"
+								data-toggle="popover"
+								data-trigger="focus"
+								data-placement="left"
+								data-content="¿Desconoces el formato apropiado para este importador?<br>Da click <a href='/download-import?type=resource'>aquí</a> para obtenerlo."
+								data-html="true">
+									<i class="icon-info22"></i>
+								</a>
+							</div>
+							<div v-if="config.importer.file.value !== null" class="form-group">
+                                <div class="steps-basic wizard clearfix">
+                                    <div class="actions clearfix">
+                                        <ul role="menu" aria-label="Pagination">
+                                            <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.process()" role="menuitem">Procesar</a>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<template v-if="config.importer.resource.length > 0">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Datos importados</h5>
+                    </div>
+                    <div class="panel-body">
+                        <p class="content-group">
+                            
+                        </p>
+                        <div v-for="(resource, resourceIndex) in config.importer.resource" class="row">
+                            <div :class="resource.valid && resource.name.valid ? '' : 'has-error'" class="form-group">
+                                <label class="control-label col-lg-2">Nombre tienda {{resourceIndex + 1}}</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" v-on:keyup="config.validation('import-name', resourceIndex)" v-model="resource.name.value" type="text" name="Nombre">
+                                    <span class="help-block">{{resource.name.text}}</span>
+                                    <div class="pull-right input-handler">
+                                        <a href="#" v-on:click.prevent="config.edit(resourceIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="'Editar ' + resource.name.value" data-toggle="modal" data-target="#edit">
+                                            <i aria-hidden="true" class="icon-pencil6"></i>
+                                        </a>
+                                        <a href="#" v-on:click.prevent="config.remove(resourceIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="'Descartar ' + resource.name.value">
+                                            <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="steps-basic wizard clearfix">
+                                        <div class="actions clearfix">
+                                            <ul role="menu" aria-label="Pagination">
+                                                <a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.submit('import')" role="menuitem">Guardar</a>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </template>
+		</template>
         <template v-else-if="config.typeSelection.type === 1">
             <div class="panel panel-flat">
                 <div class="panel-heading">

@@ -18,6 +18,142 @@ module.exports = new Vue({
                 }
             ]
         },
+        importer: {
+            first: true,
+            editIndex: null,
+            plugins: {
+                xlsx: require("xlsx")
+            },
+            file: {
+                value: null,
+                text: "No has seleccionado ningún archivo"
+            },
+            map: {
+                main: null,
+                geocoder: null,
+                data: {
+                    address: "Ciudad de México, México",
+                    zoom: 13
+                }
+            },
+            resource: [],
+            total: 0,
+            valid: true,
+            variant: {
+                nameId: null,
+                emailId: null,
+                passwordId: null,
+                rePasswordId: null,
+                phoneId: null,
+                dayId: null,
+                beginAddressId: null,
+                endAddressId: null,
+                scheduleId: null,
+                name: [
+                    { id: "Nombre" },
+                    { id: "nombre" },
+                    { id: "NOMBRE" }
+                ],
+                email: [
+                    { id: "Correo" },
+                    { id: "correo" },
+                    { id: "CORREO" }
+                ],
+                password: [
+                    { id: "Contraseña" },
+                    { id: "contraseña" },
+                    { id: "CONTRASEÑA" }
+                ],
+                rePassword: [
+                    { id: "Confirmar Contraseña" },
+                    { id: "confirmar contraseña" },
+                    { id: "CONFIRMAR CONTRASEÑA" },
+                    { id: "Confirmar contraseña" }
+                ],
+                phone: [
+                    { id: "Teléfono" },
+                    { id: "teléfono" },
+                    { id: "TELÉFONO" },
+                    { id: "Telefono" },
+                    { id: "telefono" },
+                    { id: "TELEFONO" }
+                ],
+                day: [
+                    { id: "Día" },
+                    { id: "día" },
+                    { id: "DÍA" },
+                    { id: "Dia" },
+                    { id: "dia" },
+                    { id: "DIA" }
+                ],
+                beginAddress: [
+                    { id: "Dirección Inicio" },
+                    { id: "dirección inicio" },
+                    { id: "Dirección inicio" },
+                    { id: "DIRECCIÓN INICIO" },
+                    { id: "Direccion Inicio" },
+                    { id: "direccion inicio" },
+                    { id: "Direccion inicio" },
+                    { id: "DIRECCION INICIO" }
+                ],
+                endAddress: [
+                    { id: "Dirección Fin" },
+                    { id: "dirección fin" },
+                    { id: "Dirección fin" },
+                    { id: "DIRECCIÓN FIN" },
+                    { id: "Direccion Fin" },
+                    { id: "direccion fin" },
+                    { id: "Direccion fin" },
+                    { id: "DIRECCION FIN" }
+                ],
+                schedule: [
+                    { id: "Horario" },
+                    { id: "horario" },
+                    { id: "HORARIO" }
+                ],
+                monday: [
+                    { id: "Lunes" },
+                    { id: "lunes" },
+                    { id: "LUNES" }
+                ],
+                tuesday: [
+                    { id: "Martes" },
+                    { id: "martes" },
+                    { id: "MARTES" }
+                ],
+                wednesday: [
+                    { id: "Miércoles" },
+                    { id: "miércoles" },
+                    { id: "MIÉRCOLES" },
+                    { id: "Miércoles" },
+                    { id: "miércoles" },
+                    { id: "MIÉRCOLES" }
+                ],
+                thursday: [
+                    { id: "Jueves" },
+                    { id: "jueves" },
+                    { id: "JUEVES" }
+                ],
+                friday: [
+                    { id: "Viernes" },
+                    { id: "viernes" },
+                    { id: "VIERNES" }
+                ],
+                saturday: [
+                    { id: "Sábado" },
+                    { id: "sábado" },
+                    { id: "SÁBADO" },
+                    { id: "Sabado" },
+                    { id: "sabado" },
+                    { id: "SABADO" }
+                ],
+                sunday: [
+                    { id: "Domingo" },
+                    { id: "domingo" },
+                    { id: "DOMINGO" }
+                ]
+            }
+        },
         manualAdd: {
             name: {
                 value: null,
@@ -286,6 +422,8 @@ module.exports = new Vue({
                 Vue.nextTick(function(){
                     me.initMap();
                 });
+            else
+                this.importer.first = true;
         },
         mainSelect: function(e){
             var me = this;
@@ -300,31 +438,46 @@ module.exports = new Vue({
         initMap: function(){
             var i, j, exists = 0,
                 me = this;
-            this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddResource'), {     //Define Map
-                zoom: this.manualAdd.map.data.zoom
-            });
-            this.manualAdd.map.main.addListener("click", function(e){       //Define on click listener for map
-                me.positioner(e.latLng);
-            });
-            for(i = 0; i < this.manualAdd.steps.length; i++)
-                if(this.manualAdd.steps[i].active)
-                    for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++)
-                        if((this.manualAdd.steps[i].schedule[j].main_begin !== null &&
-                            this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
-                            this.manualAdd.steps[i].schedule[j].lng_begin !== null) ||
-                            (this.manualAdd.steps[i].schedule[j].main_end !== null &&
-                            this.manualAdd.steps[i].schedule[j].lat_end !== null &&
-                            this.manualAdd.steps[i].schedule[j].lng_end !== null))
-                            exists++;
-            this.initConfiguration(true);
-            this.initSearch();
-            this.initFocus();
-            this.initGeocoder(exists);
-            if(exists !== 0)
-                this.focusPosition();
+            if(this.typeSelection.type === 1){
+                this.manualAdd.map.main = new google.maps.Map(document.getElementById('mapAddResource'), {     //Define Map
+                    zoom: this.manualAdd.map.data.zoom
+                });
+                this.manualAdd.map.main.addListener("click", function(e){       //Define on click listener for map
+                    me.positioner(e.latLng);
+                });
+                for(i = 0; i < this.manualAdd.steps.length; i++)
+                    if(this.manualAdd.steps[i].active)
+                        for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++)
+                            if((this.manualAdd.steps[i].schedule[j].main_begin !== null &&
+                                this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
+                                this.manualAdd.steps[i].schedule[j].lng_begin !== null) ||
+                                (this.manualAdd.steps[i].schedule[j].main_end !== null &&
+                                this.manualAdd.steps[i].schedule[j].lat_end !== null &&
+                                this.manualAdd.steps[i].schedule[j].lng_end !== null))
+                                exists++;
+                this.initConfiguration(true);
+                this.initSearch();
+                this.initFocus();
+                this.initGeocoder(exists);
+                if(exists !== 0)
+                    this.focusPosition();
+            }
+            else{
+                this.importer.map.main = new google.maps.Map(document.getElementById('mapAddImportResource'), {     //Define Map
+                    zoom: this.importer.map.data.zoom
+                });
+                this.importer.map.main.addListener("click", function(e){       //Define on click listener for map
+                    me.positioner(e.latLng);
+                });
+                //this.initSearch();
+                this.initFocus();
+            }
         },
         initFocus: function(){
-            this.manualAdd.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddResource'));
+            if(this.typeSelection.type === 1)
+                this.manualAdd.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddResource'));
+            else
+                this.importer.map.main.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('mapFocusPositionAddImportResource'));
         },
         initSearch: function(){
             var me = this;
@@ -360,17 +513,21 @@ module.exports = new Vue({
         },
         initGeocoder: function(exists){
             var me = this;
-            this.manualAdd.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
-            if(exists === 0)
-                this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
-                    address: this.manualAdd.map.data.address
-                },
-                function(response, status){
-                    if(status === "OK")
-                        me.manualAdd.map.main.setCenter(response[0].geometry.location);
-                    else
-                        console.log(status);
-                });
+            if(this.typeSelection.type === 1){
+                this.manualAdd.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
+                if(exists === 0)
+                    this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                        address: this.manualAdd.map.data.address
+                    },
+                    function(response, status){
+                        if(status === "OK")
+                            me.manualAdd.map.main.setCenter(response[0].geometry.location);
+                        else
+                            console.log(status);
+                    });
+            }
+            else
+                this.importer.map.geocoder = new google.maps.Geocoder();      //Geocoder for fisrt position
         },
         initConfiguration: function(auto){
             var i = 0, j;
@@ -821,6 +978,361 @@ module.exports = new Vue({
                     }
                     break;
             }
+        },
+        changeFile: function(e){
+            this.importer.file.text = "No has seleccionado ningún archivo";
+            this.importer.file.value = null;
+            if(e.target.files.length > 0 &&
+            (e.target.files[0].type === "application/vnd.oasis.opendocument.spreadsheet" ||
+            e.target.files[0].type === "application/vnd.oasis.opendocument.spreadsheet-template" ||
+            e.target.files[0].type === "application/vnd.ms-excel" ||
+            e.target.files[0].type === "application/vnd.ms-excel.sheet.macroEnabled.12" ||
+            e.target.files[0].type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")){
+                this.importer.file.text = e.target.files[0].name;
+                this.importer.file.value = e.target.files[0];
+            }
+            else if(e.target.files.length > 0){
+                BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                BUTO.components.main.alert.description.text = "Tipo de archivo inválido.<br>Las extensiones válidas para importar clientes son .xls, .xlsx, .xlsm, .ods y .ots.<br>Inténtalo de nuevo.";
+                BUTO.components.main.alert.description.ok = "Aceptar";
+                BUTO.components.main.alert.active = true;
+            }
+        },
+        process: function(){
+            var me = this,
+                i, j = null, length, workbook, data, delimiterType, value, headers,
+                reader = new FileReader();
+            this.importer.resource = [];
+            this.importer.editIndex = null;
+            this.importer.variant.nameId = null;
+            this.importer.variant.emailId = null;
+            this.importer.variant.passwordId = null;
+            this.importer.variant.rePasswordId = null;
+            this.importer.variant.phoneId = null;
+            this.importer.variant.dayId = null;
+            this.importer.variant.beginAddressId = null;
+            this.importer.variant.endAddressId = null;
+            this.importer.variant.scheduleId = null;
+            //BUTO.components.main.loader.active = true;
+            reader.onload = function(e){
+                workbook = me.importer.plugins.xlsx.read(e.target.result, {type: "binary"});
+                headers = [];
+                if(workbook.Strings.length >= 9){
+                    for(i = 0; i < 9; i++)
+                        headers.push(workbook.Strings[i].h);
+                    data = me.importer.plugins.xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {raw: true});
+                    length = data.length;
+                }
+                else
+                    length = 0;
+                console.log(workbook.Strings, headers);
+                if(length > 0){
+                    //for(i = 0; i < me.importer.variant.name.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.name[i].id) !== -1)
+                    //        me.importer.variant.nameId = me.importer.variant.name[i].id;
+                    //for(i = 0; i < me.importer.variant.address.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.address[i].id) !== -1)
+                    //        me.importer.variant.addressId = me.importer.variant.address[i].id;
+                    //for(i = 0; i < me.importer.variant.monday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.monday[i].id) !== -1)
+                    //        me.importer.variant.mondayId = me.importer.variant.monday[i].id;
+                    //for(i = 0; i < me.importer.variant.tuesday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.tuesday[i].id) !== -1)
+                    //        me.importer.variant.tuesdayId = me.importer.variant.tuesday[i].id;
+                    //for(i = 0; i < me.importer.variant.wednesday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.wednesday[i].id) !== -1)
+                    //        me.importer.variant.wednesdayId = me.importer.variant.wednesday[i].id;
+                    //for(i = 0; i < me.importer.variant.thursday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.thursday[i].id) !== -1)
+                    //        me.importer.variant.thursdayId = me.importer.variant.thursday[i].id;
+                    //for(i = 0; i < me.importer.variant.friday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.friday[i].id) !== -1)
+                    //        me.importer.variant.fridayId = me.importer.variant.friday[i].id;
+                    //for(i = 0; i < me.importer.variant.saturday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.saturday[i].id) !== -1)
+                    //        me.importer.variant.saturdayId = me.importer.variant.saturday[i].id;
+                    //for(i = 0; i < me.importer.variant.sunday.length; i++)
+                    //    if(headers.indexOf(me.importer.variant.sunday[i].id) !== -1)
+                    //        me.importer.variant.sundayId = me.importer.variant.sunday[i].id;
+                    //if(me.importer.variant.nameId !== null &&
+                    //   me.importer.variant.addressId !== null){
+                    //    me.initGeocoder();
+                    //    for(i = 0; i < length; i++){
+                    //        if(data[i][me.importer.variant.nameId] !== undefined){
+                    //            j = me.importer.resource.length;
+                    //            me.importer.resource.push({
+                    //                name: {
+                    //                    value: data[i][me.importer.variant.nameId],
+                    //                    valid: false,
+                    //                    text: ""
+                    //                },
+                    //                marker: {
+                    //                    position: {
+                    //                        lat: null,
+                    //                        lng: null
+                    //                    },
+                    //                    data: {
+                    //                        address: data[i][me.importer.variant.addressId],
+                    //                        zoom: 13
+                    //                    }
+                    //                },
+                    //                valid: true,
+                    //                actualStep: 0,
+                    //                maxInterval: 5,
+                    //                steps: [
+                    //                    {
+                    //                        text: "Lunes",
+                    //                        dayNumber: 2,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                    {
+                    //                        text: "Martes",
+                    //                        dayNumber: 3,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                    {
+                    //                        text: "Miércoles",
+                    //                        dayNumber: 4,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                    {
+                    //                        text: "Jueves",
+                    //                        dayNumber: 5,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                    {
+                    //                        text: "Viernes",
+                    //                        dayNumber: 6,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                    {
+                    //                        text: "Sábado",
+                    //                        dayNumber: 7,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                    {
+                    //                        text: "Domingo",
+                    //                        dayNumber: 1,
+                    //                        active: false,
+                    //                        schedule: [],
+                    //                        interval: 1,
+                    //                        seen: true
+                    //                    },
+                    //                ]
+                    //            });
+                    //            me.getLocation(j);
+                    //            me.validation("import-name", j);
+                    //        }
+                    //        if(data[i][me.importer.variant.mondayId] !== undefined &&
+                    //           me.importer.resource[j].steps[0].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.mondayId] !== "string" ? data[i][me.importer.variant.mondayId].toString() : data[i][me.importer.variant.mondayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[0].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[0].interval = me.importer.resource[j].steps[0].schedule.length;
+                    //            if(!me.importer.resource[j].steps[0].active)
+                    //                me.importer.resource[j].steps[0].active = true;
+                    //            me.validation("import-time-begin", j, 0, me.importer.resource[j].steps[0].interval - 1);
+                    //            me.validation("import-time-end", j, 0, me.importer.resource[j].steps[0].interval - 1);
+                    //        }
+                    //        if(data[i][me.importer.variant.tuesdayId] !== undefined &&
+                    //           me.importer.resource[j].steps[1].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.tuesdayId] !== "string" ? data[i][me.importer.variant.tuesdayId].toString() : data[i][me.importer.variant.tuesdayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[1].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[1].interval = me.importer.resource[j].steps[1].schedule.length;
+                    //            if(!me.importer.resource[j].steps[1].active)
+                    //                me.importer.resource[j].steps[1].active = true;
+                    //            me.validation("import-time-begin", j, 1, me.importer.resource[j].steps[1].interval - 1);
+                    //            me.validation("import-time-end", j, 1, me.importer.resource[j].steps[1].interval - 1);
+                    //        }
+                    //        if(data[i][me.importer.variant.wednesdayId] !== undefined &&
+                    //           me.importer.resource[j].steps[2].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.wednesdayId] !== "string" ? data[i][me.importer.variant.wednesdayId].toString() : data[i][me.importer.variant.wednesdayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[2].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[2].interval = me.importer.resource[j].steps[2].schedule.length;
+                    //            if(!me.importer.resource[j].steps[2].active)
+                    //                me.importer.resource[j].steps[2].active = true;
+                    //            me.validation("import-time-begin", j, 2, me.importer.resource[j].steps[2].interval - 1);
+                    //            me.validation("import-time-end", j, 2, me.importer.resource[j].steps[2].interval - 1);
+                    //        }
+                    //        if(data[i][me.importer.variant.thursdayId] !== undefined &&
+                    //           me.importer.resource[j].steps[3].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.thursdayId] !== "string" ? data[i][me.importer.variant.thursdayId].toString() : data[i][me.importer.variant.thursdayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[3].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[3].interval = me.importer.resource[j].steps[3].schedule.length;
+                    //            if(!me.importer.resource[j].steps[3].active)
+                    //                me.importer.resource[j].steps[3].active = true;
+                    //            me.validation("import-time-begin", j, 3, me.importer.resource[j].steps[3].interval - 1);
+                    //            me.validation("import-time-end", j, 3, me.importer.resource[j].steps[3].interval - 1);
+                    //        }
+                    //        if(data[i][me.importer.variant.fridayId] !== undefined &&
+                    //           me.importer.resource[j].steps[4].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.fridayId] !== "string" ? data[i][me.importer.variant.fridayId].toString() : data[i][me.importer.variant.fridayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[4].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[4].interval = me.importer.resource[j].steps[4].schedule.length;
+                    //            if(!me.importer.resource[j].steps[4].active)
+                    //                me.importer.resource[j].steps[4].active = true;
+                    //            me.validation("import-time-begin", j, 4, me.importer.resource[j].steps[4].interval - 1);
+                    //            me.validation("import-time-end", j, 4, me.importer.resource[j].steps[4].interval - 1);
+                    //        }
+                    //        if(data[i][me.importer.variant.saturdayId] !== undefined &&
+                    //           me.importer.resource[j].steps[5].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.saturdayId] !== "string" ? data[i][me.importer.variant.saturdayId].toString() : data[i][me.importer.variant.saturdayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[5].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[5].interval = me.importer.resource[j].steps[5].schedule.length;
+                    //            if(!me.importer.resource[j].steps[5].active)
+                    //                me.importer.resource[j].steps[5].active = true;
+                    //            me.validation("import-time-begin", j, 5, me.importer.resource[j].steps[5].interval - 1);
+                    //            me.validation("import-time-end", j, 5, me.importer.resource[j].steps[5].interval - 1);
+                    //        }
+                    //        if(data[i][me.importer.variant.sundayId] !== undefined &&
+                    //           me.importer.resource[j].steps[6].schedule.length <= me.manualAdd.maxInterval){
+                    //            value = typeof data[i][me.importer.variant.sundayId] !== "string" ? data[i][me.importer.variant.sundayId].toString() : data[i][me.importer.variant.sundayId];
+                    //            delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                    //            me.importer.resource[j].steps[6].schedule.push({
+                    //                begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                    //                end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                    //                validBegin: false,
+                    //                validEnd: false,
+                    //                textBegin: "hh:mm:ss",
+                    //                textEnd: "hh:mm:ss",
+                    //                id: null
+                    //            });
+                    //            me.importer.resource[j].steps[6].interval = me.importer.resource[j].steps[6].schedule.length;
+                    //            if(!me.importer.resource[j].steps[6].active)
+                    //                me.importer.resource[j].steps[6].active = true;
+                    //            me.validation("import-time-begin", j, 6, me.importer.resource[j].steps[6].interval - 1);
+                    //            me.validation("import-time-end", j, 6, me.importer.resource[j].steps[6].interval - 1);
+                    //        }
+                    //    }
+                    //}
+                    //else{
+                    //    BUTO.components.main.alert.description.text = "No se pudo identificar una columna apropiada para obtener: ";
+                    //    if(me.importer.variant.nameId === null)
+                    //        BUTO.components.main.alert.description.text += "<br> - Nombre";
+                    //    if(me.importer.variant.addressId === null)
+                    //        BUTO.components.main.alert.description.text += "<br> - Dirección";
+                    //    BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                    //    BUTO.components.main.alert.description.ok = "Aceptar";
+                    //    BUTO.components.main.alert.active = true;
+                    //}
+                    //BUTO.components.main.loader.active = false;
+                }
+                else{
+                    BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                    BUTO.components.main.alert.description.text = "No se pudieron identificar datos en este archivo.";
+                    BUTO.components.main.alert.description.ok = "Aceptar";
+                    BUTO.components.main.alert.active = true;
+                    BUTO.components.main.loader.active = false;
+                }
+            };
+            reader.readAsBinaryString(this.importer.file.value);
+        },
+        getLocation: function(i){
+            //var me = this;
+            //this.importer.map.geocoder.geocode({                          //Geocoder for placing
+            //    address: this.importer.store[i].marker.data.address
+            //},
+            //function(response, status){
+            //    if(status === "OK"){
+            //        me.importer.store[i].marker.position.lat = response[0].geometry.location.lat();
+            //        me.importer.store[i].marker.position.lng = response[0].geometry.location.lng();
+            //    }
+            //    else
+            //        console.log(status);
+            //});
+        },
+        remove: function(i){
+            //var j, newStore = [], length = this.importer.store.length;
+            //for(j = 0; j < length; j++)
+            //    if(j !== i)
+            //        newStore.push(this.importer.store[j]);
+            //this.importer.store = newStore;
+        },
+        edit: function(i){
+            //var me = this;
+            //this.importer.editIndex = i;
+            //if(this.importer.first){
+            //    Vue.nextTick(function(){
+            //        setTimeout(function(){
+            //            me.initMap();
+            //            me.positioner(me.importer.store[i].marker.position, true);
+            //            me.importer.first = false;
+            //        }, 250);
+            //    });
+            //}
+            //else
+            //    this.positioner(this.importer.store[i].marker.position, true);
         },
         submit: function(e){
             var me = this;

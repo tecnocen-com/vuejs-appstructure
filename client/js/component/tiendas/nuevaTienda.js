@@ -740,10 +740,14 @@ module.exports = new Vue({
             reader.onload = function(e){
                 workbook = me.importer.plugins.xlsx.read(e.target.result, {type: "binary"});
                 headers = [];
-                for(i = 0; i < 9; i++)
-                    headers.push(workbook.Strings[i].h);
-                data = me.importer.plugins.xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {raw: true});
-                length = data.length;
+                if(workbook.Strings.length >= 9){
+                    for(i = 0; i < 9; i++)
+                        headers.push(workbook.Strings[i].h);
+                    data = me.importer.plugins.xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {raw: true});
+                    length = data.length;
+                }
+                else
+                    length = 0;
                 if(length > 0){
                     for(i = 0; i < me.importer.variant.name.length; i++)
                         if(headers.indexOf(me.importer.variant.name[i].id) !== -1)
@@ -859,138 +863,140 @@ module.exports = new Vue({
                                 me.getLocation(j);
                                 me.validation("import-name", j);
                             }
-                            if(data[i][me.importer.variant.mondayId] !== undefined &&
-                               me.importer.store[j].steps[0].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.mondayId] !== "string" ? data[i][me.importer.variant.mondayId].toString() : data[i][me.importer.variant.mondayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[0].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[0].interval = me.importer.store[j].steps[0].schedule.length;
-                                if(!me.importer.store[j].steps[0].active)
-                                    me.importer.store[j].steps[0].active = true;
-                                me.validation("import-time-begin", j, 0, me.importer.store[j].steps[0].interval - 1);
-                                me.validation("import-time-end", j, 0, me.importer.store[j].steps[0].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.tuesdayId] !== undefined &&
-                               me.importer.store[j].steps[1].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.tuesdayId] !== "string" ? data[i][me.importer.variant.tuesdayId].toString() : data[i][me.importer.variant.tuesdayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[1].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[1].interval = me.importer.store[j].steps[1].schedule.length;
-                                if(!me.importer.store[j].steps[1].active)
-                                    me.importer.store[j].steps[1].active = true;
-                                me.validation("import-time-begin", j, 1, me.importer.store[j].steps[1].interval - 1);
-                                me.validation("import-time-end", j, 1, me.importer.store[j].steps[1].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.wednesdayId] !== undefined &&
-                               me.importer.store[j].steps[2].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.wednesdayId] !== "string" ? data[i][me.importer.variant.wednesdayId].toString() : data[i][me.importer.variant.wednesdayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[2].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[2].interval = me.importer.store[j].steps[2].schedule.length;
-                                if(!me.importer.store[j].steps[2].active)
-                                    me.importer.store[j].steps[2].active = true;
-                                me.validation("import-time-begin", j, 2, me.importer.store[j].steps[2].interval - 1);
-                                me.validation("import-time-end", j, 2, me.importer.store[j].steps[2].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.thursdayId] !== undefined &&
-                               me.importer.store[j].steps[3].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.thursdayId] !== "string" ? data[i][me.importer.variant.thursdayId].toString() : data[i][me.importer.variant.thursdayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[3].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[3].interval = me.importer.store[j].steps[3].schedule.length;
-                                if(!me.importer.store[j].steps[3].active)
-                                    me.importer.store[j].steps[3].active = true;
-                                me.validation("import-time-begin", j, 3, me.importer.store[j].steps[3].interval - 1);
-                                me.validation("import-time-end", j, 3, me.importer.store[j].steps[3].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.fridayId] !== undefined &&
-                               me.importer.store[j].steps[4].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.fridayId] !== "string" ? data[i][me.importer.variant.fridayId].toString() : data[i][me.importer.variant.fridayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[4].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[4].interval = me.importer.store[j].steps[4].schedule.length;
-                                if(!me.importer.store[j].steps[4].active)
-                                    me.importer.store[j].steps[4].active = true;
-                                me.validation("import-time-begin", j, 4, me.importer.store[j].steps[4].interval - 1);
-                                me.validation("import-time-end", j, 4, me.importer.store[j].steps[4].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.saturdayId] !== undefined &&
-                               me.importer.store[j].steps[5].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.saturdayId] !== "string" ? data[i][me.importer.variant.saturdayId].toString() : data[i][me.importer.variant.saturdayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[5].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[5].interval = me.importer.store[j].steps[5].schedule.length;
-                                if(!me.importer.store[j].steps[5].active)
-                                    me.importer.store[j].steps[5].active = true;
-                                me.validation("import-time-begin", j, 5, me.importer.store[j].steps[5].interval - 1);
-                                me.validation("import-time-end", j, 5, me.importer.store[j].steps[5].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.sundayId] !== undefined &&
-                               me.importer.store[j].steps[6].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.sundayId] !== "string" ? data[i][me.importer.variant.sundayId].toString() : data[i][me.importer.variant.sundayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[6].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[6].interval = me.importer.store[j].steps[6].schedule.length;
-                                if(!me.importer.store[j].steps[6].active)
-                                    me.importer.store[j].steps[6].active = true;
-                                me.validation("import-time-begin", j, 6, me.importer.store[j].steps[6].interval - 1);
-                                me.validation("import-time-end", j, 6, me.importer.store[j].steps[6].interval - 1);
+                            if(j !== null){
+                                if(data[i][me.importer.variant.mondayId] !== undefined &&
+                                   me.importer.store[j].steps[0].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.mondayId] !== "string" ? data[i][me.importer.variant.mondayId].toString() : data[i][me.importer.variant.mondayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[0].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[0].interval = me.importer.store[j].steps[0].schedule.length;
+                                    if(!me.importer.store[j].steps[0].active)
+                                        me.importer.store[j].steps[0].active = true;
+                                    me.validation("import-time-begin", j, 0, me.importer.store[j].steps[0].interval - 1);
+                                    me.validation("import-time-end", j, 0, me.importer.store[j].steps[0].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.tuesdayId] !== undefined &&
+                                   me.importer.store[j].steps[1].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.tuesdayId] !== "string" ? data[i][me.importer.variant.tuesdayId].toString() : data[i][me.importer.variant.tuesdayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[1].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[1].interval = me.importer.store[j].steps[1].schedule.length;
+                                    if(!me.importer.store[j].steps[1].active)
+                                        me.importer.store[j].steps[1].active = true;
+                                    me.validation("import-time-begin", j, 1, me.importer.store[j].steps[1].interval - 1);
+                                    me.validation("import-time-end", j, 1, me.importer.store[j].steps[1].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.wednesdayId] !== undefined &&
+                                   me.importer.store[j].steps[2].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.wednesdayId] !== "string" ? data[i][me.importer.variant.wednesdayId].toString() : data[i][me.importer.variant.wednesdayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[2].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[2].interval = me.importer.store[j].steps[2].schedule.length;
+                                    if(!me.importer.store[j].steps[2].active)
+                                        me.importer.store[j].steps[2].active = true;
+                                    me.validation("import-time-begin", j, 2, me.importer.store[j].steps[2].interval - 1);
+                                    me.validation("import-time-end", j, 2, me.importer.store[j].steps[2].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.thursdayId] !== undefined &&
+                                   me.importer.store[j].steps[3].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.thursdayId] !== "string" ? data[i][me.importer.variant.thursdayId].toString() : data[i][me.importer.variant.thursdayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[3].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[3].interval = me.importer.store[j].steps[3].schedule.length;
+                                    if(!me.importer.store[j].steps[3].active)
+                                        me.importer.store[j].steps[3].active = true;
+                                    me.validation("import-time-begin", j, 3, me.importer.store[j].steps[3].interval - 1);
+                                    me.validation("import-time-end", j, 3, me.importer.store[j].steps[3].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.fridayId] !== undefined &&
+                                   me.importer.store[j].steps[4].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.fridayId] !== "string" ? data[i][me.importer.variant.fridayId].toString() : data[i][me.importer.variant.fridayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[4].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[4].interval = me.importer.store[j].steps[4].schedule.length;
+                                    if(!me.importer.store[j].steps[4].active)
+                                        me.importer.store[j].steps[4].active = true;
+                                    me.validation("import-time-begin", j, 4, me.importer.store[j].steps[4].interval - 1);
+                                    me.validation("import-time-end", j, 4, me.importer.store[j].steps[4].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.saturdayId] !== undefined &&
+                                   me.importer.store[j].steps[5].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.saturdayId] !== "string" ? data[i][me.importer.variant.saturdayId].toString() : data[i][me.importer.variant.saturdayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[5].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[5].interval = me.importer.store[j].steps[5].schedule.length;
+                                    if(!me.importer.store[j].steps[5].active)
+                                        me.importer.store[j].steps[5].active = true;
+                                    me.validation("import-time-begin", j, 5, me.importer.store[j].steps[5].interval - 1);
+                                    me.validation("import-time-end", j, 5, me.importer.store[j].steps[5].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.sundayId] !== undefined &&
+                                   me.importer.store[j].steps[6].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.sundayId] !== "string" ? data[i][me.importer.variant.sundayId].toString() : data[i][me.importer.variant.sundayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[6].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss",
+                                        id: null
+                                    });
+                                    me.importer.store[j].steps[6].interval = me.importer.store[j].steps[6].schedule.length;
+                                    if(!me.importer.store[j].steps[6].active)
+                                        me.importer.store[j].steps[6].active = true;
+                                    me.validation("import-time-begin", j, 6, me.importer.store[j].steps[6].interval - 1);
+                                    me.validation("import-time-end", j, 6, me.importer.store[j].steps[6].interval - 1);
+                                }
                             }
                         }
                     }
@@ -1470,6 +1476,7 @@ module.exports = new Vue({
                         }
                     }
                     else{
+                        this.importer.editIndex = null;
                         this.importer.first = true;
                         this.importer.store = newSteps;
                         this.importer.total = 0;
