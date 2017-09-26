@@ -1207,13 +1207,16 @@ module.exports = new Vue({
                             this.importer.store[i].name.text = "Nombre no puede estar vacío";
                             valid = false;
                         }
-                        if(this.importer.store[i].name.value.length < 6){
+                        else if(this.importer.store[i].name.value.length < 6){
                             this.importer.store[i].name.valid = false;
                             this.importer.store[i].name.text = "Nombre debe contener al menos 6 caracteres";
                             valid = false;
                         }
                         if(this.importer.store[i].marker.position.lat === null || this.importer.store[i].marker.position.lng === null){
-                            valid = false;
+                            if(valid){
+                                this.importer.store[i].name.text = "Debes escoger una ubicación";
+                                valid = false;
+                            }
                         }
                         for(j = 0; j < length[1]; j++)
                             if(this.importer.store[i].steps[j].active){
@@ -1228,26 +1231,38 @@ module.exports = new Vue({
                                     if(this.importer.store[i].steps[j].schedule[k].begin === ""){
                                         this.importer.store[i].steps[j].schedule[k].validBegin = false;
                                         this.importer.store[i].steps[j].schedule[k].textBegin = "El inicio del intervalo no puede estar vacío";
-                                        valid = false;
+                                        if(valid){
+                                            this.importer.store[i].name.text = "Errores en horarios del día " + this.importer.store[i].steps[j].text;
+                                            valid = false;
+                                        }
                                     }
                                     if(this.importer.store[i].steps[j].schedule[k].end === ""){
                                         this.importer.store[i].steps[j].schedule[k].validEnd = false;
                                         this.importer.store[i].steps[j].schedule[k].textEnd = "El final del intervalo no puede estar vacío";
-                                        valid = false;
+                                        if(valid){
+                                            this.importer.store[i].name.text = "Errores en horarios del día " + this.importer.store[i].steps[j].text;
+                                            valid = false;
+                                        }
                                     }
                                     if(this.importer.store[i].steps[j].schedule[k].begin !== "" &&
                                        (this.importer.store[i].steps[j].schedule[k].begin > "23:59:59" ||
                                         hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
                                         this.importer.store[i].steps[j].schedule[k].validBegin = false;
                                         this.importer.store[i].steps[j].schedule[k].textBegin = "El inicio del intervalo no tiene un formato apropiado";
-                                        valid = false;
+                                        if(valid){
+                                            this.importer.store[i].name.text = "Errores en horarios del día " + this.importer.store[i].steps[j].text;
+                                            valid = false;
+                                        }
                                     }
                                     if(this.importer.store[i].steps[j].schedule[k].end !== "" &&
                                        (this.importer.store[i].steps[j].schedule[k].end > "23:59:59" ||
                                         hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
                                         this.importer.store[i].steps[j].schedule[k].validEnd = false;
                                         this.importer.store[i].steps[j].schedule[k].textEnd = "El final del intervalo no tiene un formato apropiado";
-                                        valid = false;
+                                        if(valid){
+                                            this.importer.store[i].name.text = "Errores en horarios del día " + this.importer.store[i].steps[j].text;
+                                            valid = false;
+                                        }
                                     }
                                     if(this.importer.store[i].steps[j].schedule[k].begin !== "" &&
                                        this.importer.store[i].steps[j].schedule[k].end !== "" &&
@@ -1256,7 +1271,10 @@ module.exports = new Vue({
                                         this.importer.store[i].steps[j].schedule[k].validEnd = false;
                                         this.importer.store[i].steps[j].schedule[k].textBegin = "El inicio del intervalo debe ser menor al final del mismo";
                                         this.importer.store[i].steps[j].schedule[k].textEnd = "El final del intervalo debe ser mayor al inicio del mismo";
-                                        valid = false;
+                                        if(valid){
+                                            this.importer.store[i].name.text = "Errores en horarios del día " + this.importer.store[i].steps[j].text;
+                                            valid = false;
+                                        }
                                     }
                                     if(k > 0 &&
                                        this.importer.store[i].steps[j].schedule[k].begin !== "" &&
@@ -1266,7 +1284,10 @@ module.exports = new Vue({
                                         this.importer.store[i].steps[j].schedule[k - 1].validEnd = false;
                                         this.importer.store[i].steps[j].schedule[k].textBegin = "El inicio del intervalo debe ser mayor al final del intervalo anterior";
                                         this.importer.store[i].steps[j].schedule[k - 1].textEnd = "El final del intervalo debe ser menor al inicio del intervalo posterior";
-                                        valid = false;
+                                        if(valid){
+                                            this.importer.store[i].name.text = "Errores en horarios del día " + this.importer.store[i].steps[j].text;
+                                            valid = false;
+                                        }
                                     }
                                 }
                             }
@@ -1318,10 +1339,14 @@ module.exports = new Vue({
                     me.importer.valid = false;
                     me.importer.store[i].valid = false;
                     if(me.importer.total === total){
+                        BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
                         BUTO.components.main.alert.description.title = "Errores en importación de datos";
                         BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
+                        setTimeout(function(){
+                            me.reset("import");
+                        }, 250);
                     }
                     me.importer.store[i].name.valid = false;
                     me.importer.store[i].name.text = error.body[0].message;
