@@ -335,5 +335,131 @@ module.exports = `
                 </div>
             </div>
         </template>
+		<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div v-if="config.importer.editIndex !== null" class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{config.importer.resource[config.importer.editIndex].name.value}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                            <div v-if="config.importer.editIndex !== null" class="row">
+                                <div class="form-group">
+                                    <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                        <label v-on:click.prevent="config.setVisibilityPosition()" class="label-three-option">
+                                            <span class="switchery switchery-default switchery-custom switchery-three-option info" :class="config.importer.resource[config.importer.editIndex].allPosVisible === 0 ? 'one' : config.importer.resource[config.importer.editIndex].allPosVisible === 1 ? 'two' : 'three'">
+                                                <small></small>
+                                            </span>
+                                            {{config.importer.resource[config.importer.editIndex].allPosVisible === 0 ? 'Todas' : config.importer.resource[config.importer.editIndex].allPosVisible === 1 ? 'Día' : 'Intervalo'}}
+                                        </label>
+                                        <span class="help-block">Ubicaciones</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="steps-basic wizard clearfix">
+                                            <div v-if="config.importer.editIndex !== null" class="steps clearfix">
+                                                <ul role="tablist">
+                                                    <li v-for="(steps, stepIndex) in config.importer.resource[config.importer.editIndex].steps" role="tab"
+                                                    :class="[stepIndex === 0 ? 'first' : '',
+                                                            config.importer.resource[config.importer.editIndex].actualStep === stepIndex ? 'current' : steps.seen ? 'done' : 'disabled']" aria-disabled="false" aria-selected="true">
+                                                        <a href="#" v-on:click.prevent="steps.seen && config.importer.resource[config.importer.editIndex].actualStep !== stepIndex ? config.changeStep(stepIndex) : ''">
+                                                            <span class="number">{{stepIndex + 1}}</span> {{steps.text}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="content clearfix">
+                                                <div v-if="config.importer.editIndex !== null" class="row">
+                                                    <div style="padding-top: 20px"></div>
+                                                    <div :class="config.importer.resource[config.importer.editIndex].steps[config.importer.resource[config.importer.editIndex].actualStep].active ? 'col-sm-6' : 'col-sm-12'">
+                                                        <div class="form-group">
+                                                            <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                                <label>
+                                                                    <span class="switchery switchery-default switchery-custom" :class="config.importer.resource[config.importer.editIndex].steps[config.importer.resource[config.importer.editIndex].actualStep].active ? 'active' : 'not-active'">
+                                                                        <small></small>
+                                                                    </span>
+                                                                    {{config.importer.resource[config.importer.editIndex].steps[config.importer.resource[config.importer.editIndex].actualStep].active ? 'Si' : 'No'}}
+                                                                </label>
+                                                                <span class="help-block">¿Opera en {{config.importer.resource[config.importer.editIndex].steps[config.importer.resource[config.importer.editIndex].actualStep].text}}?</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div v-if="config.importer.resource[config.importer.editIndex].steps[config.importer.resource[config.importer.editIndex].actualStep].active" class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4">Intervalos de atención</label>
+                                                            <div class="col-md-8">
+                                                                <input disabled="disabled" class="form-control" v-model="config.importer.resource[config.importer.editIndex].steps[config.importer.resource[config.importer.editIndex].actualStep].interval" type="number" name="Intervalos de atención">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div v-if="config.importer.editIndex !== null && config.importer.resource[config.importer.editIndex].steps[config.importer.resource[config.importer.editIndex].actualStep].active && Math.floor(parseInt(config.importer.resource[config.importer.editIndex].steps[config.importer.resource[config.importer.editIndex].actualStep].interval)) > 0" class="row">
+                                                    <div style="padding-top: 20px"></div>
+                                                    <div class="col-sm-5">
+                                                        <div class="form-group text-center schedule-title">
+                                                            <label>Inicio</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <div class="form-group text-center schedule-title">
+                                                            <label>Final</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group text-center schedule-title">
+                                                            <label>Posición</label>
+                                                        </div>
+                                                    </div>
+                                                    <template v-for="(interval, intervalIndex) in config.importer.resource[config.importer.editIndex].steps[config.importer.resource[config.importer.editIndex].actualStep].schedule">
+                                                        <div class="col-sm-5">
+                                                            <div class="form-group">
+                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.begin" class="form-control" :placeholder="'Inicio para intervalo ' + (intervalIndex + 1)">
+                                                                <span class="help-block">hh:mm:ss</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                            <div class="form-group">
+                                                                <input disabled="disabled" type="text" maxlength="8" v-model="interval.end" class="form-control" :placeholder="'Final para intervalo ' + (intervalIndex + 1)">
+                                                                <span class="help-block">hh:mm:ss</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <div class="checkbox checkbox-right checkbox-switchery text-center">
+                                                                <label v-on:click.prevent="config.setActiveInterval(intervalIndex)">
+                                                                    <span class="switchery switchery-default switchery-custom" :class="interval.active ? 'active' : 'not-active'">
+                                                                        <small></small>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <div id="mapFocusPositionAddImportResource" v-on:click="config.focusPosition()" class="map-focus-position text-center">
+                                                                <i class="icon-shrink3"></i>
+                                                            </div>
+                                                            <div id="mapAddImportResource" class="map-container-modal map-basic"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 `;

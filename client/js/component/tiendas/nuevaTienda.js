@@ -1030,6 +1030,7 @@ module.exports = new Vue({
         },
         remove: function(i){
             var j, newStore = [], length = this.importer.store.length;
+            this.importer.editIndex = null;
             for(j = 0; j < length; j++)
                 if(j !== i)
                     newStore.push(this.importer.store[j]);
