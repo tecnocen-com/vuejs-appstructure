@@ -37204,7 +37204,7 @@ module.exports = `
 
 module.exports = `
     <div class="footer text-muted">
-        &copy; 2017. <a href="#" v-on:click.prevent>Tech For Data</a>
+        &copy; 2017. <a href="#" v-on:click.prevent>Tecnocen</a>
     </div>
 `;
 
@@ -69673,7 +69673,7 @@ module.exports = new Vue({
                             icon: "/image/maps/blue.png"
                         });
                         this.importer.map.marker.main.addListener("rightclick", function(){
-                            me.importer.map.marker.window.open(me.manualAdd.map.main, me.manualAdd.map.marker.main);
+                            me.importer.map.marker.window.open(me.importer.map.main, me.importer.map.marker.main);
                         });
                         this.importer.map.marker.window = new google.maps.InfoWindow({
                             content: "Dirección no encontrada.",
@@ -69854,7 +69854,7 @@ module.exports = new Vue({
             this.importer.variant.fridayId = null;
             this.importer.variant.saturdayId = null;
             this.importer.variant.sundayId = null;
-            //BUTO.components.main.loader.active = true;
+            BUTO.components.main.loader.active = true;
             reader.onload = function(e){
                 workbook = me.importer.plugins.xlsx.read(e.target.result, {type: "binary"});
                 headers = [];
@@ -70304,6 +70304,7 @@ module.exports = new Vue({
                     }
                     break;
                 case "import":
+                    BUTO.components.main.loader.active = true;
                     this.importer.valid = true;
                     length = [this.importer.store.length];
                     for(i = 0; i < length[0]; i++){
@@ -70469,6 +70470,8 @@ module.exports = new Vue({
                     for(k = 0; k < this.importer.store[i].steps[j].schedule.length; k++){
                         this.submitSchedule(i, j, k, null, null, total);
                     }
+                if(this.importer.total === total)
+                    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
             }
         },
         submitSchedule: function(i, j, k, id, first, total){
@@ -70548,19 +70551,8 @@ module.exports = new Vue({
                             newSteps.push(this.importer.store[i]);
                     this.importer.store = newSteps;
                     this.importer.total = 0;
-                    //if(this.importer.valid){
-                    //    BUTO.components.main.alert.description.title = "Importación de datos completada";
-                    //    BUTO.components.main.alert.description.text = "Los registros ya han sido agregados.";
-                    //}
-                    //else{
-                    //    BUTO.components.main.alert.description.title = "Errores en importación de datos";
-                    //    BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
-                    //}
                     this.importer.valid = true;
-                    //BUTO.components.main.alert.description.ok = "Aceptar";
-                    //BUTO.components.main.alert.active = true;
-                    //BUTO.components.main.children.clientesRegistrados.grid.updatePagination();
-                    //BUTO.components.main.loader.active = false;
+                    BUTO.components.main.loader.active = false;
                     break;
                 case "store":
                     this.manualAdd.name.value = null;
@@ -73179,13 +73171,13 @@ module.exports = new Vue({
             this.setVisibilityPosition(true); //AUTO
         },
         setVisibilityPosition: function(auto){
-            var i, j, k, step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+            var i, j, k;
             if(this.typeSelection.type === 1){
                 if(!auto)
                     this.manualAdd.allPosVisible = this.manualAdd.allPosVisible < 2 ? this.manualAdd.allPosVisible + 1 : 0;
+                k = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
                 for(i = 0; i < this.manualAdd.steps.length; i++){
                     if(this.manualAdd.steps[i].active){
-                        k = step;
                         for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
                             if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
                                this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
@@ -73206,46 +73198,123 @@ module.exports = new Vue({
             else{
                 if(!auto)
                     this.importer.resource[this.importer.editIndex].allPosVisible = this.importer.resource[this.importer.editIndex].allPosVisible < 2 ? this.importer.resource[this.importer.editIndex].allPosVisible + 1 : 0;
+                k = this.importer.resource[this.importer.editIndex].actualStep;
+                for(i = 0; i < this.importer.resource[this.importer.editIndex].steps.length; i++){
+                    if(this.importer.resource[this.importer.editIndex].steps[i].active){
+                        for(j = 0; j < this.importer.resource[this.importer.editIndex].steps[i].schedule.length; j++){
+                            if(this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_begin !== null &&
+                               this.importer.resource[this.importer.editIndex].steps[i].schedule[j].lat_begin !== null &&
+                               this.importer.resource[this.importer.editIndex].steps[i].schedule[j].lng_begin !== null)
+                                this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_begin.setMap(this.importer.resource[this.importer.editIndex].allPosVisible === 0 ? this.importer.map.main :
+                                                                                      this.importer.resource[this.importer.editIndex].allPosVisible === 1 ? (i === k ? this.importer.map.main : null) :
+                                                                                      ((i === k && this.importer.resource[this.importer.editIndex].steps[i].schedule[j].active) ? this.importer.map.main : null));
+                            if(this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_end !== null &&
+                               this.importer.resource[this.importer.editIndex].steps[i].schedule[j].lat_end !== null &&
+                               this.importer.resource[this.importer.editIndex].steps[i].schedule[j].lng_end !== null)    //Is showed in map
+                                this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_end.setMap(this.importer.resource[this.importer.editIndex].allPosVisible === 0 ? this.importer.map.main :
+                                                                                      this.importer.resource[this.importer.editIndex].allPosVisible === 1 ? (i === k ? this.importer.map.main : null) :
+                                                                                      ((i === k && this.importer.resource[this.importer.editIndex].steps[i].schedule[j].active) ? this.importer.map.main : null));
+                        }
+                    }
+                }
             }
         },
         getDirection: function(type, pos, step, j){
             var me = this;
             switch(type){
                 case "begin":
-                    this.manualAdd.steps[step].schedule[j].main_begin.addListener("rightclick", function(){
-                        me.manualAdd.steps[step].schedule[j].window_begin.open(me.manualAdd.map.main, me.manualAdd.steps[step].schedule[j].main_begin);
-                    });
-                    this.manualAdd.steps[step].schedule[j].window_begin = new google.maps.InfoWindow({
-                        content: "Dirección no encontrada.",
-                        maxWidth: 175
-                    });
-                    this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
-                        location: pos
-                    },
-                    function(response, status){
-                        if(status === "OK" && response[0])
-                            me.manualAdd.steps[step].schedule[j].window_begin.setContent(response[0].formatted_address);
-                        else
-                            console.log(status, response);
-                    });
+                    if(this.typeSelection.type === 1){
+                        this.manualAdd.steps[step].schedule[j].window_begin = new google.maps.InfoWindow({
+                            content: "Dirección no encontrada.",
+                            maxWidth: 175,
+                            flag: true
+                        });
+                        this.manualAdd.steps[step].schedule[j].main_begin.addListener("rightclick", function(){
+                            if(me.manualAdd.steps[step].schedule[j].window_begin.flag){
+                                me.manualAdd.steps[step].schedule[j].window_begin.flag = false;
+                                me.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                                    location: {
+                                        lat: me.manualAdd.steps[step].schedule[j].lat_begin,
+                                        lng: me.manualAdd.steps[step].schedule[j].lng_begin
+                                    }
+                                },
+                                function(response, status){
+                                    if(status === "OK" && response[0])
+                                        me.manualAdd.steps[step].schedule[j].window_begin.setContent(response[0].formatted_address);
+                                    else
+                                        console.log(status, response);
+                                });
+                            }
+                            me.manualAdd.steps[step].schedule[j].window_begin.open(me.manualAdd.map.main, me.manualAdd.steps[step].schedule[j].main_begin);
+                        });
+                    }
+                    else{
+                        this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_begin.addListener("rightclick", function(){
+                            if(me.importer.resource[me.importer.editIndex].steps[step].schedule[j].window_begin.flag){
+                                me.importer.resource[me.importer.editIndex].steps[step].schedule[j].window_begin.flag = false;
+                                me.importer.map.geocoder.geocode({                          //Geocoder for placing
+                                    location: {
+                                        lat: me.importer.resource[me.importer.editIndex].steps[step].schedule[j].lat_begin,
+                                        lng: me.importer.resource[me.importer.editIndex].steps[step].schedule[j].lng_begin
+                                    }
+                                },
+                                function(response, status){
+                                    if(status === "OK" && response[0])
+                                        me.importer.resource[me.importer.editIndex].steps[step].schedule[j].window_begin.setContent(response[0].formatted_address);
+                                    else
+                                        console.log(status, response);
+                                });
+                            }
+                            me.importer.resource[me.importer.editIndex].steps[step].schedule[j].window_begin.open(me.importer.map.main, me.importer.resource[me.importer.editIndex].steps[step].schedule[j].main_begin);
+                        });
+                    }
                     break;
                 case "end":
-                    this.manualAdd.steps[step].schedule[j].main_end.addListener("rightclick", function(){
-                        me.manualAdd.steps[step].schedule[j].window_end.open(me.manualAdd.map.main, me.manualAdd.steps[step].schedule[j].main_end);
-                    });
-                    this.manualAdd.steps[step].schedule[j].window_end = new google.maps.InfoWindow({
-                        content: "Dirección no encontrada.",
-                        maxWidth: 175
-                    });
-                    this.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
-                        location: pos
-                    },
-                    function(response, status){
-                        if(status === "OK" && response[0])
-                            me.manualAdd.steps[step].schedule[j].window_end.setContent(response[0].formatted_address);
-                        else
-                            console.log(status, response);
-                    });
+                    if(this.typeSelection.type === 1){
+                        this.manualAdd.steps[step].schedule[j].window_end = new google.maps.InfoWindow({
+                            content: "Dirección no encontrada.",
+                            maxWidth: 175,
+                            flag: true
+                        });
+                        this.manualAdd.steps[step].schedule[j].main_end.addListener("rightclick", function(){
+                            if(me.manualAdd.steps[step].schedule[j].window_end.flag){
+                                me.manualAdd.steps[step].schedule[j].window_end.flag = false;
+                                me.manualAdd.map.geocoder.geocode({                          //Geocoder for placing
+                                    location: {
+                                        lat: me.manualAdd.steps[step].schedule[j].lat_end,
+                                        lng: me.manualAdd.steps[step].schedule[j].lng_end
+                                    }
+                                },
+                                function(response, status){
+                                    if(status === "OK" && response[0])
+                                        me.manualAdd.steps[step].schedule[j].window_end.setContent(response[0].formatted_address);
+                                    else
+                                        console.log(status, response);
+                                });
+                            }
+                            me.manualAdd.steps[step].schedule[j].window_end.open(me.manualAdd.map.main, me.manualAdd.steps[step].schedule[j].main_end);
+                        });
+                    }
+                    else{
+                        this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_end.addListener("rightclick", function(){
+                            if(me.importer.resource[me.importer.editIndex].steps[step].schedule[j].window_end.flag){
+                                me.importer.resource[me.importer.editIndex].steps[step].schedule[j].window_end.flag = false;
+                                me.importer.map.geocoder.geocode({                          //Geocoder for placing
+                                    location: {
+                                        lat: me.importer.resource[me.importer.editIndex].steps[step].schedule[j].lat_end,
+                                        lng: me.importer.resource[me.importer.editIndex].steps[step].schedule[j].lng_end
+                                    }
+                                },
+                                function(response, status){
+                                    if(status === "OK" && response[0])
+                                        me.importer.resource[me.importer.editIndex].steps[step].schedule[j].window_end.setContent(response[0].formatted_address);
+                                    else
+                                        console.log(status, response);
+                                });
+                            }
+                            me.importer.resource[me.importer.editIndex].steps[step].schedule[j].window_end.open(me.importer.map.main, me.importer.resource[me.importer.editIndex].steps[step].schedule[j].main_end);
+                        });
+                    }
                     break;
             }
         },
@@ -73254,111 +73323,207 @@ module.exports = new Vue({
                 counter = 0,
                 totalLat = 0,
                 totalLng = 0,
-                bounds = new google.maps.LatLngBounds(),
+                step,
+                me = this,
+                bounds = new google.maps.LatLngBounds();
+            if(this.typeSelection.type === 1){
                 step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
-            if(this.manualAdd.allPosVisible === 0 && !this.manualAdd.sameConf){
-                for(i = 0; i < this.manualAdd.map.marker.length; i++)
-                    for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
-                        if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
-                            this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
-                            this.manualAdd.steps[i].schedule[j].lng_begin !== null){
-                             counter++;
-                             totalLat += this.manualAdd.steps[i].schedule[j].lat_begin;
-                             totalLng += this.manualAdd.steps[i].schedule[j].lng_begin;
-                             bounds.extend(this.manualAdd.steps[i].schedule[j].main_begin.getPosition());
-                             
-                            }
-                         if(this.manualAdd.steps[i].schedule[j].main_end !== null &&
-                            this.manualAdd.steps[i].schedule[j].lat_end !== null &&
-                            this.manualAdd.steps[i].schedule[j].lng_end !== null){    //Is showed in map
-                             counter++;
-                             totalLat += this.manualAdd.steps[i].schedule[j].lat_end;
-                             totalLng += this.manualAdd.steps[i].schedule[j].lng_end;
-                             bounds.extend(this.manualAdd.steps[i].schedule[j].main_end.getPosition());
-                         }
-                    }
-            }
-            else if(this.manualAdd.allPosVisible === 0 && this.manualAdd.sameConf){
-                k = 0;
-                for(j = 0; j < this.manualAdd.steps[k].schedule.length; j++){
-                    if(this.manualAdd.steps[k].schedule[j].main_begin !== null &&
-                       this.manualAdd.steps[k].schedule[j].lat_begin !== null &&
-                       this.manualAdd.steps[k].schedule[j].lng_begin !== null){
-                        counter++;
-                        totalLat += this.manualAdd.steps[k].schedule[j].lat_begin;
-                        totalLng += this.manualAdd.steps[k].schedule[j].lng_begin;
-                        bounds.extend(this.manualAdd.steps[k].schedule[j].main_begin.getPosition());
-                        
-                       }
-                    if(this.manualAdd.steps[k].schedule[j].main_end !== null &&
-                       this.manualAdd.steps[k].schedule[j].lat_end !== null &&
-                       this.manualAdd.steps[k].schedule[j].lng_end !== null){    //Is showed in map
-                        counter++;
-                        totalLat += this.manualAdd.steps[k].schedule[j].lat_end;
-                        totalLng += this.manualAdd.steps[k].schedule[j].lng_end;
-                        bounds.extend(this.manualAdd.steps[k].schedule[j].main_end.getPosition());
+                if(this.manualAdd.allPosVisible === 0 && !this.manualAdd.sameConf){
+                    for(i = 0; i < this.manualAdd.map.marker.length; i++)
+                        for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
+                            if(this.manualAdd.steps[i].schedule[j].main_begin !== null &&
+                                this.manualAdd.steps[i].schedule[j].lat_begin !== null &&
+                                this.manualAdd.steps[i].schedule[j].lng_begin !== null){
+                                 counter++;
+                                 totalLat += this.manualAdd.steps[i].schedule[j].lat_begin;
+                                 totalLng += this.manualAdd.steps[i].schedule[j].lng_begin;
+                                 bounds.extend(this.manualAdd.steps[i].schedule[j].main_begin.getPosition());
+                                 
+                                }
+                             if(this.manualAdd.steps[i].schedule[j].main_end !== null &&
+                                this.manualAdd.steps[i].schedule[j].lat_end !== null &&
+                                this.manualAdd.steps[i].schedule[j].lng_end !== null){    //Is showed in map
+                                 counter++;
+                                 totalLat += this.manualAdd.steps[i].schedule[j].lat_end;
+                                 totalLng += this.manualAdd.steps[i].schedule[j].lng_end;
+                                 bounds.extend(this.manualAdd.steps[i].schedule[j].main_end.getPosition());
+                             }
+                        }
+                }
+                else if(this.manualAdd.allPosVisible === 0 && this.manualAdd.sameConf){
+                    k = 0;
+                    for(j = 0; j < this.manualAdd.steps[k].schedule.length; j++){
+                        if(this.manualAdd.steps[k].schedule[j].main_begin !== null &&
+                           this.manualAdd.steps[k].schedule[j].lat_begin !== null &&
+                           this.manualAdd.steps[k].schedule[j].lng_begin !== null){
+                            counter++;
+                            totalLat += this.manualAdd.steps[k].schedule[j].lat_begin;
+                            totalLng += this.manualAdd.steps[k].schedule[j].lng_begin;
+                            bounds.extend(this.manualAdd.steps[k].schedule[j].main_begin.getPosition());
+                            
+                           }
+                        if(this.manualAdd.steps[k].schedule[j].main_end !== null &&
+                           this.manualAdd.steps[k].schedule[j].lat_end !== null &&
+                           this.manualAdd.steps[k].schedule[j].lng_end !== null){    //Is showed in map
+                            counter++;
+                            totalLat += this.manualAdd.steps[k].schedule[j].lat_end;
+                            totalLng += this.manualAdd.steps[k].schedule[j].lng_end;
+                            bounds.extend(this.manualAdd.steps[k].schedule[j].main_end.getPosition());
+                        }
                     }
                 }
-            }
-            else if(this.manualAdd.allPosVisible === 1){
-                k = step;
-                for(j = 0; j < this.manualAdd.steps[k].schedule.length; j++){
-                    if(this.manualAdd.steps[k].schedule[j].main_begin !== null &&
-                       this.manualAdd.steps[k].schedule[j].lat_begin !== null &&
-                       this.manualAdd.steps[k].schedule[j].lng_begin !== null){
-                        counter++;
-                        totalLat += this.manualAdd.steps[k].schedule[j].lat_begin;
-                        totalLng += this.manualAdd.steps[k].schedule[j].lng_begin;
-                        bounds.extend(this.manualAdd.steps[k].schedule[j].main_begin.getPosition());
-                        
-                       }
-                    if(this.manualAdd.steps[k].schedule[j].main_end !== null &&
-                       this.manualAdd.steps[k].schedule[j].lat_end !== null &&
-                       this.manualAdd.steps[k].schedule[j].lng_end !== null){    //Is showed in map
-                        counter++;
-                        totalLat += this.manualAdd.steps[k].schedule[j].lat_end;
-                        totalLng += this.manualAdd.steps[k].schedule[j].lng_end;
-                        bounds.extend(this.manualAdd.steps[k].schedule[j].main_end.getPosition());
+                else if(this.manualAdd.allPosVisible === 1){
+                    k = step;
+                    for(j = 0; j < this.manualAdd.steps[k].schedule.length; j++){
+                        if(this.manualAdd.steps[k].schedule[j].main_begin !== null &&
+                           this.manualAdd.steps[k].schedule[j].lat_begin !== null &&
+                           this.manualAdd.steps[k].schedule[j].lng_begin !== null){
+                            counter++;
+                            totalLat += this.manualAdd.steps[k].schedule[j].lat_begin;
+                            totalLng += this.manualAdd.steps[k].schedule[j].lng_begin;
+                            bounds.extend(this.manualAdd.steps[k].schedule[j].main_begin.getPosition());
+                            
+                           }
+                        if(this.manualAdd.steps[k].schedule[j].main_end !== null &&
+                           this.manualAdd.steps[k].schedule[j].lat_end !== null &&
+                           this.manualAdd.steps[k].schedule[j].lng_end !== null){    //Is showed in map
+                            counter++;
+                            totalLat += this.manualAdd.steps[k].schedule[j].lat_end;
+                            totalLng += this.manualAdd.steps[k].schedule[j].lng_end;
+                            bounds.extend(this.manualAdd.steps[k].schedule[j].main_end.getPosition());
+                        }
                     }
                 }
+                else{
+                    k = step;
+                    for(j = 0; j < this.manualAdd.steps[k].schedule.length; j++)
+                        if(this.manualAdd.steps[k].schedule[j].active)
+                            k2 = j;
+                    if(k2 !== false &&
+                       this.manualAdd.steps[k].schedule[k2].main_begin !== null &&
+                       this.manualAdd.steps[k].schedule[k2].lat_begin !== null &&
+                       this.manualAdd.steps[k].schedule[k2].lng_begin !== null){
+                        counter++;
+                        totalLat += this.manualAdd.steps[k].schedule[k2].lat_begin;
+                        totalLng += this.manualAdd.steps[k].schedule[k2].lng_begin;
+                        bounds.extend(this.manualAdd.steps[k].schedule[k2].main_begin.getPosition());
+                        
+                       }
+                    if(k2 !== false &&
+                       this.manualAdd.steps[k].schedule[k2].main_end !== null &&
+                       this.manualAdd.steps[k].schedule[k2].lat_end !== null &&
+                       this.manualAdd.steps[k].schedule[k2].lng_end !== null){    //Is showed in map
+                        counter++;
+                        totalLat += this.manualAdd.steps[k].schedule[k2].lat_end;
+                        totalLng += this.manualAdd.steps[k].schedule[k2].lng_end;
+                        bounds.extend(this.manualAdd.steps[k].schedule[k2].main_end.getPosition());
+                    }
+                }
+                if(counter > 0){
+                    this.manualAdd.map.main.setCenter({
+                        lat: totalLat/counter,
+                        lng: totalLng/counter
+                    });
+                    if(counter > 1)
+                        this.manualAdd.map.main.fitBounds(bounds);
+                    else
+                        this.manualAdd.map.main.setZoom(this.manualAdd.map.data.zoom);
+                }
+                else
+                    this.initGeocoder();
             }
             else{
-                k = step;
-                for(j = 0; j < this.manualAdd.steps[k].schedule.length; j++)
-                    if(this.manualAdd.steps[k].schedule[j].active)
-                        k2 = j;
-                if(k2 !== false &&
-                   this.manualAdd.steps[k].schedule[k2].main_begin !== null &&
-                   this.manualAdd.steps[k].schedule[k2].lat_begin !== null &&
-                   this.manualAdd.steps[k].schedule[k2].lng_begin !== null){
-                    counter++;
-                    totalLat += this.manualAdd.steps[k].schedule[k2].lat_begin;
-                    totalLng += this.manualAdd.steps[k].schedule[k2].lng_begin;
-                    bounds.extend(this.manualAdd.steps[k].schedule[k2].main_begin.getPosition());
-                    
-                   }
-                if(k2 !== false &&
-                   this.manualAdd.steps[k].schedule[k2].main_end !== null &&
-                   this.manualAdd.steps[k].schedule[k2].lat_end !== null &&
-                   this.manualAdd.steps[k].schedule[k2].lng_end !== null){    //Is showed in map
-                    counter++;
-                    totalLat += this.manualAdd.steps[k].schedule[k2].lat_end;
-                    totalLng += this.manualAdd.steps[k].schedule[k2].lng_end;
-                    bounds.extend(this.manualAdd.steps[k].schedule[k2].main_end.getPosition());
+                step = this.importer.resource[this.importer.editIndex].actualStep;
+                if(this.importer.resource[this.importer.editIndex].allPosVisible === 0){
+                    for(i = 0; i < this.importer.map.marker.length; i++)
+                        for(j = 0; j < this.importer.resource[this.importer.editIndex].steps[i].schedule.length; j++){
+                            if(this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_begin !== null &&
+                                this.importer.resource[this.importer.editIndex].steps[i].schedule[j].lat_begin !== null &&
+                                this.importer.resource[this.importer.editIndex].steps[i].schedule[j].lng_begin !== null){
+                                 counter++;
+                                 totalLat += this.importer.resource[this.importer.editIndex].steps[i].schedule[j].lat_begin;
+                                 totalLng += this.importer.resource[this.importer.editIndex].steps[i].schedule[j].lng_begin;
+                                 bounds.extend(this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_begin.getPosition());
+                                 
+                                }
+                             if(this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_end !== null &&
+                                this.importer.resource[this.importer.editIndex].steps[i].schedule[j].lat_end !== null &&
+                                this.importer.resource[this.importer.editIndex].steps[i].schedule[j].lng_end !== null){    //Is showed in map
+                                 counter++;
+                                 totalLat += this.importer.resource[this.importer.editIndex].steps[i].schedule[j].lat_end;
+                                 totalLng += this.importer.resource[this.importer.editIndex].steps[i].schedule[j].lng_end;
+                                 bounds.extend(this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_end.getPosition());
+                             }
+                        }
                 }
+                else if(this.importer.resource[this.importer.editIndex].allPosVisible === 1){
+                    k = step;
+                    for(j = 0; j < this.importer.resource[this.importer.editIndex].steps[k].schedule.length; j++){
+                        if(this.importer.resource[this.importer.editIndex].steps[k].schedule[j].main_begin !== null &&
+                           this.importer.resource[this.importer.editIndex].steps[k].schedule[j].lat_begin !== null &&
+                           this.importer.resource[this.importer.editIndex].steps[k].schedule[j].lng_begin !== null){
+                            counter++;
+                            totalLat += this.importer.resource[this.importer.editIndex].steps[k].schedule[j].lat_begin;
+                            totalLng += this.importer.resource[this.importer.editIndex].steps[k].schedule[j].lng_begin;
+                            bounds.extend(this.importer.resource[this.importer.editIndex].steps[k].schedule[j].main_begin.getPosition());
+                            
+                           }
+                        if(this.importer.resource[this.importer.editIndex].steps[k].schedule[j].main_end !== null &&
+                           this.importer.resource[this.importer.editIndex].steps[k].schedule[j].lat_end !== null &&
+                           this.importer.resource[this.importer.editIndex].steps[k].schedule[j].lng_end !== null){    //Is showed in map
+                            counter++;
+                            totalLat += this.importer.resource[this.importer.editIndex].steps[k].schedule[j].lat_end;
+                            totalLng += this.importer.resource[this.importer.editIndex].steps[k].schedule[j].lng_end;
+                            bounds.extend(this.importer.resource[this.importer.editIndex].steps[k].schedule[j].main_end.getPosition());
+                        }
+                    }
+                }
+                else{
+                    k = step;
+                    for(j = 0; j < this.importer.resource[this.importer.editIndex].steps[k].schedule.length; j++)
+                        if(this.importer.resource[this.importer.editIndex].steps[k].schedule[j].active)
+                            k2 = j;
+                    if(k2 !== false &&
+                       this.importer.resource[this.importer.editIndex].steps[k].schedule[k2].main_begin !== null &&
+                       this.importer.resource[this.importer.editIndex].steps[k].schedule[k2].lat_begin !== null &&
+                       this.importer.resource[this.importer.editIndex].steps[k].schedule[k2].lng_begin !== null){
+                        counter++;
+                        totalLat += this.importer.resource[this.importer.editIndex].steps[k].schedule[k2].lat_begin;
+                        totalLng += this.importer.resource[this.importer.editIndex].steps[k].schedule[k2].lng_begin;
+                        bounds.extend(this.importer.resource[this.importer.editIndex].steps[k].schedule[k2].main_begin.getPosition());
+                        
+                       }
+                    if(k2 !== false &&
+                       this.importer.resource[this.importer.editIndex].steps[k].schedule[k2].main_end !== null &&
+                       this.importer.resource[this.importer.editIndex].steps[k].schedule[k2].lat_end !== null &&
+                       this.importer.resource[this.importer.editIndex].steps[k].schedule[k2].lng_end !== null){    //Is showed in map
+                        counter++;
+                        totalLat += this.importer.resource[this.importer.editIndex].steps[k].schedule[k2].lat_end;
+                        totalLng += this.importer.resource[this.importer.editIndex].steps[k].schedule[k2].lng_end;
+                        bounds.extend(this.importer.resource[this.importer.editIndex].steps[k].schedule[k2].main_end.getPosition());
+                    }
+                }
+                if(counter > 0){
+                    this.importer.map.main.setCenter({
+                        lat: totalLat/counter,
+                        lng: totalLng/counter
+                    });
+                    if(counter > 1)
+                        this.importer.map.main.fitBounds(bounds);
+                    else
+                        this.importer.map.main.setZoom(this.importer.map.data.zoom);
+                }    
+                else    
+                    this.importer.map.geocoder.geocode({                          //Geocoder for placing
+                        address: this.importer.map.data.address
+                    },
+                    function(response, status){
+                        if(status === "OK")
+                            me.importer.map.main.setCenter(response[0].geometry.location);
+                        else
+                            console.log(status);
+                    });
             }
-            if(counter > 0){
-                this.manualAdd.map.main.setCenter({
-                    lat: totalLat/counter,
-                    lng: totalLng/counter
-                });
-                if(counter > 1)
-                    this.manualAdd.map.main.fitBounds(bounds);
-                else
-                    this.manualAdd.map.main.setZoom(this.manualAdd.map.data.zoom);
-            }
-            else
-                this.initGeocoder();
         },
         setActiveInterval: function(i){
             var step, j;
@@ -73378,7 +73543,7 @@ module.exports = new Vue({
             }
         },
         positioner: function(pos){
-            var step, j, k, initImporter = true;
+            var step, j, k, me = this;
             if(this.typeSelection.type === 1){
                 step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
                 for(j = 0; j < this.manualAdd.steps[step].schedule.length; j++)
@@ -73439,123 +73604,210 @@ module.exports = new Vue({
                     }
             }
             else{
-                //if(pos === true){    //Init edit
-                //    for(j = 0; j < this.importer.resource[this.importer.editIndex].steps.length; j++)
-                //        if(this.importer.resource[this.importer.editIndex].steps[j].active)
-                //            for(k = 0; k < this.importer.resource[this.importer.editIndex].steps[j].schedule.length; k++){
-                //                if(this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lat_begin === null &&
-                //                   this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lng_begin === null)
-                //                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_begin = new google.maps.Marker({
-                //                        icon: {
-                //                            url: "/image/maps/green-empty.png",
-                //                            labelOrigin: new google.maps.Point(11, 11)
-                //                        },
-                //                        label: this.importer.map.marker[j].text + (k + 1),
-                //                        title: "Inicio del intervalo " + (k + 1) + " para el día " + this.importer.resource[this.importer.editIndex].steps[j].text,
-                //                    });
-                //                else{
-                //                    initImporter = false;
-                //                }
-                //                if(this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lat_end === null &&
-                //                   this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lng_end === null)
-                //                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_end = new google.maps.Marker({
-                //                        icon: {
-                //                            url: "/image/maps/red-empty.png",
-                //                            labelOrigin: new google.maps.Point(11, 11)
-                //                        },
-                //                        label: this.importer.map.marker[j].text + (k + 1),
-                //                        title: "Final del intervalo " + (k + 1) + " para el día " + this.importer.resource[this.importer.editIndex].steps[j].text,
-                //                    });
-                //                else{
-                //                    initImporter = false;
-                //                }
-                //            }
-                //    if(initImporter){
-                //        this.importer.map.geocoder.geocode({                          //Geocoder for placing
-                //            address: this.importer.map.data.address
-                //        },
-                //        function(response, status){
-                //            if(status === "OK")
-                //                me.importer.map.main.setCenter(response[0].geometry.location);
-                //            else
-                //                console.log(status);
-                //        });
-                //    }
-                //    else
-                //        this.setVisibilityPosition(true); //AUTO
-                //}
-                //else{       //New click
-                //    step = this.importer.resource[this.importer.editIndex].actualStep;
-                //    //if(this.manualAdd.steps[step].schedule[j].main_begin === null){
-                //    //    //this.manualAdd.steps[step].schedule[j].main_begin = new google.maps.Marker({
-                //    //    //    map: this.manualAdd.map.main,
-                //    //    //    position: pos,
-                //    //    //    icon: {
-                //    //    //        url: "/image/maps/green-empty.png",
-                //    //    //        labelOrigin: new google.maps.Point(11, 11)
-                //    //    //    },
-                //    //    //    label: this.manualAdd.map.marker[step][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1),
-                //    //    //    title: "Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text),
-                //    //    //});
-                //    //    //this.manualAdd.steps[step].schedule[j].lat_begin = pos.lat();
-                //    //    //this.manualAdd.steps[step].schedule[j].lng_begin = pos.lng();
-                //    //    //this.getDirection("begin", pos, step, j);
-                //    //    //this.deleter("begin", step, j);
-                //    //}
-                //    //else if(this.manualAdd.steps[step].schedule[j].main_begin &&
-                //    //        this.manualAdd.steps[step].schedule[j].lat_begin === null &&
-                //    //        this.manualAdd.steps[step].schedule[j].lng_begin === null){
-                //    //    //this.manualAdd.steps[step].schedule[j].main_begin.setMap(this.manualAdd.map.main);
-                //    //    //this.manualAdd.steps[step].schedule[j].main_begin.setPosition(pos);
-                //    //    //this.manualAdd.steps[step].schedule[j].main_begin.setLabel(this.manualAdd.map.marker[step][this.manualAdd.sameConf ? "textU_begin" : "text"] + (j + 1));
-                //    //    //this.manualAdd.steps[step].schedule[j].main_begin.setTitle("Inicio del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text));
-                //    //    //this.manualAdd.steps[step].schedule[j].lat_begin = pos.lat();
-                //    //    //this.manualAdd.steps[step].schedule[j].lng_begin = pos.lng();
-                //    //}
-                //    //else if(this.manualAdd.steps[step].schedule[j].main_begin &&
-                //    //        this.manualAdd.steps[step].schedule[j].main_end === null){
-                //    //    //this.manualAdd.steps[step].schedule[j].main_end = new google.maps.Marker({
-                //    //    //    map: this.manualAdd.map.main,
-                //    //    //    position: pos,
-                //    //    //    icon: {
-                //    //    //        url: "/image/maps/red-empty.png",
-                //    //    //        labelOrigin: new google.maps.Point(11, 11)
-                //    //    //    },
-                //    //    //    label: this.manualAdd.map.marker[step][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1),
-                //    //    //    title: "Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text),
-                //    //    //});
-                //    //    //this.manualAdd.steps[step].schedule[j].lat_end = pos.lat();
-                //    //    //this.manualAdd.steps[step].schedule[j].lng_end = pos.lng();
-                //    //    //this.getDirection("end", pos, step, j);
-                //    //    //this.deleter("end", step, j);
-                //    //}
-                //    //else if(this.manualAdd.steps[step].schedule[j].main_end &&
-                //    //        this.manualAdd.steps[step].schedule[j].lat_end === null &&
-                //    //        this.manualAdd.steps[step].schedule[j].lng_end === null){
-                //    //    //this.manualAdd.steps[step].schedule[j].main_end.setMap(this.manualAdd.map.main);
-                //    //    //this.manualAdd.steps[step].schedule[j].main_end.setPosition(pos);
-                //    //    //this.manualAdd.steps[step].schedule[j].main_end.setLabel(this.manualAdd.map.marker[step][this.manualAdd.sameConf ? "textU_end" : "text"] + (j + 1));
-                //    //    //this.manualAdd.steps[step].schedule[j].main_end.setTitle("Final del intervalo " + (j + 1) + (this.manualAdd.sameConf ? "" : " para el día " + this.manualAdd.steps[this.manualAdd.actualStep].text));
-                //    //    //this.manualAdd.steps[step].schedule[j].lat_end = pos.lat();
-                //    //    //this.manualAdd.steps[step].schedule[j].lng_end = pos.lng();
-                //    //}
-                //}
+                if(pos === true){    //Init edit
+                    for(j = 0; j < this.importer.resource[this.importer.editIndex].steps.length; j++)
+                        if(this.importer.resource[this.importer.editIndex].steps[j].active)
+                            for(k = 0; k < this.importer.resource[this.importer.editIndex].steps[j].schedule.length; k++){
+                                if(this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_begin === null &&
+                                   this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lat_begin === null &&
+                                   this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lng_begin === null){
+                                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_begin = new google.maps.Marker({
+                                        icon: {
+                                            url: "/image/maps/green-empty.png",
+                                            labelOrigin: new google.maps.Point(11, 11)
+                                        },
+                                        label: this.importer.map.marker[j].text + (k + 1),
+                                        title: "Inicio del intervalo " + (k + 1) + " para el día " + this.importer.resource[this.importer.editIndex].steps[j].text,
+                                    });
+                                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].window_begin = new google.maps.InfoWindow({
+                                        content: "Dirección no encontrada.",
+                                        maxWidth: 175,
+                                        flag: true
+                                    });
+                                    this.deleter("begin", j, k);
+                                }
+                                else if(this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_begin === null){
+                                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_begin = new google.maps.Marker({
+                                        map: this.manualAdd.map.main,
+                                        position: {
+                                            lat: this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lat_begin,
+                                            lng: this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lng_begin,
+                                        },
+                                        icon: {
+                                            url: "/image/maps/green-empty.png",
+                                            labelOrigin: new google.maps.Point(11, 11)
+                                        },
+                                        label: this.importer.map.marker[j].text + (k + 1),
+                                        title: "Inicio del intervalo " + (k + 1) + " para el día " + this.importer.resource[this.importer.editIndex].steps[j].text,
+                                    });
+                                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].window_begin = new google.maps.InfoWindow({
+                                        content: "Dirección no encontrada.",
+                                        maxWidth: 175,
+                                        flag: true
+                                    });
+                                    this.getDirection("begin", {
+                                            lat: this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lat_begin,
+                                            lng: this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lng_begin,
+                                        }, j, k);
+                                    this.deleter("begin", j, k);
+                                }
+                                else if(this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lat_begin === null &&
+                                   this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lng_begin === null)
+                                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_begin.setMap(null);
+                                else
+                                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_begin.setMap(this.importer.map.main);
+                                
+                                if(this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_end === null &&
+                                   this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lat_end === null &&
+                                   this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lng_end === null){
+                                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_end = new google.maps.Marker({
+                                        icon: {
+                                            url: "/image/maps/red-empty.png",
+                                            labelOrigin: new google.maps.Point(11, 11)
+                                        },
+                                        label: this.importer.map.marker[j].text + (k + 1),
+                                        title: "Final del intervalo " + (k + 1) + " para el día " + this.importer.resource[this.importer.editIndex].steps[j].text,
+                                    });
+                                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].window_end = new google.maps.InfoWindow({
+                                        content: "Dirección no encontrada.",
+                                        maxWidth: 175,
+                                        flag: true
+                                    });
+                                    this.deleter("end", j, k);
+                                }
+                                else if(this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_end === null){
+                                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_end = new google.maps.Marker({
+                                        map: this.manualAdd.map.main,
+                                        position: {
+                                            lat: this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lat_end,
+                                            lng: this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lng_end,
+                                        },
+                                        icon: {
+                                            url: "/image/maps/red-empty.png",
+                                            labelOrigin: new google.maps.Point(11, 11)
+                                        },
+                                        label: this.importer.map.marker[j].text + (k + 1),
+                                        title: "Final del intervalo " + (k + 1) + " para el día " + this.importer.resource[this.importer.editIndex].steps[j].text,
+                                    });
+                                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].window_end = new google.maps.InfoWindow({
+                                        content: "Dirección no encontrada.",
+                                        maxWidth: 175,
+                                        flag: true
+                                    });
+                                    this.getDirection("end", {
+                                            lat: this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lat_end,
+                                            lng: this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lng_end,
+                                        }, j, k);
+                                    this.deleter("end", j, k);
+                                }
+                                else if(this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lat_end === null &&
+                                   this.importer.resource[this.importer.editIndex].steps[j].schedule[k].lng_end === null)
+                                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_end.setMap(null);
+                                else
+                                    this.importer.resource[this.importer.editIndex].steps[j].schedule[k].main_end.setMap(this.importer.map.main);
+                            }
+                    this.setVisibilityPosition(true); //AUTO
+                    this.focusPosition();
+                }
+                else{       //New click
+                    step = this.importer.resource[this.importer.editIndex].actualStep;
+                    for(j = 0; j < this.importer.resource[this.importer.editIndex].steps[step].schedule.length; j++)
+                        if(this.importer.resource[this.importer.editIndex].steps[step].active && this.importer.resource[this.importer.editIndex].steps[step].schedule[j].active){
+                            if(this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_begin === null){
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_begin = new google.maps.Marker({
+                                    map: this.importer.map.main,
+                                    position: pos,
+                                    icon: {
+                                        url: "/image/maps/green-empty.png",
+                                        labelOrigin: new google.maps.Point(11, 11)
+                                    },
+                                    label: this.importer.map.marker[step].text + (j + 1),
+                                    title: "Inicio del intervalo " + (j + 1) + " para el día " + this.importer.resource[this.importer.editIndex].steps[step].text,
+                                });
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lat_begin = pos.lat();
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lng_begin = pos.lng();
+                                this.getDirection("begin", pos, step, j);
+                                this.deleter("begin", step, j);
+                            }
+                            else if(this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_begin &&
+                                    this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lat_begin === null &&
+                                    this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lng_begin === null){
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_begin.setMap(this.importer.map.main);
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_begin.setPosition(pos);
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lat_begin = pos.lat();
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lng_begin = pos.lng();
+                                this.getDirection("begin", pos, step, j);
+                            }
+                            else if(this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_begin &&
+                                    this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_end === null){
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_end = new google.maps.Marker({
+                                    map: this.importer.map.main,
+                                    position: pos,
+                                    icon: {
+                                        url: "/image/maps/red-empty.png",
+                                        labelOrigin: new google.maps.Point(11, 11)
+                                    },
+                                    label: this.importer.map.marker[step].text + (j + 1),
+                                    title: "Final del intervalo " + (j + 1) + " para el día " + this.importer.resource[this.importer.editIndex].steps[step].text,
+                                });
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lat_end = pos.lat();
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lng_end = pos.lng();
+                                this.getDirection("end", pos, step, j);
+                                this.deleter("end", step, j);
+                            }
+                            else if(this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_end &&
+                                    this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lat_end === null &&
+                                    this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lng_end === null){
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_end.setMap(this.importer.map.main);
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_end.setPosition(pos);
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lat_end = pos.lat();
+                                this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lng_end = pos.lng();
+                                this.getDirection("end", pos, step, j);
+                            }
+                        }
+                }
             }
         },
         deleter: function(type, i, j){
             var me = this;
-            if(type === "begin")
-                this.manualAdd.steps[i].schedule[j].main_begin.addListener("dblclick", function(){
-                    me.manualAdd.steps[i].schedule[j].main_begin.setMap(null);
-                    me.manualAdd.steps[i].schedule[j].lat_begin = null;
-                    me.manualAdd.steps[i].schedule[j].lng_begin = null;
-                });
-            else if(type === "end")
-                this.manualAdd.steps[i].schedule[j].main_end.addListener("dblclick", function(){
-                    me.manualAdd.steps[i].schedule[j].main_end.setMap(null);
-                    me.manualAdd.steps[i].schedule[j].lat_end = null;
-                    me.manualAdd.steps[i].schedule[j].lng_end = null;
-                });
+            switch(type){
+                case "begin":
+                    if(this.typeSelection.type === 1)
+                        this.manualAdd.steps[i].schedule[j].main_begin.addListener("dblclick", function(){
+                            me.manualAdd.steps[i].schedule[j].window_begin.flag = true;
+                            me.manualAdd.steps[i].schedule[j].window_begin.close();
+                            me.manualAdd.steps[i].schedule[j].main_begin.setMap(null);
+                            me.manualAdd.steps[i].schedule[j].lat_begin = null;
+                            me.manualAdd.steps[i].schedule[j].lng_begin = null;
+                        });
+                    else
+                        this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_begin.addListener("dblclick", function(){
+                            me.importer.resource[me.importer.editIndex].steps[i].schedule[j].window_begin.flag = true;
+                            me.importer.resource[me.importer.editIndex].steps[i].schedule[j].window_begin.close();
+                            me.importer.resource[me.importer.editIndex].steps[i].schedule[j].main_begin.setMap(null);
+                            me.importer.resource[me.importer.editIndex].steps[i].schedule[j].lat_begin = null;
+                            me.importer.resource[me.importer.editIndex].steps[i].schedule[j].lng_begin = null;
+                        });
+                    break;
+                case "end":
+                    if(this.typeSelection.type === 1)
+                        this.manualAdd.steps[i].schedule[j].main_end.addListener("dblclick", function(){
+                            me.manualAdd.steps[i].schedule[j].window_end.flag = true;
+                            me.manualAdd.steps[i].schedule[j].window_end.close();
+                            me.manualAdd.steps[i].schedule[j].main_end.setMap(null);
+                            me.manualAdd.steps[i].schedule[j].lat_end = null;
+                            me.manualAdd.steps[i].schedule[j].lng_end = null;
+                        });
+                    else
+                        this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_end.addListener("dblclick", function(){
+                            me.importer.resource[me.importer.editIndex].steps[i].schedule[j].window_end.flag = true;
+                            me.importer.resource[me.importer.editIndex].steps[i].schedule[j].window_end.close();
+                            me.importer.resource[me.importer.editIndex].steps[i].schedule[j].main_end.setMap(null);
+                            me.importer.resource[me.importer.editIndex].steps[i].schedule[j].lat_end = null;
+                            me.importer.resource[me.importer.editIndex].steps[i].schedule[j].lng_end = null;
+                        });
+                    break;
+            }
         },
         changeStep: function(e){
             if(this.typeSelection.type === 1){
@@ -73860,7 +74112,7 @@ module.exports = new Vue({
             this.importer.variant.beginAddressId = null;
             this.importer.variant.endAddressId = null;
             this.importer.variant.scheduleId = null;
-            //BUTO.components.main.loader.active = true;
+            BUTO.components.main.loader.active = true;
             reader.onload = function(e){
                 workbook = me.importer.plugins.xlsx.read(e.target.result, {type: "binary"});
                 headers = [];
@@ -74284,7 +74536,7 @@ module.exports = new Vue({
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
                     }
-                    //BUTO.components.main.loader.active = false;
+                    BUTO.components.main.loader.active = false;
                 }
                 else{
                     BUTO.components.main.alert.description.title = "Errores en importación de datos";
@@ -74331,6 +74583,8 @@ module.exports = new Vue({
         },
         edit: function(i){
             var me = this;
+            if(this.importer.editIndex !== null)
+                this.removeMarkers();
             this.importer.editIndex = i;
             if(this.importer.first){
                 Vue.nextTick(function(){
@@ -74342,8 +74596,21 @@ module.exports = new Vue({
                 });
             }
             else
-                this.positioner(true);
-            this.setVisibilityPosition(true); //AUTO
+                Vue.nextTick(function(){
+                    setTimeout(function(){
+                        me.positioner(true);
+                    }, 250);
+                });
+        },
+        removeMarkers: function(){
+            for(var i = 0; i < this.importer.resource[this.importer.editIndex].steps.length; i++)
+                if(this.importer.resource[this.importer.editIndex].steps[i].active)
+                    for(var j = 0; j < this.importer.resource[this.importer.editIndex].steps[i].schedule.length; j++){
+                        if(this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_begin !== null)
+                            this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_begin.setMap(null);
+                        if(this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_end !== null)
+                            this.importer.resource[this.importer.editIndex].steps[i].schedule[j].main_end.setMap(null);
+                    }
         },
         submit: function(e){
             var me = this;

@@ -555,7 +555,7 @@ module.exports = new Vue({
                             icon: "/image/maps/blue.png"
                         });
                         this.importer.map.marker.main.addListener("rightclick", function(){
-                            me.importer.map.marker.window.open(me.manualAdd.map.main, me.manualAdd.map.marker.main);
+                            me.importer.map.marker.window.open(me.importer.map.main, me.importer.map.marker.main);
                         });
                         this.importer.map.marker.window = new google.maps.InfoWindow({
                             content: "Dirección no encontrada.",
@@ -736,7 +736,7 @@ module.exports = new Vue({
             this.importer.variant.fridayId = null;
             this.importer.variant.saturdayId = null;
             this.importer.variant.sundayId = null;
-            //BUTO.components.main.loader.active = true;
+            BUTO.components.main.loader.active = true;
             reader.onload = function(e){
                 workbook = me.importer.plugins.xlsx.read(e.target.result, {type: "binary"});
                 headers = [];
@@ -1186,6 +1186,7 @@ module.exports = new Vue({
                     }
                     break;
                 case "import":
+                    BUTO.components.main.loader.active = true;
                     this.importer.valid = true;
                     length = [this.importer.store.length];
                     for(i = 0; i < length[0]; i++){
@@ -1351,6 +1352,8 @@ module.exports = new Vue({
                     for(k = 0; k < this.importer.store[i].steps[j].schedule.length; k++){
                         this.submitSchedule(i, j, k, null, null, total);
                     }
+                if(this.importer.total === total)
+                    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
             }
         },
         submitSchedule: function(i, j, k, id, first, total){
@@ -1430,19 +1433,8 @@ module.exports = new Vue({
                             newSteps.push(this.importer.store[i]);
                     this.importer.store = newSteps;
                     this.importer.total = 0;
-                    //if(this.importer.valid){
-                    //    BUTO.components.main.alert.description.title = "Importación de datos completada";
-                    //    BUTO.components.main.alert.description.text = "Los registros ya han sido agregados.";
-                    //}
-                    //else{
-                    //    BUTO.components.main.alert.description.title = "Errores en importación de datos";
-                    //    BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
-                    //}
                     this.importer.valid = true;
-                    //BUTO.components.main.alert.description.ok = "Aceptar";
-                    //BUTO.components.main.alert.active = true;
-                    //BUTO.components.main.children.clientesRegistrados.grid.updatePagination();
-                    //BUTO.components.main.loader.active = false;
+                    BUTO.components.main.loader.active = false;
                     break;
                 case "store":
                     this.manualAdd.name.value = null;
