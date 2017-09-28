@@ -134,9 +134,9 @@ module.exports = new Vue({
                     "Miércoles",
                     "miércoles",
                     "MIÉRCOLES",
-                    "Miércoles",
-                    "miércoles",
-                    "MIÉRCOLES"
+                    "Miercoles",
+                    "miercoles",
+                    "MIERCOLES"
                 ],
                 thursday: [
                     "Jueves",
@@ -1574,6 +1574,7 @@ module.exports = new Vue({
             var me = this,
                 i, j = null, k, length, workbook, data, delimiterType, value, headers,
                 reader = new FileReader();
+            this.reset('all');
             this.importer.resource = [];
             this.importer.editIndex = null;
             this.importer.variant.nameId = null;
@@ -1983,7 +1984,6 @@ module.exports = new Vue({
                                 }
                             }
                         }
-                        console.log(me.importer.resource);
                     }
                     else{
                         BUTO.components.main.alert.description.text = "No se pudo identificar una columna apropiada para obtener: ";
@@ -2572,14 +2572,17 @@ module.exports = new Vue({
             else{
                 this.importer.total += i;
                 for(j = 0; j < this.importer.resource[i].steps.length; j++)
-                    for(k = 0; k < this.importer.resource[i].steps[j].schedule.length; k++){
-                        this.submitSchedule(i, j, k, null, null, total);
-                    }
+                    if(this.importer.resource[i].steps[j].schedule.length > 0)
+                        for(k = 0; k < this.importer.resource[i].steps[j].schedule.length; k++)
+                            this.submitSchedule(i, j, k, null, null, total);
+                    else
+                        this.submitSchedule(i, j, -1, null, null, total);
                 if(this.importer.total === total){
                     BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
-                    setTimeout(function(){
-                        me.reset("import");
-                    }, 250);
+                    BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                    BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
+                    BUTO.components.main.alert.description.ok = "Aceptar";
+                    BUTO.components.main.alert.active = true;
                 }
             }
         },
@@ -2641,7 +2644,10 @@ module.exports = new Vue({
             switch(a){
                 case "import":
                     length = this.importer.resource.length;
-                    this.importer.editIndex = null;
+                    if(this.importer.editIndex !== null){
+                        this.removeMarkers();
+                        this.importer.editIndex = null;
+                    }
                     for(i = 0; i < this.importer.resource.length; i++)
                         if(!this.importer.resource[i].valid)
                             newSteps.push(this.importer.resource[i]);
