@@ -181,7 +181,7 @@ module.exports = `
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4">Intervalos de atención</label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[0].interval" type="number" min="1" :max="config.manualAdd.maxInterval" step="1" onkeypress="return event.charCode >= 48" name="Intervalos de atención">
+                                                        <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.manualAdd.steps[0].interval" type="number" min="1" :max="config.manualAdd.maxInterval" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
                                                         <span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                     </div>
                                                 </div>
@@ -355,7 +355,7 @@ module.exports = `
                                                 <div :class="config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].active ? 'col-sm-6' : 'col-sm-12'">
                                                     <div class="form-group">
                                                         <div class="checkbox checkbox-right checkbox-switchery text-center">
-                                                            <label>
+                                                            <label v-on:click.prevent="config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].active = !config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].active">
                                                                 <span class="switchery switchery-default switchery-custom" :class="config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].active ? 'active' : 'not-active'">
                                                                     <small></small>
                                                                 </span>
@@ -369,7 +369,8 @@ module.exports = `
                                                     <div class="form-group">
                                                         <label class="control-label col-md-4">Intervalos de atención</label>
                                                         <div class="col-md-8">
-                                                            <input disabled="disabled" class="form-control" v-model="config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].interval" type="number" name="Intervalos de atención">
+                                                            <input class="form-control" v-on:keyup="config.setInterval()" v-on:change="config.setInterval()" v-model="config.importer.store[config.importer.editIndex].steps[config.importer.store[config.importer.editIndex].actualStep].interval" type="number" min="1" :max="config.manualAdd.maxInterval" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="Intervalos de atención">
+															<span class="help-block">Máximo {{config.manualAdd.maxInterval}} intervalos</span>
                                                         </div>
                                                     </div>
                                                 </div>

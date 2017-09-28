@@ -1221,72 +1221,149 @@ module.exports = new Vue({
             }
         },
         setInterval: function(){
-            var step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
-            var i,
+            var step,
+                i,
                 newSchedule = [],
-                interval = Math.floor(parseInt(this.manualAdd.steps[step].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[step].interval)) : this.manualAdd.maxInterval,
+                interval,
+                length;
+            if(this.typeSelection.type === 1){
+                step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+                interval = Math.floor(parseInt(this.manualAdd.steps[step].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[step].interval)) : this.manualAdd.maxInterval;
                 length = this.manualAdd.steps[step].schedule.length;
-            if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[step].interval)))){
-                this.manualAdd.steps[step].interval = interval;
-                if(this.manualAdd.steps[step].schedule.length < interval){
-                    for(i = 0; i < interval - length; i++)
-                        this.manualAdd.steps[step].schedule.push({
-                            begin: "",
-                            end: "",
-                            validBegin: true,
-                            validEnd: true,
-                            textBegin: "hh:mm:ss",
-                            textEnd: "hh:mm:ss",
-                            
-                            main_begin: null,
-                            main_end: null,
-                            window_begin: null,
-                            window_end: null,
-                            lat_begin: null,
-                            lng_begin: null,
-                            lat_end: null,
-                            lng_end: null,
-                            active: false
-                        });
+                if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[step].interval)))){
+                    this.manualAdd.steps[step].interval = interval;
+                    if(this.manualAdd.steps[step].schedule.length < interval){
+                        for(i = 0; i < interval - length; i++)
+                            this.manualAdd.steps[step].schedule.push({
+                                begin: "",
+                                end: "",
+                                validBegin: true,
+                                validEnd: true,
+                                textBegin: "hh:mm:ss",
+                                textEnd: "hh:mm:ss",
+                                
+                                main_begin: null,
+                                main_end: null,
+                                window_begin: null,
+                                window_end: null,
+                                lat_begin: null,
+                                lng_begin: null,
+                                lat_end: null,
+                                lng_end: null,
+                                active: false
+                            });
+                    }
+                    else if(length > interval){
+                        for(i = 0; i < length; i++)
+                            if(i < interval)
+                                newSchedule.push(this.manualAdd.steps[step].schedule[i]);
+                            else{
+                                if(this.manualAdd.steps[step].schedule[i].main_begin !== null &&
+                                    this.manualAdd.steps[step].schedule[i].lat_begin !== null &&
+                                    this.manualAdd.steps[step].schedule[i].lng_begin !== null)
+                                     this.manualAdd.steps[step].schedule[i].main_begin.setMap(null);
+                                if(this.manualAdd.steps[step].schedule[i].main_end !== null &&
+                                   this.manualAdd.steps[step].schedule[i].lat_end !== null &&
+                                   this.manualAdd.steps[step].schedule[i].lng_end !== null)    //Is showed in map
+                                    this.manualAdd.steps[step].schedule[i].main_end.setMap(null);
+                            }
+                        this.manualAdd.steps[step].schedule = newSchedule;
+                        this.setActivity(true);
+                    }
+                    if(this.manualAdd.steps[step].schedule.length > 0)
+                        this.setActiveInterval(0);
                 }
-                else if(length > interval){
-                    for(i = 0; i < length; i++)
-                        if(i < interval)
-                            newSchedule.push(this.manualAdd.steps[step].schedule[i]);
-                        else{
-                            if(this.manualAdd.steps[step].schedule[i].main_begin !== null &&
-                                this.manualAdd.steps[step].schedule[i].lat_begin !== null &&
-                                this.manualAdd.steps[step].schedule[i].lng_begin !== null)
-                                 this.manualAdd.steps[step].schedule[i].main_begin.setMap(null);
-                            if(this.manualAdd.steps[step].schedule[i].main_end !== null &&
-                               this.manualAdd.steps[step].schedule[i].lat_end !== null &&
-                               this.manualAdd.steps[step].schedule[i].lng_end !== null)    //Is showed in map
-                                this.manualAdd.steps[step].schedule[i].main_end.setMap(null);
-                        }
-                    this.manualAdd.steps[step].schedule = newSchedule;
-                    this.setActivity(true);
+            }
+            else{
+                step = this.importer.resource[this.importer.editIndex].actualStep;
+                interval = Math.floor(parseInt(this.importer.resource[this.importer.editIndex].steps[step].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.importer.resource[this.importer.editIndex].steps[step].interval)) : this.manualAdd.maxInterval;
+                length = this.importer.resource[this.importer.editIndex].steps[step].schedule.length;
+                if(!isNaN(Math.floor(parseInt(this.importer.resource[this.importer.editIndex].steps[step].interval)))){
+                    this.importer.resource[this.importer.editIndex].steps[step].interval = interval;
+                    if(this.importer.resource[this.importer.editIndex].steps[step].schedule.length < interval){
+                        for(i = 0; i < interval - length; i++)
+                            this.importer.resource[this.importer.editIndex].steps[step].schedule.push({
+                                begin: "",
+                                end: "",
+                                validBegin: true,
+                                validEnd: true,
+                                textBegin: "hh:mm:ss",
+                                textEnd: "hh:mm:ss",
+                                
+                                main_begin: null,
+                                main_end: null,
+                                window_begin: null,
+                                window_end: null,
+                                lat_begin: null,
+                                lng_begin: null,
+                                lat_end: null,
+                                lng_end: null,
+                                active: false
+                            });
+                    }
+                    else if(length > interval){
+                        for(i = 0; i < length; i++)
+                            if(i < interval)
+                                newSchedule.push(this.importer.resource[this.importer.editIndex].steps[step].schedule[i]);
+                            else{
+                                if(this.importer.resource[this.importer.editIndex].steps[step].schedule[i].main_begin !== null &&
+                                    this.importer.resource[this.importer.editIndex].steps[step].schedule[i].lat_begin !== null &&
+                                    this.importer.resource[this.importer.editIndex].steps[step].schedule[i].lng_begin !== null)
+                                     this.importer.resource[this.importer.editIndex].steps[step].schedule[i].main_begin.setMap(null);
+                                if(this.importer.resource[this.importer.editIndex].steps[step].schedule[i].main_end !== null &&
+                                   this.importer.resource[this.importer.editIndex].steps[step].schedule[i].lat_end !== null &&
+                                   this.importer.resource[this.importer.editIndex].steps[step].schedule[i].lng_end !== null)    //Is showed in map
+                                    this.importer.resource[this.importer.editIndex].steps[step].schedule[i].main_end.setMap(null);
+                            }
+                        this.importer.resource[this.importer.editIndex].steps[step].schedule = newSchedule;
+                        this.setActivity(true);
+                    }
+                    if(this.importer.resource[this.importer.editIndex].steps[step].schedule.length > 0)
+                        this.setActiveInterval(0);
                 }
-                if(this.manualAdd.steps[step].schedule.length > 0)
-                    this.setActiveInterval(0);
             }
         },
         setActivity: function(auto){
-            if(!auto)
-                this.manualAdd.steps[this.manualAdd.actualStep].active = !this.manualAdd.steps[this.manualAdd.actualStep].active;
-            if(!this.manualAdd.steps[this.manualAdd.actualStep].active){
-                for(var j = 0; j < this.manualAdd.steps[this.manualAdd.actualStep].schedule.length; j++){
-                    if(this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].main_begin !== null &&
-                       this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].lat_begin !== null &&
-                       this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].lng_begin !== null)
-                        this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].main_begin.setMap(null);
-                    if(this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].main_end !== null &&
-                       this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].lat_end !== null &&
-                       this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].lng_end !== null)    //Is showed in map
-                        this.manualAdd.steps[this.manualAdd.actualStep].schedule[j].main_end.setMap(null);
+            var step, j;
+            if(this.typeSelection.type === 1){
+                step = this.manualAdd.actualStep;
+                if(!auto)
+                    this.manualAdd.steps[step].active = !this.manualAdd.steps[step].active;
+                if(!this.manualAdd.steps[step].active){
+                    for(j = 0; j < this.manualAdd.steps[step].schedule.length; j++){
+                        if(this.manualAdd.steps[step].schedule[j].main_begin !== null &&
+                           this.manualAdd.steps[step].schedule[j].lat_begin !== null &&
+                           this.manualAdd.steps[step].schedule[j].lng_begin !== null)
+                            this.manualAdd.steps[step].schedule[j].main_begin.setMap(null);
+                        if(this.manualAdd.steps[step].schedule[j].main_end !== null &&
+                           this.manualAdd.steps[step].schedule[j].lat_end !== null &&
+                           this.manualAdd.steps[step].schedule[j].lng_end !== null)    //Is showed in map
+                            this.manualAdd.steps[step].schedule[j].main_end.setMap(null);
+                    }
                 }
+                else 
+                    this.setVisibilityPosition(true); //AUTO
             }
-            else 
-                this.setVisibilityPosition(true); //AUTO
+            else{
+                step = this.importer.resource[this.importer.editIndex].actualStep;
+                if(!auto)
+                    this.importer.resource[this.importer.editIndex].steps[step].active = !this.importer.resource[this.importer.editIndex].steps[step].active;
+                if(!this.importer.resource[this.importer.editIndex].steps[step].active){
+                    for(j = 0; j < this.importer.resource[this.importer.editIndex].steps[step].schedule.length; j++){
+                        if(this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_begin !== null &&
+                           this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lat_begin !== null &&
+                           this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lng_begin !== null)
+                            this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_begin.setMap(null);
+                        if(this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_end !== null &&
+                           this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lat_end !== null &&
+                           this.importer.resource[this.importer.editIndex].steps[step].schedule[j].lng_end !== null)    //Is showed in map
+                            this.importer.resource[this.importer.editIndex].steps[step].schedule[j].main_end.setMap(null);
+                    }
+                }
+                else 
+                    this.setVisibilityPosition(true); //AUTO
+
+            }
         },
         validation: function(type, i, j, k){
             var step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
@@ -1600,7 +1677,7 @@ module.exports = new Vue({
                                             dayNumber: 2,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -1608,7 +1685,7 @@ module.exports = new Vue({
                                             dayNumber: 3,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -1616,7 +1693,7 @@ module.exports = new Vue({
                                             dayNumber: 4,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -1624,7 +1701,7 @@ module.exports = new Vue({
                                             dayNumber: 5,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -1632,7 +1709,7 @@ module.exports = new Vue({
                                             dayNumber: 6,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -1640,7 +1717,7 @@ module.exports = new Vue({
                                             dayNumber: 7,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -1648,7 +1725,7 @@ module.exports = new Vue({
                                             dayNumber: 1,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                     ]
@@ -1998,6 +2075,14 @@ module.exports = new Vue({
                     }, 250);
                 });
         },
+        actualModalPosition: function(){
+            var pos, i,
+                step = this.importer.resource[this.importer.editIndex].actualStep;
+            for(i = 0; i < this.importer.resource[this.importer.editIndex].steps[step].schedule.length; i++)
+                if(this.importer.resource[this.importer.editIndex].steps[step].schedule[i].active)
+                    pos = i;
+            return pos;
+        },
         removeMarkers: function(){
             for(var i = 0; i < this.importer.resource[this.importer.editIndex].steps.length; i++)
                 if(this.importer.resource[this.importer.editIndex].steps[i].active)
@@ -2009,15 +2094,15 @@ module.exports = new Vue({
                     }
         },
         submit: function(e){
-            var me = this;
+            var me = this,
+                i, j, k = 0, limit = 4, length,
+                first = true,
+                hmdB, hmdE,
+                error = "", total = 0,
+                valid = true,
+                emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             switch(e){
                 case "manual":
-                    var i, j, k = 0, limit = 4,
-                        first = true,
-                        hmdB, hmdE,
-                        error = "",
-                        valid = true,
-                        emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                     if(this.manualAdd.name.value === null || this.manualAdd.name.value === ""){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
@@ -2099,22 +2184,13 @@ module.exports = new Vue({
                         this.manualAdd.phone.text = "Teléfono no puede estar vacío";
                         valid = false;
                     }
-                    else if(valid && this.manualAdd.phone.value.length < 10){
+                    else if(valid && (this.manualAdd.phone.value.length < 10 || this.manualAdd.phone.value.length > 10)){
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                        BUTO.components.main.alert.description.text = "Teléfono debe contener al menos 10 dígitos.";
+                        BUTO.components.main.alert.description.text = "Teléfono debe contener 10 dígitos.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
                         this.manualAdd.phone.valid = false;
-                        this.manualAdd.phone.text = "Teléfono debe contener al menos 10 dígitos";
-                        valid = false;
-                    }
-                    else if(valid && this.manualAdd.phone.value.length > 13){
-                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                        BUTO.components.main.alert.description.text = "Teléfono debe contener como máximo 13 dígitos.";
-                        BUTO.components.main.alert.description.ok = "Aceptar";
-                        BUTO.components.main.alert.active = true;
-                        this.manualAdd.phone.valid = false;
-                        this.manualAdd.phone.text = "Teléfono debe contener como máximo 13 dígitos";
+                        this.manualAdd.phone.text = "Teléfono debe contener 10 dígitos";
                         valid = false;
                     }
                     else if(valid){
@@ -2213,7 +2289,7 @@ module.exports = new Vue({
                                 for(i = 0; i < me.manualAdd.steps.length; i++)
                                     if((me.manualAdd.steps[i].active && me.manualAdd.steps[i].schedule.length > 0) || me.manualAdd.sameConf){
                                         for(j = 0; j < me.manualAdd.steps[me.manualAdd.sameConf ? 0 : i].schedule.length; j++){
-                                            me.submitSchedule(i, j, success.body.id, first);
+                                            me.submitSchedule(i, j, null, success.body.id, first);
                                             first = false;
                                         }
                                     }
@@ -2255,35 +2331,325 @@ module.exports = new Vue({
                     }
                     break;
                 case "import":
-                    
+                    BUTO.components.main.loader.active = true;
+                    this.importer.valid = true;
+                    length = [this.importer.resource.length];
+                    for(i = 0; i < length[0]; i++){
+                        this.importer.resource[i].valid = true;
+                        total += i;
+                    }
+                    for(i = 0; i < length[0]; i++){
+                        valid = true;
+                        length[1] = this.importer.resource[i].steps.length;
+                        if(this.importer.resource[i].name.value === null || this.importer.resource[i].name.value === ""){     //No name
+                            this.importer.resource[i].name.valid = false;
+                            this.importer.resource[i].name.text = "Nombre no puede estar vacío";
+                            valid = false;
+                        }
+                        else if(this.importer.resource[i].name.value.length < 8){
+                            this.importer.resource[i].name.valid = false;
+                            if(valid){
+                                this.importer.resource[i].name.text = "Nombre debe contener al menos 8 caracteres";
+                                valid = false;
+                            }
+                        }
+                        if(this.importer.resource[i].email.value === null || this.importer.resource[i].email.value === ""){     //No name
+                            this.importer.resource[i].email.valid = false;
+                            this.importer.resource[i].email.text = "Correo electrónico no puede estar vacío";
+                            if(valid){
+                                this.importer.resource[i].name.text = "El campo correo electrónico no puede estar vacío";
+                                valid = false;
+                            }
+                        }
+                        else if(!emailTest.test(this.importer.resource[i].email.value)){
+                            this.importer.resource[i].email.valid = false;
+                            this.importer.resource[i].email.text = "Correo electrónico no tiene una forma válida";
+                            if(valid){
+                                this.importer.resource[i].name.text = "El campo correo electrónico no tiene una forma válida";
+                                valid = false;
+                            }
+                        }
+                        if(this.importer.resource[i].pass.value === null || this.importer.resource[i].pass.value === ""){     //No name
+                            this.importer.resource[i].pass.valid = false;
+                            this.importer.resource[i].pass.text = "Contraseña no puede estar vacío";
+                            if(valid){
+                                this.importer.resource[i].name.text = "El campo contraseña no puede estar vacío";
+                                valid = false;
+                            }
+                        }
+                        else if(this.importer.resource[i].pass.value.length < 8){
+                            this.importer.resource[i].pass.valid = false;
+                            this.importer.resource[i].pass.text = "Contraseña debe contener al menos 8 caracteres";
+                            if(valid){
+                                this.importer.resource[i].name.text = "El campo contraseña debe contener al menos 8 caracteres";
+                                valid = false;
+                            }
+                        }
+                        if(this.importer.resource[i].repass.value === null || this.importer.resource[i].repass.value === ""){     //No name
+                            this.importer.resource[i].repass.valid = false;
+                            this.importer.resource[i].repass.text = "Confirmar contraseña no puede estar vacío";
+                            if(valid){
+                                this.importer.resource[i].name.text = "El campo confirmar contraseña no puede estar vacío";
+                                valid = false;
+                            }
+                        }
+                        else if(this.importer.resource[i].repass.value !== this.importer.resource[i].pass.value){
+                            this.importer.resource[i].repass.valid = false;
+                            this.importer.resource[i].repass.text = "Las contraseñas no coinciden";
+                            if(valid){
+                                this.importer.resource[i].name.text = "Los campos de contraseñas no coinciden";
+                                valid = false;
+                            }
+                        }
+                        if(this.importer.resource[i].phone.value === null || this.importer.resource[i].phone.value === ""){     //No name
+                            this.importer.resource[i].phone.valid = false;
+                            this.importer.resource[i].phone.text = "Teléfono no puede estar vacío";
+                            if(valid){
+                                this.importer.resource[i].name.text = "El campo teléfono no puede estar vacío";
+                                valid = false;
+                            }
+                        }
+                        else if(this.importer.resource[i].phone.value.length < 10 || this.importer.resource[i].phone.value.length > 10){
+                            this.importer.resource[i].phone.valid = false;
+                            this.importer.resource[i].phone.text = "Teléfono debe contener 10 dígitos";
+                            if(valid){
+                                this.importer.resource[i].name.text = "El campo teléfono debe contener 10 dígitos";
+                                valid = false;
+                            }
+                        }
+                        if(valid)
+                            for(j = 0; j < length[1]; j++)
+                                if(this.importer.resource[i].steps[j].active){
+                                    length[2] = this.importer.resource[i].steps[j].schedule.length;
+                                    for(k = 0; k < length[2]; k++)
+                                        if((this.importer.resource[i].steps[j].schedule[k].main_begin === null ||                  //No position
+                                            this.importer.resource[i].steps[j].schedule[k].lat_begin === null ||
+                                            this.importer.resource[i].steps[j].schedule[k].lng_begin === null ||
+                                            this.importer.resource[i].steps[j].schedule[k].main_end === null ||                  //No position
+                                            this.importer.resource[i].steps[j].schedule[k].lat_end === null ||
+                                            this.importer.resource[i].steps[j].schedule[k].lng_end === null) &&
+                                            valid){
+                                            this.importer.resource[i].name.text = "Debes escoger las ubicaciones de inicio y final del intervalo " + (k + 1) + " para el día " + this.importer.resource[i].steps[j].text;
+                                            valid = false;
+                                        }
+                                }
+                        for(j = 0; j < length[1]; j++)
+                            if(this.importer.resource[i].steps[j].active){
+                                length[2] = this.importer.resource[i].steps[j].schedule.length;
+                                for(k = 0; k < length[2]; k++){
+                                    hmdB = this.importer.resource[i].steps[j].schedule[k].begin.split(":");
+                                    hmdE = this.importer.resource[i].steps[j].schedule[k].end.split(":");
+                                    this.importer.resource[i].steps[j].schedule[k].validBegin = true;
+                                    this.importer.resource[i].steps[j].schedule[k].validEnd = true;
+                                    this.importer.resource[i].steps[j].schedule[k].textBegin = "hh:mm:ss";
+                                    this.importer.resource[i].steps[j].schedule[k].textEnd = "hh:mm:ss";
+                                    if(this.importer.resource[i].steps[j].schedule[k].begin === ""){
+                                        this.importer.resource[i].steps[j].schedule[k].validBegin = false;
+                                        this.importer.resource[i].steps[j].schedule[k].textBegin = "El inicio del intervalo no puede estar vacío";
+                                        if(valid){
+                                            this.importer.resource[i].name.text = "Errores en horarios del día " + this.importer.resource[i].steps[j].text;
+                                            valid = false;
+                                        }
+                                    }
+                                    if(this.importer.resource[i].steps[j].schedule[k].end === ""){
+                                        this.importer.resource[i].steps[j].schedule[k].validEnd = false;
+                                        this.importer.resource[i].steps[j].schedule[k].textEnd = "El final del intervalo no puede estar vacío";
+                                        if(valid){
+                                            this.importer.resource[i].name.text = "Errores en horarios del día " + this.importer.resource[i].steps[j].text;
+                                            valid = false;
+                                        }
+                                    }
+                                    if(this.importer.resource[i].steps[j].schedule[k].begin !== "" &&
+                                       (this.importer.resource[i].steps[j].schedule[k].begin > "23:59:59" ||
+                                        hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
+                                        this.importer.resource[i].steps[j].schedule[k].validBegin = false;
+                                        this.importer.resource[i].steps[j].schedule[k].textBegin = "El inicio del intervalo no tiene un formato apropiado";
+                                        if(valid){
+                                            this.importer.resource[i].name.text = "Errores en horarios del día " + this.importer.resource[i].steps[j].text;
+                                            valid = false;
+                                        }
+                                    }
+                                    if(this.importer.resource[i].steps[j].schedule[k].end !== "" &&
+                                       (this.importer.resource[i].steps[j].schedule[k].end > "23:59:59" ||
+                                        hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
+                                        this.importer.resource[i].steps[j].schedule[k].validEnd = false;
+                                        this.importer.resource[i].steps[j].schedule[k].textEnd = "El final del intervalo no tiene un formato apropiado";
+                                        if(valid){
+                                            this.importer.resource[i].name.text = "Errores en horarios del día " + this.importer.resource[i].steps[j].text;
+                                            valid = false;
+                                        }
+                                    }
+                                    if(this.importer.resource[i].steps[j].schedule[k].begin !== "" &&
+                                       this.importer.resource[i].steps[j].schedule[k].end !== "" &&
+                                       this.importer.resource[i].steps[j].schedule[k].begin >= this.importer.resource[i].steps[j].schedule[k].end){
+                                        this.importer.resource[i].steps[j].schedule[k].validBegin = false;
+                                        this.importer.resource[i].steps[j].schedule[k].validEnd = false;
+                                        this.importer.resource[i].steps[j].schedule[k].textBegin = "El inicio del intervalo debe ser menor al final del mismo";
+                                        this.importer.resource[i].steps[j].schedule[k].textEnd = "El final del intervalo debe ser mayor al inicio del mismo";
+                                        if(valid){
+                                            this.importer.resource[i].name.text = "Errores en horarios del día " + this.importer.resource[i].steps[j].text;
+                                            valid = false;
+                                        }
+                                    }
+                                    if(k > 0 &&
+                                       this.importer.resource[i].steps[j].schedule[k].begin !== "" &&
+                                       this.importer.resource[i].steps[j].schedule[k - 1].end !== "" &&
+                                       this.importer.resource[i].steps[j].schedule[k].begin <= this.importer.resource[i].steps[j].schedule[k - 1].end){
+                                        this.importer.resource[i].steps[j].schedule[k].validBegin = false;
+                                        this.importer.resource[i].steps[j].schedule[k - 1].validEnd = false;
+                                        this.importer.resource[i].steps[j].schedule[k].textBegin = "El inicio del intervalo debe ser mayor al final del intervalo anterior";
+                                        this.importer.resource[i].steps[j].schedule[k - 1].textEnd = "El final del intervalo debe ser menor al inicio del intervalo posterior";
+                                        if(valid){
+                                            this.importer.resource[i].name.text = "Errores en horarios del día " + this.importer.resource[i].steps[j].text;
+                                            valid = false;
+                                        }
+                                    }
+                                }
+                            }
+                        this.importer.valid *= valid;
+                        this.importer.resource[i].valid = valid;
+                        this.submitResource(i, total);
+                    }
                     break;
             }
         },
-        submitSchedule: function(i, j, id, first){
-            var me = this;
-            if(first)
-                this.reset("resource");
-            this.models.empleadoHorario.post({
-                delimiters: id,
-                params: {
-                    dia: this.manualAdd.steps[i].dayNumber,
-                    hora_inicio: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].begin,
-                    hora_fin: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].end,
-                    lat_inicio: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].lat_begin,
-                    lat_fin: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].lat_end,
-                    lng_inicio: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].lng_begin,
-                    lng_fin: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].lng_end
+        submitResource: function(i, total){
+            var me = this,
+                j, k;
+            if(this.importer.resource[i].valid){
+                this.models.usuarioEmpleado.post({
+                    params: {
+                        nombre: this.importer.resource[i].name.value,
+                        correo: this.importer.resource[i].email.value,
+                        pass: this.importer.resource[i].pass.value,
+                        pass_repeat: this.importer.resource[i].repass.value,
+                        telefono: this.importer.resource[i].phone.value
+                    }
+                },
+                function(success){
+                    me.importer.total += i;
+                    for(j = 0; j < me.importer.resource[i].steps.length; j++){
+                        if(me.importer.resource[i].steps[j].schedule.length > 0)
+                            for(k = 0; k < me.importer.resource[i].steps[j].schedule.length; k++)
+                                me.submitSchedule(i, j, k, success.body.id, null, total);
+                        else
+                            me.submitSchedule(i, j, -1, success.body.id, null, total);
+                    }
+                    if(me.importer.total === total){
+                        BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
+                        if(me.importer.valid){
+                            BUTO.components.main.alert.description.title = "Importación de datos completada";
+                            BUTO.components.main.alert.description.text = "Los registros ya han sido agregados.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                        }
+                        else{
+                            BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                            BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
+                            BUTO.components.main.alert.description.ok = "Aceptar";
+                            BUTO.components.main.alert.active = true;
+                        }
+                    }
+                },
+                function(error){
+                    me.importer.total += i;
+                    me.importer.valid = false;
+                    me.importer.resource[i].valid = false;
+                    if(me.importer.total === total){
+                        BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
+                        BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                        BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        setTimeout(function(){
+                            me.reset("import");
+                        }, 250);
+                    }
+                    me.importer.resource[i].name.valid = false;
+                    me.importer.resource[i].name.text = error.body[0].message;
+                }); 
+            }
+            else{
+                this.importer.total += i;
+                for(j = 0; j < this.importer.resource[i].steps.length; j++)
+                    for(k = 0; k < this.importer.resource[i].steps[j].schedule.length; k++){
+                        this.submitSchedule(i, j, k, null, null, total);
+                    }
+                if(this.importer.total === total){
+                    BUTO.components.main.children.recursosRegistrados.grid.updatePagination();
+                    setTimeout(function(){
+                        me.reset("import");
+                    }, 250);
                 }
-            },
-            function(success){
-                me.reset("schedule", i, j);
-            },
-            function(error){
-                console.log(error);
-            });
+            }
+        },
+        submitSchedule: function(i, j, k, id, first, total){
+            var me = this;
+            if(this.typeSelection.type === 1){
+                if(first)
+                    this.reset("resource");
+                this.models.empleadoHorario.post({
+                    delimiters: id,
+                    params: {
+                        dia: this.manualAdd.steps[i].dayNumber,
+                        hora_inicio: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].begin,
+                        hora_fin: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].end,
+                        lat_inicio: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].lat_begin,
+                        lat_fin: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].lat_end,
+                        lng_inicio: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].lng_begin,
+                        lng_fin: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].lng_end
+                    }
+                },
+                function(success){
+                    me.reset("schedule", i, j);
+                },
+                function(error){
+                    console.log(error);
+                });
+            }
+            else{
+                if(this.importer.resource[i].valid &&
+                   this.importer.resource[i].steps[j].active)
+                    this.models.empleadoHorario.post({
+                        delimiters: id,
+                        params: {
+                            dia: this.importer.resource[i].steps[j].dayNumber,
+                            hora_inicio: this.importer.resource[i].steps[j].schedule[k].begin,
+                            hora_fin: this.importer.resource[i].steps[j].schedule[k].end,
+                            lat_inicio: this.importer.resource[i].steps[j].schedule[k].lat_begin,
+                            lat_fin: this.importer.resource[i].steps[j].schedule[k].lat_end,
+                            lng_inicio: this.importer.resource[i].steps[j].schedule[k].lng_begin,
+                            lng_fin: this.importer.resource[i].steps[j].schedule[k].lng_end
+                        }
+                    },
+                    function(success){
+                        
+                    },
+                    function(error){
+                        console.log(error);
+                    });
+                if(this.importer.total === total &&
+                    j === this.importer.resource[i].steps.length - 1 &&
+                    k === this.importer.resource[i].steps[j].schedule.length - 1)
+                    setTimeout(function(){
+                        me.reset("import");
+                    }, 250);
+            }
         },
         reset: function(a, i, j){
+            var length, newSteps = [];
             switch(a){
+                case "import":
+                    length = this.importer.resource.length;
+                    this.importer.editIndex = null;
+                    for(i = 0; i < this.importer.resource.length; i++)
+                        if(!this.importer.resource[i].valid)
+                            newSteps.push(this.importer.resource[i]);
+                    this.importer.resource = newSteps;
+                    this.importer.total = 0;
+                    this.importer.valid = true;
+                    BUTO.components.main.loader.active = false;
+                    break;
                 case "resource":
                     this.manualAdd.name.value = null;
                     this.manualAdd.email.value = null;
@@ -2318,49 +2684,58 @@ module.exports = new Vue({
                         this.reset("all");
                     break;
                 case "all":
-                    this.manualAdd.name.value = null;
-                    this.manualAdd.name.valid = true;
-                    this.manualAdd.email.value = null;
-                    this.manualAdd.email.valid = true;
-                    this.manualAdd.pass.value = null;
-                    this.manualAdd.pass.valid = true;
-                    this.manualAdd.repass.value = null;
-                    this.manualAdd.repass.valid = true;
-                    this.manualAdd.phone.value = null;
-                    this.manualAdd.phone.valid = true;
-                    this.manualAdd.actualStep = 0;
-                    this.manualAdd.allPosVisible = 0;
-                    this.manualAdd.sameConf = false;
-                    
-                    for(i = 0; i < this.manualAdd.steps.length; i++){
-                        for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
-                            if(this.manualAdd.steps[i].schedule[j].main_begin !== null)
-                                this.manualAdd.steps[i].schedule[j].main_begin.setMap(null);
-                            if(this.manualAdd.steps[i].schedule[j].main_end !== null)
-                                this.manualAdd.steps[i].schedule[j].main_end.setMap(null);
-                        }
-                        this.manualAdd.steps[i].active = true;
-                        this.manualAdd.steps[i].interval = 1;
-                        this.manualAdd.steps[i].seen = (this.manualAdd.steps[i].dayNumber === 2) ? true : false;
-                        this.manualAdd.steps[i].schedule = [];
-                        this.manualAdd.steps[i].schedule.push({
-                            begin: "",
-                            end: "",
-                            validBegin: true,
-                            validEnd: true,
-                            textBegin: "hh:mm:ss",
-                            textEnd: "hh:mm:ss",
+                    if(this.typeSelection.type === 1){
+                        this.manualAdd.name.value = null;
+                        this.manualAdd.name.valid = true;
+                        this.manualAdd.email.value = null;
+                        this.manualAdd.email.valid = true;
+                        this.manualAdd.pass.value = null;
+                        this.manualAdd.pass.valid = true;
+                        this.manualAdd.repass.value = null;
+                        this.manualAdd.repass.valid = true;
+                        this.manualAdd.phone.value = null;
+                        this.manualAdd.phone.valid = true;
+                        this.manualAdd.actualStep = 0;
+                        this.manualAdd.allPosVisible = 0;
+                        this.manualAdd.sameConf = false;
                         
-                            main_begin: null,
-                            main_end: null,
-                            window_begin: null,
-                            window_end: null,
-                            lat_begin: null,
-                            lng_begin: null,
-                            lat_end: null,
-                            lng_end: null,
-                            active: true
-                        });
+                        for(i = 0; i < this.manualAdd.steps.length; i++){
+                            for(j = 0; j < this.manualAdd.steps[i].schedule.length; j++){
+                                if(this.manualAdd.steps[i].schedule[j].main_begin !== null)
+                                    this.manualAdd.steps[i].schedule[j].main_begin.setMap(null);
+                                if(this.manualAdd.steps[i].schedule[j].main_end !== null)
+                                    this.manualAdd.steps[i].schedule[j].main_end.setMap(null);
+                            }
+                            this.manualAdd.steps[i].active = true;
+                            this.manualAdd.steps[i].interval = 1;
+                            this.manualAdd.steps[i].seen = (this.manualAdd.steps[i].dayNumber === 2) ? true : false;
+                            this.manualAdd.steps[i].schedule = [];
+                            this.manualAdd.steps[i].schedule.push({
+                                begin: "",
+                                end: "",
+                                validBegin: true,
+                                validEnd: true,
+                                textBegin: "hh:mm:ss",
+                                textEnd: "hh:mm:ss",
+                            
+                                main_begin: null,
+                                main_end: null,
+                                window_begin: null,
+                                window_end: null,
+                                lat_begin: null,
+                                lng_begin: null,
+                                lat_end: null,
+                                lng_end: null,
+                                active: true
+                            });
+                        }
+                    }
+                    else{
+                        this.importer.editIndex = null;
+                        this.importer.first = true;
+                        this.importer.resource = newSteps;
+                        this.importer.total = 0;
+                        this.importer.valid = true;
                     }
                     break;
             }

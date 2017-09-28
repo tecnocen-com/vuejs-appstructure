@@ -604,26 +604,56 @@ module.exports = new Vue({
         setInterval: function(){
             var i,
                 newSchedule = [],
-                interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
-                length = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length;
-            if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)))){
-                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval = interval;
-                if(length < interval){
-                    for(i = 0; i < interval - length; i++)
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
-                            begin: "",
-                            end: "",
-                            validBegin: true,
-                            validEnd: true,
-                            textBegin: "hh:mm:ss",
-                            textEnd: "hh:mm:ss",
-                            id: null
-                        });
+                interval,
+                length,
+                step;
+            if(this.typeSelection.type === 1){
+                step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+                interval = Math.floor(parseInt(this.manualAdd.steps[step].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[step].interval)) : this.manualAdd.maxInterval;
+                length = this.manualAdd.steps[step].schedule.length;
+                if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[step].interval)))){
+                    this.manualAdd.steps[step].interval = interval;
+                    if(length < interval){
+                        for(i = 0; i < interval - length; i++)
+                            this.manualAdd.steps[step].schedule.push({
+                                begin: "",
+                                end: "",
+                                validBegin: true,
+                                validEnd: true,
+                                textBegin: "hh:mm:ss",
+                                textEnd: "hh:mm:ss",
+                                id: null
+                            });
+                    }
+                    else if(length > interval){
+                        for(i = 0; i < interval; i++)
+                            newSchedule.push(this.manualAdd.steps[step].schedule[i]);
+                        this.manualAdd.steps[step].schedule = newSchedule;
+                    }
                 }
-                else if(length > interval){
-                    for(i = 0; i < interval; i++)
-                        newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
+            }
+            else{
+                step = this.importer.store[this.importer.editIndex].actualStep;
+                interval = Math.floor(parseInt(this.importer.store[this.importer.editIndex].steps[step].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.importer.store[this.importer.editIndex].steps[step].interval)) : this.manualAdd.maxInterval;
+                length = this.importer.store[this.importer.editIndex].steps[step].schedule.length;
+                if(!isNaN(Math.floor(parseInt(this.importer.store[this.importer.editIndex].steps[step].interval)))){
+                    this.importer.store[this.importer.editIndex].steps[step].interval = interval;
+                    if(length < interval){
+                        for(i = 0; i < interval - length; i++)
+                            this.importer.store[this.importer.editIndex].steps[step].schedule.push({
+                                begin: "",
+                                end: "",
+                                validBegin: true,
+                                validEnd: true,
+                                textBegin: "hh:mm:ss",
+                                textEnd: "hh:mm:ss"
+                            });
+                    }
+                    else if(length > interval){
+                        for(i = 0; i < interval; i++)
+                            newSchedule.push(this.importer.store[this.importer.editIndex].steps[step].schedule[i]);
+                        this.importer.store[this.importer.editIndex].steps[step].schedule = newSchedule;
+                    }
                 }
             }
         },
@@ -806,7 +836,7 @@ module.exports = new Vue({
                                             dayNumber: 2,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -814,7 +844,7 @@ module.exports = new Vue({
                                             dayNumber: 3,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -822,7 +852,7 @@ module.exports = new Vue({
                                             dayNumber: 4,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -830,7 +860,7 @@ module.exports = new Vue({
                                             dayNumber: 5,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -838,7 +868,7 @@ module.exports = new Vue({
                                             dayNumber: 6,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -846,7 +876,7 @@ module.exports = new Vue({
                                             dayNumber: 7,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -854,7 +884,7 @@ module.exports = new Vue({
                                             dayNumber: 1,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                     ]
@@ -1352,8 +1382,12 @@ module.exports = new Vue({
                     for(k = 0; k < this.importer.store[i].steps[j].schedule.length; k++){
                         this.submitSchedule(i, j, k, null, null, total);
                     }
-                if(this.importer.total === total)
+                if(this.importer.total === total){
                     BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
+                    setTimeout(function(){
+                        me.reset("import");
+                    }, 250);
+                }
             }
         },
         submitSchedule: function(i, j, k, id, first, total){
@@ -1361,38 +1395,20 @@ module.exports = new Vue({
             if(this.typeSelection.type === 1){
                 if(first)
                     this.reset("store");
-                if(this.manualAdd.sameConf){
-                    this.models.sucursalHorario.post({
-                        delimiters: id,
-                        params: {
-                            dia: this.manualAdd.steps[i].dayNumber,
-                            hora_inicio: this.manualAdd.steps[0].schedule[j].begin,
-                            hora_fin: this.manualAdd.steps[0].schedule[j].end
-                        }
-                    },
-                    function(success){
-                        me.reset("schedule", i, j);
-                    },
-                    function(error){
-                        console.log(error);
-                    });
-                }
-                else{
-                    this.models.sucursalHorario.post({
-                        delimiters: id,
-                        params: {
-                            dia: this.manualAdd.steps[i].dayNumber,
-                            hora_inicio: this.manualAdd.steps[i].schedule[j].begin,
-                            hora_fin: this.manualAdd.steps[i].schedule[j].end
-                        }
-                    },
-                    function(success){
-                        me.reset("schedule", i, j);
-                    },
-                    function(error){
-                        console.log(error);
-                    });
-                }
+                this.models.sucursalHorario.post({
+                    delimiters: id,
+                    params: {
+                        dia: this.manualAdd.steps[i].dayNumber,
+                        hora_inicio: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].begin,
+                        hora_fin: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].end
+                    }
+                },
+                function(success){
+                    me.reset("schedule", i, j);
+                },
+                function(error){
+                    console.log(error);
+                });
             }
             else{
                 if(this.importer.store[i].valid &&
