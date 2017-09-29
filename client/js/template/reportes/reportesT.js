@@ -1,9 +1,204 @@
 module.exports = `
-    <div>
-        <h1>Reportes</h1>
-        <span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=use_case_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fuse_case_diagram.xml" >Diagrama de casos de uso</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=activity_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Factivity_diagram.xml" >Diagrama de actividades</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=sequence_diagram.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fsequence_diagram.xml" >Diagrama de secuencia</a></span>
-        <br><span><a target="_blank" href="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=mock_up.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fonca-vega%2Frutas_web%2Fmaster%2Fmock_up.xml" >Mock up</a></span>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Filtro</h5>
+                </div>
+                <div class="panel-body">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group text-center">
+								<div class="checker border-indigo-600 text-indigo-800">
+									<span :class="config.filter.type === false ? 'checked' : ''">
+										<input v-on:click="config.filter.type = false; config.initInputDate()" type="checkbox" class="control-custom" checked="checked">
+									</span>
+								</div>
+								<span class="help-block">Filtrar por rango</span>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group text-center">
+								<div class="checker border-indigo-600 text-indigo-800">
+									<span :class="config.filter.type === true ? 'checked' : ''">
+										<input v-on:click="config.filter.type = true; config.initInputDate()" type="checkbox" class="control-custom" checked="checked">
+									</span>
+								</div>
+								<span class="help-block">Filtrar manualmente</span>
+							</div>
+						</div>
+					</div>
+					<div style="height: 10px;"></div>
+                    <div v-if="config.filter.type" class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label class="control-label col-lg-2">Fechas</label>
+								<div class="col-lg-10">
+									<input id="random" class="hidden" type="text" onkeypress="return false">
+									<input readonly="readonly" id="randomShown" v-model="config.filter.randomDate.text" v-on:click="config.handleMulti(true)" name="Fechas" placeholder="Fechas" class="form-control" type="text">
+								</div>
+							</div>
+						</div>
+                    </div>
+					<div v-else class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-lg-2">Fecha de inicio</label>
+								<div class="col-lg-10">
+									<input readonly="readonly" id="begin" v-model="config.filter.rangeDate.begin.value" name="Fecha de inicio" placeholder="Fecha de inicio" class="form-control" type="text">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-lg-2">Fecha de término</label>
+								<div class="col-lg-10">
+									<input readonly="readonly" :disabled="config.filter.rangeDate.begin.value === null" id="end" v-model="config.filter.rangeDate.end.value" name="Fecha de término" placeholder="Fecha de término" class="form-control" type="text">
+								</div>
+							</div>
+						</div>
+                    </div>
+					<div style="height: 10px;"></div>
+					<div v-if="(config.filter.randomDate.value.length > 0 && config.filter.type) || (config.filter.rangeDate.begin.value !== null && config.filter.rangeDate.end.value !== null && !config.filter.type)" class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="steps-basic wizard clearfix">
+									<div class="actions clearfix">
+										<ul role="menu" aria-label="Pagination">
+											<li>
+												<a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.initTemplate(0, 1);" role="menuitem">Filtrar</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+        <div v-if="config.step === 1" class="col-sm-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title text-center">Proyecciones</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12 grid-relation">
+                            <table class="table table-bordered">
+                                <tbody class="body-class">
+                                    <tr v-for="(proyection, proyectionIndex) in config.proyection"
+                                        :class="proyection.linked ? 'selected' : proyection.selected ? 'link-row-select' : ''"
+                                        class="grid-row-customized grid-row-highlight-customized">
+                                        <td class="col-md-1">
+                                            {{proyection.name}}
+                                            <div class="pull-right">
+                                                <a href="#" v-on:click.prevent="config.setLink('see', proyectionIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                    <i class="icon-eye" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" v-on:click.prevent="config.setLink('add', proyectionIndex)" :class="proyection.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar" data-toggle="modal" data-target="#add">
+                                                    <i class="icon-link" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <nav class="pull-right">
+                            <ul class="pagination">
+                                <li>
+                                    <span><b>Mostrando {{config.proyection.length}} de {{config.data.page.proyection.totalCount}} filas en la página {{config.data.page.proyection.currentPage}} de {{config.data.page.proyection.pageCount}}.</b></span>
+                                </li>
+                                <li  :class="config.data.page.proyection.currentPage === 1 ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(1, 1);">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <template v-if="config.data.page.proyection.pageCount <= 3">
+                                    <li v-for="page in config.data.page.proyection.pageCount" :class="page === config.data.page.proyection.currentPage ? 'active' : ''">
+                                        <a href="#" v-on:click.prevent="page === config.data.page.proyection.currentPage ? '' : config.init(1, page);">
+                                            {{page}}
+                                        </a>
+                                    </li>
+                                </template>
+                                <template v-else>
+                                    <template v-if="config.data.page.proyection.currentPage < 3">
+                                        <li :class="config.data.page.proyection.currentPage === 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 1 ? '' : config.init(1, 1);">
+                                                1
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.proyection.currentPage === 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 2 ? '' : config.init(1, 2);">
+                                                2
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.proyection.currentPage === 3 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 3 ? '' : config.init(1, 3);">
+                                                3
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                    <template v-else-if="config.data.page.proyection.currentPage > config.data.page.proyection.pageCount - 2">
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li :class="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 2 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 2 ? '' : config.init(1, config.data.page.proyection.pageCount - 2);">
+                                                {{config.data.page.proyection.pageCount - 2}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 1 ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 1 ? '' : config.init(1, config.data.page.proyection.pageCount - 1);">
+                                                {{config.data.page.proyection.pageCount - 1}}
+                                            </a>
+                                        </li>
+                                        <li :class="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount ? 'active' : ''">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount ? '' : config.init(1, config.data.page.proyection.pageCount);">
+                                                {{config.data.page.proyection.pageCount}}
+                                            </a>
+                                        </li>
+                                    </template>
+                                    <template v-else>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.proyection.currentPage - 1)">
+                                                {{config.data.page.proyection.currentPage - 1}}
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#" v-on:click.prevent>
+                                                {{config.data.page.proyection.currentPage}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.proyection.currentPage + 1)">
+                                                {{config.data.page.proyection.currentPage + 1}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span aria-hidden="true">...</span>
+                                        </li>
+                                    </template>
+                                </template>
+                                <li :class="config.data.page.proyection.pageCount === config.data.page.proyection.currentPage ? 'not-active disabled' : ''">
+                                    <a href="#" v-on:click.prevent="config.init(1, config.data.page.proyection.pageCount);">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 `;

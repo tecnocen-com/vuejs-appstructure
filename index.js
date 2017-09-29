@@ -76,6 +76,8 @@ app.use('/build', express.static(__dirname + '/build'));
 app.use('/js', express.static(__dirname + '/node_modules/vue/dist'));
 app.use('/js', express.static(__dirname + '/node_modules/vue-resource/dist'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
+app.use('/js', express.static(__dirname + '/node_modules/jquery-ui-dist'));
+app.use('/js', express.static(__dirname + '/node_modules/jquery-ui-multidatespicker'));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 

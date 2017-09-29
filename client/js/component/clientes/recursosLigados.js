@@ -6,7 +6,7 @@ module.exports = new Vue({
             name: null
         },
         data: {
-            perPage: 30,
+            perPage: 15,
             search: {
                 resource: "",
                 resourceLinked: ""
