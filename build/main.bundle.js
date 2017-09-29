@@ -37852,12 +37852,12 @@ module.exports = `
         <div :class="config.alterLinkDef.masive.config.active === 0 ? '' : 'active'" class="link-button-container">
             <div class="row">
                 <div class="col-sm-6 text-center button">
-                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('remove')" v-if="config.alterLinkDef.masive.config.active === 1" href="#">
+                    <a v-on:click.prevent @dragover.prevent @drop.prevent="config.setMasive('remove')" v-if="config.alterLinkDef.masive.config.active === 1" href="#">
                         <img src="/image/remove.png">
                     </a>
                 </div>
                 <div class="col-sm-6 text-center button">
-                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('add')" v-if="config.alterLinkDef.masive.config.active === 2" href="#">
+                    <a v-on:click.prevent @dragover.prevent @drop.prevent="config.setMasive('add')" v-if="config.alterLinkDef.masive.config.active === 2" href="#">
                         <img src="/image/add.png">
                     </a>
                 </div>
@@ -38282,12 +38282,12 @@ module.exports = `
         <div :class="config.alterLinkDef.masive.config.active === 0 ? '' : 'active'" class="link-button-container">
             <div class="row">
                 <div class="col-sm-6 text-center button">
-                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('remove')" v-if="config.alterLinkDef.masive.config.active === 1" href="#">
+                    <a v-on:click.prevent @dragover.prevent @drop.prevent="config.setMasive('remove')" v-if="config.alterLinkDef.masive.config.active === 1" href="#">
                         <img src="/image/remove.png">
                     </a>
                 </div>
                 <div class="col-sm-6 text-center button">
-                    <a v-on:click.prevent @dragover.prevent @drop="config.setMasive('add')" v-if="config.alterLinkDef.masive.config.active === 2" href="#">
+                    <a v-on:click.prevent @dragover.prevent @drop.prevent="config.setMasive('add')" v-if="config.alterLinkDef.masive.config.active === 2" href="#">
                         <img src="/image/add.png">
                     </a>
                 </div>
