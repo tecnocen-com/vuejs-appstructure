@@ -80,24 +80,38 @@ module.exports = `
         <div v-if="config.step === 1" class="col-sm-12">
             <div class="panel panel-flat">
                 <div class="panel-heading">
-                    <h5 class="panel-title text-center">Proyecciones</h5>
+                    <h5 class="panel-title">Proyecciones</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12 grid-relation">
                             <table class="table table-bordered">
+								<thead class="table-inverse">
+									<tr>
+										<th class="text-center"><b>Ruta</b></th>
+										<th class="text-center"><b>Fecha</b></th>
+										<th class="text-center"><b>Día</b></th>
+										<th class="text-center"><b>Empleado</b></th>
+									</tr>
+								</thead>
                                 <tbody class="body-class">
                                     <tr v-for="(proyection, proyectionIndex) in config.proyection"
                                         :class="proyection.linked ? 'selected' : proyection.selected ? 'link-row-select' : ''"
                                         class="grid-row-customized grid-row-highlight-customized">
                                         <td class="col-md-1">
-                                            {{proyection.name}}
-                                            <div class="pull-right">
+                                            {{proyection.route.name}}
+                                        </td>
+										<td class="col-md-1">
+                                            {{proyection.date}}
+                                        </td>
+										<td class="col-md-1">
+                                            {{proyection.day}}
+                                        </td>
+										<td class="col-md-1">
+                                            {{proyection.resource.name}}
+											<div class="pull-right">
                                                 <a href="#" v-on:click.prevent="config.setLink('see', proyectionIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
                                                     <i class="icon-eye" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="#" v-on:click.prevent="config.setLink('add', proyectionIndex)" :class="proyection.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar" data-toggle="modal" data-target="#add">
-                                                    <i class="icon-link" aria-hidden="true"></i>
                                                 </a>
                                             </div>
                                         </td>

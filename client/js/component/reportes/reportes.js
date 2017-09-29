@@ -124,6 +124,7 @@ module.exports = new Vue({
             }
 			this.proyection = [];
 			params["per-page"] = this.data.perPage;
+			params.sort = "fecha";
 			params.page = this.data.page.proyection.currentPage;
 			params.expand = "cliente, empleadoHorario.empleado, punto.ruta, punto.sucursal";
 			if(this.filter.type){		//Range
@@ -160,9 +161,9 @@ module.exports = new Vue({
 				j = length;
 				this.proyection.push({
 					id: e.proyeccion_id,
-					employee: {
+					resource: {
 						id: e._embedded.empleadoHorario._embedded.empleado.id,
-						name: e._embedded.empleadoHorario._embedded.empleado.name,
+						name: e._embedded.empleadoHorario._embedded.empleado.nombre,
 						idSchedule: e._embedded.empleadoHorario.id,
 						schedule: e._embedded.empleadoHorario.hora_inicio + " - " + e._embedded.empleadoHorario.hora_fin
 					},
@@ -191,29 +192,6 @@ module.exports = new Vue({
 			this.filter.rangeDate.begin.value = null;
 			this.filter.rangeDate.end.value = null;
 			this.step = 0;
-		},
-		converter: function(type, val){
-            var value;
-            switch(type){
-                case "time":    //val is string, want return as time
-                    if(val){
-                        val = val.split(":");
-                        value = 0;
-                        value += parseInt(val[0]) * 3600;
-                        value += parseInt(val[1]) * 60;
-                        value += parseInt(val[2]);
-                    }
-                    break;
-                case "string":  //val is time, want return as string
-                    var hours = Math.floor( val / 3600 );
-                    var minutes = Math.floor( val / 60 - (hours * 60) );
-                    var seconds = val - (hours * 3600) - (minutes * 60);
-                    value = hours < 10 ? '0' + hours : hours;
-                    value += ":" + (minutes < 10 ? '0' + minutes : minutes);
-                    value += ":" + (seconds < 10 ? '0' + seconds : seconds);
-                    break;
-            }
-            return value;
-        }
+		}
     }
 });

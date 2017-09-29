@@ -42321,24 +42321,38 @@ module.exports = `
         <div v-if="config.step === 1" class="col-sm-12">
             <div class="panel panel-flat">
                 <div class="panel-heading">
-                    <h5 class="panel-title text-center">Proyecciones</h5>
+                    <h5 class="panel-title">Proyecciones</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12 grid-relation">
                             <table class="table table-bordered">
+								<thead class="table-inverse">
+									<tr>
+										<th class="text-center"><b>Ruta</b></th>
+										<th class="text-center"><b>Fecha</b></th>
+										<th class="text-center"><b>Día</b></th>
+										<th class="text-center"><b>Empleado</b></th>
+									</tr>
+								</thead>
                                 <tbody class="body-class">
                                     <tr v-for="(proyection, proyectionIndex) in config.proyection"
                                         :class="proyection.linked ? 'selected' : proyection.selected ? 'link-row-select' : ''"
                                         class="grid-row-customized grid-row-highlight-customized">
                                         <td class="col-md-1">
-                                            {{proyection.name}}
-                                            <div class="pull-right">
+                                            {{proyection.route.name}}
+                                        </td>
+										<td class="col-md-1">
+                                            {{proyection.date}}
+                                        </td>
+										<td class="col-md-1">
+                                            {{proyection.day}}
+                                        </td>
+										<td class="col-md-1">
+                                            {{proyection.resource.name}}
+											<div class="pull-right">
                                                 <a href="#" v-on:click.prevent="config.setLink('see', proyectionIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
                                                     <i class="icon-eye" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="#" v-on:click.prevent="config.setLink('add', proyectionIndex)" :class="proyection.linked ? 'not-active' : ''" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ligar" data-toggle="modal" data-target="#add">
-                                                    <i class="icon-link" aria-hidden="true"></i>
                                                 </a>
                                             </div>
                                         </td>
@@ -78627,6 +78641,7 @@ module.exports = new Vue({
             }
 			this.proyection = [];
 			params["per-page"] = this.data.perPage;
+			params.sort = "fecha";
 			params.page = this.data.page.proyection.currentPage;
 			params.expand = "cliente, empleadoHorario.empleado, punto.ruta, punto.sucursal";
 			if(this.filter.type){		//Range
@@ -78663,9 +78678,9 @@ module.exports = new Vue({
 				j = length;
 				this.proyection.push({
 					id: e.proyeccion_id,
-					employee: {
+					resource: {
 						id: e._embedded.empleadoHorario._embedded.empleado.id,
-						name: e._embedded.empleadoHorario._embedded.empleado.name,
+						name: e._embedded.empleadoHorario._embedded.empleado.nombre,
 						idSchedule: e._embedded.empleadoHorario.id,
 						schedule: e._embedded.empleadoHorario.hora_inicio + " - " + e._embedded.empleadoHorario.hora_fin
 					},
@@ -78694,30 +78709,7 @@ module.exports = new Vue({
 			this.filter.rangeDate.begin.value = null;
 			this.filter.rangeDate.end.value = null;
 			this.step = 0;
-		},
-		converter: function(type, val){
-            var value;
-            switch(type){
-                case "time":    //val is string, want return as time
-                    if(val){
-                        val = val.split(":");
-                        value = 0;
-                        value += parseInt(val[0]) * 3600;
-                        value += parseInt(val[1]) * 60;
-                        value += parseInt(val[2]);
-                    }
-                    break;
-                case "string":  //val is time, want return as string
-                    var hours = Math.floor( val / 3600 );
-                    var minutes = Math.floor( val / 60 - (hours * 60) );
-                    var seconds = val - (hours * 3600) - (minutes * 60);
-                    value = hours < 10 ? '0' + hours : hours;
-                    value += ":" + (minutes < 10 ? '0' + minutes : minutes);
-                    value += ":" + (seconds < 10 ? '0' + seconds : seconds);
-                    break;
-            }
-            return value;
-        }
+		}
     }
 });
 
