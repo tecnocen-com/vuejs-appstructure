@@ -1175,6 +1175,7 @@ module.exports = new Vue({
                                     }
                                 }
                         if(valid){
+                            BUTO.components.main.loader.active = true;
                             this.models.sucursal.post({
                                 params: {
                                     nombre: this.manualAdd.name.value,
@@ -1206,6 +1207,7 @@ module.exports = new Vue({
                                 
                                 me.manualAdd.name.valid = false;
                                 me.manualAdd.name.text = error.body[0].message;
+                                BUTO.components.main.loader.active = false;
                             });
                         }
                         else{
@@ -1459,6 +1461,7 @@ module.exports = new Vue({
                 case "store":
                     this.manualAdd.name.value = null;
                     this.manualAdd.map.marker.main.setMap(null);
+                    this.manualAdd.map.marker.window.close();
                     this.manualAdd.map.marker.main = null;
                     this.manualAdd.actualStep = 0;
                     break;
@@ -1477,6 +1480,8 @@ module.exports = new Vue({
                             textEnd: "hh:mm:ss",
                             id: null
                         });
+                        this.manualAdd.sameConf = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     break;
                 case "all":

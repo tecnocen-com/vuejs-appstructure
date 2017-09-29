@@ -70104,6 +70104,7 @@ module.exports = new Vue({
                                     }
                                 }
                         if(valid){
+                            BUTO.components.main.loader.active = true;
                             this.models.sucursal.post({
                                 params: {
                                     nombre: this.manualAdd.name.value,
@@ -70135,6 +70136,7 @@ module.exports = new Vue({
                                 
                                 me.manualAdd.name.valid = false;
                                 me.manualAdd.name.text = error.body[0].message;
+                                BUTO.components.main.loader.active = false;
                             });
                         }
                         else{
@@ -70388,6 +70390,7 @@ module.exports = new Vue({
                 case "store":
                     this.manualAdd.name.value = null;
                     this.manualAdd.map.marker.main.setMap(null);
+                    this.manualAdd.map.marker.window.close();
                     this.manualAdd.map.marker.main = null;
                     this.manualAdd.actualStep = 0;
                     break;
@@ -70406,6 +70409,8 @@ module.exports = new Vue({
                             textEnd: "hh:mm:ss",
                             id: null
                         });
+                        this.manualAdd.sameConf = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     break;
                 case "all":
@@ -74712,6 +74717,7 @@ module.exports = new Vue({
                             BUTO.components.main.alert.active = true;
                         }
                         if(valid){
+                            BUTO.components.main.loader.active = true;
                             this.models.usuarioEmpleado.post({
                                 params: {
                                     nombre: this.manualAdd.name.value,
@@ -74755,6 +74761,7 @@ module.exports = new Vue({
                                     }
                                 BUTO.components.main.alert.description.ok = "Aceptar";
                                 BUTO.components.main.alert.active = true;
+                                BUTO.components.main.loader.active = false;
                             });
                         }
                         else{
@@ -75106,10 +75113,14 @@ module.exports = new Vue({
                     this.manualAdd.steps[i].seen = (this.manualAdd.steps[i].dayNumber === 2) ? true : false;
                     if(!this.manualAdd.sameConf){
                         if(!this.manualAdd.sameConf && j !== null){
-                            if(this.manualAdd.steps[i].schedule[j].main_begin !== null)
+                            if(this.manualAdd.steps[i].schedule[j].main_begin !== null){
                                 this.manualAdd.steps[i].schedule[j].main_begin.setMap(null);
-                            if(this.manualAdd.steps[i].schedule[j].main_end !== null)
+                                this.manualAdd.steps[i].schedule[j].window_begin.close();
+                            }
+                            if(this.manualAdd.steps[i].schedule[j].main_end !== null){
                                 this.manualAdd.steps[i].schedule[j].main_end.setMap(null);
+                                this.manualAdd.steps[i].schedule[j].window_end.close();
+                            }
                         }
                         else if(!this.manualAdd.sameConf && j === null){
                             for(j = 0; j < this.manualAdd.steps[i].length; j++){
@@ -75170,6 +75181,7 @@ module.exports = new Vue({
                                 active: true
                             });
                         }
+                        BUTO.components.main.loader.active = false;
                     }
                     else{
                         this.importer.editIndex = null;
