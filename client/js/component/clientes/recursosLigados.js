@@ -62,6 +62,8 @@ module.exports = new Vue({
         init: function(e, page, pageLinked){
             var i,
                 me = this;
+            if(e === 0)
+                BUTO.components.main.loader.active = true;
             if(page)
                 this.data.page.resource.currentPage = page;
             if(pageLinked)
@@ -81,7 +83,7 @@ module.exports = new Vue({
                 function(success){
                     me.data.page.resource.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
                     me.data.page.resource.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-                    for(i in success.body)
+                    for(i = 0; i < success.body.length; i++)
                         me.initResource(success.body[i]);
                     if(e === 0){
                         me.resourceLinked = [];
@@ -93,11 +95,14 @@ module.exports = new Vue({
                                 "expand": "empleado"
                             }
                         },
-                        function(success){
-                            me.data.page.resourceLinked.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
-                            me.data.page.resourceLinked.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-                            for(i in success.body)
-                                me.initResourceLinked(success.body[i].empleado_id);
+                        function(success2){
+                            me.data.page.resourceLinked.pageCount = parseInt(success2.headers.get("x-pagination-page-count"));
+                            me.data.page.resourceLinked.totalCount = parseInt(success2.headers.get("x-pagination-total-count"));
+                            if(success2.body.length === 0)
+                                BUTO.components.main.loader.active = false;
+                            else
+                                for(i = 0; i < success2.body.length; i++)
+                                    me.initResourceLinked(success2.body[i].empleado_id, i, success2.body.length - 1);
                         },
                         function(error){
                             console.log(error);
@@ -121,7 +126,7 @@ module.exports = new Vue({
                 function(success){
                     me.data.page.resourceLinked.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
                     me.data.page.resourceLinked.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-                    for(i in success.body)
+                    for(i = 0; i < success.body.length; i++)
                         me.initResourceLinked(success.body[i].empleado_id);
                 },
                 function(error){
@@ -149,7 +154,7 @@ module.exports = new Vue({
             },
             function(){});
         },
-        initResourceLinked: function(id){
+        initResourceLinked: function(id, i, j){
             var me = this;
             this.models.usuarioEmpleado.get({
                 delimiters: id,
@@ -165,6 +170,8 @@ module.exports = new Vue({
             function(error){
                 console.log(error);
             });
+            if(i === j)
+                BUTO.components.main.loader.active = false;
         },
         initDrag: function(type, e){
             var me = this;

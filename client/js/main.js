@@ -212,7 +212,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                         else if(e.first === 4 && e.second === 0 && e.third === 0)
                                             this.children.rutasRegistradas.active = 0;
                                         else if(e.first === 5 && e.second === 0 && e.third === 0)
-                                            this.children.reportes.init();
+                                            this.children.reportes.init(false);
                                         Vue.nextTick(function(){
                                             if(e.first === 1 && e.second === 0 && e.third === 1)
                                                 me.children.importadorClientes.init();
@@ -362,7 +362,10 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 ruta: this.models.ruta,
                                 rutaPunto: this.models.rutaPunto,
                                 rutaPuntoServicio: this.models.rutaPuntoServicio,
-                                proyeccionServicio: this.models.proyeccionServicio
+                                sucursal: this.models.sucursal,
+                                sucursalHorario: this.models.sucursalHorario,
+                                sucursalCliente: this.models.sucursalCliente,
+                                proyeccionTrabajo: this.models.proyeccionTrabajo
                             });
                             
                         },

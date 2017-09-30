@@ -36590,7 +36590,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                         else if(e.first === 4 && e.second === 0 && e.third === 0)
                                             this.children.rutasRegistradas.active = 0;
                                         else if(e.first === 5 && e.second === 0 && e.third === 0)
-                                            this.children.reportes.init();
+                                            this.children.reportes.init(false);
                                         Vue.nextTick(function(){
                                             if(e.first === 1 && e.second === 0 && e.third === 1)
                                                 me.children.importadorClientes.init();
@@ -36740,7 +36740,10 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 ruta: this.models.ruta,
                                 rutaPunto: this.models.rutaPunto,
                                 rutaPuntoServicio: this.models.rutaPuntoServicio,
-                                proyeccionServicio: this.models.proyeccionServicio
+                                sucursal: this.models.sucursal,
+                                sucursalHorario: this.models.sucursalHorario,
+                                sucursalCliente: this.models.sucursalCliente,
+                                proyeccionTrabajo: this.models.proyeccionTrabajo
                             });
                             
                         },
@@ -42339,19 +42342,19 @@ module.exports = `
                                     <tr v-for="(proyection, proyectionIndex) in config.proyection"
                                         :class="proyection.linked ? 'selected' : proyection.selected ? 'link-row-select' : ''"
                                         class="grid-row-customized grid-row-highlight-customized">
-                                        <td class="col-md-1">
+                                        <td v-on:click.self="config.setToExport(proyectionIndex)" class="col-md-1">
                                             {{proyection.route.name}}
                                         </td>
-										<td class="col-md-1">
-                                            {{proyection.date}}
+										<td v-on:click.self="config.setToExport(proyectionIndex)" class="col-md-1">
+                                            {{proyection.day.date}}
                                         </td>
-										<td class="col-md-1">
-                                            {{proyection.day}}
+										<td v-on:click.self="config.setToExport(proyectionIndex)" class="col-md-1">
+                                            {{proyection.day.name}}
                                         </td>
-										<td class="col-md-1">
+										<td v-on:click.self="config.setToExport(proyectionIndex)" class="col-md-1">
                                             {{proyection.resource.name}}
 											<div class="pull-right">
-                                                <a href="#" v-on:click.prevent="config.setLink('see', proyectionIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                <a href="#" v-on:click.prevent="config.seeRoute(proyectionIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
                                                     <i class="icon-eye" aria-hidden="true"></i>
                                                 </a>
                                             </div>
@@ -42451,6 +42454,107 @@ module.exports = `
                                 </li>
                             </ul>
                         </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{config.see.route.name}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                        <div v-if="config.see.date !== null" class="row">
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">Fecha</label>
+                                <div class="col-lg-10">
+                                    <input disabled="disabled" class="form-control" v-model="config.see.date" type="date" name="Fecha">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div style="padding-top: 20px"></div>
+                            <div class="col-sm-6">
+                                <div class="form-group text-center schedule-title">
+                                    <label>Horario de inicio</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group text-center schedule-title">
+                                    <label>Horario de término</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input disabled="disabled" type="text" maxlength="8" v-model="config.see.route.begin.value" class="form-control">
+                                    <span class="help-block">{{config.see.route.begin.text}}</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input disabled="disabled" type="text" maxlength="8" v-model="config.see.route.end.value" class="form-control">
+                                    <span class="help-block">{{config.see.route.end.text}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <div class="steps-basic wizard clearfix">
+                                        <div class="steps clearfix">
+                                            <ul role="tablist">
+                                                <li v-for="(steps, stepIndex) in config.see.route.day.options" role="tab"
+                                                :class="[stepIndex === 0 ? 'first' : '',
+                                                        steps.value === config.see.route.day.value ? 'done active' : 'active']" aria-disabled="false" aria-selected="true">
+                                                    <a href="#" v-on:click.prevent>
+                                                        <span class="number">X</span> {{steps.text}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <div id="mapFocusPositionSeeRoute" v-on:click="config.see.route.focusPosition()" class="map-focus-position text-center">
+                                        <i class="icon-shrink3"></i>
+                                    </div>
+                                    <div id="mapSeeRoute" class="map-container-modal map-basic"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row title-info">
+                                    <div class="col-sm-12">
+                                        <span>Distancia Total: {{config.see.route.store.data.totalDistance / 1000}} km.</span>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <span>Tiempo Total: {{config.see.route.store.point.length > 0 ? config.see.route.store.data.totalTime : '00:00:00'}}.</span>
+                                    </div>
+                                </div>
+                                <template v-if="config.see.route.store.point.length > 0">
+                                    <template v-for="(store, storeIndex) in config.see.route.store.point" class="selected grid-row-customized grid-row-highlight-customized">
+                                        <div class="row main-info grid-row-customized grid-row-highlight-customized selected" style="padding-top: 8px; padding-bottom: 8px;">
+                                            <div class="col-sm-2">
+                                                <img :src="store.main.getIcon().url">
+                                                <div class="icon-label-toolbar">{{storeIndex + 1}}</div>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                {{store.name}}
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+                        <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
                     </div>
                 </div>
             </div>
@@ -56650,6 +56754,8 @@ module.exports = new Vue({
         init: function(e, page, pageLinked){
             var i,
                 me = this;
+            if(e === 0)
+                BUTO.components.main.loader.active = true;
             if(page)
                 this.data.page.store.currentPage = page;
             if(pageLinked)
@@ -56669,7 +56775,7 @@ module.exports = new Vue({
                 function(success){
                     me.data.page.store.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
                     me.data.page.store.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-                    for(i in success.body)
+                    for(i = 0; i < success.body.length; i++)
                         me.initStore(success.body[i]);
                     if(e === 0){
                         me.storeLinked = [];
@@ -56681,11 +56787,14 @@ module.exports = new Vue({
                                 "expand": "sucursal"
                             }
                         },
-                        function(success){
-                            me.data.page.storeLinked.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
-                            me.data.page.storeLinked.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-                            for(i in success.body)
-                                me.initStoreLinked(success.body[i]);
+                        function(success2){
+                            me.data.page.storeLinked.pageCount = parseInt(success2.headers.get("x-pagination-page-count"));
+                            me.data.page.storeLinked.totalCount = parseInt(success2.headers.get("x-pagination-total-count"));
+                            if(success2.body.length === 0)
+                                BUTO.components.main.loader.active = false;
+                            else
+                                for(i = 0; i < success2.body.length; i++)
+                                    me.initStoreLinked(success2.body[i], i, success2.body.length - 1);
                         },
                         function(error){
                             console.log(error);
@@ -56709,7 +56818,7 @@ module.exports = new Vue({
                 function(success){
                     me.data.page.storeLinked.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
                     me.data.page.storeLinked.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-                    for(i in success.body)
+                    for(i = 0; i < success.body.length; i++)
                         me.initStoreLinked(success.body[i]);
                 },
                 function(error){
@@ -56737,13 +56846,15 @@ module.exports = new Vue({
             },
             function(){});
         },
-        initStoreLinked: function(e){
+        initStoreLinked: function(e, i, j){
             this.storeLinked.push({
                 id: e.sucursal_id,
                 time: e.tiempo_solicitado,
                 name: e._embedded.sucursal.nombre,
                 selected: false
             });
+            if(i === j)
+                BUTO.components.main.loader.active = false;
         },
         initDrag: function(type, e){
             var me = this;
@@ -57082,6 +57193,8 @@ module.exports = new Vue({
         init: function(e, page, pageLinked){
             var i,
                 me = this;
+            if(e === 0)
+                BUTO.components.main.loader.active = true;
             if(page)
                 this.data.page.resource.currentPage = page;
             if(pageLinked)
@@ -57101,7 +57214,7 @@ module.exports = new Vue({
                 function(success){
                     me.data.page.resource.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
                     me.data.page.resource.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-                    for(i in success.body)
+                    for(i = 0; i < success.body.length; i++)
                         me.initResource(success.body[i]);
                     if(e === 0){
                         me.resourceLinked = [];
@@ -57113,11 +57226,14 @@ module.exports = new Vue({
                                 "expand": "empleado"
                             }
                         },
-                        function(success){
-                            me.data.page.resourceLinked.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
-                            me.data.page.resourceLinked.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-                            for(i in success.body)
-                                me.initResourceLinked(success.body[i].empleado_id);
+                        function(success2){
+                            me.data.page.resourceLinked.pageCount = parseInt(success2.headers.get("x-pagination-page-count"));
+                            me.data.page.resourceLinked.totalCount = parseInt(success2.headers.get("x-pagination-total-count"));
+                            if(success2.body.length === 0)
+                                BUTO.components.main.loader.active = false;
+                            else
+                                for(i = 0; i < success2.body.length; i++)
+                                    me.initResourceLinked(success2.body[i].empleado_id, i, success2.body.length - 1);
                         },
                         function(error){
                             console.log(error);
@@ -57141,7 +57257,7 @@ module.exports = new Vue({
                 function(success){
                     me.data.page.resourceLinked.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
                     me.data.page.resourceLinked.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-                    for(i in success.body)
+                    for(i = 0; i < success.body.length; i++)
                         me.initResourceLinked(success.body[i].empleado_id);
                 },
                 function(error){
@@ -57169,7 +57285,7 @@ module.exports = new Vue({
             },
             function(){});
         },
-        initResourceLinked: function(id){
+        initResourceLinked: function(id, i, j){
             var me = this;
             this.models.usuarioEmpleado.get({
                 delimiters: id,
@@ -57185,6 +57301,8 @@ module.exports = new Vue({
             function(error){
                 console.log(error);
             });
+            if(i === j)
+                BUTO.components.main.loader.active = false;
         },
         initDrag: function(type, e){
             var me = this;
@@ -78535,7 +78653,10 @@ module.exports = new Vue({
             ruta: null,
             rutaPunto: null,
             rutaPuntoServicio: null,
-            proyeccionServicio: null
+            sucursal: null,
+            sucursalHorario: null,
+            sucursalCliente: null,
+            proyeccionTrabajo: null
         },
         exporter: {
 			plugins: {
@@ -78559,7 +78680,11 @@ module.exports = new Vue({
 			},
 			type: false			//False per range, True random
 		},
-		proyection: [],
+		map: {
+            distanceMatrix: null,
+            directionService: null
+        },
+        proyection: [],
 		proyectionToExport: [],
         data: {
             perPage: 15,
@@ -78573,6 +78698,7 @@ module.exports = new Vue({
         },
         see: {
 			first: true,
+			date: null,
             route: verRuta
 		},
     },
@@ -78582,10 +78708,15 @@ module.exports = new Vue({
                 this.models.ruta = e.ruta;
 				this.models.rutaPunto = e.rutaPunto;
 				this.models.rutaPuntoServicio = e.rutaPuntoServicio;
-				this.models.proyeccionServicio = e.proyeccionServicio;
+				this.models.sucursal = e.sucursal;
+				this.models.sucursalHorario = e.sucursalHorario;
+				this.models.sucursalCliente = e.sucursalCliente;
+				this.models.proyeccionTrabajo = e.proyeccionTrabajo;
             }
-            else
+            else{
 				this.initInputDate(true);
+				this.initServices();
+            }
         },
 		handleMulti: function(e){
 			$( "#random" ).datepicker(e ? "show" : "hide");
@@ -78603,6 +78734,10 @@ module.exports = new Vue({
 			}
 			this.filter.randomDate.text = this.filter.randomDate.value.join(", ");
 		},
+        initServices: function(){
+            this.map.distanceMatrix = new google.maps.DistanceMatrixService();
+            this.map.directionService = new google.maps.DirectionsService();
+        },
         initInputDate: function(all){
 			var me = this;
 			if(all)
@@ -78649,7 +78784,6 @@ module.exports = new Vue({
 				this.step = 1;
 				if(page)
 					this.data.page.proyection.currentPage = page;
-				//this.see.first = true;
             }
 			this.proyection = [];
 			params["per-page"] = this.data.perPage;
@@ -78665,7 +78799,7 @@ module.exports = new Vue({
 				params.fecha_inicio = this.filter.rangeDate.begin.value;
 				params.fecha_fin = this.filter.rangeDate.end.value;
 			}
-			this.models.proyeccionServicio.get({
+			this.models.proyeccionTrabajo.get({
 				params: params
 			},
 			function(success){
@@ -78680,48 +78814,316 @@ module.exports = new Vue({
 			});
 		},
 		initProyection: function(e){
-			var i,
-				j = null,
-				length = this.proyection.length;
-			for(i = 0; i < length; i++)
-				if(this.proyection[i].id === e.proyeccion_id)
-					j = i;
-			if(j === null){
-				j = length;
-				this.proyection.push({
-					id: e.proyeccion_id,
-					resource: {
-						id: e._embedded.empleadoHorario._embedded.empleado.id,
-						name: e._embedded.empleadoHorario._embedded.empleado.nombre,
-						idSchedule: e._embedded.empleadoHorario.id,
-						schedule: e._embedded.empleadoHorario.hora_inicio + " - " + e._embedded.empleadoHorario.hora_fin
-					},
+			this.proyection.push({
+				id: e.id,
+				resource: {
+					//id: e._embedded.empleadoHorario._embedded.empleado.id,
+					//name: e._embedded.empleadoHorario._embedded.empleado.nombre,
+					//idSchedule: e._embedded.empleadoHorario.id,
+					//schedule: e._embedded.empleadoHorario.hora_inicio + " - " + e._embedded.empleadoHorario.hora_fin
+				},
+				day: {
 					date: e.fecha,
-					day: e._embedded.empleadoHorario.nombreDia,
-					route: {
-						id: e._embedded.punto._embedded.ruta.id,
-						name: e._embedded.punto._embedded.ruta.nombre,
-					},
-					store: {
-						id: e._embedded.punto._embedded.sucursal.id,
-						name: e._embedded.punto._embedded.sucursal.nombre,
-					},
-					client: [],
-					linked: false,
-					selected: false
-				});
-			}
-			this.proyection[j].client.push({
-				
+					//name: e._embedded.empleadoHorario.nombreDia,
+					//id: e._embedded.empleadoHorario.dia
+				},
+				route: {
+					id: e.ruta_id,
+					//name: e._embedded.punto._embedded.ruta.nombre,
+					//begin: e._embedded.punto._embedded.ruta.hora_inicio,
+					//end: e._embedded.punto._embedded.ruta.hora_fin,
+				},
+				//store: {
+				//	id: e._embedded.punto._embedded.sucursal.id,
+				//	name: e._embedded.punto._embedded.sucursal.nombre,
+				//},
+				//client: [],
+				linked: false,
+				selected: false
 			});
         },
-		reset: function(){
+		setToExport: function(i){
+			var me = this,
+				length;
+			this.proyection[i].selected = !this.proyection[i].selected;
+			if(this.proyection[i].selected){	//Add
+				length = me.proyectionToExport.length;
+				this.proyectionToExport.push({
+					resource: this.proyection[i].resource.name,
+					route: {
+						name: this.proyection[i].route.name,
+						id: this.proyection[i].route.id
+					},
+					day: {
+						date: this.proyection[i].day.date,
+						id: this.proyection[i].day.id,
+					},
+					store: {
+						data: {
+							totalDistance: null,
+							totalTime: this.converter("string", this.converter("time", this.proyection[i].route.end) - this.converter("time", this.proyection[i].route.begin))
+						},
+						point: []
+					}
+				});
+				this.initPoint(length);
+				//me.proyectionToExport({
+				//	resource: me.proyection[i].resource.name,
+				//	route: me.proyection[i].route.name,
+				//	store: me.see.route.store.point[i].name,
+				//	client: me.see.route.store.point[j].client[k].name,
+				//	start: me.see.route.store.point[j].start,
+				//	arrival: me.see.route.store.point[j].arrival,
+				//	travel: me.see.route.store.point[j].travel,
+				//	death: me.see.route.store.point[j].death,
+				//	used: me.see.route.store.point[j].client[k].time
+				//});	
+				//console.log(me.proyectionToExport);
+			}
+			else{								//Remove
+				console.log("remove", me.see);
+			}
+		},
+		initPoint: function(j){
+            var me = this,
+				i, length;
+			this.models.rutaPunto.get({
+                delimiters: this.proyectionToExport[j].route.id,
+                params: {
+                    "per-page": 100,
+                    "sort": "hora_llegada_estimada",
+                    "expand": "sucursal"
+                }
+            },
+            function(success){
+                for(i = 0; i < success.body.length; i++){
+                    length = me.proyectionToExport[j].store.point.length;
+                    me.proyectionToExport[j].store.point.push({
+                        //id: success.body[i].id,
+                        idStore: success.body[i]._embedded.sucursal.id,
+                        //lat: success.body[i]._embedded.sucursal.lat,
+                        //lng: success.body[i]._embedded.sucursal.lng,
+                        name: success.body[i]._embedded.sucursal.nombre,
+                        schedule: [],
+                        scheduleIndex: null,
+                        arrival: success.body[i].hora_llegada_estimada,
+                        calculate: true,       //false takes api values, true takes inherit operations
+                        travel: length === 0 ? "00:00:00" : null,
+                        distance: length === 0 ? 0 : null,
+                        start: length === 0 ? me.proyection[j].route.begin : null,
+                        death: length === 0 ? me.converter("string", me.converter("time", success.body[i].hora_llegada_estimada) - me.converter("time", me.proyection[j].route.begin)) : null,
+                        usedTime: null,
+                        client: [],
+                        //hidden: true,
+                        //renderer: null,
+                        //details: {
+                        //    warnings: null,
+                        //    copyrights: [],
+                        //    legs: []
+                        //},
+                        //main: new google.maps.Marker({
+                        //    map: me.map.main,
+                        //    position: {
+                        //        lat: success.body[i]._embedded.sucursal.lat,
+                        //        lng: success.body[i]._embedded.sucursal.lng
+                        //    },
+                        //    icon: {
+                        //        url: "/image/maps/green-empty.png",
+                        //        labelOrigin: new google.maps.Point(11, 11)
+                        //    },
+                        //    label: "" + (length + 1) + "",
+                        //    title: success.body[i]._embedded.sucursal.nombre,
+                        //}),
+                        //window: new google.maps.InfoWindow({
+                        //    content: "Dirección no encontrada.",
+                        //    maxWidth: 175,
+                        //    flag: false
+                        //})
+                    });
+                    me.initClient(success.body[i].id, j, length);
+                }
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initClient: function(pointId, I, i){
+            var j, k, me = this, usedTime = 0;
+            this.models.sucursalCliente.get({
+                delimiters: this.proyectionToExport[I].store.point[i].idStore,
+                params: {
+                    "per-page": 100,
+                    "expand": "cliente"
+                }
+            },
+            function(success){
+                for(j = 0; j < success.body.length; j++){
+                    me.proyectionToExport[I].store.point[i].client.push({
+                        id: success.body[j]._embedded.cliente.id,
+                        name: success.body[j]._embedded.cliente.nombre,
+                        time: success.body[j].tiempo_solicitado,
+                        active: false
+                    });
+                }
+                me.models.rutaPuntoServicio.get({
+                    delimiters: [me.proyectionToExport[I].route.id, pointId],
+                    params: {
+                        "per-page": 100
+                    }
+                },
+                function(success2){
+                    for(j = 0; j < success2.body.length; j++)
+                        for(k = 0; k < me.proyectionToExport[I].store.point[i].client.length; k++)
+                            if(success2.body[j].cliente_id === me.proyectionToExport[I].store.point[i].client[k].id){
+                                me.proyectionToExport[I].store.point[i].client[k].active = true;
+                                usedTime += me.converter("time", me.proyectionToExport[I].store.point[i].client[k].time);
+                            }
+                    me.proyectionToExport[I].store.point[i].usedTime = me.converter("string", usedTime);
+                    if(i < me.proyectionToExport[I].store.point.length - 1)
+                        me.proyectionToExport[I].store.point[i + 1].start = me.converter("string", usedTime + me.converter("time", me.proyectionToExport[I].store.point[i].arrival));
+                    me.initSchedule(I, i);
+                },
+                function(error2){
+                    console.log(error2);
+                });
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initSchedule: function(I, i){
+            var j,
+                me = this;
+            this.models.sucursalHorario.get({
+                delimiters: this.proyectionToExport[I].store.point[i].idStore,
+                params: {
+                    "per-page": 100,
+                    "expand": "cliente",
+                    "sort": "hora_inicio"
+                }
+            },
+            function(success){
+                for(j = 0; j < success.body.length; j++)
+                    if(success.body[j].dia === me.proyectionToExport[I].day.id)
+                        me.proyectionToExport[I].store.point[i].schedule.push({
+                            begin: success.body[j].hora_inicio,
+                            end: success.body[j].hora_fin
+                        });
+                for(j = 0; j < me.proyectionToExport[I].store.point[i].schedule.length; j++)
+                    if(me.proyectionToExport[I].store.point[i].schedule[j].begin <= me.proyectionToExport[I].store.point[i].arrival &&
+                       me.proyectionToExport[I].store.point[i].schedule[j].end > me.proyectionToExport[I].store.point[i].arrival)
+                        me.proyectionToExport[I].store.point[i].scheduleIndex = j;
+                if(me.proyectionToExport[I].store.point[i].schedule[me.proyectionToExport[I].store.point[i].scheduleIndex].begin === me.proyectionToExport[I].store.point[i].arrival)
+                    me.proyectionToExport[I].store.point[i].calculate = false;
+                if(i > 0)
+                    me.initRoute(I, i);
+            },
+            function(error){
+                console.log(error);
+            });
+        },
+        initRoute: function(I, i){
+            var me = this,
+                j,
+                travelTime = 0,
+                distance = 0;
+            this.map.directionService.route({
+                origin: this.proyectionToExport[I].store.point[i - 1].main.position,
+                destination: this.proyectionToExport[I].store.point[i].main.position,
+                travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
+                avoidTolls: true
+            },
+            function(response, status){
+                if(status === "OK"){
+                    //me.proyectionToExport[I].store.point[i - 1].renderer = new google.maps.DirectionsRenderer({
+                    //    map: me.map.main,
+                    //    draggable: true,
+                    //    suppressMarkers: true,
+                    //    preserveViewport: true
+                    //});
+                    //me.proyectionToExport[I].store.point[i - 1].renderer.setDirections(response);
+                    //me.proyectionToExport[I].store.point[i - 1].details.copyrights = response.routes[0].copyrights;
+                    //me.proyectionToExport[I].store.point[i - 1].details.warnings = [];
+                    //for(j = 0; j < response.routes[0].warnings.length; j++)
+                    //    me.proyectionToExport[I].store.point[i - 1].details.warnings.push({
+                    //        text: response.routes[0].warnings[j]
+                    //    });
+                    //me.proyectionToExport[I].store.point[i - 1].details.legs.push({
+                    //    hidden: false,
+                    //    id: me.proyectionToExport[I].store.point[i - 1].details.legs.length,
+                    //    end: response.routes[0].legs[0].end_address,
+                    //    start: response.routes[0].legs[0].start_address,
+                    //    steps: []
+                    //});
+                    for(j = 0; j < response.routes[0].legs[0].steps.length; j++){
+                        //me.proyectionToExport[I].store.point[i - 1].details.legs[0].steps.push({
+                        //    distance: {
+                        //        value: response.routes[0].legs[0].steps[j].distance.value,
+                        //        text: response.routes[0].legs[0].steps[j].distance.text
+                        //    },
+                        //    duration: {
+                        //        value: response.routes[0].legs[0].steps[j].duration.value,
+                        //        text: response.routes[0].legs[0].steps[j].duration.text
+                        //    },
+                        //    instructions: response.routes[0].legs[0].steps[j].instructions,
+                        //    travel_mode: response.routes[0].legs[0].steps[j].travel_mode
+                        //});
+                        travelTime += response.routes[0].legs[0].steps[j].duration.value;
+                        distance += response.routes[0].legs[0].steps[j].distance.value;
+                    }
+                    
+                    me.proyectionToExport[I].store.point[i].travel = (me.proyectionToExport[I].store.point[i].calculate) ? me.converter("string", me.converter("time", me.proyectionToExport[I].store.point[i].arrival) - me.converter("time", me.proyectionToExport[I].store.point[i].start)):
+                        me.proyectionToExport[I].store.point[i].travel = me.converter("string", travelTime);
+                    me.proyectionToExport[I].store.point[i].distance = distance;
+                    me.proyectionToExport[I].store.data.totalDistance += distance;
+                    me.proyectionToExport[I].store.point[i].death = me.converter("string", me.converter("time", me.proyectionToExport[I].store.point[i].arrival) - me.converter("time", me.proyectionToExport[I].store.point[i].start) - me.converter("time", me.proyectionToExport[I].store.point[i].travel));
+					console.log(me.proyectionToExport);
+                }
+                else
+                    console.log(status);
+            });
+        },
+        reset: function(){
 			this.filter.randomDate.value = [];
 			this.filter.randomDate.text = null;
 			this.filter.rangeDate.begin.value = null;
 			this.filter.rangeDate.end.value = null;
+			this.see.first = true;
 			this.step = 0;
-		}
+		},
+		seeRoute: function(i){
+			var me = this;
+			this.see.route.id = this.proyection[i].route.id;
+			this.see.date = this.proyection[i].date;
+			Vue.nextTick(function(){
+				me.see.route.init("modal", me.see.first);
+				if(me.see.first === true)
+					me.see.first = false;
+			});
+		},
+        converter: function(type, val){
+            var value;
+            switch(type){
+                case "time":    //val is string, want return as time
+                    if(val){
+                        val = val.split(":");
+                        value = 0;
+                        value += parseInt(val[0]) * 3600;
+                        value += parseInt(val[1]) * 60;
+                        value += parseInt(val[2]);
+                    }
+                    break;
+                case "string":  //val is time, want return as string
+                    var hours = Math.floor( val / 3600 );
+                    var minutes = Math.floor( val / 60 - (hours * 60) );
+                    var seconds = val - (hours * 3600) - (minutes * 60);
+                    value = hours < 10 ? '0' + hours : hours;
+                    value += ":" + (minutes < 10 ? '0' + minutes : minutes);
+                    value += ":" + (seconds < 10 ? '0' + seconds : seconds);
+                    break;
+            }
+            return value;
+        }
     }
 });
 

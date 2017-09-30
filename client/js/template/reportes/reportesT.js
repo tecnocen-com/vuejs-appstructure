@@ -98,19 +98,19 @@ module.exports = `
                                     <tr v-for="(proyection, proyectionIndex) in config.proyection"
                                         :class="proyection.linked ? 'selected' : proyection.selected ? 'link-row-select' : ''"
                                         class="grid-row-customized grid-row-highlight-customized">
-                                        <td class="col-md-1">
+                                        <td v-on:click.self="config.setToExport(proyectionIndex)" class="col-md-1">
                                             {{proyection.route.name}}
                                         </td>
-										<td class="col-md-1">
-                                            {{proyection.date}}
+										<td v-on:click.self="config.setToExport(proyectionIndex)" class="col-md-1">
+                                            {{proyection.day.date}}
                                         </td>
-										<td class="col-md-1">
-                                            {{proyection.day}}
+										<td v-on:click.self="config.setToExport(proyectionIndex)" class="col-md-1">
+                                            {{proyection.day.name}}
                                         </td>
-										<td class="col-md-1">
+										<td v-on:click.self="config.setToExport(proyectionIndex)" class="col-md-1">
                                             {{proyection.resource.name}}
 											<div class="pull-right">
-                                                <a href="#" v-on:click.prevent="config.setLink('see', proyectionIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
+                                                <a href="#" v-on:click.prevent="config.seeRoute(proyectionIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" title="Ver" data-toggle="modal" data-target="#see">
                                                     <i class="icon-eye" aria-hidden="true"></i>
                                                 </a>
                                             </div>
@@ -210,6 +210,107 @@ module.exports = `
                                 </li>
                             </ul>
                         </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="modal fade" id="see" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close modal-buttom-custom" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{config.see.route.name}}</h4>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                        <div v-if="config.see.date !== null" class="row">
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">Fecha</label>
+                                <div class="col-lg-10">
+                                    <input disabled="disabled" class="form-control" v-model="config.see.date" type="date" name="Fecha">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div style="padding-top: 20px"></div>
+                            <div class="col-sm-6">
+                                <div class="form-group text-center schedule-title">
+                                    <label>Horario de inicio</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group text-center schedule-title">
+                                    <label>Horario de término</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input disabled="disabled" type="text" maxlength="8" v-model="config.see.route.begin.value" class="form-control">
+                                    <span class="help-block">{{config.see.route.begin.text}}</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input disabled="disabled" type="text" maxlength="8" v-model="config.see.route.end.value" class="form-control">
+                                    <span class="help-block">{{config.see.route.end.text}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <div class="steps-basic wizard clearfix">
+                                        <div class="steps clearfix">
+                                            <ul role="tablist">
+                                                <li v-for="(steps, stepIndex) in config.see.route.day.options" role="tab"
+                                                :class="[stepIndex === 0 ? 'first' : '',
+                                                        steps.value === config.see.route.day.value ? 'done active' : 'active']" aria-disabled="false" aria-selected="true">
+                                                    <a href="#" v-on:click.prevent>
+                                                        <span class="number">X</span> {{steps.text}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <div id="mapFocusPositionSeeRoute" v-on:click="config.see.route.focusPosition()" class="map-focus-position text-center">
+                                        <i class="icon-shrink3"></i>
+                                    </div>
+                                    <div id="mapSeeRoute" class="map-container-modal map-basic"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row title-info">
+                                    <div class="col-sm-12">
+                                        <span>Distancia Total: {{config.see.route.store.data.totalDistance / 1000}} km.</span>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <span>Tiempo Total: {{config.see.route.store.point.length > 0 ? config.see.route.store.data.totalTime : '00:00:00'}}.</span>
+                                    </div>
+                                </div>
+                                <template v-if="config.see.route.store.point.length > 0">
+                                    <template v-for="(store, storeIndex) in config.see.route.store.point" class="selected grid-row-customized grid-row-highlight-customized">
+                                        <div class="row main-info grid-row-customized grid-row-highlight-customized selected" style="padding-top: 8px; padding-bottom: 8px;">
+                                            <div class="col-sm-2">
+                                                <img :src="store.main.getIcon().url">
+                                                <div class="icon-label-toolbar">{{storeIndex + 1}}</div>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                {{store.name}}
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+                        <div style="height: 10px;"></div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom">
+                        <button type="button" class="btn btn-default btn-customized" data-dismiss="modal">Aceptar</button>
                     </div>
                 </div>
             </div>
