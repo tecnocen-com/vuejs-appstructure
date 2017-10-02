@@ -70138,6 +70138,7 @@ module.exports = new Vue({
                 valid = true;
             switch(e){
                 case "manual":
+                    BUTO.components.main.loader.active = true;
                     if(this.manualAdd.name.value === null || this.manualAdd.name.value === ""){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
@@ -70145,6 +70146,7 @@ module.exports = new Vue({
                         BUTO.components.main.alert.active = true;
                         this.manualAdd.name.valid = false;
                         this.manualAdd.name.text = "Nombre no puede estar vacío";
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(valid && (this.manualAdd.name.value.length < 6)){
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -70153,6 +70155,7 @@ module.exports = new Vue({
                         BUTO.components.main.alert.active = true;
                         this.manualAdd.name.valid = false;
                         this.manualAdd.name.text = "Nombre debe contener al menos 6 caracteres";
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(this.manualAdd.map.marker.main === null ||                  //No position
                             this.manualAdd.map.marker.position.lat === null || this.manualAdd.map.marker.position.lng === null){
@@ -70160,6 +70163,7 @@ module.exports = new Vue({
                         BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
+                        BUTO.components.main.loader.active = false;
                     }
                     else{
                         for(i = 0; i < (this.manualAdd.sameConf ? 1 : this.manualAdd.steps.length); i++)
@@ -70222,7 +70226,6 @@ module.exports = new Vue({
                                     }
                                 }
                         if(valid){
-                            BUTO.components.main.loader.active = true;
                             this.models.sucursal.post({
                                 params: {
                                     nombre: this.manualAdd.name.value,
@@ -70262,6 +70265,7 @@ module.exports = new Vue({
                             BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
                             BUTO.components.main.alert.description.ok = "Aceptar";
                             BUTO.components.main.alert.active = true;
+                            BUTO.components.main.loader.active = false;
                         }
                     }
                     break;
@@ -74661,6 +74665,7 @@ module.exports = new Vue({
                 emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             switch(e){
                 case "manual":
+                    BUTO.components.main.loader.active = true;
                     if(this.manualAdd.name.value === null || this.manualAdd.name.value === ""){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
@@ -74669,6 +74674,7 @@ module.exports = new Vue({
                         this.manualAdd.name.valid = false;
                         this.manualAdd.name.text = "Nombre no puede estar vacío";
                         valid = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(valid && this.manualAdd.name.value.length < 8){
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -74678,6 +74684,7 @@ module.exports = new Vue({
                         this.manualAdd.name.valid = false;
                         this.manualAdd.name.text = "Nombre debe contener al menos 8 caracteres";
                         valid = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(valid && (this.manualAdd.email.value === null || this.manualAdd.email.value === "")){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -74687,6 +74694,7 @@ module.exports = new Vue({
                         this.manualAdd.email.valid = false;
                         this.manualAdd.email.text = "Correo electrónico no puede estar vacío";
                         valid = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(valid && !emailTest.test(this.manualAdd.email.value)){
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -74696,6 +74704,7 @@ module.exports = new Vue({
                         this.manualAdd.email.valid = false;
                         this.manualAdd.email.text = "Correo electrónico no tiene una forma válida";
                         valid = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(valid && (this.manualAdd.pass.value === null || this.manualAdd.pass.value === "")){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -74705,15 +74714,17 @@ module.exports = new Vue({
                         this.manualAdd.pass.valid = false;
                         this.manualAdd.pass.text = "Contraseña no puede estar vacío";
                         valid = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(valid && this.manualAdd.pass.value.length < 8){
-                            BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
-                            BUTO.components.main.alert.description.text = "Contraseña debe contener al menos 8 caracteres.";
-                            BUTO.components.main.alert.description.ok = "Aceptar";
-                            BUTO.components.main.alert.active = true;
-                            this.manualAdd.pass.valid = false;
-                            this.manualAdd.pass.text = "Contraseña debe contener al menos 8 caracteres";
-                            valid = false;
+                        BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
+                        BUTO.components.main.alert.description.text = "Contraseña debe contener al menos 8 caracteres.";
+                        BUTO.components.main.alert.description.ok = "Aceptar";
+                        BUTO.components.main.alert.active = true;
+                        this.manualAdd.pass.valid = false;
+                        this.manualAdd.pass.text = "Contraseña debe contener al menos 8 caracteres";
+                        valid = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(valid && (this.manualAdd.repass.value === null || this.manualAdd.repass.value === "")){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -74723,6 +74734,7 @@ module.exports = new Vue({
                         this.manualAdd.repass.valid = false;
                         this.manualAdd.repass.text = "Confirmar contraseña no puede estar vacío";
                         valid = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(valid && (this.manualAdd.repass.value !== this.manualAdd.pass.value)){
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -74732,6 +74744,7 @@ module.exports = new Vue({
                         this.manualAdd.repass.valid = false;
                         this.manualAdd.repass.text = "Las contraseñas no coinciden";
                         valid = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(valid && (this.manualAdd.phone.value === null || this.manualAdd.phone.value === "")){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -74741,6 +74754,7 @@ module.exports = new Vue({
                         this.manualAdd.phone.valid = false;
                         this.manualAdd.phone.text = "Teléfono no puede estar vacío";
                         valid = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(valid && (this.manualAdd.phone.value.length < 10 || this.manualAdd.phone.value.length > 10)){
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -74750,6 +74764,7 @@ module.exports = new Vue({
                         this.manualAdd.phone.valid = false;
                         this.manualAdd.phone.text = "Teléfono debe contener 10 dígitos";
                         valid = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(valid){
                         for(i = 0; i < (this.manualAdd.sameConf ? 1 : this.manualAdd.steps.length); i++){
@@ -74833,9 +74848,9 @@ module.exports = new Vue({
                             BUTO.components.main.alert.description.text = error;
                             BUTO.components.main.alert.description.ok = "Aceptar";
                             BUTO.components.main.alert.active = true;
+                            BUTO.components.main.loader.active = false;
                         }
                         if(valid){
-                            BUTO.components.main.loader.active = true;
                             this.models.usuarioEmpleado.post({
                                 params: {
                                     nombre: this.manualAdd.name.value,
@@ -74887,6 +74902,7 @@ module.exports = new Vue({
                             BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
                             BUTO.components.main.alert.description.ok = "Aceptar";
                             BUTO.components.main.alert.active = true;
+                            BUTO.components.main.loader.active = false;
                         }
                     }
                     break;
