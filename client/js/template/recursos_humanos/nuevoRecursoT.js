@@ -85,7 +85,7 @@ module.exports = `
                             <div :class="resource.valid && resource.name.valid ? '' : 'has-error'" class="form-group">
                                 <label class="control-label col-lg-2">Nombre recurso {{resourceIndex + 1}}</label>
                                 <div class="col-lg-10">
-                                    <input class="form-control" v-on:keyup="config.validation('import-name', resourceIndex)" v-model="resource.name.value" type="text" name="Nombre">
+                                    <input class="form-control" v-on:keyup="config.validation('import-name', resourceIndex)" v-model="resource.name.value" type="text" name="Nombre" maxlength="64">
                                     <span class="help-block">{{resource.name.text}}</span>
                                     <div class="pull-right input-handler">
                                         <a href="#" v-on:click.prevent="config.edit(resourceIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="'Editar ' + resource.name.value" data-toggle="modal" data-target="#edit">

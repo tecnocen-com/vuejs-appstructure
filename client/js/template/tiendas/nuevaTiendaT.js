@@ -85,7 +85,7 @@ module.exports = `
                             <div :class="store.valid && store.name.valid ? '' : 'has-error'" class="form-group">
                                 <label class="control-label col-lg-2">Nombre tienda {{storeIndex + 1}}</label>
                                 <div class="col-lg-10">
-                                    <input class="form-control" v-on:keyup="config.validation('import-name', storeIndex)" v-model="store.name.value" type="text" name="Nombre">
+                                    <input class="form-control" v-on:keyup="config.validation('import-name', storeIndex)" v-model="store.name.value" type="text" name="Nombre" maxlength="64">
                                     <span class="help-block">{{store.name.text}}</span>
                                     <div class="pull-right input-handler">
                                         <a href="#" v-on:click.prevent="config.edit(storeIndex)" class="alert alert-info grid-handlers grid-custom-handlers grid-handlers-customized" :title="'Editar ' + store.name.value" data-toggle="modal" data-target="#edit">
