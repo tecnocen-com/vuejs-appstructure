@@ -2,7 +2,7 @@ Control de Cambios de AYP
 ================================================================================
 0.2.0 2017-10-02
 --------------------------------------------------------------------------------
-- [Enh] `client\js\component\clientes\importadorClientes`,
+- [Enh] `client\js\component\clientes\importadorClientes`, 
 `client/js/template/clientes/importadorClientesT.js`,
 `client/file/clientes/importador-clientes.xlsx`, importación de nuevos
 clientes mediante archivo externo (Marcos-Onca)
