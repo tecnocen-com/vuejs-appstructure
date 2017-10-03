@@ -2438,10 +2438,8 @@ module.exports = new Vue({
                                 if(this.importer.resource[i].steps[j].active){
                                     length[2] = this.importer.resource[i].steps[j].schedule.length;
                                     for(k = 0; k < length[2]; k++)
-                                        if((this.importer.resource[i].steps[j].schedule[k].main_begin === null ||                  //No position
-                                            this.importer.resource[i].steps[j].schedule[k].lat_begin === null ||
+                                        if((this.importer.resource[i].steps[j].schedule[k].lat_begin === null ||
                                             this.importer.resource[i].steps[j].schedule[k].lng_begin === null ||
-                                            this.importer.resource[i].steps[j].schedule[k].main_end === null ||                  //No position
                                             this.importer.resource[i].steps[j].schedule[k].lat_end === null ||
                                             this.importer.resource[i].steps[j].schedule[k].lng_end === null) &&
                                             valid){
