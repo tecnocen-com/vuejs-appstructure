@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 var http = require("http").Server(app);
 var session = require("client-sessions");           //Sessions handler from mozilla
-var formidable = require("formidable");             //Modulo para parsear y subir archivos de forms
+var XLSX = require("xlsx");
 var requestHandlers = require("./requestHandlers"); //Modulo customizado para actuar según URL
 app.use(session({
     cookieName: "travelAppSession",
@@ -53,6 +53,37 @@ app.get("/download-import", function(request, response){
                 console.log(error);
         });
 });
+app.get("/download-export", function(request, response){
+    var ws = XLSX.utils.aoa_to_sheet(JSON.parse(request.query.data));
+    ws['!cols'] = [
+        {wpx: 200},
+        {wpx: 200},
+        {wpx: 200},
+        {wpx: 200},
+        {wpx: 100},
+        {wpx: 100},
+        {wpx: 100},
+        {wpx: 100},
+        {wpx: 100},
+        {wpx: 100},
+        {wpx: 100}
+    ];
+    const wb = { SheetNames: [], Sheets: {} };
+    wb.Props = {
+       Title: "Reporte",
+       Author: "Tecnocen"
+    };
+    XLSX.utils.book_append_sheet(
+        wb,
+        ws,
+        "Reporte"
+    );
+    /* create file "in memory" */
+    var wbout = new Buffer(XLSX.write(wb, { bookType: "xlsx", type: "buffer" }));
+    response.setHeader("Content-type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    response.setHeader("Content-disposition", "attachment; filename=" + request.query.filename + ".xlsx");
+    response.send( wbout );
+});
 //app.post("/upload-import", function(request, response){
 //    var form = new formidable.IncomingForm();
 //    form.parse(request, function(error, fields, files){
@@ -66,20 +97,20 @@ app.get("/download-import", function(request, response){
 //        }
 //    });
 //});
-app.use('/', express.static(__dirname + '/client'));   //Vuelve estática la carpeta especificada, sin "__dirname" será ruta relativa a donde inicia el proceso Node, usándolo será absoluto a la raiz del proyecto
-app.use('/css', express.static(__dirname + '/client/style'));
-app.use('/file', express.static(__dirname + '/client/file'));
-app.use('/image', express.static(__dirname + '/client/image'));
-app.use('/assets', express.static(__dirname + '/client/assets'));
-app.use('/build', express.static(__dirname + '/build'));
+app.use("/", express.static(__dirname + "/client"));   //Vuelve estática la carpeta especificada, sin "__dirname" será ruta relativa a donde inicia el proceso Node, usándolo será absoluto a la raiz del proyecto
+app.use("/css", express.static(__dirname + "/client/style"));
+app.use("/file", express.static(__dirname + "/client/file"));
+app.use("/image", express.static(__dirname + "/client/image"));
+app.use("/assets", express.static(__dirname + "/client/assets"));
+app.use("/build", express.static(__dirname + "/build"));
 
-app.use('/js', express.static(__dirname + '/node_modules/vue/dist'));
-app.use('/js', express.static(__dirname + '/node_modules/vue-resource/dist'));
-app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
-app.use('/js', express.static(__dirname + '/node_modules/jquery-ui-dist'));
-app.use('/js', express.static(__dirname + '/node_modules/jquery-ui-multidatespicker'));
-app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use("/js", express.static(__dirname + "/node_modules/vue/dist"));
+app.use("/js", express.static(__dirname + "/node_modules/vue-resource/dist"));
+app.use("/js", express.static(__dirname + "/node_modules/jquery/dist"));
+app.use("/js", express.static(__dirname + "/node_modules/jquery-ui-dist"));
+app.use("/js", express.static(__dirname + "/node_modules/jquery-ui-multidatespicker"));
+app.use("/js", express.static(__dirname + "/node_modules/bootstrap/dist/js"));
+app.use("/css", express.static(__dirname + "/node_modules/bootstrap/dist/css"));
 
 http.listen(8080, "localhost", function(){  //192.168.0.220
   console.log("listening on *:8080");

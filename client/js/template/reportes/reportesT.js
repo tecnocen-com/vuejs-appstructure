@@ -127,13 +127,13 @@ module.exports = `
                                     <span><b>Mostrando {{config.proyection.length}} de {{config.data.page.proyection.totalCount}} filas en la página {{config.data.page.proyection.currentPage}} de {{config.data.page.proyection.pageCount}}.</b></span>
                                 </li>
                                 <li  :class="config.data.page.proyection.currentPage === 1 ? 'not-active disabled' : ''">
-                                    <a href="#" v-on:click.prevent="config.init(1, 1);">
+                                    <a href="#" v-on:click.prevent="config.initTemplate(1, 1);">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
                                 <template v-if="config.data.page.proyection.pageCount <= 3">
                                     <li v-for="page in config.data.page.proyection.pageCount" :class="page === config.data.page.proyection.currentPage ? 'active' : ''">
-                                        <a href="#" v-on:click.prevent="page === config.data.page.proyection.currentPage ? '' : config.init(1, page);">
+                                        <a href="#" v-on:click.prevent="page === config.data.page.proyection.currentPage ? '' : config.initTemplate(1, page);">
                                             {{page}}
                                         </a>
                                     </li>
@@ -141,17 +141,17 @@ module.exports = `
                                 <template v-else>
                                     <template v-if="config.data.page.proyection.currentPage < 3">
                                         <li :class="config.data.page.proyection.currentPage === 1 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 1 ? '' : config.init(1, 1);">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 1 ? '' : config.initTemplate(1, 1);">
                                                 1
                                             </a>
                                         </li>
                                         <li :class="config.data.page.proyection.currentPage === 2 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 2 ? '' : config.init(1, 2);">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 2 ? '' : config.initTemplate(1, 2);">
                                                 2
                                             </a>
                                         </li>
                                         <li :class="config.data.page.proyection.currentPage === 3 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 3 ? '' : config.init(1, 3);">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 3 ? '' : config.initTemplate(1, 3);">
                                                 3
                                             </a>
                                         </li>
@@ -164,17 +164,17 @@ module.exports = `
                                             <span aria-hidden="true">...</span>
                                         </li>
                                         <li :class="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 2 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 2 ? '' : config.init(1, config.data.page.proyection.pageCount - 2);">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 2 ? '' : config.initTemplate(1, config.data.page.proyection.pageCount - 2);">
                                                 {{config.data.page.proyection.pageCount - 2}}
                                             </a>
                                         </li>
                                         <li :class="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 1 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 1 ? '' : config.init(1, config.data.page.proyection.pageCount - 1);">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 1 ? '' : config.initTemplate(1, config.data.page.proyection.pageCount - 1);">
                                                 {{config.data.page.proyection.pageCount - 1}}
                                             </a>
                                         </li>
                                         <li :class="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount ? '' : config.init(1, config.data.page.proyection.pageCount);">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount ? '' : config.initTemplate(1, config.data.page.proyection.pageCount);">
                                                 {{config.data.page.proyection.pageCount}}
                                             </a>
                                         </li>
@@ -184,7 +184,7 @@ module.exports = `
                                             <span aria-hidden="true">...</span>
                                         </li>
                                         <li>
-                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.proyection.currentPage - 1)">
+                                            <a href="#" v-on:click.prevent="config.initTemplate(1, config.data.page.proyection.currentPage - 1)">
                                                 {{config.data.page.proyection.currentPage - 1}}
                                             </a>
                                         </li>
@@ -194,7 +194,7 @@ module.exports = `
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.proyection.currentPage + 1)">
+                                            <a href="#" v-on:click.prevent="config.initTemplate(1, config.data.page.proyection.currentPage + 1)">
                                                 {{config.data.page.proyection.currentPage + 1}}
                                             </a>
                                         </li>
@@ -204,13 +204,29 @@ module.exports = `
                                     </template>
                                 </template>
                                 <li :class="config.data.page.proyection.pageCount === config.data.page.proyection.currentPage ? 'not-active disabled' : ''">
-                                    <a href="#" v-on:click.prevent="config.init(1, config.data.page.proyection.pageCount);">
+                                    <a href="#" v-on:click.prevent="config.initTemplate(1, config.data.page.proyection.pageCount);">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
+					<div style="height: 10px;"></div>
+					<div v-if="config.proyectionToExport.length > 0" class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="steps-basic wizard clearfix">
+									<div class="actions clearfix">
+										<ul role="menu" aria-label="Pagination">
+											<li>
+												<a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.doExport()" role="menuitem">Exportar</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
         </div>

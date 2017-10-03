@@ -42371,13 +42371,13 @@ module.exports = `
                                     <span><b>Mostrando {{config.proyection.length}} de {{config.data.page.proyection.totalCount}} filas en la página {{config.data.page.proyection.currentPage}} de {{config.data.page.proyection.pageCount}}.</b></span>
                                 </li>
                                 <li  :class="config.data.page.proyection.currentPage === 1 ? 'not-active disabled' : ''">
-                                    <a href="#" v-on:click.prevent="config.init(1, 1);">
+                                    <a href="#" v-on:click.prevent="config.initTemplate(1, 1);">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
                                 <template v-if="config.data.page.proyection.pageCount <= 3">
                                     <li v-for="page in config.data.page.proyection.pageCount" :class="page === config.data.page.proyection.currentPage ? 'active' : ''">
-                                        <a href="#" v-on:click.prevent="page === config.data.page.proyection.currentPage ? '' : config.init(1, page);">
+                                        <a href="#" v-on:click.prevent="page === config.data.page.proyection.currentPage ? '' : config.initTemplate(1, page);">
                                             {{page}}
                                         </a>
                                     </li>
@@ -42385,17 +42385,17 @@ module.exports = `
                                 <template v-else>
                                     <template v-if="config.data.page.proyection.currentPage < 3">
                                         <li :class="config.data.page.proyection.currentPage === 1 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 1 ? '' : config.init(1, 1);">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 1 ? '' : config.initTemplate(1, 1);">
                                                 1
                                             </a>
                                         </li>
                                         <li :class="config.data.page.proyection.currentPage === 2 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 2 ? '' : config.init(1, 2);">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 2 ? '' : config.initTemplate(1, 2);">
                                                 2
                                             </a>
                                         </li>
                                         <li :class="config.data.page.proyection.currentPage === 3 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 3 ? '' : config.init(1, 3);">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === 3 ? '' : config.initTemplate(1, 3);">
                                                 3
                                             </a>
                                         </li>
@@ -42408,17 +42408,17 @@ module.exports = `
                                             <span aria-hidden="true">...</span>
                                         </li>
                                         <li :class="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 2 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 2 ? '' : config.init(1, config.data.page.proyection.pageCount - 2);">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 2 ? '' : config.initTemplate(1, config.data.page.proyection.pageCount - 2);">
                                                 {{config.data.page.proyection.pageCount - 2}}
                                             </a>
                                         </li>
                                         <li :class="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 1 ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 1 ? '' : config.init(1, config.data.page.proyection.pageCount - 1);">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount - 1 ? '' : config.initTemplate(1, config.data.page.proyection.pageCount - 1);">
                                                 {{config.data.page.proyection.pageCount - 1}}
                                             </a>
                                         </li>
                                         <li :class="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount ? 'active' : ''">
-                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount ? '' : config.init(1, config.data.page.proyection.pageCount);">
+                                            <a href="#" v-on:click.prevent="config.data.page.proyection.currentPage === config.data.page.proyection.pageCount ? '' : config.initTemplate(1, config.data.page.proyection.pageCount);">
                                                 {{config.data.page.proyection.pageCount}}
                                             </a>
                                         </li>
@@ -42428,7 +42428,7 @@ module.exports = `
                                             <span aria-hidden="true">...</span>
                                         </li>
                                         <li>
-                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.proyection.currentPage - 1)">
+                                            <a href="#" v-on:click.prevent="config.initTemplate(1, config.data.page.proyection.currentPage - 1)">
                                                 {{config.data.page.proyection.currentPage - 1}}
                                             </a>
                                         </li>
@@ -42438,7 +42438,7 @@ module.exports = `
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" v-on:click.prevent="config.init(1, config.data.page.proyection.currentPage + 1)">
+                                            <a href="#" v-on:click.prevent="config.initTemplate(1, config.data.page.proyection.currentPage + 1)">
                                                 {{config.data.page.proyection.currentPage + 1}}
                                             </a>
                                         </li>
@@ -42448,13 +42448,29 @@ module.exports = `
                                     </template>
                                 </template>
                                 <li :class="config.data.page.proyection.pageCount === config.data.page.proyection.currentPage ? 'not-active disabled' : ''">
-                                    <a href="#" v-on:click.prevent="config.init(1, config.data.page.proyection.pageCount);">
+                                    <a href="#" v-on:click.prevent="config.initTemplate(1, config.data.page.proyection.pageCount);">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
+					<div style="height: 10px;"></div>
+					<div v-if="config.proyectionToExport.length > 0" class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="steps-basic wizard clearfix">
+									<div class="actions clearfix">
+										<ul role="menu" aria-label="Pagination">
+											<li>
+												<a class="btn btn-info btn-customized" href="#finish" v-on:click.prevent="config.doExport()" role="menuitem">Exportar</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
         </div>
@@ -78796,16 +78812,17 @@ module.exports = new Vue({
 		initTemplate: function(e, page){
 			var i, params = {},
                 me = this;
+			if(page)
+				this.data.page.proyection.currentPage = page;
             if(e === 0){
 				this.step = 1;
-				if(page)
-					this.data.page.proyection.currentPage = page;
-            }
+				this.proyectionToExport = [];
+			}
 			this.proyection = [];
 			params["per-page"] = this.data.perPage;
 			params.sort = "fecha";
 			params.page = this.data.page.proyection.currentPage;
-			params.expand = "cliente, empleadoHorario.empleado, punto.ruta, punto.sucursal";
+			params.expand = "empleadoHorario.empleado, ruta";
 			if(this.filter.type){		//Range
 				params.fecha = "";
 				for(i = 0; i < this.filter.randomDate.value.length; i++)
@@ -78821,7 +78838,6 @@ module.exports = new Vue({
 			function(success){
 				me.data.page.proyection.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
 				me.data.page.proyection.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-				console.log(success);
 				for(i = 0; i < success.body.length; i++)
 					me.initProyection(success.body[i]);
 			},
@@ -78830,45 +78846,49 @@ module.exports = new Vue({
 			});
 		},
 		initProyection: function(e){
+			var selected = false,
+				i, length;
+			length = this.proyectionToExport.length;
+			for(i = 0; i < length; i++)
+				if(this.proyectionToExport[i].id === e.id)
+					selected = true;
 			this.proyection.push({
 				id: e.id,
 				resource: {
-					//id: e._embedded.empleadoHorario._embedded.empleado.id,
-					//name: e._embedded.empleadoHorario._embedded.empleado.nombre,
-					//idSchedule: e._embedded.empleadoHorario.id,
-					//schedule: e._embedded.empleadoHorario.hora_inicio + " - " + e._embedded.empleadoHorario.hora_fin
+					name: e._embedded.empleadoHorario._embedded.empleado.nombre,
+					idSchedule: e._embedded.empleadoHorario.id,
+					schedule: e._embedded.empleadoHorario.hora_inicio + " - " + e._embedded.empleadoHorario.hora_fin
 				},
 				day: {
 					date: e.fecha,
-					//name: e._embedded.empleadoHorario.nombreDia,
-					//id: e._embedded.empleadoHorario.dia
+					name: e._embedded.ruta.nombreDia,
+					id: e._embedded.ruta.dia
 				},
 				route: {
 					id: e.ruta_id,
-					//name: e._embedded.punto._embedded.ruta.nombre,
-					//begin: e._embedded.punto._embedded.ruta.hora_inicio,
-					//end: e._embedded.punto._embedded.ruta.hora_fin,
+					name: e._embedded.ruta.nombre,
+					begin: e._embedded.ruta.hora_inicio,
+					end: e._embedded.ruta.hora_fin,
 				},
-				//store: {
-				//	id: e._embedded.punto._embedded.sucursal.id,
-				//	name: e._embedded.punto._embedded.sucursal.nombre,
-				//},
-				//client: [],
 				linked: false,
-				selected: false
+				selected: selected
 			});
         },
 		setToExport: function(i){
-			var me = this,
+			var me = this, j, newExport = [],
 				length;
 			this.proyection[i].selected = !this.proyection[i].selected;
 			if(this.proyection[i].selected){	//Add
+				BUTO.components.main.loader.active = true;
 				length = me.proyectionToExport.length;
 				this.proyectionToExport.push({
+					id: this.proyection[i].id,
 					resource: this.proyection[i].resource.name,
 					route: {
 						name: this.proyection[i].route.name,
-						id: this.proyection[i].route.id
+						id: this.proyection[i].route.id,
+						begin: this.proyection[i].route.begin,
+						end: this.proyection[i].route.end,
 					},
 					day: {
 						date: this.proyection[i].day.date,
@@ -78883,21 +78903,13 @@ module.exports = new Vue({
 					}
 				});
 				this.initPoint(length);
-				//me.proyectionToExport({
-				//	resource: me.proyection[i].resource.name,
-				//	route: me.proyection[i].route.name,
-				//	store: me.see.route.store.point[i].name,
-				//	client: me.see.route.store.point[j].client[k].name,
-				//	start: me.see.route.store.point[j].start,
-				//	arrival: me.see.route.store.point[j].arrival,
-				//	travel: me.see.route.store.point[j].travel,
-				//	death: me.see.route.store.point[j].death,
-				//	used: me.see.route.store.point[j].client[k].time
-				//});	
-				//console.log(me.proyectionToExport);
 			}
 			else{								//Remove
-				console.log("remove", me.see);
+				length = this.proyectionToExport.length;
+				for(j = 0; j < length; j++)
+					if(this.proyectionToExport[j].route.id !== this.proyection[i].route.id)
+						newExport.push(this.proyectionToExport[j]);
+				this.proyectionToExport = newExport;
 			}
 		},
 		initPoint: function(j){
@@ -78917,8 +78929,8 @@ module.exports = new Vue({
                     me.proyectionToExport[j].store.point.push({
                         //id: success.body[i].id,
                         idStore: success.body[i]._embedded.sucursal.id,
-                        //lat: success.body[i]._embedded.sucursal.lat,
-                        //lng: success.body[i]._embedded.sucursal.lng,
+                        lat: success.body[i]._embedded.sucursal.lat,
+                        lng: success.body[i]._embedded.sucursal.lng,
                         name: success.body[i]._embedded.sucursal.nombre,
                         schedule: [],
                         scheduleIndex: null,
@@ -78926,8 +78938,8 @@ module.exports = new Vue({
                         calculate: true,       //false takes api values, true takes inherit operations
                         travel: length === 0 ? "00:00:00" : null,
                         distance: length === 0 ? 0 : null,
-                        start: length === 0 ? me.proyection[j].route.begin : null,
-                        death: length === 0 ? me.converter("string", me.converter("time", success.body[i].hora_llegada_estimada) - me.converter("time", me.proyection[j].route.begin)) : null,
+                        start: length === 0 ? me.proyectionToExport[j].route.begin : null,
+                        death: length === 0 ? me.converter("string", me.converter("time", success.body[i].hora_llegada_estimada) - me.converter("time", me.proyectionToExport[j].route.begin)) : null,
                         usedTime: null,
                         client: [],
                         //hidden: true,
@@ -78956,14 +78968,15 @@ module.exports = new Vue({
                         //    flag: false
                         //})
                     });
-                    me.initClient(success.body[i].id, j, length);
+                    me.initClient(success.body[i].id, j, length, success.body.length);
                 }
             },
             function(error){
                 console.log(error);
+				BUTO.components.main.loader.active = false;
             });
         },
-        initClient: function(pointId, I, i){
+        initClient: function(pointId, I, i, totalLength){
             var j, k, me = this, usedTime = 0;
             this.models.sucursalCliente.get({
                 delimiters: this.proyectionToExport[I].store.point[i].idStore,
@@ -78997,17 +79010,19 @@ module.exports = new Vue({
                     me.proyectionToExport[I].store.point[i].usedTime = me.converter("string", usedTime);
                     if(i < me.proyectionToExport[I].store.point.length - 1)
                         me.proyectionToExport[I].store.point[i + 1].start = me.converter("string", usedTime + me.converter("time", me.proyectionToExport[I].store.point[i].arrival));
-                    me.initSchedule(I, i);
+                    me.initSchedule(I, i, totalLength);
                 },
                 function(error2){
                     console.log(error2);
+					BUTO.components.main.loader.active = false;
                 });
             },
             function(error){
                 console.log(error);
+				BUTO.components.main.loader.active = false;
             });
         },
-        initSchedule: function(I, i){
+        initSchedule: function(I, i, totalLength){
             var j,
                 me = this;
             this.models.sucursalHorario.get({
@@ -79033,9 +79048,12 @@ module.exports = new Vue({
                     me.proyectionToExport[I].store.point[i].calculate = false;
                 if(i > 0)
                     me.initRoute(I, i);
+				if(totalLength < 2)
+					BUTO.components.main.loader.active = false;
             },
             function(error){
                 console.log(error);
+				BUTO.components.main.loader.active = false;
             });
         },
         initRoute: function(I, i){
@@ -79044,8 +79062,14 @@ module.exports = new Vue({
                 travelTime = 0,
                 distance = 0;
             this.map.directionService.route({
-                origin: this.proyectionToExport[I].store.point[i - 1].main.position,
-                destination: this.proyectionToExport[I].store.point[i].main.position,
+                origin: {
+					lat: this.proyectionToExport[I].store.point[i - 1].lat,
+					lng: this.proyectionToExport[I].store.point[i - 1].lng,
+				},
+                destination: {
+					lat: this.proyectionToExport[I].store.point[i].lat,
+					lng: this.proyectionToExport[I].store.point[i].lng,
+				},
                 travelMode: "TRANSIT", //this.configuration.service.type, //"DRIVING", //NOTE: Transit not draggable
                 avoidTolls: true
             },
@@ -79093,10 +79117,12 @@ module.exports = new Vue({
                     me.proyectionToExport[I].store.point[i].distance = distance;
                     me.proyectionToExport[I].store.data.totalDistance += distance;
                     me.proyectionToExport[I].store.point[i].death = me.converter("string", me.converter("time", me.proyectionToExport[I].store.point[i].arrival) - me.converter("time", me.proyectionToExport[I].store.point[i].start) - me.converter("time", me.proyectionToExport[I].store.point[i].travel));
-					console.log(me.proyectionToExport);
                 }
                 else
                     console.log(status);
+				if(I === me.proyectionToExport.length - 1 &&
+				   i === me.proyectionToExport[I].store.point.length - 1)
+					BUTO.components.main.loader.active = false;
             });
         },
         reset: function(){
@@ -79116,6 +79142,157 @@ module.exports = new Vue({
 				if(me.see.first === true)
 					me.see.first = false;
 			});
+		},
+		doExport: function(){
+			var i, j, k, x, name, first = true, last = [],
+				start, arrival, end, hours, death,
+				sameDate = false,
+				totalTravel = 0, totalDeath = 0, totalUsed = 0, totalHours = 0,
+				TotalTravel = 0, TotalDeath = 0, TotalUsed = 0, TotalHours = 0,
+				letsExport = [
+				[
+					"Empleado",
+					"Ruta",
+					"Tienda",
+					"Cliente",
+					"Hora partida",
+					"Hora llegada",
+					"Hora término",
+					"Tiempo Viaje",
+					"Tiempo Muerto",
+					"Tiempo Solicitado",
+					"Horas"
+				]
+			];
+			this.proyectionToExport.sort(function(a, b){
+				var first = a.day.date.split("-");
+				var last = b.day.date.split("-");
+				var aDate = new Date(first[0], first[1], first[2]);
+				var bDate = new Date(last[0], last[1], last[2]);
+				return aDate.getTime() - bDate.getTime();
+			});
+			//console.log(this.proyectionToExport);
+			for(i = 0; i < this.proyectionToExport.length; i++){
+				last[0] = this.proyectionToExport[i].store.point.length - 1;
+				if(i > 0)
+					sameDate = this.proyectionToExport[i].day.date === this.proyectionToExport[i - 1].day.date;
+				if(!sameDate && i > 0){
+					letsExport.push([
+						"",
+						"",
+						"",
+						"",
+						"",
+						"",
+						"",
+						this.converter("string", totalTravel),
+						this.converter("string", totalDeath),
+						this.converter("string", totalUsed),
+						this.converter("string", totalHours)
+					]);
+					TotalTravel += totalTravel;
+					TotalDeath += totalDeath;
+					TotalUsed += totalUsed;
+					TotalHours += totalHours;
+					totalTravel = 0;
+					totalDeath = 0;
+					totalUsed = 0;
+					totalHours = 0;
+				}
+				if(!sameDate)
+					letsExport.push([
+						this.proyectionToExport[i].day.date
+					]);
+				for(j = 0; j <= last[0]; j++){
+					first = true;
+					for(k = 0; k < this.proyectionToExport[i].store.point[j].client.length; k++)
+						if(this.proyectionToExport[i].store.point[j].client[k].active)
+							last[1] = k;
+					for(k = 0; k < this.proyectionToExport[i].store.point[j].client.length; k++){
+						if(this.proyectionToExport[i].store.point[j].client[k].active){
+							x = letsExport.length;
+							start = first ?
+								this.proyectionToExport[i].store.point[j].start :
+								letsExport[x - 1][6];
+							arrival = first ?
+								this.proyectionToExport[i].store.point[j].arrival :
+								letsExport[x - 1][6];
+							end = first ?
+								this.converter("string", this.converter("time", this.proyectionToExport[i].store.point[j].start) + this.converter("time", this.proyectionToExport[i].store.point[j].travel) + this.converter("time", this.proyectionToExport[i].store.point[j].death) + this.converter("time", this.proyectionToExport[i].store.point[j].client[k].time)) :
+								this.converter("string", this.converter("time", letsExport[x - 1][6]) + this.converter("time", this.proyectionToExport[i].store.point[j].client[k].time));
+							death = first && (j === last[0]) && (k === last[1]) && (this.converter("time", this.proyectionToExport[i].route.end) > this.converter("time", end)) ?
+								this.converter("string", this.converter("time", this.proyectionToExport[i].store.point[j].death) + this.converter("time", this.proyectionToExport[i].route.end) - this.converter("time", end)) :
+								(j === last[0]) && (k === last[1]) && (this.converter("time", this.proyectionToExport[i].route.end) > this.converter("time", end)) ?
+								this.converter("string", this.converter("time", this.proyectionToExport[i].route.end) - this.converter("time", end)) :
+								first ?
+								this.proyectionToExport[i].store.point[j].death :
+								"00:00:00";
+							hours = first ?
+								this.converter("string", this.converter("time", this.proyectionToExport[i].store.point[j].travel) + this.converter("time", death) + this.converter("time", this.proyectionToExport[i].store.point[j].client[k].time)) :
+								this.converter("string", this.converter("time", this.proyectionToExport[i].store.point[j].client[k].time) + this.converter("time", death));
+							
+							letsExport.push([
+								this.proyectionToExport[i].resource,
+								this.proyectionToExport[i].route.name,
+								this.proyectionToExport[i].store.point[j].name,
+								this.proyectionToExport[i].store.point[j].client[k].name,
+								start,
+								arrival,
+								end,
+								first ? this.proyectionToExport[i].store.point[j].travel : "00:00:00",
+								death,
+								this.proyectionToExport[i].store.point[j].client[k].time,
+								hours
+							]);
+							totalTravel += this.converter("time", first ? this.proyectionToExport[i].store.point[j].travel : "00:00:00");
+							totalDeath += this.converter("time", death);
+							totalUsed += this.converter("time", this.proyectionToExport[i].store.point[j].client[k].time);
+							totalHours += this.converter("time", hours);
+							first = false;
+						}
+					}
+				}
+				if(i === this.proyectionToExport.length - 1){
+					letsExport.push([
+						"",
+						"",
+						"",
+						"",
+						"",
+						"",
+						"",
+						this.converter("string", totalTravel),
+						this.converter("string", totalDeath),
+						this.converter("string", totalUsed),
+						this.converter("string", totalHours)
+					]);
+					TotalTravel += totalTravel;
+					TotalDeath += totalDeath;
+					TotalUsed += totalUsed;
+					TotalHours += totalHours;
+					totalTravel = 0;
+					totalDeath = 0;
+					totalUsed = 0;
+					totalHours = 0;
+					letsExport.push([
+						"",
+						"",
+						"",
+						"",
+						"",
+						"",
+						"",
+						this.converter("string", TotalTravel),
+						this.converter("string", TotalDeath),
+						this.converter("string", TotalUsed),
+						this.converter("string", TotalHours)
+					]);
+				}
+			}
+			////console.log(letsExport);
+			////console.log(this.proyectionToExport);
+			name = "Reporte__" + (this.filter.type ? "Random" : this.filter.rangeDate.begin.value + "_" + this.filter.rangeDate.end.value);
+			window.open("/download-export?data=" + JSON.stringify(letsExport) + "&filename=" + name);
 		},
         converter: function(type, val){
             var value;
