@@ -1984,6 +1984,8 @@ module.exports = new Vue({
                                 }
                             }
                         }
+                        me.importer.file.text = "No has seleccionado ningún archivo";
+                        me.importer.file.value = null;
                     }
                     else{
                         BUTO.components.main.alert.description.text = "No se pudo identificar una columna apropiada para obtener: ";
@@ -2761,6 +2763,8 @@ module.exports = new Vue({
                         this.importer.resource = newSteps;
                         this.importer.total = 0;
                         this.importer.valid = true;
+                        this.importer.file.text = "No has seleccionado ningún archivo";
+                        this.importer.file.value = null;
                     }
                     break;
             }
