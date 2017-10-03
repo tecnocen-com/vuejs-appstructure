@@ -1,0 +1,32 @@
+<?php
+
+class AYP55_ExportacionDatos{
+protected $I;
+
+public function _before() {}
+public function _after() {}
+
+public function AYP55_ExportacionDatos (Webguy $I)
+{
+
+$I->wantTo("AYP55_ExportacionDatos");
+        $I->amOnPage("http://ec2-52-204-48-184.compute-1.amazonaws.com:8080/");
+        $I->appendField("input[name=username]", "aguevara@alquimiadigital.mx");
+        $I->appendField("input[name=password]", "password_0");
+        $I->click("button.btn-black");
+        $I->click("div.dashboard-icon.dashboard-report");
+        $I->click("#begin");
+        $I->click("9");
+        $I->click("#end");
+        $I->click("9");
+        $I->click("Filtrar");
+        $I->click("td.col-md-1");
+        $I->click("Exportar");
+        $I->click("Angel Guevara");
+        $I->click("Cerrar Sesión");
+
+}
+
+
+
+}
