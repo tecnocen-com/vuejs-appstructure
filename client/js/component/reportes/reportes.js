@@ -457,7 +457,7 @@ module.exports = new Vue({
 		seeRoute: function(i){
 			var me = this;
 			this.see.route.id = this.proyection[i].route.id;
-			this.see.date = this.proyection[i].date;
+			this.see.date = this.proyection[i].day.date;
 			Vue.nextTick(function(){
 				me.see.route.init("modal", me.see.first);
 				if(me.see.first === true)
