@@ -1,0 +1,27 @@
+<?php
+$I = new WebGuy($scenario);
+$I->wantTo("AYP51_AYP33_LimpiaDatos-NuevoRecursoHumano");
+$I->amOnPage("http://ec2-52-204-48-184.compute-1.amazonaws.com:8080/");
+$I->appendField("input[name=password]", "password_0");
+$I->appendField("input[name=username]", "aguevara@alquimiadigital.mx");
+$I->click("button.btn-black");
+$I->selectWindow====null||
+$I->click("Recursos humanos (4)");
+$I->click("Nuevo recurso");
+$I->click("//div/a/span");
+$I->click("//a[2]/span");
+$I->fillField("input[name=Nombre]", "SQA TESTING MAYRA");
+$I->fillField("input[name=\"Correo electrónico\"]", "mtellez@artificesweb.com");
+$I->fillField("input[name=Contraseña]", "1234567890123");
+$I->fillField("input[name=\"Confirmar contraseña\"]", "1234567890123");
+$I->click("//div[3]/div/div/div/div[2]/div/label");
+$I->fillField("div.form-group > input.form-control", "09:00:00");
+$I->fillField("(//input[@type='text'])[5]", "12:00:00");
+$I->fillField("input[name=Teléfono]", "1213213131");
+$I->click("Guardar");
+$I->click("span");
+$I->click("//div/a/span");
+$I->click("//tr[5]/td[3]/a/span");
+$I->click("Angel Guevara");
+$I->click("i.icon-switch2");
+
