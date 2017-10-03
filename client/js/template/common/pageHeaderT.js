@@ -3,7 +3,7 @@ module.exports = `
         <div class="page-header-content">
             <div class="page-title">
                 <h4>
-                    <a href="#"
+                    <a v-if="!(active.first === 0 && active.second === 0  && active.third === 0)" href="#"
 						v-on:click.prevent="
 							active.first === 1 && active.second === 0  && active.third === 0 && clientesactive !== 0 ? clientesview(0) :
 							active.first === 2 && active.second === 0  && active.third === 0 && tiendasactive !== 0 ? tiendasview(0) :
