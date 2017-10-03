@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://ec2-52-204-48-184.compute-1.amazonaws.com:8080/" />
+<title>AYP51_AYP40_LimpiaDatos-RegistrarNuevaRuta</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AYP51_AYP40_LimpiaDatos-RegistrarNuevaRuta</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>http://ec2-52-204-48-184.compute-1.amazonaws.com:8080/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>name=password</td>
+	<td>password_0</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>name=username</td>
+	<td>aguevara@alquimiadigital.mx</td>
+</tr>
+<tr>
+	<td>clickandWait</td>
+	<td>css=button.btn-black</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Rutas (4)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Nueva ruta</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=Nombre</td>
+	<td>SQATesting</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.form-group &gt; input.form-control</td>
+	<td>09:00:00</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[3]</td>
+	<td>16:00:00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Siguiente</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.glyphicon.glyphicon-plus</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Guardar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div/a/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//tr[5]/td[5]/a/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=i.caret</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Cerrar Sesión</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
