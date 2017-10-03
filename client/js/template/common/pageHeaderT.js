@@ -5,10 +5,11 @@ module.exports = `
                 <h4>
                     <a href="#"
 						v-on:click.prevent="
-							active.first === 1 && active.second === 0  && active.third === 0 ? clientesview(0) :
-							active.first === 2 && active.second === 0  && active.third === 0 ? tiendasview(0) :
-							active.first === 3 && active.second === 0  && active.third === 0 ? recursosview(0) :
-							active.first === 4 && active.second === 0  && active.third === 0 ? rutasview(0) : ''
+							active.first === 1 && active.second === 0  && active.third === 0 && clientesactive !== 0 ? clientesview(0) :
+							active.first === 2 && active.second === 0  && active.third === 0 && tiendasactive !== 0 ? tiendasview(0) :
+							active.first === 3 && active.second === 0  && active.third === 0 && recursosactive !== 0 ? recursosview(0) :
+							active.first === 4 && active.second === 0  && active.third === 0 && rutasactive !== 0 ? rutasview(0) :
+							setview({ first: 0, second: 0, third: 0 })
 						"
 					>
 						<i class="icon-arrow-left52 position-left"></i>

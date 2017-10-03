@@ -94,6 +94,10 @@ Vue.component("page-heading", {
         tiendasview: Function,
         recursosview: Function,
         rutasview: Function,
+        clientesactive: Number,
+        tiendasactive: Number,
+        recursosactive: Number,
+        rutasactive: Number,
         profile: Object
     }
 });
@@ -202,6 +206,10 @@ module.exports = `
             :tiendasview="children.tiendasRegistradas.setView"
             :recursosview="children.recursosRegistrados.setView"
             :rutasview="children.rutasRegistradas.setView"
+            :clientesactive="children.clientesRegistrados.active"
+            :tiendasactive="children.tiendasRegistradas.active"
+            :recursosactive="children.recursosRegistrados.active"
+            :rutasactive="children.rutasRegistradas.active"
             :profile="profile"></page-heading>
         <div class="page-container">
             <div class="row">

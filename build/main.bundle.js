@@ -36889,6 +36889,10 @@ Vue.component("page-heading", {
         tiendasview: Function,
         recursosview: Function,
         rutasview: Function,
+        clientesactive: Number,
+        tiendasactive: Number,
+        recursosactive: Number,
+        rutasactive: Number,
         profile: Object
     }
 });
@@ -36997,6 +37001,10 @@ module.exports = `
             :tiendasview="children.tiendasRegistradas.setView"
             :recursosview="children.recursosRegistrados.setView"
             :rutasview="children.rutasRegistradas.setView"
+            :clientesactive="children.clientesRegistrados.active"
+            :tiendasactive="children.tiendasRegistradas.active"
+            :recursosactive="children.recursosRegistrados.active"
+            :rutasactive="children.rutasRegistradas.active"
             :profile="profile"></page-heading>
         <div class="page-container">
             <div class="row">
@@ -37202,10 +37210,11 @@ module.exports = `
                 <h4>
                     <a href="#"
 						v-on:click.prevent="
-							active.first === 1 && active.second === 0  && active.third === 0 ? clientesview(0) :
-							active.first === 2 && active.second === 0  && active.third === 0 ? tiendasview(0) :
-							active.first === 3 && active.second === 0  && active.third === 0 ? recursosview(0) :
-							active.first === 4 && active.second === 0  && active.third === 0 ? rutasview(0) : ''
+							active.first === 1 && active.second === 0  && active.third === 0 && clientesactive !== 0 ? clientesview(0) :
+							active.first === 2 && active.second === 0  && active.third === 0 && tiendasactive !== 0 ? tiendasview(0) :
+							active.first === 3 && active.second === 0  && active.third === 0 && recursosactive !== 0 ? recursosview(0) :
+							active.first === 4 && active.second === 0  && active.third === 0 && rutasactive !== 0 ? rutasview(0) :
+							setview({ first: 0, second: 0, third: 0 })
 						"
 					>
 						<i class="icon-arrow-left52 position-left"></i>
