@@ -17,7 +17,7 @@ module.exports = `
                     <div class="row">
                         <div class="col-sm-12 text-center">
                             <div class="uploader">
-                                <input name="import" type="file" v-on:change="config.changeFile" class="file-styled">
+                                <input id="importClient" name="import" type="file" v-on:change="config.changeFile" class="file-styled">
                                 <span class="filename">{{config.file.text}}</span>
                                 <span class="action btn btn-default import-file">Selecciona un archivo</span>
                                 <a href="#" v-on:click.prevent class="input-info input-import"

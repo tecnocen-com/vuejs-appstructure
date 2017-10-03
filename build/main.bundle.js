@@ -38331,7 +38331,7 @@ module.exports = `
                     <div class="row">
                         <div class="col-sm-12 text-center">
                             <div class="uploader">
-                                <input name="import" type="file" v-on:change="config.changeFile" class="file-styled">
+                                <input id="importClient" name="import" type="file" v-on:change="config.changeFile" class="file-styled">
                                 <span class="filename">{{config.file.text}}</span>
                                 <span class="action btn btn-default import-file">Selecciona un archivo</span>
                                 <a href="#" v-on:click.prevent class="input-info input-import"
@@ -38741,7 +38741,7 @@ module.exports = `
                     <div class="row">
                         <div class="col-sm-12 text-center">
                             <div class="uploader">
-                                <input type="file" v-on:change="config.changeFile" class="file-styled">
+                                <input id="importStore" type="file" v-on:change="config.changeFile" class="file-styled">
                                 <span class="filename">{{config.importer.file.text}}</span>
                                 <span class="action btn btn-default import-file">Selecciona un archivo</span>
                                 <a href="#" v-on:click.prevent class="input-info input-import"
@@ -40055,7 +40055,7 @@ module.exports = `
 					<div class="row">
 						<div class="col-sm-12 text-center">
 							<div class="uploader">
-								<input type="file" v-on:change="config.changeFile" class="file-styled">
+								<input id="importResource" type="file" v-on:change="config.changeFile" class="file-styled">
 								<span class="filename">{{config.importer.file.text}}</span>
 								<span class="action btn btn-default import-file">Selecciona un archivo</span>
 								<a href="#" v-on:click.prevent class="input-info input-import"
@@ -57635,6 +57635,7 @@ module.exports = new Vue({
                         }
                         me.file.text = "No has seleccionado ningún archivo";
                         me.file.value = null;
+                        document.getElementById("importClient").value = null;
                     }
                     else{
                         BUTO.components.main.alert.description.title = "Errores en importación de datos";
@@ -57718,6 +57719,7 @@ module.exports = new Vue({
                     this.valid = true;
                     this.file.text = "No has seleccionado ningún archivo";
                     this.file.value = null;
+                    document.getElementById("importClient").value = null;
                     break;
                 case "step":
                     for(j = 0; j < length; j++){
@@ -69831,7 +69833,6 @@ module.exports = new Vue({
             var me = this,
                 i, j = null, length, workbook, data, delimiterType, value, headers,
                 reader = new FileReader();
-            this.reset('all');
             this.importer.store = [];
             this.importer.editIndex = null;
             this.importer.variant.nameId = null;
@@ -70100,6 +70101,7 @@ module.exports = new Vue({
                         }
                         me.importer.file.text = "No has seleccionado ningún archivo";
                         me.importer.file.value = null;
+                        document.getElementById("importStore").value = null;
                     }
                     else{
                         BUTO.components.main.alert.description.text = "No se pudo identificar una columna apropiada para obtener: ";
@@ -70600,6 +70602,7 @@ module.exports = new Vue({
                         this.importer.valid = true;
                         this.importer.file.text = "No has seleccionado ningún archivo";
                         this.importer.file.value = null;
+                        document.getElementById("importStore").value = null;
                     }
                     break;
             }
@@ -74169,7 +74172,6 @@ module.exports = new Vue({
             var me = this,
                 i, j = null, k, length, workbook, data, delimiterType, value, headers,
                 reader = new FileReader();
-            this.reset('all');
             this.importer.resource = [];
             this.importer.editIndex = null;
             this.importer.variant.nameId = null;
@@ -74581,6 +74583,7 @@ module.exports = new Vue({
                         }
                         me.importer.file.text = "No has seleccionado ningún archivo";
                         me.importer.file.value = null;
+                        document.getElementById("importResource").value = null;
                     }
                     else{
                         BUTO.components.main.alert.description.text = "No se pudo identificar una columna apropiada para obtener: ";
@@ -75360,6 +75363,7 @@ module.exports = new Vue({
                         this.importer.valid = true;
                         this.importer.file.text = "No has seleccionado ningún archivo";
                         this.importer.file.value = null;
+                        document.getElementById("importResource").value = null;
                     }
                     break;
             }

@@ -755,7 +755,6 @@ module.exports = new Vue({
             var me = this,
                 i, j = null, length, workbook, data, delimiterType, value, headers,
                 reader = new FileReader();
-            this.reset('all');
             this.importer.store = [];
             this.importer.editIndex = null;
             this.importer.variant.nameId = null;
@@ -1024,6 +1023,7 @@ module.exports = new Vue({
                         }
                         me.importer.file.text = "No has seleccionado ningún archivo";
                         me.importer.file.value = null;
+                        document.getElementById("importStore").value = null;
                     }
                     else{
                         BUTO.components.main.alert.description.text = "No se pudo identificar una columna apropiada para obtener: ";
@@ -1524,6 +1524,7 @@ module.exports = new Vue({
                         this.importer.valid = true;
                         this.importer.file.text = "No has seleccionado ningún archivo";
                         this.importer.file.value = null;
+                        document.getElementById("importStore").value = null;
                     }
                     break;
             }
