@@ -1,7 +1,7 @@
 var path = require("path");
 var httprequest = require("request");
 var serviceUrl = {
-        baseURL: "http://localhost/ayp_rutas/backend/web/index.php/api/",       //https://ayp.serviciostecnocen.com/api
+        baseURL: "https://ayp.serviciostecnocen.com/index.php/api/",       //https://ayp.serviciostecnocen.com/api
         dataURL: "v1/",
         tokenURL: "oauth2/token",
         apiKey: "AIzaSyBRRmzVxMe4JRzwDmxcGrQRxm_WPlHiPRs"

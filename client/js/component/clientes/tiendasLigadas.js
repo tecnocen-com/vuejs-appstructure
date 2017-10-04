@@ -6,7 +6,7 @@ module.exports = new Vue({
             name: null
         },
         data: {
-            perPage: 30,
+            perPage: 15,
             search: {
                 store: "",
                 storeLinked: ""
@@ -62,6 +62,8 @@ module.exports = new Vue({
         init: function(e, page, pageLinked){
             var i,
                 me = this;
+            if(e === 0)
+                BUTO.components.main.loader.active = true;
             if(page)
                 this.data.page.store.currentPage = page;
             if(pageLinked)
@@ -81,7 +83,7 @@ module.exports = new Vue({
                 function(success){
                     me.data.page.store.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
                     me.data.page.store.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-                    for(i in success.body)
+                    for(i = 0; i < success.body.length; i++)
                         me.initStore(success.body[i]);
                     if(e === 0){
                         me.storeLinked = [];
@@ -93,11 +95,14 @@ module.exports = new Vue({
                                 "expand": "sucursal"
                             }
                         },
-                        function(success){
-                            me.data.page.storeLinked.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
-                            me.data.page.storeLinked.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-                            for(i in success.body)
-                                me.initStoreLinked(success.body[i]);
+                        function(success2){
+                            me.data.page.storeLinked.pageCount = parseInt(success2.headers.get("x-pagination-page-count"));
+                            me.data.page.storeLinked.totalCount = parseInt(success2.headers.get("x-pagination-total-count"));
+                            if(success2.body.length === 0)
+                                BUTO.components.main.loader.active = false;
+                            else
+                                for(i = 0; i < success2.body.length; i++)
+                                    me.initStoreLinked(success2.body[i], i, success2.body.length - 1);
                         },
                         function(error){
                             console.log(error);
@@ -121,7 +126,7 @@ module.exports = new Vue({
                 function(success){
                     me.data.page.storeLinked.pageCount = parseInt(success.headers.get("x-pagination-page-count"));
                     me.data.page.storeLinked.totalCount = parseInt(success.headers.get("x-pagination-total-count"));
-                    for(i in success.body)
+                    for(i = 0; i < success.body.length; i++)
                         me.initStoreLinked(success.body[i]);
                 },
                 function(error){
@@ -149,13 +154,15 @@ module.exports = new Vue({
             },
             function(){});
         },
-        initStoreLinked: function(e){
+        initStoreLinked: function(e, i, j){
             this.storeLinked.push({
                 id: e.sucursal_id,
                 time: e.tiempo_solicitado,
                 name: e._embedded.sucursal.nombre,
                 selected: false
             });
+            if(i === j)
+                BUTO.components.main.loader.active = false;
         },
         initDrag: function(type, e){
             var me = this;

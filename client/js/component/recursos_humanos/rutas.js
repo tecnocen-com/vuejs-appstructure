@@ -5,6 +5,18 @@ module.exports = new Vue({
             id: null,
             name: null
         },
+        models: {
+            empleadoHorario: null,
+            ruta: null,
+            rutaPunto: null,
+            rutaPuntoServicio: null,
+            sucursal: null,
+            sucursalHorario: null,
+            sucursalCliente: null,
+            proyeccionServicio: null,
+            proyeccionTrabajo: null,
+            proyeccionTrabajoServicio: null
+        },
         steps: [
             {
                 schedule: []
@@ -63,7 +75,7 @@ module.exports = new Vue({
             ]
         },
         data: {
-            perPage: 30,
+            perPage: 15,
             search: {
                 route: "",
                 routeLinked: ""
@@ -80,18 +92,6 @@ module.exports = new Vue({
                     totalCount: null
                 }
             }
-        },
-        models: {
-            empleadoHorario: null,
-            ruta: null,
-            rutaPunto: null,
-            rutaPuntoServicio: null,
-            sucursal: null,
-            sucursalHorario: null,
-            sucursalCliente: null,
-            proyeccionServicio: null,
-            proyeccionTrabajo: null,
-            proyeccionTrabajoServicio: null
         },
         route: [],
         routeLinked: [],

@@ -1,4 +1,7 @@
 BUTO.templates = {
+    //map: require("./template/mapT.js"),
+    //toolbar: require("./template/toolbarT.js"),
+    
     mcdatatable: require("./plugins/vue-mcdatatable.js").template,
     
     loader: require("./template/common/loaderT.js"),
@@ -23,11 +26,20 @@ BUTO.templates = {
     rutasRegistradas: require("./template/rutas/rutasRegistradasT.js"),
     nuevaRuta: require("./template/rutas/nuevaRutaT.js"),
     
-    reportes: require("./template/reportes/reportesT.js"),
-    
-    map: require("./template/mapT.js"),
-    toolbar: require("./template/toolbarT.js")
+    reportes: require("./template/reportes/reportesT.js")
 };
+//Vue.component("toolbar", {
+//    template: BUTO.templates.toolbar,
+//    props: {
+//        config: Object
+//    }
+//});
+//Vue.component("mapping", {
+//    template: BUTO.templates.map,
+//    props: {
+//        config: Object
+//    }
+//});
 
 Vue.component("mcdatatable", {
     template: BUTO.templates.mcdatatable,
@@ -82,6 +94,10 @@ Vue.component("page-heading", {
         tiendasview: Function,
         recursosview: Function,
         rutasview: Function,
+        clientesactive: Number,
+        tiendasactive: Number,
+        recursosactive: Number,
+        rutasactive: Number,
         profile: Object
     }
 });
@@ -161,21 +177,8 @@ Vue.component("reportes", {
     }
 });
 
-Vue.component("toolbar", {
-    template: BUTO.templates.toolbar,
-    props: {
-        config: Object
-    }
-});
-Vue.component("mapping", {
-    template: BUTO.templates.map,
-    props: {
-        config: Object
-    }
-});
 
 module.exports = `
-    <!-- Main navbar -->
     <div>
         <transition name="slide-fade">
             <loader :config="loader"></loader>
@@ -203,6 +206,10 @@ module.exports = `
             :tiendasview="children.tiendasRegistradas.setView"
             :recursosview="children.recursosRegistrados.setView"
             :rutasview="children.rutasRegistradas.setView"
+            :clientesactive="children.clientesRegistrados.active"
+            :tiendasactive="children.tiendasRegistradas.active"
+            :recursosactive="children.recursosRegistrados.active"
+            :rutasactive="children.rutasRegistradas.active"
             :profile="profile"></page-heading>
         <div class="page-container">
             <div class="row">
@@ -263,9 +270,9 @@ module.exports = `
                     </transition>
                 </template>
 
-                <template v-else-if="active.first === 5">
+                <template v-else-if="active.first === 5 && active.second === 0 && active.third === 0">
                     <transition name="slide-fade">
-                        <reportes></reportes>
+                        <reportes :config="children.reportes"></reportes>
                     </transition>
                 </template>
             </div>

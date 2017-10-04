@@ -555,7 +555,7 @@ module.exports = new Vue({
                             icon: "/image/maps/blue.png"
                         });
                         this.importer.map.marker.main.addListener("rightclick", function(){
-                            me.importer.map.marker.window.open(me.manualAdd.map.main, me.manualAdd.map.marker.main);
+                            me.importer.map.marker.window.open(me.importer.map.main, me.importer.map.marker.main);
                         });
                         this.importer.map.marker.window = new google.maps.InfoWindow({
                             content: "Dirección no encontrada.",
@@ -604,26 +604,56 @@ module.exports = new Vue({
         setInterval: function(){
             var i,
                 newSchedule = [],
-                interval = Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)) : this.manualAdd.maxInterval,
-                length = this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.length;
-            if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval)))){
-                this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].interval = interval;
-                if(length < interval){
-                    for(i = 0; i < interval - length; i++)
-                        this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule.push({
-                            begin: "",
-                            end: "",
-                            validBegin: true,
-                            validEnd: true,
-                            textBegin: "hh:mm:ss",
-                            textEnd: "hh:mm:ss",
-                            id: null
-                        });
+                interval,
+                length,
+                step;
+            if(this.typeSelection.type === 1){
+                step = this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep;
+                interval = Math.floor(parseInt(this.manualAdd.steps[step].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.manualAdd.steps[step].interval)) : this.manualAdd.maxInterval;
+                length = this.manualAdd.steps[step].schedule.length;
+                if(!isNaN(Math.floor(parseInt(this.manualAdd.steps[step].interval)))){
+                    this.manualAdd.steps[step].interval = interval;
+                    if(length < interval){
+                        for(i = 0; i < interval - length; i++)
+                            this.manualAdd.steps[step].schedule.push({
+                                begin: "",
+                                end: "",
+                                validBegin: true,
+                                validEnd: true,
+                                textBegin: "hh:mm:ss",
+                                textEnd: "hh:mm:ss",
+                                id: null
+                            });
+                    }
+                    else if(length > interval){
+                        for(i = 0; i < interval; i++)
+                            newSchedule.push(this.manualAdd.steps[step].schedule[i]);
+                        this.manualAdd.steps[step].schedule = newSchedule;
+                    }
                 }
-                else if(length > interval){
-                    for(i = 0; i < interval; i++)
-                        newSchedule.push(this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule[i]);
-                    this.manualAdd.steps[this.manualAdd.sameConf ? 0 : this.manualAdd.actualStep].schedule = newSchedule;
+            }
+            else{
+                step = this.importer.store[this.importer.editIndex].actualStep;
+                interval = Math.floor(parseInt(this.importer.store[this.importer.editIndex].steps[step].interval)) <= this.manualAdd.maxInterval ? Math.floor(parseInt(this.importer.store[this.importer.editIndex].steps[step].interval)) : this.manualAdd.maxInterval;
+                length = this.importer.store[this.importer.editIndex].steps[step].schedule.length;
+                if(!isNaN(Math.floor(parseInt(this.importer.store[this.importer.editIndex].steps[step].interval)))){
+                    this.importer.store[this.importer.editIndex].steps[step].interval = interval;
+                    if(length < interval){
+                        for(i = 0; i < interval - length; i++)
+                            this.importer.store[this.importer.editIndex].steps[step].schedule.push({
+                                begin: "",
+                                end: "",
+                                validBegin: true,
+                                validEnd: true,
+                                textBegin: "hh:mm:ss",
+                                textEnd: "hh:mm:ss"
+                            });
+                    }
+                    else if(length > interval){
+                        for(i = 0; i < interval; i++)
+                            newSchedule.push(this.importer.store[this.importer.editIndex].steps[step].schedule[i]);
+                        this.importer.store[this.importer.editIndex].steps[step].schedule = newSchedule;
+                    }
                 }
             }
         },
@@ -736,14 +766,18 @@ module.exports = new Vue({
             this.importer.variant.fridayId = null;
             this.importer.variant.saturdayId = null;
             this.importer.variant.sundayId = null;
-            //BUTO.components.main.loader.active = true;
+            BUTO.components.main.loader.active = true;
             reader.onload = function(e){
                 workbook = me.importer.plugins.xlsx.read(e.target.result, {type: "binary"});
                 headers = [];
-                for(i = 0; i < 9; i++)
-                    headers.push(workbook.Strings[i].h);
-                data = me.importer.plugins.xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {raw: true});
-                length = data.length;
+                if(workbook.Strings.length >= 9){
+                    for(i = 0; i < 9; i++)
+                        headers.push(workbook.Strings[i].h);
+                    data = me.importer.plugins.xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {raw: true});
+                    length = data.length;
+                }
+                else
+                    length = 0;
                 if(length > 0){
                     for(i = 0; i < me.importer.variant.name.length; i++)
                         if(headers.indexOf(me.importer.variant.name[i].id) !== -1)
@@ -796,14 +830,13 @@ module.exports = new Vue({
                                     },
                                     valid: true,
                                     actualStep: 0,
-                                    maxInterval: 5,
                                     steps: [
                                         {
                                             text: "Lunes",
                                             dayNumber: 2,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -811,7 +844,7 @@ module.exports = new Vue({
                                             dayNumber: 3,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -819,7 +852,7 @@ module.exports = new Vue({
                                             dayNumber: 4,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -827,7 +860,7 @@ module.exports = new Vue({
                                             dayNumber: 5,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -835,7 +868,7 @@ module.exports = new Vue({
                                             dayNumber: 6,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -843,7 +876,7 @@ module.exports = new Vue({
                                             dayNumber: 7,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                         {
@@ -851,7 +884,7 @@ module.exports = new Vue({
                                             dayNumber: 1,
                                             active: false,
                                             schedule: [],
-                                            interval: 1,
+                                            interval: 0,
                                             seen: true
                                         },
                                     ]
@@ -859,140 +892,138 @@ module.exports = new Vue({
                                 me.getLocation(j);
                                 me.validation("import-name", j);
                             }
-                            if(data[i][me.importer.variant.mondayId] !== undefined &&
-                               me.importer.store[j].steps[0].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.mondayId] !== "string" ? data[i][me.importer.variant.mondayId].toString() : data[i][me.importer.variant.mondayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[0].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[0].interval = me.importer.store[j].steps[0].schedule.length;
-                                if(!me.importer.store[j].steps[0].active)
-                                    me.importer.store[j].steps[0].active = true;
-                                me.validation("import-time-begin", j, 0, me.importer.store[j].steps[0].interval - 1);
-                                me.validation("import-time-end", j, 0, me.importer.store[j].steps[0].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.tuesdayId] !== undefined &&
-                               me.importer.store[j].steps[1].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.tuesdayId] !== "string" ? data[i][me.importer.variant.tuesdayId].toString() : data[i][me.importer.variant.tuesdayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[1].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[1].interval = me.importer.store[j].steps[1].schedule.length;
-                                if(!me.importer.store[j].steps[1].active)
-                                    me.importer.store[j].steps[1].active = true;
-                                me.validation("import-time-begin", j, 1, me.importer.store[j].steps[1].interval - 1);
-                                me.validation("import-time-end", j, 1, me.importer.store[j].steps[1].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.wednesdayId] !== undefined &&
-                               me.importer.store[j].steps[2].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.wednesdayId] !== "string" ? data[i][me.importer.variant.wednesdayId].toString() : data[i][me.importer.variant.wednesdayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[2].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[2].interval = me.importer.store[j].steps[2].schedule.length;
-                                if(!me.importer.store[j].steps[2].active)
-                                    me.importer.store[j].steps[2].active = true;
-                                me.validation("import-time-begin", j, 2, me.importer.store[j].steps[2].interval - 1);
-                                me.validation("import-time-end", j, 2, me.importer.store[j].steps[2].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.thursdayId] !== undefined &&
-                               me.importer.store[j].steps[3].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.thursdayId] !== "string" ? data[i][me.importer.variant.thursdayId].toString() : data[i][me.importer.variant.thursdayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[3].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[3].interval = me.importer.store[j].steps[3].schedule.length;
-                                if(!me.importer.store[j].steps[3].active)
-                                    me.importer.store[j].steps[3].active = true;
-                                me.validation("import-time-begin", j, 3, me.importer.store[j].steps[3].interval - 1);
-                                me.validation("import-time-end", j, 3, me.importer.store[j].steps[3].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.fridayId] !== undefined &&
-                               me.importer.store[j].steps[4].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.fridayId] !== "string" ? data[i][me.importer.variant.fridayId].toString() : data[i][me.importer.variant.fridayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[4].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[4].interval = me.importer.store[j].steps[4].schedule.length;
-                                if(!me.importer.store[j].steps[4].active)
-                                    me.importer.store[j].steps[4].active = true;
-                                me.validation("import-time-begin", j, 4, me.importer.store[j].steps[4].interval - 1);
-                                me.validation("import-time-end", j, 4, me.importer.store[j].steps[4].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.saturdayId] !== undefined &&
-                               me.importer.store[j].steps[5].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.saturdayId] !== "string" ? data[i][me.importer.variant.saturdayId].toString() : data[i][me.importer.variant.saturdayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[5].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[5].interval = me.importer.store[j].steps[5].schedule.length;
-                                if(!me.importer.store[j].steps[5].active)
-                                    me.importer.store[j].steps[5].active = true;
-                                me.validation("import-time-begin", j, 5, me.importer.store[j].steps[5].interval - 1);
-                                me.validation("import-time-end", j, 5, me.importer.store[j].steps[5].interval - 1);
-                            }
-                            if(data[i][me.importer.variant.sundayId] !== undefined &&
-                               me.importer.store[j].steps[6].schedule.length <= me.manualAdd.maxInterval){
-                                value = typeof data[i][me.importer.variant.sundayId] !== "string" ? data[i][me.importer.variant.sundayId].toString() : data[i][me.importer.variant.sundayId];
-                                delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
-                                me.importer.store[j].steps[6].schedule.push({
-                                    begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
-                                    end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
-                                    validBegin: false,
-                                    validEnd: false,
-                                    textBegin: "hh:mm:ss",
-                                    textEnd: "hh:mm:ss",
-                                    id: null
-                                });
-                                me.importer.store[j].steps[6].interval = me.importer.store[j].steps[6].schedule.length;
-                                if(!me.importer.store[j].steps[6].active)
-                                    me.importer.store[j].steps[6].active = true;
-                                me.validation("import-time-begin", j, 6, me.importer.store[j].steps[6].interval - 1);
-                                me.validation("import-time-end", j, 6, me.importer.store[j].steps[6].interval - 1);
+                            if(j !== null){
+                                if(data[i][me.importer.variant.mondayId] !== undefined &&
+                                   me.importer.store[j].steps[0].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.mondayId] !== "string" ? data[i][me.importer.variant.mondayId].toString() : data[i][me.importer.variant.mondayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[0].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss"
+                                    });
+                                    me.importer.store[j].steps[0].interval = me.importer.store[j].steps[0].schedule.length;
+                                    if(!me.importer.store[j].steps[0].active)
+                                        me.importer.store[j].steps[0].active = true;
+                                    me.validation("import-time-begin", j, 0, me.importer.store[j].steps[0].interval - 1);
+                                    me.validation("import-time-end", j, 0, me.importer.store[j].steps[0].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.tuesdayId] !== undefined &&
+                                   me.importer.store[j].steps[1].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.tuesdayId] !== "string" ? data[i][me.importer.variant.tuesdayId].toString() : data[i][me.importer.variant.tuesdayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[1].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss"
+                                    });
+                                    me.importer.store[j].steps[1].interval = me.importer.store[j].steps[1].schedule.length;
+                                    if(!me.importer.store[j].steps[1].active)
+                                        me.importer.store[j].steps[1].active = true;
+                                    me.validation("import-time-begin", j, 1, me.importer.store[j].steps[1].interval - 1);
+                                    me.validation("import-time-end", j, 1, me.importer.store[j].steps[1].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.wednesdayId] !== undefined &&
+                                   me.importer.store[j].steps[2].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.wednesdayId] !== "string" ? data[i][me.importer.variant.wednesdayId].toString() : data[i][me.importer.variant.wednesdayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[2].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss"
+                                    });
+                                    me.importer.store[j].steps[2].interval = me.importer.store[j].steps[2].schedule.length;
+                                    if(!me.importer.store[j].steps[2].active)
+                                        me.importer.store[j].steps[2].active = true;
+                                    me.validation("import-time-begin", j, 2, me.importer.store[j].steps[2].interval - 1);
+                                    me.validation("import-time-end", j, 2, me.importer.store[j].steps[2].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.thursdayId] !== undefined &&
+                                   me.importer.store[j].steps[3].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.thursdayId] !== "string" ? data[i][me.importer.variant.thursdayId].toString() : data[i][me.importer.variant.thursdayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[3].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss"
+                                    });
+                                    me.importer.store[j].steps[3].interval = me.importer.store[j].steps[3].schedule.length;
+                                    if(!me.importer.store[j].steps[3].active)
+                                        me.importer.store[j].steps[3].active = true;
+                                    me.validation("import-time-begin", j, 3, me.importer.store[j].steps[3].interval - 1);
+                                    me.validation("import-time-end", j, 3, me.importer.store[j].steps[3].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.fridayId] !== undefined &&
+                                   me.importer.store[j].steps[4].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.fridayId] !== "string" ? data[i][me.importer.variant.fridayId].toString() : data[i][me.importer.variant.fridayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[4].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss"
+                                    });
+                                    me.importer.store[j].steps[4].interval = me.importer.store[j].steps[4].schedule.length;
+                                    if(!me.importer.store[j].steps[4].active)
+                                        me.importer.store[j].steps[4].active = true;
+                                    me.validation("import-time-begin", j, 4, me.importer.store[j].steps[4].interval - 1);
+                                    me.validation("import-time-end", j, 4, me.importer.store[j].steps[4].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.saturdayId] !== undefined &&
+                                   me.importer.store[j].steps[5].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.saturdayId] !== "string" ? data[i][me.importer.variant.saturdayId].toString() : data[i][me.importer.variant.saturdayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[5].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss"
+                                    });
+                                    me.importer.store[j].steps[5].interval = me.importer.store[j].steps[5].schedule.length;
+                                    if(!me.importer.store[j].steps[5].active)
+                                        me.importer.store[j].steps[5].active = true;
+                                    me.validation("import-time-begin", j, 5, me.importer.store[j].steps[5].interval - 1);
+                                    me.validation("import-time-end", j, 5, me.importer.store[j].steps[5].interval - 1);
+                                }
+                                if(data[i][me.importer.variant.sundayId] !== undefined &&
+                                   me.importer.store[j].steps[6].schedule.length <= me.manualAdd.maxInterval){
+                                    value = typeof data[i][me.importer.variant.sundayId] !== "string" ? data[i][me.importer.variant.sundayId].toString() : data[i][me.importer.variant.sundayId];
+                                    delimiterType = value.indexOf(" - ") !== -1 ? " - " : " – ";
+                                    me.importer.store[j].steps[6].schedule.push({
+                                        begin: value.split(delimiterType)[0] !== undefined ? value.split(delimiterType)[0] : "",
+                                        end: value.split(delimiterType)[1] !== undefined ? value.split(delimiterType)[1] : "",
+                                        validBegin: false,
+                                        validEnd: false,
+                                        textBegin: "hh:mm:ss",
+                                        textEnd: "hh:mm:ss"
+                                    });
+                                    me.importer.store[j].steps[6].interval = me.importer.store[j].steps[6].schedule.length;
+                                    if(!me.importer.store[j].steps[6].active)
+                                        me.importer.store[j].steps[6].active = true;
+                                    me.validation("import-time-begin", j, 6, me.importer.store[j].steps[6].interval - 1);
+                                    me.validation("import-time-end", j, 6, me.importer.store[j].steps[6].interval - 1);
+                                }
                             }
                         }
+                        me.importer.file.text = "No has seleccionado ningún archivo";
+                        me.importer.file.value = null;
+                        document.getElementById("importStore").value = null;
                     }
                     else{
                         BUTO.components.main.alert.description.text = "No se pudo identificar una columna apropiada para obtener: ";
@@ -1032,6 +1063,7 @@ module.exports = new Vue({
         },
         remove: function(i){
             var j, newStore = [], length = this.importer.store.length;
+            this.importer.editIndex = null;
             for(j = 0; j < length; j++)
                 if(j !== i)
                     newStore.push(this.importer.store[j]);
@@ -1061,6 +1093,7 @@ module.exports = new Vue({
                 valid = true;
             switch(e){
                 case "manual":
+                    BUTO.components.main.loader.active = true;
                     if(this.manualAdd.name.value === null || this.manualAdd.name.value === ""){     //No name
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
                         BUTO.components.main.alert.description.text = "Nombre no puede estar vacío.";
@@ -1068,6 +1101,7 @@ module.exports = new Vue({
                         BUTO.components.main.alert.active = true;
                         this.manualAdd.name.valid = false;
                         this.manualAdd.name.text = "Nombre no puede estar vacío";
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(valid && (this.manualAdd.name.value.length < 6)){
                         BUTO.components.main.alert.description.title = "Errores en Nuevo Registro";
@@ -1076,6 +1110,7 @@ module.exports = new Vue({
                         BUTO.components.main.alert.active = true;
                         this.manualAdd.name.valid = false;
                         this.manualAdd.name.text = "Nombre debe contener al menos 6 caracteres";
+                        BUTO.components.main.loader.active = false;
                     }
                     else if(this.manualAdd.map.marker.main === null ||                  //No position
                             this.manualAdd.map.marker.position.lat === null || this.manualAdd.map.marker.position.lng === null){
@@ -1083,6 +1118,7 @@ module.exports = new Vue({
                         BUTO.components.main.alert.description.text = "Debes escoger una ubicación.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
+                        BUTO.components.main.loader.active = false;
                     }
                     else{
                         for(i = 0; i < (this.manualAdd.sameConf ? 1 : this.manualAdd.steps.length); i++)
@@ -1176,6 +1212,7 @@ module.exports = new Vue({
                                 
                                 me.manualAdd.name.valid = false;
                                 me.manualAdd.name.text = error.body[0].message;
+                                BUTO.components.main.loader.active = false;
                             });
                         }
                         else{
@@ -1183,10 +1220,12 @@ module.exports = new Vue({
                             BUTO.components.main.alert.description.text = (k <= limit) ? error : error + "<br>...";
                             BUTO.components.main.alert.description.ok = "Aceptar";
                             BUTO.components.main.alert.active = true;
+                            BUTO.components.main.loader.active = false;
                         }
                     }
                     break;
                 case "import":
+                    BUTO.components.main.loader.active = true;
                     this.importer.valid = true;
                     length = [this.importer.store.length];
                     for(i = 0; i < length[0]; i++){
@@ -1201,13 +1240,16 @@ module.exports = new Vue({
                             this.importer.store[i].name.text = "Nombre no puede estar vacío";
                             valid = false;
                         }
-                        if(this.importer.store[i].name.value.length < 6){
+                        else if(this.importer.store[i].name.value.length < 6){
                             this.importer.store[i].name.valid = false;
                             this.importer.store[i].name.text = "Nombre debe contener al menos 6 caracteres";
                             valid = false;
                         }
                         if(this.importer.store[i].marker.position.lat === null || this.importer.store[i].marker.position.lng === null){
-                            valid = false;
+                            if(valid){
+                                this.importer.store[i].name.text = "Debes escoger una ubicación";
+                                valid = false;
+                            }
                         }
                         for(j = 0; j < length[1]; j++)
                             if(this.importer.store[i].steps[j].active){
@@ -1222,26 +1264,38 @@ module.exports = new Vue({
                                     if(this.importer.store[i].steps[j].schedule[k].begin === ""){
                                         this.importer.store[i].steps[j].schedule[k].validBegin = false;
                                         this.importer.store[i].steps[j].schedule[k].textBegin = "El inicio del intervalo no puede estar vacío";
-                                        valid = false;
+                                        if(valid){
+                                            this.importer.store[i].name.text = "Errores en horarios del día " + this.importer.store[i].steps[j].text;
+                                            valid = false;
+                                        }
                                     }
                                     if(this.importer.store[i].steps[j].schedule[k].end === ""){
                                         this.importer.store[i].steps[j].schedule[k].validEnd = false;
                                         this.importer.store[i].steps[j].schedule[k].textEnd = "El final del intervalo no puede estar vacío";
-                                        valid = false;
+                                        if(valid){
+                                            this.importer.store[i].name.text = "Errores en horarios del día " + this.importer.store[i].steps[j].text;
+                                            valid = false;
+                                        }
                                     }
                                     if(this.importer.store[i].steps[j].schedule[k].begin !== "" &&
                                        (this.importer.store[i].steps[j].schedule[k].begin > "23:59:59" ||
                                         hmdB.length !== 3 || hmdB[0].length !== 2 || parseInt(hmdB[0]) > 23 || !hmdB[1] || hmdB[1].length !== 2 || parseInt(hmdB[1]) > 59 || !hmdB[2] || hmdB[2].length !== 2 || parseInt(hmdB[2]) > 59)){
                                         this.importer.store[i].steps[j].schedule[k].validBegin = false;
                                         this.importer.store[i].steps[j].schedule[k].textBegin = "El inicio del intervalo no tiene un formato apropiado";
-                                        valid = false;
+                                        if(valid){
+                                            this.importer.store[i].name.text = "Errores en horarios del día " + this.importer.store[i].steps[j].text;
+                                            valid = false;
+                                        }
                                     }
                                     if(this.importer.store[i].steps[j].schedule[k].end !== "" &&
                                        (this.importer.store[i].steps[j].schedule[k].end > "23:59:59" ||
                                         hmdE.length !== 3 || hmdE[0].length !== 2 || parseInt(hmdE[0]) > 23 || !hmdE[1] || hmdE[1].length !== 2 || parseInt(hmdE[1]) > 59 || !hmdE[2] || hmdE[2].length !== 2 || parseInt(hmdE[2]) > 59)){
                                         this.importer.store[i].steps[j].schedule[k].validEnd = false;
                                         this.importer.store[i].steps[j].schedule[k].textEnd = "El final del intervalo no tiene un formato apropiado";
-                                        valid = false;
+                                        if(valid){
+                                            this.importer.store[i].name.text = "Errores en horarios del día " + this.importer.store[i].steps[j].text;
+                                            valid = false;
+                                        }
                                     }
                                     if(this.importer.store[i].steps[j].schedule[k].begin !== "" &&
                                        this.importer.store[i].steps[j].schedule[k].end !== "" &&
@@ -1250,7 +1304,10 @@ module.exports = new Vue({
                                         this.importer.store[i].steps[j].schedule[k].validEnd = false;
                                         this.importer.store[i].steps[j].schedule[k].textBegin = "El inicio del intervalo debe ser menor al final del mismo";
                                         this.importer.store[i].steps[j].schedule[k].textEnd = "El final del intervalo debe ser mayor al inicio del mismo";
-                                        valid = false;
+                                        if(valid){
+                                            this.importer.store[i].name.text = "Errores en horarios del día " + this.importer.store[i].steps[j].text;
+                                            valid = false;
+                                        }
                                     }
                                     if(k > 0 &&
                                        this.importer.store[i].steps[j].schedule[k].begin !== "" &&
@@ -1260,7 +1317,10 @@ module.exports = new Vue({
                                         this.importer.store[i].steps[j].schedule[k - 1].validEnd = false;
                                         this.importer.store[i].steps[j].schedule[k].textBegin = "El inicio del intervalo debe ser mayor al final del intervalo anterior";
                                         this.importer.store[i].steps[j].schedule[k - 1].textEnd = "El final del intervalo debe ser menor al inicio del intervalo posterior";
-                                        valid = false;
+                                        if(valid){
+                                            this.importer.store[i].name.text = "Errores en horarios del día " + this.importer.store[i].steps[j].text;
+                                            valid = false;
+                                        }
                                     }
                                 }
                             }
@@ -1312,10 +1372,14 @@ module.exports = new Vue({
                     me.importer.valid = false;
                     me.importer.store[i].valid = false;
                     if(me.importer.total === total){
+                        BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
                         BUTO.components.main.alert.description.title = "Errores en importación de datos";
                         BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
                         BUTO.components.main.alert.description.ok = "Aceptar";
                         BUTO.components.main.alert.active = true;
+                        setTimeout(function(){
+                            me.reset("import");
+                        }, 250);
                     }
                     me.importer.store[i].name.valid = false;
                     me.importer.store[i].name.text = error.body[0].message;
@@ -1324,9 +1388,18 @@ module.exports = new Vue({
             else{
                 this.importer.total += i;
                 for(j = 0; j < this.importer.store[i].steps.length; j++)
-                    for(k = 0; k < this.importer.store[i].steps[j].schedule.length; k++){
-                        this.submitSchedule(i, j, k, null, null, total);
-                    }
+                    if(this.importer.store[i].steps[j].schedule.length > 0)
+                        for(k = 0; k < this.importer.store[i].steps[j].schedule.length; k++)
+                            this.submitSchedule(i, j, k, null, null, total);
+                    else
+                        this.submitSchedule(i, j, -1, null, null, total);
+                if(this.importer.total === total){
+                    BUTO.components.main.children.tiendasRegistradas.grid.updatePagination();
+                    BUTO.components.main.alert.description.title = "Errores en importación de datos";
+                    BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
+                    BUTO.components.main.alert.description.ok = "Aceptar";
+                    BUTO.components.main.alert.active = true;
+                }
             }
         },
         submitSchedule: function(i, j, k, id, first, total){
@@ -1334,38 +1407,20 @@ module.exports = new Vue({
             if(this.typeSelection.type === 1){
                 if(first)
                     this.reset("store");
-                if(this.manualAdd.sameConf){
-                    this.models.sucursalHorario.post({
-                        delimiters: id,
-                        params: {
-                            dia: this.manualAdd.steps[i].dayNumber,
-                            hora_inicio: this.manualAdd.steps[0].schedule[j].begin,
-                            hora_fin: this.manualAdd.steps[0].schedule[j].end
-                        }
-                    },
-                    function(success){
-                        me.reset("schedule", i, j);
-                    },
-                    function(error){
-                        console.log(error);
-                    });
-                }
-                else{
-                    this.models.sucursalHorario.post({
-                        delimiters: id,
-                        params: {
-                            dia: this.manualAdd.steps[i].dayNumber,
-                            hora_inicio: this.manualAdd.steps[i].schedule[j].begin,
-                            hora_fin: this.manualAdd.steps[i].schedule[j].end
-                        }
-                    },
-                    function(success){
-                        me.reset("schedule", i, j);
-                    },
-                    function(error){
-                        console.log(error);
-                    });
-                }
+                this.models.sucursalHorario.post({
+                    delimiters: id,
+                    params: {
+                        dia: this.manualAdd.steps[i].dayNumber,
+                        hora_inicio: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].begin,
+                        hora_fin: this.manualAdd.steps[this.manualAdd.sameConf ? 0 : i].schedule[j].end
+                    }
+                },
+                function(success){
+                    me.reset("schedule", i, j);
+                },
+                function(error){
+                    console.log(error);
+                });
             }
             else{
                 if(this.importer.store[i].valid &&
@@ -1406,23 +1461,13 @@ module.exports = new Vue({
                             newSteps.push(this.importer.store[i]);
                     this.importer.store = newSteps;
                     this.importer.total = 0;
-                    //if(this.importer.valid){
-                    //    BUTO.components.main.alert.description.title = "Importación de datos completada";
-                    //    BUTO.components.main.alert.description.text = "Los registros ya han sido agregados.";
-                    //}
-                    //else{
-                    //    BUTO.components.main.alert.description.title = "Errores en importación de datos";
-                    //    BUTO.components.main.alert.description.text = "Existen algunos errores en los datos obtenidos. Inténtalo de nuevo.<br>NOTA: Los registros correctamente definidos ya han sido agregados.";
-                    //}
                     this.importer.valid = true;
-                    //BUTO.components.main.alert.description.ok = "Aceptar";
-                    //BUTO.components.main.alert.active = true;
-                    //BUTO.components.main.children.clientesRegistrados.grid.updatePagination();
-                    //BUTO.components.main.loader.active = false;
+                    BUTO.components.main.loader.active = false;
                     break;
                 case "store":
                     this.manualAdd.name.value = null;
                     this.manualAdd.map.marker.main.setMap(null);
+                    this.manualAdd.map.marker.window.close();
                     this.manualAdd.map.marker.main = null;
                     this.manualAdd.actualStep = 0;
                     break;
@@ -1441,6 +1486,8 @@ module.exports = new Vue({
                             textEnd: "hh:mm:ss",
                             id: null
                         });
+                        this.manualAdd.sameConf = false;
+                        BUTO.components.main.loader.active = false;
                     }
                     break;
                 case "all":
@@ -1470,10 +1517,14 @@ module.exports = new Vue({
                         }
                     }
                     else{
+                        this.importer.editIndex = null;
                         this.importer.first = true;
                         this.importer.store = newSteps;
                         this.importer.total = 0;
                         this.importer.valid = true;
+                        this.importer.file.text = "No has seleccionado ningún archivo";
+                        this.importer.file.value = null;
+                        document.getElementById("importStore").value = null;
                     }
                     break;
             }

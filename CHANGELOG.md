@@ -1,5 +1,32 @@
 Control de Cambios de AYP
 ================================================================================
+0.2.0 2017-10-02
+--------------------------------------------------------------------------------
+- [Enh] `client\js\component\clientes\importadorClientes`, 
+`client/js/template/clientes/importadorClientesT.js`,
+`client/file/clientes/importador-clientes.xlsx`, importación de nuevos
+clientes mediante archivo externo (Marcos-Onca)
+- [Enh] `client\js\component\tiendas\nuevaTienda`,
+`client/js/template/tiendas/nuevaTiendaT.js`,
+`client/file/tiendas/importador-tiendas.xlsx`, importación de nuevas tiendas
+mediante archivo externo (Marcos-Onca)
+- [Enh] `client\js\component\recursos_humanos\nuevoRecurso`,
+`client/js/template/recursos_humanos/nuevoRecursoT.js`,
+`client/file/recursos_humanos/importador-recursos-humanos.xlsx`, importación de
+nuevos recursos mediante archivo externo (Marcos-Onca)
+- [Enh] `client\js\component\reportes\reportes`,
+`client/js/template/reportes/reportesT.js`, exportación de datos (Marcos-Onca)
+- [Bug] `client\js\component\tiendas\nuevaTienda`,
+`client\js\component\tiendas\nuevoRecurso`,
+`client\js\component\tiendas\nuevaRuta`, mejora en limpiado de formularios al
+agregar nuevos registros - TFD-86 (Marcos-Onca)
+- [Bug] `client/js/clientes/tiendasLigadasT.js`,
+`client/js/clientes/recursosLigadosT.js`, solución de incompatibilidad de ligado
+masivo en navegador mozilla firefox - TFD-87 (Marcos-Onca)
+- [Bug] `client\js\component\tiendas\nuevaTienda`,
+`client\js\component\tiendas\nuevoRecurso`,
+`client\js\component\tiendas\nuevaRuta`, corrección de error de presionado
+iterado al agregar registro - TFD-102 (Marcos-Onca)
 
 0.1.0 2017-09-21
 --------------------------------------------------------------------------------
