@@ -6,8 +6,8 @@ BUTO.requires = {
         mapsClient: require("@google/maps")
     },
     components: {
-        toolbar: require("./component/toolbar.js"),
-        map: require("./component/map.js"),
+        //toolbar: require("./component/toolbar.js"),
+        //map: require("./component/map.js"),
         
         menu: require("./component/common/menu.js"),
         dashboard: require("./component/common/dashboard.js"),
@@ -22,7 +22,9 @@ BUTO.requires = {
         nuevoRecurso: require("./component/recursos_humanos/nuevoRecurso.js"),
         
         rutasRegistradas: require("./component/rutas/rutasRegistradas.js"),
-        nuevaRuta: require("./component/rutas/nuevaRuta.js")
+        nuevaRuta: require("./component/rutas/nuevaRuta.js"),
+        
+        reportes: require("./component/reportes/reportes.js")
     }
 };
 
@@ -135,6 +137,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 nuevoRecurso: BUTO.requires.components.nuevoRecurso,
                                 rutasRegistradas: BUTO.requires.components.rutasRegistradas,
                                 nuevaRuta: BUTO.requires.components.nuevaRuta,
+                                reportes: BUTO.requires.components.reportes,
                             }
                         },
                         methods: {
@@ -173,13 +176,15 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                             me.active.second = e.second;
                                             me.active.third = e.third;
                                             if(e.first === 1 && e.second === 0 && e.third === 0)
-                                                    me.children.clientesRegistrados.active = 0;
+                                                me.children.clientesRegistrados.active = 0;
                                             else if(e.first === 2 && e.second === 0 && e.third === 0)
-                                                    me.children.tiendasRegistradas.active = 0;
+                                                me.children.tiendasRegistradas.active = 0;
                                             else if(e.first === 3 && e.second === 0 && e.third === 0)
-                                                    me.children.recursosRegistrados.active = 0;
+                                                me.children.recursosRegistrados.active = 0;
                                             else if(e.first === 4 && e.second === 0 && e.third === 0)
-                                                    me.children.rutasRegistradas.active = 0;
+                                                me.children.rutasRegistradas.active = 0;
+                                            else if(e.first === 5 && e.second === 0 && e.third === 0)
+                                                me.children.reportes.init();
                                             Vue.nextTick(function(){
                                                 if(e.first === 1 && e.second === 0 && e.third === 1)
                                                     me.children.importadorClientes.init();
@@ -199,13 +204,15 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                         this.active.second = e.second;
                                         this.active.third = e.third;
                                         if(e.first === 1 && e.second === 0 && e.third === 0)
-                                                me.children.clientesRegistrados.active = 0;
+                                            this.children.clientesRegistrados.active = 0;
                                         else if(e.first === 2 && e.second === 0 && e.third === 0)
-                                                me.children.tiendasRegistradas.active = 0;
+                                            this.children.tiendasRegistradas.active = 0;
                                         else if(e.first === 3 && e.second === 0 && e.third === 0)
-                                                me.children.recursosRegistrados.active = 0;
+                                            this.children.recursosRegistrados.active = 0;
                                         else if(e.first === 4 && e.second === 0 && e.third === 0)
-                                                me.children.rutasRegistradas.active = 0;
+                                            this.children.rutasRegistradas.active = 0;
+                                        else if(e.first === 5 && e.second === 0 && e.third === 0)
+                                            this.children.reportes.init(false);
                                         Vue.nextTick(function(){
                                             if(e.first === 1 && e.second === 0 && e.third === 1)
                                                 me.children.importadorClientes.init();
@@ -237,6 +244,8 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                         };
                                     }
                                     else{
+                                        if(e.first === 1 && e.second === 0 && e.third === 0)
+                                            this.children.clientesRegistrados.active = 0;
                                         if(e.first === 2 && e.second === 0 && e.third === 0)
                                             this.children.tiendasRegistradas.active = 0;
                                         else if(e.first === 3 && e.second === 0 && e.third === 0)
@@ -273,7 +282,7 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                         },
                         created: function(){
                             var me = this;
-                            BUTO.init(userResponse);
+                            //BUTO.init(userResponse);
                             this.models.perfil.get({},
                             function(success){
                                 me.profile.name = success.body.nombre;
@@ -348,9 +357,20 @@ Vue.http.get("/init-user-data").then(function(userResponse){
                                 sucursalHorario: this.models.sucursalHorario,
                                 sucursalCliente: this.models.sucursalCliente
                             });
+                            
+                            BUTO.requires.components.reportes.init({
+                                ruta: this.models.ruta,
+                                rutaPunto: this.models.rutaPunto,
+                                rutaPuntoServicio: this.models.rutaPuntoServicio,
+                                sucursal: this.models.sucursal,
+                                sucursalHorario: this.models.sucursalHorario,
+                                sucursalCliente: this.models.sucursalCliente,
+                                proyeccionTrabajo: this.models.proyeccionTrabajo
+                            });
+                            
                         },
                         mounted: function(){
-                            //this.children.map.init();
+                            
                         }
                     })
                 };
@@ -364,9 +384,29 @@ Vue.http.get("/init-user-data").then(function(userResponse){
         window.location = "/logout";
     }
 });
-BUTO.init = function(response){
-    BUTO.requires.components.map.token = response.body.apiKey;
-    BUTO.requires.components.map.mapsClient = BUTO.requires.modules.mapsClient.createClient({
-        key: response.body.apiKey
-    });
-};
+$(document).ready(function(){
+    $.datepicker.regional["es"] = {
+        closeText: "Cerrar",
+        prevText: "< Ant",
+        nextText: "Sig >",
+        currentText: "Hoy",
+        monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        monthNamesShort: ["Ene","Feb","Mar","Abr", "May","Jun","Jul","Ago","Sep", "Oct","Nov","Dic"],
+        dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        dayNamesShort: ["Dom","Lun","Mar","Mié","Juv","Vie","Sáb"],
+        dayNamesMin: ["Do","Lu","Ma","Mi","Ju","Vi","Sá"],
+        weekHeader: "Sm",
+        dateFormat: "dd/mm/yy",
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ""
+    };
+    $.datepicker.setDefaults($.datepicker.regional["es"]);
+});
+//BUTO.init = function(response){
+//    BUTO.requires.components.map.token = response.body.apiKey;
+//    BUTO.requires.components.map.mapsClient = BUTO.requires.modules.mapsClient.createClient({
+//        key: response.body.apiKey
+//    });
+//};

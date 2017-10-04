@@ -94,6 +94,9 @@ module.exports = new Vue({
                             });
                             me.validation(i);
                         }
+                        me.file.text = "No has seleccionado ningún archivo";
+                        me.file.value = null;
+                        document.getElementById("importClient").value = null;
                     }
                     else{
                         BUTO.components.main.alert.description.title = "Errores en importación de datos";
@@ -175,6 +178,9 @@ module.exports = new Vue({
                     this.client = newClient;
                     this.total = 0;
                     this.valid = true;
+                    this.file.text = "No has seleccionado ningún archivo";
+                    this.file.value = null;
+                    document.getElementById("importClient").value = null;
                     break;
                 case "step":
                     for(j = 0; j < length; j++){

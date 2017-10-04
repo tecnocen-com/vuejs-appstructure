@@ -1,0 +1,18 @@
+<?php
+$I = new WebGuy($scenario);
+$I->wantTo("AYP43_ImportacionDatosClientes");
+$I->amOnPage("http://ec2-52-204-48-184.compute-1.amazonaws.com:8080/");
+$I->appendField("input[name=password]", "password_0");
+$I->appendField("input[name=username]", "aguevara@alquimiadigital.mx");
+$I->click("button.btn-black");
+$I->click("Clientes (12)");
+$I->click("Importación de datos");
+$I->click("//div/a/span");
+$I->click("//a[2]/span");
+$I->fillField("input[name=import]", "/home/mt-m/Descargas/sqa_clientes.xlsx");
+$I->click("Procesar");
+$I->click("Guardar");
+$I->click("span");
+$I->click("a.dropdown-toggle > span");
+$I->click("Cerrar Sesión");
+

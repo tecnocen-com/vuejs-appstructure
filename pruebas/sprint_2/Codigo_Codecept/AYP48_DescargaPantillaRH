@@ -1,0 +1,16 @@
+<?php
+$I = new WebGuy($scenario);
+$I->wantTo("AYP48_DescargaPantillaRH");
+$I->amOnPage("http://ec2-52-204-48-184.compute-1.amazonaws.com:8080/");
+$I->appendField("input[name=username]", "aguevara@alquimiadigital.mx");
+$I->appendField("input[name=password]", "password_0");
+$I->click("button.btn-black");
+$I->click("Recursos humanos (1)");
+$I->click("Nuevo recurso");
+$I->click("//button[@type='button']");
+$I->click("ul.dropdown-menu.inner > li > a");
+$I->click("i.icon-info22");
+$I->click("aquí");
+$I->click("i.icon-info22");
+$I->click("Cerrar Sesión");
+

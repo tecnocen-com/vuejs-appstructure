@@ -1,0 +1,31 @@
+<?php
+$I = new WebGuy($scenario);
+$I->wantTo("AYP52_AYP13_LigarRecursosAClientes");
+$I->amOnPage("http://ec2-52-204-48-184.compute-1.amazonaws.com:8080/");
+$I->appendField("input[name=password]", "password_0");
+$I->appendField("input[name=username]", "aguevara@alquimiadigital.mx");
+$I->click("button.btn-black");
+$I->click("Clientes (12)");
+$I->click("Clientes registrados");
+$I->click("//tr[5]/td[3]/a[2]/span");
+$I->click("i.icon-link");
+$I->click("Aceptar");
+$I->click("(//a[contains(@href, '#')])[26]");
+$I->click("Aceptar");
+$I->click("(//a[contains(@href, '#')])[28]");
+$I->click("span");
+$I->click("(//a[contains(@href, '#')])[30]");
+$I->click("span");
+$I->click("//tr[5]/td/div/a[2]/i");
+$I->click("span");
+$I->click("//tr[6]/td/div/a[2]/i");
+$I->click("span");
+$I->click("(//a[contains(@href, '#')])[36]");
+$I->click("Aceptar");
+$I->click("(//a[contains(@href, '#')])[38]");
+$I->click("span");
+$I->click("//div/a/span");
+$I->click("//tr[5]/td[3]/a[2]/span");
+$I->click("a.dropdown-toggle > span");
+$I->click("Cerrar Sesión");
+

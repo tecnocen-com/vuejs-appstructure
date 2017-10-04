@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://ec2-52-204-48-184.compute-1.amazonaws.com:8080/" />
+<title>AYP50_GuardarRecurso</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AYP50_GuardarRecurso</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>http://ec2-52-204-48-184.compute-1.amazonaws.com:8080/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>name=password</td>
+	<td>password_0</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>name=username</td>
+	<td>aguevara@alquimiadigital.mx</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn-black</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Recursos humanos (7)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Nuevo recurso</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=Nombre</td>
+	<td>RECURSO SQA</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Correo electrónico&quot;]</td>
+	<td>sqa@artificesweb.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=Contraseña</td>
+	<td>1234567890</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Confirmar contraseña&quot;]</td>
+	<td>1234567890</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=Teléfono</td>
+	<td>1221223221</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[3]/div/div/div/div[2]/div/label</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.form-group &gt; input.form-control</td>
+	<td>10:00:00</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[5]</td>
+	<td>12:00:00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Guardar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Aceptar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div/a/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//tr[8]/td[3]/a[2]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[5]</td>
+	<td>15:00:00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Guardar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Aceptar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.form-group &gt; input.form-control</td>
+	<td>11:00:00</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[5]</td>
+	<td>15:30:00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Guardar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.form-group &gt; input.form-control</td>
+	<td>12:00:00</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[5]</td>
+	<td>16:30:00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Guardar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[2]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=Nombre</td>
+	<td>sqa testing mt </td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Correo electrónico&quot;]</td>
+	<td>mt@artificesweb.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=Contraseña</td>
+	<td>12345678</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Confirmar contraseña&quot;]</td>
+	<td>12345678</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=Teléfono</td>
+	<td>1213223232</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[3]/div/div/div/div[2]/div/label</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.form-group &gt; input.form-control</td>
+	<td>08:00:00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='mapAddResource']/div/div/div/div[3]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='mapAddResource']/div/div/div/div[3]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[5]</td>
+	<td>16:00:00</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.form-group &gt; input.form-control</td>
+	<td>09:00:00</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@type='text'])[5]</td>
+	<td>18:00:00</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.form-group &gt; input.form-control</td>
+	<td>11:11:11</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Guardar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//a[contains(@href, '#')])[18]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a.dropdown-toggle &gt; span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Cerrar Sesión</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

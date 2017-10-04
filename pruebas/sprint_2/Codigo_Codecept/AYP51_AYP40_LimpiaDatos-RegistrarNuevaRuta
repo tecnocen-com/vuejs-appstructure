@@ -1,0 +1,22 @@
+<?php
+$I = new WebGuy($scenario);
+$I->wantTo("AYP51_AYP40_LimpiaDatos-RegistrarNuevaRuta");
+$I->amOnPage("http://ec2-52-204-48-184.compute-1.amazonaws.com:8080/");
+$I->appendField("input[name=password]", "password_0");
+$I->appendField("input[name=username]", "aguevara@alquimiadigital.mx");
+$I->clickandWait====css=button.btn-black||
+$I->click("Rutas (4)");
+$I->click("Nueva ruta");
+$I->fillField("input[name=Nombre]", "SQATesting");
+$I->fillField("div.form-group > input.form-control", "09:00:00");
+$I->fillField("(//input[@type='text'])[3]", "16:00:00");
+$I->click("Siguiente");
+$I->click("span.glyphicon.glyphicon-plus");
+$I->click("//button[@type='button']");
+$I->click("Guardar");
+$I->click("span");
+$I->click("//div/a/span");
+$I->click("//tr[5]/td[5]/a/span");
+$I->click("i.caret");
+$I->click("Cerrar Sesión");
+

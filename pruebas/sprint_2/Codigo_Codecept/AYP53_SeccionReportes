@@ -1,0 +1,27 @@
+<?php
+
+class AYP53_SeccionReportes{
+protected $I;
+
+public function _before() {}
+public function _after() {}
+
+public function AYP53_SeccionReportes (Webguy $I)
+{
+
+$I->wantTo("AYP53_SeccionReportes");
+        $I->amOnPage("http://ec2-52-204-48-184.compute-1.amazonaws.com:8080/");
+        $I->appendField("input[name=username]", "aguevara@alquimiadigital.mx");
+        $I->appendField("input[name=password]", "password_0");
+        $I->click("button.btn-black");
+        $I->click("div.dashboard-icon.dashboard-report");
+        $I->click("Inicio");
+        $I->click("Reportes");
+        $I->click("Angel Guevara");
+        $I->click("Cerrar Sesión");
+
+}
+
+
+
+}
