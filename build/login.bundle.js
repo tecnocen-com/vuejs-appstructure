@@ -68,6 +68,9 @@
 /***/ 86:
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 BUTO.requires = {
     templates: {
         login: __webpack_require__(87)
@@ -109,193 +112,158 @@ BUTO.components = {
             }
         },
         methods: {
-            login: function(){
+            login: function login() {
                 var me = this,
                     validator = true;
                 this.button.loading = true;
                 validator *= this.user.data === "" ? false : true;
                 validator = validator === 1 ? true : false;
-                if(!validator){
+                if (!validator) {
                     this.alert.message = "Error, se requiere un nombre de usuario.";
                     this.alert.hidden = false;
                     this.error = 0;
                     this.button.loading = false;
-                    setTimeout(function(){me.alertAnimation("hide");}, 1500);
-                }
-                else{
+                    setTimeout(function () {
+                        me.alertAnimation("hide");
+                    }, 1500);
+                } else {
                     validator *= this.password.data === "" ? false : true;
                     validator = validator === 1 ? true : false;
-                    if(!validator){
+                    if (!validator) {
                         this.alert.message = "Error, se requiere una contraseña.";
                         this.alert.hidden = false;
                         this.error = 1;
                         this.button.loading = false;
-                        setTimeout(function(){me.alertAnimation("hide");}, 1500);
-                    }
-                    else{
+                        setTimeout(function () {
+                            me.alertAnimation("hide");
+                        }, 1500);
+                    } else {
                         validator *= !this.fieldValidation(this.user.data);
                         validator = validator === 1 ? true : false;
-                        if(!validator){
+                        if (!validator) {
                             this.alert.message = "Error, caracteres inválidos, inténtalo de nuevo.";
                             this.alert.hidden = false;
                             this.error = 0;
                             this.button.loading = false;
-                            setTimeout(function(){me.alertAnimation("hide");}, 1500);
-                        }
-                        else
-                            this.$http.post("/login",
-                                {
-                                    user: this.user.data,
-                                    pass: this.password.data
-                                }
-                            ).then(function(response){
-                                if(response.status === 200 && response.body.status !== 401){
-                                    window.location = "/home";
-                                }
-                                else{
-                                    me.alert.message = "Error, nombre de usuario y/o contraseña inválidos.";
-                                    me.alert.hidden = false;
-                                    me.error = 2;
-                                    this.button.loading = false;
-                                    setTimeout(function(){me.alertAnimation("hide");}, 1500);
-                                }
-                            });
+                            setTimeout(function () {
+                                me.alertAnimation("hide");
+                            }, 1500);
+                        } else this.$http.post("/login", {
+                            user: this.user.data,
+                            pass: this.password.data
+                        }).then(function (response) {
+                            if (response.status === 200 && response.body.status !== 401) {
+                                window.location = "/home";
+                            } else {
+                                me.alert.message = "Error, nombre de usuario y/o contraseña inválidos.";
+                                me.alert.hidden = false;
+                                me.error = 2;
+                                this.button.loading = false;
+                                setTimeout(function () {
+                                    me.alertAnimation("hide");
+                                }, 1500);
+                            }
+                        });
                     }
                 }
             },
-            alertAnimation: function(anim){
+            alertAnimation: function alertAnimation(anim) {
                 var me = this,
                     message = document.getElementById("message");
-                if(message){
+                if (message) {
                     this.alert.animate = anim === "show" ? false : true;
-                    messageAnimation = this.detectAnimation(message);
-                    messageAnimation && message.addEventListener(messageAnimation, function(e){
-                        if(e.animationName === "fade-efect-hide"){
+                    var messageAnimation = this.detectAnimation(message);
+                    messageAnimation && message.addEventListener(messageAnimation, function (e) {
+                        if (e.animationName === "fade-efect-hide") {
                             me.alert.hidden = true;
                             me.alert.animate = false;
-                        }
-                        else{
+                        } else {
                             //me.alert.show = true;
                         }
                     });
                 }
             },
-            noMessageAnimation: function(){
+            noMessageAnimation: function (_noMessageAnimation) {
+                function noMessageAnimation() {
+                    return _noMessageAnimation.apply(this, arguments);
+                }
+
+                noMessageAnimation.toString = function () {
+                    return _noMessageAnimation.toString();
+                };
+
+                return noMessageAnimation;
+            }(function () {
                 var noMessage = document.getElementById("noMessage");
-                if(noMessage){
+                if (noMessage) {
                     noMessageAnimation = this.detectAnimation(noMessage);
-                    noMessageAnimation && noMessage.addEventListener(noMessageAnimation, function(e){
-                        if(e.animationName === "fade-efect-hide"){
-                            
-                        }
-                        else{
-                            
-                        }
+                    noMessageAnimation && noMessage.addEventListener(noMessageAnimation, function (e) {
+                        if (e.animationName === "fade-efect-hide") {} else {}
                     });
                 }
-            },
-            detectAnimation: function(el){
+            }),
+            detectAnimation: function detectAnimation(el) {
                 var t;
                 var animations = {
-                    "animation"      : "animationend",
-                    "OAnimation"     : "oAnimationEnd",
-                    "MozAnimation"   : "animationend",
+                    "animation": "animationend",
+                    "OAnimation": "oAnimationEnd",
+                    "MozAnimation": "animationend",
                     "WebkitAnimation": "webkitAnimationEnd"
                 };
-                for(t in animations){
-                    if( el.style[t] !== undefined ){
+                for (t in animations) {
+                    if (el.style[t] !== undefined) {
                         return animations[t];
                     }
                 }
             },
-            fieldValidation: function(element){
+            fieldValidation: function fieldValidation(element) {
                 var validator = false;
-                if(typeof element === "string"){
-                    validator += ((element.indexOf('#') !== -1)) ? true : false;
-                    validator += ((element.indexOf('!') !== -1)) ? true : false;
-                    validator += ((element.indexOf('$') !== -1)) ? true : false;
-                    validator += ((element.indexOf('%') !== -1)) ? true : false;
-                    validator += ((element.indexOf('/') !== -1)) ? true : false;
-                    validator += ((element.indexOf('(') !== -1)) ? true : false;
-                    validator += ((element.indexOf(')') !== -1)) ? true : false;
-                    validator += ((element.indexOf('=') !== -1)) ? true : false;
-                    validator += ((element.indexOf('<') !== -1)) ? true : false;
-                    validator += ((element.indexOf('>') !== -1)) ? true : false;
-                    validator += ((element.indexOf('¡') !== -1)) ? true : false;
-                    validator += ((element.indexOf('\'') !== -1)) ? true : false;
-                    validator += ((element.indexOf('´') !== -1)) ? true : false;
-                    validator += ((element.indexOf('*') !== -1)) ? true : false;
-                    validator += ((element.indexOf('[') !== -1)) ? true : false;
-                    validator += ((element.indexOf(']') !== -1)) ? true : false;
-                    validator += ((element.indexOf('{') !== -1)) ? true : false;
-                    validator += ((element.indexOf('}') !== -1)) ? true : false;
-                    validator += ((element.indexOf('+') !== -1)) ? true : false;
-                    validator += ((element.indexOf('"') !== -1)) ? true : false;
-                    validator += ((element.indexOf('|') !== -1)) ? true : false;
-                    validator += ((element.indexOf('°') !== -1)) ? true : false;
-                    validator += ((element.indexOf('&') !== -1)) ? true : false;
-                    if(validator)
-                        validator = true;
-                    else
-                        validator = false;
+                if (typeof element === "string") {
+                    validator += element.indexOf('#') !== -1 ? true : false;
+                    validator += element.indexOf('!') !== -1 ? true : false;
+                    validator += element.indexOf('$') !== -1 ? true : false;
+                    validator += element.indexOf('%') !== -1 ? true : false;
+                    validator += element.indexOf('/') !== -1 ? true : false;
+                    validator += element.indexOf('(') !== -1 ? true : false;
+                    validator += element.indexOf(')') !== -1 ? true : false;
+                    validator += element.indexOf('=') !== -1 ? true : false;
+                    validator += element.indexOf('<') !== -1 ? true : false;
+                    validator += element.indexOf('>') !== -1 ? true : false;
+                    validator += element.indexOf('¡') !== -1 ? true : false;
+                    validator += element.indexOf('\'') !== -1 ? true : false;
+                    validator += element.indexOf('´') !== -1 ? true : false;
+                    validator += element.indexOf('*') !== -1 ? true : false;
+                    validator += element.indexOf('[') !== -1 ? true : false;
+                    validator += element.indexOf(']') !== -1 ? true : false;
+                    validator += element.indexOf('{') !== -1 ? true : false;
+                    validator += element.indexOf('}') !== -1 ? true : false;
+                    validator += element.indexOf('+') !== -1 ? true : false;
+                    validator += element.indexOf('"') !== -1 ? true : false;
+                    validator += element.indexOf('|') !== -1 ? true : false;
+                    validator += element.indexOf('°') !== -1 ? true : false;
+                    validator += element.indexOf('&') !== -1 ? true : false;
+                    if (validator) validator = true;else validator = false;
                 }
                 return validator;
             }
         },
-        created: function(){
-            
-        },
-        mounted: function(){
+        created: function created() {},
+        mounted: function mounted() {
             this.hidden = false;
             this.$refs.username.autofocus = true;
         }
     })
 };
 
-
 /***/ }),
 
 /***/ 87:
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = `
-    <div class="login-box">
-        <form v-on:submit.prevent action="#" method="POST">
-            <div class="Logo">
-                <img src="/image/logo/techfor180-45.png" alt="logotipo" class="img-responsive">
-            </div>
-            <div class="inner-login-box">
-                <div class="header">
-                    <h1 class="text-center text-uppercase">{{mainMessage.title}}</h1>
-                    <h4 class="text-center">{{mainMessage.subtitle}}</h4>
-                </div>
-                <div class="box-login">
-                    <div id="username" class="form-group">
-                        <label for="username">{{user.label}}:</label>
-                        <input v-on:keydown.space.prevent v-on:keydown.enter="login()" type="text" v-model="user.data" ref="username" name="username" :class="!alert.hidden && error !== 1 ? 'wrong-input' : ''" class="form-control" maxlength="64">
-                    </div>
-                    <div id="password" class="form-group">
-                        <label for="password">{{password.label}}:</label>
-                        <input v-on:keydown.space.prevent v-on:keydown.enter="login()" type="password" v-model="password.data" ref="password" name="password" :class="!alert.hidden && error !== 0 ? 'wrong-input' : ''" class="form-control" maxlength="64">
-                    </div>
-                </div>
-                <div id="message" v-if="!alert.hidden" :class="[alert.animate ? animationClass[0] : animationClass[1], 'message-box', 'wrong-message-box']" role="alert">
-                    <p>
-                        <b>{{alert.message}}</b>
-                    </p>
-                </div>
-                <div class="form-group" style="text-align: center;">
-                    <button type="submit" :class="button.loading ? 'disabled' : ''" class="btn-black" v-on:click="login()"><b>{{button.message}}</b></button>
-                </div>
-            </div>
-        </form>
-            <div class="form-group forgotten-container">
-                <!--<small>
-                    <a class="login-link" href="#" v.on:click.prevent>{{button.forgotten}}</a>
-                </small>-->
-            </div>
-    </div>
-`;
+"use strict";
+
+
+module.exports = "\n    <div class=\"login-box\">\n        <form v-on:submit.prevent action=\"#\" method=\"POST\">\n            <div class=\"Logo\">\n                <img src=\"/image/logo/techfor180-45.png\" alt=\"logotipo\" class=\"img-responsive\">\n            </div>\n            <div class=\"inner-login-box\">\n                <div class=\"header\">\n                    <h1 class=\"text-center text-uppercase\">{{mainMessage.title}}</h1>\n                    <h4 class=\"text-center\">{{mainMessage.subtitle}}</h4>\n                </div>\n                <div class=\"box-login\">\n                    <div id=\"username\" class=\"form-group\">\n                        <label for=\"username\">{{user.label}}:</label>\n                        <input v-on:keydown.space.prevent v-on:keydown.enter=\"login()\" type=\"text\" v-model=\"user.data\" ref=\"username\" name=\"username\" :class=\"!alert.hidden && error !== 1 ? 'wrong-input' : ''\" class=\"form-control\" maxlength=\"64\">\n                    </div>\n                    <div id=\"password\" class=\"form-group\">\n                        <label for=\"password\">{{password.label}}:</label>\n                        <input v-on:keydown.space.prevent v-on:keydown.enter=\"login()\" type=\"password\" v-model=\"password.data\" ref=\"password\" name=\"password\" :class=\"!alert.hidden && error !== 0 ? 'wrong-input' : ''\" class=\"form-control\" maxlength=\"64\">\n                    </div>\n                </div>\n                <div id=\"message\" v-if=\"!alert.hidden\" :class=\"[alert.animate ? animationClass[0] : animationClass[1], 'message-box', 'wrong-message-box']\" role=\"alert\">\n                    <p>\n                        <b>{{alert.message}}</b>\n                    </p>\n                </div>\n                <div class=\"form-group\" style=\"text-align: center;\">\n                    <button type=\"submit\" :class=\"button.loading ? 'disabled' : ''\" class=\"btn-black\" v-on:click=\"login()\"><b>{{button.message}}</b></button>\n                </div>\n            </div>\n        </form>\n            <div class=\"form-group forgotten-container\">\n                <!--<small>\n                    <a class=\"login-link\" href=\"#\" v.on:click.prevent>{{button.forgotten}}</a>\n                </small>-->\n            </div>\n    </div>\n";
 
 /***/ })
 

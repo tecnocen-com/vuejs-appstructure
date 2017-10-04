@@ -352,7 +352,7 @@ module.exports = new Vue({
                 this.getDirection("store", length, e);
         },
         initSchedule: function(length, id){
-            var me = this;
+            var me = this, i;
             Vue.nextTick(function(){
                 $('#schedule-' + length).popover({
                     html: true,

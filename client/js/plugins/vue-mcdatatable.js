@@ -2353,7 +2353,7 @@ var mcdatatable = function(configuration){
                 
             },
             created: function(){
-                var index = null
+                var index = null,
                     me = this;
                 /***************Used only in pagination mode*****************/
                 if(typeof this.style.pagination === 'object' &&

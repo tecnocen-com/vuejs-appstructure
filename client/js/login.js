@@ -98,7 +98,7 @@ BUTO.components = {
                     message = document.getElementById("message");
                 if(message){
                     this.alert.animate = anim === "show" ? false : true;
-                    messageAnimation = this.detectAnimation(message);
+                    var messageAnimation = this.detectAnimation(message);
                     messageAnimation && message.addEventListener(messageAnimation, function(e){
                         if(e.animationName === "fade-efect-hide"){
                             me.alert.hidden = true;

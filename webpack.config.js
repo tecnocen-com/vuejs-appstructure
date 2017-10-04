@@ -10,15 +10,24 @@ module.exports = {
         path: path.resolve(__dirname, 'build'),
         filename: debug ? '[name].bundle.js' : '[name].min.js',
     },
+    module: {
+        loaders: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: "babel-loader"
+        }]
+    },
     plugins: debug ? [] : [
         new webpack.DefinePlugin({          //Setting Vue on production mode
             'process.env': {
               NODE_ENV: '"production"'
             }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            minimize: true,
+            sourceMap: false,
+            mangle: false,
+            compress: true
         })
-        //new webpack.optimize.UglifyJsPlugin({
-        //    minimize: true,
-        //    compress: true
-        //})
     ]
 };

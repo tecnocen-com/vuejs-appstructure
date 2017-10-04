@@ -15,16 +15,21 @@
         <!--Main Code-->
         <div id="login" :class="[hidden ? 'hidden' : '']" class="login-container">
         </div>
-        <script type="text/javascript" src="/js/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <!--Development file-->
+        <!--<script type="text/javascript" src="/js/vue.js"></script>-->
+        <!--Production file-->
         <script type="text/javascript" src="/js/vue.min.js"></script>
         <script type="text/javascript" src="/js/vue-resource.js"></script>
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript">
             var BUTO = {
                 components: {}
             };
         </script>
-        <script type="text/javascript" src="/build/login.bundle.js"></script>
-        <!--<script type="text/javascript" src="/build/login.main.js"></script>-->
+        <!--Development file-->
+        <!--<script type="text/javascript" src="/build/login.bundle.js"></script>-->
+        <!--Production file-->
+        <script type="text/javascript" src="/build/login.min.js"></script>
     </body>
 </html>

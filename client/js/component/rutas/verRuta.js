@@ -146,7 +146,7 @@ module.exports = new Vue({
             });
         },
         initPoint: function(){
-            var me = this, length;
+            var me = this, length, i;
             this.models.rutaPunto.get({
                 delimiters: this.id,
                 params: {

@@ -356,7 +356,7 @@ module.exports = new Vue({
                 this.getDirection("store", length, e);
         },
         initSchedule: function(length, id){
-            var me = this;
+            var me = this, i;
             Vue.nextTick(function(){
                 $('#schedule-' + length).popover({
                     html: true,
@@ -398,7 +398,7 @@ module.exports = new Vue({
             });
         },
         initPoint: function(){
-            var me = this, length;
+            var me = this, length, i;
             this.models.rutaPunto.get({
                 delimiters: this.id,
                 params: {
