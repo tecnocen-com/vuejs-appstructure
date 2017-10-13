@@ -69201,6 +69201,8 @@ module.exports = new Vue({
                 lat_fin: this.store.point[this.store.point.length - 1].lat,
                 lng_fin: this.store.point[this.store.point.length - 1].lng
             };
+            this.begin.oldValue = this.begin.value;
+            this.end.oldValue = this.end.value;
             switch (type) {
                 case (0, 1):
                     params.hora_inicio = this.begin.value;
@@ -69217,7 +69219,6 @@ module.exports = new Vue({
                 delimiters: this.id,
                 params: params
             }, function (success) {
-                console.log(success);
                 if (type !== 0 && subtype) for (i = 0; i < me.store.point.length; i++) {
                     me.submitPoint(type, i);
                 }BUTO.components.main.children.rutasRegistradas.grid.updatePagination();
@@ -69262,6 +69263,10 @@ module.exports = new Vue({
                             //Takes start, travel and death
                         }
                     }, function (success) {
+                        me.store.oldPoint.push({
+                            id: success.body.id,
+                            idStore: success.body.sucursal_id
+                        });
                         for (j = 0; j < me.store.point[i].client.length; j++) {
                             me.submitService(updateType, success.body.id, i, null, j);
                         }
