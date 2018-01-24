@@ -45,7 +45,7 @@ En donde ```<VERSION>``` es la última versión instalada.
 ### Instalación de proyecto
 ####Clonar el repositorio:
 ```bash
-$ git clone git@bitbucket.org:tecnocen/vuejs-appstructure.git
+$ git clone https://github.com/tecnocen-com/vuejs-appstructure.git
 ```
 
 ####Entrar en el proyecto:
@@ -100,7 +100,7 @@ La línea 1 se refiere al nombre del proyecto, sustituir su valor con el nombre 
 ...
 1 | vuejs-appstructure
 ...
-57 | $ git clone git@bitbucket.org:tecnocen/vuejs-appstructure.git
+57 | $ git clone https://github.com/tecnocen-com/vuejs-appstructure.git
 ...
 63 | $ cd vuejs-appstructure
 ...
@@ -225,7 +225,7 @@ Para más información leer los [estándares de arquitectura] de tecnocen, en la
 ## Licencia
 Licencia ISC.
 
-[Inglés]: /../README.md
+[Inglés]: ../README.md
 [estándares de arquitectura]: https://bitbucket.org/tecnocen/estandares-arquitectura
 [control de cambios]: https://bitbucket.org/tecnocen/estandares-arquitectura/src/298c20280d95af4de8923de082baee26e4185d4a/changelog.md?fileviewer=file-view-default
 [lineamientos desarrollo JavaScript]: https://bitbucket.org/tecnocen/estandares-arquitectura/src/990d2c74340390c0e375e653e7b0bc11778d54b2/javascript.md?fileviewer=file-view-default

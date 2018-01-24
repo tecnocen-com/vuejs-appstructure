@@ -44,7 +44,7 @@ Where ```<VERSION>``` is the last installed version.
 ### Proyect installation
 #### Clone repository:
 ```bash
-$ git clone git@bitbucket.org:tecnocen/vuejs-appstructure.git
+$ git clone https://github.com/tecnocen-com/vuejs-appstructure.git
 ```
 
 #### Place in the project root path:
@@ -99,7 +99,7 @@ Line 1 refers to project name, edit with appropiated name.
 ...
 1 | vuejs-appstructure
 ...
-57 | $ git clone git@bitbucket.org:tecnocen/vuejs-appstructure.git
+57 | $ git clone https://github.com/tecnocen-com/vuejs-appstructure.git
 ...
 63 | $ cd vuejs-appstructure
 ...
@@ -224,7 +224,7 @@ For further information, read more about this on [arquitecture standards] of tec
 ## License
 ISC license.
 
-[Spanish]: /docs/README.md
+[Spanish]: docs/README.md
 [arquitecture standards]: https://bitbucket.org/tecnocen/estandares-arquitectura
 [changes control]: https://bitbucket.org/tecnocen/estandares-arquitectura/src/298c20280d95af4de8923de082baee26e4185d4a/changelog.md?fileviewer=file-view-default
 [JavaScript coding rules]: https://bitbucket.org/tecnocen/estandares-arquitectura/src/990d2c74340390c0e375e653e7b0bc11778d54b2/javascript.md?fileviewer=file-view-default
