@@ -1,72 +1,48 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Travel App</title>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="/image/logo/ico.png" sizes="48x48" />
-        <!-- Global stylesheets -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-        <link href="/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-        
-        <link href="/css/bootstrap.min.css" rel="stylesheet">
-        
-        <link href="/assets/css/core.css" rel="stylesheet" type="text/css">
-        <link href="/assets/css/components.css" rel="stylesheet" type="text/css">
-        <link href="/assets/css/colors.css" rel="stylesheet" type="text/css">
-        
-        <link rel="stylesheet" href="/css/style.css">
-        <link rel="stylesheet" href="/css/styleAnimation.css">
-        <link rel="stylesheet" href="/css/mcdatatable-style.css">
-    </head>
-    <body>
-        <div id="main"></div>
-        <script>
-            var BUTO = {
-                templates: null,
-                requires: null
-            };
-        </script>
-        
-        <!-- Core JS files -->
-        
-        <!--Development file-->
-        <!--<script type="text/javascript" src="/js/vue.js"></script>-->
-        <!--Production file-->
-        <script type="text/javascript" src="/js/vue.min.js"></script>
-        <script type="text/javascript" src="/js/vue-resource.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRRmzVxMe4JRzwDmxcGrQRxm_WPlHiPRs&libraries=places"></script>
-        
-        
-        <script type="text/javascript" src="/assets/js/plugins/loaders/pace.min.js"></script>
-        
-        <script type="text/javascript" src="/js/jquery.min.js"></script>
-        <script src="/js/jquery-ui.min.js"></script>
-        <script src="/js/jquery-ui.multidatespicker.js"></script>
-        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-        
-        <script type="text/javascript" src="/assets/js/plugins/loaders/blockui.min.js"></script>
-        <script type="text/javascript" src="/assets/js/plugins/ui/nicescroll.min.js"></script>
-        <script type="text/javascript" src="/assets/js/plugins/ui/drilldown.js"></script>
-        <!-- /core JS files -->
+  <head>
+    <title>APP NAME</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/image/logo/ico.png" sizes="48x48" />
+    <!-- Global stylesheets -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/styleAnimation.css">
+  </head>
+  <body>
+    <!--------------------------------Main Code----------------------------------->
+    <div id="main"></div>
+    <!---------------------------------------------------------------------------->
     
-        <!-- Theme JS files -->
-        <script type="text/javascript" src="/assets/js/plugins/visualization/d3/d3.min.js"></script>
-        <script type="text/javascript" src="/assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
-        <script type="text/javascript" src="/assets/js/plugins/forms/styling/switchery.min.js"></script>
-        <script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
-        <script type="text/javascript" src="/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
-        <script type="text/javascript" src="/assets/js/plugins/ui/moment/moment.min.js"></script>
-        <script type="text/javascript" src="/assets/js/plugins/pickers/daterangepicker.js"></script>
+    <!----------------------------- Core JS files -------------------------------->
+    <!---------------------------- Core object ----------------------------->
+    <script>
+      var BUTO = {
+        requires: null,
+        templates: null
+      };
+    </script>
+    <!--------------------------- /Core object ----------------------------->
     
-        <script type="text/javascript" src="/assets/js/core/app.js"></script>
-        <!-- /theme JS files -->
-        
-        <!--Development file-->
-        <!--<script type="text/javascript" src="/build/main.bundle.js"></script>-->
-        <!--Production file-->
-        <script type="text/javascript" src="/build/main.min.js"></script>
-        
-    </body>
+    <!----------------- Development framework inclusion -------------------->
+    <script type="text/javascript" src="/js/vue.js"></script>
+    <!---------------- /Development framework inclusion -------------------->
+    
+    <!----------------- Production framework inclusion --------------------->
+    <!--<script type="text/javascript" src="/js/vue.min.js"></script>-->
+    <script type="text/javascript" src="/js/vue-resource.js"></script>
+    <!---------------- /Production framework inclusion --------------------->
+    
+    <!------------------------- Development file --------------------------->
+    <script type="text/javascript" src="/build/main.bundle.js"></script>
+    <!------------------------ /Development file --------------------------->
+    
+    <!------------------------- Production file ---------------------------->
+    <!--<script type="text/javascript" src="/build/main.min.js"></script>-->
+    <!------------------------ /Production file ---------------------------->
+    
+    <!---------------------------- /core JS files -------------------------------->
+
+  </body>
 </html>

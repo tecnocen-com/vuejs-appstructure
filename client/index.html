@@ -1,35 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Travel App</title>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="/image/logo/ico.png" sizes="48x48" />
-        <link rel="stylesheet" href="/css/bootstrap.min.css" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
-        <link rel="stylesheet" href="/css/styleLogin.css" />
-        <link rel="stylesheet" href="/css/styleAnimation.css" />
-    </head>
-    <body>
-        <!--Main Code-->
-        <div id="login" :class="[hidden ? 'hidden' : '']" class="login-container">
-        </div>
-        <!--Development file-->
-        <!--<script type="text/javascript" src="/js/vue.js"></script>-->
-        <!--Production file-->
-        <script type="text/javascript" src="/js/vue.min.js"></script>
-        <script type="text/javascript" src="/js/vue-resource.js"></script>
-        <script type="text/javascript" src="/js/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-        <script type="text/javascript">
-            var BUTO = {
-                components: {}
-            };
-        </script>
-        <!--Development file-->
-        <!--<script type="text/javascript" src="/build/login.bundle.js"></script>-->
-        <!--Production file-->
-        <script type="text/javascript" src="/build/login.min.js"></script>
-    </body>
+  <head>
+    <title>APP NAME</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="icon" type="image/png" href="/image/logo/ico.png" sizes="48x48" />-->
+    <link rel="stylesheet" href="/css/styleLogin.css" />
+  </head>
+  <body>
+    <!------------------------------- Main Code ---------------------------------->
+    <div id="login" :class="[hidden ? 'hidden' : '']"></div>
+    <!------------------------------ /Main Code ---------------------------------->
+    
+    <!----------------------------- Core JS files -------------------------------->
+    <!---------------------------- Core object ----------------------------->
+    <script type="text/javascript">
+      var BUTO = {
+        components: {}
+      };
+    </script>
+    <!--------------------------- /Core object ----------------------------->
+    
+    <!----------------- Development framework inclusion -------------------->
+    <script type="text/javascript" src="/js/vue.js"></script>
+    <!---------------- /Development framework inclusion -------------------->
+    
+    <!----------------- Production framework inclusion --------------------->
+    <!--<script type="text/javascript" src="/js/vue.min.js"></script>-->
+    <script type="text/javascript" src="/js/vue-resource.js"></script>
+    <!---------------- /Production framework inclusion --------------------->
+    
+    <!------------------------- Development file --------------------------->
+    <script type="text/javascript" src="/build/login.bundle.js"></script>
+    <!------------------------ /Development file --------------------------->
+    
+    <!------------------------- Production file ---------------------------->
+    <!--<script type="text/javascript" src="/build/login.min.js"></script>-->
+    <!------------------------ /Production file ---------------------------->
+    
+    <!---------------------------- /Core JS files -------------------------------->
+  </body>
 </html>
