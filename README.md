@@ -157,7 +157,7 @@ For further information, read more about this on [arquitecture standards] of tec
 In order to use the project in a productive environment, nodeJS should be updated to this and then should compiled all the core files:
 * Linux
 ```bash
-$ NODE_ENV=production; npm run build
+$ NODE_ENV=production npm run build
 ```
 * Windows
 ```bash

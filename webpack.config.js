@@ -3,12 +3,12 @@ var path = require("path"),
   debug = process.env.NODE_ENV !== "production";
 module.exports = {
   entry: {
-    login: './client/js/login.js',
-    main: './client/js/main.js'
+    login: "./client/js/login.js",
+    main: "./client/js/main.js"
   },
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: debug ? '[name].bundle.js' : '[name].min.js',
+    path: path.resolve(__dirname, "build"),
+    filename: debug ? "[name].bundle.js" : "[name].min.js",
   },
   module: {
     loaders: [{
@@ -19,7 +19,7 @@ module.exports = {
   },
   plugins: debug ? [] : [
     new webpack.DefinePlugin({          //Setting Vue on production mode
-      'process.env': {
+      "process.env": {
         NODE_ENV: '"production"'
       }
     }),
