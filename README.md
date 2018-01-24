@@ -42,17 +42,17 @@ $ sudo ln -sf /usr/local/n/versions/node/<VERSION>/bin/node /usr/bin/nodejs
 Where ```<VERSION>``` is the last installed version.
 
 ### Proyect installation
-####Clone repository:
+#### Clone repository:
 ```bash
 $ git clone git@bitbucket.org:tecnocen/vuejs-appstructure.git
 ```
 
-####Place in the project root path:
+#### Place in the project root path:
 ```bash
 $ cd vuejs-appstructure
 ```
 
-####Define all the initial data of your project:
+#### Define all the initial data of your project:
 * **```requestHandlers.js```:** In this file you'll define all the conditions to access the ROA service.
 ```bash
 ...
@@ -110,7 +110,7 @@ Line 63 refers to the project directory after clone, edit with appropiated value
 
 Modify the rest of the file according to the project.
 
-####npm dependencies installation:
+#### npm dependencies installation:
 ```bash
 $ npm install
 ```
@@ -133,15 +133,15 @@ NOTES:
 - Directory ```test``` inside of ```component``` and ```template```, has an starting component view example, which could be duplicated any time it's needed in order to have the real project running.
 - To include the duplicated components to the views of the project, they should be included in both files ```main.js``` and ```mainT.js``` inside of the directory ```js``` in orde to include and render them; and so on in ```menu.js``` file inside of the ```common``` directory.
 
-##Visibility
-####Changes visibility:
+## Visibility
+#### Changes visibility:
 In order to assure all the changes visibility in the project code, the core files should be updated to it's most recently version:
 ```bash
 $ npm run build
 ```
 NOTE: If there where syntax errors, should be seen after this command.
 
-####Browser project visibility:
+#### Browser project visibility:
 ```bash
 $ node index.js
 ```
