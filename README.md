@@ -115,7 +115,7 @@ Modify the rest of the file according to the project.
 $ npm install
 ```
 
-##Project structure
+## Project structure
 * ```build```: in this directory will exists all core files generated through webpack module.
 * ```client```: in this directory will exists all files directly involved with client side.
     * ```assets```: in this directory will exists all files involved with a predefined template that could be used.
