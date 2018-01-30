@@ -35,8 +35,7 @@ $ sudo npm install -g n
 $ sudo n stable
 ```
 
-NOTA: Particularmente en ubuntu el binario para nodeJS es "nodejs" en vez de "node" debido a otro paquete. 
-Si se requiere llamarlo como "node" se procederá con:
+NOTA: Particularmente en ubuntu el binario para nodeJS es "nodejs" en vez de "node" debido a otro paquete. Si se requiere llamarlo como "node" se procederá con:
 ```bash
 $ sudo ln -sf /usr/local/n/versions/node/<VERSION>/bin/node /usr/bin/nodejs
 ```
@@ -122,17 +121,18 @@ $ npm install
     * ```assets```: dentro de esta carpeta se guardarán todos los archivos involucrados con algún template predefinido, en caso de usarse.
     * ```file```: dentro de esta carpeta se guardarán todos los archivos involucrados en los procesos del proyecto (PDF, XLSX, etc...).
     * ```image```: dentro de esta carpeta se guardarán todas las imagenes involucradas en los procesos.
-    * ```js```: dentro de esta carpeta existen todos los archivos JS relacionados con el proyecto.
-        * ```component```: dentro de esta carpeta existen todos los archivos JS responsables de crear componentes para el proyecto, fragmentados en carpetas con nombres de cada vista.
-            * ```common```: dentro de esta carpeta existen todos los archivos JS que generan componentes que se interrelacionan durante todas las vistas.
-        * ```plugins```: dentro de esta carpeta existen todos los archivos JS generados como plugins para ejecutar acciones propias dentro del proyecto y en conexión con los servicios.
-        * ```template```: dentro de esta carpeta existen todos los archivos JS responsables de renderizar componentes para el proyecto, fragmentados en carpetas con nombres de cada vista.
-            * ```common```: dentro de esta carpeta existen todos los archivos JS renderizan los componentes interrelacionables.
     * ```style```: dentro de esta carpeta se guardarán todos los archivos de estilos personalizados.
+    * ```js```: dentro de esta carpeta existen todos los archivos JS relacionados con el proyecto.
+        * ```home```: dentro de esta carpeta existen todos los archivos JS responsables de crear componentes para el proyecto, una vez autenticado, fragmentados en carpetas con nombres de cada vista.
+            * ```plugins```: dentro de esta carpeta existen todos los archivos JS generados como plugins para ejecutar acciones propias dentro del proyecto y en conexión con los servicios.
+            * ```common```: dentro de esta carpeta existen todos los archivos JS que generan componentes que se interrelacionan durante todas las vistas.
+            * ```dashboard```: dentro de esta carpeta existen todos los archivos JS relacionados con el dashboard.
+            * ```test```: dentro de esta carpeta existen todos los archivos JS relacionados con la página test.
+        * ```index```: dentro de esta carpeta existen todos los archivos JS responsables de crear componentes para el proyecto al inicio.
 
 NOTAS:
-- La carpeta ```test``` dentro de ```component``` y ```template```, posee un ejemplo simple de vista, pudiéndose duplicar cuantas veces se requiera para comenzar el desarrollo real del proyecto.
-- Para incluir los componentes duplicados en las vistas, deberán incluirse en los archivos ```main.js``` y ```mainT.js``` dentro de la carpeta ```js``` para su inclusión y renderizado, respectivamente; así como en ```menu.js``` dentro de ```common```.
+- La carpeta ```test``` dentro de ```home```, posee un ejemplo simple de vista, pudiéndose duplicar cuantas veces se requiera para comenzar el desarrollo real del proyecto.
+- Para incluir los componentes duplicados en las vistas, deberán incluirse en los archivos ```home.js``` y ```homeT.js``` dentro de la carpeta ```home``` para su inclusión y renderizado, respectivamente; así como su anexo en ```menu.js``` dentro de ```common/menu```.
 
 ##Visibilidad
 ####Visibilidad de cambios:
@@ -171,34 +171,42 @@ Posteriormente deberán modificarse los siguientes archivos:
 * **```client/index.html```:** En este archivo se incluirán los archivos minificados para el login del proyecto.
 ```bash
 ...
-26 |     <script type="text/javascript" src="/js/vue.js"></script>
+24 |     <script type="text/javascript" src="/js/vue.js"></script>
+25 |     <script type="text/javascript" src="/js/vue-resource.js"></script>
+26 |     <script type="text/javascript" src="/js/vue-router.js"></script>
 ...
-30 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>-->
+30 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>
+31 |     <script type="text/javascript" src="/js/vue-resource.min.js"></script>
+32 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>-->
 ...
-35 |     <script type="text/javascript" src="/build/login.bundle.js"></script>
+36 |     <script type="text/javascript" src="/build/index.bundle.js"></script>
 ...
-39 |     <!--<script type="text/javascript" src="/build/login.min.js"></script>-->
+40 |     <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
 ...
 ```
-La línea 26 deberá comentarse, ya que incluye a vueJS en ambiente de desarollo.
-La línea 30 deberá descomentarse, ya que incluye a vueJS en ambiente de producción.
-La línea 35 deberá comentarse, ya que incluye al core del proyecto generado por webpack en ambiente de desarrollo.
-La línea 39 deberá descomentarse, ya que incluye al core del proyecto generado por webpack en ambiente de producción.
+Las líneas 24 a 26 deberán comentarse, ya que incluyen a vueJS en ambiente de desarollo.
+Las líneas 30 a 32 deberán descomentarse, ya que incluyen a vueJS en ambiente de producción.
+La línea 36 deberá comentarse, ya que incluye al core del proyecto generado por webpack en ambiente de desarrollo.
+La línea 40 deberá descomentarse, ya que incluye al core del proyecto generado por webpack en ambiente de producción.
 
 * **```client/home.html```:** En este archivo se incluirán los archivos minificados para todo el resto del proyecto.
 ```bash
 ...
-29 |     <script type="text/javascript" src="/js/vue.js"></script>
+26 |     <script type="text/javascript" src="/js/vue.js"></script>
+27 |     <script type="text/javascript" src="/js/vue-resource.js"></script>
+28 |     <script type="text/javascript" src="/js/vue-router.js"></script>
 ...
-33 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>-->
+32 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>
+33 |     <script type="text/javascript" src="/js/vue-resource.min.js"></script>
+34 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>-->
 ...
-38 |     <script type="text/javascript" src="/build/main.bundle.js"></script>
+38 |     <script type="text/javascript" src="/build/index.bundle.js"></script>
 ...
-42 |     <!--<script type="text/javascript" src="/build/main.min.js"></script>-->
+42 |     <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
 ...
 ```
-La línea 29 deberá comentarse, ya que incluye a vueJS en ambiente de desarollo.
-La línea 33 deberá descomentarse, ya que incluye a vueJS en ambiente de producción.
+Las líneas 26 a 28 deberán comentarse, ya que incluyen a vueJS en ambiente de desarollo.
+Las líneas 32 a 34 deberán descomentarse, ya que incluyen a vueJS en ambiente de producción.
 La línea 38 deberá comentarse, ya que incluye al core del proyecto generado por webpack en ambiente de desarrollo.
 La línea 42 deberá descomentarse, ya que incluye al core del proyecto generado por webpack en ambiente de producción.
 
