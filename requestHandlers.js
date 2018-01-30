@@ -12,12 +12,6 @@ function init(request, response){
 	else
 		response.sendFile(path.join(__dirname, "client/index.html"));
 }
-function home(request, response){
-	if(request.vueJSAppStructure && request.vueJSAppStructure.userData)
-		response.sendFile(path.join(__dirname, "client/home.html"));
-	else
-		response.redirect("/");
-}
 function login(request, response, data){
 	var parsedData = JSON.parse(data);
 	httprequest.post({
@@ -64,5 +58,4 @@ function initUserData(request, response){
 }
 exports.init = init;
 exports.login = login;
-exports.home = home;
 exports.initUserData = initUserData;

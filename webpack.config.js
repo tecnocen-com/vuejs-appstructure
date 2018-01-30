@@ -3,8 +3,8 @@ var path = require("path"),
   debug = process.env.NODE_ENV !== "production";
 module.exports = {
   entry: {
-    login: "./client/js/login.js",
-    main: "./client/js/main.js"
+    index: "./client/js/index/index.js",
+    home: "./client/js/home/home.js"
   },
   output: {
     path: path.resolve(__dirname, "build"),

@@ -12,9 +12,6 @@ app.use(session({
 app.get("/", function(request, response){
   requestHandlers.init(request, response);
 });
-app.get("/home", function(request, response){
-  requestHandlers.home(request, response);
-});
 app.post("/login", function(request, response){     //Doesn"t support express.static
   var data = "";
   request.on("data", function(dataPart){
@@ -39,6 +36,7 @@ app.use("/build", express.static(__dirname + "/build"));
 
 app.use("/js", express.static(__dirname + "/node_modules/vue/dist"));
 app.use("/js", express.static(__dirname + "/node_modules/vue-resource/dist"));
+app.use("/js", express.static(__dirname + "/node_modules/vue-router/dist"));
 
 //MongoClient.connect("mongodb://127.0.0.1:27017/alquimiaDB", function(error, database){
 //  if(error)

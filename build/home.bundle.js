@@ -72,120 +72,68 @@
 "use strict";
 
 
-BUTO.requires = {
-  mainTemplate: __webpack_require__(3),
-  modules: {
-    modelAR: __webpack_require__(13)
-  },
-  components: {
-    menu: __webpack_require__(14),
-
-    dashboard: __webpack_require__(15),
-    test: __webpack_require__(16)
-  }
+BUTO.template = __webpack_require__(3);
+BUTO.modules = {
+  modelAR: __webpack_require__(8)
 };
 
 Vue.http.get("/init-user-data").then(function (userResponse) {
-  if (userResponse.status === 200 && userResponse.body.success) {
-    (function () {
-      new BUTO.requires.modules.modelAR({
-        baseURL: userResponse.body.baseURL,
-        dataURL: userResponse.body.dataURL,
-        token: userResponse.body.access_token
-      }, function (dataCreator) {
-        BUTO.components = {
-          main: new Vue({
-            el: "#main",
-            template: BUTO.requires.mainTemplate,
-            data: {
-              profile: {
-                name: "Unknown",
-                email: null
-              },
-              active: {
-                first: 0,
-                second: 0,
-                third: 0
-              },
-              loader: new Vue({
-                data: {
-                  active: false,
-                  message: "Cargando"
-                },
-                methods: {
-                  loading: function loading() {
-                    this.active = true;
-                  },
-                  loaded: function loaded() {
-                    this.active = false;
-                  }
-                }
-              }),
-              confirm: new Vue({
-                data: {
-                  description: {
-                    title: "",
-                    text: "",
-                    accept: "",
-                    cancel: ""
-                  },
-                  active: false
-                },
-                methods: {
-                  onAccept: function onAccept() {}
-                }
-              }),
-              alert: new Vue({
-                data: {
-                  description: {
-                    title: "",
-                    text: "",
-                    ok: ""
-                  },
-                  active: false
-                }
-              }),
-              models: {
-                profile: new dataCreator("profile")
-              },
-              children: {
-                menu: BUTO.requires.components.menu,
-                dashboard: BUTO.requires.components.dashboard,
-                test: BUTO.requires.components.test
-              }
+  if (userResponse.status === 200 && userResponse.body.success) (function () {
+    new BUTO.modules.modelAR({
+      baseURL: userResponse.body.baseURL,
+      dataURL: userResponse.body.dataURL,
+      token: userResponse.body.access_token
+    }, function (dataCreator) {
+      BUTO.components = {
+        main: new Vue({
+          el: "#home",
+          template: BUTO.template.home,
+          data: {
+            profile: {
+              name: "Unknown",
+              email: null
             },
-            methods: {
-              setView: function setView(e) {
-                var me = this,
-                    inPos = false;
-                if (this.active.first === e.first && this.active.second === e.second && this.active.third === e.third) inPos = true;
-                if (!inPos) {
-                  me.active.first = e.first;
-                  me.active.second = e.second;
-                  me.active.third = e.third;
-                }
-              }
-            },
-            created: function created() {
-              var me = this;
-              this.models.profile.get({}, function (success) {
-                me.profile.name = success.body.username;
-                me.profile.email = success.body.email;
-              }, function (error) {
-                console.log(error);
-                window.location = "/logout";
-              });
-            },
-            mounted: function mounted() {}
-          })
-        };
-      }, function (error) {
-        console.log(error);
-      });
-    })();
-  } else {
-    window.location = "/logout";
-  }
+            models: {
+              profile: new dataCreator("profile")
+            }
+          },
+          components: {
+            "loader": __webpack_require__(9),
+            "confirm": __webpack_require__(11),
+            "alert": __webpack_require__(13),
+            "heading": __webpack_require__(15),
+            "my-menu": __webpack_require__(17),
+            "breadcrumb": __webpack_require__(19),
+            "foot": __webpack_require__(21)
+          },
+          router: new VueRouter({
+            routes: [{
+              title: "Inicio",
+              path: "/",
+              component: BUTO.template.dashboard
+            }, {
+              title: "Test",
+              path: "/test",
+              component: BUTO.template.test
+            }]
+          }),
+          created: function created() {
+            var me = this;
+            this.models.profile.get({}, function (success) {
+              me.profile.name = success.body.username;
+              me.profile.email = success.body.email;
+            }, function (error) {
+              console.log(error);
+              window.location = "/logout";
+            });
+          },
+          mounted: function mounted() {}
+        })
+      };
+    }, function (error) {
+      console.log(error);
+    });
+  })();else window.location = "/logout";
 });
 
 /***/ }),
@@ -195,79 +143,12 @@ Vue.http.get("/init-user-data").then(function (userResponse) {
 "use strict";
 
 
-BUTO.templates = {
-  loader: __webpack_require__(4),
-  confirm: __webpack_require__(5),
-  alert: __webpack_require__(6),
+module.exports = {
+  dashboard: __webpack_require__(4),
+  test: __webpack_require__(6),
 
-  heading: __webpack_require__(7),
-  menu: __webpack_require__(8),
-  breadcrumb: __webpack_require__(9),
-  foot: __webpack_require__(10),
-
-  dashboard: __webpack_require__(11),
-  test: __webpack_require__(12)
+  home: "\n    <div>\n      <transition name=\"slide-fade\">\n        <loader></loader>\n      </transition>\n      <transition name=\"slide-fade\">\n        <confirm></confirm>\n      </transition>\n      <transition name=\"slide-fade\">\n        <alert></alert>\n      </transition>\n      \n      <heading :profile=\"profile\"></heading>\n      \n      <my-menu></my-menu>\n      \n      <breadcrumb></breadcrumb>\n      \n      <transition name=\"slide-fade\">\n        <router-view></router-view>\n      </transition>\n      \n      <foot></foot>\n    </div>\n  "
 };
-Vue.component("loader", {
-  template: BUTO.templates.loader,
-  props: {
-    config: Object
-  }
-});
-Vue.component("confirm", {
-  template: BUTO.templates.confirm,
-  props: {
-    config: Object
-  }
-});
-Vue.component("alert", {
-  template: BUTO.templates.alert,
-  props: {
-    config: Object
-  }
-});
-
-Vue.component("heading", {
-  template: BUTO.templates.heading,
-  props: {
-    profile: Object
-  }
-});
-Vue.component("my-menu", {
-  template: BUTO.templates.menu,
-  props: {
-    config: Object,
-    active: Object,
-    setview: Function
-  }
-});
-Vue.component("breadcrumb", {
-  template: BUTO.templates.breadcrumb,
-  props: {
-    config: Object,
-    active: Object
-  }
-});
-Vue.component("foot", {
-  template: BUTO.templates.foot,
-  props: {
-    config: Object
-  }
-});
-Vue.component("dashboard", {
-  template: BUTO.templates.dashboard,
-  props: {
-    config: Object
-  }
-});
-
-Vue.component("test", {
-  template: BUTO.templates.test,
-  props: {
-    config: Object
-  }
-});
-module.exports = "\n  <div>\n    <transition name=\"slide-fade\">\n      <loader :config=\"loader\"></loader>\n    </transition>\n    <transition name=\"slide-fade\">\n      <confirm :config=\"confirm\"></confirm>\n    </transition>\n    <transition name=\"slide-fade\">\n      <alert :config=\"alert\"></alert>\n    </transition>\n    <heading :profile=\"profile\"></heading>\n    <my-menu\n    :config=\"children.menu\"\n    :active=\"active\"\n    :setview=\"setView\"></my-menu>\n    <breadcrumb\n    :config=\"children.menu\"\n    :active=\"active\"\n    :setview=\"setView\"></breadcrumb>\n    \n    <div>\n      <div>\n        <template v-if=\"active.first === 0 && active.second === 0 && active.third === 0\">\n          <transition name=\"slide-fade\">\n            <dashboard :config=\"children.dashboard\"></dashboard>\n          </transition>\n        </template>\n        <template v-else-if=\"active.first === 1 && active.second === 0 && active.third === 0\">\n          <transition name=\"slide-fade\">\n            <test :config=\"children.test\"></test>\n          </transition>\n        </template>\n      </div>\n    </div>\n    <foot></foot>\n  </div>\n";
 
 /***/ }),
 /* 4 */
@@ -276,7 +157,35 @@ module.exports = "\n  <div>\n    <transition name=\"slide-fade\">\n      <loader
 "use strict";
 
 
-module.exports = "\n  <div v-if=\"config.active\">\n    <b>{{config.message}}</b>\n  </div>\n";
+module.exports = {
+  template: __webpack_require__(5),
+  props: {
+    myProp: Number
+  },
+  data: function data() {
+    return {
+      title: "Dashboard",
+      time: 0
+    };
+  },
+  computed: {},
+  methods: {},
+  beforeCreate: function beforeCreate() {},
+  created: function created() {
+    var me = this;
+    setInterval(function () {
+      return ++me.time;
+    }, 1000);
+  },
+  beforeMount: function beforeMount() {},
+  mounted: function mounted() {},
+  beforeUpdate: function beforeUpdate() {},
+  updated: function updated() {},
+  activated: function activated() {},
+  deactivated: function deactivated() {},
+  beforeDestroy: function beforeDestroy() {},
+  destroyed: function destroyed() {}
+};
 
 /***/ }),
 /* 5 */
@@ -285,7 +194,7 @@ module.exports = "\n  <div v-if=\"config.active\">\n    <b>{{config.message}}</b
 "use strict";
 
 
-module.exports = "\n  <div v-if=\"config.active\">\n    <div>\n      <h3>{{config.description.title}}</h3>\n    </div>\n    <p><b v-html=\"config.description.text\"></b></p>\n    <div>\n      <a href=\"#\" v-on:click.prevent=\"config.onAccept()\"><span>{{config.description.accept}}</span></a>\n      <a href=\"#\" v-on:click.prevent=\"config.active = !config.active\"><span>{{config.description.cancel}}</span></a>\n    </div>\n  </div>\n";
+module.exports = "\n  <div>\n    <h1>{{title}}</h1>\n    <p>{{time}}</p>\n  </div>\n";
 
 /***/ }),
 /* 6 */
@@ -294,7 +203,39 @@ module.exports = "\n  <div v-if=\"config.active\">\n    <div>\n      <h3>{{confi
 "use strict";
 
 
-module.exports = "\n  <div v-if=\"config.active\">\n    <div>\n        <h3>{{config.description.title}}</h3>\n    </div>\n    <p><b v-html=\"config.description.text\"></b></p>\n    <div>\n        <a href=\"#\" v-on:click.prevent=\"config.active = !config.active\"><span>{{config.description.ok}}</span></a>\n    </div>\n  </div>\n";
+module.exports = {
+  template: __webpack_require__(7),
+  props: {
+    myProp: Number
+  },
+  data: function data() {
+    return {
+      title: "Test",
+      value: 0
+    };
+  },
+  computed: {
+    square: function square() {
+      return this.value * this.value;
+    }
+  },
+  methods: {},
+  beforeCreate: function beforeCreate() {},
+  created: function created() {
+    var me = this;
+    setInterval(function () {
+      return ++me.time;
+    }, 1000);
+  },
+  beforeMount: function beforeMount() {},
+  mounted: function mounted() {},
+  beforeUpdate: function beforeUpdate() {},
+  updated: function updated() {},
+  activated: function activated() {},
+  deactivated: function deactivated() {},
+  beforeDestroy: function beforeDestroy() {},
+  destroyed: function destroyed() {}
+};
 
 /***/ }),
 /* 7 */
@@ -303,55 +244,10 @@ module.exports = "\n  <div v-if=\"config.active\">\n    <div>\n        <h3>{{con
 "use strict";
 
 
-module.exports = "\n  <div>\n    <a><span> {{profile.name}} </span></a>\n    <a href=\"/logout\"><i></i> Cerrar Sesi\xF3n </a>\n  </div>\n";
+module.exports = "\n  <div>\n    <h1>{{title}}</h1>\n    <div>\n      <input v-model=\"value\" type=\"number\">\n      <span>Valor al cuadrado: {{square}}</span>\n    </div>\n  </div>\n";
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = "\n  <div>\n    <ul v-for=\"(menu, menuIndex) in config.menu\">\n      <li\n      :class=\"[active.first === menuIndex ? 'active' : '',\n      menu.dropdown.length > 0 ? 'dropdown' : '']\">\n        <a href=\"#\"\n        v-on:click.prevent=\"menu.dropdown.length > 0 ? function(){} : setview({first: menuIndex, second: 0, third: 0})\"\n        :class=\"menu.dropdown.length > 0 ? 'dropdown' : ''\">\n          {{menu.title}}\n        </a>\n        <ul v-if=\"menu.dropdown.length > 0\" class=\"dropdown-menu\">\n          <template v-for=\"(dropdown, dropdownIndex) in menu.dropdown\">\n            <li class=\"dropdown-header\">{{dropdown.title}}</li>\n            <li v-for=\"(subs, subsIndex) in dropdown.subs\">\n              <a href=\"#\" v-on:click.prevent=\"setview({first: menuIndex, second: dropdownIndex, third: subsIndex})\">\n                {{subs.title}}\n              </a>\n            </li>\n          </template>\n        </ul>\n      </li>                    \n    </ul>\n  </div>\n";
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = "\n  <div>\n    <div>\n      <div v-if=\"active.first !== 0\">\n        <h4><b>Breadcrumb</b></h4>\n        <ul>\n          <li>{{config.menu[0].title}}</li>\n          <li>{{config.menu[active.first].title}}</li>\n          <li v-if=\"config.menu[active.first].dropdown.length > 0\">{{config.menu[active.first].dropdown[active.second].title}}</li>\n          <li v-if=\"config.menu[active.first].dropdown.length > 0\" class=\"active\">{{config.menu[active.first].dropdown[active.second].subs[active.third].title}}</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n";
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = "\n    <div>\n        &copy; 2017. <a href=\"#\" v-on:click.prevent>Tecnocen</a>\n    </div>\n";
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = "\n  <div>\n    <h1>{{config.title}}</h1>\n    <p>{{config.time}}</p>\n  </div>\n";
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = "\n  <div>\n    <h1>{{config.title}}</h1>\n    <div>\n      <input v-model=\"config.value\" type=\"number\">\n      <span>Valor al cuadrado: {{config.square}}</span>\n    </div>\n  </div>\n";
-
-/***/ }),
-/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -979,36 +875,139 @@ module.exports = function (init, activity, activityError) {
 };
 
 /***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  template: __webpack_require__(10),
+  props: {},
+  data: function data() {
+    return {
+      active: false,
+      message: "Cargando"
+    };
+  },
+  computed: {},
+  methods: {
+    loading: function loading() {
+      this.active = true;
+    },
+    loaded: function loaded() {
+      this.active = false;
+    }
+  },
+  beforeCreate: function beforeCreate() {},
+  created: function created() {},
+  beforeMount: function beforeMount() {},
+  mounted: function mounted() {},
+  beforeUpdate: function beforeUpdate() {},
+  updated: function updated() {},
+  activated: function activated() {},
+  deactivated: function deactivated() {},
+  beforeDestroy: function beforeDestroy() {},
+  destroyed: function destroyed() {}
+};
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = "\n  <div v-if=\"active\">\n    <b>{{message}}</b>\n  </div>\n";
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  template: __webpack_require__(12),
+  props: {},
+  data: function data() {
+    return {
+      description: {
+        title: "",
+        text: "",
+        accept: "",
+        cancel: ""
+      },
+      active: false
+    };
+  },
+  computed: {},
+  methods: {
+    onAccept: function onAccept() {}
+  },
+  beforeCreate: function beforeCreate() {},
+  created: function created() {},
+  beforeMount: function beforeMount() {},
+  mounted: function mounted() {},
+  beforeUpdate: function beforeUpdate() {},
+  updated: function updated() {},
+  activated: function activated() {},
+  deactivated: function deactivated() {},
+  beforeDestroy: function beforeDestroy() {},
+  destroyed: function destroyed() {}
+};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = "\n  <div v-if=\"active\">\n    <div>\n      <h3>{{description.title}}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n      <a href=\"#\" v-on:click.prevent=\"onAccept()\"><span>{{description.accept}}</span></a>\n      <a href=\"#\" v-on:click.prevent=\"active = !active\"><span>{{description.cancel}}</span></a>\n    </div>\n  </div>\n";
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  template: __webpack_require__(14),
+  props: {},
+  data: function data() {
+    return {
+      description: {
+        title: "",
+        text: "",
+        ok: ""
+      },
+      active: false
+    };
+  },
+  computed: {},
+  methods: {},
+  beforeCreate: function beforeCreate() {},
+  created: function created() {},
+  beforeMount: function beforeMount() {},
+  mounted: function mounted() {},
+  beforeUpdate: function beforeUpdate() {},
+  updated: function updated() {},
+  activated: function activated() {},
+  deactivated: function deactivated() {},
+  beforeDestroy: function beforeDestroy() {},
+  destroyed: function destroyed() {}
+};
+
+/***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = new Vue({
-  data: {
-    menu: [{
-      title: "Inicio",
-      dropdown: []
-    }, {
-      title: "Test",
-      dropdown: []
-      //dropdown: [
-      //  {
-      //    title: "General",
-      //    subs: [
-      //      {
-      //        title: "Tiendas registradas",
-      //      },
-      //      {
-      //        title: "Nueva tienda",
-      //      }
-      //    ]
-      //  }
-      //]
-    }]
-  }
-});
+module.exports = "\n  <div v-if=\"active\">\n    <div>\n        <h3>{{description.title}}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n        <a href=\"#\" v-on:click.prevent=\"active = !active\"><span>{{description.ok}}</span></a>\n    </div>\n  </div>\n";
 
 /***/ }),
 /* 15 */
@@ -1017,21 +1016,29 @@ module.exports = new Vue({
 "use strict";
 
 
-module.exports = new Vue({
-    data: {
-        title: "Dashboard",
-        time: 0
-    },
-    methods: {
-        init: function init() {}
-    },
-    created: function created() {
-        var me = this;
-        setInterval(function () {
-            return ++me.time;
-        }, 1000);
-    }
-});
+module.exports = {
+  template: __webpack_require__(16),
+  props: {
+    profile: Object
+  },
+  data: function data() {
+    return {
+      active: true
+    };
+  },
+  computed: {},
+  methods: {},
+  beforeCreate: function beforeCreate() {},
+  created: function created() {},
+  beforeMount: function beforeMount() {},
+  mounted: function mounted() {},
+  beforeUpdate: function beforeUpdate() {},
+  updated: function updated() {},
+  activated: function activated() {},
+  deactivated: function deactivated() {},
+  beforeDestroy: function beforeDestroy() {},
+  destroyed: function destroyed() {}
+};
 
 /***/ }),
 /* 16 */
@@ -1040,20 +1047,135 @@ module.exports = new Vue({
 "use strict";
 
 
-module.exports = new Vue({
-    data: {
+module.exports = "\n  <div>\n    <a><span> {{profile.name}} </span></a>\n    <a href=\"/logout\"><i></i> Cerrar Sesi\xF3n </a>\n  </div>\n";
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  template: __webpack_require__(18),
+  props: {},
+  data: function data() {
+    return {
+      menu: [{
+        title: "Inicio",
+        path: "/"
+      }, {
         title: "Test",
-        value: 0
-    },
-    computed: {
-        square: function square() {
-            return this.value * this.value;
-        }
-    },
-    methods: {
-        init: function init() {}
+        path: "/test"
+      }]
+    };
+  },
+  computed: {},
+  methods: {},
+  beforeCreate: function beforeCreate() {},
+  created: function created() {},
+  beforeMount: function beforeMount() {},
+  mounted: function mounted() {},
+  beforeUpdate: function beforeUpdate() {},
+  updated: function updated() {},
+  activated: function activated() {},
+  deactivated: function deactivated() {},
+  beforeDestroy: function beforeDestroy() {},
+  destroyed: function destroyed() {}
+};
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = "\n  <div>\n    <ul v-for=\"(menu, menuIndex) in menu\">\n      <li><router-link :to=\"menu.path\">{{ menu.title }}</router-link></li>\n    </ul>\n  </div>\n";
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  template: __webpack_require__(20),
+  props: {},
+  data: function data() {
+    return {
+      home: "Inicio"
+    };
+  },
+  computed: {
+    path: function path() {
+      return this.$route.fullPath.split("/");
     }
-});
+  },
+  methods: {},
+  beforeCreate: function beforeCreate() {},
+  beforeMount: function beforeMount() {},
+  mounted: function mounted() {},
+  beforeUpdate: function beforeUpdate() {},
+  updated: function updated() {},
+  activated: function activated() {},
+  deactivated: function deactivated() {},
+  beforeDestroy: function beforeDestroy() {},
+  destroyed: function destroyed() {}
+};
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = "\n  <div>\n    <div>\n      <div>\n        <h4><b>Breadcrumb</b></h4>\n        <ul>\n          <li>{{ home }}</li>\n          <li v-for=\"p in path\" v-if=\"p !== ''\">{{ p }}</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n";
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  template: __webpack_require__(22),
+  props: {},
+  data: function data() {
+    return {
+      text: "&copy; 2017. <a href='#' v-on:click.prevent>Tecnocen</a>"
+    };
+  },
+  computed: {},
+  methods: {},
+  beforeCreate: function beforeCreate() {},
+  created: function created() {
+    var me = this;
+    setInterval(function () {
+      return ++me.time;
+    }, 1000);
+  },
+  beforeMount: function beforeMount() {},
+  mounted: function mounted() {},
+  beforeUpdate: function beforeUpdate() {},
+  updated: function updated() {},
+  activated: function activated() {},
+  deactivated: function deactivated() {},
+  beforeDestroy: function beforeDestroy() {},
+  destroyed: function destroyed() {}
+};
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = "\n    <div v-html=\"text\"></div>\n";
 
 /***/ })
 /******/ ]);
