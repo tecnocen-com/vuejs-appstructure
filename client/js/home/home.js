@@ -1,15 +1,15 @@
 BUTO.template = require("./homeT.js");
 BUTO.modules = {
-  modelAR: require("./plugins/modelAR.js")
+  modelAR: require("./plugins/axiosActiveRecord.js")
 };
 
-Vue.http.get("/init-user-data").then(function(userResponse){
-  if(userResponse.status === 200 && userResponse.body.success)
+axios.get("/init-user-data").then(function(userResponse){
+  if(userResponse.status === 200 && userResponse.data.success)
     (function(){
       new BUTO.modules.modelAR({
-        baseURL: userResponse.body.baseURL,
-        dataURL: userResponse.body.dataURL,
-        token: userResponse.body.access_token
+        baseURL: userResponse.data.baseURL,
+        dataURL: userResponse.data.dataURL,
+        token: userResponse.data.access_token
       },
       function(dataCreator){
         BUTO.components = {
@@ -52,17 +52,15 @@ Vue.http.get("/init-user-data").then(function(userResponse){
               var me = this;
               this.models.profile.get({},
               function(success){
-                me.profile.name = success.body.username;
-                me.profile.email = success.body.email;
+                me.profile.name = success.data.username;
+                me.profile.email = success.data.email;
               },
               function(error){
                 console.log(error);
                 window.location = "/logout";
               });
             },
-            mounted: function(){
-              
-            }
+            mounted: function(){}
           })
         };
       },

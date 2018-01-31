@@ -77,12 +77,12 @@ BUTO.modules = {
   modelAR: __webpack_require__(8)
 };
 
-Vue.http.get("/init-user-data").then(function (userResponse) {
-  if (userResponse.status === 200 && userResponse.body.success) (function () {
+axios.get("/init-user-data").then(function (userResponse) {
+  if (userResponse.status === 200 && userResponse.data.success) (function () {
     new BUTO.modules.modelAR({
-      baseURL: userResponse.body.baseURL,
-      dataURL: userResponse.body.dataURL,
-      token: userResponse.body.access_token
+      baseURL: userResponse.data.baseURL,
+      dataURL: userResponse.data.dataURL,
+      token: userResponse.data.access_token
     }, function (dataCreator) {
       BUTO.components = {
         main: new Vue({
@@ -98,13 +98,13 @@ Vue.http.get("/init-user-data").then(function (userResponse) {
             }
           },
           components: {
-            "loader": __webpack_require__(9),
-            "confirm": __webpack_require__(11),
-            "alert": __webpack_require__(13),
-            "heading": __webpack_require__(15),
-            "my-menu": __webpack_require__(17),
-            "breadcrumb": __webpack_require__(19),
-            "foot": __webpack_require__(21)
+            "loader": __webpack_require__(12),
+            "confirm": __webpack_require__(14),
+            "alert": __webpack_require__(16),
+            "heading": __webpack_require__(18),
+            "my-menu": __webpack_require__(20),
+            "breadcrumb": __webpack_require__(22),
+            "foot": __webpack_require__(24)
           },
           router: new VueRouter({
             routes: [{
@@ -120,8 +120,8 @@ Vue.http.get("/init-user-data").then(function (userResponse) {
           created: function created() {
             var me = this;
             this.models.profile.get({}, function (success) {
-              me.profile.name = success.body.username;
-              me.profile.email = success.body.email;
+              me.profile.name = success.data.username;
+              me.profile.email = success.data.email;
             }, function (error) {
               console.log(error);
               window.location = "/logout";
@@ -255,621 +255,629 @@ module.exports = "\n  <div>\n    <h1>{{title}}</h1>\n    <div>\n      <input v-m
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+///////////////////////////////////USE EXAMPLES/////////////////////////////////
+//me.models.form.post({
+//  params: {
+//    name: "My new form"
+//  }
+//},
+//function(success){
+//  console.log("POST", success);
+//},
+//function(error){
+//  console.log(error);
+//});
+//
+//me.models.form.patch({
+//  delimiters: 6,
+//  params: {
+//    name: "My edited test form"
+//  }
+//},
+//function(success){
+//  console.log("PATCH", success);
+//},
+//function(error){
+//  console.log(error);
+//});
+//
+//me.models.form.remove({
+//  delimiters: 6,
+//  params: {}
+//},
+//function(success){
+//  console.log("REMOVE", success);
+//},
+//function(error){
+//  console.log(error);
+//});
+//
+//me.models.form.get({},
+//function(success){
+//  console.log("GET", success);
+//},
+//function(error){
+//  console.log(error);
+//});
+////////////////////////////////////////////////////////////////////
+var querystring = __webpack_require__(9);
 module.exports = function (init, activity, activityError) {
   var me = this;
 
   this.config = init;
-
   this.initRequest = function (initResponse) {
-
     this.create = function (name) {
-
-      this.init = new Vue({
-        data: {
-          name: name
+      this.init = {
+        get: function get(getData, getSuccess, getError) {
+          var lastURL = '',
+              localStatus = [true, 200],
+              index = 0;
+          switch (typeof name === 'undefined' ? 'undefined' : _typeof(name)) {
+            case 'object':
+              switch (_typeof(getData.delimiters)) {
+                case 'object':
+                  if (name.length === getData.delimiters.length || name.length - 1 === getData.delimiters.length) {
+                    for (; index < name.length; index++) {
+                      lastURL += name[index];
+                      lastURL += getData.delimiters[index] ? '/' + getData.delimiters[index] : '';
+                      lastURL += parseInt(index) < name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'number':
+                  if (name.length <= 2) {
+                    for (index = 0; index < name.length; index++) {
+                      lastURL += name[index];
+                      lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
+                      lastURL += parseInt(index) < name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'string':
+                  if (name.length <= 2) {
+                    for (index = 0; index < name.length; index++) {
+                      lastURL += name[index];
+                      lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
+                      lastURL += parseInt(index) < name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'undefined':
+                  if (name.length === 1) lastURL += name[0] + '?accessToken=' + initResponse.body.access_token;else localStatus = [false, 1];
+                  break;
+                default:
+                  localStatus = [false, 2];
+                  break;
+              }
+              break;
+            case 'string':
+              switch (_typeof(getData.delimiters)) {
+                case 'object':
+                  if (getData.delimiters.length === 1) {
+                    for (; index < getData.delimiters.length; index++) {
+                      lastURL += name;
+                      lastURL += '/' + getData.delimiters[index];
+                      lastURL += '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'number':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'string':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'undefined':
+                  lastURL += name;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                default:
+                  localStatus = [false, 2];
+                  break;
+              }
+              break;
+            case 'number':
+              switch (_typeof(getData.delimiters)) {
+                case 'object':
+                  if (getData.delimiters.length === 1) {
+                    for (; index < getData.delimiters.length; index++) {
+                      lastURL += name;
+                      lastURL += '/' + getData.delimiters[index];
+                      lastURL += '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'number':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'string':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'undefined':
+                  lastURL += name;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                default:
+                  localStatus = [false, 2];
+                  break;
+              }
+              break;
+            default:
+              localStatus = [false, 3];
+              break;
+          }
+          if (localStatus[0] && localStatus[1] === 200) {
+            if (_typeof(getData.params) === "object" && !getData.params.length) axios.get(me.config.baseURL + me.config.dataURL + lastURL, { params: querystring.stringify(getData.params) }).then(getSuccess).catch(getError);else axios.get(me.config.baseURL + me.config.dataURL + lastURL).then(getSuccess).catch(getError);
+          } else {
+            var error = 'ERROR: Incorrect way of initialization of object names creation or "delimiters".',
+                objectError = {
+              message: 'Incorrect way of initialization of object names creation or "delimiters".'
+            };
+            switch (localStatus[1]) {
+              case 1:
+                error += ' Code: 400-' + localStatus[1] + '. incorrect way of initialization of relation between object names creation and "delimiters".';
+                objectError.code = '400-' + localStatus[1];
+                objectError.toCheck = 'Incorrect way of initialization of relation between object names creation and "delimiters".';
+                break;
+              case 2:
+                error += ' Code: 400-' + localStatus[1] + '. incorrect type of "delimiters".';
+                objectError.code = '400-' + localStatus[1];
+                objectError.toCheck = 'Incorrect type of "delimiters".';
+                break;
+              case 3:
+                error += ' Code: 400-' + localStatus[1] + '. incorrect type of object names.';
+                objectError.code = '400-' + localStatus[1];
+                objectError.toCheck = 'Incorrect type of object names.';
+                break;
+              default:
+            }
+            console.error(error);
+            getError(objectError);
+          }
         },
-        methods: {
-          get: function get(getData, getSuccess, getError) {
-            var meInit = this,
-                lastURL = '',
-                localStatus = [true, 200],
-                index = null;
-            switch (_typeof(meInit.name)) {
-              case 'object':
-                switch (_typeof(getData.delimiters)) {
-                  case 'object':
-                    if (meInit.name.length === getData.delimiters.length || meInit.name.length - 1 === getData.delimiters.length) {
-                      for (index in meInit.name) {
-                        lastURL += meInit.name[index];
-                        lastURL += getData.delimiters[index] ? '/' + getData.delimiters[index] : '';
-                        lastURL += parseInt(index) < meInit.name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'number':
-                    if (meInit.name.length <= 2) {
-                      for (index in meInit.name) {
-                        lastURL += meInit.name[index];
-                        lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
-                        lastURL += parseInt(index) < meInit.name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'string':
-                    if (meInit.name.length <= 2) {
-                      for (index in meInit.name) {
-                        lastURL += meInit.name[index];
-                        lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
-                        lastURL += parseInt(index) < meInit.name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'undefined':
-                    if (meInit.name.length === 1) lastURL += meInit.name[0] + '?accessToken=' + initResponse.body.access_token;else localStatus = [false, 1];
-                    break;
-                  default:
-                    localStatus = [false, 2];
-                    break;
-                }
-                break;
-              case 'string':
-                switch (_typeof(getData.delimiters)) {
-                  case 'object':
-                    if (getData.delimiters.length === 1) {
-                      for (index in getData.delimiters) {
-                        lastURL += meInit.name;
-                        lastURL += '/' + getData.delimiters[index];
-                        lastURL += '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'number':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'string':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'undefined':
-                    lastURL += meInit.name;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  default:
-                    localStatus = [false, 2];
-                    break;
-                }
-                break;
-              case 'number':
-                switch (_typeof(getData.delimiters)) {
-                  case 'object':
-                    if (getData.delimiters.length === 1) {
-                      for (index in getData.delimiters) {
-                        lastURL += meInit.name;
-                        lastURL += '/' + getData.delimiters[index];
-                        lastURL += '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'number':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'string':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'undefined':
-                    lastURL += meInit.name;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  default:
-                    localStatus = [false, 2];
-                    break;
-                }
-                break;
-              default:
-                localStatus = [false, 3];
-                break;
-            }
-            if (localStatus[0] && localStatus[1] === 200) {
-              if (_typeof(getData.params) === "object" && !getData.params.length) this.$http.get(me.config.baseURL + me.config.dataURL + lastURL, {
-                params: getData.params
-              }).then(getSuccess, getError);else this.$http.get(me.config.baseURL + me.config.dataURL + lastURL).then(getSuccess, getError);
-
-              //var anHttpRequest = new XMLHttpRequest();
-              //anHttpRequest.onreadystatechange = function() { 
-              //    if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-              //        getSuccess(anHttpRequest);
-              //};
-              //anHttpRequest.open( "GET", me.config.baseURL + me.config.dataURL + lastURL, true );
-              //anHttpRequest.send( 200 );
-            } else {
-              var error = 'ERROR: Incorrect way of initialization of object names creation or "delimiters".',
-                  objectError = {
-                message: 'Incorrect way of initialization of object names creation or "delimiters".'
-              };
-              switch (localStatus[1]) {
-                case 1:
-                  error += ' Code: 400-' + localStatus[1] + '. incorrect way of initialization of relation between object names creation and "delimiters".';
-                  objectError.code = '400-' + localStatus[1];
-                  objectError.toCheck = 'Incorrect way of initialization of relation between object names creation and "delimiters".';
+        post: function post(getData, getSuccess, getError) {
+          var lastURL = '',
+              localStatus = [true, 200],
+              index = null;
+          switch (typeof name === 'undefined' ? 'undefined' : _typeof(name)) {
+            case 'object':
+              switch (_typeof(getData.delimiters)) {
+                case 'object':
+                  if (name.length === getData.delimiters.length || name.length - 1 === getData.delimiters.length) {
+                    for (index in name) {
+                      lastURL += name[index];
+                      lastURL += getData.delimiters[index] ? '/' + getData.delimiters[index] : '';
+                      lastURL += parseInt(index) < name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
                   break;
-                case 2:
-                  error += ' Code: 400-' + localStatus[1] + '. incorrect type of "delimiters".';
-                  objectError.code = '400-' + localStatus[1];
-                  objectError.toCheck = 'Incorrect type of "delimiters".';
+                case 'number':
+                  if (name.length <= 2) {
+                    for (index in name) {
+                      lastURL += name[index];
+                      lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
+                      lastURL += parseInt(index) < name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
                   break;
-                case 3:
-                  error += ' Code: 400-' + localStatus[1] + '. incorrect type of object names.';
-                  objectError.code = '400-' + localStatus[1];
-                  objectError.toCheck = 'Incorrect type of object names.';
+                case 'string':
+                  if (name.length <= 2) {
+                    for (index in name) {
+                      lastURL += name[index];
+                      lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
+                      lastURL += parseInt(index) < name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'undefined':
+                  if (name.length === 1) lastURL += name[0] + '?accessToken=' + initResponse.body.access_token;else localStatus = [false, 1];
                   break;
                 default:
-              }
-              console.error(error);
-              getError(objectError);
-            }
-          },
-          post: function post(getData, getSuccess, getError) {
-            var meInit = this,
-                lastURL = '',
-                localStatus = [true, 200],
-                index = null;
-            switch (_typeof(meInit.name)) {
-              case 'object':
-                switch (_typeof(getData.delimiters)) {
-                  case 'object':
-                    if (meInit.name.length === getData.delimiters.length || meInit.name.length - 1 === getData.delimiters.length) {
-                      for (index in meInit.name) {
-                        lastURL += meInit.name[index];
-                        lastURL += getData.delimiters[index] ? '/' + getData.delimiters[index] : '';
-                        lastURL += parseInt(index) < meInit.name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'number':
-                    if (meInit.name.length <= 2) {
-                      for (index in meInit.name) {
-                        lastURL += meInit.name[index];
-                        lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
-                        lastURL += parseInt(index) < meInit.name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'string':
-                    if (meInit.name.length <= 2) {
-                      for (index in meInit.name) {
-                        lastURL += meInit.name[index];
-                        lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
-                        lastURL += parseInt(index) < meInit.name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'undefined':
-                    if (meInit.name.length === 1) lastURL += meInit.name[0] + '?accessToken=' + initResponse.body.access_token;else localStatus = [false, 1];
-                    break;
-                  default:
-                    localStatus = [false, 2];
-                    break;
-                }
-                break;
-              case 'string':
-                switch (_typeof(getData.delimiters)) {
-                  case 'object':
-                    if (getData.delimiters.length === 1) {
-                      for (index in getData.delimiters) {
-                        lastURL += meInit.name;
-                        lastURL += '/' + getData.delimiters[index];
-                        lastURL += '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'number':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'string':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'undefined':
-                    lastURL += meInit.name;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  default:
-                    localStatus = [false, 2];
-                    break;
-                }
-                break;
-              case 'number':
-                switch (_typeof(getData.delimiters)) {
-                  case 'object':
-                    if (getData.delimiters.length === 1) {
-                      for (index in getData.delimiters) {
-                        lastURL += meInit.name;
-                        lastURL += '/' + getData.delimiters[index];
-                        lastURL += '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'number':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'string':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'undefined':
-                    lastURL += meInit.name;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  default:
-                    localStatus = [false, 2];
-                    break;
-                }
-                break;
-              default:
-                localStatus = [false, 3];
-                break;
-            }
-            if (localStatus[0] && localStatus[1] === 200) {
-              if (_typeof(getData.params) === "object" && !getData.params.length) this.$http.post(me.config.baseURL + me.config.dataURL + lastURL, getData.params, {
-                emulateJSON: true
-              }).then(getSuccess, getError);else {
-                var paramsError = ' Code: 400-4. incorrect way of initialization of "params".',
-                    paramsObjectError = {
-                  message: 'Incorrect way of initialization of object names creation or "delimiters".',
-                  code: '400-4',
-                  toCheck: 'Incorrect way of initialization of "params".'
-                };
-                console.error(paramsError);
-                getError(paramsObjectError);
-              }
-            } else {
-              var error = 'ERROR: Incorrect way of initialization of object names creation or "delimiters".';
-              var objectError = {
-                message: 'Incorrect way of initialization of object names creation or "delimiters".'
-              };
-              switch (localStatus[1]) {
-                case 1:
-                  error += ' Code: 400-' + localStatus[1] + '. incorrect way of initialization of relation between object names creation and "delimiters".';
-                  objectError.code = '400-' + localStatus[1];
-                  objectError.toCheck = 'Incorrect way of initialization of relation between object names creation and "delimiters".';
+                  localStatus = [false, 2];
                   break;
-                case 2:
-                  error += ' Code: 400-' + localStatus[1] + '. incorrect type of "delimiters".';
-                  objectError.code = '400-' + localStatus[1];
-                  objectError.toCheck = 'Incorrect type of "delimiters".';
+              }
+              break;
+            case 'string':
+              switch (_typeof(getData.delimiters)) {
+                case 'object':
+                  if (getData.delimiters.length === 1) {
+                    for (index in getData.delimiters) {
+                      lastURL += name;
+                      lastURL += '/' + getData.delimiters[index];
+                      lastURL += '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
                   break;
-                case 3:
-                  error += ' Code: 400-' + localStatus[1] + '. incorrect type of object names.';
-                  objectError.code = '400-' + localStatus[1];
-                  objectError.toCheck = 'Incorrect type of object names.';
+                case 'number':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'string':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'undefined':
+                  lastURL += name;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
                   break;
                 default:
-
-              }
-              console.error(error);
-              getError(objectError);
-            }
-          },
-          patch: function patch(getData, getSuccess, getError) {
-            var meInit = this,
-                lastURL = '',
-                localStatus = [true, 200],
-                index = null;
-            switch (_typeof(meInit.name)) {
-              case 'object':
-                switch (_typeof(getData.delimiters)) {
-                  case 'object':
-                    if (meInit.name.length === getData.delimiters.length || meInit.name.length - 1 === getData.delimiters.length) {
-                      for (index in meInit.name) {
-                        lastURL += meInit.name[index];
-                        lastURL += getData.delimiters[index] ? '/' + getData.delimiters[index] : '';
-                        lastURL += parseInt(index) < meInit.name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'number':
-                    if (meInit.name.length <= 2) {
-                      for (index in meInit.name) {
-                        lastURL += meInit.name[index];
-                        lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
-                        lastURL += parseInt(index) < meInit.name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'string':
-                    if (meInit.name.length <= 2) {
-                      for (index in meInit.name) {
-                        lastURL += meInit.name[index];
-                        lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
-                        lastURL += parseInt(index) < meInit.name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'undefined':
-                    if (meInit.name.length === 1) lastURL += meInit.name[0] + '?accessToken=' + initResponse.body.access_token;else localStatus = [false, 1];
-                    break;
-                  default:
-                    localStatus = [false, 2];
-                    break;
-                }
-                break;
-              case 'string':
-                switch (_typeof(getData.delimiters)) {
-                  case 'object':
-                    if (getData.delimiters.length === 1) {
-                      for (index in getData.delimiters) {
-                        lastURL += meInit.name;
-                        lastURL += '/' + getData.delimiters[index];
-                        lastURL += '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'number':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'string':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'undefined':
-                    lastURL += meInit.name;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  default:
-                    localStatus = [false, 2];
-                    break;
-                }
-                break;
-              case 'number':
-                switch (_typeof(getData.delimiters)) {
-                  case 'object':
-                    if (getData.delimiters.length === 1) {
-                      for (index in getData.delimiters) {
-                        lastURL += meInit.name;
-                        lastURL += '/' + getData.delimiters[index];
-                        lastURL += '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'number':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'string':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'undefined':
-                    lastURL += meInit.name;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  default:
-                    localStatus = [false, 2];
-                    break;
-                }
-                break;
-              default:
-                localStatus = [false, 3];
-                break;
-            }
-            if (localStatus[0] && localStatus[1] === 200) {
-              if (_typeof(getData.params) === "object" && !getData.params.length) this.$http.patch(me.config.baseURL + me.config.dataURL + lastURL, getData.params, {
-                emulateJSON: true
-              }).then(getSuccess, getError);else {
-                var paramsError = ' Code: 400-4. incorrect way of initialization of "params".',
-                    paramsObjectError = {
-                  message: 'Incorrect way of initialization of object names creation or "delimiters".',
-                  code: '400-4',
-                  toCheck: 'Incorrect way of initialization of "params".'
-                };
-                console.error(paramsError);
-                getError(paramsObjectError);
-              }
-            } else {
-              var error = 'ERROR: Incorrect way of initialization of object names creation or "delimiters".';
-              var objectError = {
-                message: 'Incorrect way of initialization of object names creation or "delimiters".'
-              };
-              switch (localStatus[1]) {
-                case 1:
-                  error += ' Code: 400-' + localStatus[1] + '. incorrect way of initialization of relation between object names creation and "delimiters".';
-                  objectError.code = '400-' + localStatus[1];
-                  objectError.toCheck = 'Incorrect way of initialization of relation between object names creation and "delimiters".';
+                  localStatus = [false, 2];
                   break;
-                case 2:
-                  error += ' Code: 400-' + localStatus[1] + '. incorrect type of "delimiters".';
-                  objectError.code = '400-' + localStatus[1];
-                  objectError.toCheck = 'Incorrect type of "delimiters".';
+              }
+              break;
+            case 'number':
+              switch (_typeof(getData.delimiters)) {
+                case 'object':
+                  if (getData.delimiters.length === 1) {
+                    for (index in getData.delimiters) {
+                      lastURL += name;
+                      lastURL += '/' + getData.delimiters[index];
+                      lastURL += '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
                   break;
-                case 3:
-                  error += ' Code: 400-' + localStatus[1] + '. incorrect type of object names.';
-                  objectError.code = '400-' + localStatus[1];
-                  objectError.toCheck = 'Incorrect type of object names.';
+                case 'number':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'string':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'undefined':
+                  lastURL += name;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
                   break;
                 default:
-
+                  localStatus = [false, 2];
+                  break;
               }
-              console.error(error);
-              getError(objectError);
+              break;
+            default:
+              localStatus = [false, 3];
+              break;
+          }
+          if (localStatus[0] && localStatus[1] === 200) {
+            if (_typeof(getData.params) === "object" && !getData.params.length) axios.post(me.config.baseURL + me.config.dataURL + lastURL, querystring.stringify(getData.params)).then(getSuccess).catch(getError);else {
+              var paramsError = ' Code: 400-4. incorrect way of initialization of "params".',
+                  paramsObjectError = {
+                message: 'Incorrect way of initialization of object names creation or "delimiters".',
+                code: '400-4',
+                toCheck: 'Incorrect way of initialization of "params".'
+              };
+              console.error(paramsError);
+              getError(paramsObjectError);
             }
-          },
-          remove: function remove(getData, getSuccess, getError) {
-            var meInit = this,
-                lastURL = '',
-                localStatus = [true, 200],
-                index = null;
-            switch (_typeof(meInit.name)) {
-              case 'object':
-                switch (_typeof(getData.delimiters)) {
-                  case 'object':
-                    if (meInit.name.length === getData.delimiters.length || meInit.name.length - 1 === getData.delimiters.length) {
-                      for (index in meInit.name) {
-                        lastURL += meInit.name[index];
-                        lastURL += getData.delimiters[index] ? '/' + getData.delimiters[index] : '';
-                        lastURL += parseInt(index) < meInit.name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'number':
-                    if (meInit.name.length <= 2) {
-                      for (index in meInit.name) {
-                        lastURL += meInit.name[index];
-                        lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
-                        lastURL += parseInt(index) < meInit.name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'string':
-                    if (meInit.name.length <= 2) {
-                      for (index in meInit.name) {
-                        lastURL += meInit.name[index];
-                        lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
-                        lastURL += parseInt(index) < meInit.name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'undefined':
-                    if (meInit.name.length === 1) lastURL += meInit.name[0] + '?accessToken=' + initResponse.body.access_token;else localStatus = [false, 1];
-                    break;
-                  default:
-                    localStatus = [false, 2];
-
-                    break;
-                }
+          } else {
+            var error = 'ERROR: Incorrect way of initialization of object names creation or "delimiters".';
+            var objectError = {
+              message: 'Incorrect way of initialization of object names creation or "delimiters".'
+            };
+            switch (localStatus[1]) {
+              case 1:
+                error += ' Code: 400-' + localStatus[1] + '. incorrect way of initialization of relation between object names creation and "delimiters".';
+                objectError.code = '400-' + localStatus[1];
+                objectError.toCheck = 'Incorrect way of initialization of relation between object names creation and "delimiters".';
                 break;
-              case 'string':
-                switch (_typeof(getData.delimiters)) {
-                  case 'object':
-                    if (getData.delimiters.length === 1) {
-                      for (index in getData.delimiters) {
-                        lastURL += meInit.name;
-                        lastURL += '/' + getData.delimiters[index];
-                        lastURL += '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'number':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'string':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'undefined':
-                    lastURL += meInit.name;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  default:
-                    localStatus = [false, 2];
-                    break;
-                }
+              case 2:
+                error += ' Code: 400-' + localStatus[1] + '. incorrect type of "delimiters".';
+                objectError.code = '400-' + localStatus[1];
+                objectError.toCheck = 'Incorrect type of "delimiters".';
                 break;
-              case 'number':
-                switch (_typeof(getData.delimiters)) {
-                  case 'object':
-                    if (getData.delimiters.length === 1) {
-                      for (index in getData.delimiters) {
-                        lastURL += meInit.name;
-                        lastURL += '/' + getData.delimiters[index];
-                        lastURL += '?accessToken=' + initResponse.body.access_token;
-                      }
-                    } else localStatus = [false, 1];
-                    break;
-                  case 'number':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'string':
-                    lastURL += meInit.name + '/' + getData.delimiters;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  case 'undefined':
-                    lastURL += meInit.name;
-                    lastURL += '?accessToken=' + initResponse.body.access_token;
-                    break;
-                  default:
-                    localStatus = [false, 2];
-                    break;
-                }
+              case 3:
+                error += ' Code: 400-' + localStatus[1] + '. incorrect type of object names.';
+                objectError.code = '400-' + localStatus[1];
+                objectError.toCheck = 'Incorrect type of object names.';
                 break;
               default:
-                localStatus = [false, 3];
-                break;
+
             }
-            if (localStatus[0] && localStatus[1] === 200) {
-              if (_typeof(getData.params) === "object" && !getData.params.length) this.$http.delete(me.config.baseURL + me.config.dataURL + lastURL, { params: getData.params }).then(getSuccess, getError);else this.$http.delete(me.config.baseURL + me.config.dataURL + lastURL).then(getSuccess, getError);
-            } else {
-              var error = 'ERROR: Incorrect way of initialization of object names creation or "delimiters".';
-              var objectError = {
-                message: 'Incorrect way of initialization of object names creation or "delimiters".'
-              };
-              switch (localStatus[1]) {
-                case 1:
-                  error += ' Code: 400-' + localStatus[1] + '. incorrect way of initialization of relation between object names creation and "delimiters".';
-                  objectError.code = '400-' + localStatus[1];
-                  objectError.toCheck = 'Incorrect way of initialization of relation between object names creation and "delimiters".';
+            console.error(error);
+            getError(objectError);
+          }
+        },
+        patch: function patch(getData, getSuccess, getError) {
+          var lastURL = '',
+              localStatus = [true, 200],
+              index = null;
+          switch (typeof name === 'undefined' ? 'undefined' : _typeof(name)) {
+            case 'object':
+              switch (_typeof(getData.delimiters)) {
+                case 'object':
+                  if (name.length === getData.delimiters.length || name.length - 1 === getData.delimiters.length) {
+                    for (index in name) {
+                      lastURL += name[index];
+                      lastURL += getData.delimiters[index] ? '/' + getData.delimiters[index] : '';
+                      lastURL += parseInt(index) < name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
                   break;
-                case 2:
-                  error += ' Code: 400-' + localStatus[1] + '. incorrect type of "delimiters".';
-                  objectError.code = '400-' + localStatus[1];
-                  objectError.toCheck = 'Incorrect type of "delimiters".';
+                case 'number':
+                  if (name.length <= 2) {
+                    for (index in name) {
+                      lastURL += name[index];
+                      lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
+                      lastURL += parseInt(index) < name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
                   break;
-                case 3:
-                  error += ' Code: 400-' + localStatus[1] + '. incorrect type of object names.';
-                  objectError.code = '400-' + localStatus[1];
-                  objectError.toCheck = 'Incorrect type of object names.';
+                case 'string':
+                  if (name.length <= 2) {
+                    for (index in name) {
+                      lastURL += name[index];
+                      lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
+                      lastURL += parseInt(index) < name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'undefined':
+                  if (name.length === 1) lastURL += name[0] + '?accessToken=' + initResponse.body.access_token;else localStatus = [false, 1];
                   break;
                 default:
+                  localStatus = [false, 2];
+                  break;
               }
-              console.error(error);
-              getError(objectError);
+              break;
+            case 'string':
+              switch (_typeof(getData.delimiters)) {
+                case 'object':
+                  if (getData.delimiters.length === 1) {
+                    for (index in getData.delimiters) {
+                      lastURL += name;
+                      lastURL += '/' + getData.delimiters[index];
+                      lastURL += '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'number':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'string':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'undefined':
+                  lastURL += name;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                default:
+                  localStatus = [false, 2];
+                  break;
+              }
+              break;
+            case 'number':
+              switch (_typeof(getData.delimiters)) {
+                case 'object':
+                  if (getData.delimiters.length === 1) {
+                    for (index in getData.delimiters) {
+                      lastURL += name;
+                      lastURL += '/' + getData.delimiters[index];
+                      lastURL += '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'number':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'string':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'undefined':
+                  lastURL += name;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                default:
+                  localStatus = [false, 2];
+                  break;
+              }
+              break;
+            default:
+              localStatus = [false, 3];
+              break;
+          }
+          if (localStatus[0] && localStatus[1] === 200) {
+            if (_typeof(getData.params) === "object" && !getData.params.length) axios.patch(me.config.baseURL + me.config.dataURL + lastURL, querystring.stringify(getData.params)).then(getSuccess).catch(getError);else {
+              var paramsError = ' Code: 400-4. incorrect way of initialization of "params".',
+                  paramsObjectError = {
+                message: 'Incorrect way of initialization of object names creation or "delimiters".',
+                code: '400-4',
+                toCheck: 'Incorrect way of initialization of "params".'
+              };
+              console.error(paramsError);
+              getError(paramsObjectError);
             }
+          } else {
+            var error = 'ERROR: Incorrect way of initialization of object names creation or "delimiters".';
+            var objectError = {
+              message: 'Incorrect way of initialization of object names creation or "delimiters".'
+            };
+            switch (localStatus[1]) {
+              case 1:
+                error += ' Code: 400-' + localStatus[1] + '. incorrect way of initialization of relation between object names creation and "delimiters".';
+                objectError.code = '400-' + localStatus[1];
+                objectError.toCheck = 'Incorrect way of initialization of relation between object names creation and "delimiters".';
+                break;
+              case 2:
+                error += ' Code: 400-' + localStatus[1] + '. incorrect type of "delimiters".';
+                objectError.code = '400-' + localStatus[1];
+                objectError.toCheck = 'Incorrect type of "delimiters".';
+                break;
+              case 3:
+                error += ' Code: 400-' + localStatus[1] + '. incorrect type of object names.';
+                objectError.code = '400-' + localStatus[1];
+                objectError.toCheck = 'Incorrect type of object names.';
+                break;
+              default:
+
+            }
+            console.error(error);
+            getError(objectError);
+          }
+        },
+        remove: function remove(getData, getSuccess, getError) {
+          var lastURL = '',
+              localStatus = [true, 200],
+              index = null;
+          switch (typeof name === 'undefined' ? 'undefined' : _typeof(name)) {
+            case 'object':
+              switch (_typeof(getData.delimiters)) {
+                case 'object':
+                  if (name.length === getData.delimiters.length || name.length - 1 === getData.delimiters.length) {
+                    for (index in name) {
+                      lastURL += name[index];
+                      lastURL += getData.delimiters[index] ? '/' + getData.delimiters[index] : '';
+                      lastURL += parseInt(index) < name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'number':
+                  if (name.length <= 2) {
+                    for (index in name) {
+                      lastURL += name[index];
+                      lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
+                      lastURL += parseInt(index) < name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'string':
+                  if (name.length <= 2) {
+                    for (index in name) {
+                      lastURL += name[index];
+                      lastURL += parseInt(index) === 0 ? '/' + getData.delimiters : '';
+                      lastURL += parseInt(index) < name.length - 1 ? '/' : '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'undefined':
+                  if (name.length === 1) lastURL += name[0] + '?accessToken=' + initResponse.body.access_token;else localStatus = [false, 1];
+                  break;
+                default:
+                  localStatus = [false, 2];
+
+                  break;
+              }
+              break;
+            case 'string':
+              switch (_typeof(getData.delimiters)) {
+                case 'object':
+                  if (getData.delimiters.length === 1) {
+                    for (index in getData.delimiters) {
+                      lastURL += name;
+                      lastURL += '/' + getData.delimiters[index];
+                      lastURL += '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'number':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'string':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'undefined':
+                  lastURL += name;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                default:
+                  localStatus = [false, 2];
+                  break;
+              }
+              break;
+            case 'number':
+              switch (_typeof(getData.delimiters)) {
+                case 'object':
+                  if (getData.delimiters.length === 1) {
+                    for (index in getData.delimiters) {
+                      lastURL += name;
+                      lastURL += '/' + getData.delimiters[index];
+                      lastURL += '?accessToken=' + initResponse.body.access_token;
+                    }
+                  } else localStatus = [false, 1];
+                  break;
+                case 'number':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'string':
+                  lastURL += name + '/' + getData.delimiters;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                case 'undefined':
+                  lastURL += name;
+                  lastURL += '?accessToken=' + initResponse.body.access_token;
+                  break;
+                default:
+                  localStatus = [false, 2];
+                  break;
+              }
+              break;
+            default:
+              localStatus = [false, 3];
+              break;
+          }
+          if (localStatus[0] && localStatus[1] === 200) {
+            if (_typeof(getData.params) === "object" && !getData.params.length) axios.delete(me.config.baseURL + me.config.dataURL + lastURL, { params: querystring.stringify(getData.params) }).then(getSuccess).catch(getError);else axios.delete(me.config.baseURL + me.config.dataURL + lastURL).then(getSuccess).catch(getError);
+          } else {
+            var error = 'ERROR: Incorrect way of initialization of object names creation or "delimiters".';
+            var objectError = {
+              message: 'Incorrect way of initialization of object names creation or "delimiters".'
+            };
+            switch (localStatus[1]) {
+              case 1:
+                error += ' Code: 400-' + localStatus[1] + '. incorrect way of initialization of relation between object names creation and "delimiters".';
+                objectError.code = '400-' + localStatus[1];
+                objectError.toCheck = 'Incorrect way of initialization of relation between object names creation and "delimiters".';
+                break;
+              case 2:
+                error += ' Code: 400-' + localStatus[1] + '. incorrect type of "delimiters".';
+                objectError.code = '400-' + localStatus[1];
+                objectError.toCheck = 'Incorrect type of "delimiters".';
+                break;
+              case 3:
+                error += ' Code: 400-' + localStatus[1] + '. incorrect type of object names.';
+                objectError.code = '400-' + localStatus[1];
+                objectError.toCheck = 'Incorrect type of object names.';
+                break;
+              default:
+            }
+            console.error(error);
+            getError(objectError);
           }
         }
-      });
+      };
       return this.init;
     };
     return this.create;
   };
 
-  this.config.getToken = new Vue({
-    data: {
-      tokenResponse: {
-        success: function success(response) {
-          activity(me.initRequest(response));
-        },
-        error: function error(response) {
-          activityError(response);
-        }
+  this.config.getToken = {
+    initToken: function initToken() {
+      var autoResponse = {};
+      if (typeof me.config.token === "string") {
+        autoResponse.body = {
+          access_token: me.config.token
+        };
+        me.config.getToken.tokenResponse.success(autoResponse);
       }
     },
-    methods: {
-      initToken: function initToken() {
-        var autoResponse = {};
-        if (typeof me.config.token === "string") {
-          autoResponse.body = {
-            access_token: me.config.token
-          };
-          this.tokenResponse.success(autoResponse);
-        } else {
-          this.$http.post(me.config.baseURL + me.config.tokenURL, me.config.accessData.body, {
-            emulateJSON: me.config.contentType === "application/x-www-form-urlencoded" ? true : false,
-            headers: me.config.accessData.headers
-            //before: function(req){
-            //    console.log(req);
-            //}
-          }).then(this.tokenResponse.success, this.tokenResponse.error);
-        }
+    tokenResponse: {
+      success: function success(response) {
+        activity(me.initRequest(response));
+      },
+      error: function error(response) {
+        activityError(response);
       }
     }
-  });
+  };
 
   this.config.getToken.initToken();
 };
@@ -881,8 +889,202 @@ module.exports = function (init, activity, activityError) {
 "use strict";
 
 
+exports.decode = exports.parse = __webpack_require__(10);
+exports.encode = exports.stringify = __webpack_require__(11);
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+// If obj.hasOwnProperty has been overridden, then calling
+// obj.hasOwnProperty(prop) will break.
+// See: https://github.com/joyent/node/issues/1707
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+module.exports = function(qs, sep, eq, options) {
+  sep = sep || '&';
+  eq = eq || '=';
+  var obj = {};
+
+  if (typeof qs !== 'string' || qs.length === 0) {
+    return obj;
+  }
+
+  var regexp = /\+/g;
+  qs = qs.split(sep);
+
+  var maxKeys = 1000;
+  if (options && typeof options.maxKeys === 'number') {
+    maxKeys = options.maxKeys;
+  }
+
+  var len = qs.length;
+  // maxKeys <= 0 means that we should not limit keys count
+  if (maxKeys > 0 && len > maxKeys) {
+    len = maxKeys;
+  }
+
+  for (var i = 0; i < len; ++i) {
+    var x = qs[i].replace(regexp, '%20'),
+        idx = x.indexOf(eq),
+        kstr, vstr, k, v;
+
+    if (idx >= 0) {
+      kstr = x.substr(0, idx);
+      vstr = x.substr(idx + 1);
+    } else {
+      kstr = x;
+      vstr = '';
+    }
+
+    k = decodeURIComponent(kstr);
+    v = decodeURIComponent(vstr);
+
+    if (!hasOwnProperty(obj, k)) {
+      obj[k] = v;
+    } else if (isArray(obj[k])) {
+      obj[k].push(v);
+    } else {
+      obj[k] = [obj[k], v];
+    }
+  }
+
+  return obj;
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+var stringifyPrimitive = function(v) {
+  switch (typeof v) {
+    case 'string':
+      return v;
+
+    case 'boolean':
+      return v ? 'true' : 'false';
+
+    case 'number':
+      return isFinite(v) ? v : '';
+
+    default:
+      return '';
+  }
+};
+
+module.exports = function(obj, sep, eq, name) {
+  sep = sep || '&';
+  eq = eq || '=';
+  if (obj === null) {
+    obj = undefined;
+  }
+
+  if (typeof obj === 'object') {
+    return map(objectKeys(obj), function(k) {
+      var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
+      if (isArray(obj[k])) {
+        return map(obj[k], function(v) {
+          return ks + encodeURIComponent(stringifyPrimitive(v));
+        }).join(sep);
+      } else {
+        return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
+      }
+    }).join(sep);
+
+  }
+
+  if (!name) return '';
+  return encodeURIComponent(stringifyPrimitive(name)) + eq +
+         encodeURIComponent(stringifyPrimitive(obj));
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+function map (xs, f) {
+  if (xs.map) return xs.map(f);
+  var res = [];
+  for (var i = 0; i < xs.length; i++) {
+    res.push(f(xs[i], i));
+  }
+  return res;
+}
+
+var objectKeys = Object.keys || function (obj) {
+  var res = [];
+  for (var key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) res.push(key);
+  }
+  return res;
+};
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 module.exports = {
-  template: __webpack_require__(10),
+  template: __webpack_require__(13),
   props: {},
   data: function data() {
     return {
@@ -912,7 +1114,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -921,14 +1123,14 @@ module.exports = {
 module.exports = "\n  <div v-if=\"active\">\n    <b>{{message}}</b>\n  </div>\n";
 
 /***/ }),
-/* 11 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(12),
+  template: __webpack_require__(15),
   props: {},
   data: function data() {
     return {
@@ -958,7 +1160,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -967,14 +1169,14 @@ module.exports = {
 module.exports = "\n  <div v-if=\"active\">\n    <div>\n      <h3>{{description.title}}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n      <a href=\"#\" v-on:click.prevent=\"onAccept()\"><span>{{description.accept}}</span></a>\n      <a href=\"#\" v-on:click.prevent=\"active = !active\"><span>{{description.cancel}}</span></a>\n    </div>\n  </div>\n";
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(14),
+  template: __webpack_require__(17),
   props: {},
   data: function data() {
     return {
@@ -1001,7 +1203,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1010,14 +1212,14 @@ module.exports = {
 module.exports = "\n  <div v-if=\"active\">\n    <div>\n        <h3>{{description.title}}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n        <a href=\"#\" v-on:click.prevent=\"active = !active\"><span>{{description.ok}}</span></a>\n    </div>\n  </div>\n";
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(16),
+  template: __webpack_require__(19),
   props: {
     profile: Object
   },
@@ -1041,7 +1243,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1050,14 +1252,14 @@ module.exports = {
 module.exports = "\n  <div>\n    <a><span> {{profile.name}} </span></a>\n    <a href=\"/logout\"><i></i> Cerrar Sesi\xF3n </a>\n  </div>\n";
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(18),
+  template: __webpack_require__(21),
   props: {},
   data: function data() {
     return {
@@ -1085,7 +1287,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1094,14 +1296,14 @@ module.exports = {
 module.exports = "\n  <div>\n    <ul v-for=\"(menu, menuIndex) in menu\">\n      <li><router-link :to=\"menu.path\">{{ menu.title }}</router-link></li>\n    </ul>\n  </div>\n";
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(20),
+  template: __webpack_require__(23),
   props: {},
   data: function data() {
     return {
@@ -1126,7 +1328,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1135,14 +1337,14 @@ module.exports = {
 module.exports = "\n  <div>\n    <div>\n      <div>\n        <h4><b>Breadcrumb</b></h4>\n        <ul>\n          <li>{{ home }}</li>\n          <li v-for=\"p in path\" v-if=\"p !== ''\">{{ p }}</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n";
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(22),
+  template: __webpack_require__(25),
   props: {},
   data: function data() {
     return {
@@ -1169,7 +1371,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

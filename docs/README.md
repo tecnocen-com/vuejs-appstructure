@@ -172,12 +172,12 @@ Posteriormente deberán modificarse los siguientes archivos:
 ```bash
 ...
 24 |     <script type="text/javascript" src="/js/vue.js"></script>
-25 |     <script type="text/javascript" src="/js/vue-resource.js"></script>
-26 |     <script type="text/javascript" src="/js/vue-router.js"></script>
+25 |     <script type="text/javascript" src="/js/vue-router.js"></script>
+26 |     <script type="text/javascript" src="/js/axios.js"></script>
 ...
 30 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>
-31 |     <script type="text/javascript" src="/js/vue-resource.min.js"></script>
-32 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>-->
+31 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>
+32 |     <script type="text/javascript" src="/js/axios.min.js"></script>-->
 ...
 36 |     <script type="text/javascript" src="/build/index.bundle.js"></script>
 ...
@@ -193,16 +193,16 @@ La línea 40 deberá descomentarse, ya que incluye al core del proyecto generado
 ```bash
 ...
 26 |     <script type="text/javascript" src="/js/vue.js"></script>
-27 |     <script type="text/javascript" src="/js/vue-resource.js"></script>
-28 |     <script type="text/javascript" src="/js/vue-router.js"></script>
+27 |     <script type="text/javascript" src="/js/vue-router.js"></script>
+28 |     <script type="text/javascript" src="/js/axios.js"></script>
 ...
 32 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>
-33 |     <script type="text/javascript" src="/js/vue-resource.min.js"></script>
-34 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>-->
+33 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>
+34 |     <script type="text/javascript" src="/js/axios.min.js"></script>-->
 ...
-38 |     <script type="text/javascript" src="/build/index.bundle.js"></script>
+38 |     <script type="text/javascript" src="/build/home.bundle.js"></script>
 ...
-42 |     <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
+42 |     <!--<script type="text/javascript" src="/build/home.min.js"></script>-->
 ...
 ```
 Las líneas 26 a 28 deberán comentarse, ya que incluyen a vueJS en ambiente de desarollo.

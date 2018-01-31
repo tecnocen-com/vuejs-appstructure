@@ -129,11 +129,11 @@ BUTO.component = new Vue({
           }, 1500);
           break;
         default:
-          this.$http.post("/login", {
+          axios.post("/login", {
             user: this.user.data,
             pass: this.password.data
           }).then(function (response) {
-            if (response.status === 200 && response.body.status !== 401) {
+            if (response.status === 200 && response.data.status !== 401) {
               window.location = "/";
             } else {
               me.alert.message = "Error, nombre de usuario y/o contraseña inválidos.";
