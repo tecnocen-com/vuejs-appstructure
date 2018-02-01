@@ -194,7 +194,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = "\n  <div>\n    <h1>{{title}}</h1>\n    <p>{{time}}</p>\n  </div>\n";
+module.exports = "\n  <div>\n    <h1>{{ title }}</h1>\n    <p>{{ time }}</p>\n  </div>\n";
 
 /***/ }),
 /* 6 */
@@ -244,7 +244,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = "\n  <div>\n    <h1>{{title}}</h1>\n    <div>\n      <input v-model=\"value\" type=\"number\">\n      <span>Valor al cuadrado: {{square}}</span>\n    </div>\n  </div>\n";
+module.exports = "\n  <div>\n    <h1>{{ title }}</h1>\n    <div>\n      <input v-model=\"value\" type=\"number\">\n      <span>Valor al cuadrado: {{ square }}</span>\n    </div>\n  </div>\n";
 
 /***/ }),
 /* 8 */
@@ -1120,7 +1120,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = "\n  <div v-if=\"active\">\n    <b>{{message}}</b>\n  </div>\n";
+module.exports = "\n  <div v-if=\"active\">\n    <b>{{ message }}</b>\n  </div>\n";
 
 /***/ }),
 /* 14 */
@@ -1166,7 +1166,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = "\n  <div v-if=\"active\">\n    <div>\n      <h3>{{description.title}}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n      <a href=\"#\" v-on:click.prevent=\"onAccept()\"><span>{{description.accept}}</span></a>\n      <a href=\"#\" v-on:click.prevent=\"active = !active\"><span>{{description.cancel}}</span></a>\n    </div>\n  </div>\n";
+module.exports = "\n  <div v-if=\"active\">\n    <div>\n      <h3>{{ description.title }}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n      <a href=\"#\" v-on:click.prevent=\"onAccept()\"><span>{{ description.accept }}</span></a>\n      <a href=\"#\" v-on:click.prevent=\"active = !active\"><span>{{ description.cancel }}</span></a>\n    </div>\n  </div>\n";
 
 /***/ }),
 /* 16 */
@@ -1209,7 +1209,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = "\n  <div v-if=\"active\">\n    <div>\n        <h3>{{description.title}}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n        <a href=\"#\" v-on:click.prevent=\"active = !active\"><span>{{description.ok}}</span></a>\n    </div>\n  </div>\n";
+module.exports = "\n  <div v-if=\"active\">\n    <div>\n        <h3>{{ description.title }}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n        <a href=\"#\" v-on:click.prevent=\"active = !active\"><span>{{ description.ok }}</span></a>\n    </div>\n  </div>\n";
 
 /***/ }),
 /* 18 */
@@ -1249,7 +1249,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = "\n  <div>\n    <a><span> {{profile.name}} </span></a>\n    <a href=\"/logout\"><i></i> Cerrar Sesi\xF3n </a>\n  </div>\n";
+module.exports = "\n  <div>\n    <a><span>{{ profile.name }}</span></a>\n    <a href=\"/logout\"><i></i> Cerrar Sesi\xF3n </a>\n  </div>\n";
 
 /***/ }),
 /* 20 */

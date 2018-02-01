@@ -171,23 +171,23 @@ After this, all the next files should be updated:
 * **```client/index.html```:** In this file will be included all the login minified files.
 ```bash
 ...
-24 |     <script type="text/javascript" src="/js/vue.js"></script>
-25 |     <script type="text/javascript" src="/js/vue-router.js"></script>
-26 |     <script type="text/javascript" src="/js/axios.js"></script>
+25 |     <script type="text/javascript" src="/js/vue.js"></script>
+26 |     <script type="text/javascript" src="/js/vue-router.js"></script>
+27 |     <script type="text/javascript" src="/js/axios.js"></script>
 ...
-30 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>
-31 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>
-32 |     <script type="text/javascript" src="/js/axios.min.js"></script>-->
+31 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>
+32 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>
+33 |     <script type="text/javascript" src="/js/axios.min.js"></script>-->
 ...
-36 |     <script type="text/javascript" src="/build/index.bundle.js"></script>
+37 |     <script type="text/javascript" src="/build/index.bundle.js"></script>
 ...
-40 |     <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
+41 |     <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
 ...
 ```
-Lines 24 to 26 should be commented, because it includes vueJS in development environment.
-Lines 30 to 32 should be uncommented, because it includes vueJS in production environment.
-Line 36 should be commented, because it includes all webpack core files in development environment.
-Line 40 should be uncommented, because it includes all webpack core files in production environment.
+Lines 25 to 27 should be commented, because it includes vueJS in development environment.
+Lines 31 to 33 should be uncommented, because it includes vueJS in production environment.
+Line 37 should be commented, because it includes all webpack core files in development environment.
+Line 41 should be uncommented, because it includes all webpack core files in production environment.
 
 * **```client/home.html```:** In this file will be included all the rest of minified files in the project.
 ```bash

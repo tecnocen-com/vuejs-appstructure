@@ -3,12 +3,12 @@ module.exports = {
     <div>
       <form v-on:submit.prevent action="#" method="POST">
         <div>
-          <h1>{{mainMessage.title}}</h1>
-          <h4>{{mainMessage.subtitle}}</h4>
+          <h1>{{ mainMessage.title }}</h1>
+          <h4>{{ mainMessage.subtitle }}</h4>
         </div>
         <div>
           <div>
-            <label>{{user.label}}:</label>
+            <label>{{ user.label }}:</label>
             <input
             v-on:keydown.space.prevent
             v-on:keydown.enter="login()"
@@ -20,7 +20,7 @@ module.exports = {
             type="text">
           </div>
           <div>
-            <label>{{password.label}}:</label>
+            <label>{{ password.label }}:</label>
             <input
             v-on:keydown.space.prevent
             v-on:keydown.enter="login()"
@@ -33,14 +33,14 @@ module.exports = {
           </div>
         </div>
         <div v-if="!alert.hidden">
-          <p><b>{{alert.message}}</b></p>
+          <p><b>{{ alert.message }}</b></p>
         </div>
         <div>
           <button
           v-on:click="login()"
           :class="button.loading ? 'disabled' : ''"
           type="submit">
-            <b>{{button.login.message}}</b>
+            <b>{{ button.login.message }}</b>
           </button>
         </div>
       </form>
@@ -49,7 +49,7 @@ module.exports = {
         v.on:click.prevent
         :class="button.loading ? 'disabled' : ''"
         href="#">
-          {{button.forgotten.message}}
+          {{ button.forgotten.message }}
         </button>
       </div>
     </div>

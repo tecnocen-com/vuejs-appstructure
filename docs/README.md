@@ -171,23 +171,23 @@ Posteriormente deberán modificarse los siguientes archivos:
 * **```client/index.html```:** En este archivo se incluirán los archivos minificados para el login del proyecto.
 ```bash
 ...
-24 |     <script type="text/javascript" src="/js/vue.js"></script>
-25 |     <script type="text/javascript" src="/js/vue-router.js"></script>
-26 |     <script type="text/javascript" src="/js/axios.js"></script>
+25 |     <script type="text/javascript" src="/js/vue.js"></script>
+26 |     <script type="text/javascript" src="/js/vue-router.js"></script>
+27 |     <script type="text/javascript" src="/js/axios.js"></script>
 ...
-30 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>
-31 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>
-32 |     <script type="text/javascript" src="/js/axios.min.js"></script>-->
+31 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>
+32 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>
+33 |     <script type="text/javascript" src="/js/axios.min.js"></script>-->
 ...
-36 |     <script type="text/javascript" src="/build/index.bundle.js"></script>
+37 |     <script type="text/javascript" src="/build/index.bundle.js"></script>
 ...
-40 |     <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
+41 |     <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
 ...
 ```
-Las líneas 24 a 26 deberán comentarse, ya que incluyen a vueJS en ambiente de desarollo.
-Las líneas 30 a 32 deberán descomentarse, ya que incluyen a vueJS en ambiente de producción.
-La línea 36 deberá comentarse, ya que incluye al core del proyecto generado por webpack en ambiente de desarrollo.
-La línea 40 deberá descomentarse, ya que incluye al core del proyecto generado por webpack en ambiente de producción.
+Las líneas 25 a 27 deberán comentarse, ya que incluyen a vueJS en ambiente de desarollo.
+Las líneas 31 a 33 deberán descomentarse, ya que incluyen a vueJS en ambiente de producción.
+La línea 37 deberá comentarse, ya que incluye al core del proyecto generado por webpack en ambiente de desarrollo.
+La línea 41 deberá descomentarse, ya que incluye al core del proyecto generado por webpack en ambiente de producción.
 
 * **```client/home.html```:** En este archivo se incluirán los archivos minificados para todo el resto del proyecto.
 ```bash
