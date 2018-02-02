@@ -60,21 +60,23 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */,
 /* 1 */,
-/* 2 */
+/* 2 */,
+/* 3 */,
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-BUTO.template = __webpack_require__(3);
+BUTO.template = __webpack_require__(5);
 BUTO.modules = {
-  modelAR: __webpack_require__(8)
+  modelAR: __webpack_require__(10)
 };
 
 axios.get("/init-user-data").then(function (userResponse) {
@@ -98,13 +100,13 @@ axios.get("/init-user-data").then(function (userResponse) {
             }
           },
           components: {
-            "loader": __webpack_require__(12),
-            "confirm": __webpack_require__(14),
-            "alert": __webpack_require__(16),
-            "heading": __webpack_require__(18),
-            "my-menu": __webpack_require__(20),
-            "breadcrumb": __webpack_require__(22),
-            "foot": __webpack_require__(24)
+            "loader": __webpack_require__(14),
+            "confirm": __webpack_require__(16),
+            "alert": __webpack_require__(18),
+            "heading": __webpack_require__(20),
+            "my-menu": __webpack_require__(22),
+            "breadcrumb": __webpack_require__(24),
+            "foot": __webpack_require__(26)
           },
           router: new VueRouter({
             routes: [{
@@ -137,28 +139,28 @@ axios.get("/init-user-data").then(function (userResponse) {
 });
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  dashboard: __webpack_require__(4),
-  test: __webpack_require__(6),
+  dashboard: __webpack_require__(6),
+  test: __webpack_require__(8),
 
   home: "\n    <div>\n      <transition name=\"slide-fade\">\n        <loader></loader>\n      </transition>\n      <transition name=\"slide-fade\">\n        <confirm></confirm>\n      </transition>\n      <transition name=\"slide-fade\">\n        <alert></alert>\n      </transition>\n      \n      <heading :profile=\"profile\"></heading>\n      \n      <my-menu></my-menu>\n      \n      <breadcrumb></breadcrumb>\n      \n      <transition name=\"slide-fade\">\n        <router-view></router-view>\n      </transition>\n      \n      <foot></foot>\n    </div>\n  "
 };
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(5),
+  template: __webpack_require__(7),
   props: {
     myProp: Number
   },
@@ -188,7 +190,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -197,14 +199,14 @@ module.exports = {
 module.exports = "\n  <div>\n    <h1>{{ title }}</h1>\n    <p>{{ time }}</p>\n  </div>\n";
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(7),
+  template: __webpack_require__(9),
   props: {
     myProp: Number
   },
@@ -238,7 +240,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -247,7 +249,7 @@ module.exports = {
 module.exports = "\n  <div>\n    <h1>{{ title }}</h1>\n    <div>\n      <input v-model=\"value\" type=\"number\">\n      <span>Valor al cuadrado: {{ square }}</span>\n    </div>\n  </div>\n";
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -300,7 +302,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //  console.log(error);
 //});
 ////////////////////////////////////////////////////////////////////
-var querystring = __webpack_require__(9);
+var querystring = __webpack_require__(11);
 module.exports = function (init, activity, activityError) {
   var me = this;
 
@@ -883,18 +885,18 @@ module.exports = function (init, activity, activityError) {
 };
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.decode = exports.parse = __webpack_require__(10);
-exports.encode = exports.stringify = __webpack_require__(11);
+exports.decode = exports.parse = __webpack_require__(12);
+exports.encode = exports.stringify = __webpack_require__(13);
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -985,7 +987,7 @@ var isArray = Array.isArray || function (xs) {
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1077,14 +1079,14 @@ var objectKeys = Object.keys || function (obj) {
 
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(13),
+  template: __webpack_require__(15),
   props: {},
   data: function data() {
     return {
@@ -1114,7 +1116,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1123,14 +1125,14 @@ module.exports = {
 module.exports = "\n  <div v-if=\"active\">\n    <b>{{ message }}</b>\n  </div>\n";
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(15),
+  template: __webpack_require__(17),
   props: {},
   data: function data() {
     return {
@@ -1160,7 +1162,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1169,14 +1171,14 @@ module.exports = {
 module.exports = "\n  <div v-if=\"active\">\n    <div>\n      <h3>{{ description.title }}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n      <a href=\"#\" v-on:click.prevent=\"onAccept()\"><span>{{ description.accept }}</span></a>\n      <a href=\"#\" v-on:click.prevent=\"active = !active\"><span>{{ description.cancel }}</span></a>\n    </div>\n  </div>\n";
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(17),
+  template: __webpack_require__(19),
   props: {},
   data: function data() {
     return {
@@ -1203,7 +1205,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1212,14 +1214,14 @@ module.exports = {
 module.exports = "\n  <div v-if=\"active\">\n    <div>\n        <h3>{{ description.title }}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n        <a href=\"#\" v-on:click.prevent=\"active = !active\"><span>{{ description.ok }}</span></a>\n    </div>\n  </div>\n";
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(19),
+  template: __webpack_require__(21),
   props: {
     profile: Object
   },
@@ -1243,7 +1245,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1252,14 +1254,14 @@ module.exports = {
 module.exports = "\n  <div>\n    <a><span>{{ profile.name }}</span></a>\n    <a href=\"/logout\"><i></i> Cerrar Sesi\xF3n </a>\n  </div>\n";
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(21),
+  template: __webpack_require__(23),
   props: {},
   data: function data() {
     return {
@@ -1287,7 +1289,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1296,14 +1298,14 @@ module.exports = {
 module.exports = "\n  <div>\n    <ul v-for=\"(menu, menuIndex) in menu\">\n      <li><router-link :to=\"menu.path\">{{ menu.title }}</router-link></li>\n    </ul>\n  </div>\n";
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(23),
+  template: __webpack_require__(25),
   props: {},
   data: function data() {
     return {
@@ -1328,7 +1330,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1337,14 +1339,14 @@ module.exports = {
 module.exports = "\n  <div>\n    <div>\n      <div>\n        <h4><b>Breadcrumb</b></h4>\n        <ul>\n          <li>{{ home }}</li>\n          <li v-for=\"p in path\" v-if=\"p !== ''\">{{ p }}</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n";
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  template: __webpack_require__(25),
+  template: __webpack_require__(27),
   props: {},
   data: function data() {
     return {
@@ -1371,7 +1373,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

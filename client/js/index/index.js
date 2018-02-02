@@ -5,79 +5,67 @@ BUTO.component = new Vue({
   data: {
     hidden: true,
     error: 0,
+    
     mainMessage: {
       title: "Bienvenido",
       subtitle: "Ingrese a su cuenta"
     },
-    user: {
-      data: "",
-      label: "Usuario"
-    },
-    password: {
-      data: "",
-      label: "Contraseña"
-    },
-    alert: {
-      hidden: true,
-      message: ""
-    },
-    button: {
-      loading: false,
-      login: {
-        message: "Continuar"
-      },
-      forgotten: {
-        message: "¿Olvidaste tu contraseña?"
-      }
-    }
+    
+    loading: false,
+    loginMessage: "Continuar",
+    forgottenMessage: "¿Olvidaste tu contraseña?",
+    
+    alertMessage: "",
+    
+    username: "",
+    password: ""
+  },
+  components: {
+    "my-input": require("./input/input.js")
   },
   methods: {
+    update: function(o, key){
+      for(var i in o)
+        this[i] = o[i];
+      if(key === 13)
+        this.login();
+    },
     login: function(){
       var me = this,
-        validator;
-      this.button.loading = true;
-      validator = this.user.data === "" ? 0 : 
-      this.password.data === "" ? 1 : 2;
+        validator = this.username === "" ? 0 : 
+        this.password === "" ? 1 : 2;
       switch(validator){
         case 0:
-          this.button.loading = false;
           this.error = 0;
-          this.alert.hidden = false;
-          this.alert.message = "Error, se requiere un nombre de usuario.";
-          setTimeout(function(){ me.alert.hidden = true; }, 1500);
+          this.alertMessage = "Error, se requiere un nombre de usuario.";
+          setTimeout(function(){ me.alertMessage = ""; }, 1500);
           break;
         case 1:
-          this.button.loading = false;
           this.error = 1;
-          this.alert.hidden = false;
-          this.alert.message = "Error, se requiere una contraseña.";
-          setTimeout(function(){ me.alert.hidden = true; }, 1500);
+          this.alertMessage = "Error, se requiere una contraseña.";
+          setTimeout(function(){ me.alertMessage = ""; }, 1500);
           break;
         default:
+          this.loading = true;
           axios.post("/login", {
-            user: this.user.data,
-            pass: this.password.data
+            user: this.username,
+            pass: this.password
           }).then(function(response){
-            if(response.status === 200 && response.data.status !== 401){
+            if(response.status === 200 && response.data.status !== 401)
               window.location = "/";
-            }
             else{
-              me.alert.message = "Error, nombre de usuario y/o contraseña inválidos.";
-              me.alert.hidden = false;
               me.error = 2;
-              me.button.loading = false;
-              setTimeout(function(){ me.alert.hidden = true; }, 1500);
+              me.alertMessage = "Error, nombre de usuario y/o contraseña inválidos.";
+              me.loading = false;
+              setTimeout(function(){ me.alertMessage = ""; }, 1500);
             }
           });
           break;
       }
     }
   },
-  created: function(){
-    
-  },
+  created: function(){},
   mounted: function(){
     this.hidden = false;
-    this.$refs.username.autofocus = true;
   }
 });

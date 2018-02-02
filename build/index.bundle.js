@@ -77,71 +77,60 @@ BUTO.component = new Vue({
   data: {
     hidden: true,
     error: 0,
+
     mainMessage: {
       title: "Bienvenido",
       subtitle: "Ingrese a su cuenta"
     },
-    user: {
-      data: "",
-      label: "Usuario"
-    },
-    password: {
-      data: "",
-      label: "Contraseña"
-    },
-    alert: {
-      hidden: true,
-      message: ""
-    },
-    button: {
-      loading: false,
-      login: {
-        message: "Continuar"
-      },
-      forgotten: {
-        message: "¿Olvidaste tu contraseña?"
-      }
-    }
+
+    loading: false,
+    loginMessage: "Continuar",
+    forgottenMessage: "¿Olvidaste tu contraseña?",
+
+    alertMessage: "",
+
+    username: "",
+    password: ""
+  },
+  components: {
+    "my-input": __webpack_require__(2)
   },
   methods: {
+    update: function update(o, key) {
+      for (var i in o) {
+        this[i] = o[i];
+      }if (key === 13) this.login();
+    },
     login: function login() {
       var me = this,
-          validator;
-      this.button.loading = true;
-      validator = this.user.data === "" ? 0 : this.password.data === "" ? 1 : 2;
+          validator = this.username === "" ? 0 : this.password === "" ? 1 : 2;
       switch (validator) {
         case 0:
-          this.button.loading = false;
           this.error = 0;
-          this.alert.hidden = false;
-          this.alert.message = "Error, se requiere un nombre de usuario.";
+          this.alertMessage = "Error, se requiere un nombre de usuario.";
           setTimeout(function () {
-            me.alert.hidden = true;
+            me.alertMessage = "";
           }, 1500);
           break;
         case 1:
-          this.button.loading = false;
           this.error = 1;
-          this.alert.hidden = false;
-          this.alert.message = "Error, se requiere una contraseña.";
+          this.alertMessage = "Error, se requiere una contraseña.";
           setTimeout(function () {
-            me.alert.hidden = true;
+            me.alertMessage = "";
           }, 1500);
           break;
         default:
+          this.loading = true;
           axios.post("/login", {
-            user: this.user.data,
-            pass: this.password.data
+            user: this.username,
+            pass: this.password
           }).then(function (response) {
-            if (response.status === 200 && response.data.status !== 401) {
-              window.location = "/";
-            } else {
-              me.alert.message = "Error, nombre de usuario y/o contraseña inválidos.";
-              me.alert.hidden = false;
+            if (response.status === 200 && response.data.status !== 401) window.location = "/";else {
               me.error = 2;
-              me.button.loading = false;
+              me.alertMessage = "Error, nombre de usuario y/o contraseña inválidos.";
+              me.loading = false;
               setTimeout(function () {
-                me.alert.hidden = true;
+                me.alertMessage = "";
               }, 1500);
             }
           });
@@ -152,7 +141,6 @@ BUTO.component = new Vue({
   created: function created() {},
   mounted: function mounted() {
     this.hidden = false;
-    this.$refs.username.autofocus = true;
   }
 });
 
@@ -164,8 +152,54 @@ BUTO.component = new Vue({
 
 
 module.exports = {
-  index: "\n    <div>\n      <form v-on:submit.prevent action=\"#\" method=\"POST\">\n        <div>\n          <h1>{{ mainMessage.title }}</h1>\n          <h4>{{ mainMessage.subtitle }}</h4>\n        </div>\n        <div>\n          <div>\n            <label>{{ user.label }}:</label>\n            <input\n            v-on:keydown.space.prevent\n            v-on:keydown.enter=\"login()\"\n            v-model=\"user.data\"\n            :class=\"!alert.hidden && error !== 0 ? 'wrong-input' : ''\"\n            ref=\"username\"\n            name=\"username\"\n            maxlength=\"64\"\n            type=\"text\">\n          </div>\n          <div>\n            <label>{{ password.label }}:</label>\n            <input\n            v-on:keydown.space.prevent\n            v-on:keydown.enter=\"login()\"\n            v-model=\"password.data\"\n            :class=\"!alert.hidden && error !== 0 ? 'wrong-input' : ''\"\n            ref=\"password\"\n            name=\"password\"\n            maxlength=\"64\"\n            type=\"password\">\n          </div>\n        </div>\n        <div v-if=\"!alert.hidden\">\n          <p><b>{{ alert.message }}</b></p>\n        </div>\n        <div>\n          <button\n          v-on:click=\"login()\"\n          :class=\"button.loading ? 'disabled' : ''\"\n          type=\"submit\">\n            <b>{{ button.login.message }}</b>\n          </button>\n        </div>\n      </form>\n      <div>\n        <button\n        v.on:click.prevent\n        :class=\"button.loading ? 'disabled' : ''\"\n        href=\"#\">\n          {{ button.forgotten.message }}\n        </button>\n      </div>\n    </div>\n  "
+  index: "\n    <div>\n      <form v-on:submit.prevent action=\"#\" method=\"POST\">\n        <div>\n          <h1>{{ mainMessage.title }}</h1>\n          <h4>{{ mainMessage.subtitle }}</h4>\n        </div>\n        <div>\n          <my-input name=\"username\" label=\"Usuario\" type=\"text\" :error=\"alertMessage !== '' && error !== 1\" :update=\"update\"></my-input>\n          <my-input name=\"password\" label=\"Contrase\xF1a\" type=\"password\" :error=\"alertMessage !== '' && error !== 0\" :update=\"update\"></my-input>\n        </div>\n        <div v-if=\"alertMessage !== ''\">\n          <p><b>{{ alertMessage }}</b></p>\n        </div>\n        <div>\n          <button v-on:click=\"login()\" :class=\"loading ? 'disabled' : ''\" type=\"button\">\n            <b>{{ loginMessage }}</b>\n          </button>\n        </div>\n      </form>\n      <div>\n        <button v.on:click.prevent :class=\"loading ? 'disabled' : ''\" type=\"button\">\n          {{ forgottenMessage }}\n        </button>\n      </div>\n    </div>\n  "
 };
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  template: __webpack_require__(3),
+  props: {
+    name: String,
+    label: String,
+    type: String,
+    error: Boolean,
+    update: Function
+  },
+  data: function data() {
+    return {
+      value: ""
+    };
+  },
+  computed: {},
+  methods: {},
+  beforeCreate: function beforeCreate() {},
+  created: function created() {},
+  beforeMount: function beforeMount() {},
+  mounted: function mounted() {
+    if (this.$refs.username) this.$refs.username.autofocus = true;
+  },
+  beforeUpdate: function beforeUpdate() {},
+  updated: function updated() {},
+  activated: function activated() {},
+  deactivated: function deactivated() {},
+  beforeDestroy: function beforeDestroy() {},
+  destroyed: function destroyed() {}
+};
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = "\n  <div>\n    <label>{{ label }}:</label>\n    <input\n    v-on:keydown.space.prevent\n    v-on:keydown=\"update({ [name]: value }, $event.keyCode)\"\n    v-model=\"value\"\n    :class=\"error ? 'wrong-input' : ''\"\n    :ref=\"name\"\n    :name=\"name\"\n    :type=\"type\"\n    maxlength=\"64\">\n  </div>\n";
 
 /***/ })
 /******/ ]);
