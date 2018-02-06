@@ -1350,18 +1350,13 @@ module.exports = {
   props: {},
   data: function data() {
     return {
-      text: "&copy; 2017. <a href='#' v-on:click.prevent>Tecnocen</a>"
+      year: 2018
     };
   },
   computed: {},
   methods: {},
   beforeCreate: function beforeCreate() {},
-  created: function created() {
-    var me = this;
-    setInterval(function () {
-      return ++me.time;
-    }, 1000);
-  },
+  created: function created() {},
   beforeMount: function beforeMount() {},
   mounted: function mounted() {},
   beforeUpdate: function beforeUpdate() {},
@@ -1379,7 +1374,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = "\n    <div v-html=\"text\"></div>\n";
+module.exports = "\n    <div>\n      &copy; {{ year }}. <a href=\"#\" v-on:click.prevent>Tecnocen</a>\n    </div>\n";
 
 /***/ })
 /******/ ]);

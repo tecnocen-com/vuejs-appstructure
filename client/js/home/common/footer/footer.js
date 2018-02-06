@@ -3,16 +3,13 @@ module.exports = {
   props: {},
   data: function(){
     return {
-      text: "&copy; 2017. <a href='#' v-on:click.prevent>Tecnocen</a>"
+      year: 2018
     };
   },
   computed: {},
   methods: {},
   beforeCreate: function(){},
-  created: function(){
-      var me = this;
-      setInterval(function(){ return ++me.time; }, 1000);
-  },
+  created: function(){},
   beforeMount: function(){},
   mounted: function(){},
   beforeUpdate: function(){},

@@ -1,3 +1,5 @@
 module.exports = `
-    <div v-html="text"></div>
+    <div>
+      &copy; {{ year }}. <a href="#" v-on:click.prevent>Tecnocen</a>
+    </div>
 `;
