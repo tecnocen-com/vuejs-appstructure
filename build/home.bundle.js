@@ -284,12 +284,7 @@ module.exports = {
   },
   methods: {},
   beforeCreate: function beforeCreate() {},
-  created: function created() {
-    var me = this;
-    setInterval(function () {
-      return ++me.time;
-    }, 1000);
-  },
+  created: function created() {},
   beforeMount: function beforeMount() {},
   mounted: function mounted() {},
   beforeUpdate: function beforeUpdate() {},
@@ -1343,7 +1338,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = "\n  <div>\n    <ul v-for=\"(menu, menuIndex) in menu\">\n      <li><router-link :to=\"menu.path\">{{ menu.title }}</router-link></li>\n    </ul>\n  </div>\n";
+module.exports = "\n  <div>\n    <ul>\n      <li v-for=\"(menu, menuIndex) in menu\">\n        <router-link :to=\"menu.path\">{{ menu.title }}</router-link>\n      </li>\n    </ul>\n  </div>\n";
 
 /***/ }),
 /* 24 */

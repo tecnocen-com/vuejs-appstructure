@@ -18,10 +18,7 @@ module.exports = {
   },
   methods: {},
   beforeCreate: function(){},
-  created: function(){
-      var me = this;
-      setInterval(function(){ return ++me.time; }, 1000);
-  },
+  created: function(){},
   beforeMount: function(){},
   mounted: function(){},
   beforeUpdate: function(){},
