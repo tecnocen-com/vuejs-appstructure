@@ -1,17 +1,14 @@
 module.exports = {
   template: require("./loaderT.js"),
-  props: {},
+  props: {
+    active: Boolean,
+    message: String
+  },
   data: function(){
-    return {
-      active: false,
-      message: "Cargando"
-    };
+    return {};
   },
   computed: {},
-  methods: {
-    loading(){ this.active = true; },
-    loaded(){ this.active = false; }
-  },
+  methods: {},
   beforeCreate: function(){},
   created: function(){},
   beforeMount: function(){},

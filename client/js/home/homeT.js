@@ -5,13 +5,19 @@ module.exports = {
   home: `
     <div>
       <transition name="slide-fade">
-        <loader></loader>
+        <loader :active="loader.state" message="Cargando"></loader>
       </transition>
       <transition name="slide-fade">
-        <confirm></confirm>
+        <confirm :active="confirm.state" 
+        :description="confirm.description"
+        :accept="accept"
+        :close="close"></confirm>
       </transition>
       <transition name="slide-fade">
-        <alert></alert>
+        <alert
+        :active="alert.state" 
+        :description="alert.description"
+        :close="close"></alert>
       </transition>
       
       <heading :profile="profile"></heading>
@@ -21,10 +27,13 @@ module.exports = {
       <breadcrumb></breadcrumb>
       
       <transition name="slide-fade">
-        <router-view></router-view>
+        <router-view
+        :open="open"
+        :onaccept="onAccept"
+        :close="close"></router-view>
       </transition>
       
-      <foot></foot>
+      <foot :year="year"></foot>
     </div>
   `
 };

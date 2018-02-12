@@ -97,6 +97,49 @@ axios.get("/init-user-data").then(function (userResponse) {
             },
             models: {
               profile: new dataCreator("profile")
+            },
+            loader: {
+              state: true
+            },
+            confirm: {
+              state: true,
+              action: function action() {},
+              description: {
+                title: "Título de Confirmación",
+                text: "Texto de confirmación",
+                accept: "Aceptar",
+                close: "Cancelar"
+              }
+            },
+            alert: {
+              state: true,
+              description: {
+                title: "Título de Alerta",
+                text: "Texto de alerta",
+                close: "Aceptar"
+              }
+            },
+            year: 2018
+          },
+          methods: {
+            open: function open() {
+              if (arguments[0] !== "loader") {
+                this[arguments[0]].description.title = arguments[1].title;
+                this[arguments[0]].description.text = arguments[1].text;
+                this[arguments[0]].description.close = arguments[1].close;
+              }
+              if (arguments[0] === "confirm") this[arguments[0]].description.accept = arguments[1].accept;
+              this[arguments[0]].state = true;
+            },
+            close: function close() {
+              this[arguments[0]].state = false;
+            },
+            onAccept: function onAccept(e) {
+              this.confirm.action = e;
+            },
+            accept: function accept() {
+              this.confirm.action();
+              this.close("confirm");
             }
           },
           components: {
@@ -149,7 +192,7 @@ module.exports = {
   dashboard: __webpack_require__(6),
   test: __webpack_require__(8),
 
-  home: "\n    <div>\n      <transition name=\"slide-fade\">\n        <loader></loader>\n      </transition>\n      <transition name=\"slide-fade\">\n        <confirm></confirm>\n      </transition>\n      <transition name=\"slide-fade\">\n        <alert></alert>\n      </transition>\n      \n      <heading :profile=\"profile\"></heading>\n      \n      <my-menu></my-menu>\n      \n      <breadcrumb></breadcrumb>\n      \n      <transition name=\"slide-fade\">\n        <router-view></router-view>\n      </transition>\n      \n      <foot></foot>\n    </div>\n  "
+  home: "\n    <div>\n      <transition name=\"slide-fade\">\n        <loader :active=\"loader.state\" message=\"Cargando\"></loader>\n      </transition>\n      <transition name=\"slide-fade\">\n        <confirm :active=\"confirm.state\" \n        :description=\"confirm.description\"\n        :accept=\"accept\"\n        :close=\"close\"></confirm>\n      </transition>\n      <transition name=\"slide-fade\">\n        <alert\n        :active=\"alert.state\" \n        :description=\"alert.description\"\n        :close=\"close\"></alert>\n      </transition>\n      \n      <heading :profile=\"profile\"></heading>\n      \n      <my-menu></my-menu>\n      \n      <breadcrumb></breadcrumb>\n      \n      <transition name=\"slide-fade\">\n        <router-view\n        :open=\"open\"\n        :onaccept=\"onAccept\"\n        :close=\"close\"></router-view>\n      </transition>\n      \n      <foot :year=\"year\"></foot>\n    </div>\n  "
 };
 
 /***/ }),
@@ -162,7 +205,9 @@ module.exports = {
 module.exports = {
   template: __webpack_require__(7),
   props: {
-    myProp: Number
+    open: Function,
+    onaccept: Function,
+    close: Function
   },
   data: function data() {
     return {
@@ -171,11 +216,23 @@ module.exports = {
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    customAccept: function customAccept() {
+      this._props.onaccept(function () {
+        console.log("Accept from dashboard");
+      });
+      this._props.open("confirm", {
+        title: "Título de ConfirmacióN",
+        text: "Texto de confirmacióN",
+        accept: "AceptaR",
+        close: "CancelaR"
+      });
+    }
+  },
   beforeCreate: function beforeCreate() {},
   created: function created() {
     var me = this;
-    setInterval(function () {
+    this.interval = setInterval(function () {
       return ++me.time;
     }, 1000);
   },
@@ -185,7 +242,9 @@ module.exports = {
   updated: function updated() {},
   activated: function activated() {},
   deactivated: function deactivated() {},
-  beforeDestroy: function beforeDestroy() {},
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.interval);
+  },
   destroyed: function destroyed() {}
 };
 
@@ -196,7 +255,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = "\n  <div>\n    <h1>{{ title }}</h1>\n    <p>{{ time }}</p>\n  </div>\n";
+module.exports = "\n  <div>\n    <h1>{{ title }}</h1>\n    <p>{{ time }}</p>\n    <button v-on:click=\"open('loader')\">Abrir cargador</button>\n    <button v-on:click=\"close('loader')\">Cerrar cargador</button>\n    <button v-on:click=\"customAccept()\">Abrir confirmaci\xF3n</button>\n    <button v-on:click=\"open('alert', {\n      title: 'T\xEDtulo de AlertA',\n      text: 'Texto de alertA',\n      close: 'AceptaR'\n    })\">Abrir alerta</button>\n  </div>\n";
 
 /***/ }),
 /* 8 */
@@ -208,7 +267,9 @@ module.exports = "\n  <div>\n    <h1>{{ title }}</h1>\n    <p>{{ time }}</p>\n  
 module.exports = {
   template: __webpack_require__(9),
   props: {
-    myProp: Number
+    open: Function,
+    onaccept: Function,
+    close: Function
   },
   data: function data() {
     return {
@@ -1087,22 +1148,15 @@ var objectKeys = Object.keys || function (obj) {
 
 module.exports = {
   template: __webpack_require__(15),
-  props: {},
+  props: {
+    active: Boolean,
+    message: String
+  },
   data: function data() {
-    return {
-      active: false,
-      message: "Cargando"
-    };
+    return {};
   },
   computed: {},
-  methods: {
-    loading: function loading() {
-      this.active = true;
-    },
-    loaded: function loaded() {
-      this.active = false;
-    }
-  },
+  methods: {},
   beforeCreate: function beforeCreate() {},
   created: function created() {},
   beforeMount: function beforeMount() {},
@@ -1133,17 +1187,14 @@ module.exports = "\n  <div v-if=\"active\">\n    <b>{{ message }}</b>\n  </div>\
 
 module.exports = {
   template: __webpack_require__(17),
-  props: {},
+  props: {
+    active: Boolean,
+    description: Object,
+    accept: Function,
+    close: Function
+  },
   data: function data() {
-    return {
-      description: {
-        title: "",
-        text: "",
-        accept: "",
-        cancel: ""
-      },
-      active: false
-    };
+    return {};
   },
   computed: {},
   methods: {
@@ -1168,7 +1219,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = "\n  <div v-if=\"active\">\n    <div>\n      <h3>{{ description.title }}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n      <a href=\"#\" v-on:click.prevent=\"onAccept()\"><span>{{ description.accept }}</span></a>\n      <a href=\"#\" v-on:click.prevent=\"active = !active\"><span>{{ description.cancel }}</span></a>\n    </div>\n  </div>\n";
+module.exports = "\n  <div v-if=\"active\">\n    <div>\n      <h3>{{ description.title }}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n      <button v-on:click.prevent=\"accept()\" type=\"button\"><span>{{ description.accept }}</span></button>\n      <button v-on:click.prevent=\"close('confirm')\" type=\"button\"><span>{{ description.close }}</span></button>\n    </div>\n  </div>\n";
 
 /***/ }),
 /* 18 */
@@ -1179,16 +1230,13 @@ module.exports = "\n  <div v-if=\"active\">\n    <div>\n      <h3>{{ description
 
 module.exports = {
   template: __webpack_require__(19),
-  props: {},
+  props: {
+    active: Boolean,
+    description: Object,
+    close: Function
+  },
   data: function data() {
-    return {
-      description: {
-        title: "",
-        text: "",
-        ok: ""
-      },
-      active: false
-    };
+    return {};
   },
   computed: {},
   methods: {},
@@ -1211,7 +1259,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = "\n  <div v-if=\"active\">\n    <div>\n        <h3>{{ description.title }}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n        <a href=\"#\" v-on:click.prevent=\"active = !active\"><span>{{ description.ok }}</span></a>\n    </div>\n  </div>\n";
+module.exports = "\n  <div v-if=\"active\">\n    <div>\n        <h3>{{ description.title }}</h3>\n    </div>\n    <p><b v-html=\"description.text\"></b></p>\n    <div>\n        <button v-on:click.prevent=\"close('alert')\" type=\"button\"><span>{{ description.close }}</span></button>\n    </div>\n  </div>\n";
 
 /***/ }),
 /* 20 */
@@ -1347,11 +1395,11 @@ module.exports = "\n  <div>\n    <div>\n      <div>\n        <h4><b>Breadcrumb</
 
 module.exports = {
   template: __webpack_require__(27),
-  props: {},
+  props: {
+    year: Number
+  },
   data: function data() {
-    return {
-      year: 2018
-    };
+    return {};
   },
   computed: {},
   methods: {},

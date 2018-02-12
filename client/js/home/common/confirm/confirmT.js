@@ -5,8 +5,8 @@ module.exports = `
     </div>
     <p><b v-html="description.text"></b></p>
     <div>
-      <a href="#" v-on:click.prevent="onAccept()"><span>{{ description.accept }}</span></a>
-      <a href="#" v-on:click.prevent="active = !active"><span>{{ description.cancel }}</span></a>
+      <button v-on:click.prevent="accept()" type="button"><span>{{ description.accept }}</span></button>
+      <button v-on:click.prevent="close('confirm')" type="button"><span>{{ description.close }}</span></button>
     </div>
   </div>
 `;

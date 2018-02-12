@@ -1,10 +1,10 @@
 module.exports = {
   template: require("./footerT.js"),
-  props: {},
+  props: {
+    year: Number
+  },
   data: function(){
-    return {
-      year: 2018
-    };
+    return {};
   },
   computed: {},
   methods: {},

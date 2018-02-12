@@ -1,15 +1,12 @@
 module.exports = {
   template: require("./alertT.js"),
-  props: {},
+  props: {
+    active: Boolean,
+    description: Object,
+    close: Function
+  },
   data: function(){
-    return {
-      description: {
-        title: "",
-        text: "",
-        ok: ""
-      },
-      active: false
-    };
+    return {};
   },
   computed: {},
   methods: {},

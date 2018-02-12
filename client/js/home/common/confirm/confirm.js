@@ -1,16 +1,13 @@
 module.exports = {
   template: require("./confirmT.js"),
-  props: {},
+  props: {
+    active: Boolean,
+    description: Object,
+    accept: Function,
+    close: Function
+  },
   data: function(){
-    return {
-      description: {
-        title: "",
-        text: "",
-        accept: "",
-        cancel: ""
-      },
-      active: false
-    };
+    return {};
   },
   computed: {},
   methods: {

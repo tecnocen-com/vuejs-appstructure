@@ -1,7 +1,9 @@
 module.exports = {
   template: require("./testT.js"),
   props: {
-    myProp: Number
+    open: Function,
+    onaccept: Function,
+    close: Function
   },
   data: function(){
     return {

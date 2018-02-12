@@ -1,7 +1,9 @@
 module.exports = {
   template: require("./dashboardT.js"),
   props: {
-    myProp: Number
+    open: Function,
+    onaccept: Function,
+    close: Function
   },
   data: function(){
     return {
@@ -10,11 +12,21 @@ module.exports = {
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    customAccept: function(){
+      this._props.onaccept(function(){ console.log("Accept from dashboard"); });
+      this._props.open("confirm", {
+        title: "Título de ConfirmacióN",
+        text: "Texto de confirmacióN",
+        accept: "AceptaR",
+        close: "CancelaR"
+      });
+    }
+  },
   beforeCreate: function(){},
   created: function(){
       var me = this;
-      setInterval(function(){ return ++me.time; }, 1000);
+      this.interval = setInterval(function(){ return ++me.time; }, 1000);
   },
   beforeMount: function(){},
   mounted: function(){},
@@ -22,6 +34,8 @@ module.exports = {
   updated: function(){},
   activated: function(){},
   deactivated: function(){},
-  beforeDestroy: function(){},
+  beforeDestroy: function(){
+    clearInterval(this.interval);
+  },
   destroyed: function(){}
 };

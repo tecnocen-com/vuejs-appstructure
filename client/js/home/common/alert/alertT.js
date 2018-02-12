@@ -5,7 +5,7 @@ module.exports = `
     </div>
     <p><b v-html="description.text"></b></p>
     <div>
-        <a href="#" v-on:click.prevent="active = !active"><span>{{ description.ok }}</span></a>
+        <button v-on:click.prevent="close('alert')" type="button"><span>{{ description.close }}</span></button>
     </div>
   </div>
 `;
