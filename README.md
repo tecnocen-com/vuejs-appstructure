@@ -99,14 +99,14 @@ Line 1 refers to project name, edit with appropiated name.
 ...
 1 | vuejs-appstructure
 ...
-57 | $ git clone https://github.com/tecnocen-com/vuejs-appstructure.git
+47 | $ git clone https://github.com/tecnocen-com/vuejs-appstructure.git
 ...
-63 | $ cd vuejs-appstructure
+52 | $ cd vuejs-appstructure
 ...
 ```
 Line 1 refers to the project name, edit with appropiated value.
-Line 57 refers to the project repository URL, edit with appropiated value.
-Line 63 refers to the project directory after clone, edit with appropiated value.
+Line 47 refers to the project repository URL, edit with appropiated value.
+Line 52 refers to the project directory after clone, edit with appropiated value.
 
 Modify the rest of the file according to the project.
 
@@ -132,7 +132,7 @@ $ npm install
 
 NOTES:
 - Directory ```test``` inside of ```home```, has an starting component view example, which could be duplicated any time it's needed in order to have the real project running.
-- To include the duplicated components to the views of the project, they should be included in both files ```home.js``` and ```homeT.js``` inside of the directory ```home``` in orde to include and render them; and so on in ```menu.js``` file inside of the ```common/menu``` directory.
+- To include the duplicated components to the views of the project, they should be included in both files ```home.js``` and ```homeT.js``` inside of the directory ```home``` in order to include and render them; and so on in ```menu.js``` file inside of the ```common/menu``` directory.
 
 ## Visibility
 #### Changes visibility:

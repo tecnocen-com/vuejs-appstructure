@@ -99,9 +99,9 @@ La línea 1 se refiere al nombre del proyecto, sustituir su valor con el nombre 
 ...
 1 | vuejs-appstructure
 ...
-57 | $ git clone https://github.com/tecnocen-com/vuejs-appstructure.git
+47 | $ git clone https://github.com/tecnocen-com/vuejs-appstructure.git
 ...
-63 | $ cd vuejs-appstructure
+52 | $ cd vuejs-appstructure
 ...
 ```
 La línea 1 se refiere al nombre del proyecto, sustituir su valor con el nombre del proyecto.
@@ -184,7 +184,7 @@ Posteriormente deberán modificarse los siguientes archivos:
 41 |     <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
 ...
 ```
-Las líneas 25 a 27 deberán comentarse, ya que incluyen a vueJS en ambiente de desarollo.
+Las líneas 25 a 27 deberán comentarse, ya que incluyen a vueJS en ambiente de desarrollo.
 Las líneas 31 a 33 deberán descomentarse, ya que incluyen a vueJS en ambiente de producción.
 La línea 37 deberá comentarse, ya que incluye al core del proyecto generado por webpack en ambiente de desarrollo.
 La línea 41 deberá descomentarse, ya que incluye al core del proyecto generado por webpack en ambiente de producción.
@@ -205,7 +205,7 @@ La línea 41 deberá descomentarse, ya que incluye al core del proyecto generado
 42 |     <!--<script type="text/javascript" src="/build/home.min.js"></script>-->
 ...
 ```
-Las líneas 26 a 28 deberán comentarse, ya que incluyen a vueJS en ambiente de desarollo.
+Las líneas 26 a 28 deberán comentarse, ya que incluyen a vueJS en ambiente de desarrollo.
 Las líneas 32 a 34 deberán descomentarse, ya que incluyen a vueJS en ambiente de producción.
 La línea 38 deberá comentarse, ya que incluye al core del proyecto generado por webpack en ambiente de desarrollo.
 La línea 42 deberá descomentarse, ya que incluye al core del proyecto generado por webpack en ambiente de producción.
