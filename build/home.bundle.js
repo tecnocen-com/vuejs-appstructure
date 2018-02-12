@@ -1379,7 +1379,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = "\n  <div>\n    <div>\n      <div>\n        <h4><b>Breadcrumb</b></h4>\n        <ul>\n          <li>{{ home }}</li>\n          <li v-for=\"p in path\" v-if=\"p !== ''\">{{ p }}</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n";
+module.exports = "\n  <div>\n    <h4><b>Breadcrumb</b></h4>\n    <ul>\n      <li>{{ home }}</li>\n      <li v-for=\"p in path\" v-if=\"p !== ''\">{{ p }}</li>\n    </ul>\n  </div>\n";
 
 /***/ }),
 /* 26 */
