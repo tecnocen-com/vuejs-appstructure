@@ -3,7 +3,10 @@ var path = require("path"),
   serviceUrl = {
     baseURL: "http://34.239.10.155/index.php/api",
     dataURL: "/v1/",
-    tokenURL: "/oauth2/token"
+    tokenURL: "/oauth2/token",
+    headers: {
+      Authorization: "Basic dGVzdGNsaWVudDp0ZXN0cGFzcw==",   //username: testclient || password: testpass
+    }
 };
 //var dbConection = require("./dbConection");	//Módulo personalizado de conexión a Mongodb
 function init(request, response){
@@ -16,9 +19,7 @@ function login(request, response, data){
 	var parsedData = JSON.parse(data);
 	httprequest.post({
     url: serviceUrl.baseURL + serviceUrl.tokenURL,
-    headers: {
-      Authorization: "Basic dGVzdGNsaWVudDp0ZXN0cGFzcw==",   //username: testclient || password: testpass
-    },
+    headers: serviceUrl.headers,
     form: {
       grant_type: "password", 
       username: parsedData.user, 
@@ -47,8 +48,7 @@ function initUserData(request, response){
       success: true,
       baseURL: serviceUrl.baseURL,
       dataURL: serviceUrl.dataURL,
-      access_token: request.vueJSAppStructure.userData.access_token,
-      apiKey: serviceUrl.apiKey
+      access_token: request.vueJSAppStructure.userData.access_token
     }));  //Terminamos respuesta
 	}
 	else{
