@@ -3,19 +3,34 @@ var path = require("path"),
   debug = process.env.NODE_ENV !== "production";
 module.exports = {
   entry: {
-    index: "./client/js/index/index.js",
-    home: "./client/js/home/home.js"
+    index: "./client/js/index/index.jsx",
+    home: "./client/js/home/home.jsx"
   },
   output: {
     path: path.resolve(__dirname, "build"),
     filename: debug ? "[name].bundle.js" : "[name].min.js",
   },
+  resolve: {
+    alias: {
+      vue: debug ? "vue/dist/vue.js" : "vue/dist/vue.min.js"
+    }
+  },
   module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: "babel-loader"
-    }]
+    loaders: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+    ]
   },
   plugins: debug ? [] : [
     new webpack.DefinePlugin({          //Setting Vue on production mode

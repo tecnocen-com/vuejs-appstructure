@@ -43,8 +43,10 @@
 //  console.log(error);
 //});
 ////////////////////////////////////////////////////////////////////
-var querystring = require("querystring");
-module.exports = function(init, activity, activityError){
+import axios from "axios";
+import querystring from "querystring";
+
+export default function(init, activity, activityError){
   var me = this;
   
   this.config = init;

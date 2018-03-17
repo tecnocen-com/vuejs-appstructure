@@ -86,7 +86,7 @@ La línea 10, 11 y 12 ```"keywords"``` se refiere a las palabras clave del proye
 La línea 13 ```"author"``` se refiere al desarrollador del proyecto, sustituir con el nombre apropiado.
 La línea 14 ```"license"``` se refiere a la licencia del proyecto, sustituir con el valor apropiado.
 
-* **```CHANGELOG.md```:** En este archivo se definirán las funcionalidades del proyecto, para más información leer los [estándares de arquitectura] de tecnocen, en la sección [control de cambios].
+* **```CHANGELOG.md```:** En este archivo se definirán las funcionalidades del proyecto, para más información leer los [plan de integración] de tecnocen, en la sección [control de cambios].
 ```bash
 ...
 1 | vuejs-appstructure
@@ -122,17 +122,17 @@ $ npm install
     * ```file```: dentro de esta carpeta se guardarán todos los archivos involucrados en los procesos del proyecto (PDF, XLSX, etc...).
     * ```image```: dentro de esta carpeta se guardarán todas las imagenes involucradas en los procesos.
     * ```style```: dentro de esta carpeta se guardarán todos los archivos de estilos personalizados.
-    * ```js```: dentro de esta carpeta existen todos los archivos JS relacionados con el proyecto.
-        * ```home```: dentro de esta carpeta existen todos los archivos JS responsables de crear componentes para el proyecto, una vez autenticado, fragmentados en carpetas con nombres de cada vista.
-            * ```plugins```: dentro de esta carpeta existen todos los archivos JS generados como plugins para ejecutar acciones propias dentro del proyecto y en conexión con los servicios.
-            * ```common```: dentro de esta carpeta existen todos los archivos JS que generan componentes que se interrelacionan durante todas las vistas.
-            * ```dashboard```: dentro de esta carpeta existen todos los archivos JS relacionados con el dashboard.
-            * ```test```: dentro de esta carpeta existen todos los archivos JS relacionados con la página test.
-        * ```index```: dentro de esta carpeta existen todos los archivos JS responsables de crear componentes para el proyecto al inicio.
+    * ```js```: dentro de esta carpeta existen todos los archivos orientados a JavaScript relacionados con el proyecto.
+        * ```home```: dentro de esta carpeta existen todos los archivos responsables de crear componentes para el proyecto, una vez autenticado, fragmentados en carpetas con nombres de cada vista.
+            * ```plugins```: dentro de esta carpeta existen todos los archivos JSX generados como plugins para ejecutar acciones propias dentro del proyecto y en conexión con los servicios.
+            * ```common```: dentro de esta carpeta existen todos los archivos VUE que generan componentes que se interrelacionan durante todas las vistas.
+            * ```dashboard```: dentro de esta carpeta existe el archivo VUE para el componente dashboard.
+            * ```test```: dentro de esta carpeta existe el archivo VUE para el componente test.
+        * ```index```: dentro de esta carpeta existen todos los archivos responsables de crear componentes para el proyecto al inicio.
 
 NOTAS:
 - La carpeta ```test``` dentro de ```home```, posee un ejemplo simple de vista, pudiéndose duplicar cuantas veces se requiera para comenzar el desarrollo real del proyecto.
-- Para incluir los componentes duplicados en las vistas, deberán incluirse en los archivos ```home.js``` y ```homeT.js``` dentro de la carpeta ```home``` para su inclusión y renderizado, respectivamente; así como su anexo en ```menu.js``` dentro de ```common/menu```.
+- Para incluir los componentes duplicados en las vistas, deberán incluirse en el archivo ```home.jsx``` dentro de la carpeta ```home``` para su inclusión y renderizado, respectivamente; así como su anexo en ```Menu.vue``` dentro de ```common```.
 
 ##Visibilidad
 ####Visibilidad de cambios:
@@ -149,7 +149,7 @@ $ node index.js
 Posteriormente acceder a ```localhost:8080```
 
 ## Guías de estilo
-Para más información leer los [estándares de arquitectura] de tecnocen, en la sección [lineamientos desarrollo JavaScript].
+Para más información leer los [plan de integración] de tecnocen, en la sección [lineamientos desarrollo JavaScript].
 
 ## Corriendo las pruebas
 (Por definir)
@@ -171,44 +171,24 @@ Posteriormente deberán modificarse los siguientes archivos:
 * **```client/index.html```:** En este archivo se incluirán los archivos minificados para el login del proyecto.
 ```bash
 ...
-25 |     <script type="text/javascript" src="/js/vue.js"></script>
-26 |     <script type="text/javascript" src="/js/vue-router.js"></script>
-27 |     <script type="text/javascript" src="/js/axios.js"></script>
+19 |     <script type="text/javascript" src="/build/index.bundle.js"></script>
 ...
-31 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>
-32 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>
-33 |     <script type="text/javascript" src="/js/axios.min.js"></script>-->
-...
-37 |     <script type="text/javascript" src="/build/index.bundle.js"></script>
-...
-41 |     <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
+23 |     <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
 ...
 ```
-Las líneas 25 a 27 deberán comentarse, ya que incluyen a vueJS en ambiente de desarrollo.
-Las líneas 31 a 33 deberán descomentarse, ya que incluyen a vueJS en ambiente de producción.
-La línea 37 deberá comentarse, ya que incluye al core del proyecto generado por webpack en ambiente de desarrollo.
-La línea 41 deberá descomentarse, ya que incluye al core del proyecto generado por webpack en ambiente de producción.
+La línea 19 deberá comentarse, ya que incluye al core del proyecto generado por webpack en ambiente de desarrollo.
+La línea 23 deberá descomentarse, ya que incluye al core del proyecto generado por webpack en ambiente de producción.
 
 * **```client/home.html```:** En este archivo se incluirán los archivos minificados para todo el resto del proyecto.
 ```bash
 ...
-26 |     <script type="text/javascript" src="/js/vue.js"></script>
-27 |     <script type="text/javascript" src="/js/vue-router.js"></script>
-28 |     <script type="text/javascript" src="/js/axios.js"></script>
+20 |     <script type="text/javascript" src="/build/home.bundle.js"></script>
 ...
-32 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>
-33 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>
-34 |     <script type="text/javascript" src="/js/axios.min.js"></script>-->
-...
-38 |     <script type="text/javascript" src="/build/home.bundle.js"></script>
-...
-42 |     <!--<script type="text/javascript" src="/build/home.min.js"></script>-->
+24 |     <!--<script type="text/javascript" src="/build/home.min.js"></script>-->
 ...
 ```
-Las líneas 26 a 28 deberán comentarse, ya que incluyen a vueJS en ambiente de desarrollo.
-Las líneas 32 a 34 deberán descomentarse, ya que incluyen a vueJS en ambiente de producción.
-La línea 38 deberá comentarse, ya que incluye al core del proyecto generado por webpack en ambiente de desarrollo.
-La línea 42 deberá descomentarse, ya que incluye al core del proyecto generado por webpack en ambiente de producción.
+La línea 20 deberá comentarse, ya que incluye al core del proyecto generado por webpack en ambiente de desarrollo.
+La línea 24 deberá descomentarse, ya que incluye al core del proyecto generado por webpack en ambiente de producción.
 
 Para finalmente visualizar el proyecto en el navegador:
 ```bash
@@ -225,7 +205,7 @@ $ node index.js
 (Por definir)
 
 ## Versionamiento
-Para más información leer los [estándares de arquitectura] de tecnocen, en la sección [versionamiento].
+Para más información leer los [plan de integración] de tecnocen, en la sección [versionamiento].
 
 ## Autores
 * **Marcos Jesús Chávez V** - *Tecnocen.com* - [onca-vega]
@@ -234,9 +214,9 @@ Para más información leer los [estándares de arquitectura] de tecnocen, en la
 Licencia ISC.
 
 [Inglés]: ../README.md
-[estándares de arquitectura]: https://bitbucket.org/tecnocen/estandares-arquitectura
-[control de cambios]: https://bitbucket.org/tecnocen/estandares-arquitectura/src/298c20280d95af4de8923de082baee26e4185d4a/changelog.md?fileviewer=file-view-default
-[lineamientos desarrollo JavaScript]: https://bitbucket.org/tecnocen/estandares-arquitectura/src/990d2c74340390c0e375e653e7b0bc11778d54b2/javascript.md?fileviewer=file-view-default
+[plan de integración]: https://bitbucket.org/tecnocen/plan_de_integracion
+[control de cambios]: https://bitbucket.org/tecnocen/plan_de_integracion/src/298c20280d95af4de8923de082baee26e4185d4a/changelog.md?fileviewer=file-view-default
+[lineamientos desarrollo JavaScript]: https://bitbucket.org/tecnocen/plan_de_integracion/src/990d2c74340390c0e375e653e7b0bc11778d54b2/javascript.md?fileviewer=file-view-default
 [versionamiento]: https://semver.org/spec/v2.0.0.html
 [NodeJS]: https://nodejs.org/
 [Npm]: https://www.npmjs.com/

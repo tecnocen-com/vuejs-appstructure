@@ -86,7 +86,7 @@ Line 10, 11 and 12 ```"keywords"``` refers to the project keywords, add all the 
 Line 13 ```"author"``` refers to the project author, edit with appropiated author name.
 Line 14 ```"license"``` refers to the project author, edit with appropiated license.
 
-* **```CHANGELOG.md```:** In this file you'll define all functions of the project, read more about this on [arquitecture standards] of tecnocen, on section [changes control].
+* **```CHANGELOG.md```:** In this file you'll define all functions of the project, read more about this on [integration plan] of tecnocen, on section [changes control].
 ```bash
 ...
 1 | vuejs-appstructure
@@ -116,23 +116,23 @@ $ npm install
 ```
 
 ## Project structure
-* ```build```: in this directory will exists all core files generated through webpack module.
-* ```client```: in this directory will exists all files directly involved with client side.
-    * ```assets```: in this directory will exists all files involved with a predefined template that could be used.
-    * ```file```: in this directory will exists all files involved with project processes (such as PDF, XLSX, etc...).
-    * ```image```: in this directory will exists all images involved with project processes.
-    * ```style```: in this directory will exists all style files.
-    * ```js```: in this directory will exists all JS files involved with the project.
-        * ```home```: in this directory will exists all components JS files per view, once you are logged in.
-            * ```plugins```: in this directory will exists all JS files generated as plugins.
-            * ```common```: in this directory will exists all components JS files involved over all the project views.
-            * ```dashboard```: in this directory will exists all components JS files related to dashboard.
-            * ```test```: in this directory will exists all components JS files related to test page.
-        * ```index```: in this directory will exists all components JS files per view, without any authentication.
+* ```build```: in this directory exist all core files generated through webpack module.
+* ```client```: in this directory exist all files directly involved with client side.
+    * ```assets```: in this directory exist all files involved with a predefined template that could be used.
+    * ```file```: in this directory exist all files involved with project processes (such as PDF, XLSX, etc...).
+    * ```image```: in this directory exist all images involved with project processes.
+    * ```style```: in this directory exist all style files.
+    * ```js```: in this directory exist all JavaScript oriented files involved with the project.
+        * ```home```: in this directory exist all components files per view, once you are logged in.
+            * ```plugins```: in this directory exist all JSX files generated as plugins.
+            * ```common```: in this directory exist all components VUE files involved over all the project views.
+            * ```dashboard```: in this directory exists the VUE component file related to dashboard.
+            * ```test```: in this directory exists the VUE component file related to test page.
+        * ```index```: in this directory exist all components files per view, without any authentication.
 
 NOTES:
 - Directory ```test``` inside of ```home```, has an starting component view example, which could be duplicated any time it's needed in order to have the real project running.
-- To include the duplicated components to the views of the project, they should be included in both files ```home.js``` and ```homeT.js``` inside of the directory ```home``` in order to include and render them; and so on in ```menu.js``` file inside of the ```common/menu``` directory.
+- To include the duplicated components to the views of the project, they should be included in ```home.jsx``` file, inside of the directory ```home``` in order to include and render them; and so on in ```Menu.vue``` file inside of the ```common``` directory.
 
 ## Visibility
 #### Changes visibility:
@@ -149,7 +149,7 @@ $ node index.js
 Then simply access to ```localhost:8080``` in your favourite browser.
 
 ## Style guide
-For further information, read more about this on [arquitecture standards] of tecnocen, on section [JavaScript coding rules].
+For further information, read more about this on [integration plan] of tecnocen, on section [JavaScript coding rules].
 
 ## Testing
 (In definition)
@@ -171,44 +171,24 @@ After this, all the next files should be updated:
 * **```client/index.html```:** In this file will be included all the login minified files.
 ```bash
 ...
-25 |     <script type="text/javascript" src="/js/vue.js"></script>
-26 |     <script type="text/javascript" src="/js/vue-router.js"></script>
-27 |     <script type="text/javascript" src="/js/axios.js"></script>
+19 |     <script type="text/javascript" src="/build/index.bundle.js"></script>
 ...
-31 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>
-32 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>
-33 |     <script type="text/javascript" src="/js/axios.min.js"></script>-->
-...
-37 |     <script type="text/javascript" src="/build/index.bundle.js"></script>
-...
-41 |     <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
+23 |     <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
 ...
 ```
-Lines 25 to 27 should be commented, because it includes vueJS in development environment.
-Lines 31 to 33 should be uncommented, because it includes vueJS in production environment.
-Line 37 should be commented, because it includes all webpack core files in development environment.
-Line 41 should be uncommented, because it includes all webpack core files in production environment.
+Line 19 should be commented, because it includes all webpack core files in development environment.
+Line 23 should be uncommented, because it includes all webpack core files in production environment.
 
 * **```client/home.html```:** In this file will be included all the rest of minified files in the project.
 ```bash
 ...
-26 |     <script type="text/javascript" src="/js/vue.js"></script>
-27 |     <script type="text/javascript" src="/js/vue-router.js"></script>
-28 |     <script type="text/javascript" src="/js/axios.js"></script>
+20 |     <script type="text/javascript" src="/build/home.bundle.js"></script>
 ...
-32 |     <!--<script type="text/javascript" src="/js/vue.min.js"></script>
-33 |     <script type="text/javascript" src="/js/vue-router.min.js"></script>
-34 |     <script type="text/javascript" src="/js/axios.min.js"></script>-->
-...
-38 |     <script type="text/javascript" src="/build/home.bundle.js"></script>
-...
-42 |     <!--<script type="text/javascript" src="/build/home.min.js"></script>-->
+24 |     <!--<script type="text/javascript" src="/build/home.min.js"></script>-->
 ...
 ```
-Lines 26 to 28 should be commented, because it includes vueJS in development environment.
-Lines 32 to 34 should be uncommented, because it includes vueJS in production environment.
-Line 38 should be commented, because it includes all webpack core files in development environment.
-Line 42 should be uncommented, because it includes all webpack core files in production environment.
+Line 20 should be commented, because it includes all webpack core files in development environment.
+Line 24 should be uncommented, because it includes all webpack core files in production environment.
 
 Finally, in order to see the project running on the browser:
 ```bash
@@ -225,7 +205,7 @@ $ node index.js
 (Por definir)
 
 ## Versioning
-For further information, read more about this on [arquitecture standards] of tecnocen, on section [versioning].
+For further information, read more about this on [integration plan] of tecnocen, on section [versioning].
 
 ## Authors
 * **Marcos Jesús Chávez V** - *Tecnocen.com* - [onca-vega]
@@ -234,9 +214,9 @@ For further information, read more about this on [arquitecture standards] of tec
 ISC license.
 
 [Spanish]: docs/README.md
-[arquitecture standards]: https://bitbucket.org/tecnocen/estandares-arquitectura
-[changes control]: https://bitbucket.org/tecnocen/estandares-arquitectura/src/298c20280d95af4de8923de082baee26e4185d4a/changelog.md?fileviewer=file-view-default
-[JavaScript coding rules]: https://bitbucket.org/tecnocen/estandares-arquitectura/src/990d2c74340390c0e375e653e7b0bc11778d54b2/javascript.md?fileviewer=file-view-default
+[integration plan]: https://bitbucket.org/tecnocen/plan_de_integracion
+[changes control]: https://bitbucket.org/tecnocen/plan_de_integracion/src/298c20280d95af4de8923de082baee26e4185d4a/changelog.md?fileviewer=file-view-default
+[JavaScript coding rules]: https://bitbucket.org/tecnocen/plan_de_integracion/src/990d2c74340390c0e375e653e7b0bc11778d54b2/javascript.md?fileviewer=file-view-default
 [versioning]: https://semver.org/spec/v2.0.0.html
 [NodeJS]: https://nodejs.org/
 [Npm]: https://www.npmjs.com/
