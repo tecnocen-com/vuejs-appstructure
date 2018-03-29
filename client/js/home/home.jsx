@@ -1,8 +1,16 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "./Home.vue";
-import Dashboard from "./dashboard/Dashboard.vue";
-import Test from "./test/Test.vue";
+const Dashboard = resolve => {
+  require.ensure(["./dashboard/Dashboard.vue"], () => {
+    resolve(require("./dashboard/Dashboard.vue"));
+  });
+};
+const Test = resolve => {
+  require.ensure(["./test/Test.vue"], () => {
+    resolve(require("./test/Test.vue"));
+  });
+};
 
 Vue.use(VueRouter);
 new Vue({
