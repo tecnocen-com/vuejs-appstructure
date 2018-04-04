@@ -3,7 +3,7 @@
     <label>{{ label }}:</label>
     <input
     v-on:keydown.space.prevent
-    v-on:keydown="update({ [name]: value }, $event.keyCode)"
+    v-on:keydown="change($event.keyCode)"
     v-model="value"
     :class="error ? 'wrong-input' : ''"
     :ref="name"
@@ -27,7 +27,11 @@
       };
     },
     computed: {},
-    methods: {},
+    methods: {
+      change: function(keyCode){
+        this.$nextTick(() => this.$emit("update", { [this.$props.name]: this.value }, keyCode ));
+      }
+    },
     beforeCreate: function(){},
     created: function(){},
     beforeMount: function(){},

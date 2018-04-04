@@ -13569,6 +13569,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
   components: {
@@ -13653,6 +13663,9 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -13682,7 +13695,15 @@ exports.default = {
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    change: function change(keyCode) {
+      var _this = this;
+
+      this.$nextTick(function () {
+        return _this.$emit("update", _defineProperty({}, _this.$props.name, _this.value), keyCode);
+      });
+    }
+  },
   beforeCreate: function beforeCreate() {},
   created: function created() {},
   beforeMount: function beforeMount() {},
@@ -13827,7 +13848,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -13928,7 +13949,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -13977,11 +13998,7 @@ var render = function() {
                 $event.preventDefault()
               },
               function($event) {
-                _vm.update(
-                  ((_obj = {}), (_obj[_vm.name] = _vm.value), _obj),
-                  $event.keyCode
-                )
-                var _obj
+                _vm.change($event.keyCode)
               }
             ],
             change: function($event) {
@@ -14029,11 +14046,7 @@ var render = function() {
                   $event.preventDefault()
                 },
                 function($event) {
-                  _vm.update(
-                    ((_obj = {}), (_obj[_vm.name] = _vm.value), _obj),
-                    $event.keyCode
-                  )
-                  var _obj
+                  _vm.change($event.keyCode)
                 }
               ],
               change: function($event) {
@@ -14066,11 +14079,7 @@ var render = function() {
                   $event.preventDefault()
                 },
                 function($event) {
-                  _vm.update(
-                    ((_obj = {}), (_obj[_vm.name] = _vm.value), _obj),
-                    $event.keyCode
-                  )
-                  var _obj
+                  _vm.change($event.keyCode)
                 }
               ],
               input: function($event) {
@@ -14130,9 +14139,9 @@ var render = function() {
                 name: "username",
                 label: "Usuario",
                 type: "text",
-                error: _vm.alertMessage !== "" && _vm.error !== 1,
-                update: _vm.update
-              }
+                error: _vm.alertMessage !== "" && _vm.error !== 1
+              },
+              on: { update: _vm.update }
             }),
             _vm._v(" "),
             _c("my-input", {
@@ -14140,9 +14149,9 @@ var render = function() {
                 name: "password",
                 label: "Contraseña",
                 type: "password",
-                error: _vm.alertMessage !== "" && _vm.error !== 0,
-                update: _vm.update
-              }
+                error: _vm.alertMessage !== "" && _vm.error !== 0
+              },
+              on: { update: _vm.update }
             })
           ],
           1

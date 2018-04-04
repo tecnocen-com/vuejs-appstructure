@@ -6,8 +6,18 @@
         <h4>{{ mainMessage.subtitle }}</h4>
       </div>
       <div>
-        <my-input name="username" label="Usuario" type="text" :error="alertMessage !== '' && error !== 1" :update="update"></my-input>
-        <my-input name="password" label="Contraseña" type="password" :error="alertMessage !== '' && error !== 0" :update="update"></my-input>
+        <my-input
+        name="username"
+        label="Usuario"
+        type="text"
+        :error="alertMessage !== '' && error !== 1"
+        v-on:update="update"></my-input>
+        <my-input
+        name="password"
+        label="Contraseña"
+        type="password"
+        :error="alertMessage !== '' && error !== 0"
+        v-on:update="update"></my-input>
       </div>
       <div v-if="alertMessage !== ''">
         <p><b>{{ alertMessage }}</b></p>
