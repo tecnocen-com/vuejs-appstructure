@@ -1,20 +1,17 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { Store } from "./store/store.jsx";
 import Home from "./Home.vue";
-const Dashboard = resolve => {
-  require.ensure(["./dashboard/Dashboard.vue"], () => {
-    resolve(require("./dashboard/Dashboard.vue"));
-  });
-};
-const Test = resolve => {
-  require.ensure(["./test/Test.vue"], () => {
-    resolve(require("./test/Test.vue"));
-  });
-};
+const Dashboard = resolve => require(["./components/dashboard/Dashboard.vue"], resolve);
+const Test = resolve => require(["./components/test/Test.vue"], resolve);
 
 Vue.use(VueRouter);
 new Vue({
   el: '#home',
+  store: Store,
   router: new VueRouter({
     routes: [
       {

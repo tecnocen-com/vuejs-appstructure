@@ -1,12 +1,13 @@
 <template>
-  <div>
-    &copy; {{ year }}. <a href="#" v-on:click.prevent>Tecnocen</a>
+  <div v-show="$store.state.loader.state">
+    <b>{{ message }}</b>
   </div>
 </template>
 <script>
   export default {
     props: {
-      year: Number
+      active: Boolean,
+      message: String
     },
     data: function(){
       return {};

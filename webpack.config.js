@@ -3,8 +3,8 @@ var path = require("path"),
   debug = process.env.NODE_ENV !== "production";
 module.exports = {
   entry: {
-    index: "./client/js/index/index.jsx",
-    home: "./client/js/home/home.jsx"
+    index: "./client/js/apps/index/index.jsx",
+    home: "./client/js/apps/home/home.jsx"
   },
   output: {
     path: path.resolve(__dirname, "build"),
@@ -32,6 +32,13 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/
       },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      }
     ]
   },
   plugins: debug ? [] : [

@@ -1,30 +1,15 @@
 <template>
   <div>
-    <h1>{{ title }}</h1>
-    <div>
-      <input v-model="value" type="number">
-      <span>Valor al cuadrado: {{ square }}</span>
-    </div>
+    &copy; {{ $store.state.year }}. <a href="#" v-on:click.prevent>Tecnocen</a>
   </div>
 </template>
 <script>
   export default {
-    props: {
-      open: Function,
-      onaccept: Function,
-      close: Function
-    },
+    props: {},
     data: function(){
-      return {
-        title: "Test",
-        value: 0
-      };
+      return {};
     },
-    computed: {
-      square: function(){
-        return this.value*this.value;
-      }
-    },
+    computed: {},
     methods: {},
     beforeCreate: function(){},
     created: function(){},

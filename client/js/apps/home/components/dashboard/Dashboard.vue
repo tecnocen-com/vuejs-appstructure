@@ -2,10 +2,11 @@
   <div>
     <h1>{{ title }}</h1>
     <p>{{ time }}</p>
-    <button v-on:click="open('loader')">Abrir cargador</button>
-    <button v-on:click="close('loader')">Cerrar cargador</button>
-    <button v-on:click="customAccept()">Abrir confirmación</button>
-    <button v-on:click="open('alert', {
+    <button v-on:click="open({name: 'loader'})">Abrir cargador</button>
+    <button v-on:click="close({name: 'loader'})">Cerrar cargador</button>
+    <button v-on:click="accept()">Abrir confirmación</button>
+    <button v-on:click="open({
+      name: 'alert',
       title: 'Título de AlertA',
       text: 'Texto de alertA',
       close: 'AceptaR'
@@ -14,22 +15,26 @@
 </template>
 <script>
   export default {
-    props: {
-      open: Function,
-      onaccept: Function,
-      close: Function
-    },
+    props: {},
     data: function(){
       return {
         title: "Dashboard",
-        time: 0
+        time: 0,
+        interval: null
       };
     },
     computed: {},
     methods: {
-      customAccept: function(){
-        this._props.onaccept(function(){ console.log("Accept from dashboard"); });
-        this._props.open("confirm", {
+      open: function(o){
+        this.$store.commit("open", o);
+      },
+      close: function(o){
+        this.$store.commit("close", o);
+      },
+      accept: function(){
+        this.$store.commit("onAccept", function(){ console.log("Accept from dashboard"); });
+        this.open({
+          name: "confirm",
           title: "Título de ConfirmacióN",
           text: "Texto de confirmacióN",
           accept: "AceptaR",
@@ -39,8 +44,7 @@
     },
     beforeCreate: function(){},
     created: function(){
-        var me = this;
-        this.interval = setInterval(function(){ return ++me.time; }, 1000);
+        this.interval = setInterval(() => ++this.time, 1000);
     },
     beforeMount: function(){},
     mounted: function(){},

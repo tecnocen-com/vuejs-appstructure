@@ -18,8 +18,7 @@
       name: String,
       label: String,
       type: String,
-      error: Boolean,
-      update: Function
+      error: Boolean
     },
     data: function(){
       return {
@@ -28,8 +27,12 @@
     },
     computed: {},
     methods: {
-      change: function(keyCode){
-        this.$nextTick(() => this.$emit("update", { [this.$props.name]: this.value }, keyCode ));
+      change: function(key){
+        this.$nextTick(() => {
+          this.$store.commit("update", { [this.$props.name]: this.value });
+          if(key === 13)
+            this.$store.commit("login");
+        });
       }
     },
     beforeCreate: function(){},

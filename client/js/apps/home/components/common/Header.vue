@@ -1,14 +1,12 @@
 <template>
-  <div v-if="active">
-    <b>{{ message }}</b>
+  <div>
+    <a><span>{{ $store.state.profile.name }}</span></a>
+    <a href="/logout"><i></i> Cerrar Sesión </a>
   </div>
 </template>
 <script>
   export default {
-    props: {
-      active: Boolean,
-      message: String
-    },
+    props: {},
     data: function(){
       return {};
     },

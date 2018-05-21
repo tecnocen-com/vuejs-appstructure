@@ -1,26 +1,28 @@
 <template>
-  <div v-if="active">
+  <div v-show="$store.state.alert.state">
     <div>
-        <h3>{{ description.title }}</h3>
+      <h3>{{ $store.state.alert.description.title }}</h3>
     </div>
-    <p><b v-html="description.text"></b></p>
+    <p><b v-html="$store.state.alert.description.text"></b></p>
     <div>
-        <button v-on:click.prevent="close('alert')" type="button"><span>{{ description.close }}</span></button>
+      <button v-on:click.prevent="interact()" type="button">
+        <span>{{ $store.state.alert.description.close }}</span>
+      </button>
     </div>
   </div>
 </template>
 <script>
   export default {
-    props: {
-      active: Boolean,
-      description: Object,
-      close: Function
-    },
+    props: {},
     data: function(){
       return {};
     },
     computed: {},
-    methods: {},
+    methods: {
+      interact(){
+        this.$store.commit("close", { name: "alert" });
+      }
+    },
     beforeCreate: function(){},
     created: function(){},
     beforeMount: function(){},

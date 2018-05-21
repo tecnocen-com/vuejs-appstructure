@@ -1,20 +1,26 @@
 <template>
   <div>
-    <a><span>{{ profile.name }}</span></a>
-    <a href="/logout"><i></i> Cerrar Sesión </a>
+    <h1>{{ title }}</h1>
+    <div>
+      <input v-model="value" type="number">
+      <span>Valor al cuadrado: {{ square }}</span>
+    </div>
   </div>
 </template>
 <script>
   export default {
-    props: {
-      profile: Object
-    },
+    props: {},
     data: function(){
       return {
-        active: true
+        title: "Test",
+        value: 0
       };
     },
-    computed: {},
+    computed: {
+      square: function(){
+        return this.value*this.value;
+      }
+    },
     methods: {},
     beforeCreate: function(){},
     created: function(){},
