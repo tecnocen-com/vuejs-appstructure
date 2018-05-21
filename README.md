@@ -123,15 +123,20 @@ $ npm install
     * ```image```: in this directory exist all images involved with project processes.
     * ```style```: in this directory exist all style files.
     * ```js```: in this directory exist all JavaScript oriented files involved with the project.
-        * ```home```: in this directory exist all components files per view, once you are logged in.
-            * ```plugins```: in this directory exist all JSX files generated as plugins.
-            * ```common```: in this directory exist all components VUE files involved over all the project views.
-            * ```dashboard```: in this directory exists the VUE component file related to dashboard.
-            * ```test```: in this directory exists the VUE component file related to test page.
-        * ```index```: in this directory exist all components files per view, without any authentication.
+        * ```apps```: in this directory exist all the profile based apps.
+            * ```home```: in this directory exist all components files per view, once you are logged in.
+                * ```components```: in this directory exists all components VUE files.
+                    * ```common```: in this directory exists all components VUE files involved over all the project views.
+                    * ```dashboard```: in this directory exists the VUE component file related to dashboard.
+                    * ```test```: in this directory exists the VUE component file related to test page.
+                * ```store```: in this directory exists the vuex store file.
+            * ```index```: in this directory exist all components files per view, without any authentication.
+                * ```components```: in this directory exists all components VUE files.
+                * ```store```: in this directory exists the vuex store file.
+        * ```plugins```: in this directory exist all JSX files generated as plugins.
 
 NOTES:
-- Directory ```test``` inside of ```home```, has an starting component view example, which could be duplicated any time it's needed in order to have the real project running.
+- Directory ```test``` inside of ```home/components```, has an starting component view example, which could be duplicated any time it's needed in order to have the real project running.
 - To include the duplicated components to the views of the project, they should be included in ```home.jsx``` file, inside of the directory ```home``` in order to include and render them; and so on in ```Menu.vue``` file inside of the ```common``` directory.
 
 ## Visibility

@@ -123,12 +123,17 @@ $ npm install
     * ```image```: dentro de esta carpeta se guardarán todas las imagenes involucradas en los procesos.
     * ```style```: dentro de esta carpeta se guardarán todos los archivos de estilos personalizados.
     * ```js```: dentro de esta carpeta existen todos los archivos orientados a JavaScript relacionados con el proyecto.
-        * ```home```: dentro de esta carpeta existen todos los archivos responsables de crear componentes para el proyecto, una vez autenticado, fragmentados en carpetas con nombres de cada vista.
-            * ```plugins```: dentro de esta carpeta existen todos los archivos JSX generados como plugins para ejecutar acciones propias dentro del proyecto y en conexión con los servicios.
-            * ```common```: dentro de esta carpeta existen todos los archivos VUE que generan componentes que se interrelacionan durante todas las vistas.
-            * ```dashboard```: dentro de esta carpeta existe el archivo VUE para el componente dashboard.
-            * ```test```: dentro de esta carpeta existe el archivo VUE para el componente test.
-        * ```index```: dentro de esta carpeta existen todos los archivos responsables de crear componentes para el proyecto al inicio.
+        * ```apps```: dentro de esta carpeta existen las aplicaciones mostradas en base al estado o tipo de perfil.
+            * ```home```: dentro de esta carpeta existen todos los archivos responsables de crear componentes para el proyecto, una vez autenticado, fragmentados en carpetas con nombres de cada vista.
+                * ```components```: dentro de esta carpeta existen todos los archivos VUE que generan componentes.
+                    * ```common```: dentro de esta carpeta existen todos los archivos VUE que generan componentes que se interrelacionan durante todas las vistas.
+                    * ```dashboard```: dentro de esta carpeta existe el archivo VUE para el componente dashboard.
+                    * ```test```: dentro de esta carpeta existe el archivo VUE para el componente test.
+                * ```store```: en esta carpeta ese encuentra el archivo del "store" para "vuex".
+            * ```index```: dentro de esta carpeta existen todos los archivos responsables de crear componentes para el proyecto al inicio.
+                * ```components```: dentro de esta carpeta existen todos los archivos VUE que generan componentes.
+                * ```store```: en esta carpeta ese encuentra el archivo del "store" para "vuex".
+        * ```plugins```: dentro de esta carpeta existen todos los archivos JSX generados como plugins para ejecutar acciones propias dentro del proyecto y en conexión con los servicios.
 
 NOTAS:
 - La carpeta ```test``` dentro de ```home```, posee un ejemplo simple de vista, pudiéndose duplicar cuantas veces se requiera para comenzar el desarrollo real del proyecto.
