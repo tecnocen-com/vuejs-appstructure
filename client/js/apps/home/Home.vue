@@ -49,7 +49,6 @@
     },
     methods: {},
     created: function(){
-      var me = this;
       axios.get("/init-user-data").then(userResponse => {
         if(userResponse.status === 200 && userResponse.data.success)
           (() => {

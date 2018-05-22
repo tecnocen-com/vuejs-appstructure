@@ -15,16 +15,9 @@ new Vue({
   store: Store,
   router: new VueRouter({
     routes: [
-      {
-        title: "Inicio",
-        path: "/",
-        component: Dashboard
-      },
-      {
-        title: "Test",
-        path: "/test",
-        component: Test
-      }
+      { title: "Inicio", path: "/", component: Dashboard },
+      { title: "Test", path: "/test", component: Test },
+      { path: '*', redirect: '/' }
     ]
   }),
   render: h => h(Home)

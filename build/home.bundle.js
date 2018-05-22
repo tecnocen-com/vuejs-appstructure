@@ -43284,7 +43284,6 @@ exports.default = {
   created: function created() {
     var _this = this;
 
-    var me = this;
     _axios2.default.get("/init-user-data").then(function (userResponse) {
       if (userResponse.status === 200 && userResponse.data.success) (function () {
         new _axiosActiveRecord2.default({
@@ -43691,15 +43690,7 @@ new _vue2.default({
   el: '#home',
   store: _store.Store,
   router: new _vueRouter2.default({
-    routes: [{
-      title: "Inicio",
-      path: "/",
-      component: Dashboard
-    }, {
-      title: "Test",
-      path: "/test",
-      component: Test
-    }]
+    routes: [{ title: "Inicio", path: "/", component: Dashboard }, { title: "Test", path: "/test", component: Test }, { path: '*', redirect: '/' }]
   }),
   render: function render(h) {
     return h(_Home2.default);
@@ -46520,7 +46511,7 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
