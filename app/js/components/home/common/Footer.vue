@@ -1,11 +1,13 @@
 <template>
-  <div :class="$props.overlayclass ? $props.overlayclass : '_appstructure__footer'">
-    <b-row>
-      <b-col cols="12" class="text-center">
-        <b-badge pill variant="dark" v-html="$props.text"></b-badge>
-      </b-col>
-    </b-row>
-  </div>
+  <footer :class="$props.overlayclass ? $props.overlayclass : '_appstructure__footer'">
+    <slot>
+      <b-row>
+        <b-col cols="12" class="text-center">
+          <b-badge pill variant="dark" v-html="$props.text"></b-badge>
+        </b-col>
+      </b-row>
+    </slot>
+  </footer>
 </template>
 <script>
   export default {
