@@ -1,6 +1,6 @@
 <template>
   <div>
-    <slot>
+    <slot name="header">
       <b-navbar toggleable="sm" type="light" variant="warning">
         <b-navbar-brand tag="h1" class="mb-0">
           {{ $props.title }}
