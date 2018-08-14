@@ -12,7 +12,7 @@
             :key="m.path"
             :title="m.title"
             exact-active-class="bg-warning"
-            :to="m.path">{{ m.title }}</b-nav-item>
+            :to="{ name: m.path }">{{ m.title }}</b-nav-item>
           </b-nav>
         </b-collapse>
       </div>
@@ -28,7 +28,7 @@
           :key="m.path"
           :title="m.title"
           exact-active-class="bg-warning"
-          :to="m.path">{{ m.title }}</b-nav-item>
+          :to="{ name: m.path }">{{ m.title }}</b-nav-item>
         </b-nav>
       </div>
     </slot>

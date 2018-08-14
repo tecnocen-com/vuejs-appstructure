@@ -9,19 +9,19 @@ const Test = resolve => require(["./../components/home/test/Test.vue"], resolve)
 const router = new VueRouter({
   routes: [
     { path: "/", name: "login", component: Login, meta: { name: "login" } },
-    { path: "/inicio", component: Home, meta: { name: "inicio" },
+    { path: "/inicio", component: Home, meta: { name: "inicio", auth: true },
       children: [
         {
           path: "/",
           name: "dashboard",
           component: Dashboard,
-          meta: { name: "dashboard" }
+          meta: { name: "dashboard", auth: true }
         },
         {
           path: "/test",
           name: "test",
           component: Test,
-          meta: { name: "test" }
+          meta: { name: "test", auth: true }
         }
       ]
     },
@@ -31,11 +31,10 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   router.app.$nextTick(() => {
     const token = router.app.$children[0].getToken();
-    let pass = ((to.name === "login") && token) || ((to.name !== "login") && !token) ? false : true;
-    if(!pass && to.name === "login"){
+    if(token && !to.meta.auth){
       next({ name: "dashboard" });
     }
-    else if(!pass){
+    else if(!token && to.meta.auth){
       next({ name: "login" });
     }
     else{

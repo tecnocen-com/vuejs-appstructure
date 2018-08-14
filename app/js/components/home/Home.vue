@@ -84,11 +84,11 @@
         menu: [
           {
             title: "Inicio",
-            path: "/inicio"
+            path: "dashboard"
           },
           {
             title: "Test",
-            path: "/test"
+            path: "test"
           }
         ]
       };
