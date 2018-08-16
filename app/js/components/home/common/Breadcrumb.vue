@@ -1,9 +1,8 @@
 <template>
   <div>
     <slot>
-      <b-breadcrumb v-show="show" class="_appstructure__breadcrumb">
-        <b-breadcrumb-item>{{ home }}</b-breadcrumb-item>
-        <b-breadcrumb-item v-for="p in path" :key="p">{{ p }}</b-breadcrumb-item>
+      <b-breadcrumb v-show="$props.path.length !== 0" class="_appstructure__breadcrumb">
+        <b-breadcrumb-item v-for="p in $props.path" :key="p.name" :to="{ name: p.name }">{{ p.label }}</b-breadcrumb-item>
       </b-breadcrumb>
     </slot>
   </div>
@@ -14,27 +13,13 @@
     components: {},
     mixins: [],
     directives: {},
-    props: {},
+    props: {
+      path: Array
+    },
     data: function(){
-      return {
-        home: "inicio"
-      };
+      return {};
     },
-    computed: {
-      show: function(){
-        return this.path.length !== 0;
-      },
-      path: function(){
-        const path = this.$route.fullPath.split("/");
-        let cleanPath = [];
-        for(let i = 0; i < path.length; i++){
-          if(path[i] !== "" && path[i] !== "inicio"){
-            cleanPath.push(path[i]);
-          }
-        }
-        return cleanPath;
-      }
-    },
+    computed: {},
     watch: {},
     filters: {},
     methods: {},

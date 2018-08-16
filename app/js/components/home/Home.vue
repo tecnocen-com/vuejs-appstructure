@@ -38,7 +38,8 @@
           </main-title>
         </b-col>
         <b-col cols="12">
-          <breadcrumb>
+          <breadcrumb
+          :path="$route.meta.breadcrumb">
           </breadcrumb>
         </b-col>
       </b-row>

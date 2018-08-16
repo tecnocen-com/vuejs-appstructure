@@ -15,13 +15,24 @@ const router = new VueRouter({
           path: "/",
           name: "dashboard",
           component: Dashboard,
-          meta: { name: "dashboard", auth: true }
+          meta: {
+            name: "dashboard",
+            auth: true,
+            breadcrumb: []
+          }
         },
         {
           path: "/test",
           name: "test",
           component: Test,
-          meta: { name: "test", auth: true }
+          meta: {
+            name: "test",
+            auth: true,
+            breadcrumb: [
+              { label: "Inicio", name: "dashboard" },
+              { label: "Test", name: null }
+            ]
+          }
         }
       ]
     },
