@@ -1,7 +1,7 @@
 <template>
   <div>
     <slot>
-      <b-breadcrumb v-show="$props.path.length !== 0" class="_appstructure__breadcrumb">
+      <b-breadcrumb v-show="$props.path.length" class="_appstructure__breadcrumb">
         <b-breadcrumb-item v-for="p in $props.path" :key="p.name" :to="{ name: p.name }">{{ p.label }}</b-breadcrumb-item>
       </b-breadcrumb>
     </slot>
