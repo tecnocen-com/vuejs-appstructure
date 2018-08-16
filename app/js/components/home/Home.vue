@@ -60,13 +60,14 @@
   import "./../../../css/style-home.css";
   import loader from "./common/Loader.vue";
   import alert from "./common/Alert.vue";
-  import heading from "./common/Header.vue";
-  import mainMenu from "./common/Menu.vue";
-  import mainTitle from "./common/Title.vue";
+  import heading from "./common/Heading.vue";
+  import mainMenu from "./common/MainMenu.vue";
+  import mainTitle from "./common/MainTitle.vue";
   import breadcrumb from "./common/Breadcrumb.vue";
-  import foot from "./common/Footer.vue";
+  import foot from "./common/Foot.vue";
 
   export default {
+    name: "home",
     components: {
       loader,
       alert,

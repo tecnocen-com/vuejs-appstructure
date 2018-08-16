@@ -10,6 +10,7 @@
 </template>
 <script>
   export default {
+    name: "breadcrumb",
     components: {},
     mixins: [],
     directives: {},

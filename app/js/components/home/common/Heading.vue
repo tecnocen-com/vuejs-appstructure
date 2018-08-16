@@ -20,6 +20,7 @@
 </template>
 <script>
   export default {
+    name: "heading",
     components: {},
     mixins: [],
     directives: {},

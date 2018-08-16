@@ -12,6 +12,7 @@
 </template>
 <script>
   export default {
+    name: "test",
     components: {},
     mixins: [],
     directives: {},

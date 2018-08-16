@@ -7,7 +7,7 @@
         </div>
       </slot>
       <slot name="body">
-        <p>
+        <p class="_appstructure__alert-paragraph">
           <b v-html="text"></b>
         </p>
       </slot>
@@ -26,6 +26,7 @@
 </template>
 <script>
   export default {
+    name: "alert",
     components: {},
     mixins: [],
     directives: {},
@@ -64,17 +65,17 @@
     z-index: 10000;
   }
   @media(min-width: 767px){
-  	div._appstructure__alert ._appstructure__alert-container{
+  	div._appstructure__alert-container{
   		width:350px;
   	}
   }
 
   @media(max-width: 767px){
-  	div._appstructure__alert ._appstructure__alert-container{
+  	div._appstructure__alert-container{
   		width:auto;
   	}
   }
-  div._appstructure__alert ._appstructure__alert-container{
+  div._appstructure__alert-container{
       background-color: rgb(255, 255, 255);
       border: 1px solid white;
       border-radius: 6px;
@@ -85,7 +86,7 @@
       box-shadow: 8px 8px 20px 5px rgba(0, 0, 0, 0.6);
   }
 
-  div._appstructure__alert ._appstructure__alert-container ._appstructure__alert-title{
+  div._appstructure__alert-title{
     background-color: rgb(255, 193, 7);
     color: rgb(255, 255, 255);
     border-radius: 5px;
@@ -94,18 +95,18 @@
     width: 100%;
   }
 
-  div._appstructure__alert ._appstructure__alert-container ._appstructure__alert-title h3,
-  div._appstructure__alert ._appstructure__alert-container p{
+  div._appstructure__alert-title h3,
+  p._appstructure__alert-paragraph{
     padding: 18px 25px;
   }
 
-  div._appstructure__alert ._appstructure__alert-container p{
+  p._appstructure__alert-paragraph{
   	background-color: rgb(238, 238, 238);
     border-radius: 5px;
   	word-wrap: break-word;
   }
 
-  div._appstructure__alert ._appstructure__alert-container ._appstructure__alert-buttons{
+  div._appstructure__alert-buttons{
     padding: 0px 15px 15px 0px;
   }
 </style>

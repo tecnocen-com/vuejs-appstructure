@@ -1,22 +1,19 @@
 <template>
-  <footer :class="$props.overlayclass ? $props.overlayclass : '_appstructure__footer'">
+  <div>
     <slot>
-      <b-row>
-        <b-col cols="12" class="text-center">
-          <b-badge pill variant="dark" v-html="$props.text"></b-badge>
-        </b-col>
-      </b-row>
+      <h1 v-html="title"></h1>
+      <hr>
     </slot>
-  </footer>
+  </div>
 </template>
 <script>
   export default {
+    name: "mainTitle",
     components: {},
     mixins: [],
     directives: {},
     props: {
-      text: String,
-      overlayclass: String
+      title: String
     },
     data: function(){
       return {};
@@ -37,16 +34,4 @@
     destroyed: function(){}
   }
 </script>
-<style scoped>
-  ._appstructure__footer{
-    height: 56px;
-    background-color: #ffc107;
-    padding: 0px 15px 0px 15px;
-  }
-  ._appstructure__footer div.row{
-    padding-top: 15px;
-  }
-  ._appstructure__footer span{
-    color: white;
-  }
-</style>
+<style scoped></style>

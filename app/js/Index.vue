@@ -12,6 +12,7 @@
   import "@fortawesome/fontawesome-free/js/all.min.js";
 
   export default {
+    name: "Index",
     components: {},
     mixins: [],
     directives: {},
