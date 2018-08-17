@@ -15,7 +15,7 @@
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
-    <slot>
+    </slot>
   </div>
 </template>
 <script>
