@@ -75,12 +75,8 @@ const Handler = {
           console.error(`Veza: Initializator with index ${ i } has no properly defined name.`);
           valid = false;
         }
-        else if(!config[i].baseUrl || typeof config[i].baseUrl !== "string" || typeof config[i].baseUrl === ""){
-          console.error(`Veza: Initializator with index ${ i } has no properly defined baseUrl.`);
-          valid = false;
-        }
-        else if(!config[i].dataUrl || typeof config[i].dataUrl !== "string" || typeof config[i].dataUrl === ""){
-          console.error(`Veza: Initializator with index ${ i } has no properly defined dataUrl.`);
+        else if(!config[i].url || typeof config[i].url !== "string" || typeof config[i].url === ""){
+          console.error(`Veza: Initializator with index ${ i } has no properly defined url.`);
           valid = false;
         }
         else if(!config[i].token || typeof config[i].token !== "object" ||
@@ -103,11 +99,7 @@ const Handler = {
     return Service;
   },
   setBuilder(config){
-    return new Builder({
-      baseUrl: config.baseUrl,
-      dataUrl: config.dataUrl,
-      token: config.token
-    });
+    return new Builder({ url: config.url, token: config.token });
   }
 };
 class Builder {
@@ -129,7 +121,7 @@ class Model {
     }
     this.token = config.token;
     this.name = name;
-    this.url = config.baseUrl + config.dataUrl;
+    this.url = config.url;
   }
   _setUrl(data){
     if(!(data instanceof Object)){

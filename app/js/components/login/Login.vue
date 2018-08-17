@@ -81,7 +81,7 @@
         });     //Handle response
         request.responseType = "json";   //Handle response type
         request.open("POST", this.$store.getters.loginUrl, true); // true for asynchronous
-        Object.keys(this.$store.state.veza.headers).forEach(key => request.setRequestHeader(key, this.$store.state.veza.headers[key]));
+        Object.keys(this.$store.state.access.headers).forEach(key => request.setRequestHeader(key, this.$store.state.access.headers[key]));
         request.send(params);                       //Send request
       }
     },

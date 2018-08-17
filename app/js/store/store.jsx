@@ -15,12 +15,7 @@ export const store = new Vuex.Store({
   },
   state: {        // Data
     storageName: "asbioybasiy_VueJS-Appstructure_dvas=!%%#23423",
-    veza: {
-      name: "form",
-      token: {
-        name: "accessToken",
-        value: null
-      },
+    access: {
       baseUrl: null,
       dataUrl: "/f1/",
       tokenUrl: "/oauth2/token",
@@ -28,6 +23,14 @@ export const store = new Vuex.Store({
         Authorization: "Basic dGVzdGNsaWVudDp0ZXN0cGFzcw==",
         "Content-Type": "application/x-www-form-urlencoded"
       }
+    },
+    veza: {
+      name: "form",
+      token: {
+        name: "accessToken",
+        value: null
+      },
+      url: null
     },
     profile: {
       name: "Unknown user",
@@ -51,7 +54,7 @@ export const store = new Vuex.Store({
   },
   getters: {      // Computed
     loginUrl(state){
-      return state.veza.baseUrl + state.veza.tokenUrl;
+      return state.access.baseUrl + state.access.tokenUrl;
     }
   },
   mutations: {          // Methods
@@ -106,7 +109,8 @@ export const store = new Vuex.Store({
         token = JSON.parse(atob(token)).form;
       }
       state.veza.token.value = token;
-      state.veza.baseUrl = Buto.config.form;
+      state.access.baseUrl = Buto.config.form;
+      state.veza.url = Buto.config.form + state.access.dataUrl;
       commit("login");
     }
   }
